@@ -241,7 +241,7 @@ def fig03():
     ]
     h_leg = []
     for name, c, m, yv in series:
-        h_leg.append(Line2D([], [], color=c, marker=m, ms=7.5, lw=2.1,
+        h_leg.append(Line2D([], [], color=c, marker=m, ms=9.0, lw=2.1,
                             markerfacecolor="white" if m == "s" else c,
                             markeredgewidth=1.7, label=name))
     axleg.legend(handles=h_leg, loc="center", bbox_to_anchor=(0.36, 0.5), ncol=6,
