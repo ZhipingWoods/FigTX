@@ -121,9 +121,9 @@ def fig01():
     # ---- (b) 端到端延迟
     lat = [("FourTune (Ours)", 0.86, DRED), ("NF4 QLoRA", 2.40, TEAL), ("BF16 LoRA", 1.95, GRAY)]
     for y, (lab, v, c) in zip([0, 1, 2], lat):
-        ax2.barh(y, v, height=0.92, color=c, edgecolor="none")
+        ax2.barh(y, v, height=0.95, color=c, edgecolor="none")
         ax2.text(v - 0.05, y, ("%g s" % v), ha="right", va="center",
-                 color="white", fontsize=12.5)
+                 color="white", fontsize=13)
     # 参考图：类别标签在条形右侧
     ax2.set_yticks([0, 1, 2], [])
     ax2.set_xlim(0, 3.35)
