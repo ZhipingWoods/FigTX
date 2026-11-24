@@ -261,7 +261,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.921cm]
+\begin{tikzpicture}[x=1cm, y=0.976cm]
 \tikzset{
   cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},
@@ -376,7 +376,7 @@ def fig06() -> str:
 \end{scope}
 
 % ================= (b) Block Causal Mix-FFN =================
-\begin{scope}[shift={(23.85,4.39)}]
+\begin{scope}[shift={(23.85,2.22)}]
   \node[font=\small] at (1.89,3.05) {$\vdots$};
 
   \foreach \i/\name/\fc/\tc in {
