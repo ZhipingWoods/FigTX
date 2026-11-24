@@ -613,14 +613,14 @@ def fig09():
              "portant channels (bottom).  In the top panel, brightness reflects\n"
              "token magnitude, while in the bottom panel, highlighted positions\n"
              "denote important channels.",
-             ha="center", va="bottom", fontsize=12.0)
+             ha="center", va="bottom", fontsize=13.5, linespacing=1.45)
     fig.subplots_adjust(top=0.95, bottom=0.24, left=0.12, right=0.98, hspace=0.34)
     return _save(fig, "rep-09-activation-heatmap")
 
 
 def fig10():
     rng = np.random.default_rng(3)
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 6.14))
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 6.20))
     n = 1536
     idx = np.arange(n)
 
@@ -630,13 +630,13 @@ def fig10():
     ax = axes[0]
     k = 48
     ax.plot(idx, freq, color="royalblue", lw=1.2, label="Frequency")
-    ax.fill_between(idx[:k], freq[:k], color="#8ECAE6", alpha=0.95,
+    ax.fill_between(idx[:k], freq[:k], color="#8FCBE8", alpha=1.0,
                     label="Token-independent Channels")
-    ax.fill_between(idx[k:], freq[k:], color="#F5B7B1", alpha=0.95,
+    ax.fill_between(idx[k:], freq[k:], color="#F5B0AC", alpha=1.0,
                     label="Token-dependent Channels")
     # 红叉沿曲线分布：前段密、后段疏（与参考图一致）
-    sel = np.unique(np.round(np.geomspace(1, 640, 26)).astype(int))
-    ax.plot(sel, freq[sel], "x", color="red", ms=6.5, mew=1.4,
+    sel = np.unique(np.round(np.geomspace(1, 700, 44)).astype(int))
+    ax.plot(sel, freq[sel], "x", color="red", ms=5.0, mew=1.1,
             label=r"Important Channels by $\mathbf{x}\odot\mathbf{w}$", zorder=5)
     ax.plot([0], [freq[0]], "*", color="navy", ms=15, label="Maximum", zorder=6)
     ax.set_xlabel("Important Channel Index", fontsize=10)
@@ -650,10 +650,10 @@ def fig10():
 
     # (下) 异常值均值：尖峰折线 + 橙星
     # 基线缓慢上升 + 伽马分布尖峰（原图就是这个形态）
-    base = 0.0030 + 0.0035 * (idx / n) ** 0.7
+    base = 0.0042 + 0.0030 * (idx / n) ** 0.7
     val = base + rng.normal(0, 0.0006, n)
-    spikes = rng.random(n) < 0.13
-    val[spikes] += rng.gamma(2.0, 0.0016, spikes.sum())
+    spikes = rng.random(n) < 0.16
+    val[spikes] += rng.gamma(2.2, 0.0011, spikes.sum())
     val = np.clip(val, 0, None)
     ax = axes[1]
     ax.plot(idx, val, color="#F5C242", lw=0.55, label="Mean Value")
