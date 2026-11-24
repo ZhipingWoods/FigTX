@@ -6,7 +6,9 @@ type Category = 'table' | 'figure';
 type Item = {
   id: string;
   category: Category;
+  figType?: string;
   kind: string;
+  domain?: string[];
   title: string;
   caption: string;
   venues: string[];
@@ -39,6 +41,8 @@ type Stats = {
   kinds: Record<string, number>;
   venues: Record<string, number>;
   repos: Record<string, number>;
+  figTypes: Record<string, number>;
+  domains: Record<string, number>;
   generatedAt: string;
 };
 
@@ -63,6 +67,14 @@ const LANG_LABEL: Record<string, string> = {
 };
 
 const CATEGORY_LABEL: Record<Category, string> = { table: '表格', figure: '图' };
+
+const FIGTYPE_LABEL: Record<string, string> = {
+  framework: '框架图',
+  motivation: '动机图',
+  quantitative: '实验·定量',
+  qualitative: '实验·定性',
+  style: '绘图样式',
+};
 
 function highlightLatex(code: string) {
   return code.split('\n').map((line, i) => {
@@ -134,6 +146,8 @@ export default function App() {
   const [category, setCategory] = useState<Category>('table');
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState<string>('all');
+  const [figType, setFigType] = useState<string>('all');
+  const [domain, setDomain] = useState<string>('all');
   const [venue, setVenue] = useState<string>('all');
   const [onlyRendered, setOnlyRendered] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -153,10 +167,27 @@ export default function App() {
     return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 12);
   }, [scoped]);
 
+  const figTypesInScope = useMemo(() => {
+    const acc: Record<string, number> = {};
+    for (const i of scoped) {
+      const k = i.figType || 'style';
+      acc[k] = (acc[k] || 0) + 1;
+    }
+    return acc;
+  }, [scoped]);
+
+  const domainsInScope = useMemo(() => {
+    const acc: Record<string, number> = {};
+    for (const i of scoped) for (const d of i.domain || []) acc[d] = (acc[d] || 0) + 1;
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 14);
+  }, [scoped]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return scoped.filter((it) => {
-      if (kind !== 'all' && it.kind !== kind) return false;
+      if (category === 'figure' && figType !== 'all' && (it.figType || 'style') !== figType) return false;
+      if (category === 'figure' && domain !== 'all' && !(it.domain || []).includes(domain)) return false;
+      if (category === 'table' && kind !== 'all' && it.kind !== kind) return false;
       if (venue !== 'all' && !it.venues.includes(venue)) return false;
       if (onlyRendered && !it.render) return false;
       if (!q) return true;
@@ -173,7 +204,7 @@ export default function App() {
         .toLowerCase();
       return hay.includes(q);
     });
-  }, [scoped, query, kind, venue, onlyRendered]);
+  }, [scoped, category, query, kind, figType, domain, venue, onlyRendered]);
 
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
@@ -206,6 +237,8 @@ export default function App() {
   const switchCategory = (c: Category) => {
     setCategory(c);
     setKind('all');
+    setFigType('all');
+    setDomain('all');
     setVenue('all');
     setOpenId(null);
   };
@@ -252,14 +285,38 @@ export default function App() {
       </nav>
 
       <div className="filters">
-        <button className="chip" data-active={kind === 'all'} onClick={() => setKind('all')}>
+        <button
+          className="chip"
+          data-active={category === 'figure' ? figType === 'all' && domain === 'all' : kind === 'all'}
+          onClick={() => { setKind('all'); setFigType('all'); setDomain('all'); }}
+        >
           全部 <span className="n">{scoped.length}</span>
         </button>
-        {Object.entries(kindsInScope).map(([k, n]) => (
-          <button key={k} className="chip" data-active={kind === k} onClick={() => setKind(k)}>
-            {KIND_LABEL[k] || k} <span className="n">{n}</span>
-          </button>
-        ))}
+
+        {category === 'table' &&
+          Object.entries(kindsInScope).map(([k, n]) => (
+            <button key={k} className="chip" data-active={kind === k} onClick={() => setKind(k)}>
+              {KIND_LABEL[k] || k} <span className="n">{n}</span>
+            </button>
+          ))}
+
+        {category === 'figure' &&
+          Object.entries(figTypesInScope)
+            .sort((a, b) => b[1] - a[1])
+            .map(([k, n]) => (
+              <button key={k} className="chip" data-active={figType === k} onClick={() => setFigType(k)}>
+                {FIGTYPE_LABEL[k] || k} <span className="n">{n}</span>
+              </button>
+            ))}
+
+        {category === 'figure' && domainsInScope.length > 0 && <span className="filter-sep" />}
+        {category === 'figure' &&
+          domainsInScope.map(([d, n]) => (
+            <button key={d} className="chip" data-active={domain === d} onClick={() => setDomain(d)}>
+              {d} <span className="n">{n}</span>
+            </button>
+          ))}
+
         <span className="filter-sep" />
         <button className="chip" data-active={onlyRendered} onClick={() => setOnlyRendered((v) => !v)}>
           已渲染 <span className="n">{category === 'table' ? STATS.tableRender : STATS.figureRender}</span>
@@ -311,7 +368,14 @@ function Card({ item, onOpen }: { item: Item; onOpen: () => void }) {
 
   return (
     <button className="card" onClick={onOpen}>
-      <div className={'card-preview' + (item.category === 'figure' ? ' chart' : '') + (preview ? '' : ' empty')}>
+      <div
+        className={
+          'card-preview' +
+          (item.category === 'figure' ? ' chart' : '') +
+          (item.figType === 'framework' || item.figType === 'motivation' ? ' diagram' : '') +
+          (preview ? '' : ' empty')
+        }
+      >
         {preview && !broken ? (
           <img src={preview} alt={item.caption || item.title} loading="lazy" onError={() => setBroken(true)} />
         ) : (
@@ -328,7 +392,11 @@ function Card({ item, onOpen }: { item: Item; onOpen: () => void }) {
           {item.category === 'figure' ? item.source.repo : item.title || '无来源标题'}
         </div>
         <div className="card-foot">
-          <span className="venue">{KIND_LABEL[item.kind] || item.kind}</span>
+          <span className="venue">
+            {item.category === 'figure'
+              ? FIGTYPE_LABEL[item.figType || 'style'] || '图'
+              : KIND_LABEL[item.kind] || item.kind}
+          </span>
           {item.category === 'table' &&
             item.venues.slice(0, 2).map((v) => (
               <span className="venue" key={v}>{v}</span>
@@ -421,7 +489,14 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
           </div>
 
           <div className="modal-meta">
-            <span className="meta-pill">{KIND_LABEL[item.kind] || item.kind}</span>
+            <span className="meta-pill">
+              {item.category === 'figure'
+                ? FIGTYPE_LABEL[item.figType || 'style'] || '图'
+                : KIND_LABEL[item.kind] || item.kind}
+            </span>
+            {(item.domain || []).map((d) => (
+              <span className="meta-pill" key={d}>{d}</span>
+            ))}
             {item.venues.map((v) => (
               <span className="meta-pill" key={v}>{v}</span>
             ))}

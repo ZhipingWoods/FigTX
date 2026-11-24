@@ -259,6 +259,12 @@ button { font-family: inherit; cursor: pointer; }
   background: #fff;
   aspect-ratio: 16 / 11;
 }
+/* 框架图/动机图通常很宽，用更扁的画框避免缩成一条 */
+.card-preview.diagram {
+  background: #fff;
+  aspect-ratio: 16 / 7;
+}
+.card-preview.diagram img { width: 100%; }
 .card-preview.empty { background: var(--surface-2); }
 
 .no-preview {

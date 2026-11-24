@@ -12,6 +12,7 @@ const ROOT = process.cwd();
 const RAW_TABLES = path.join(ROOT, 'data/raw-items.json');
 const RAW_FIGURES = path.join(ROOT, 'data/raw-figures.json');
 const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
+const RAW_FIGS2 = path.join(ROOT, 'data/raw-figs2.json');
 const RENDERS = path.join(ROOT, 'public/renders');
 const RENDERS_FIG = path.join(ROOT, 'public/renders-fig');
 const OUT = path.join(ROOT, 'src/data/items.json');
@@ -20,7 +21,9 @@ const readJson = (p, fallback) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync
 const listDir = (p) => (fs.existsSync(p) ? new Set(fs.readdirSync(p)) : new Set());
 
 const rawTables = readJson(RAW_TABLES, []);
-const rawFigures = readJson(RAW_FIGURES, []).concat(readJson(RAW_RECIPES, []));
+const rawFigures = readJson(RAW_FIGURES, [])
+  .concat(readJson(RAW_RECIPES, []))
+  .concat(readJson(RAW_FIGS2, []));
 const renderFiles = listDir(RENDERS);
 const figFiles = listDir(RENDERS_FIG);
 
@@ -78,10 +81,13 @@ for (const it of rawTables) {
 const figures = rawFigures.map((it) => ({
   id: it.id,
   category: 'figure',
+  // 图的二级分类：framework / motivation / quantitative / qualitative
+  figType: it.figType || 'style',
   kind: it.kind || 'chart',
   title: it.title || '',
   caption: it.caption || '',
-  venues: [],
+  domain: it.domain || [],
+  venues: it.venues || [],
   year: null,
   tags: (it.styles || []).filter((s) => s !== 'no-latex'),
   number: null,
@@ -92,7 +98,7 @@ const figures = rawFigures.map((it) => ({
   noteImages: [],
   publishedAt: null,
   source: {
-    platform: 'github',
+    platform: it.source?.repo ? 'github' : 'origin',
     author: it.source?.repo || '',
     repo: it.source?.repo || null,
     repoUrl: it.source?.repoUrl || null,
@@ -114,6 +120,8 @@ const stats = {
   kinds: items.reduce((a, i) => ((a[i.kind] = (a[i.kind] || 0) + 1), a), {}),
   venues: items.reduce((a, i) => { for (const v of i.venues) a[v] = (a[v] || 0) + 1; return a; }, {}),
   repos: figures.reduce((a, i) => { if (i.source.repo) a[i.source.repo] = (a[i.source.repo] || 0) + 1; return a; }, {}),
+  figTypes: figures.reduce((a, i) => ((a[i.figType] = (a[i.figType] || 0) + 1), a), {}),
+  domains: figures.reduce((a, i) => { for (const d of i.domain || []) a[d] = (a[d] || 0) + 1; return a; }, {}),
   generatedAt: new Date().toISOString(),
 };
 
