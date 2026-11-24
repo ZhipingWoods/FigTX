@@ -1,7 +1,7 @@
 {
   "name": "figtx",
   "productName": "FigTX",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "论文图表 LaTeX 样式库 —— 表格与图的样式可视化浏览、检索与复用",
   "author": "ZhipingWoods",
