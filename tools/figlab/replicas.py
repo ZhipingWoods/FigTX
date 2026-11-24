@@ -548,9 +548,14 @@ def fig09():
     pos = 0
     while pos < n_tok:
         w = int(rng.integers(6, 26))
-        seg[pos:pos + w] = rng.uniform(0.35, 1.55)
+        seg[pos:pos + w] = rng.uniform(0.30, 1.60)
         pos += w + int(rng.integers(0, 8))
     act *= seg[None, :]
+    # 额外的"亮竖条"：少数 token 列整体极亮（原图最显眼的特征）
+    for _ in range(46):
+        c0 = int(rng.integers(0, n_tok))
+        w = int(rng.integers(1, 4))
+        act[:, c0:c0 + w] *= rng.uniform(2.2, 5.0)
     # 通道方向的细粒度调制（横向细纹）
     ch_fine = rng.gamma(6.0, 0.16, n_ch)
     act *= ch_fine[:, None]
@@ -567,10 +572,10 @@ def fig09():
     # 真实激活图常用 log 归一化；再叠 gamma 拉伸提高对比
     act_disp = np.log1p(act)
     act_disp = (act_disp - act_disp.min()) / (act_disp.max() - act_disp.min() + 1e-9)
-    act_disp = act_disp ** 0.62
+    act_disp = act_disp ** 0.42
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 52), vmax=np.percentile(act_disp, 99.9))
+              vmin=np.percentile(act_disp, 4), vmax=np.percentile(act_disp, 99.3))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -594,8 +599,8 @@ def fig09():
         imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.85, 1.0))
 
     ax = axes[1]
-    ax.imshow(imp, aspect="auto", cmap="inferno", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.62)
+    ax.imshow(imp, aspect="auto", cmap="hot", origin="upper",
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.50)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
