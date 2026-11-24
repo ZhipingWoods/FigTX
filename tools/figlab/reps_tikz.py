@@ -41,7 +41,7 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.92cm,
+\begin{tikzpicture}[x=1cm, y=0.885cm,
   box/.style={draw=black!90, line width=1.1pt, rounded corners=4pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
@@ -57,101 +57,134 @@ def fig05() -> str:
 \draw[dashed, line width=1.1pt, black!80] (0.0,6.95) -- (14.40,6.95);
 
 % ================= (a) 训练流水线 =================
-% 四帧
-\foreach \i/\x/\op in {0/0.05/0.45, 1/2.85/0.66, 2/5.65/0.84, 3/8.45/0.98}{
-  \begin{scope}[shift={(\x,9.25)}]
-    \clip[rounded corners=3pt] (0,0) rectangle (2.05,2.05);
-    \node[anchor=south west, inner sep=0pt] at (0,0)
-      {\includegraphics[width=2.05cm,height=2.05cm]{frame\i.png}};
+% 前三组：叠层彩色帧；第四组：灰色（t=1 已完全去噪）
+\foreach \i/\x in {0/0.10, 1/2.60, 2/5.10}{
+  \begin{scope}[shift={(\x,9.55)}]
+    \foreach \k in {3,2,1,0}{
+      \begin{scope}[shift={(\k*0.12,\k*0.12)}]
+        \clip[rounded corners=3pt] (0,0) rectangle (1.60,1.60);
+        \node[anchor=south west, inner sep=0pt] at (0,0)
+          {\includegraphics[width=1.60cm,height=1.60cm]{frame\i.png}};
+      \end{scope}
+      \draw[black!50, line width=.7pt, rounded corners=3pt]
+        (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
+    }
   \end{scope}
-  \draw[black!50, line width=.5pt, rounded corners=3pt] (\x,9.25) rectangle (\x+2.05,11.30);
-  \node[font=\scriptsize, text=red!60!white, opacity=0.9] at (\x+0.78, 10.55) {SANA};
-  \node[font=\scriptsize, below=2pt] at (\x+1.02, 9.18)
-    {$Block^{\i}_{\theta^{0.\i}}$};
 }
-% 上方弧线
-\foreach \i/\j in {0/1, 0/2, 0/3, 1/2, 1/3, 2/3}{
-  \draw[arr, draw=teal!70!black, line width=.7pt]
-    (\i*2.8+1.02, 11.35) to[bend left=16] (\j*2.8+1.02, 11.35);
+% 第四组：灰色叠层
+\begin{scope}[shift={(7.60,9.55)}]
+  \foreach \k in {3,2,1,0}{
+    \fill[black!30, rounded corners=3pt] (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
+    \draw[black!50, line width=.7pt, rounded corners=3pt] (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
+  }
+\end{scope}
+
+% 块标签
+\node[font=\footnotesize] at (1.05,9.25) {$Block^0_{t=0}$};
+\node[font=\footnotesize] at (3.55,9.25) {$Block^1_{t=0.2}$};
+\node[font=\footnotesize] at (6.05,9.25) {$Block^2_{t=0.7}$};
+\node[font=\footnotesize] at (8.55,9.25) {$Block^3_{t=1}$};
+
+% 上方跨块弧线
+\foreach \i/\j/\bend in {0/1/28, 0/2/24, 0/3/20, 1/2/28, 1/3/24, 2/3/28}{
+  \draw[arr, draw=teal!70!black, line width=1.0pt]
+    (\i*2.50+1.90, 11.26) to[bend left=\bend] (\j*2.50+1.90, 11.26);
 }
-% 右侧因果线性注意力小格
-\begin{scope}[shift={(11.55,9.85)}]
+
+% 因果线性注意力小图（放在左半区右侧，x 10.3–13.6）
+\begin{scope}[shift={(10.55,9.75)}]
   \foreach \r in {0,...,3}{
     \foreach \c in {0,...,3}{
       \pgfmathparse{\r>\c ? 0 : 2}
       \ifnum\pgfmathresult=0
-        \fill[black!16] (\c*0.36,-\r*0.36) rectangle ++(0.34,0.34);
+        \fill[black!18] (\c*0.46,-\r*0.46) rectangle ++(0.44,0.44);
       \else
-        \fill[green!72!black] (\c*0.36,-\r*0.36) rectangle ++(0.34,0.34);
+        \fill[green!72!black] (\c*0.46,-\r*0.46) rectangle ++(0.44,0.44);
       \fi
     }
   }
-  \draw[black!55, line width=.4pt] (0,0.36) rectangle (1.44,-1.10);
-  \node[lab2] at (-0.14,0.48) {$d$};
-  \node[lab2] at (0.66,0.48) {$d$};
-  \node[lab2, anchor=west] at (1.46,-0.20) {$\sum_{i=1}^{k}K_iV_i$};
-  \node[font=\tiny, anchor=west] at (1.46,-1.30) {Cumulative Sum};
+  \draw[black!65, line width=.7pt] (0,0.46) rectangle (1.86,-1.40);
+  \node[font=\scriptsize] at (-0.18,0.58) {$d$};
+  \node[font=\scriptsize] at (0.86,0.58) {$d$};
+  \node[font=\scriptsize, anchor=west] at (1.96,0.10) {$\sum_{i=1}^{k}K_iV_i$};
+  \node[font=\tiny, anchor=north west] at (1.96,-0.30) {Cumulative Sum};
 \end{scope}
-\node[lab2, anchor=south] at (12.27,11.22) {Causal Linear Attention};
-\node[ttl] at (7.5,7.55) {(a). Block-wise autoregressive training pipeline};
+\node[font=\scriptsize, anchor=south] at (11.50,11.72) {Causal Linear Attention};
+
+\node[font=\large\bfseries] at (6.30,8.30) {(a). Block-wise autoregressive training pipeline};
 
 % ================= (b) 整体架构 =================
-% 输入（叠层图像）
-\begin{scope}[shift={(0.30,3.00)}]
-  \foreach \k in {0,...,3}{
-    \begin{scope}[shift={(\k*0.09,\k*0.09)}]
-      \clip (0,0) rectangle (1.10,1.22);
+% 输入：叠层帧
+\begin{scope}[shift={(0.25,2.25)}]
+  \foreach \k in {3,2,1,0}{
+    \begin{scope}[shift={(\k*0.12,\k*0.12)}]
+      \clip[rounded corners=2pt] (0,0) rectangle (1.55,1.55);
       \node[anchor=south west, inner sep=0pt] at (0,0)
-        {\includegraphics[width=1.10cm,height=1.22cm]{input.png}};
+        {\includegraphics[width=1.55cm,height=1.55cm]{input.png}};
+      \draw[black!50, line width=.6pt, rounded corners=2pt] (0,0) rectangle (1.55,1.55);
     \end{scope}
-    \draw[black!45, line width=.4pt] (\k*0.09,\k*0.09) rectangle ++(1.10,1.22);
   }
 \end{scope}
-\node[font=\scriptsize] at (1.00,2.70) {$[1\!+\!T, H, W, 3]$};
+\node[font=\footnotesize] at (1.10,1.92) {$[1\!+\!T, H, W, 3]$};
 
-% AutoEncoder（平行四边形）
-\begin{scope}[shift={(3.60,2.95)}]
-  \fill[black!7] (0.32,0) -- (2.85,0) -- (2.52,1.62) -- (0,1.62) -- cycle;
-  \draw[black!25, line width=.5pt] (0.32,0) -- (2.85,0) -- (2.52,1.62) -- (0,1.62) -- cycle;
-  \node[font=\scriptsize] (ae) at (1.45,0.81) {AutoEncoder};
+% AutoEncoder：左窄右宽梯形
+\begin{scope}[shift={(4.55,2.10)}]
+  \fill[fxblue2] (0.00,0.55) -- (0.55,0.00) -- (2.85,0.00) -- (2.30,0.55) -- (2.30,1.55) -- (2.85,2.10) -- (0.55,2.10) -- (0.00,1.55) -- cycle;
+  \draw[black!55, line width=.9pt] (0.00,0.55) -- (0.55,0.00) -- (2.85,0.00) -- (2.30,0.55) -- (2.30,1.55) -- (2.85,2.10) -- (0.55,2.10) -- (0.00,1.55) -- cycle;
+  \node[font=\footnotesize] at (1.45,1.05) {AutoEncoder};
 \end{scope}
-\draw[arr] (1.42,3.76) -- (ae.west);
+\draw[arr, line width=1.0pt] (1.75,2.90) -- (4.55,2.90);
 
-% N x 大框（按原图像素比例：27.9%–49.1% 宽度）
-\fill[fxblue, opacity=.55, rounded corners=7pt] (7.35,2.45) rectangle (13.05,5.60);
-\node[font=\scriptsize\bfseries, text=red!70!black, anchor=south west] at (7.44,2.50) {$\mathbf{N\times}$};
+% N x 大框（含内部 ⊕）
+\fill[fxblue, opacity=.60, rounded corners=10pt] (7.60,1.95) rectangle (14.30,4.05);
+\node[font=\footnotesize\bfseries, text=red!70!black, anchor=north west] at (7.70,4.00) {$\mathbf{N\times}$};
 
-% 三列：Linear Attn / Cross Attn / Mix FFN
-\node[font=\scriptsize, rotate=90, align=center] at (8.30,4.05) {Linear Attn};
-\node[font=\scriptsize, rotate=90, align=center] at (10.15,4.05) {Cross Attn};
-\node[font=\scriptsize, rotate=90, align=center] at (12.05,4.05) {Mix FFN};
-\fill[fxpnk, opacity=.72, rounded corners=3pt] (9.55,2.58) rectangle (10.75,5.47);
-\fill[fxgrn, opacity=.55, rounded corners=3pt] (11.55,2.58) rectangle (12.55,5.47);
+% 三列背景带
+\fill[fxpnk, opacity=.70, rounded corners=4pt] (10.05,2.05) rectangle (11.35,3.95);
+\fill[fxgrn, opacity=.55, rounded corners=4pt] (12.05,2.05) rectangle (13.05,3.95);
 
-\draw[arr] (ae.east) -- (7.44,3.76);
-\draw[arr] (8.85,3.76) -- (9.45,3.76);
-\draw[arr] (10.85,3.76) -- (11.45,3.76);
-\draw[arr] (12.65,3.76) -- (13.18,3.76);
-\node[circle, draw=black!65, fill=white, inner sep=1.4pt, font=\scriptsize] (plus) at (13.42,3.76) {$+$};
-\draw[arr] (plus) -- ++(0.62,0);
+\node[font=\footnotesize, rotate=90] at (8.85,3.00) {Linear Attn};
+\node[font=\footnotesize, rotate=90] at (10.70,3.00) {Cross Attn};
+\node[font=\footnotesize, rotate=90] at (12.55,3.00) {Mix FFN};
+\node[circle, draw=black!85, fill=white, inner sep=1.8pt, font=\footnotesize] (plus) at (13.75,3.00) {$+$};
 
-% 图标：雪花（左）/ 火焰（右）
-\node[font=\small, text=cyan!60!black] at (7.75,5.22) {$\ast$};
-\node[font=\scriptsize, text=cyan!60!black] at (7.75,4.94) {$\ast$};
-\node[font=\small, text=orange!90!black] at (12.75,5.22) {$\blacktriangle$};
+\draw[arr, line width=1.0pt] (7.42,2.90) -- (8.30,2.90);
+\draw[arr, line width=1.0pt] (9.25,2.90) -- (9.95,2.90);
+\draw[arr, line width=1.0pt] (11.45,2.90) -- (11.95,2.90);
+\draw[arr, line width=1.0pt] (13.15,2.90) -- (plus);
+\draw[arr, line width=1.0pt] (plus) -- (14.85,2.90);
+
+% 彩色图标：雪花（左）/ 火焰（右）
+\begin{scope}[shift={(7.85,4.55)}]
+  \foreach \a in {0,60,120,180,240,300}{
+    \draw[cyan!65!black, line width=1.1pt] (0,0) -- (\a:0.26);
+  }
+  \fill[cyan!65!black] (0,0) circle (0.045);
+\end{scope}
+\begin{scope}[shift={(13.95,4.55)}]
+  \fill[orange!90!black] (0,-0.22) .. controls (-0.20,0.05) and (-0.10,0.18) .. (0,0.28)
+                        .. controls (0.10,0.18) and (0.20,0.05) .. (0,-0.22) -- cycle;
+  \fill[red!80!black] (0,-0.16) .. controls (-0.10,0.00) and (-0.05,0.08) .. (0,0.13)
+                      .. controls (0.05,0.08) and (0.10,0.00) .. (0,-0.16) -- cycle;
+\end{scope}
 
 % 文本分支
-\node[draw=black!45, rounded corners=2pt, fill=white, minimum width=3.3cm,
-      minimum height=0.80cm, font=\tiny, align=left, inner sep=2pt] (capbox)
-  at (1.75,1.05) {\textit{A cyberpunk cat with a}\\\textit{sian that says "SANA"}};
-\node[pnk2, minimum width=1.75cm] (rw) at (4.70,1.05) {Rewriter};
-\node[pnk2, minimum width=1.95cm] (llm) at (7.05,1.05) {Small LLM};
-\node[pnk2, minimum width=1.60cm] (te) at (9.40,1.05) {Time Emb};
-\draw[arr] (capbox.east) -- (rw.west);
-\draw[arr] (rw.east) -- (llm.west);
-\draw[arr] (llm.east) -- (te.west);
-\draw[arr] (llm.north) |- (10.15,2.45);
-\node[ttl] at (7.35,0.05) {(b). Architecture overview of our SANA-Video.};
+\node[draw=black!75, line width=.9pt, rounded corners=5pt, fill=white, minimum width=3.4cm,
+      minimum height=1.00cm, font=\scriptsize, align=left, inner sep=3pt] (capbox)
+  at (1.95,0.62) {\textbf{\textit{A cyberpunk cat with a}}\\[1pt]\textbf{\textit{sian that says "SANA"}}};
+\node[pnk2, line width=.9pt, minimum width=1.85cm, minimum height=0.90cm, font=\footnotesize] (rw) at (5.05,0.62) {Rewriter};
+\node[pnk2, line width=.9pt, minimum width=2.15cm, minimum height=0.90cm, font=\footnotesize] (llm) at (7.60,0.62) {Small LLM};
+\node[pnk2, line width=.9pt, minimum width=1.75cm, minimum height=0.90cm, font=\footnotesize] (te) at (10.10,0.62) {Time Emb};
+\draw[arr, line width=1.0pt] (capbox.east) -- (rw.west);
+\draw[arr, line width=1.0pt] (rw.east) -- (llm.west);
+\draw[arr, line width=1.0pt] (llm.east) -- (te.west);
+\draw[arr, line width=1.0pt] (llm.north) |- (10.70,1.95);
+\draw[arr, line width=1.0pt] (te.north) -- (10.10,1.95);
+
+\node[font=\large\bfseries] at (7.3,-0.55) {(b). Architecture overview of our SANA-Video.};
+
+% 上/下分隔线
+\draw[dashed, line width=1.2pt, black!80] (0.0,6.95) -- (14.45,6.95);
 
 % ================= (c) Linear DiT module =================
 % ---- 面板标题（在框上方）
