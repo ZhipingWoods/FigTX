@@ -41,7 +41,7 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.845cm,
+\begin{tikzpicture}[x=1cm, y=0.871cm,
   box/.style={draw=black!90, line width=1.1pt, rounded corners=4pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
@@ -115,7 +115,7 @@ def fig05() -> str:
 
 % ================= (b) 整体架构 =================
 % 输入：叠层帧
-\begin{scope}[shift={(0.25,2.25)}]
+\begin{scope}[shift={(0.25,3.55)}]
   \foreach \k in {3,2,1,0}{
     \begin{scope}[shift={(\k*0.12,\k*0.12)}]
       \clip[rounded corners=2pt] (0,0) rectangle (1.55,1.55);
@@ -125,43 +125,43 @@ def fig05() -> str:
     \end{scope}
   }
 \end{scope}
-\node[font=\small] at (1.10,1.92) {$[1\!+\!T, H, W, 3]$};
+\node[font=\small] at (1.10,3.22) {$[1\!+\!T, H, W, 3]$};
 
 % AutoEncoder：左窄右宽梯形
-\begin{scope}[shift={(4.55,2.10)}]
+\begin{scope}[shift={(4.55,3.40)}]
   \fill[fxblue2] (0.00,0.55) -- (0.55,0.00) -- (2.85,0.00) -- (2.30,0.55) -- (2.30,1.55) -- (2.85,2.10) -- (0.55,2.10) -- (0.00,1.55) -- cycle;
   \draw[black!55, line width=1.2pt] (0.00,0.55) -- (0.55,0.00) -- (2.85,0.00) -- (2.30,0.55) -- (2.30,1.55) -- (2.85,2.10) -- (0.55,2.10) -- (0.00,1.55) -- cycle;
   \node[font=\small] at (1.45,1.05) {AutoEncoder};
 \end{scope}
-\draw[arr, line width=1.2pt] (1.75,2.90) -- (4.55,2.90);
+\draw[arr, line width=1.2pt] (1.75,4.20) -- (4.55,4.20);
 
 % N x 大框（含内部 ⊕）
-\fill[fxblue, opacity=.60, rounded corners=10pt] (7.60,1.95) rectangle (14.30,4.05);
-\node[font=\small\bfseries, text=red!70!black, anchor=north west] at (7.70,4.00) {$\mathbf{N\times}$};
+\fill[fxblue, opacity=.60, rounded corners=10pt] (7.60,3.05) rectangle (14.30,5.55);
+\node[font=\small\bfseries, text=red!70!black, anchor=north west] at (7.70,5.50) {$\mathbf{N\times}$};
 
 % 三列背景带
-\fill[fxpnk, opacity=.70, rounded corners=4pt] (10.05,2.05) rectangle (11.35,3.95);
-\fill[fxgrn, opacity=.55, rounded corners=4pt] (12.05,2.05) rectangle (13.05,3.95);
+\fill[fxpnk, opacity=.70, rounded corners=4pt] (10.05,3.15) rectangle (11.35,5.45);
+\fill[fxgrn, opacity=.55, rounded corners=4pt] (12.05,3.15) rectangle (13.05,5.45);
 
-\node[font=\small, rotate=90] at (8.85,3.00) {Linear Attn};
-\node[font=\small, rotate=90] at (10.70,3.00) {Cross Attn};
-\node[font=\small, rotate=90] at (12.55,3.00) {Mix FFN};
-\node[circle, draw=black!85, fill=white, inner sep=1.8pt, font=\small] (plus) at (13.75,3.00) {$+$};
+\node[font=\small, rotate=90] at (8.85,4.30) {Linear Attn};
+\node[font=\small, rotate=90] at (10.70,4.30) {Cross Attn};
+\node[font=\small, rotate=90] at (12.55,4.30) {Mix FFN};
+\node[circle, draw=black!85, fill=white, inner sep=1.8pt, font=\small] (plus) at (13.75,4.30) {$+$};
 
-\draw[arr, line width=1.2pt] (7.42,2.90) -- (8.30,2.90);
-\draw[arr, line width=1.2pt] (9.25,2.90) -- (9.95,2.90);
-\draw[arr, line width=1.2pt] (11.45,2.90) -- (11.95,2.90);
-\draw[arr, line width=1.2pt] (13.15,2.90) -- (plus);
-\draw[arr, line width=1.2pt] (plus) -- (14.85,2.90);
+\draw[arr, line width=1.2pt] (7.42,4.20) -- (8.30,4.20);
+\draw[arr, line width=1.2pt] (9.25,4.20) -- (9.95,4.20);
+\draw[arr, line width=1.2pt] (11.45,4.20) -- (11.95,4.20);
+\draw[arr, line width=1.2pt] (13.15,4.20) -- (plus);
+\draw[arr, line width=1.2pt] (plus) -- (14.85,4.20);
 
 % 彩色图标：雪花（左）/ 火焰（右）
-\begin{scope}[shift={(7.85,4.55)}]
+\begin{scope}[shift={(7.85,5.85)}]
   \foreach \a in {0,60,120,180,240,300}{
     \draw[cyan!65!black, line width=1.1pt] (0,0) -- (\a:0.26);
   }
   \fill[cyan!65!black] (0,0) circle (0.045);
 \end{scope}
-\begin{scope}[shift={(13.95,4.55)}]
+\begin{scope}[shift={(13.95,5.85)}]
   \fill[orange!90!black] (0,-0.22) .. controls (-0.20,0.05) and (-0.10,0.18) .. (0,0.28)
                         .. controls (0.10,0.18) and (0.20,0.05) .. (0,-0.22) -- cycle;
   \fill[red!80!black] (0,-0.16) .. controls (-0.10,0.00) and (-0.05,0.08) .. (0,0.13)
@@ -171,17 +171,17 @@ def fig05() -> str:
 % 文本分支
 \node[draw=black!75, line width=1.2pt, rounded corners=5pt, fill=white, minimum width=3.4cm,
       minimum height=1.00cm, font=\footnotesize, align=left, inner sep=3pt] (capbox)
-  at (1.95,0.62) {\textbf{\textit{A cyberpunk cat with a}}\\[1pt]\textbf{\textit{sian that says "SANA"}}};
-\node[pnk2, line width=1.2pt, minimum width=1.85cm, minimum height=0.90cm, font=\small] (rw) at (5.05,0.62) {Rewriter};
-\node[pnk2, line width=1.2pt, minimum width=2.15cm, minimum height=0.90cm, font=\small] (llm) at (7.60,0.62) {Small LLM};
-\node[pnk2, line width=1.2pt, minimum width=1.75cm, minimum height=0.90cm, font=\small] (te) at (10.10,0.62) {Time Emb};
+  at (1.95,1.92) {\textbf{\textit{A cyberpunk cat with a}}\\[1pt]\textbf{\textit{sian that says "SANA"}}};
+\node[pnk2, line width=1.2pt, minimum width=1.85cm, minimum height=0.90cm, font=\small] (rw) at (5.05,1.92) {Rewriter};
+\node[pnk2, line width=1.2pt, minimum width=2.15cm, minimum height=0.90cm, font=\small] (llm) at (7.60,1.92) {Small LLM};
+\node[pnk2, line width=1.2pt, minimum width=1.75cm, minimum height=0.90cm, font=\small] (te) at (10.10,1.92) {Time Emb};
 \draw[arr, line width=1.2pt] (capbox.east) -- (rw.west);
 \draw[arr, line width=1.2pt] (rw.east) -- (llm.west);
 \draw[arr, line width=1.2pt] (llm.east) -- (te.west);
-\draw[arr, line width=1.2pt] (llm.north) |- (10.70,1.95);
-\draw[arr, line width=1.2pt] (te.north) -- (10.10,1.95);
+\draw[arr, line width=1.2pt] (llm.north) |- (10.70,3.05);
+\draw[arr, line width=1.2pt] (te.north) -- (10.10,3.05);
 
-\node[font=\large\bfseries] at (7.3,-0.55) {(b). Architecture overview of our SANA-Video.};
+\node[font=\large\bfseries] at (7.3,0.75) {(b). Architecture overview of our SANA-Video.};
 
 % 上/下分隔线
 \draw[dashed, line width=1.2pt, black!80] (0.0,6.95) -- (14.40,6.95);
