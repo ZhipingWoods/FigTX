@@ -121,20 +121,22 @@ def fig01():
     # ---- (b) 端到端延迟
     lat = [("FourTune (Ours)", 0.86, DRED), ("NF4 QLoRA", 2.40, TEAL), ("BF16 LoRA", 1.95, GRAY)]
     for y, (lab, v, c) in zip([0, 1, 2], lat):
-        ax2.barh(y, v, height=0.78, color=c, edgecolor="none")
+        ax2.barh(y, v, height=0.92, color=c, edgecolor="none")
         ax2.text(v - 0.05, y, ("%g s" % v), ha="right", va="center",
-                 color="white", fontsize=11)
+                 color="white", fontsize=12.5)
     # 参考图：类别标签在条形右侧
     ax2.set_yticks([0, 1, 2], [])
     ax2.set_xlim(0, 3.35)
     ax2.set_ylim(-0.62, 2.5)
     ax2.set_xticks([])
-    for sp in ("top", "right", "bottom"):
+    for sp in ("top", "right"):
         ax2.spines[sp].set_visible(False)
+    ax2.spines["left"].set_linewidth(1.4)
+    ax2.tick_params(axis="y", length=4)
     for y, lab in [(0, "FourTune (Ours)"), (1, "NF4 QLoRA"), (2, "BF16 LoRA")]:
         val = {0: 0.86, 1: 2.40, 2: 1.95}[y]
         ax2.text(val + (2.42 - val) * 0 + 0.12 if y == 0 else val + 0.12, y, lab,
-                 va="center", ha="left", fontsize=11)
+                 va="center", ha="left", fontsize=12.5)
 
     # 虚线连接：BF16 末端 → NF4 行；NF4 末端 → 下方
     ax2.plot([1.95, 1.95], [2.26, 1.0], ls=(0, (3, 2)), lw=0.9, color=GRAY)
@@ -143,12 +145,12 @@ def fig01():
     ax2.annotate("", xy=(0.86, 0.52), xytext=(1.95, 0.52),
                  arrowprops=dict(arrowstyle="<|-", color="#555555", lw=0.9,
                                  mutation_scale=11, shrinkA=0, shrinkB=0))
-    ax2.text(1.40, 0.60, "2.27×", ha="center", va="bottom", fontsize=13, color="#444444")
+    ax2.text(1.40, 0.60, "2.27×", ha="center", va="bottom", fontsize=15, color="#444444")
 
     ax2.annotate("", xy=(0.86, 0.20), xytext=(2.40, 0.20),
                  arrowprops=dict(arrowstyle="<|-", color=TEAL, lw=0.9,
                                  mutation_scale=11, shrinkA=0, shrinkB=0))
-    ax2.text(1.62, 0.27, "2.79×", ha="center", va="bottom", fontsize=13, color=TEAL)
+    ax2.text(1.62, 0.27, "2.79×", ha="center", va="bottom", fontsize=15, color=TEAL)
 
     ax2.set_xlabel("(b) End-to-End Training Step Latency (s) during\n"
                     "FLUX.1-dev Customization (1 × 1024 × 1024)",
