@@ -231,21 +231,22 @@ def fig03():
     ]
     h_leg = []
     for name, c, m, yv in series:
-        h_leg.append(Line2D([], [], color=c, marker=m, ms=5.5, lw=1.2,
+        h_leg.append(Line2D([], [], color=c, marker=m, ms=7.5, lw=2.1,
                             markerfacecolor="white" if m == "s" else c,
-                            markeredgewidth=1.4, label=name))
+                            markeredgewidth=1.7, label=name))
     axleg.legend(handles=h_leg, loc="center", bbox_to_anchor=(0.36, 0.5), ncol=6,
                  frameon=False, fontsize=9.5, handlelength=1.0, columnspacing=1.8)
 
     def draw(ax, ymin, ymax, cache):
         for name, c, m, yv in series:
-            ax.plot(x, yv, color=c, marker=m, ms=4.6, lw=1.25,
-                    markerfacecolor="white" if m == "s" else c, markeredgewidth=1.2)
+            ax.plot(x, yv, color=c, marker=m, ms=6.5, lw=2.1,
+                    markerfacecolor="white" if m == "s" else c, markeredgewidth=1.6)
         ax.set_xlim(30, 690)
         ax.set_ylim(ymin, ymax)
         ax.set_xticks(x)
         ax.set_xlabel("%s KV Cache" % cache, fontsize=11)
         ax.grid(False)
+        ax.tick_params(labelsize=10.5)
 
     ax1 = fig.add_subplot(gs[1, 0])
     draw(ax1, 56, 76, "INT2")
@@ -272,19 +273,19 @@ def fig03():
     axc_top.spines["bottom"].set_visible(False)
     axc_top.tick_params(axis="x", bottom=False, labelbottom=False)
     axc_bot.spines["top"].set_visible(False)
-    axc_top.set_yticks([5.4, 6.0, 6.6])
-    axc_bot.set_yticks([1.0, 1.1, 1.2, 1.3, 1.4])
+    axc_top.set_yticks([6.0, 6.6])
+    axc_bot.set_yticks([1.0, 1.1, 1.2, 1.3])
     axc_bot.set_xticks(st)
     for xi, v in zip(st, vals):
         ax = axc_top if v > 1.42 else axc_bot
         ax.text(xi, v + (0.06 if v > 1.42 else 0.013), "%.2f" % v,
-                ha="center", va="bottom", fontsize=7.8)
+                ha="center", va="bottom", fontsize=9.5)
     # 断轴标记：左边缘画一对斜线（上下各一条，错开）
     for ax, y0 in ((axc_top, 0.0), (axc_bot, 1.0)):
         ax.plot([-0.028, -0.004], [y0 - 0.030, y0 + 0.030], transform=ax.transAxes,
                 color="k", clip_on=False, lw=1.1, solid_capstyle="butt")
-    axc_bot.set_xlabel("Number of stages", fontsize=9.5, labelpad=6)
-    axc_bot.set_title("(c)", y=-0.78, fontsize=10.5)
+    axc_bot.set_xlabel("Number of stages", fontsize=12, labelpad=6)
+    axc_bot.set_title("(c)", y=-0.78, fontsize=12.5)
 
     fig.subplots_adjust(bottom=0.20, top=0.88, left=0.055, right=0.985)
     return _save(fig, "rep-03-accuracy-tradeoff")
@@ -303,61 +304,61 @@ def fig04():
     ypos = [4, 3, 2, 1, 0]
     for y, v, lab in zip(ypos, vals, labels):
         c = "#2E7D32" if lab.startswith("SANA") else "#A8B5AE"
-        ax.barh(y, v, height=0.62, color=c, edgecolor="none")
-        ax.text(v + 8, y, "%d" % v, va="center", fontsize=8.6,
+        ax.barh(y, v, height=0.82, color=c, edgecolor="none")
+        ax.text(v + 8, y, "%d" % v, va="center", fontsize=10,
                 color="#1B5E20" if lab.startswith("SANA") else "#333333")
-    ax.set_yticks(ypos, labels, fontsize=8.6)
+    ax.set_yticks(ypos, labels, fontsize=9.5)
     ax.set_xlim(0, 660)
     ax.set_xticks([0, 148, 295, 443, 590])
-    ax.spines["left"].set_visible(False)
-    ax.tick_params(axis="y", length=0)
+    ax.spines["left"].set_linewidth(1.2)
+    ax.tick_params(axis="y", length=3.5)
     ax.plot([568, 568], [4.4, -0.55], ls=(0, (3, 2)), lw=1.0, color=DRED)
     ax.annotate("", xy=(36, -0.55), xytext=(568, -0.55),
                 arrowprops=dict(arrowstyle="-|>", color=DRED, lw=1.1,
                                 mutation_scale=12, shrinkA=0, shrinkB=0))
     ax.text(300, -0.42, "16×", color=DRED, fontsize=13, ha="center", va="bottom")
     ax.set_title("(b). Generation latency (s) on 720x1280x81\nvideo with default inference settings",
-                 fontsize=8.8, y=-0.36)
+                 fontsize=10.5, y=-0.36)
 
     # (c) VRAM vs 长度
     ax = axes[1]
     L = np.array([1, 10, 30, 60, 65])
     vram_green = np.full_like(L, 7.2, dtype=float)
     vram_gray = np.array([15, 26, 46, 76, 80.0])
-    ax.plot(L, vram_green, "-o", color="#4CAF50", ms=5.5, lw=1.6,
+    ax.plot(L, vram_green, "-o", color="#4CAF50", ms=6.5, lw=2.0,
             label="Block Linear Attention")
-    ax.plot(L, vram_gray, "--D", color="#9E9E9E", ms=5.0, lw=1.5,
+    ax.plot(L, vram_gray, "--D", color="#9E9E9E", ms=6.0, lw=1.9,
             label="Causal Full Attention")
     for xi, yi in zip(L, vram_green):
-        ax.text(xi, yi + 3.0, "%.1f" % yi, ha="center", fontsize=7.8, color="#2E7D32")
+        ax.text(xi, yi + 3.0, "%.1f" % yi, ha="center", fontsize=9.5, color="#2E7D32")
     for xi, yi in zip(L, vram_gray):
-        ax.text(xi, yi + 4.2, "%.0f" % yi, ha="center", fontsize=7.8, color="#555555")
+        ax.text(xi, yi + 4.2, "%.0f" % yi, ha="center", fontsize=9.5, color="#555555")
     ax.text(50, 63, "OOM", color="red", fontsize=9.5, ha="center")
     ax.set_xticks(L)
     ax.set_xlabel("")
     ax.text(0.02, 1.02, "(GB)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 90)
-    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=8.4,
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=10,
               ncol=1, handlelength=1.2)
-    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=8.8, y=-0.36)
+    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=10.5, y=-0.36)
 
     # (d) 延迟 vs 长度
     ax = axes[2]
     L2 = np.array([5, 10, 30, 50])
     t_green = np.array([0.6, 2.0, 11.0, 20.0])
     t_gray = np.array([1.2, 5.0, 35.0, 93.0])
-    ax.plot(L2, t_green, "-o", color="#4CAF50", ms=5.5, lw=1.6, label="SANA-Video-2B")
-    ax.plot(L2, t_gray, "--D", color="#9E9E9E", ms=5.0, lw=1.5, label="Wan2.1-1.3B")
+    ax.plot(L2, t_green, "-o", color="#4CAF50", ms=6.5, lw=2.0, label="SANA-Video-2B")
+    ax.plot(L2, t_gray, "--D", color="#9E9E9E", ms=6.0, lw=1.9, label="Wan2.1-1.3B")
     for xi, yi in zip(L2, t_green):
-        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=7.8, color="#2E7D32")
+        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=9.5, color="#2E7D32")
     for xi, yi in zip(L2, t_gray):
-        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=7.8, color="#555555")
+        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=9.5, color="#555555")
     ax.set_xticks(L2)
     ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 105)
-    ax.legend(frameon=False, loc="upper left", fontsize=8.4, handlelength=1.2)
+    ax.legend(frameon=False, loc="upper left", fontsize=10, handlelength=1.2)
     ax.set_title("(d). Generation latency v.s. video\nlength (s) on 480x832 resolution",
-                 fontsize=8.8, y=-0.36)
+                 fontsize=10.5, y=-0.36)
     fig.subplots_adjust(bottom=0.24, top=0.86)
     return _save(fig, "rep-04-latency-scaling")
 
@@ -555,7 +556,7 @@ def fig09():
     for _ in range(46):
         c0 = int(rng.integers(0, n_tok))
         w = int(rng.integers(1, 4))
-        act[:, c0:c0 + w] *= rng.uniform(2.2, 5.0)
+        act[:, c0:c0 + w] *= rng.uniform(3.0, 7.0)
     # 通道方向的细粒度调制（横向细纹）
     ch_fine = rng.gamma(6.0, 0.16, n_ch)
     act *= ch_fine[:, None]
@@ -575,7 +576,7 @@ def fig09():
     act_disp = act_disp ** 0.42
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 4), vmax=np.percentile(act_disp, 99.3))
+              vmin=np.percentile(act_disp, 86), vmax=np.percentile(act_disp, 99.8))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -588,19 +589,19 @@ def fig09():
 
     # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.65, 4.5, n_ch) * 0.30     # 每通道基础密度（更密）
+    base_dens = rng.beta(0.35, 12.0, n_ch) * 0.045   # 每通道基础密度（稀疏）
     for ci in range(n_ch):
         if base_dens[ci] > 0.004:
             cols = rng.random(n_tok) < base_dens[ci]
             imp[ci, cols] = rng.uniform(0.45, 1.0, cols.sum())
     # 强调通道带（对应上图高亮区）
     for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.16, 0.32)
-        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.85, 1.0))
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.025, 0.06)
+        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.9, 1.0))
 
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="hot", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.50)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.35)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
