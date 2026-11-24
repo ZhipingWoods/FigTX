@@ -1,0 +1,395 @@
+\begin{document}
+\begin{table*}[t!]
+\caption{ \judge{} is the best performing small judge, almost matching the performance of the best large judges despite being 4.5x smaller in size. Best and second-best in each size range are \textbf{bolded} and \underline{underlined}. \texttt{Avg.} is a microaverage across resp. benchmark splits, \texttt{Overall} is an average of the 3 \texttt{Avg.} scores. Highlighting indicates training method: \hlc[Goldenrod!30]{SFT}, \hlc[orange!50]{DPO}, and \hlc[ForestGreen!20]{RL}. $^\dagger$ indicates that a judge had systematic issues with output format. All values are \textit{consistent accuracy}.}
+\label{tab:main_result}
+\vspace{0.1in}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccccccccccc}
+\toprule
+ &
+   &
+  \multicolumn{4}{c}{\textbf{PPE}} &
+  \multicolumn{5}{c}{\textbf{JudgeBench}} &
+  \multicolumn{5}{c}{\textbf{ReasoningJudgeBench}} &
+  \multicolumn{1}{c}{} \\
+\multirow{-2}{*}{} &
+  \multirow{-2}{*}{\textbf{Model}} &
+  {\color[HTML]{9B9B9B} MBPP} &
+  {\color[HTML]{9B9B9B} MATH} &
+  {\color[HTML]{9B9B9B} GPQA} &
+  \texttt{Avg.} &
+  {\color[HTML]{9B9B9B} Knowledge} &
+  {\color[HTML]{9B9B9B} Math} &
+  {\color[HTML]{9B9B9B} Reasoning} &
+  {\color[HTML]{9B9B9B} Code} &
+  \texttt{Avg.} &
+  {\color[HTML]{9B9B9B} Multi-hop} &
+  {\color[HTML]{9B9B9B} Math} &
+  {\color[HTML]{9B9B9B} Everyday} &
+  {\color[HTML]{9B9B9B} Domain} &
+  \texttt{Avg.} &
+  \multicolumn{1}{c}{\multirow{-2}{*}{\texttt{Overall}}} \\ \midrule
+ \multirow{8}{*}{\rotatebox{90}{\small Small Judges}} &
+  \cellcolor{Goldenrod!30}Prometheus-2-7B &
+  {\color[HTML]{9B9B9B} 29.70} &
+  {\color[HTML]{9B9B9B} 33.01} &
+  {\color[HTML]{9B9B9B} 27.54} &
+  30.09 &
+  {\color[HTML]{9B9B9B} 16.23} &
+  {\color[HTML]{9B9B9B} 33.93} &
+  {\color[HTML]{9B9B9B} 28.57} &
+  {\color[HTML]{9B9B9B} 35.71} &
+  24.86 &
+  {\color[HTML]{9B9B9B} 16.56} &
+  {\color[HTML]{9B9B9B} 29.23} &
+  {\color[HTML]{9B9B9B} 17.23} &
+  {\color[HTML]{9B9B9B} 16.33} &
+  18.88 &
+  24.61 \\
+ &
+  \cellcolor{Goldenrod!30}CompassJudger-7B &
+  {\color[HTML]{9B9B9B} 33.89} &
+  {\color[HTML]{9B9B9B} 57.27} &
+  {\color[HTML]{9B9B9B} 40.86} &
+  44.02 &
+  {\color[HTML]{9B9B9B} 45.45} &
+  {\color[HTML]{9B9B9B} 73.21} &
+  {\color[HTML]{9B9B9B} 45.92} &
+  {\color[HTML]{9B9B9B} 38.10} &
+  49.14 &
+  {\color[HTML]{9B9B9B} 34.95} &
+  {\color[HTML]{9B9B9B} 50.38} &
+  {\color[HTML]{9B9B9B} 32.62} &
+  {\color[HTML]{9B9B9B} 38.00} &
+  37.76 &
+  43.64 \\
+ &
+  \cellcolor{orange!50}RISE-Judge-7B &
+  {\color[HTML]{9B9B9B} 41.18} &
+  {\color[HTML]{9B9B9B} 61.21} &
+  {\color[HTML]{9B9B9B} 36.56} &
+  46.35 &
+  {\color[HTML]{9B9B9B} 44.81} &
+  {\color[HTML]{9B9B9B} 57.14} &
+  {\color[HTML]{9B9B9B} 35.71} &
+  {\color[HTML]{9B9B9B} 47.62} &
+  44.57 &
+  {\color[HTML]{9B9B9B} 28.60} &
+  {\color[HTML]{9B9B9B} 51.15} &
+  {\color[HTML]{9B9B9B} 31.69} &
+  {\color[HTML]{9B9B9B} 36.00} &
+  34.73 &
+  41.88 \\
+ &
+  \cellcolor{ForestGreen!20}JudgeLRM-7B$^\dagger$ &
+  {\color[HTML]{9B9B9B} 28.80} &
+  {\color[HTML]{9B9B9B} 40.47} &
+  {\color[HTML]{9B9B9B} 24.77} &
+  31.37 &
+  {\color[HTML]{9B9B9B} 25.32} &
+  {\color[HTML]{9B9B9B} 44.64} &
+  {\color[HTML]{9B9B9B} 34.69} &
+  {\color[HTML]{9B9B9B} 47.62} &
+  33.71 &
+  {\color[HTML]{9B9B9B} 5.52} &
+  {\color[HTML]{9B9B9B} 20.77} &
+  {\color[HTML]{9B9B9B} 14.77} &
+  {\color[HTML]{9B9B9B} 13.67} &
+  11.87 &
+  25.65 \\
+ &
+  \cellcolor{ForestGreen!20}RM-R1-Distill-7B$^\dagger$ &
+  {\color[HTML]{9B9B9B} 31.44} &
+  {\color[HTML]{9B9B9B} 55.04} &
+  {\color[HTML]{9B9B9B} 15.23} &
+  33.96 &
+  {\color[HTML]{9B9B9B} 17.53} &
+  {\color[HTML]{9B9B9B} 16.07} &
+  {\color[HTML]{9B9B9B} 19.39} &
+  {\color[HTML]{9B9B9B} 4.76} &
+  16.29 &
+  {\color[HTML]{9B9B9B} 12.37} &
+  {\color[HTML]{9B9B9B} 35.38} &
+  {\color[HTML]{9B9B9B} 14.46} &
+  {\color[HTML]{9B9B9B} 3.67} &
+  15.10 &
+  21.78 \\
+ &
+  \cellcolor{Goldenrod!30}CompassJudger-14B &
+  {\color[HTML]{9B9B9B} 36.84} &
+  {\color[HTML]{9B9B9B} 59.57} &
+  {\color[HTML]{9B9B9B} 40.47} &
+  45.64 &
+  {\color[HTML]{9B9B9B} 46.75} &
+  {\color[HTML]{9B9B9B} 73.21} &
+  {\color[HTML]{9B9B9B} 45.92} &
+  {\color[HTML]{9B9B9B} 42.86} &
+  50.29 &
+  {\color[HTML]{9B9B9B} 37.29} &
+  {\color[HTML]{9B9B9B} 51.54} &
+  {\color[HTML]{9B9B9B} 28.92} &
+  {\color[HTML]{9B9B9B} 36.00} &
+  37.69 &
+  44.54 \\
+ &
+  \cellcolor{ForestGreen!20}RM-R1-Distill-14B &
+  {\color[HTML]{9B9B9B} 32.94} &
+  {\color[HTML]{9B9B9B} 72.89} &
+  {\color[HTML]{9B9B9B} 37.46} &
+  {\underline{47.80}} &
+  {\color[HTML]{9B9B9B} 42.21} &
+  {\color[HTML]{9B9B9B} 57.14} &
+  {\color[HTML]{9B9B9B} 50.00} &
+  {\color[HTML]{9B9B9B} 42.86} &
+  46.86 &
+  {\color[HTML]{9B9B9B} 47.16} &
+  {\color[HTML]{9B9B9B} 68.08} &
+  {\color[HTML]{9B9B9B} 34.77} &
+  {\color[HTML]{9B9B9B} 25.33} &
+  {\underline{43.70}} &
+  {\underline{46.12}} \\
+ \arrayrulecolor{gray}\hdashline
+    \arrayrulecolor{black}
+  \multirow{2}{*}{\rotatebox{90}{\small {Ours\phantom{1}}}} &
+  \cellcolor{ForestGreen!20}J4R-Qwen-Inst-7B (ours) &
+  {\color[HTML]{9B9B9B} 29.19} &
+  {\color[HTML]{9B9B9B} 60.43} &
+  {\color[HTML]{9B9B9B} 43.95} &
+  43.95 &
+  {\color[HTML]{9B9B9B} 51.30} &
+  {\color[HTML]{9B9B9B} 62.50} &
+  {\color[HTML]{9B9B9B} 52.04} &
+  {\color[HTML]{9B9B9B} 42.86} &
+  {\underline{52.29}} &
+  {\color[HTML]{9B9B9B} 38.96} &
+  {\color[HTML]{9B9B9B} 59.62} &
+  {\color[HTML]{9B9B9B} 31.38} &
+  {\color[HTML]{9B9B9B} 46.33} &
+  41.74 &
+  45.99 \\
+ &
+  \cellcolor{ForestGreen!20}J4R-CJ-7B (Ours) &
+  {\color[HTML]{9B9B9B} 37.71} &
+  {\color[HTML]{9B9B9B} 64.41} &
+  {\color[HTML]{9B9B9B} 45.82} &
+  \textbf{49.14} &
+  {\color[HTML]{9B9B9B} 55.19} &
+  {\color[HTML]{9B9B9B} 71.43} &
+  {\color[HTML]{9B9B9B} 54.08} &
+  {\color[HTML]{9B9B9B} 56.86} &
+  \textbf{56.86} &
+  {\color[HTML]{9B9B9B} 39.80} &
+  {\color[HTML]{9B9B9B} 61.15} &
+  {\color[HTML]{9B9B9B} 36.92} &
+  {\color[HTML]{9B9B9B} 42.33} &
+  \textbf{45.04} &
+  \textbf{50.35} \\ \midrule
+ \multirow{6}{*}{\rotatebox{90}{\small Large Judges}} &
+  \cellcolor{orange!50}RISE-Judge-32B &
+  {\color[HTML]{9B9B9B} 43.63} &
+  {\color[HTML]{9B9B9B} 69.96} &
+  {\color[HTML]{9B9B9B} 43.93} &
+  {\underline{52.53}} &
+  {\color[HTML]{9B9B9B} 46.75} &
+  {\color[HTML]{9B9B9B} 60.71} &
+  {\color[HTML]{9B9B9B} 36.73} &
+  {\color[HTML]{9B9B9B} 52.38} &
+  46.86 &
+  {\color[HTML]{9B9B9B} 45.65} &
+  {\color[HTML]{9B9B9B} 55.38} &
+  {\color[HTML]{9B9B9B} 27.69} &
+  {\color[HTML]{9B9B9B} 40.33} &
+  42.35 &
+  47.25 \\
+ &
+  \cellcolor{Goldenrod!30}CompassJudger-32B &
+  {\color[HTML]{9B9B9B} 41.10} &
+  {\color[HTML]{9B9B9B} 65.16} &
+  {\color[HTML]{9B9B9B} 45.66} &
+  50.66 &
+  {\color[HTML]{9B9B9B} 50.00} &
+  {\color[HTML]{9B9B9B} 69.64} &
+  {\color[HTML]{9B9B9B} 53.06} &
+  {\color[HTML]{9B9B9B} 54.76} &
+  \underline{54.57} &
+  {\color[HTML]{9B9B9B} 49.16} &
+  {\color[HTML]{9B9B9B} 60.77} &
+  {\color[HTML]{9B9B9B} 38.15} &
+  {\color[HTML]{9B9B9B} 38.00} &
+  \textbf{46.53} &
+  {\underline{50.59}} \\
+ &
+  \cellcolor{ForestGreen!20}RM-R1-Distill-32B &
+  {\color[HTML]{9B9B9B} 44.10} &
+  {\color[HTML]{9B9B9B} 78.95} &
+  {\color[HTML]{9B9B9B} 40.94} &
+  \textbf{54.71} &
+  {\color[HTML]{9B9B9B} 45.45} &
+  {\color[HTML]{9B9B9B} 64.29} &
+  {\color[HTML]{9B9B9B} 60.20} &
+  {\color[HTML]{9B9B9B} 59.52} &
+  {54.29} &
+  {\color[HTML]{9B9B9B} 52.51} &
+  {\color[HTML]{9B9B9B} 69.23} &
+  {\color[HTML]{9B9B9B} 33.85} &
+  {\color[HTML]{9B9B9B} 28.00} &
+  {\underline{46.39}} &
+  \textbf{51.80} \\
+ &
+  \cellcolor{Goldenrod!30}Prometheus-2-8x7B &
+  {\color[HTML]{9B9B9B} 27.02} &
+  {\color[HTML]{9B9B9B} 37.34} &
+  {\color[HTML]{9B9B9B} 31.01} &
+  31.79 &
+  {\color[HTML]{9B9B9B} 37.01} &
+  {\color[HTML]{9B9B9B} 57.14} &
+  {\color[HTML]{9B9B9B} 37.76} &
+  {\color[HTML]{9B9B9B} 21.43} &
+  38.57 &
+  {\color[HTML]{9B9B9B} 20.74} &
+  {\color[HTML]{9B9B9B} 38.08} &
+  {\color[HTML]{9B9B9B} 26.46} &
+  {\color[HTML]{9B9B9B} 25.33} &
+  25.96 &
+  32.11 \\
+ &
+  \cellcolor{orange!50}Self-Taught-70B &
+  {\color[HTML]{9B9B9B} 41.93} &
+  {\color[HTML]{9B9B9B} 50.08} &
+  {\color[HTML]{9B9B9B} 41.68} &
+  44.57 &
+  {\color[HTML]{9B9B9B} 50.65} &
+  {\color[HTML]{9B9B9B} 58.93} &
+  {\color[HTML]{9B9B9B} 42.86} &
+  {\color[HTML]{9B9B9B} 40.48} &
+  48.57 &
+  {\color[HTML]{9B9B9B} 45.32} &
+  {\color[HTML]{9B9B9B} 39.62} &
+  {\color[HTML]{9B9B9B} 28.31} &
+  {\color[HTML]{9B9B9B} 35.67} &
+  38.64 &
+  43.93 \\
+ &
+  \cellcolor{orange!50}EvalPlanner-3.3-70B &
+  {\color[HTML]{9B9B9B} -} &
+  {\color[HTML]{9B9B9B} -} &
+  {\color[HTML]{9B9B9B} -} &
+  - &
+  {\color[HTML]{9B9B9B} 55.8} &
+  {\color[HTML]{9B9B9B} 69.6} &
+  {\color[HTML]{9B9B9B} 56.1} &
+  {\color[HTML]{9B9B9B} 42.9} &
+  \textbf{56.6} &
+  {\color[HTML]{9B9B9B} -} &
+  {\color[HTML]{9B9B9B} -} &
+  {\color[HTML]{9B9B9B} -} &
+  {\color[HTML]{9B9B9B} -} &
+  - &
+  - \\ \midrule
+ \multirow{6}{*}{\rotatebox{90}{\small Prompted Judges}} &
+  \cellcolor[HTML]{EFEFEF}Qwen2.5-7B-Instruct &
+  {\color[HTML]{9B9B9B} 32.54} &
+  {\color[HTML]{9B9B9B} 48.59} &
+  {\color[HTML]{9B9B9B} 34.65} &
+  38.61 &
+  {\color[HTML]{9B9B9B} 35.06} &
+  {\color[HTML]{9B9B9B} 44.64} &
+  {\color[HTML]{9B9B9B} 42.86} &
+  {\color[HTML]{9B9B9B} 35.71} &
+  38.86 &
+  {{\color[HTML]{9B9B9B} 29.60}} &
+  {{\color[HTML]{9B9B9B} 33.85}} &
+  {{\color[HTML]{9B9B9B} 29.85}} &
+  {{\color[HTML]{9B9B9B} 28.67}} &
+  {30.21} &
+  35.89 \\
+ &
+  \cellcolor[HTML]{EFEFEF}GPT-4o-mini &
+  {\color[HTML]{9B9B9B} 39.68} &
+  {\color[HTML]{9B9B9B} 55.86} &
+  {\color[HTML]{9B9B9B} 41.37} &
+  45.66 &
+  {\color[HTML]{9B9B9B} 51.30} &
+  {\color[HTML]{9B9B9B} 60.71} &
+  {\color[HTML]{9B9B9B} 44.90} &
+  {\color[HTML]{9B9B9B} 50.00} &
+  50.86 &
+  {{\color[HTML]{9B9B9B} 51.34}} &
+  {{\color[HTML]{9B9B9B} 45.77}} &
+  {{\color[HTML]{9B9B9B} 40.00}} &
+  {{\color[HTML]{9B9B9B} 36.67}} &
+  {40.39} &
+  42.24 \\
+ &
+  \cellcolor[HTML]{EFEFEF}GPT-4o &
+  {\color[HTML]{9B9B9B} 44.10} &
+  {\color[HTML]{9B9B9B} 61.17} &
+  {\color[HTML]{9B9B9B} 47.23} &
+  50.86 &
+  {\color[HTML]{9B9B9B} 50.65} &
+  {\color[HTML]{9B9B9B} 57.14} &
+  {\color[HTML]{9B9B9B} 46.94} &
+  {\color[HTML]{9B9B9B} 47.62} &
+  50.29 &
+  {{\color[HTML]{9B9B9B} 40.13}} &
+  {{\color[HTML]{9B9B9B} 54.23}} &
+  {{\color[HTML]{9B9B9B} 32.31}} &
+  {{\color[HTML]{9B9B9B} 39.33}} &
+  {45.25} &
+  47.18 \\
+ &
+  \cellcolor[HTML]{EFEFEF}o1 &
+  {\color[HTML]{9B9B9B} 52.57} &
+  {\color[HTML]{9B9B9B} 94.92} &
+  {\color[HTML]{9B9B9B} 71.02} &
+  \textbf{72.90} &
+  {\color[HTML]{9B9B9B} 78.57} &
+  {\color[HTML]{9B9B9B} 92.86} &
+  {\color[HTML]{9B9B9B} 82.65} &
+  {\color[HTML]{9B9B9B} 92.86} &
+  \textbf{83.71} &
+  {{\color[HTML]{9B9B9B} 77.59}} &
+  {{\color[HTML]{9B9B9B} 90.38}} &
+  {{\color[HTML]{9B9B9B} 58.15}} &
+  {{\color[HTML]{9B9B9B} 65.33}} &
+  \textbf{73.10} &
+  \textbf{76.57} \\
+ &
+  \cellcolor[HTML]{EFEFEF}o3-mini &
+  {\color[HTML]{9B9B9B} 51.08} &
+  {\color[HTML]{9B9B9B} 94.61} &
+  {\color[HTML]{9B9B9B} 66.05} &
+  70.64 &
+  {\color[HTML]{9B9B9B} 66.23} &
+  {\color[HTML]{9B9B9B} 85.71} &
+  {\color[HTML]{9B9B9B} 79.59} &
+  {\color[HTML]{9B9B9B} 92.86} &
+  {\underline{76.28}} &
+  {{\color[HTML]{9B9B9B} 65.72}} &
+  {{\color[HTML]{9B9B9B} 91.92}} &
+  {{\color[HTML]{9B9B9B} 49.85}} &
+  {{\color[HTML]{9B9B9B} 57.33}} &
+  \underline{65.14} &
+  \underline{70.69} \\
+ &
+  \cellcolor[HTML]{EFEFEF}Deepseek-R1 &
+  {\color[HTML]{9B9B9B} 59.96} &
+  {\color[HTML]{9B9B9B} 93.52} &
+  {\color[HTML]{9B9B9B} 62.07} &
+  {\underline{71.89}} &
+  {\color[HTML]{9B9B9B} 71.43} &
+  {\color[HTML]{9B9B9B} 89.29} &
+  {\color[HTML]{9B9B9B} 73.47} &
+  {\color[HTML]{9B9B9B} 71.43} &
+  74.86 &
+  {{\color[HTML]{9B9B9B} 65.05}} &
+  {{\color[HTML]{9B9B9B} 86.15}} &
+  {{\color[HTML]{9B9B9B} 40.00}} &
+  {{\color[HTML]{9B9B9B} 41.67}} &
+  58.53 &
+  {68.43}\\\bottomrule
+\end{tabular}%
+}
+\vspace{-1\baselineskip}
+\end{table*}
+\end{document}

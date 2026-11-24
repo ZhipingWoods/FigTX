@@ -1,0 +1,50 @@
+\begin{document}
+\begin{table*}[ht]
+    \centering
+    \caption{ \textbf{Comparison with other baselines.} %
+    Note that this comparison is not entirely fair due to differences in backbone models and training data. {\color{violet} Purple} denotes the performance gain from our method, while {\color{red} red} and {\color{blue} blue} highlight the best and second-best scores, respectively.
+    }
+    \vspace{-0.25cm}
+    \resizebox{\textwidth}{!}{
+\begin{tabular}{c|ccccccccccc}
+    \toprule
+    \multirow{2}{*}{\textbf{Method}} &
+    \multirow{2}{*}{\textbf{Backbone}} & \multicolumn{3}{c}{\textbf{CIRR}} & \multicolumn{3}{c}{\textbf{CIRCO}} & \multicolumn{2}{c}{\textbf{FashionIQ}}  \\
+     \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-10}
+     & & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{mAP@5} & \textbf{mAP@10} & \textbf{mAP@25} & \textbf{R@10} & \textbf{R@50}  \\
+    \midrule
+
+    Pic2Word \citep{pic2word} & CLIP ViT-L/14  &$24.2$ & $51.5$ & $64.1$ & $8.3$ & $9.1$ & $10.1$ & 25.3 & 44.9  \\
+
+     +ours  &   & $27.9$ \color{violet}($\mathbf{+3.6}$) & $56.2$ \color{violet}($\mathbf{+4.8}$) & $68.5$ \color{violet}($\mathbf{+4.4}$) & $9.1$ \color{violet}($\mathbf{+0.9}$) & $9.6$ \color{violet}($\mathbf{+0.5}$) & $10.7$ \color{violet}($\mathbf{+0.6}$) & 27.6 \color{violet}($\mathbf{+2.3}$) & 48.9 \color{violet}($\mathbf{+4.0}$) \\
+    SEARLE \citep{searle} & CLIP ViT-L/14   & $24.9$ & $52.3$ & $65.7$ & $11.6$ & $12.7$ & $14.3$ & $25.0$ & $45.3$  \\
+   \rowcolor{gray!20} +ours  & & $26.6$ \color{violet}($\mathbf{+1.7}$) & $56.2$ \color{violet}($\mathbf{+3.9}$) & $69.0$ \color{violet}($\mathbf{+3.3}$) & $16.5$ \color{violet}($\mathbf{+4.9}$) & $17.9$ \color{violet}($\mathbf{+5.2}$) & $19.8$ \color{violet}($\mathbf{+5.4}$) & $29.3$ \color{violet}($\mathbf{+4.4}$) & $50.7$ \color{violet}($\mathbf{+5.4}$) \\
+    Context-I2W \citep{Context-I2W} & CLIP ViT-L/14  & 25.6 & 55.4 & 68.6 & - & - & - & 27.9 & 49.1  \\
+    \rowcolor{gray!20} +ours  &   & $29.2$ \color{violet}($\mathbf{+4.6}$) & $58.4$ \color{violet}($\mathbf{+3.0}$) & $70.5$ \color{violet}($\mathbf{+1.9}$)& - & - & -& $28.1$ \color{violet}($\mathbf{+0.2}$)& $49.5$ \color{violet}($\mathbf{+0.4}$)  \\
+    FTI4CIR \citep{FTI4CIR} & CLIP ViT-L/14  & 25.9 & 55.6 & 67.7 & 15.1 & 16.3 & 18.1 & 29.4 & 50.9  \\
+   \rowcolor{gray!20} +ours  &   & $29.1$ \color{violet}($\mathbf{+3.2}$) & $58.8$ \color{violet}($\mathbf{+3.2}$)   & $70.4$ \color{violet}($\mathbf{+2.7}$) & $16.2$ \color{violet}($\mathbf{+1.1}$) & 17.4 \color{violet}($\mathbf{+1.1}$) & 19.4 \color{violet}($\mathbf{+1.3}$) & $30.6$ \color{violet}($\mathbf{+1.2}$) & $51.7$ \color{violet}($\mathbf{+0.8}$)  \\
+    LinCIR \citep{lincir} & CLIP ViT-L/14 & $23.8$ & $52.9$ & $66.5$ & $13.0$ & $14.1$ & $15.8$  & $27.4$ & $47.7$  \\
+    \rowcolor{gray!20} +ours  &  & $26.6$ \color{violet}($\mathbf{+2.9}$) & $56.2$ \color{violet}($\mathbf{+3.3}$) & $69.0$ \color{violet}($\mathbf{+2.5}$) & $17.1$ \color{violet}($\mathbf{+4.1}$) & $18.1$ \color{violet}($\mathbf{+4.0}$) & $20.1$ \color{violet}($\mathbf{+4.3}$)  & $30.2$ \color{violet}($\mathbf{+2.8}$) & $51.1$ \color{violet}($\mathbf{+3.4}$) \\
+    LinCIR \citep{lincir} & FSC-CLIP \citep{fsc} ViT-L/14   & 33.6 & 63.1 & 74.5 & 14.2 & 15.4 & 17.0 & 28.3 & 49.5  \\
+    \rowcolor{gray!20} +ours &  & $35.9$ \color{violet}($\mathbf{+2.3}$) & \color{blue} $\mathbf{67.5}$ \color{violet}($\mathbf{+4.4}$) & $78.1$ \color{violet}($\mathbf{+3.6}$) & $18.3$ \color{violet}($\mathbf{+4.1}$) & $19.7$ \color{violet}($\mathbf{+4.3}$) & $21.3$ \color{violet}($\mathbf{+4.3}$)   & $31.2$ \color{violet}($\mathbf{+2.9}$) & $52.3$ \color{violet}($\mathbf{+2.8}$)   \\
+     KEDs \citep{KEDs} & CLIP ViT-L/14  & 26.4 & 54.8 & 67.2 & - & - & - & 26.8 & 47.9  \\
+     CIReVL \citep{cirevl}  & CLIP ViT-L/14  & 24.5 & 52.3 & 64.9 &18.6 &19.0 & 20.9  & 28.6 & 48.6  \\
+    LDRE \citep{ldre}  & CLIP ViT-L/14  & 26.5 & 55.6 & 67.5 &23.4 &24.0 & 26.4  & 28.5 & 50.5  \\
+    MT-CIR \citep{mtcir} & CLIP ViT-L/14  & 25.5 & 54.6 & 67.6 & 10.4 & 11.6 & 13.0  & 35.4 & 57.4  \\
+    MagicLens \citep{magiclens} & CLIP ViT-L/14   & 30.1 & 61.7 & 74.4 & \color{blue} \textbf{29.6} & \color{blue} \textbf{30.8} & \color{blue} \textbf{33.4}  & 30.7 & 52.5  \\
+    Compodiff \citep{compodiff} & CLIP ViT-L/14   & 26.7 & 55.0 & 72.6 & 12.6 &13.4 & 15.8  & 36.0 & 48.6  \\
+    CoVR \citep{covr} & BLIP ViT-L/14  & \color{red} \textbf{39.3} & \color{red} \textbf{68.2} & \color{red} \textbf{78.9} & - & - & - & 27.7 & 44.6  \\
+    CASE \citep{(CASE)levy2024data} & BLIP ViT-L/14  & 35.4 & 65.8 & 78.5 & - & - & - & - & -  \\
+        \midrule
+    LinCIR \citep{lincir}  & CLIP ViT-G/14  & 34.9 & 64.5 & 76.1 & 20.6 &21.9 & 24.1  & \color{blue}\textbf{44.5} & \color{red}\textbf{65.5}  \\
+     \rowcolor{gray!20} +ours  &  & $\color{blue} \textbf{36.3}$ \color{violet}($\mathbf{+1.4}$) & \color{blue} \textbf{67.5} \color{violet}($\mathbf{+3.0}$)  & \color{blue} \textbf{78.3} \color{violet}($\mathbf{+2.2}$) & 21.1 \color{violet}($\mathbf{+0.5}$) &22.3 \color{violet}($\mathbf{+0.4}$) & 24.5 \color{violet}($\mathbf{+0.4}$)  & \color{red}\textbf{46.2} \color{violet}($\mathbf{+1.7}$) & \color{red}\textbf{67.3} \color{violet}($\mathbf{+1.8}$)  \\
+     Compodiff \citep{cirevl}  & CLIP ViT-G/14  & 34.7 & 64.3 & 75.1 & 15.3 &17.7 & 19.4 & 39.0 & 51.7  \\
+     CIReVL \citep{cirevl}  & CLIP ViT-G/14  & 26.7 & 55.1 & 74.5 & 26.8 &27.6 & 30.0  & 32.2 & 52.4  \\
+     LDRE \citep{ldre}  & CLIP ViT-G/14  & 36.2 & 66.4 & 77.3 & \color{red} \textbf{31.1} & \color{red}  \textbf{32.2} &\color{red}  \textbf{35.0}  & 32.5 & 55.4  \\
+    \bottomrule
+\end{tabular}
+    }
+    \label{tab:appendix_comparison}
+    \vspace{-0.45cm}
+\end{table*}
+\end{document}

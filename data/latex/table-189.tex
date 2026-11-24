@@ -1,0 +1,42 @@
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{\textbf{Performance comparison on three out-of-domain datasets.}
+Experimental results of SegMoTE in comparison to other methods under bounding-box interactions. Best results are highlighted in \textbf{\color[HTML]{FE0000}{red}}, and second best results are highlighted in \textbf{\color[HTML]{0073e6}{blue}}.
+}
+\label{tab:out}
+\setlength{\tabcolsep}{5pt} % 列间距（按需调整/删除）
+\begin{tabular}{@{}llccccccc@{}}
+\toprule
+Dataset & Category & SAM & SAM 2 & MedSAM & Huang et al. & SAM-Med2D & IMIS&Ours \\
+\midrule
+\multirow{1}{*}{ISLES}
+& Ischemic Stroke Lesion & 55.00 & 59.17 & 58.02 & 56.54 & 67.93 & \textbf{\color[HTML]{0073e6}{71.24}}&\textbf{\color[HTML]{FE0000}{77.30}} \\
+\midrule
+\multirow{5}{*}{SegThor}
+& Esophagus & 68.94 & 77.69 & 38.59 & 68.47 & 73.92 & \textbf{\color[HTML]{0073e6}{80.82}}&\textbf{\color[HTML]{FE0000}{81.84}} \\
+& Heart     & 80.28 & \textbf{\color[HTML]{FE0000}{81.73}} & 68.09 & 78.21 & \textbf{\color[HTML]{0073e6}{80.34}} & 72.31&74.51 \\
+& Aorta     & 74.52 & 76.16 & 53.73 & 86.25 & 83.76 & \textbf{\color[HTML]{FE0000}{88.67}}&\textbf{\color[HTML]{0073e6}{87.40}} \\
+& Trachea   & \textbf{\color[HTML]{0073e6}{82.48}} & \textbf{\color[HTML]{FE0000}{83.64}} & 55.97 & 81.78 & 78.18 & 80.28&80.53 \\
+\cmidrule(lr){2-9}
+& \textbf{Average} & 76.55 & 79.81 & 54.09 & 78.67 & 79.06 & \textbf{\color[HTML]{0073e6}{80.52}}&\textbf{\color[HTML]{FE0000}{83.39}} \\
+\midrule
+\multirow{13}{*}{\shortstack[l]{Totalsegmentator\\(MRI)}}
+& Adrenal gland        & 63.90 & 65.76 & 48.67 & 55.53 & 54.59 & \textbf{\color[HTML]{0073e6}{67.00}}&\textbf{\color[HTML]{FE0000}{67.05}} \\
+& Aorta                & 70.47 & 72.61 & 50.01 & 74.73 & 74.61 & \textbf{\color[HTML]{0073e6}{75.11}} &\textbf{\color[HTML]{FE0000}{78.66}}\\
+& Colon                & 65.59 & \textbf{\color[HTML]{0073e6}{67.40}} & 38.18 & 49.85 & 50.98 & 65.14 &\textbf{\color[HTML]{FE0000}{68.23}}\\
+& Duodenum             & 64.08 & 65.34 & 52.73 & 62.08 & 62.73 & \textbf{\color[HTML]{0073e6}{66.05}} &\textbf{\color[HTML]{FE0000}{66.57}}\\
+& Gallbladder          & 70.12 & 71.89 & 65.00 & \textbf{\color[HTML]{0073e6}{75.80}} & \textbf{\color[HTML]{FE0000}{76.11}} & 71.17 &72.21\\
+& Iliopsoas            & 60.53 & 62.72 & 59.46 & 61.97 & 62.68 & \textbf{\color[HTML]{FE0000}{65.26}} &\textbf{\color[HTML]{0073e6}{64.31}}\\
+& Kidney               & 67.73 & 69.64 & 51.24 & 66.44 & 66.05 & \textbf{\color[HTML]{0073e6}{72.54}} &\textbf{\color[HTML]{FE0000}{74.80}}\\
+& Inferior vena cava   & 72.60 & 75.96 & 55.81 & 71.83 & 71.42 & \textbf{\color[HTML]{0073e6}{77.26}} &\textbf{\color[HTML]{FE0000}{78.21}}\\
+& Liver                & 77.16 & 78.73 & 65.41 & 76.59 & 78.27 & \textbf{\color[HTML]{0073e6}{80.32}} &\textbf{\color[HTML]{FE0000}{80.42}}\\
+& Pancreas             & 54.10 & \textbf{\color[HTML]{0073e6}{58.57}} & 39.73 & 56.70 & 57.19 & \textbf{\color[HTML]{FE0000}{60.21}} &58.63\\
+& Spleen               & 71.45 & 73.08 & 57.39 & 74.85 & 75.29 & \textbf{\color[HTML]{0073e6}{76.38}} &\textbf{\color[HTML]{FE0000}{76.52}}\\
+& Stomach              & 67.55 & 69.49 & 54.33 & 70.18 & 70.81 & \textbf{\color[HTML]{0073e6}{71.09}} &\textbf{\color[HTML]{FE0000}{72.26}}\\
+\cmidrule(lr){2-9}
+& \textbf{Average}     & 67.11 & 68.93 & 53.16 & 66.37 & 66.72 & \textbf{\color[HTML]{0073e6}{70.62}}&\textbf{\color[HTML]{FE0000}{71.48}} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\end{document}

@@ -1,0 +1,99 @@
+\definecolor{LightRedHighlight}{RGB}{244, 231, 232}
+\definecolor{DarkRedHighlight}{RGB}{223, 182, 188}
+\definecolor{rowblue}{RGB}{232,240,249}
+\definecolor{darkblue}{RGB}{38,85,139}
+\definecolor{darkred}{RGB}{180,0,0}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\small
+\centering
+\caption{Task addition results on CLIP-based models. Performance of adding 8 task vectors on three architectures. Our proposed orthogonal regularization (+OrthoReg) is applied to several baselines, showing consistent improvements in both Absolute Accuracy (Abs.Acc.) and Normalized Accuracy (Norm.Acc.). An asterisk (*) denotes the best absolute accuracy for each model architecture.}
+\label{tab:clip_task_addition}
+\begin{tabular}{ccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{ViT-B-32, 8 tasks}} &
+\multicolumn{2}{c}{\textbf{ViT-B-16, 8 tasks}} &
+\multicolumn{2}{c}{\textbf{ViT-L-14, 8 tasks}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& \textbf{Abs.Acc.}\textbf{(\textuparrow)} & \textbf{Norm.Acc.} \textbf{(\textuparrow)}
+& \textbf{Abs.Acc.}\textbf{(\textuparrow)} & \textbf{Norm.Acc.} \textbf{(\textuparrow)}
+& \textbf{Abs.Acc.}\textbf{(\textuparrow)} & \textbf{Norm.Acc.} \textbf{(\textuparrow)} \\
+\midrule
+zero-shot & 47.74 & / & 54.22 & / & 64.54 & / \\
+\midrule
+Non-linear Finetuning~\cite{ta2023}  & 70.32 & 77.56 & 75.39 & 75.39 & 84.07 & 89.19 \\
+Non-lin. FT\textbf{+OrthoReg} (ours) & \textbf{73.41} & \textbf{93.93} & \textbf{77.68} & \textbf{93.62} & \textbf{88.23} & \textbf{100.08} \\
+\rowcolor{rowblue}
+\quad  $\Delta$ & {\color{darkblue}+3.09} & {\color{darkblue}+16.37} & {\color{darkblue}+2.29} & {\color{darkblue}+18.23} & {\color{darkblue}+4.16} & {\color{darkblue}+10.89}  \\
+\addlinespace[-2pt]
+\midrule
+Tangent Task Arithmetic~\cite{tta2023}  & 74.68 & 85.27 & 78.97 & 87.48 & 86.19 & 93.14 \\
+TTA\textbf{+OrthoReg} (ours) & \textbf{76.35} & \textbf{91.81} & \textbf{79.85} & \textbf{88.02} & \textbf{87.52} & \textbf{96.44} \\
+\rowcolor{rowblue}
+\quad   $\Delta$ & {\color{darkblue}+1.67} & {\color{darkblue}+6.54} & {\color{darkblue}+0.88} & {\color{darkblue}+0.54} & {\color{darkblue}+1.33} & {\color{darkblue}+3.30} \\
+\addlinespace[-2pt]
+\midrule
+Attention-Only Fine-tuning~\cite{linearatt2025} & 78.07 & 86.99 & 80.71 & 87.64 & 87.81 & 93.59 \\
+ATT-FT\textbf{+OrthoReg} (ours) & {\textbf{80.87*}} & \textbf{99.76} & {\textbf{83.37*}} & \textbf{98.77} & {\textbf{90.41*}} & \textbf{100.05} \\
+\rowcolor{rowblue}
+\quad    $\Delta$ & {\color{darkblue}+2.80} & {\color{darkblue}+12.77} & {\color{darkblue}+2.66} & {\color{darkblue}+11.13} & {\color{darkblue}+2.60} & {\color{darkblue}+6.46} \\
+\addlinespace[-2pt]
+\midrule
+LoRA-ATT & 73.84 & 84.29 & 75.51 & 83.17 & 87.02 & 93.33 \\
+LoRA-ATT\textbf{+OrthoReg} (ours) & \textbf{76.00} & \textbf{86.10} & \textbf{79.67} & \textbf{87.70} & \textbf{89.16} & \textbf{95.50} \\
+\rowcolor{rowblue}
+\quad   $\Delta$ & {\color{darkblue}+2.16} & {\color{darkblue}+1.81} & {\color{darkblue}+4.16} & {\color{darkblue}+4.53} & {\color{darkblue}+2.14} & {\color{darkblue}+2.17} \\
+\addlinespace[-2pt]
+\bottomrule
+\end{tabular}\label{tab:task_addition}
+\vspace{-12pt}
+\end{table*}
+\begin{table*}[t]
+\small
+% \setlength{\tabcolsep}{16pt}
+\centering
+\caption{The minimum average Target Accuracy (Tar.Acc.) achievable while maintaining at least 95\% of the zero-shot accuracy on the ImageNet control task (Con.Acc.). Our proposed orthogonal regularization (+OrthoReg) shows a consistent and significant improvement in forgetting the target task. An asterisk (*) denotes the best (lowest) target accuracy for each model architecture.}
+\label{tab:clip_task_negation}
+\begin{tabular}{ccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{ViT-B-32, 8 tasks}} &
+\multicolumn{2}{c}{\textbf{ViT-B-16, 8 tasks}} &
+\multicolumn{2}{c}{\textbf{ViT-L-14, 8 tasks}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& \textbf{Tar.Acc.}\textbf{(\textdownarrow)} & \textbf{Con.Acc.} \textbf{(\textuparrow)}
+& \textbf{Tar.Acc.}\textbf{(\textdownarrow)} & \textbf{Con.Acc.} \textbf{(\textuparrow)}
+& \textbf{Tar.Acc.}\textbf{(\textdownarrow)} & \textbf{Con.Acc.} \textbf{(\textuparrow)} \\
+\midrule
+zero-shot & 47.74 & 66.70 & 54.22 & 68.34 & 64.54 & 77.44 \\
+\midrule
+Non-linear Finetuning~\cite{ta2023}  & 25.05 & 63.91 & 20.29 & 66.38 & 18.09 & 74.39 \\
+Non-lin. FT\textbf{+OrthoReg} (ours) & \textbf{18.55} & 64.07 & \textbf{19.51} & 67.42 & \textbf{16.33} & 75.39 \\
+\rowcolor{rowblue}
+\quad  $\Delta$ & {\color{darkblue}-6.50} & {\color{darkblue}+0.16} & {\color{darkblue}-0.78} & {\color{darkblue}+1.04} & {\color{darkblue}-1.76} & {\color{darkblue}+1.00} \\
+\addlinespace[-2pt]
+\midrule
+Tangent Task Arithmetic~\cite{tta2023}  & 11.47 & 63.99 & 9.33 & 66.82 & 8.36 & 74.39 \\
+TTA\textbf{+OrthoReg} (ours) & {\textbf{11.39*}} & 64.07 & {\textbf{7.49*}} & 66.73 & {\textbf{8.36*}} & 74.87 \\
+\rowcolor{rowblue}
+\quad   $\Delta$ & {\color{darkblue}-0.06} & {\color{darkblue}+0.08} & {\color{darkblue}-1.84} & {\color{darkblue}-0.09} & {\color{darkblue}+0.00} & {\color{darkblue}+0.48} \\
+\addlinespace[-2pt]
+\midrule
+Attention-Only Fine-tuning~\cite{linearatt2025}  & 19.39 & 64.90 & 19.20 & 67.75 & 24.85 & 76.42 \\
+ATT-FT\textbf{+OrthoReg} (ours) & \textbf{15.67} & 64.16 & \textbf{14.78} & 66.81 & \textbf{14.67} & 75.40 \\
+\rowcolor{rowblue}
+\quad    $\Delta$ & {\color{darkblue}-3.72} & {\color{darkblue}-0.74} & {\color{darkblue}-4.42} & {\color{darkblue}-0.94} & {\color{darkblue}-10.18} & {\color{darkblue}-1.02}\\
+\addlinespace[-2pt]
+\midrule
+LoRA-ATT & 20.10 & 64.51 & 19.44 & 67.28 & 22.17 & 75.81 \\
+LoRA-ATT\textbf{+OrthoReg} (ours) & \textbf{19.19} & 64.43 & \textbf{17.25} & 67.08 & \textbf{13.94} & 74.45 \\
+\rowcolor{rowblue}
+\quad   $\Delta$ & {\color{darkblue}-0.91} & {\color{darkblue}-0.08} & {\color{darkblue}-2.19} & {\color{darkblue}-0.20} & {\color{darkblue}-8.23} & {\color{darkblue}-1.36}\\
+\addlinespace[-2pt]
+\bottomrule
+\end{tabular}\label{tab:task_negation}
+\vspace{-15pt}
+\end{table*}
+\end{document}

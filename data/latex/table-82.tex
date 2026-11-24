@@ -1,0 +1,144 @@
+\definecolor{mygreen}{RGB}{217, 234, 211}
+\definecolor{myred}{RGB}{244, 204, 204}
+\newcommand{\ok}{\cellcolor{mygreen}}
+\newcommand{\no}{\cellcolor{myred}}
+%%%%%%%
+\begin{document}
+\begin{table}[h!]
+\centering
+\resizebox{\linewidth}{!}{\begin{tabular}{lcccccc}
+\toprule
+\multirow{2}{*}{\textbf{Topic}} & \multicolumn{2}{c}{\textbf{GPT-4o}} & \multicolumn{2}{c}{\textbf{AceGPT-v2}} & \multicolumn{2}{c}{\textbf{Llama-3.3}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & \textbf{CS} & $\neg$\textbf{CS} & \textbf{CS} & $\neg$\textbf{CS} & \textbf{CS} & $\neg$\textbf{CS} \\
+\midrule
+\textbf{Gulf}           & 81.0   & 92.5                         & 76.3 & 85.3                                     & 69.1 & 81.5                                          \\
+KSA                     & 89.5 & 93.4                         & 77.9 & 84.3                                     & 75.8 & 80.1                                          \\
+UAE                     & \ok 90.0   & 93.4                         & 75.0   & \ok 90.2                                     & 66.0   & 87.4                                          \\
+Yemen                   & \no 72.8 & 88.1                         & 76.2 & 74.6                                     & 67.5 & \no 68.7                                          \\
+\midrule
+\textbf{Levant}         & 77.5 & 92.3                         & \no 67.6 & 86                                       & 66.5 & 84.4                                          \\
+Lebanon                 & \no 70.7 & \no 78.8                         & \no 60.6 & \no 67.9                                     & \no 62.6 & \no 66.0                                            \\
+Syria                   & 82.5 & 94.6                         & 72.5 & 87.0                                       & 70.0   & 80.8                                          \\
+Palestine               & 87.0   & 94.4                         & 78.3 & 87.2                                     & \no 65.2 & 88.8                                          \\
+Jordan                  & \ok 100.0  & \ok 96.1                         & \ok 90.9 & \ok 94.3                                     & \ok 90.9 & \ok 93.9                                          \\
+\midrule
+\textbf{Nile Valley}    & 86.8 & \ok 96.1                         & 70.7 & 86.1                                     & 76.0   & 85.0                                            \\
+Egypt                   & 88.8 & \ok 98.5                         & 72.1 & 79.4                                     & \ok 76.1 & 72.1                                          \\
+Sudan                   & 84.0   & 94.6                         & 68.8 & \ok 90.2                                     & 75.7 & \ok 92.9                                          \\
+\midrule
+\textbf{North Africa}   & 82.0   & 86.0                           & 73.7 & 78.8                                     & 73.5 & 80.9                                          \\
+Tunisia                 & \no 67.5 & \no 79.8                         & \no 62.7 & \no 72.5                                     & 68.7 & \no 69.7                                          \\
+Algeria                 & 83.8 & \no 84.3                         & 68.9 & \no 73.1                                     & \no 63.5 & 80.2                                          \\
+Morocco                 & \ok 90.3 & 94.2                         & \ok 81.6 & \ok 93.1                                     & \ok 83.5 & \ok 93.1                                          \\
+Libya                   & 84.8 & 86.2                         & \ok 79.7 & 77.5                                     & 74.7 & 81.2                                          \\
+\bottomrule
+\end{tabular}
+}\caption{
+Performance of the best three models using the Arabic prompt.
+The results for {\tt GPT-4o} are using the Region prompt, while the results for {\tt AceGPT-v2-32B-Chat} and {\tt Llama-3.3-70B-Instruct} are using the Country\_Region prompt.
+The first column includes the different locations (countries and regions) with the regions in \textbf{bold}.
+{\tt CS} refers to the Country Specific examples, while {\tt $\neg$CS} refers to the rest of the examples. The green and red cells indicate the top three and bottom three scores, respectively.
+}
+\label{tab:arabic_results_by_country}
+\end{table}
+\begin{table*}[t]
+\centering
+\resizebox{0.825\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\hline
+\multirow{2}{*}{\textbf{Model (\#parameter)}} &
+  \multicolumn{3}{c}{\cellcolor{blue!7}\textbf{Completion}} &
+  \multicolumn{3}{c}{\cellcolor{red!7}\textbf{MCQ}} \\ \cline{2-7}
+                             & \cellcolor{blue!7}$\ell =$ None    & \cellcolor{blue!7}$\ell =$ R  & \cellcolor{blue!7}$\ell =$ R + C & \cellcolor{red!7}$\ell =$ None    & \cellcolor{red!7}$\ell =$ R  & \cellcolor{red!7}$\ell =$ R + C \\ \hline
+Human                        & $-$           & $-$           & 100.0         & $-$           & $-$           & 100.0         \\
+Random                                        & 33.3          & 33.3            & 33.3                      & 33.3          & 33.3            & 33.3                       \\
+\hline
+BLOOMZ (7B)                             & 31.6         & 31.4           & 31.7                     & 57.9         & 57.8           & 58.5                       \\ \hdashline
+mT0$_\text{xxl}$ (14B)                                     & 27.3          & 27.6            & 27.4                      & 65.9          & 66.3            & 67.0                         \\ \hdashline
+Llama-3.1 (8B)                                & 29.7         & 29.7            & 29.6                      & 35.0          & 34.7            & 34.9                       \\
+Llama-3.1 Instruct (8B)                       & 30.9         & 31.0             & 31.2                      & 47.5          & 47.0            & 49.1                       \\
+Llama-3 Instruct (70B)                        & 39.1         & 39.5            & 39.4                      & 34.3          & 34.3            & 34.3                       \\
+Llama-3.3 Instruct (70B)                      & 39.9         & \textbf{40.6}            & \textbf{41.1}                      & 75.4          & 74.0            & 71.2                       \\
+\hdashline
+Aya-Expanse (8B)                              & 33.7         & 37.2           & 38.2                      & 39.6         & 40.7            & 41.8                      \\
+Aya-Expanse (32B)                             & 37.9         & 37.9            & 39.5                      & 52.6          & 49.5            & 49.5                       \\
+\hdashline
+Gemma-2 (9B)                                  & 31.8         & 31.7           & 31.8                     & 35.2         & 34.5           & 34.5                      \\
+Gemma-2 Instruct (9B)                         & 33.5         & 33.8            & 33.9                     & 58.7          & 55.3           & 57.0                      \\
+Gemma-2 (27B)                                 & 32.6         & 33.0            & 33.2                      & 34.3         & 34.3           & 34.3                      \\
+Gemma-2 Instruct (27B)                        & 38.0         & 38.9           & 39.8                      & 61.6         & 64.7           & 64.2                      \\
+\hdashline
+Qwen2.5 (7B)                                  & 29.0         & 31.5           & 31.8                     & 52.1         & 48.1           & 49.0                      \\
+Qwen2.5 Instruct (7B)                         & 33.2         & 33.5           & 33.6                     & 53.1         & 47.9           & 48.8                      \\
+Qwen2.5 (14B)                                 & 33.6         & 34.5            & 35.4                      & 55.2          & 62.5            & 61.6                       \\
+Qwen2.5 Instruct (14B)                        & 36.5         & 35.9            & 37.0                      & 67.7         & 67.9            & 69.3                       \\
+Qwen2.5 (32B)                                 & 34.9         & 35.6           & 35.9                     & 51.6         & 56.6           & 53.3                      \\
+Qwen2.5 Instruct (32B)                        & 37.6         & 37.3           & 38.6                     & 75.2         & 75.8           & 76.5                      \\
+Qwen2.5 (72B)                                 & 35.5         & 36.7           & 37.4                     & 56.1         & 51.6           & 51.8                      \\
+Qwen2.5 Instruct (72B)                        & \textbf{40.1}         & 40.2           & 40.3                     & \textbf{80.1}         & \textbf{79.8}           & \textbf{80.0}                      \\
+\hline
+DeepSeek-R1-Distill-Llama (70B)  & 37.4 & 37.6 & 38.4 & 34.3 & 35.2 & 34.5 \\
+DeepSeek-R1-Distill-Qwen (32B) & 34.8 & 34.7 & 35.0 & 34.3 & 34.3 & 34.3 \\
+QwQ (32B)& 34.4 & 35.7 & 36.4 & 36.7 & 35.1 & 35.6 \\
+\hline
+Jais (13B)                                    & 39.3         & 39.0           & 39.3                      & 34.1         & 34.9            & 34.8                       \\
+Jais Chat (13B)                               & 40.8         & 40.8           & 41.9                      & 58.3         & 54.1            & 54.4                       \\
+Jais-v3 (30B)                                 & 39.4         & 38.4           & 39.1                      & 34.3         & 34.3            & 34.3                       \\
+Jais-v3 Chat (30B)                            & 33.3         & 33.6            & 33.4                      & 60.1         & 56.2            & 54.0                       \\
+\hdashline
+SILMA Instruct (9B)                           & 32.7         & 33.0           & 33.2                      & 71.5         & 71.0            & 72.0                         \\
+\hdashline
+AceGPT-v2 (8B)                                & 32.4         & 34.0           & 34.6                     & 35.1         & 35.0           & 35.1                      \\
+AceGPT-v2 Chat (8B)                           & 36.0         & 36.4           & 37.3                     & 43.1         & 39.7           & 39.3                      \\
+AceGPT-v2 Chat (32B)                          & 38.5         & 39.2            & 40.0                     & \textbf{79.7}         & \textbf{79.1}           & \textbf{79.6}                      \\
+AceGPT-v2 Chat (70B)                          & \textbf{43.2}         & \textbf{44.3}           & \textbf{44.5}                     & 61.9         & 61.7           & 62.4                      \\
+\hdashline
+ALLaM-Instruct-preview (7B)                           & 37.7         & 38.4           & 39.2                      & 67.4         & 72.0            & 72.6                         \\
+\hline
+GPT-4o                                        &     --          &                -- & --                          & \textbf{88.5}         & \textbf{89.6}            & \textbf{90.0}                        \\
+\hline
+\end{tabular}%
+}
+\caption{Zero-shot accuracy results for the English prompt across various models and settings. ''MCQ`` refers to the multiple-choice question evaluation method, and  $\ell$ represents the inclusion of location context (''R`` indicates the region, and ''C`` denotes the corresponding country). Bolded numbers highlight the highest score within each model group}
+\label{tab:model_scores}
+%\vspace{-0.5cm}
+\end{table*}
+% \begin{table*}[t]
+% \centering
+% \resizebox{0.825\textwidth}{!}{%
+% \begin{tabular}{lcccccc}
+% \hline
+% \multirow{2}{*}{\textbf{Model (\#parameter)}} &
+%   \multicolumn{3}{c}{\cellcolor{blue!7}\textbf{Completion}} &
+%   \multicolumn{3}{c}{\cellcolor{red!7}\textbf{MCQ}} \\ \cline{2-7}
+%                              & \cellcolor{blue!7}$\ell =$ None    & \cellcolor{blue!7}$\ell =$ R  & \cellcolor{blue!7}$\ell =$ R + C & \cellcolor{red!7}$\ell =$ None    & \cellcolor{red!7}$\ell =$ R  & \cellcolor{red!7}$\ell =$ R + C \\
+%                              \hline
+% Llama-3.3 Instruct (70B)                      & 39.9                                                                             & \textbf{40.6}                                                                 & \textbf{41.1}                                                                     & 75.4                                                                            & 74.0                                                                         & 71.2                                                                              \\
+% \hdashline
+% Aya-Expanse (32B)                             & 37.9                                                                             & 37.9                                                                          & 39.5                                                                              & 52.6                                                                            & 49.5                                                                         & 49.5                                                                              \\
+% \hdashline
+% Gemma-2 Instruct (27B)                        & 38.0                                                                             & 38.9                                                                          & 39.8                                                                              & 61.6                                                                            & 64.7                                                                         & 64.2                                                                              \\
+% \hdashline
+% Qwen2.5 Instruct (72B)                        & \textbf{40.1}                                                                    & 40.2                                                                          & 40.3                                                                              & \textbf{80.1}                                                                   & \textbf{79.8}                                                                & \textbf{80.0}                                                                     \\
+% \hline
+% DeepSeek-R1-Distill-Llama (70B)               & 37.4                                                                             & 37.6                                                                          & 38.4                                                                              & 34.3                                                                            & 35.2                                                                         & 34.5                                                                              \\
+% DeepSeek-R1-Distill-Qwen (32B)                & 34.8                                                                             & 34.7                                                                          & 35.0                                                                              & 34.3                                                                            & 34.3                                                                         & 34.3                                                                              \\
+% \hline
+% Jais Chat (13B)                               & 40.8                                                                             & 40.8                                                                          & 41.9                                                                              & 58.3                                                                            & 54.1                                                                         & 54.4                                                                              \\
+% Jais-v3 (30B)                                 & 39.4                                                                             & 38.4                                                                          & 39.1                                                                              & 34.3                                                                            & 34.3                                                                         & 34.3                                                                              \\
+% SILMA Instruct (9B)                           & 32.7                                                                             & 33.0                                                                          & 33.2                                                                              & 71.5                                                                            & 71.0                                                                         & 72.0                                                                              \\
+% \hdashline
+% AceGPT-v2 Chat (70B)                          & \textbf{43.2}                                                                    & \textbf{44.3}                                                                 & \textbf{44.5}                                                                     & 61.9                                                                            & 61.7                                                                         & 62.4                                                                              \\
+% \hdashline
+% ALLaM-Instruct-preview (7B)                   & 37.7                                                                             & 38.4                                                                          & 39.2                                                                              & 67.4                                                                            & 72.0                                                                         & 72.6                                                                              \\
+% \hline
+% GPT-4o                                        & –                                                                                & –                                                                             & –                                                                                 & \textbf{88.5}                                                                   & \textbf{89.6}                                                                & \textbf{90.0}                                                                     \\
+% \hline
+% \end{tabular}%
+% }
+% \caption{Zero-shot accuracy results for the English prompt across various models and settings. ''MCQ`` refers to the multiple-choice question evaluation method, and  $\ell$ represents the inclusion of location context (''R`` indicates the region, and ''C`` denotes the corresponding country). Bolded numbers highlight the highest score within each model group}
+% \label{tab:model_scores}
+% %\vspace{-0.5cm}
+% \end{table*}
+\end{document}

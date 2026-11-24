@@ -1,0 +1,109 @@
+\usepackage{bm}
+%
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+\definecolor{lightblue}{RGB}{224,239,251}
+\definecolor{lightpurple}{RGB}{227,227,241}
+\definecolor{gray60}{gray}{.60}
+\definecolor{gray92}{gray}{.92}
+\definecolor{gray94}{gray}{.94}
+\definecolor{gray96}{gray}{.96}
+\newcommand{\grow}[1]{\rowcolor{gray94}{#1}} % row as gray
+\newcommand{\brow}[1]{\rowcolor{lightblue}{#1}} % row as blue
+\newcommand{\prow}[1]{\rowcolor{lightpurple}{#1}} % row as
+\newcommand{\xmarkg}{\textcolor{gray60}{\XSolidBrush}}
+\definecolor{resultblue}{rgb}{0.21,0.49,0.76}
+\definecolor{repmtlred}{RGB}{206, 100, 111}
+\colorlet{repmtlred}{repmtlred!111}
+\newcommand{\repmtlred}[1]{\textcolor{repmtlred}{#1}}
+\newcommand{\resultblue}[1]{\textcolor{resultblue}{#1}}
+\definecolor{repmtlblue}{RGB}{96, 132, 192}
+\colorlet{repmtlblue}{repmtlblue!111}
+\newcommand{\repmtlblue}[1]{\textcolor{repmtlblue}{#1}}
+%%%%%%%
+\begin{document}
+\begin{table}[]
+\centering
+\caption{Performance on Office-Home~\citep{venkateswara2017OfficeHome} dataset with $4$ diverse image classification tasks.  $\uparrow$ indicates the higher the metric values, the better the methods' performance. The best and second-best results of each metric are marked in \textbf{bold} and \underline{underline}, respectively.}
+\label{tab:mtl-office-home}
+\vspace{-0.70em}
+\resizebox{1.00\linewidth}{!}{
+\begin{tabular}{lcccccc}
+\toprule
+Method               & \multicolumn{1}{c}{\textbf{Artistic}} & \multicolumn{1}{c}{\textbf{Clipart}} & \multicolumn{1}{c}{\textbf{Product}} & \multicolumn{1}{c}{\textbf{Real}} & \multicolumn{1}{c}{\textbf{Avg.}$\uparrow$} & \multicolumn{1}{c}{\bm{$\Delta{\mathrm{p}}_{\text{task}}$}${\uparrow}$}  \\ \midrule
+Single-Task Baseline & $65.59$ & $\textbf{79.60}$ & $\textbf{90.47}$ & $80.00$ & $78.91$ & $0.00$ \\ \midrule
+\grow EW & $65.34$ & $78.04$ & $89.80$ & $79.50$ & $78.17_{\pm0.37}$ & $\textcolor{resultblue}{-0.92}_{\pm0.59}$     \\
+GLS~\citep{chennupati2019GLS} & $64.51$ & $76.85$ & $89.83$ & $79.56$ & $77.69_{\pm0.27}$ & $\textcolor{resultblue}{-1.58}_{\pm0.46}$     \\
+RLW~\citep{lin22RLW} & $64.96$ & $78.19$ & $89.48$ & $\textbf{80.11}$ & $78.18_{\pm0.12}$ & $\textcolor{resultblue}{-0.92}_{\pm0.14}$    \\
+UW~\citep{kendall2018UW} & $65.97$ & $77.65$ & $89.41$ & $79.28$ & $78.08_{\pm0.30}$ & $\textcolor{resultblue}{-0.98}_{\pm0.46}$  \\
+DWA~\citep{liu2019DWA} & $65.27$ & $77.64$ & $89.05$ & $79.56$ & $77.88_{\pm0.28}$ & $\textcolor{resultblue}{-1.26}_{\pm0.49}$ \\
+IMTL-L~\citep{liu2021IMTL} & $65.90$ & $77.28$ & $89.37$ & $79.38$ & $77.98_{\pm0.38}$ & $\textcolor{resultblue}{-1.10}_{\pm0.61}$ \\
+IGBv2~\citep{dai2023IGBv2} & $65.59$ & $77.57$ & $89.79$ & $78.73$ & $77.92_{\pm0.21}$      &         $\textcolor{resultblue}{-1.21}_{\pm0.22}$  \\
+\midrule
+MGDA~\citep{desideri12MGDA} & $64.19$ & $77.60$ & $89.58$ & $79.31$ & $77.67_{\pm0.20}$ & $\textcolor{resultblue}{-1.61}_{\pm0.34}$   \\
+GradNorm~\citep{chen2018GradNorm} & $66.28$ & $77.86$ & $88.66$ & $79.60$ & $78.10_{\pm0.63}$ & $\textcolor{resultblue}{-0.90}_{\pm0.93}$  \\
+PCGrad~\citep{yu2020PCGrad} & $66.35$ & $77.18$ & $88.95$ & $79.50$ & $77.99_{\pm0.19}$ & $\textcolor{resultblue}{-1.04}_{\pm0.32}$  \\
+GradDrop~\citep{chen2020GradDrop} & $63.57$ & $77.86$ & $89.23$ & $79.35$ & $77.50_{\pm0.23}$ & $\textcolor{resultblue}{-1.86}_{\pm0.24}$   \\
+GradVac~\citep{wang2021GradVac} & $65.21$ & $77.43$ & $89.23$ & $78.95$ & $77.71_{\pm0.19}$ & $\textcolor{resultblue}{-1.49}_{\pm0.28}$ \\
+IMTL-G~\citep{liu2021IMTL} & $64.70$ & $77.17$ & $89.61$ & $79.45$ & $77.98_{\pm0.38}$ & $\textcolor{resultblue}{-1.10}_{\pm0.61}$    \\
+CAGrad~\citep{liu2021CAGrad} & $64.01$ & $77.50$ & $89.65$ & $79.53$ & $77.73_{\pm0.16}$ & $\textcolor{resultblue}{-1.50}_{\pm0.29}$  \\
+MTAdam~\citep{malkiel2021MTAdam} & $62.23$ & $77.86$ & $88.73$ & $77.94$ & $76.69_{\pm0.65}$ & $\textcolor{resultblue}{-2.94}_{\pm0.85}$ \\
+Nash-MTL~\citep{navon2022NashMTL} & $66.29$ & $78.76$ & $90.04$ & $\textbf{80.11}$ & $78.80_{\pm0.52}$ & $\textcolor{resultblue}{-0.08}_{\pm0.69}$ \\
+MetaBalance~\citep{he2022MetaBalance} & $64.01$ & $77.50$ & $89.72$ & $79.24$ & $77.61_{\pm0.42}$ & $\textcolor{resultblue}{-1.70}_{\pm0.54}$ \\
+MoCo~\citep{fernando2023MoCo} & $63.38$ & $\underline{79.41}$ & $90.25$ & $78.70$ & $77.93$ & -     \\
+Aligned-MTL~\citep{senushkin2023AlignedMTL} & $64.33$ & $76.96$ & $89.87$ & $79.93$ & $77.77_{\pm0.70}$ & $\textcolor{resultblue}{-1.50}_{\pm0.89}$ \\
+\midrule
+IMTL~\citep{liu2021IMTL} & $64.07$ & $76.85$ & $89.65$ & $79.81$ & $77.59_{\pm0.29}$ & $\textcolor{resultblue}{-1.72}_{\pm0.45}$   \\
+DB-MTL~\citep{lin2023DBMTL} & $\textbf{67.42}$ & $77.89$  & $\underline{90.43}$  & $80.07$    & $\underline{78.95}_{\pm0.35}$               & $\textcolor{purple}{\underline{+0.17}}_{\pm0.44}$      \\
+\midrule
+\brow Rep-MTL (EW) & $\underline{67.40}$     &     $$78.75$$     &  $90.37$                           &   $80.04$         &   $\textbf{79.14}_{\pm0.41}$      &  $\textcolor{purple}{\textbf{+0.41}}_{\pm0.58}$             \\ \bottomrule
+\end{tabular}}
+\vspace{-0.8em}
+\end{table}
+\begin{table*}[t]
+\centering
+\caption{Performance on NYUv2~\citep{silberman2012NYUv2} dataset ($3$ indoor scene understanding tasks) with \text{DeepLabV3+}~\citep{chen2018DeepLabV3Plus} network architecture. $\uparrow (\downarrow)$ indicates higher (lower) metric values are better. The best and second-base results for each metric are highlighted in \textbf{bold} and \underline{underline}, respectively.
+$^\ddag$ indicates results from our implementation using \texttt{LibMTL}~\citep{lin2023LibMTL} codebase, which provides official support for related methods.}
+\label{tab:mtl-nyu_hps}
+\vspace{-0.70em}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccccccccc}
+\toprule
+                    & \multicolumn{2}{c}{\textbf{Segmentation}}                & \multicolumn{2}{c}{\textbf{Depth Estimation}}               & \multicolumn{5}{c}{\textbf{Surface Normal Prediction}}                                                                                & \multicolumn{1}{l}{}                 &                          \\ \cmidrule{2-10}
+                    & \multicolumn{1}{c}{}     &                               &                              &                              & \multicolumn{2}{c}{Angle Dist.}                       & \multicolumn{3}{c}{Within $t^{\circ}$}                                                    & \multicolumn{1}{c}{{\bm{$\Delta{\mathrm{p}}_{\text{task}}$}${\uparrow}$}}           & {\bm{$\Delta{\mathrm{p}}_{\text{metric}}$}${\uparrow}$}                \\ \cmidrule{6-10}
+Method              & \multicolumn{1}{c}{mIoU$\uparrow$} & \multicolumn{1}{c}{Pix. Acc.$\uparrow$} & \multicolumn{1}{c}{Abs. Err$\downarrow$} & \multicolumn{1}{c}{Rel. Err$\downarrow$} & \multicolumn{1}{c}{Mean$\downarrow$} & \multicolumn{1}{c}{Median$\downarrow$} & \multicolumn{1}{c}{11.25$\uparrow$} & \multicolumn{1}{c}{22.5$\uparrow$} & \multicolumn{1}{c}{30$\uparrow$} &  &        \\ \midrule
+Single-Task Baseline & $53.50$ & $75.39$ & $0.3926$ & $0.1605$ & $21.99$ & $\textbf{15.16}$ & $\textbf{39.04}$ & $\textbf{65.00}$ & $\underline{75.16}$ & $0.00$                                 & $0.00$ \\ \midrule
+\grow EW & $53.93$ & $75.53$ & $0.3825$ & $0.1577$ & $23.57$ & $17.01$ & $35.04$ & $60.99$ & $72.05$ & $\textcolor{resultblue}{-1.78}_{\pm0.45}$  &  $\textcolor{resultblue}{-3.85}$                    \\
+GLS~\citep{chennupati2019GLS} & $\underline{54.59}$ & $\textbf{76.06}$ & $0.3785$ & $0.1555$ & $22.71$ & $16.07$ & $36.89$ & $63.11$ & $73.81$ & $\textcolor{purple}{+0.30}_{\pm0.30}$   &  $\textcolor{resultblue}{-1.10}$                        \\
+RLW~\citep{lin22RLW} & $54.04$ & $75.58$ & $0.3827$ & $0.1588$ & $23.07$ & $16.49$ & $36.12$ & $62.08$ & $72.94$ & $\textcolor{resultblue}{-1.10}_{\pm0.40}$            &   $\textcolor{resultblue}{-2.64}$                       \\
+UW~\citep{kendall2018UW} & $54.29$ & $75.64$ & $0.3815$ & $0.1583$ & $23.48$ & $16.92$ & $35.26$ & $61.17$ & $72.21$ & $\textcolor{resultblue}{-1.52}_{\pm0.39}$   &    $\textcolor{resultblue}{-3.54}$                 \\
+DWA~\citep{liu2019DWA} & $54.06$ & $75.64$ & $0.3820$ & $0.1564$ & $23.70$ & $17.11$ & $34.90$ & $60.74$ & $71.81$ & $\textcolor{resultblue}{-1.71}_{\pm0.25}$                          &   $\textcolor{resultblue}{-3.96}$                      \\
+IMTL-L~\citep{liu2021IMTL} & $53.89$ & $75.54$ & $0.3834$ & $0.1591$ & $23.54$ & $16.98$ & $35.09$ & $61.06$ & $72.12$ & $\textcolor{resultblue}{-1.92}_{\pm0.25}$       &   $\textcolor{resultblue}{-3.90}$                       \\
+IGBv2~\citep{dai2023IGBv2} & $\textbf{54.61}$  & $76.00$  & $0.3817$     & $0.1576$   & $22.68$    & $15.98$     & $37.14$   & $63.25$    & $73.87$                  & $\textcolor{purple}{+0.05}_{\pm0.29}$      &      $\textcolor{resultblue}{-1.15}$                    \\
+\midrule
+MGDA~\citep{desideri12MGDA}  & $53.52$ & $74.76$ & $0.3852$ & $0.1566$ & $22.74$ & $16.00$ & $37.12$ & $63.22$ & $73.84$ & $\textcolor{resultblue}{-0.64}_{\pm0.25}$   &    $\textcolor{resultblue}{-1.65}$           \\
+GradNorm~\citep{chen2018GradNorm} & $53.91$ & $75.38$ & $0.3842$ & $0.1571$ & $23.17$ & $16.62$ & $35.80$ & $61.90$ & $72.84$ & $\textcolor{resultblue}{-1.24}_{\pm0.15}$  &  $\textcolor{resultblue}{-2.90}$                  \\
+PCGrad~\citep{yu2020PCGrad} & $53.94$ & $75.62$ & $0.3804$ & $0.1578$ & $23.52$ & $16.93$ & $35.19$ & $61.17$ & $72.19$ & $\textcolor{resultblue}{-1.57}_{\pm0.44}$    &  $\textcolor{resultblue}{-3.60}$                \\
+GradDrop~\citep{chen2020GradDrop} & $53.73$ & $75.54$ & $0.3837$ & $0.1580$ & $23.54$ & $16.96$ & $35.17$ & $61.06$ & $72.07$ & $\textcolor{resultblue}{-1.85}_{\pm0.39}$    &  $\textcolor{resultblue}{-3.84}$              \\
+GradVac~\citep{wang2021GradVac} & $54.21$ & $75.67$ & $0.3859$ & $0.1583$ & $23.58$ & $16.91$ & $35.34$ & $61.15$ & $72.10$ & $\textcolor{resultblue}{-1.75}_{\pm0.39}$  & $\textcolor{resultblue}{-3.72}$         \\
+IMTL-G~\citep{liu2021IMTL} & $53.01$ & $75.04$ & $0.3888$ & $0.1603$ & $23.08$ & $16.43$ & $36.24$ & $62.23$ & $73.06$ & $\textcolor{resultblue}{-1.89}_{\pm0.54}$     & $\textcolor{resultblue}{-3.09}$     \\
+CAGrad~\citep{liu2021CAGrad}  & $53.97$ & $75.54$ & $0.3885$ & $0.1588$ & $22.47$ & $15.71$ & $37.77$ & $63.82$ & $74.30$ & $\textcolor{resultblue}{-0.27}_{\pm0.35}$    &    $\textcolor{resultblue}{-0.98}$    \\
+MTAdam~\citep{malkiel2021MTAdam} & $52.67$ & $74.86$ & $0.3873$ & $0.1583$ & $23.26$ & $16.55$ & $36.00$ & $61.92$ & $72.74$ & $\textcolor{resultblue}{-1.97}_{\pm0.23}$   &      $\textcolor{resultblue}{-3.36}$ \\
+Nash-MTL~\citep{navon2022NashMTL} & $53.41$ & $74.95$ & $0.3867$ & $0.1612$ & $22.57$ & $15.94$ & $37.30$ & $63.40$ & $74.09$ & $\textcolor{resultblue}{-1.01}_{\pm0.13}$   & $\textcolor{resultblue}{-1.76}$       \\
+MetaBalance~\citep{he2022MetaBalance} & $53.92$ & $75.57$ & $0.3901$ & $0.1594$ & $22.85$ & $16.16$ & $36.72$ & $62.91$ & $73.62$ & $\textcolor{resultblue}{-1.06}_{\pm0.17}$     &      $\textcolor{resultblue}{-2.15}$      \\
+MoCo~\citep{fernando2023MoCo} & $52.25$ & $74.56$ & $0.3920$ & $0.1622$ & $22.82$ & $16.24$ & $36.58$ & $62.72$ & $73.49$ & $\textcolor{resultblue}{-2.25}_{\pm0.51}$    &  $\textcolor{resultblue}{-3.03}$     \\
+Aligned-MTL~\citep{senushkin2023AlignedMTL} & $52.94$ & $75.00$ & $0.3884$ & $0.1570$ & $22.65$ & $16.07$ & $36.88$ & $63.18$ & $73.94$ & $\textcolor{resultblue}{-0.98}_{\pm0.56}$   &  $\textcolor{resultblue}{-1.92}$                        \\
+FairGrad$^\ddag$~\citep{icml24FairGrad} &$53.01$  &$75.14$  &$0.3795$  & $0.1573$ & $22.51$ &$16.02$  &$36.93$  & $63.39$ & $74.17$ & $\textcolor{resultblue}{-0.47}_{\pm0.56}$ & $\textcolor{resultblue}{-1.46}$   \\
+STCH$^\ddag$~\citep{icml24STCH} &$53.86$  &$75.49$  &$\underline{0.3759}$  & $\underline{0.1547}$ & $22.69$ &$16.17$  &$36.70$  & $62.96$ & $73.82$ & $\textcolor{purple}{+0.06}_{\pm0.11}$   & $\textcolor{resultblue}{-1.35}$   \\
+\midrule
+IMTL~\citep{liu2021IMTL} & $53.63$ & $75.44$ & $0.3868$ & $0.1592$ & $22.58$ & $15.85$ & $37.44$ & $63.52$ & $74.09$ & $\textcolor{resultblue}{-0.57}_{\pm0.24}$  & $\textcolor{resultblue}{-1.38}$   \\
+DB-MTL~\citep{lin2023DBMTL} & $53.92$ & $75.60$ & $0.3768$ & $0.1557$ & $\underline{21.97}$ & $15.37$ & $\underline{38.43}$ & $\underline{64.81}$ & $\textbf{75.24}$ & $\textcolor{purple}{\underline{+1.15}}_{\pm0.16}$     &            $\textcolor{purple}{\underline{+0.56}}$              \\
+\midrule
+\brow Rep-MTL (EW)  & $\underline{54.59}$     & $\underline{76.04}$    &$\textbf{0.3750}$     &$\textbf{0.1542}$     &$\textbf{21.91}$     & $\underline{15.28}$    &  $38.37$  &  $64.72$    &  $75.05$   &       $\textcolor{purple}{\textbf{+1.70}}_{\pm0.29}$           &       $\textcolor{purple}{\textbf{+0.95}}$                  \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-0.40em}
+\end{table*}
+\end{document}

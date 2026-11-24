@@ -1,0 +1,101 @@
+\newcommand{\std}[1]{\scriptsize{$\pm$#1}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{\footnotesize \textbf{Overall results.} Performance across five benchmarks covering mathematics, visual reasoning, and multimodal integration.
+\textbf{Bold} indicate the best results, and \underline{underlined} numbers indicate the second best.}
+\label{tab:baseline}
+\vspace{-1em}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+% 仅缩放表格，不缩放 caption/centering。限制最大宽和最大总高，保持纵横比
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.4\textheight, keepaspectratio}
+\begin{tabular}{ll|cc|cc|cccc}
+\toprule[1.5pt]
+\multicolumn{2}{c}{} &
+\multicolumn{2}{c}{\textbf{Mathematics Reasoning}} &
+\multicolumn{2}{c}{\textbf{Visual Reasoning}} &
+\multicolumn{4}{c}{\textbf{Multimodal Integration}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-10}
+\textbf{Method} & \textbf{Model} &
+\dataset{MathVista}{mini} & \dataset{MathVision}{mini} &
+\multicolumn{2}{c}{HallusionBench} &
+\multicolumn{2}{|c}{MMStar}&
+\multicolumn{2}{c}{SEED-Bench}\\
+\cmidrule(lr){3-3}\cmidrule(lr){4-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& & Acc & Acc & Acc & F1 & Acc & F1 & Acc & F1 \\
+\midrule
+Vanilla & \multirow{5}{*}[0pt]{\rotatebox{90}{\parbox{1.25cm}{\centering Kimi-VL \\ A3B-Thinking}}}
+& 63.48\std{0.91} & 56.24\std{1.42} & 64.76\std{0.52} & 64.97\std{0.98} & 59.76\std{0.49} & 42.75\std{1.08} & 66.26\std{0.41} & 49.54\std{1.12} \\
+VCD &  & 63.51\std{0.82} & 56.14\std{0.79} & \underline{65.68\std{0.62}} & \underline{67.91\std{0.54}} & 59.48\std{0.61} & 42.61\std{1.12} & 66.52\std{1.53} & 49.69\std{0.82} \\
+CGD &  & 53.18\std{1.55} & 49.3\std{0.80} & 52.13\std{0.81} & 55.73\std{1.06} & 48.73\std{1.15} & 31.09\std{0.75} & 43.98\std{1.59} & 34.88\std{1.38} \\
+AGLA &  & \underline{67.32\std{1.11}} & \underline{58.88\std{1.47}} & 61.36\std{1.11} & 63.51\std{1.23} & \underline{63.76\std{0.85}} & \underline{47.06\std{1.01}} & \underline{69.27\std{1.39}} & \underline{51.48\std{0.99}} \\
+Ours &  & \textbf{69.78\std{0.82}} & \textbf{60.54\std{0.98}} & \textbf{68.19\std{1.07}} & \textbf{68.32\std{0.80}} & \textbf{66.49\std{1.32}} & \textbf{49.78\std{0.63}} & \textbf{69.74\std{1.18}} & \textbf{53.62\std{1.22}} \\
+\midrule\midrule
+Vanilla & \multirow{5}{*}[0pt]{\rotatebox{90}{\parbox{1.25cm}{\centering Ocean-R1 \\ 7B-Instruct}}}
+& 54.58\std{0.87} & 20.05\std{0.80} & 49.41\std{0.61} & 49.45\std{1.60} & 45.24\std{0.41} & 29.38\std{1.12} & 59.76\std{0.92} & 42.61\std{0.96} \\
+VCD &  & 54.51\std{1.44} & 19.92\std{1.34} & \underline{50.57\std{0.52}} & \underline{50.66\std{0.88}} & 45.48\std{0.96} & 29.23\std{0.43} & 59.98\std{1.30} & 42.87\std{1.01} \\
+CGD &  & 46.81\std{0.88} & 10.4\std{0.96} & 33.72\std{0.56} & 33.34\std{1.06} & 36.24\std{1.45} & 21.51\std{1.25} & 37.76\std{0.59} & 17.55\std{1.29} \\
+AGLA &  & \underline{57.49\std{1.09}} & \underline{23.69\std{0.73}} & 45.2\std{0.92} & 45.07\std{0.78} & \underline{48.48\std{0.53}} & \underline{32.27\std{0.76}} & \underline{63.01\std{1.04}} & \underline{45.95\std{0.61}} \\
+Ours &  & \textbf{59.32\std{0.88}} & \textbf{26.01\std{0.50}} & \textbf{53.64\std{1.58}} & \textbf{53.77\std{0.49}} & \textbf{50.77\std{1.14}} & \textbf{34.11\std{0.99}} & \textbf{66.51\std{1.07}} & \textbf{49.66\std{1.33}} \\
+\midrule\midrule
+Vanilla & \multirow{5}{*}[0pt]{\rotatebox{90}{\parbox{1.25cm}{\centering R1-Onevision \\ 7B}}}
+& 59.92\std{1.13} & 33.54\std{0.72} & 58.26\std{1.59} & 58.49\std{1.55} & 56.26\std{0.53} & 39.11\std{0.61} & 68.48\std{1.53} & 52.06\std{0.67} \\
+VCD &  & 59.69\std{1.34} & 33.44\std{1.37} & \underline{58.96\std{0.53}} & \underline{59.03\std{0.54}} & \underline{56.74\std{0.62}} & \underline{39.61\std{1.25}} & \underline{68.76\std{0.78}} & \underline{52.31\std{1.36}} \\
+CGD &  & 52.58\std{1.56} & 28.12\std{1.19} & 48.89\std{1.47} & 48.82\std{1.16} & 43.48\std{1.28} & 26.87\std{1.53} & 63.23\std{0.60} & 46.58\std{0.87} \\
+AGLA &  & \textbf{60.21\std{1.48}} & \underline{37.03\std{1.58}} & 55.69\std{0.76} & 55.75\std{0.44} & 54.49\std{0.49} & 37.86\std{1.42} & 68.11\std{1.17} & 51.65\std{1.48} \\
+Ours &  & \underline{60.09\std{1.48}} & \textbf{39.12\std{0.44}} & \textbf{60.77\std{0.98}} & \textbf{60.88\std{0.54}} & \textbf{58.02\std{0.83}} & \textbf{40.94\std{0.49}} & \textbf{69.52\std{1.52}} & \textbf{53.01\std{1.46}} \\
+\bottomrule[1.5pt]
+\end{tabular}
+\end{adjustbox}
+\vspace{-0.8em}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{\footnotesize \textbf{Ablation of perception- and reasoning-head rescaling.}
+We compare the full plugin with variants that disable either perception or reasoning rescaling, alongside the vanilla model.}
+\label{tab:ablation}
+\vspace{-0.5em}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+% 仅缩放 tabular 本体；限制最大宽度与最大总高度，保持纵横比
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.3\textheight}
+\begin{tabular}{ll|cc|cc|cccc}
+\toprule[1.5pt]
+\multicolumn{2}{c}{} &
+\multicolumn{2}{c}{\textbf{Mathematics Reasoning}} &
+\multicolumn{2}{c}{\textbf{Visual Reasoning}} &
+\multicolumn{4}{c}{\textbf{Multimodal Integration}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-10}
+\textbf{Method} & \textbf{Model} &
+\dataset{MathVista}{mini} & \dataset{MathVision}{mini} &
+\multicolumn{2}{c}{HallusionBench} &
+\multicolumn{2}{|c}{MMStar}&
+\multicolumn{2}{c}{SEED-Bench}\\
+\cmidrule(lr){3-3}\cmidrule(lr){4-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+& & Acc & Acc & Acc & F1 & Acc & F1 & Acc & F1 \\
+\midrule
+Vanilla & \multirow{4}{*}[0pt]{\rotatebox{90}{\parbox{1.5cm}{\centering Kimi-VL \\ A3B-Thinking}}}
+& 63.48\std{0.91} & 56.24\std{1.42} & 64.76\std{0.52} & 64.97\std{0.98} & 59.76\std{0.49} & 42.75\std{1.08} & 66.26\std{0.41} & 49.54\std{1.12} \\
+w/o Reason &  & 69.2\std{0.59} & 58.54\std{0.77} & \underline{65.78\std{0.90}} & \underline{65.94\std{1.15}} & \underline{66.47\std{1.44}} & \underline{49.76\std{0.58}} & 68.49\std{1.46} & 52.45\std{0.78} \\
+w/o Percept &  & \underline{69.37\std{0.62}} & \textbf{62.84\std{0.61}} & 65.32\std{0.42} & 65.49\std{0.66} & 63.23\std{0.78} & 46.31\std{0.61} & \underline{69.49\std{1.14}} & \underline{53.62\std{0.85}} \\
+Ours &  & \textbf{69.78\std{0.82}} & \underline{60.54\std{0.98}} & \textbf{68.19\std{1.07}} & \textbf{68.32\std{0.80}} & \textbf{66.49\std{1.32}} & \textbf{49.78\std{0.63}} & \textbf{69.74\std{1.18}} & \textbf{53.64\std{1.22}} \\
+\midrule\midrule
+Vanilla & \multirow{4}{*}[0pt]{\rotatebox{90}{\parbox{1.5cm}{\centering Ocean-R1 \\ 7B-Instruct}}}
+& 54.58\std{0.87} & 20.05\std{0.80} & 49.41\std{0.61} & 49.45\std{1.60} & 45.24\std{0.41} & 29.38\std{1.12} & 59.76\std{0.92} & 42.61\std{0.96} \\
+w/o Reason &  & 55.11\std{0.71} & \underline{26.01\std{0.58}} & 48.15\std{1.14} & 48.16\std{1.55} & 43.73\std{1.51} & 28.18\std{1.43} & 60.52\std{0.70} & 43.31\std{0.75} \\
+w/o Percept  &  & \underline{58.22\std{0.66}} & 24.35\std{1.60} & \textbf{54.37\std{1.34}} & \textbf{54.47\std{0.67}} & \underline{50.48\std{0.73}} & \underline{33.93\std{1.15}} & \underline{61.99\std{0.98}} & \underline{44.83\std{1.26}} \\
+Ours &  & \textbf{59.32\std{0.88}} & \textbf{25.68\std{0.50}} & \underline{53.64\std{1.58}} & \underline{53.77\std{0.49}} & \textbf{50.77\std{1.14}} & \textbf{34.11\std{0.99}} & \textbf{66.51\std{1.07}} & \textbf{49.66\std{1.33}} \\
+\midrule\midrule
+Vanilla & \multirow{4}{*}[0pt]{\rotatebox{90}{\parbox{1.5cm}{\centering R1-Onevision \\ 7B}}}
+& 59.92\std{1.13} & 33.54\std{0.72} & 58.26\std{1.59} & 58.49\std{1.55} & 56.26\std{0.53} & 39.11\std{0.61} & 68.48\std{1.53} & 52.06\std{0.67} \\
+w/o Reason  &  & 59.19\std{1.18} & \underline{33.9\std{1.53}} & \underline{60.66\std{0.62}} & \underline{60.83\std{1.23}} & \underline{57.77\std{1.07}} & \underline{40.67\std{1.38}} & \textbf{71.23\std{0.50}} & \textbf{55.41\std{1.30}} \\
+w/o Percept &  & \underline{59.29\std{1.38}} & 29.63\std{1.12} & 59.42\std{0.70} & 59.51\std{0.64} & 53.73\std{0.48} & 36.82\std{1.47} & 68.51\std{0.93} & 52.21\std{0.71} \\
+Ours &  & \textbf{60.09\std{1.48}} & \textbf{39.12\std{0.44}} & \textbf{60.77\std{0.98}} & \textbf{60.88\std{0.54}} & \textbf{58.02\std{0.83}} & \textbf{40.94\std{0.49}} & \underline{69.52\std{1.52}} & \underline{53.01\std{1.46}} \\
+\bottomrule[1.5pt]
+\end{tabular}
+\end{adjustbox}
+\vspace{-0.5em}
+\end{table*}
+\end{document}

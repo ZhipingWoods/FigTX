@@ -1,0 +1,130 @@
+\begin{document}
+\definecolor{lightblue}{RGB}{173, 216, 230}
+\definecolor{lightpink}{RGB}{255, 210, 230}
+\definecolor{lightgray}{RGB}{211, 211, 211}
+\definecolor{lightgreen}{RGB}{197, 224, 180}
+\definecolor{lightyellow}{RGB}{255, 255, 200}
+\definecolor{lightred}{RGB}{255, 182, 193}
+\definecolor{lightpurple}{RGB}{216, 191, 216}
+\definecolor{darkblue}{RGB}{123, 166, 180}
+\definecolor{darkpink}{RGB}{199, 21, 133}
+\definecolor{darkgray}{RGB}{169, 169, 169}
+\definecolor{darkgreen}{RGB}{94, 188, 94}
+\definecolor{darkyellow}{RGB}{218, 165, 32}
+\definecolor{darkred}{RGB}{205, 92, 92}
+\definecolor{darkpurple}{RGB}{166, 141, 166}
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\resizebox{0.99\linewidth}{!}{
+\begin{tabular}{ccccccccccc}
+\toprule
+    \multirow{2.5}{*}{\tb{Metric}} & \multirow{2.5}{*}{\tb{Method}} & \multicolumn{8}{c}{\tb{Dataset}} \\
+    \cmidrule{3-10}
+    & & \tb{VIEWS} & \tb{MM-AVS} & \tb{XMSMO} & \tb{TIB} & \tb{VISTA} & \tb{BLiSS} & \tb{SoccerNet} & \tb{Summ} \\
+    \midrule
+    % ---------------- BLEU-4 ----------------
+    \multirow{5}{*}{\rotatebox{90}{\tb{BLEU-4 $\uparrow$}}}
+    & \algo{TCoT} & 1.78 & \ul{5.03} & \ul{1.67} & 1.17 & 2.65 & 0.44 & 0.00 & 4.27 \\
+    & \algo{CoF} & \ul{4.09} & 4.98 & 0.51 & 1.66 & 3.69 & 0.42 & 0.42 & 1.04 \\
+    & \algo{ViTCoT} & 3.50 & 4.26 & \ul{1.67} & 1.68 & \ul{4.28} & \ul{0.45} & \ul{1.46} & 0.80 \\
+    & \algo{CoS} & 3.50 & 4.10 & 0.51 & \tb{2.24} & 4.03 & 0.31 & 1.27 & \tb{5.69} \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightpurple!25}\algo{CoE} & \cellcolor{lightpurple!25}\tb{5.36} & \cellcolor{lightpurple!25}\tb{6.02} & \cellcolor{lightpurple!25}\tb{4.08} & \cellcolor{lightpurple!25}\ul{2.13} & \cellcolor{lightpurple!25}\tb{4.80} & \cellcolor{lightpurple!25}\tb{0.53} & \cellcolor{lightpurple!25}\tb{15.44} & \cellcolor{lightpurple!25}\ul{4.59} \\
+    \cmidrule{1-10}
+
+    % ---------------- ROUGE ----------------
+    \multirow{5}{*}{\rotatebox{90}{\tb{ROUGE $\uparrow$}}}
+    & \algo{TCoT} & 10.74 & 15.98 & \ul{15.32} & 11.37 & 13.85 & \ul{11.86} & 4.12 & 8.66 \\
+    & \algo{CoF} & 16.86 & 14.17 & 8.64 & 12.36 & 14.20 & \tb{12.38} & 8.06 & 6.86 \\
+    & \algo{ViTCoT} & 18.21 & 15.88 & 13.41 & 12.18 & 15.11 & 10.39 & \ul{13.94} & 9.10 \\
+    & \algo{CoS} & \ul{18.73} & \ul{16.18} & 7.12 & \ul{13.29} & \ul{15.28} & 9.51 & 11.94 & \ul{11.88} \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightred!25}\algo{CoE} & \cellcolor{lightred!25}\tb{19.28} & \cellcolor{lightred!25}\tb{19.53} & \cellcolor{lightred!25}\tb{21.28} & \cellcolor{lightred!25}\tb{13.75} & \cellcolor{lightred!25}\tb{17.00} & \cellcolor{lightred!25}10.83 & \cellcolor{lightred!25}\tb{23.50} & \cellcolor{lightred!25}\tb{16.15} \\
+
+    \cmidrule{1-10}
+    \multirow{5}{*}{\rotatebox{90}{\tb{CIDEr $\uparrow$}}}
+    % ---------------- CIDEr ----------------
+    & \algo{TCoT} & 3.81 & 7.14 & \ul{24.82} & 2.50 & 2.75 & \ul{1.87} & 0.00 & \ul{2.45} \\
+    & \algo{CoF} & \ul{4.13} & \ul{7.49} & 1.60 & 2.50 & 2.12 & 1.24 & 0.03 & 0.09 \\
+    & \algo{ViTCoT} & 1.56 & 4.32 & 10.61 & 1.85 & \ul{6.33} & 0.01 & \ul{1.48} & 0.19 \\
+    & \algo{CoS} & 2.58 & 4.45 & 0.09 & \ul{3.27} & 3.01 & 0.05 & 0.57 & 1.27 \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightgreen!25}\algo{CoE} & \cellcolor{lightgreen!25}\tb{19.73} & \cellcolor{lightgreen!25}\tb{17.89} & \cellcolor{lightgreen!25}\tb{56.55} & \cellcolor{lightgreen!25}\tb{3.85} & \cellcolor{lightgreen!25}\tb{11.50} & \cellcolor{lightgreen!25}\tb{7.19} & \cellcolor{lightgreen!25}\tb{6.46} & \cellcolor{lightgreen!25}\tb{4.72} \\
+
+    \cmidrule{1-10}
+    % ---------------- METEOR ----------------
+    \multirow{5}{*}{\rotatebox{90}{\tb{METEOR $\uparrow$}}}
+    & \algo{TCoT} & 5.99 & 10.17 & 12.21 & 6.69 & 10.63 & 8.50 & 1.12 & 5.73 \\
+    & \algo{CoF} & 12.98 & 9.89 & 8.80 & 2.89 & \ul{13.91} & \ul{8.92} & 3.64 & 3.95 \\
+    & \algo{ViTCoT} & \ul{16.26} & 13.10 & \ul{14.47} & \tb{12.22} & 13.71 & \tb{9.91} & \ul{9.41} & 7.37 \\
+    & \algo{CoS} & \tb{16.57} & \ul{14.26} & 8.29 & 9.86 & 13.16 & 8.38 & 6.13 & \ul{8.38} \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightyellow!25}\algo{CoE} & \cellcolor{lightyellow!25}12.63 & \cellcolor{lightyellow!25}\tb{14.51} & \cellcolor{lightyellow!25}\tb{17.24} & \cellcolor{lightyellow!25}\ul{10.34} & \cellcolor{lightyellow!25}\tb{16.75} & \cellcolor{lightyellow!25}6.81 & \cellcolor{lightyellow!25}\tb{21.35} & \cellcolor{lightyellow!25}\tb{12.29} \\
+
+    \cmidrule{1-10}
+    % ---------------- BERTScore ----------------
+    \multirow{5}{*}{\rotatebox{90}{\tb{BERTScore $\uparrow$}}}
+    & \algo{TCoT} & 85.68 & \ul{85.69} & \ul{86.80} & \ul{83.85} & \ul{84.38} & 83.23 & 80.88 & \ul{82.33} \\
+    & \algo{CoF} & 85.83 & 82.99 & 80.77 & 83.72 & 83.03 & \tb{84.93} & 80.50 & 79.33 \\
+    & \algo{ViTCoT} & 86.61 & 84.28 & 86.50 & 82.62 & 83.78 & 82.30 & 81.14 & 79.56 \\
+    & \algo{CoS} & \ul{86.65} & 83.93 & 83.91 & 83.65 & 83.78 & \ul{83.97} & \ul{81.22} & 81.86 \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightblue!25}\algo{CoE} & \cellcolor{lightblue!25}\tb{88.26} & \cellcolor{lightblue!25}\tb{88.62} & \cellcolor{lightblue!25}\tb{88.65} & \cellcolor{lightblue!25}\tb{84.91} & \cellcolor{lightblue!25}\tb{85.87} & \cellcolor{lightblue!25}83.80 & \cellcolor{lightblue!25}\tb{84.99} & \cellcolor{lightblue!25}\tb{85.76} \\
+
+
+    \cmidrule{1-10}
+    % ---------------- F1-score ----------------
+    \multirow{5}{*}{\rotatebox{90}{\tb{F1-score $\uparrow$}}}
+    & \algo{TCoT} & 18.42 & 24.47 & \ul{28.44} & 14.27 & 17.18 & 2.37 & 0.94 & 15.00 \\
+    & \algo{CoF} & 29.64 & 19.49 & 27.67 & 18.51 & 17.62 & 3.07 & 19.52 & 2.46 \\
+    & \algo{ViTCoT} & \ul{34.93} & \ul{26.80} & 27.86 & \ul{22.12} & \ul{20.76} & \tb{4.44} & 25.77 & 2.51 \\
+    & \algo{CoS} & 32.59 & 26.25 & 27.16 & 21.87 & 16.97 & 2.75 & \ul{31.45} & \ul{31.06} \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightgray!25}\algo{CoE} & \cellcolor{lightgray!25}\tb{38.14} & \cellcolor{lightgray!25}\tb{33.91} & \cellcolor{lightgray!25}\tb{33.82} & \cellcolor{lightgray!25}\tb{25.34} & \cellcolor{lightgray!25}\tb{29.01} & \cellcolor{lightgray!25}\ul{3.63} & \cellcolor{lightgray!25}\tb{63.37} & \cellcolor{lightgray!25}\tb{69.50} \\
+    \cmidrule{1-10}
+    \multirow{5}{*}{\rotatebox{90}{\tb{G-Eval $\uparrow$}}}
+    % ---------------- G-Eval-score ----------------
+    & \algo{TCoT}   & 2.27      & \ul{3.31} & 3.61      & 2.79      & 3.12      & 2.57      & 1.95      & 1.95 \\
+    & \algo{CoF}    & 2.57      & 2.47      & 3.03      & 2.91      & 2.79      & 2.70      & 2.21      & 1.63 \\
+    & \algo{ViTCoT} & \ul{3.34} & 3.24      & \tb{3.81} & \ul{3.32} & \ul{3.42} & \ul{2.94} & \tb{2.75} & 2.00 \\
+    & \algo{CoS}    & 3.04      & 2.89      & 2.99      & 2.85      & 2.68      & 2.41      & 2.52      & \ul{2.13} \\
+    \cdashlinelr{2-10}
+    & \cellcolor{lightpink!25}\algo{CoE}    & \cellcolor{lightpink!25}\tb{3.44} & \cellcolor{lightpink!25}\tb{4.01} & \cellcolor{lightpink!25}\ul{3.65} & \cellcolor{lightpink!25}\tb{3.58} & \cellcolor{lightpink!25}\tb{3.82} & \cellcolor{lightpink!25}\tb{3.00} & \cellcolor{lightpink!25}\ul{2.70} & \cellcolor{lightpink!25}\tb{3.16} \\
+    \bottomrule
+\end{tabular}}
+\vspace{-0.5em}
+\caption{\tb{Comparison with Video CoT Baselines.} Quantitative results of \algo{CoE} and competing video CoT methods on eight MMS datasets, all evaluated in a zero-shot, training-free setting without dataset-specific fine-tuning. For each dataset-metric pair, \tb{bold} and \ul{underline} denote the best and second-best results, respectively.}
+% \caption{Comparison of \algo{CoE} with video CoT baselines on eight MMS datasets. All methods are evaluated in a training-free, zero-shot setting without any dataset-specific fine-tuning. For each dataset–metric pair, \tb{bold} and \ul{underline} denote the best and second-best results, respectively.}
+\label{tab:main-results}
+\end{table}
+\setlength{\textfloatsep}{1.0em}
+\begin{table}[t]
+\centering
+\small
+\vspace{-0.5em}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{3pt}  % 调整列间距
+\resizebox{0.99\linewidth}{!}{
+\begin{tabular}{*{9}{c}}
+    \toprule
+    \multirow{2.5}{*}{\tb{Method}} & \multicolumn{8}{c}{\tb{Dataset}} \\
+    \cmidrule{2-9}
+    & \textbf{VIEWS} & \textbf{MM-AVS} & \textbf{XMSMO} & \textbf{TIB} & \textbf{VISTA} & \textbf{BLiSS} & \textbf{SoccerNet} & \textbf{Summ} \\
+
+    \midrule
+    \tb{CoE -- HEG} & 18.68      & 16.68      & 19.82      & 12.80       & \ul{16.77} & 10.44       & 22.48      & \tb{16.25} \\
+    \tb{CoE -- CSG} & 18.56      & 16.35      & 20.79      & 13.16       & 16.56      & 9.91        & \ul{23.16} & \ul{16.20} \\
+    \tb{CoE -- EER} & 18.66      & \ul{19.44} & 20.88      & 13.04       & 16.53      & 9.99        & 22.44      & 15.90      \\
+    \tb{CoE -- DSG} & \ul{18.76} & 18.70      & \ul{21.17} & \ul{13.38}  & 16.75      & \ul{10.80}  & 22.55      & 15.67      \\
+    \cdashlinelr{1-9}
+    \cellcolor{lightred!25}\algo{CoE} & \cellcolor{lightred!25}\tb{19.28} & \cellcolor{lightred!25}\tb{19.53} & \cellcolor{lightred!25}\tb{21.28} & \cellcolor{lightred!25}\tb{13.75} & \cellcolor{lightred!25}\tb{17.00} & \cellcolor{lightred!25}\tb{10.83} & \cellcolor{lightred!25}\tb{23.50} & \cellcolor{lightred!25}16.15 \\
+    \bottomrule
+\end{tabular}}
+% \vspace{-0.5em}
+\caption{\tb{Ablation Study.} ROUGE scores of \algo{CoE} and its ablated variants across eight benchmark datasets.}
+\label{tab:ablation-rouge}
+\end{table}
+\end{document}

@@ -1,0 +1,389 @@
+\usepackage[T1]{fontenc}
+\definecolor{lightgrayblue}{RGB}{221,223,232}
+\newcommand{\fyq}[1]{\textcolor{blue}{#1}}
+\newcommand{\gr}{\cellcolor{gray!12}}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+% 红色背景定义（用于下降数值）
+\newtcbox{\hlredtabA}{on line, box align=base, colback=red!10, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabB}{on line, box align=base, colback=red!20, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabC}{on line, box align=base, colback=red!30, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabD}{on line, box align=base, colback=red!40, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabE}{on line, box align=base, colback=red!50, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabF}{on line, box align=base, colback=red!60, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabG}{on line, box align=base, colback=red!70, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabH}{on line, box align=base, colback=red!80, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabI}{on line, box align=base, colback=red!90, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlredtabJ}{on line, box align=base, colback=red!100, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+% 绿色背景定义（用于上升数值）
+\newtcbox{\hlgreentabA}{on line, box align=base, colback=green!5, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabB}{on line, box align=base, colback=green!10, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabC}{on line, box align=base, colback=green!15, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabD}{on line, box align=base, colback=green!20, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabE}{on line, box align=base, colback=green!25, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabF}{on line, box align=base, colback=green!30, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabG}{on line, box align=base, colback=green!35, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabH}{on line, box align=base, colback=green!40, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabI}{on line, box align=base, colback=green!45, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlgreentabJ}{on line, box align=base, colback=green!50, colframe=white, size=fbox, arc=3pt,
+before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+% 箭头命令
+\newcommand{\dalgshifted}{\raisebox{0.5\depth}{$\downarrow$}}
+\newcommand{\daugshifted}{\raisebox{0.5\depth}{$\uparrow$}}
+% 不同范围的绿色背景与向上箭头
+\newcommand{\uaA}[1]{\hlgreentabA{\scriptsize \daugshifted{#1\%}}} % 0-10%
+\newcommand{\uaB}[1]{\hlgreentabB{\scriptsize \daugshifted{#1\%}}} % 10-20%
+\newcommand{\uaC}[1]{\hlgreentabC{\scriptsize \daugshifted{#1\%}}} % 20-30%
+\newcommand{\uaD}[1]{\hlgreentabD{\scriptsize \daugshifted{#1\%}}} % 30-40%
+\newcommand{\uaE}[1]{\hlgreentabE{\scriptsize \daugshifted{#1\%}}} % 40-50%
+\newcommand{\uaF}[1]{\hlgreentabF{\scriptsize \daugshifted{#1\%}}} % 50-60%
+\newcommand{\uaG}[1]{\hlgreentabG{\scriptsize \daugshifted{#1\%}}} % 60-70%
+\newcommand{\uaH}[1]{\hlgreentabH{\scriptsize \daugshifted{#1\%}}} % 70-80%
+\newcommand{\uaI}[1]{\hlgreentabI{\scriptsize \daugshifted{#1\%}}} % 80-90%
+\newcommand{\uaJ}[1]{\hlgreentabJ{\scriptsize \daugshifted{#1\%}}} % 90-100%
+% 不同范围的红色背景与向下箭头
+\newcommand{\daA}[1]{\hlredtabA{\scriptsize \dalgshifted{#1\%}}} % 0-10%
+\newcommand{\daB}[1]{\hlredtabB{\scriptsize \dalgshifted{#1\%}}} % 10-20%
+\newcommand{\daC}[1]{\hlredtabC{\scriptsize \dalgshifted{#1\%}}} % 20-30%
+\newcommand{\daD}[1]{\hlredtabD{\scriptsize \dalgshifted{#1\%}}} % 30-40%
+\newcommand{\daE}[1]{\hlredtabE{\scriptsize \dalgshifted{#1\%}}} % 40-50%
+\newcommand{\daF}[1]{\hlredtabF{\scriptsize \dalgshifted{#1\%}}} % 50-60%
+\newcommand{\daG}[1]{\hlredtabG{\scriptsize \dalgshifted{#1\%}}} % 60-70%
+\newcommand{\daH}[1]{\hlredtabH{\scriptsize \dalgshifted{#1\%}}} % 70-80%
+\newcommand{\daI}[1]{\hlredtabI{\scriptsize \dalgshifted{#1\%}}} % 80-90%
+\newcommand{\daJ}[1]{\hlredtabJ{\scriptsize \dalgshifted{#1\%}}} % 90-100%
+% 根据数值自动选择颜色（红色，下降）
+\newcommand{\ColorValue}[1]{%
+\pgfmathparse{#1}%
+\ifdim\pgfmathresult pt>90pt
+\daJ{#1}%
+\else
+\ifdim\pgfmathresult pt>80pt
+\daI{#1}%
+\else
+\ifdim\pgfmathresult pt>70pt
+\daH{#1}%
+\else
+\ifdim\pgfmathresult pt>60pt
+\daG{#1}%
+\else
+\ifdim\pgfmathresult pt>50pt
+\daF{#1}%
+\else
+\ifdim\pgfmathresult pt>40pt
+\daE{#1}%
+\else
+\ifdim\pgfmathresult pt>30pt
+\daD{#1}%
+\else
+\ifdim\pgfmathresult pt>20pt
+\daC{#1}%
+\else
+\ifdim\pgfmathresult pt>10pt
+\daB{#1}%
+\else
+\ifdim\pgfmathresult pt>0pt
+\daA{#1}%
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+}
+% 根据数值自动选择颜色（绿色，上升）
+\newcommand{\ua}[1]{%
+\pgfmathparse{#1}%
+\ifdim\pgfmathresult pt>90pt
+\uaJ{#1}%
+\else
+\ifdim\pgfmathresult pt>80pt
+\uaI{#1}%
+\else
+\ifdim\pgfmathresult pt>70pt
+\uaH{#1}%
+\else
+\ifdim\pgfmathresult pt>60pt
+\uaG{#1}%
+\else
+\ifdim\pgfmathresult pt>50pt
+\uaF{#1}%
+\else
+\ifdim\pgfmathresult pt>40pt
+\uaE{#1}%
+\else
+\ifdim\pgfmathresult pt>30pt
+\uaD{#1}%
+\else
+\ifdim\pgfmathresult pt>20pt
+\uaC{#1}%
+\else
+\ifdim\pgfmathresult pt>10pt
+\uaB{#1}%
+\else
+\ifdim\pgfmathresult pt>0pt
+\uaA{#1}%
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+\fi
+}
+% --- 黄色背景定义 (10个等级) ---
+\newtcbox{\hlyellowtabA}{on line, box align=base, colback=gray!5, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabB}{on line, box align=base, colback=gray!10, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabC}{on line, box align=base, colback=gray!15, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabD}{on line, box align=base, colback=gray!20, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabE}{on line, box align=base, colback=gray!25, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabF}{on line, box align=base, colback=gray!30, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabG}{on line, box align=base, colback=gray!35, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabH}{on line, box align=base, colback=gray!40, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabI}{on line, box align=base, colback=gray!45, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+\newtcbox{\hlyellowtabJ}{on line, box align=base, colback=gray!50, colframe=white, size=fbox, arc=3pt, before upper=\strut, top=-2pt, bottom=-4pt, left=-2pt, right=-2pt, boxrule=0pt}
+% --- 自动逻辑命令 ---
+\newcommand{\deltayellow}[1]{%
+\pgfmathparse{#1}%
+\ifdim\pgfmathresult pt>90pt \hlyellowtabJ{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>80pt \hlyellowtabI{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>70pt \hlyellowtabH{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>60pt \hlyellowtabG{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>50pt \hlyellowtabF{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>40pt \hlyellowtabE{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>30pt \hlyellowtabD{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>20pt \hlyellowtabC{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>10pt \hlyellowtabB{\scriptsize $\Delta$#1}
+\else\ifdim\pgfmathresult pt>0pt \hlyellowtabA{\scriptsize $\Delta$#1}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+%%%%%%%
+\begin{document}
+\begin{table*}[h]
+\small
+\renewcommand{\arraystretch}{1.3}
+\centering
+\caption{Comparison of advanced token compression methods on Qwen2-VL-7B. Values are formatted as: \textbf{Group A} ({\scriptsize Group B}) with difference $\Delta$ below. $\Delta$ refers to \textbf{\textit{the absolute gap between groups.}}}
+\label{table2}
+\renewcommand{\tabcolsep}{5pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c c c c c c c c |c}
+\toprule
+\textit{\textbf{Method}} & \textit{\textbf{GQA}} & \textit{\textbf{MMB}} & \textit{\textbf{MMB$^{CN}$}} & \textit{\textbf{MME}} & \textit{\textbf{POPE}} & \textit{\textbf{MMStar}}  & \textit{\textbf{OCRBench}}& \textit{\textbf{ChartQA}} & \textit{\textbf{Average}} \\
+\midrule
+% --- Section 1: 75.00% ---
+\rowcolor{lightgrayblue}  \textit{\textbf{Group A} {\scriptsize (Group B)}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 75.00\%)}} \\ \midrule
+\rowcolor{brown!10} + Downsample & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} \\ \midrule
++ FastV~\cite{chen2024image} &
+\makecell{\textbf{57.8} {\scriptsize (87.6)} \\ \deltayellow{29.8}} & \makecell{\textbf{45.2} {\scriptsize (95.9)} \\ \deltayellow{50.7}} & \makecell{\textbf{56.5} {\scriptsize (95.8)} \\ \deltayellow{39.3}} & \makecell{\textbf{78.9} {\scriptsize (96.7)} \\ \deltayellow{17.8}} & \makecell{\textbf{65.4} {\scriptsize (94.8)} \\ \deltayellow{29.4}} & \makecell{\textbf{41.0} {\scriptsize (76.0)} \\ \deltayellow{35.0}} & \makecell{\textbf{29.1} {\scriptsize (57.2)} \\ \deltayellow{28.1}} & \makecell{\textbf{35.0} {\scriptsize (78.1)} \\ \deltayellow{43.1}} & \makecell{\textbf{51.1} {\scriptsize (85.3)} \\ \deltayellow{34.2}} \\ \cmidrule(lr){2-10}
++ VisionZip~\cite{yang2025visionzip} &
+\makecell{\textbf{59.3} {\scriptsize (91.2)} \\ \deltayellow{31.9}} & \makecell{\textbf{42.4} {\scriptsize (93.8)} \\ \deltayellow{51.4}} & \makecell{\textbf{42.2} {\scriptsize (93.6)} \\ \deltayellow{51.4}} & \makecell{\textbf{54.9} {\scriptsize (95.3)} \\ \deltayellow{40.4}} & \makecell{\textbf{72.5} {\scriptsize (96.8)} \\ \deltayellow{24.3}} & \makecell{\textbf{45.9} {\scriptsize (81.4)} \\ \deltayellow{35.5}} & \makecell{\textbf{29.6} {\scriptsize (58.1)} \\ \deltayellow{28.5}} & \makecell{\textbf{51.2} {\scriptsize (87.3)} \\ \deltayellow{36.1}} & \makecell{\textbf{49.8} {\scriptsize (87.2)} \\ \deltayellow{37.4}} \\ \cmidrule(lr){2-10}
++ PruMerge+~\cite{shang2024llava} &
+\makecell{\textbf{57.7} {\scriptsize (91.9)} \\ \deltayellow{34.2}} & \makecell{\textbf{51.2} {\scriptsize (95.1)} \\ \deltayellow{43.9}} & \makecell{\textbf{52.6} {\scriptsize (94.6)} \\ \deltayellow{42.0}} & \makecell{\textbf{62.0} {\scriptsize (95.9)} \\ \deltayellow{33.9}} & \makecell{\textbf{72.1} {\scriptsize (97.5)} \\ \deltayellow{25.4}} & \makecell{\textbf{48.1} {\scriptsize (82.3)} \\ \deltayellow{34.2}} & \makecell{\textbf{21.2} {\scriptsize (46.2)} \\ \deltayellow{25.0}} & \makecell{\textbf{40.5} {\scriptsize (73.6)} \\ \deltayellow{33.1}} & \makecell{\textbf{50.7} {\scriptsize (84.6)} \\ \deltayellow{33.9}} \\ \cmidrule(lr){2-10}
++ DART~\cite{wen2025stop} &
+\makecell{\textbf{58.9} {\scriptsize (88.1)} \\ \deltayellow{29.2}} & \makecell{\textbf{54.8} {\scriptsize (94.9)} \\ \deltayellow{40.1}} & \makecell{\textbf{52.2} {\scriptsize (94.6)} \\ \deltayellow{42.4}} & \makecell{\textbf{67.6} {\scriptsize (94.9)} \\ \deltayellow{27.3}} & \makecell{\textbf{69.4} {\scriptsize (94.5)} \\ \deltayellow{25.1}} & \makecell{\textbf{47.0} {\scriptsize (77.7)} \\ \deltayellow{30.7}} & \makecell{\textbf{40.2} {\scriptsize (70.2)} \\ \deltayellow{30.0}} & \makecell{\textbf{39.0} {\scriptsize (69.0)} \\ \deltayellow{30.0}} & \makecell{\textbf{53.6} {\scriptsize (85.5)} \\ \deltayellow{31.9}} \\ \midrule
+% --- Section 2: 88.89% ---
+\rowcolor{lightgrayblue}  \textit{\textbf{Group A} {\scriptsize (Group B)}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 88.89\%)}} \\ \midrule
+\rowcolor{brown!10} + Downsample & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} \\ \midrule
++ FastV~\cite{chen2024image} &
+\makecell{\textbf{44.5} {\scriptsize (82.5)} \\ \deltayellow{38.0}} & \makecell{\textbf{39.2} {\scriptsize (90.3)} \\ \deltayellow{51.1}} & \makecell{\textbf{44.1} {\scriptsize (90.8)} \\ \deltayellow{46.7}} & \makecell{\textbf{59.4} {\scriptsize (94.0)} \\ \deltayellow{34.6}} & \makecell{\textbf{46.8} {\scriptsize (88.7)} \\ \deltayellow{41.9}} & \makecell{\textbf{31.0} {\scriptsize (73.0)} \\ \deltayellow{42.0}} & \makecell{\textbf{17.8} {\scriptsize (41.3)} \\ \deltayellow{23.5}} & \makecell{\textbf{28.4} {\scriptsize (61.7)} \\ \deltayellow{33.3}} & \makecell{\textbf{38.9} {\scriptsize (77.8)} \\ \deltayellow{38.9}} \\ \cmidrule(lr){2-10}
++ VisionZip~\cite{yang2025visionzip} &
+\makecell{\textbf{49.4} {\scriptsize (83.4)} \\ \deltayellow{34.0}} & \makecell{\textbf{33.2} {\scriptsize (89.0)} \\ \deltayellow{55.8}} & \makecell{\textbf{44.4} {\scriptsize (88.1)} \\ \deltayellow{43.7}} & \makecell{\textbf{48.1} {\scriptsize (92.2)} \\ \deltayellow{44.1}} & \makecell{\textbf{70.0} {\scriptsize (92.3)} \\ \deltayellow{22.3}} & \makecell{\textbf{30.3} {\scriptsize (73.0)} \\ \deltayellow{42.7}} & \makecell{\textbf{22.0} {\scriptsize (36.4)} \\ \deltayellow{14.4}} & \makecell{\textbf{49.7} {\scriptsize (74.4)} \\ \deltayellow{24.7}} & \makecell{\textbf{43.4} {\scriptsize (78.6)} \\ \deltayellow{35.2}} \\ \cmidrule(lr){2-10}
++ PruMerge+~\cite{shang2024llava} &
+\makecell{\textbf{50.4} {\scriptsize (85.8)} \\ \deltayellow{35.4}} & \makecell{\textbf{36.9} {\scriptsize (87.2)} \\ \deltayellow{50.3}} & \makecell{\textbf{38.4} {\scriptsize (86.4)} \\ \deltayellow{48.0}} & \makecell{\textbf{42.9} {\scriptsize (91.9)} \\ \deltayellow{49.0}} & \makecell{\textbf{71.5} {\scriptsize (94.2)} \\ \deltayellow{22.7}} & \makecell{\textbf{28.8} {\scriptsize (71.6)} \\ \deltayellow{42.8}} & \makecell{\textbf{18.1} {\scriptsize (33.0)} \\ \deltayellow{14.9}} & \makecell{\textbf{43.5} {\scriptsize (73.8)} \\ \deltayellow{30.3}} & \makecell{\textbf{41.3} {\scriptsize (78.0)} \\ \deltayellow{36.7}} \\ \cmidrule(lr){2-10}
++ DART~\cite{wen2025stop} &
+\makecell{\textbf{47.5} {\scriptsize (81.2)} \\ \deltayellow{33.7}} & \makecell{\textbf{40.5} {\scriptsize (87.7)} \\ \deltayellow{47.2}} & \makecell{\textbf{40.9} {\scriptsize (86.9)} \\ \deltayellow{46.0}} & \makecell{\textbf{49.6} {\scriptsize (91.7)} \\ \deltayellow{42.1}} & \makecell{\textbf{57.7} {\scriptsize (90.9)} \\ \deltayellow{33.2}} & \makecell{\textbf{35.4} {\scriptsize (70.0)} \\ \deltayellow{34.6}} & \makecell{\textbf{31.5} {\scriptsize (63.2)} \\ \deltayellow{31.7}} & \makecell{\textbf{27.3} {\scriptsize (57.6)} \\ \deltayellow{30.3}} & \makecell{\textbf{41.3} {\scriptsize (78.6)} \\ \deltayellow{37.3}} \\ \midrule
+% --- Section 3: 93.75% ---
+\rowcolor{lightgrayblue}  \textit{\textbf{Group A} {\scriptsize (Group B)}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 93.75\%)}} \\ \midrule
+\rowcolor{brown!10} + Downsample & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} & \textbf{0.0} {\scriptsize (100.0)} \\ \midrule
++ FastV~\cite{chen2024image} &
+\makecell{\textbf{35.7} {\scriptsize (81.4)} \\ \deltayellow{45.7}} & \makecell{\textbf{31.9} {\scriptsize (85.7)} \\ \deltayellow{53.8}} & \makecell{\textbf{35.3} {\scriptsize (86.6)} \\ \deltayellow{51.3}} & \makecell{\textbf{48.8} {\scriptsize (91.5)} \\ \deltayellow{42.7}} & \makecell{\textbf{37.4} {\scriptsize (88.1)} \\ \deltayellow{50.7}} & \makecell{\textbf{22.8} {\scriptsize (74.5)} \\ \deltayellow{51.7}} & \makecell{\textbf{13.3} {\scriptsize (33.0)} \\ \deltayellow{19.7}} & \makecell{\textbf{14.8} {\scriptsize (74.8)} \\ \deltayellow{60.0}} & \makecell{\textbf{30.0} {\scriptsize (77.0)} \\ \deltayellow{47.0}} \\ \cmidrule(lr){2-10}
++ VisionZip~\cite{yang2025visionzip} &
+\makecell{\textbf{41.0} {\scriptsize (79.0)} \\ \deltayellow{38.0}} & \makecell{\textbf{34.5} {\scriptsize (81.9)} \\ \deltayellow{47.4}} & \makecell{\textbf{33.3} {\scriptsize (82.2)} \\ \deltayellow{48.9}} & \makecell{\textbf{43.5} {\scriptsize (88.4)} \\ \deltayellow{44.9}} & \makecell{\textbf{66.3} {\scriptsize (89.4)} \\ \deltayellow{23.1}} & \makecell{\textbf{24.3} {\scriptsize (69.8)} \\ \deltayellow{45.5}} & \makecell{\textbf{14.0} {\scriptsize (25.2)} \\ \deltayellow{11.2}} & \makecell{\textbf{26.1} {\scriptsize (71.3)} \\ \deltayellow{45.2}} & \makecell{\textbf{35.4} {\scriptsize (73.4)} \\ \deltayellow{38.0}} \\ \cmidrule(lr){2-10}
++ PruMerge+~\cite{shang2024llava} &
+\makecell{\textbf{43.0} {\scriptsize (76.7)} \\ \deltayellow{33.7}} & \makecell{\textbf{29.6} {\scriptsize (76.9)} \\ \deltayellow{47.3}} & \makecell{\textbf{34.1} {\scriptsize (76.1)} \\ \deltayellow{42.0}} & \makecell{\textbf{43.0} {\scriptsize (87.8)} \\ \deltayellow{44.8}} & \makecell{\textbf{67.7} {\scriptsize (87.6)} \\ \deltayellow{19.9}} & \makecell{\textbf{25.5} {\scriptsize (65.5)} \\ \deltayellow{40.0}} & \makecell{\textbf{12.6} {\scriptsize (21.8)} \\ \deltayellow{9.2}} & \makecell{\textbf{29.4} {\scriptsize (68.9)} \\ \deltayellow{39.5}} & \makecell{\textbf{35.6} {\scriptsize (70.2)} \\ \deltayellow{34.6}} \\ \cmidrule(lr){2-10}
++ DART~\cite{wen2025stop} &
+\makecell{\textbf{41.9} {\scriptsize (78.8)} \\ \deltayellow{36.9}} & \makecell{\textbf{33.8} {\scriptsize (81.8)} \\ \deltayellow{48.0}} & \makecell{\textbf{38.4} {\scriptsize (80.4)} \\ \deltayellow{42.0}} & \makecell{\textbf{46.9} {\scriptsize (88.9)} \\ \deltayellow{42.0}} & \makecell{\textbf{57.0} {\scriptsize (88.5)} \\ \deltayellow{31.5}} & \makecell{\textbf{26.2} {\scriptsize (61.8)} \\ \deltayellow{35.6}} & \makecell{\textbf{25.6} {\scriptsize (57.4)} \\ \deltayellow{31.8}} & \makecell{\textbf{14.5} {\scriptsize (67.1)} \\ \deltayellow{52.6}} & \makecell{\textbf{35.5} {\scriptsize (75.6)} \\ \deltayellow{40.1}} \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\begin{table*}[!h]
+\small
+\renewcommand{\arraystretch}{0.9}
+\centering
+\caption{VTC-Bench results on Qwen2-VL-7B. Take Qwen2-VL-7B as the data filter model. }
+\label{table3}\renewcommand{\tabcolsep}{8pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c c c c c c c c |c}
+\toprule
+\textit{\textbf{Method}} & \textit{\textbf{GQA} }& \textit{\textbf{MMB}} & \textit{\textbf{MMB$^{CN}$} }& \textit{\textbf{MME}} & \textit{\textbf{POPE}} & \textit{\textbf{MMStar}}  & \textit{\textbf{OCRBench}}& \textit{\textbf{ChartQA}}  & \textit{\textbf{Average}} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 75.00\%)}} \\ \midrule
+
++ Downsample (Baseline) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\rowcolor{gray!10}+ FastV~\cite{chen2024image} & 57.8 & 45.2 & \textbf{56.5} & \underline{78.9} & 65.4 & 41.0 & 29.1 & 35.0 & \underline{51.1} \\
+ + VisionZip~\cite{yang2025visionzip} & \textbf{59.3} & 42.4 & 42.2 & 54.9 & \textbf{72.5} & 45.9 & \underline{29.6} & \textbf{51.2} & 49.8 \\
+\rowcolor{gray!10}+ PruMerge+~\cite{shang2024llava} & 57.7 & \underline{51.2} & \underline{52.6} & 62.0 & \underline{72.1} & \textbf{48.1} & 21.2 & \underline{40.5} & 50.7 \\
+ + DART~\cite{wen2025stop} & \underline{58.9} & \textbf{54.8} & 52.2 & \textbf{67.6} & 69.4 & \underline{47.0} & \textbf{40.2} & 39.0 & \textbf{53.6} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 88.89\%)}} \\ \midrule
+ + Downsample (Baseline)& 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\rowcolor{gray!10} + FastV~\cite{chen2024image} & 44.5 & \underline{39.2} & \underline{44.1} & \textbf{59.4} & 46.8 & \underline{31.0} & 17.8 & 28.4 & 38.9 \\
+ + VisionZip~\cite{yang2025visionzip}  & \underline{49.4} & 33.2 & \textbf{44.4} & 48.1 & \underline{70.0} & 30.3 & \underline{22.0} & \textbf{49.7} & \textbf{43.4} \\
+\rowcolor{gray!10}+ PruMerge+~\cite{shang2024llava} & \textbf{50.4} & 36.9 & 38.4 & 42.9 & \textbf{71.5} & 28.8 & 18.1 & \underline{43.5} & \underline{41.3} \\
+ + DART~\cite{wen2025stop}& 47.5 & \textbf{40.5} & 40.9 & \underline{49.6} & 57.7 & \textbf{35.4} & \textbf{31.5} & 27.3 & \underline{41.3} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 93.75\%)}} \\ \midrule
+
++ Downsample (Baseline) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\rowcolor{gray!10}+ FastV~\cite{chen2024image} & 35.7 & 31.9 & \underline{35.3} & \textbf{48.8} & 37.4 & 22.8 & 13.3 & 14.8 & 30.0 \\
+ + VisionZip~\cite{yang2025visionzip}  & 41.0 & \textbf{34.5} & 33.3 & 43.5 & \underline{66.3} & 24.3 & \underline{14.0} & \underline{26.1} & 35.4 \\
+\rowcolor{gray!10}+ PruMerge+~\cite{shang2024llava} & \textbf{43.0} & 29.6 & 34.1 & 43.0 & \textbf{67.7} & \underline{25.5} & 12.6 & \textbf{29.4} & \textbf{35.6} \\
+ + DART~\cite{wen2025stop}& \underline{41.9} & \underline{33.8} & \textbf{38.4} & \underline{46.9} & 57.0 & \textbf{26.2} & \textbf{25.6} & 14.5 & \underline{35.5} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 96.00\%)}} \\ \midrule
+
++ Downsample (Baseline) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\rowcolor{gray!10}+ FastV~\cite{chen2024image} & 29.6 & 24.7 & \underline{33.1} & 35.6 & 35.6 & 21.5 & \underline{11.0} & 9.3 & 25.0 \\
+ + VisionZip~\cite{yang2025visionzip} & \underline{38.6} & \underline{31.2} & 32.6 & \textbf{37.9} & \textbf{60.0} & \textbf{24.5} & \underline{11.0} & \underline{15.1} & \underline{31.4} \\
+\rowcolor{gray!10}+ PruMerge+~\cite{shang2024llava} & \textbf{38.8} & 26.0 & 29.3 & 37.0 & \underline{56.4} & \underline{22.6} & 9.2 & \textbf{17.0} & 29.5 \\
+ + DART~\cite{wen2025stop}& 36.4 & \textbf{33.7} & \textbf{36.4} & \textbf{37.9} & 53.2 & 22.3 & \textbf{24.7} & 10.5 & \textbf{31.9} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 99.00\%)}} \\ \midrule
++ Downsample (Baseline) & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\rowcolor{gray!10} + FastV~\cite{chen2024image} & 18.3 & 18.3 & 21.5 & 21.5 & 44.3 & 15.0 & \underline{4.2} & 3.8 & 18.4 \\
++ VisionZip~\cite{yang2025visionzip} & \underline{23.4} & \textbf{28.8} & \textbf{32.2} & \underline{28.5} & \textbf{53.6} & \textbf{19.4} & 3.7 & \underline{5.5} & \underline{24.4} \\
+\rowcolor{gray!10} + PruMerge+~\cite{shang2024llava} & 20.7 & 17.8 & 21.1 & 22.9 & \underline{52.6} & 17.1 & 2.5 & \textbf{7.1} & 20.2 \\
++ DART~\cite{wen2025stop} & \textbf{24.5} & \underline{26.5} & \underline{28.1} & \textbf{30.6} & 41.5 & \underline{19.2} & \textbf{25.6} & 4.2 & \textbf{25.0} \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\begin{table}[t]
+\scriptsize
+\centering
+\renewcommand{\arraystretch}{0.8}
+\caption{VTC-Bench results on LLaVA-OV-7B. Take Qwen2-VL-7B as the data filter model.}
+\label{table4}
+\renewcommand{\tabcolsep}{4pt}
+\resizebox{0.49\textwidth}{!}{
+\begin{tabular}{l|c c c c c}
+\toprule
+\textit{\textbf{Method}} & \textit{\textbf{GQA}} & \textit{\textbf{MMB}} & \textit{\textbf{MMB$^{CN}$}} & \textit{\textbf{POPE}} & \textbf{\textit{MMStar}} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{LLaVA-OV-7B~\cite{li2024llava}} & \multicolumn{5}{c}{\textit{Token Reduction ($\downarrow$ 75.00\%)}} \\
+ \midrule
++ FastV~\cite{chen2024image} & 54.3 & \underline{70.5} & 69.1 & 63.8 & \textbf{48.6}  \\
+\rowcolor{gray!10}+ VisionZip~\cite{yang2025visionzip} & \underline{59.0} & 67.7 & \underline{71.3} & \textbf{80.8} & 44.8\\
++ PruMerge+~\cite{shang2024llava} & \textbf{60.4} & \textbf{74.2} & \textbf{73.5} & \underline{75.6} & \textbf{48.6}\\
+\midrule
+\rowcolor{lightgrayblue}\textit{LLaVA-OV-7B~\cite{li2024llava}} & \multicolumn{5}{c}{\textit{Token Reduction ($\downarrow$ 88.89\%)}} \\
+ \midrule
++ FastV~\cite{chen2024image} & 45.3 & 64.6 & 66.4 & 39.1 & 42.4\\
+\rowcolor{gray!10}+ VisionZip~\cite{yang2025visionzip} & \underline{56.6} & \textbf{71.9} & \underline{71.2} & \underline{69.6} & \underline{43.5}\\
++ PruMerge+~\cite{shang2024llava} & \textbf{57.4} & \underline{68.8} & \textbf{71.5} & \textbf{76.0} & \textbf{45.8}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{LLaVA-OV-7B~\cite{li2024llava}} & \multicolumn{5}{c}{\textit{Token Reduction ($\downarrow$ 93.75\%)}} \\
+ \midrule
++ FastV~\cite{chen2024image} & 36.7 & 51.2 & 53.3 & 29.7 & 32.6\\
+\rowcolor{gray!10}+ VisionZip~\cite{yang2025visionzip} & \underline{49.1} & \underline{64.3} & \underline{62.4} & \underline{53.6} & \textbf{36.6}\\
++ PruMerge+~\cite{shang2024llava} & \textbf{50.2} & \textbf{66.6} & \textbf{65.3} & \textbf{59.9} & \underline{34.8}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{LLaVA-OV-7B~\cite{li2024llava}} & \multicolumn{5}{c}{\textit{Token Reduction ($\downarrow$ 96.00\%)}} \\
+ \midrule
++ FastV~\cite{chen2024image} & 31.4 & 37.4 & 43.1 & 24.5 & 28.6\\
+\rowcolor{gray!10}+ VisionZip~\cite{yang2025visionzip} & \underline{42.6} & \underline{55.4} & \underline{56.9} & \underline{45.4} & \underline{30.8}\\
++ PruMerge+~\cite{shang2024llava} & \textbf{42.7} & \textbf{57.8} & \textbf{59.6} & \textbf{49.9} & \textbf{31.3}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{LLaVA-OV-7B~\cite{li2024llava}} & \multicolumn{5}{c}{\textit{Token Reduction ($\downarrow$ 99.00\%)}} \\
+ \midrule
++ FastV~\cite{chen2024image} & \underline{25.7} & \underline{25.8} & \underline{29.6} & 39.3 & 21.9\\
+\rowcolor{gray!10}+ VisionZip~\cite{yang2025visionzip} & \textbf{28.3} & \textbf{28.1} & \textbf{32.8} & \textbf{42.1} & \underline{24.7}\\
++ PruMerge+~\cite{shang2024llava} & 25.3 & 25.5 & 28.5 & \underline{40.4} & \textbf{25.2}\\
+\bottomrule
+\end{tabular}}
+\end{table}
+\begin{table*}[h!]
+\small
+\renewcommand{\arraystretch}{1.1}
+\centering
+\caption{Comparison of Advanced Token Compression Methods and Downsampling on Qwen2-VL-7B. APRR refers to  \textbf{\textit{the average performance retention ratio}}, which is the average value of the retention ratio compared to the vanilla performance, across the eight benchmarks. The right side of each cell shows \textbf{\textit{the relative change percentage compared to the performance of the downsampling method}}. }
+\label{table1}
+\renewcommand{\tabcolsep}{8pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c c c c c c c c |c}
+\toprule
+\textit{\textbf{Method}} & \textit{\textbf{GQA} }& \textit{\textbf{MMB}} & \textit{\textbf{MMB$^{CN}$} }& \textit{\textbf{MME}} & \textit{\textbf{POPE}} & \textit{\textbf{MMStar}}  & \textit{\textbf{OCRBench}}& \textit{\textbf{ChartQA}}  & \textit{\textbf{APRR}}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Upper Bound. All Tokens (100\%)}} \\ \midrule
+\textcolor{gray}{Vanilla} & \textcolor{gray}{62.3} & \textcolor{gray}{78.9} & \textcolor{gray}{78.0} & \textcolor{gray}{2306} & \textcolor{gray}{88.4} & \textcolor{gray}{57.1} & \textcolor{gray}{80.7}&  \textcolor{gray}{81.6} & \textcolor{gray}{100.0}\\
+\midrule
+\rowcolor{lightgrayblue}\textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 75.00\%)}} \\ \midrule
+\rowcolor{brown!10}
++ Downsample (Baseline) & \underline{59.2}   & \textbf{75.0} & \textbf{73.8} & \textbf{2259}&  86.2& \textbf{50.1} &\textbf{64.9}  &\underline{65.0} & \textbf{91.0}   \\
++ FastV~\cite{chen2024image} & 57.0 \ColorValue{3.7}& \underline{73.7} \ColorValue{1.7} & \underline{73.1} \ColorValue{0.9}& \underline{2083} \ColorValue{7.8}& 84.5 \ColorValue{2.0}&44.6 \ColorValue{11.0}&42.0 \ColorValue{35.3} &58.1 \ColorValue{10.6}& 83.2 \ColorValue{8.6} \\
++ VisionZip~\cite{yang2025visionzip} &  58.6 \ColorValue{1.0}& 71.1 \ColorValue{5.2}& 70.5 \ColorValue{4.5} & 2062 \ColorValue{8.7}& \underline{87.1} \ua{1.0} & 47.2 \ColorValue{5.8} &42.1 \ColorValue{35.1}&\textbf{66.9} \ua{2.9} & \underline{84.9} \ColorValue{6.7}\\
++ PruMerge+~\cite{shang2024llava} &  \textbf{59.4} \ua{0.3}&  72.1 \ColorValue{3.9}& 72.0 \ColorValue{2.4} & 2044 \ColorValue{9.5} &\textbf{87.2} \ua{1.2}  &  \underline{48.0} \ColorValue{4.2}&33.9 \ColorValue{47.8}&56.2 \ColorValue{13.5}& 82.7 \ColorValue{9.1}\\
++ DART~\cite{wen2025stop}   & 56.9 \ColorValue{3.9} &  72.5 \ColorValue{3.3}&  70.2 \ColorValue{4.9}& 2066 \ColorValue{8.5}& 84.7  \ColorValue{1.7} & 47.2 \ColorValue{5.8}&\underline{52.5} \ColorValue{19.1}&52.7 \ColorValue{18.9} & 83.9 \ColorValue{7.8}  \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 88.89\%)}} \\ \midrule
+\rowcolor{brown!10}
++ Downsample (Baseline)  &  \textbf{55.5}& \textbf{69.0} & \textbf{70.2} &\textbf{2127} &82.9  & \textbf{44.0} & \textbf{48.8} & 24.8 & \textbf{77.6}  \\
++ FastV~\cite{chen2024image}  &52.3 \ColorValue{5.8} & 65.0 \ColorValue{5.8} & \underline{65.5} \ColorValue{6.7} & 1854 \ColorValue{12.8} &  77.4 \ColorValue{6.6} & \underline{40.3} \ColorValue{8.4} & 25.9 \ColorValue{46.9} & 32.9 \ua{32.6} & 70.2 \ColorValue{9.5} \\
++ VisionZip~\cite{yang2025visionzip} & 53.3 \ColorValue{4.0} & 62.9 \ColorValue{8.8} & 63.0 \ColorValue{10.3} & 1820 \ColorValue{14.4} & \underline{83.6} \ua{0.8} & 40.2 \ColorValue{8.6}  & 25.1 \ColorValue{48.6} & \textbf{48.4} \ua{95.2} & \underline{72.5} \ColorValue{6.6}\\
++ PruMerge+~\cite{shang2024llava} & \underline{54.8} \ColorValue{1.3} & 62.2 \ColorValue{9.9} & 61.3 \ColorValue{12.7} & 1806 \ColorValue{15.1} & \textbf{84.3} \ua{1.7} & 38.4 \ColorValue{12.7} & 22.2 \ColorValue{54.5} & \underline{44.2} \ua{78.2} & 71.0 \ColorValue{8.5} \\
++ DART~\cite{wen2025stop} & 51.9 \ColorValue{6.5} & 61.3 \ColorValue{11.2} & 61.8 \ColorValue{12.0} & \underline{1915} \ColorValue{10.0} & 80.5 \ColorValue{2.9} & 39.8 \ColorValue{9.5} &\underline{41.0} \ColorValue{16.0} & 30.8 \ua{24.2} & 71.6 \ColorValue{7.7} \\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 93.75\%)}} \\ \midrule
+\rowcolor{brown!10}
++ Downsample (Baseline)   &\textbf{52.6}  & \textbf{66.4} & \textbf{66.8} &\textbf{1994} &\underline{79.5} & \textbf{40.9} &\textbf{40.3}&12.7 & \textbf{71.0}\\
++ FastV~\cite{chen2024image}  & 49.0 \ColorValue{6.8} & \underline{57.1} \ColorValue{14.0} & \underline{57.9} \ColorValue{13.3} & 1684 \ColorValue{15.5} & 74.9 \ColorValue{5.8} & \underline{37.5} \ColorValue{8.3} & 18.7 \ColorValue{53.6} & 20.6 \ua{62.2} & 62.1 \ColorValue{12.5}\\
++ VisionZip~\cite{yang2025visionzip} & 49.0 \ColorValue{6.8} & 54.8 \ColorValue{17.5} &54.0 \ColorValue{19.2} & 1704 \ColorValue{14.5} & \textbf{80.2} \ColorValue{0.9} &35.2 \ColorValue{13.9} &15.9 \ColorValue{60.5} &\underline{28.0} \ua{120.5} &62.2 \ColorValue{12.4}\\
++ PruMerge+~\cite{shang2024llava} &  48.7 \ColorValue{7.4} &  48.4 \ColorValue{27.1} & 48.1 \ColorValue{28.0} &1679 \ColorValue{15.8} & 79.2 \ColorValue{0.4} & 33.2 \ColorValue{18.8} &14.4 \ColorValue{64.3} &\textbf{30.0} \ua{136.2} & 59.5 \ColorValue{16.2}\\
++ DART~\cite{wen2025stop}  &\underline{49.2} \ColorValue{6.5} & 53.4 \ColorValue{19.6} & 54.0 \ColorValue{19.2} &\underline{1786} \ColorValue{10.4} & 78.1 \ColorValue{1.8} & 33.6 \ColorValue{17.8} & \underline{33.7} \ColorValue{16.4} & 19.2 \ua{51.2} & \underline{63.2} \ColorValue{11.0}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}}& \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 96.00\%)}} \\ \midrule
+\rowcolor{brown!10}
++ Downsample (Baseline)  & \textbf{50.1} &\textbf{62.0}  &\textbf{61.4}  & \textbf{1938}&  \textbf{78.8}& \textbf{37.5} &\textbf{32.3} &11.7 &\textbf{66.4}\\
++ FastV~\cite{chen2024image}  & 46.1 \ColorValue{8.0} & 43.9 \ColorValue{29.2} & 46.6 \ColorValue{24.1} & 1589 \ColorValue{18.0} & 72.4 \ColorValue{8.1} & \underline{33.6} \ColorValue{10.4} & 14.4 \ColorValue{55.4} &15.8 \ua{35.0} & 54.5 \ColorValue{17.9} \\
++ VisionZip~\cite{yang2025visionzip} & \underline{46.4} \ColorValue{7.4} &  \underline{49.5} \ColorValue{20.2} & \underline{50.0} \ColorValue{18.6} & 1628 \ColorValue{16.0} & \underline{77.8} \ColorValue{1.3} &33.4 \ColorValue{10.9} & 12.0 \ColorValue{62.8} &  \underline{19.4} \ua{65.8} & 57.1 \ColorValue{14.0} \\
++ PruMerge+~\cite{shang2024llava} &45.0 \ColorValue{10.2} &  39.1 \ColorValue{36.9} &40.9 \ColorValue{33.4} &1544 \ColorValue{20.3} &  74.0 \ColorValue{6.1} &30.5 \ColorValue{18.7} &10.5 \ColorValue{67.5} &  \textbf{20.9} \ua{78.6} & 52.1 \ColorValue{21.5} \\
++ DART~\cite{wen2025stop}  &  45.6 \ColorValue{9.0} & 47.9 \ColorValue{22.7} & 48.2 \ColorValue{21.5} & \underline{1701} \ColorValue{12.2} & 74.7 \ColorValue{5.2} & 31.7 \ColorValue{15.5} & \underline{29.3} \ColorValue{9.3} &16.6 \ua{41.9} & \underline{58.3} \ColorValue{12.2}\\
+\midrule
+\rowcolor{lightgrayblue} \textit{Qwen2-VL-7B~\cite{wang2024qwen2}} & \multicolumn{9}{c}{\textit{Token Reduction ($\downarrow$ 99.00\%)}} \\ \midrule
+\rowcolor{brown!10}
++ Downsample (Baseline)  & \textbf{43.5} &  \textbf{51.6}& \textbf{51.9} &\textbf{1589} & \textbf{72.8} & \textbf{33.8}  & \underline{13.2}& 12.1 & \textbf{55.4} \\
++ FastV~\cite{chen2024image}  &38.2 \ColorValue{12.2} & 23.9  \ColorValue{53.7} & 24.5 \ColorValue{52.8} & 1189 \ColorValue{25.2} &  55.0 \ColorValue{24.5} & 26.1 \ColorValue{22.8} & 5.8 \ColorValue{56.1} & 11.9 \ColorValue{1.7} & 38.0 \ColorValue{31.4} \\
++ VisionZip~\cite{yang2025visionzip} & \underline{41.9} \ColorValue{3.7} & \underline{40.5} \ColorValue{21.5} & \underline{40.5} \ColorValue{22.0} & 1335 \ColorValue{16.0} & \underline{65.5} \ColorValue{10.0} & \underline{30.8} \ColorValue{8.9} & 4.9 \ColorValue{62.9} &\underline{12.8} \ua{5.9} &\underline{47.3} \ColorValue{14.6} \\
++ PruMerge+~\cite{shang2024llava} & 39.0 \ColorValue{10.3} & 23.7 \ColorValue{54.1} & 24.4 \ColorValue{53.0} &1165 \ColorValue{26.7} & 51.6 \ColorValue{29.1} & 25.7 \ColorValue{24.0} &3.5 \ColorValue{73.5} & \textbf{13.9} \ua{14.9} & 37.4 \ColorValue{32.5} \\
++ DART~\cite{wen2025stop}  & 40.5 \ColorValue{6.9} & 30.8 \ColorValue{40.3} & 30.7 \ColorValue{40.8} &\underline{1346} \ColorValue{15.3} & 60.0 \ColorValue{17.6} &28.8 \ColorValue{14.8} & \textbf{23.2} \ua{75.8} & 11.8 \ColorValue{2.5} & 45.4 \ColorValue{18.1}\\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\end{document}

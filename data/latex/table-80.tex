@@ -1,0 +1,38 @@
+\begin{document}
+\begin{table*}[t]
+\caption{Comparison of RLAIF/RLHF-based algorithms for enhancing LVLMs across various benchmarks.}\label{table2_main_result}
+\vspace{-2mm}
+\resizebox{\textwidth}{36mm}{
+\begin{tabular}{lcc|cccccccccc}
+\hline
+\rowcolor[HTML]{EFEFEF}
+\multicolumn{1}{c}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} }} & \cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} } & \cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} } & \multicolumn{4}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}AMBER\\ (1004)\end{tabular}}}} & \multicolumn{2}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}MMHal-Bench\\ (96)\end{tabular}}}} & \multicolumn{2}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}Object Hal \\ (300)\end{tabular}}}} & \multicolumn{2}{c}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}POPE Adversarial\\ (3000)\end{tabular}}}} \\ \cline{4-13}
+\rowcolor[HTML]{EFEFEF}
+\multicolumn{1}{c}{\multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}Algorithm\\ \,\end{tabular}}}}} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}Data Size\\ \,\end{tabular}}}} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{\begin{tabular}[c]{@{}c@{}}Feedback\\ \,\end{tabular}}}} & {\color[HTML]{000000} \textbf{CHAIR↓}} & {\color[HTML]{000000} \textbf{Cover↑}} & {\color[HTML]{000000} \textbf{HalRate↓}} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{Cog↓}}} & {\color[HTML]{000000} \textbf{Score↑}} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{HalRate↓}}} & {\color[HTML]{000000} \textbf{CHAIRs↓}} & \multicolumn{1}{c|}{\cellcolor[HTML]{EFEFEF}{\color[HTML]{000000} \textbf{CHAIRi↓}}} & {\color[HTML]{000000} \textbf{Acc.↑}} & {\color[HTML]{000000} \textbf{Pre.↑}} \\ \hline \addlinespace
+\multicolumn{3}{l|}{\textbf{Qwen-VL-Chat -34B \cite{bai2023qwenvl}$^\dagger$}} & 6.6 & 53.2 & 31.0 & 2.9 & 2.89 & 0.43 & 36 & 21.3 & - & - \\
++Silkie \cite{li2023silkie}$^\dagger$ & 80k & GPT-4V & 5.4 & 55.8 & 29.0 & 2.0 & 3.01 & 0.41 & 25.3 & 13.9 & - & - \\ \addlinespace \hline \addlinespace
+\multicolumn{3}{l|}{\textbf{LLaVA-Instruct-1.5-7B \cite{liu2024llava, liu2024llava2}$^\S$}} & 7.7 & 51.6 & 34.7 & 4.2 & 2.01 & 0.61 & 55.67 & 15.96 & \textbf{84.93\%} & 89.10\% \\
++LLaVA-RLHF \cite{sun2023llava_rlhf}$^\S$ & 122k & Self-Reward & 9.7 & 53.2 & 46.6 & 5.3 & 1.88 & 0.71 & 58.00 & 15.61 & 80.00\% & 87.19\% \\
++HALVA \cite{sarkar2024halva}$^\ddagger$ & 21.5k & GPT-4V & 6.6 & \textbf{53.0} & 32.2 & 3.4 & 2.25 & 0.54 & 41.40 & 11.70 & - & - \\
++mDPO \cite{wang2024mdpo}$^\star$ & 10k & GPT-4V & 4.4 & 52.4 & 24.5 & 2.4 & 2.39 & 0.54 & 35.70 & 9.80 & - & 95.36\% \\
++HA-DPO \cite{zhao2023hadpo}$^\S$ & 6k & GPT4 & 7.8 & 52.1 & 35.6 & 4.2 & 1.89 & 0.65 & 54.00 & 14.45 & 84.90\% & 90.42\% \\
++POVID \cite{zhou2024povid}$^\S$ & 17k & GPT-4V & 7.4 & 51.3 & 34.3 & 3.9 & 2.08 & 0.60 & 50.67 & 15.28 & 84.77\% & 89.01\% \\
++RLAIF-V \cite{yu2024rlaif}$^\S$ & 16k & LLaVA-Next & 3.0 & 50.4 & 16.2 & 1.0 & \textbf{3.00} & \textbf{0.38} & 16.00 & \textbf{3.70} & 81.57\% & 94.97\% \\
+\rowcolor[HTML]{ECF4FF}
+\textbf{+OPA (ours)} & 4.8k & GPT-4V & 5.6 & 52.8 & 23.2 & 2.3 & 2.41 & 0.52 & 28.00 & 9.48 & 82.53\% & 95.36\% \\
+\rowcolor[HTML]{ECF4FF}
+\textbf{+OPA-DPO (ours)} & 4.8k & GPT-4V & \textbf{2.2} & 47.9 & \textbf{11.6} & \textbf{0.9} & 2.83 & 0.45 & \textbf{13.00} & 4.25 & 82.60\% & \textbf{95.61\%} \\ \addlinespace \hline \addlinespace
+\multicolumn{3}{l|}{\textbf{LLaVA-Instruct-1.5-13B \cite{liu2024llava, liu2024llava2}$^\S$}} & 6.8 & 51.9 & 31.8 & 3.3 & 2.48 & 0.52 & 51.00 & 13.71 & \textbf{85.50\%} & 90.31\% \\
++LLaVA-RLHF \cite{sun2023llava_rlhf}$^\S$ & 122k & Self-Reward & 7.7 & 52.3 & 38.6 & 4.0 & 2.27 & 0.64 & 44.67 & 11.83 & 82.47\% & 90.25\% \\
++RLHF-V (HD) \cite{yu2024rlhfv}$^\dagger$ & 1.4k & Human & 6.3 & 46.1 & 25.1 & 2.1 & 2.81 & 0.49 & - & - & - & - \\
++HSA-DPO \cite{xiao2024hsadpo}$^\dagger$ & 8k & GPT-4/4V & \textbf{2.1} & 47.3 & 13.4 & 1.2 & 2.61 & 0.48 & - & - & 84.00\% & 80.20\% \\
++HALVA \cite{sarkar2024halva}$^\ddagger$ & 21.5k & GPT-4V & 6.4 & 52.6 & 30.4 & 3.2 & 2.58 & 0.45 & 45.40 & 12.80 & - & - \\
+\rowcolor[HTML]{ECF4FF}
+\textbf{+OPA (ours)} & 4.8k & GPT-4V & 5.2 & \textbf{54.1} & 21.4 & 2.2 & 2.75 & 0.45 & 31.33 & 8.88 & 83.60\% & 96.24\% \\
+\rowcolor[HTML]{ECF4FF}
+\textbf{+OPA-DPO (ours)} & 4.8k & GPT4V & 2.4 & 48.3 & \textbf{12.8} & \textbf{0.9} & \textbf{3.07} & \textbf{0.39} & \textbf{16.33} & \textbf{5.48} & 82.63\% & \textbf{96.31\%} \\ \addlinespace \hline
+\end{tabular}
+}
+\vspace{-2mm}
+\end{table*}
+\end{document}

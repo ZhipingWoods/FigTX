@@ -1,0 +1,70 @@
+\begin{document}
+\begin{table*}[t]
+  \centering
+  \renewcommand{\arraystretch}{1}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{@{}ll ccc ccc ccc ccc ccc!{\vrule width 0pt}@{}}
+    \toprule
+    \multirow{2}{*}{Student} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Clean} & \multicolumn{3}{c}{FGSM} & \multicolumn{3}{c}{PGD} & \multicolumn{3}{c}{$\textup{CW}_{\infty}$} & \multicolumn{3}{c}{AA} \\
+    \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14} \cmidrule(lr){15-17}
+    & & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD \\
+    \midrule
+    \multirow{6}{*}{RN-18} & ZSKT & 65.48 & 32.20 & 0.280 & 44.17 & 26.00 & 0.324 & 43.06 & 23.50 & 0.349 & 32.02 & 21.50 & 0.256 & 17.16 & 2.20 & 0.780 \\
+    & CMI & 68.29 & 51.20 & 0.170 & 46.73 & 36.40 & 0.199 & 43.07 & 32.50 & 0.227 & 36.70 & \underline{28.90} & 0.209 & 26.87 & 14.60 & 0.441 \\
+    & DeepInv & 71.22 & \underline{58.90} & \underline{0.130} & 51.34 & 36.90 & 0.196 & 42.22 & 29.00 & 0.221 & 42.11 & 28.10 & \underline{0.198} & 25.19 & 11.60 & 0.445 \\
+    & Fast & 72.20 & 57.80 & 0.139 & \underline{56.23} & \underline{43.80} & 0.188 & \underline{54.70} & \underline{37.00} & \underline{0.201} & 41.42 & 28.50 & 0.228 & 33.19 & 17.60 & 0.422 \\
+    & DFHL & \underline{74.42} & {58.60} & 0.136 & 53.56 & 41.10 & \underline{0.176} & 51.23 & 36.90 & \textbf{0.198} & \underline{42.15} & 26.90 & 0.214 & \underline{36.37} & \underline{18.50} & \underline{0.369} \\
+    & FERD(Ours) & \cellcolor{gray!15}\textbf{79.86} & \cellcolor{gray!15}\textbf{68.20} & \cellcolor{gray!15}\textbf{0.103} & \cellcolor{gray!15}\textbf{61.39} & \cellcolor{gray!15}\textbf{46.90} & \cellcolor{gray!15}\textbf{0.155} & \cellcolor{gray!15}\textbf{55.10} & \cellcolor{gray!15}\textbf{38.60} & \cellcolor{gray!15}\textbf{0.198} & \cellcolor{gray!15}\textbf{46.22} &
+    \cellcolor{gray!15}\textbf{30.50} &
+    \cellcolor{gray!15}\textbf{0.191} &
+    \cellcolor{gray!15}\textbf{39.33} &
+    \cellcolor{gray!15}\textbf{19.60} &
+    \cellcolor{gray!15}\textbf{0.337} \\
+    \midrule
+    \multirow{6}{*}{MN-V2} & ZSKT & 54.69 & 16.10 & 0.374 & 38.36 & 15.40 & 0.386 & 36.62 & 14.80 & 0.396 & 29.93 & 13.80 & 0.302 & 14.85 & 1.60 & 0.787 \\
+    & CMI & 60.70 & 38.60 & 0.216 & 42.37 & 30.00 & 0.227 & 36.81 & 24.70 & 0.261 & 36.39 & \underline{28.50} & 0.209 & 18.08 & 7.60 & 0.532 \\
+    & DeepInv & 62.77 & 46.00 & 0.179 & 45.64 & 30.50 & \underline{0.180} & 35.70 & 22.10 & 0.219 & 39.47 & 28.10 & \textbf{0.157} & 15.40 & 5.40 & 0.498 \\
+    & Fast & 58.60 & 43.40 & 0.208 & 44.30 & 31.20 & 0.217 & 43.44 & 30.40 & 0.229 & 35.07 & 26.70 & 0.233 & 18.38 & 6.90 & 0.595 \\
+    & DFHL & \underline{70.83} & \underline{50.60} & \underline{0.161} & \underline{50.19} & \underline{35.70} & 0.182 & \underline{48.49} & \underline{34.00} & \underline{0.195} & \underline{39.63} & 27.40 & 0.192 & \underline{32.60} & \underline{13.70} & \underline{0.388} \\
+    & FERD(Ours) & \cellcolor{gray!15}\textbf{78.04} & \cellcolor{gray!15}\textbf{66.80} & \cellcolor{gray!15}\textbf{0.110} & \cellcolor{gray!15}\textbf{61.44} & \cellcolor{gray!15}\textbf{50.80} & \cellcolor{gray!15}\textbf{0.141} & \cellcolor{gray!15}\textbf{52.55} & \cellcolor{gray!15}\textbf{36.70} & \cellcolor{gray!15}\textbf{0.176} & \cellcolor{gray!15}\textbf{46.21} & \cellcolor{gray!15}\textbf{31.90} & \cellcolor{gray!15}\underline{0.178} & \cellcolor{gray!15}\textbf{38.02} & \cellcolor{gray!15}\textbf{20.10} & \cellcolor{gray!15}\textbf{0.307} \\
+    \bottomrule
+  \end{tabular}%
+  }
+  \caption{Result in average robustness(\%) (Avg.~$\uparrow$), worst robustness(\%) (Worst~$\uparrow$), and normalized standard deviation (NSD~$\downarrow$) on CIFAR-10. RN-18 and MN-V2 are abbreviations of ResNet-18 and MobileNet-V2 respectively. The best results are \textbf{bolded}, and the second best results are \underline{underlined}.}
+  \label{tab1:cifar10_results}
+\end{table*}
+\begin{table*}[t]
+  \centering
+  \renewcommand{\arraystretch}{1}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{@{}ll ccc ccc ccc ccc ccc!{\vrule width 0pt}@{}}
+    \toprule
+    \multirow{2}{*}{Student} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Clean} & \multicolumn{3}{c}{FGSM} & \multicolumn{3}{c}{PGD} & \multicolumn{3}{c}{$\textup{CW}_{\infty}$} & \multicolumn{3}{c}{AA} \\
+    \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14} \cmidrule(lr){15-17}
+    & & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD & Avg. & Worst & NSD \\
+    \midrule
+    \multirow{6}{*}{RN-18} & ZSKT & 36.44 & 6.40 & 0.522 & 22.15 & 3.50 & 0.573 & 21.70 & 3.20 & 0.582 & 19.08 & 5.10 & 0.491 & 5.98 & 0.00 & 1.362 \\
+    & CMI & 51.60 & \underline{27.20} & \underline{0.295} & 35.32 & 14.60 & 0.443 & 32.67 & 12.30 & 0.450 & 27.45 & 10.70 & 0.450 & 17.72 & 1.30 & \underline{0.824} \\
+    & DeepInv & \underline{53.44} & \underline{27.20} & 0.298 & 35.51 & \underline{14.90} & \underline{0.422} & 33.76 & \underline{13.40} & \underline{0.436} & 27.73 & 12.10 & \textbf{0.445} & 17.52 & 1.60 & 0.856 \\
+    & Fast & 50.69 & 23.50 & 0.323 & \underline{36.11} & 13.10 & 0.440 & \underline{34.97} & 11.80 & 0.443 & 27.73 & 11.20 & 0.456 & \underline{18.27} & \underline{1.70} & 0.859 \\
+    & DFHL & 46.27 & 18.70 & 0.370 & 30.54 & 12.70 & 0.449 & 28.31 & 10.90 & 0.485 & \underline{30.54} & 10.60 & \underline{0.449} & 15.23 & 1.10 & 0.957 \\
+    & FERD(Ours) & \cellcolor{gray!15}\textbf{56.99} & \cellcolor{gray!15}\textbf{31.00} & \cellcolor{gray!15}\textbf{0.277} & \cellcolor{gray!15}\textbf{39.87} & \cellcolor{gray!15}\textbf{15.60} & \cellcolor{gray!15}\textbf{0.417} & \cellcolor{gray!15}\textbf{37.14} & \cellcolor{gray!15}\textbf{13.60} & \cellcolor{gray!15}\textbf{0.418} & \cellcolor{gray!15}\textbf{30.90} &
+    \cellcolor{gray!15}\textbf{12.40} &
+    \cellcolor{gray!15}{0.478} &
+    \cellcolor{gray!15}\textbf{22.33} &
+    \cellcolor{gray!15}\textbf{4.40} &
+    \cellcolor{gray!15}\textbf{0.783} \\
+    \midrule
+    \multirow{6}{*}{MN-V2} & ZSKT & 30.77 & 2.70 & 0.650 & 21.38 & 1.50 & 0.680 & 21.00 & 1.40 & 0.688 & 18.86 & 1.90 & 0.612 & 8.67 & 0.00 & 1.204 \\
+    & CMI & 35.80 & \underline{13.30} & \underline{0.425} & 23.44 & 6.60 & 0.500 & 20.31 & 5.80 & 0.515 & 20.98 & 7.50 & \underline{0.464} & 8.11 & 0.00 & \underline{1.043} \\
+    & DeepInv & 38.10 & 11.10 & 0.447 & 23.42 & 7.20 & 0.555 & 21.80 & 6.30 & 0.568 & 20.58 & 7.50 & 0.524 & 6.67 & 0.00 & 1.420 \\
+    & Fast & 39.00 & 13.00 & 0.441 & 26.82 & \underline{8.40} & \underline{0.492} & \underline{25.59} & \underline{7.60} & \underline{0.508} & 22.61 & \underline{9.10} & 0.471 & 9.52 & 0.00 & 1.141 \\
+    & DFHL & \underline{42.08} & 11.30 & 0.436 & \underline{27.36} & 8.00 & 0.529 & 25.42 & 6.70 & 0.541 & \underline{23.01} & 1.00 & 0.514 & \underline{12.99} & \underline{0.40} & 1.050 \\
+    & FERD(Ours) & \cellcolor{gray!15}\textbf{55.30} & \cellcolor{gray!15}\textbf{29.50} & \cellcolor{gray!15}\textbf{0.286} & \cellcolor{gray!15}\textbf{40.08} & \cellcolor{gray!15}\textbf{16.40} & \cellcolor{gray!15}\textbf{0.397} & \cellcolor{gray!15}\textbf{33.76} & \cellcolor{gray!15}\textbf{11.08} & \cellcolor{gray!15}\textbf{0.463} & \cellcolor{gray!15}\textbf{31.37} & \cellcolor{gray!15}\textbf{12.40} & \cellcolor{gray!15}\textbf{0.462} & \cellcolor{gray!15}\textbf{20.11} & \cellcolor{gray!15}\textbf{1.90} & \cellcolor{gray!15}\textbf{0.810} \\
+    \bottomrule
+  \end{tabular}%
+  }
+  \caption{Result in average robustness(\%) (Avg.~$\uparrow$), worst-10\% robustness(\%) (Worst~$\uparrow$), and normalized standard deviation (NSD~$\downarrow$) on CIFAR-100. RN-18 and MN-V2 are abbreviations of ResNet-18 and MobileNet-V2 respectively. The best results are \textbf{bolded}, and the second best results are \underline{underlined}.}
+  \label{tab2:cifar100_results}
+\end{table*}
+\end{document}

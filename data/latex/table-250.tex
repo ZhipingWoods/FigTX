@@ -1,0 +1,80 @@
+\usepackage{ulem}
+\renewcommand{\emph}[1]{\textit{#1}}
+\usepackage{colortbl,booktabs}
+\usepackage{ragged2e}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{tabu}
+\usepackage{cuted}
+\usepackage[shortlabels]{enumitem}
+\usepackage{multirow}
+\usepackage{setspace}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\bmu}{{\boldsymbol{\mu}}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bSigma}{{\boldsymbol{\Sigma}}}
+\newcommand{\bepsilon}{{\boldsymbol{\epsilon}}}
+\newcommand{\vspaceunderfig}{\vspace{-0.2cm}}
+\newcommand{\vspaceundertab}{\vspace{-.2cm}}
+\newcommand{\vspaceunderfigext}{\vspace{-0.2cm}}
+\newcommand{\vspaceundercaption}{\vspace{-0.3cm}}
+\newcommand{\wan}{\texttt{Wan}\,}
+\usepackage{arydshln}
+\def\rebuttal{\textcolor{red}}
+\definecolor{c6}{HTML}{95Baa6}
+\definecolor{c7}{HTML}{4b8dbc}
+\newcommand{\mg}[1]{\textcolor{DarkOliveGreen3}{#1}}
+\newcommand{\pp}[1]{\textcolor{purple}{#1}}
+\newcommand{\og}[1]{\textcolor{orange}{#1}}
+\newcommand{\az}[1]{\textcolor{azure}{#1}}
+\definecolor{c5}{HTML}{C00000}
+\newcommand{\gre}[1]{\textcolor{c6}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\btheta}[0]{{\boldsymbol{\theta}}}
+\newcommand{\ptheta}[0]{{\boldsymbol{\theta^{\prime}}}}
+\newcommand{\bdelta}[0]{{\boldsymbol{\delta}}}
+\newcommand{\predictor}[0]{{\bepsilon_{\theta}}}
+\definecolor{mycolor}{HTML}{a7caea}
+\newcommand{\mytranscolor}{\color{mycolor!50}}
+\definecolor{mygreen}{HTML}{95BAA6}
+\definecolor{myblue}{HTML}{4b8dbc}
+\definecolor{myyellow}{HTML}{E2CD89}
+\newcommand{\yl}[1]{\textcolor{myyellow}{#1}}
+\newcommand{\gr}[1]{\textcolor{gray}{#1}}
+\newcommand{\bl}[1]{\textcolor{myblue}{#1}}
+\newcommand{\green}[1]{\textcolor{mygreen}{#1}}
+%%%%%%%
+\begin{document}
+\begin{tabu}[t!]{l|cc|cccccccc}
+\toprule
+\multirow{2}{*}{Method}  & \multirow{2}{*}{Latency~(s)$\downarrow$} & \multirow{2}{*}{Speedup$\uparrow$} & \multirow{2}{*}{\rotatebox{0}{\makecell{Imaging\\Quality}$\uparrow$}} &  \multirow{2}{*}{\rotatebox{0}{\makecell{Aesthetic\\Quality}$\uparrow$}} & \multirow{2}{*}{\rotatebox{0}{\makecell{Motion\\Smoothness}$\uparrow$}} & \multirow{2}{*}{\rotatebox{0}{\makecell{Dynamic \\Degree}$\uparrow$}} & \multirow{2}{*}{\rotatebox{0}{\makecell{Background\\Consistency}$\uparrow$}}  & \multirow{2}{*}{\rotatebox{0}{\makecell{Subject \\Consistency}$\uparrow$}} & \multirow{2}{*}{\rotatebox{0}{\makecell{Scene\\Consistency}$\uparrow$}} & \multirow{2}{*}{\rotatebox{0}{\makecell{Overall\\Consistency}$\uparrow$}}\\
+ & & & & & & \\
+\midrule
+\multicolumn{11}{c}{\cellcolor[gray]{0.92}\wan 1.3B ($\texttt{CFG}=5.0, 480p, \texttt{fps}=16$)} \\
+\midrule
+ FlashAttention2~\cite{dao2023flashattention2fasterattentionbetter}  & 97.32  & $1.00\times$ & 66.25 &59.49 &98.42 &59.72 &96.57 &95.28 &39.14 &26.18  \\
+ \midrule
+ DFA~\cite{yuan2024ditfastattnattentioncompressiondiffusion} & 88.95 & $1.09\times$ &  65.41 & 58.35 & \underline{98.11} & 58.47 & 95.82 & 94.31 &  38.43 & 26.08\\
+ XAttn~\cite{xu2025xattentionblocksparseattention} &  83.51 & $1.17\times$ &65.32 & 58.51 & 97.42 & 59.02 & 95.43 & 93.65 & 38.14 & 26.22 \\
+ SVG~\cite{xi2025sparsevideogenacceleratingvideo} &  74.52 & $1.31\times$ & 65.78 & 59.16 & 97.32 & 58.87 & 95.79 & 93.94 & 38.54 & 25.87\\
+ SVG2~\cite{yang2025sparsevideogen2acceleratevideo} &  84.91 & $1.15\times$ &\underline{66.03} & \underline{59.31} & 98.07 & 59.44 & \underline{96.61} & \underline{94.95} & \underline{39.14} & \underline{26.48}\\
+\midrule
+\rowcolor{mycolor!30}\textsc{LinVideo} &  \underline{68.26} & \underline{$1.43\times$} & \textbf{66.07} & \textbf{59.41} & \textbf{98.19} & \underline{59.67} & \textbf{96.72} & \textbf{95.12} & \textbf{39.18} & \textbf{26.52}\\
+\rowcolor{mycolor!30}\textsc{LinVideo} + DMD2~\cite{yin2024improved}  & \textbf{6.110} & $\mathbf{15.9\times}$ & 65.62 & 57.74 & 97.32 & \textbf{61.26} & 95.47 & 93.74 & 38.78 & 25.94\\
+\midrule
+\multicolumn{11}{c}{\cellcolor[gray]{0.92}\wan 14B ($\texttt{CFG}=5.0, 720p, \texttt{fps}=16$)} \\
+\midrule
+ FlashAttention2~\cite{dao2023flashattention2fasterattentionbetter}& 1931 & $1.00\times$ & 67.89 &61.54 &97.32 &70.56 &96.31 &94.08 &33.91 &26.17  \\
+ \midrule
+ DFA~\cite{yuan2024ditfastattnattentioncompressiondiffusion} & 1382 & $1.40\times$ & 65.93 & 60.13 & 96.87 & 69.34 & 95.37 & 93.26 & 33.14 & 26.12 \\
+ XAttn~\cite{xu2025xattentionblocksparseattention} & 1279 & $1.51\times$ & 65.47 & 60.36 & 96.28 & 69.25 & 95.24 & 92.97 & 33.22 & \underline{26.14} \\
+ SVG~\cite{xi2025sparsevideogenacceleratingvideo} & 1203 & $1.61\times$ & 66.09 & 60.86 & 96.91 & 69.46 & 95.35 & 93.18 & 33.46 & 26.07\\
+ SVG2~\cite{yang2025sparsevideogen2acceleratevideo} & 1364 & $1.42\times$ & \underline{66.25} & \underline{61.08} & \underline{97.12} & 69.43 & \underline{95.51} & \underline{93.39} & \underline{33.52} & \underline{26.14} \\
+\midrule
+\rowcolor{mycolor!30}\textsc{LinVideo} & \underline{1127} & \underline{$1.71\times$} & \textbf{66.47} & \textbf{61.36} & \textbf{97.24} & \textbf{69.82} & \textbf{96.34} & \textbf{93.68} & \textbf{33.72} & \textbf{26.16}\\
+\rowcolor{mycolor!30}\textsc{LinVideo} + DMD2~\cite{yin2024improved} & \textbf{92.56} & $\mathbf{20.9\times}$ & 65.74 & 59.68 & 96.32 & \underline{69.74} & 95.38 & 92.88 & 33.18 & 26.09\\
+\bottomrule
+\end{tabu}
+\end{document}

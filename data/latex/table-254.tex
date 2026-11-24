@@ -1,0 +1,172 @@
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage{makecell}
+\usepackage{xcolor}
+\definecolor{MacaronGreen}{RGB}{170, 210, 185}   % 柔和薄荷绿
+\definecolor{MacaronPinkBrown}{RGB}{190, 155, 150} % 粉棕 / dusty rose
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefformat{equation}{Eq.~#2#1#3}
+\newcommand{\MODEL}{LatentTSF\xspace}
+\newcommand{\ABBRMODEL}{La}
+\newcommand{\NAME}{NAME\xspace}
+% \newcommand{\myfirst}[1]{\textcolor{red}{\textbf{#1}}}
+% \newcommand{\myfirst}[1]{\textbf{#1}}
+% \newcommand{\myfirst}[1]{{\color{red}#1}}
+\newcommand{\myfirst}[1]{\colorbox{red!15}{\strut #1}}
+\newcommand{\mysecond}[1]{\colorbox{blue!15}{\strut #1}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{
+    \textbf{Performance comparison on six benchmark datasets.} We report the average MSE and MAE of six widely used baselines before and after applying \MODEL.
+    Best results are \myfirst{highlighted}.
+    Full results are shown in~\cref{tab:main_res}.
+}
+\label{tab:main_res_avg}
+\setlength{\tabcolsep}{0.5pt}
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|c|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc}
+\toprule
+\multicolumn{2}{c|}{\multirow{2}{*}{Models}}
+& \multicolumn{4}{c|}{CMoS}
+& \multicolumn{4}{c|}{DLinear}
+& \multicolumn{4}{c|}{PatchTST}
+& \multicolumn{4}{c|}{TimeBase}
+& \multicolumn{4}{c|}{TimeXer}
+& \multicolumn{4}{c}{iTransformer} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}\cmidrule(lr){11-14}\cmidrule(lr){15-18}\cmidrule(lr){19-22}\cmidrule(lr){23-26}
+\multicolumn{2}{c|}{}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c}{w/\MODEL} \\
+\cmidrule(lr){1-2}\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+\cmidrule(lr){11-12}\cmidrule(lr){13-14}\cmidrule(lr){15-16}\cmidrule(lr){17-18}
+\cmidrule(lr){19-20}\cmidrule(lr){21-22}\cmidrule(lr){23-24}\cmidrule(lr){25-26}
+\multicolumn{2}{c|}{Metric}
+& MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE
+& MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE \\
+\midrule
+ETTm1 & \emph{Avg.}
+& 0.368 & 0.389 & \myfirst{0.354} & \myfirst{0.376} & 0.358 & 0.383 & \myfirst{0.349} & \myfirst{0.375} & 0.357 & 0.386 & \myfirst{0.355} & \myfirst{0.383} & 0.370 & 0.388 & \myfirst{0.364} & \myfirst{0.384} & 0.378 & 0.401 & \myfirst{0.361} & \myfirst{0.386} & 0.373 & 0.406 & \myfirst{0.365} & \myfirst{0.396} \\
+\midrule
+ETTm2 & \emph{Avg.}
+& 0.275 & 0.332 & \myfirst{0.253} & \myfirst{0.314} & 0.266 & 0.331 & \myfirst{0.251} & \myfirst{0.316} & 0.261 & 0.324 & \myfirst{0.247} & \myfirst{0.310} & 0.264 & 0.324 & \myfirst{0.262} & \myfirst{0.321} & 0.277 & 0.333 & \myfirst{0.254} & \myfirst{0.317} & 0.273 & 0.334 & \myfirst{0.263} & \myfirst{0.322} \\
+\midrule
+ETTh1 & \emph{Avg.}
+& 0.433 & 0.441 & \myfirst{0.421} & \myfirst{0.426} & 0.428 & 0.445 & \myfirst{0.411} & \myfirst{0.428} & 0.437 & 0.456 & \myfirst{0.409} & \myfirst{0.435} & 0.420 & 0.423 & \myfirst{0.410} & \myfirst{0.416} & 0.485 & 0.489 & \myfirst{0.432} & \myfirst{0.454} & 0.485 & 0.486 & \myfirst{0.441} & \myfirst{0.459} \\
+\midrule
+ETTh2 & \emph{Avg.}
+& 0.367 & 0.411 & \myfirst{0.349} & \myfirst{0.391} & 0.500 & 0.480 & \myfirst{0.363} & \myfirst{0.407} & 0.361 & 0.402 & \myfirst{0.348} & \myfirst{0.387} & 0.389 & 0.435 & \myfirst{0.379} & \myfirst{0.416} & 0.370 & 0.414 & \myfirst{0.362} & \myfirst{0.400} & 0.406 & 0.430 & \myfirst{0.364} & \myfirst{0.403} \\
+\midrule
+Traffic & \emph{Avg.}
+& 0.559 & 0.365 & \myfirst{0.510} & \myfirst{0.342} & \myfirst{0.525} & \myfirst{0.373} & 0.552 & 0.376 & 0.982 & 0.629 & \myfirst{0.719} & \myfirst{0.486} & 0.591 & 0.396 & \myfirst{0.539} & \myfirst{0.356} & 1.270 & 0.721 & \myfirst{0.636} & \myfirst{0.438} & 0.798 & 0.526 & \myfirst{0.672} & \myfirst{0.464} \\
+\midrule
+Electricity & \emph{Avg.}
+& 0.239 & 0.318 & \myfirst{0.187} & \myfirst{0.284} & 0.201 & 0.313 & \myfirst{0.182} & \myfirst{0.284} & 0.389 & 0.456 & \myfirst{0.207} & \myfirst{0.318} & 0.235 & 0.322 & \myfirst{0.203} & \myfirst{0.295} & 0.242 & 0.352 & \myfirst{0.203} & \myfirst{0.313} & 0.268 & 0.375 & \myfirst{0.194} & \myfirst{0.299} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-1em}
+\end{table*}
+\begin{table*}[!t]
+\centering
+\caption{
+    \textbf{Performance comparison on six benchmark datasets.} We report the full MSE and MAE of six widely used baselines before and after applying \MODEL.
+    Best results are \myfirst{highlighted}.
+}
+\label{tab:main_res}
+\setlength{\tabcolsep}{2pt}
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|c|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc}
+\toprule
+\multicolumn{2}{c|}{}
+& \multicolumn{4}{c|}{CMoS}
+& \multicolumn{4}{c|}{DLinear}
+& \multicolumn{4}{c|}{PatchTST}
+& \multicolumn{4}{c|}{TimeBase}
+& \multicolumn{4}{c|}{TimeXer}
+& \multicolumn{4}{c}{iTransformer} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}\cmidrule(lr){11-14}\cmidrule(lr){15-18}\cmidrule(lr){19-22}\cmidrule(lr){23-26}
+\multicolumn{2}{c|}{Models}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c|}{w/\MODEL}
+& \multicolumn{2}{c}{Original} & \multicolumn{2}{c}{w/\MODEL} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+\cmidrule(lr){11-12}\cmidrule(lr){13-14}\cmidrule(lr){15-16}\cmidrule(lr){17-18}
+\cmidrule(lr){19-20}\cmidrule(lr){21-22}\cmidrule(lr){23-24}\cmidrule(lr){25-26}
+\multicolumn{2}{c|}{Metric}
+& MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE
+& MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE \\
+\midrule
+\multirow{5}{*}{ETTm1}
+& 96 & 0.316 & 0.362 & \myfirst{0.302} & \myfirst{0.346} & 0.307 & 0.351 & \myfirst{0.298} & \myfirst{0.344} & 0.295 & 0.350 & \myfirst{0.294} & \myfirst{0.348} & 0.336 & 0.370 & \myfirst{0.327} & \myfirst{0.363} & 0.323 & 0.370 & \myfirst{0.313} & \myfirst{0.358} & \myfirst{0.309} & 0.367 & 0.313 & \myfirst{0.361} \\
+& 192 & 0.344 & 0.375 & \myfirst{0.334} & \myfirst{0.364} & 0.339 & 0.372 & \myfirst{0.329} & \myfirst{0.364} & 0.345 & 0.378 & \myfirst{0.344} & \myfirst{0.374} & 0.351 & 0.378 & \myfirst{0.345} & \myfirst{0.373} & 0.356 & 0.387 & \myfirst{0.338} & \myfirst{0.374} & 0.346 & 0.390 & \myfirst{0.341} & \myfirst{0.382} \\
+& 336 & 0.381 & 0.396 & \myfirst{0.364} & \myfirst{0.382} & 0.367 & 0.388 & \myfirst{0.359} & \myfirst{0.381} & 0.370 & 0.394 & \myfirst{0.367} & \myfirst{0.390} & 0.374 & 0.391 & \myfirst{0.369} & \myfirst{0.387} & 0.384 & 0.404 & \myfirst{0.368} & \myfirst{0.391} & 0.385 & 0.414 & \myfirst{0.374} & \myfirst{0.403} \\
+& 720 & 0.429 & 0.421 & \myfirst{0.417} & \myfirst{0.412} & 0.417 & 0.420 & \myfirst{0.408} & \myfirst{0.410} & 0.419 & 0.426 & \myfirst{0.416} & \myfirst{0.421} & 0.419 & 0.415 & \myfirst{0.415} & \myfirst{0.412} & 0.450 & 0.441 & \myfirst{0.425} & \myfirst{0.422} & 0.453 & 0.453 & \myfirst{0.433} & \myfirst{0.438} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.368 & 0.389 & \myfirst{0.354} & \myfirst{0.376} & 0.358 & 0.383 & \myfirst{0.349} & \myfirst{0.375} & 0.357 & 0.386 & \myfirst{0.355} & \myfirst{0.383} & 0.370 & 0.388 & \myfirst{0.364} & \myfirst{0.384} & 0.378 & 0.401 & \myfirst{0.361} & \myfirst{0.386} & 0.373 & 0.406 & \myfirst{0.365} & \myfirst{0.396} \\
+\midrule
+\multirow{5}{*}{ETTm2}
+& 96 & 0.181 & 0.270 & \myfirst{0.164} & \myfirst{0.254} & 0.163 & 0.256 & \myfirst{0.161} & \myfirst{0.254} & 0.168 & 0.258 & \myfirst{0.158} & \myfirst{0.248} & 0.184 & 0.272 & \myfirst{0.181} & \myfirst{0.268} & 0.186 & 0.268 & \myfirst{0.168} & \myfirst{0.259} & 0.183 & 0.278 & \myfirst{0.173} & \myfirst{0.263} \\
+& 192 & 0.249 & 0.314 & \myfirst{0.217} & \myfirst{0.291} & 0.217 & 0.295 & \myfirst{0.215} & \myfirst{0.290} & 0.242 & 0.307 & \myfirst{0.214} & \myfirst{0.288} & 0.233 & 0.305 & \myfirst{0.230} & \myfirst{0.301} & 0.244 & 0.312 & \myfirst{0.221} & \myfirst{0.295} & 0.240 & 0.315 & \myfirst{0.231} & \myfirst{0.302} \\
+& 336 & 0.296 & 0.345 & \myfirst{0.273} & \myfirst{0.329} & 0.293 & 0.353 & \myfirst{0.268} & \myfirst{0.328} & 0.281 & 0.341 & \myfirst{0.265} & \myfirst{0.323} & 0.280 & 0.336 & \myfirst{0.278} & \myfirst{0.331} & 0.296 & 0.348 & \myfirst{0.275} & \myfirst{0.331} & 0.295 & 0.350 & \myfirst{0.284} & \myfirst{0.336} \\
+& 720 & 0.375 & 0.399 & \myfirst{0.356} & \myfirst{0.382} & 0.392 & 0.420 & \myfirst{0.362} & \myfirst{0.394} & 0.352 & 0.389 & \myfirst{0.351} & \myfirst{0.382} & \myfirst{0.357} & 0.385 & 0.358 & \myfirst{0.382} & 0.380 & 0.403 & \myfirst{0.354} & \myfirst{0.383} & 0.373 & 0.396 & \myfirst{0.365} & \myfirst{0.386} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.275 & 0.332 & \myfirst{0.253} & \myfirst{0.314} & 0.266 & 0.331 & \myfirst{0.251} & \myfirst{0.316} & 0.261 & 0.324 & \myfirst{0.247} & \myfirst{0.310} & 0.264 & 0.324 & \myfirst{0.262} & \myfirst{0.321} & 0.277 & 0.333 & \myfirst{0.254} & \myfirst{0.317} & 0.273 & 0.334 & \myfirst{0.263} & \myfirst{0.322} \\
+\midrule
+\multirow{5}{*}{ETTh1}
+& 96 & 0.412 & 0.429 & \myfirst{0.400} & \myfirst{0.413} & 0.375 & 0.402 & \myfirst{0.366} & \myfirst{0.392} & 0.372 & 0.408 & \myfirst{0.370} & \myfirst{0.404} & 0.367 & 0.387 & \myfirst{0.363} & \myfirst{0.384} & 0.417 & 0.444 & \myfirst{0.391} & \myfirst{0.421} & 0.397 & 0.429 & \myfirst{0.392} & \myfirst{0.422} \\
+& 192 & 0.421 & 0.428 & \myfirst{0.419} & \myfirst{0.415} & 0.412 & 0.425 & \myfirst{0.405} & \myfirst{0.416} & 0.435 & 0.450 & \myfirst{0.403} & \myfirst{0.425} & 0.414 & 0.413 & \myfirst{0.410} & \myfirst{0.410} & 0.444 & 0.462 & \myfirst{0.418} & \myfirst{0.439} & 0.438 & 0.456 & \myfirst{0.420} & \myfirst{0.441} \\
+& 336 & \myfirst{0.437} & 0.436 & 0.438 & \myfirst{0.428} & 0.440 & 0.450 & \myfirst{0.435} & \myfirst{0.437} & 0.456 & 0.466 & \myfirst{0.421} & \myfirst{0.441} & 0.447 & 0.431 & \myfirst{0.439} & \myfirst{0.425} & 0.507 & 0.501 & \myfirst{0.451} & \myfirst{0.463} & 0.503 & 0.493 & \myfirst{0.450} & \myfirst{0.463} \\
+& 720 & 0.463 & 0.471 & \myfirst{0.428} & \myfirst{0.449} & 0.483 & 0.502 & \myfirst{0.436} & \myfirst{0.468} & 0.483 & 0.498 & \myfirst{0.441} & \myfirst{0.471} & 0.451 & 0.460 & \myfirst{0.429} & \myfirst{0.446} & 0.572 & 0.548 & \myfirst{0.470} & \myfirst{0.493} & 0.602 & 0.566 & \myfirst{0.501} & \myfirst{0.510} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.433 & 0.441 & \myfirst{0.421} & \myfirst{0.426} & 0.428 & 0.445 & \myfirst{0.411} & \myfirst{0.428} & 0.437 & 0.456 & \myfirst{0.409} & \myfirst{0.435} & 0.420 & 0.423 & \myfirst{0.410} & \myfirst{0.416} & 0.485 & 0.489 & \myfirst{0.432} & \myfirst{0.454} & 0.485 & 0.486 & \myfirst{0.441} & \myfirst{0.459} \\
+\midrule
+\multirow{5}{*}{ETTh2}
+& 96 & 0.319 & 0.371 & \myfirst{0.293} & \myfirst{0.348} & 0.294 & 0.361 & \myfirst{0.275} & \myfirst{0.342} & 0.285 & 0.348 & \myfirst{0.273} & \myfirst{0.334} & 0.367 & 0.416 & \myfirst{0.353} & \myfirst{0.399} & 0.296 & 0.364 & \myfirst{0.289} & \myfirst{0.348} & 0.310 & 0.366 & \myfirst{0.293} & \myfirst{0.351} \\
+& 192 & 0.375 & 0.413 & \myfirst{0.352} & \myfirst{0.386} & 0.408 & 0.435 & \myfirst{0.349} & \myfirst{0.390} & 0.360 & 0.394 & \myfirst{0.345} & \myfirst{0.378} & 0.360 & 0.405 & \myfirst{0.356} & \myfirst{0.391} & \myfirst{0.352} & 0.396 & 0.365 & \myfirst{0.396} & 0.407 & 0.423 & \myfirst{0.368} & \myfirst{0.398} \\
+& 336 & 0.367 & 0.413 & \myfirst{0.364} & \myfirst{0.403} & 0.496 & 0.490 & \myfirst{0.411} & \myfirst{0.439} & 0.385 & 0.419 & \myfirst{0.367} & \myfirst{0.398} & 0.428 & 0.470 & \myfirst{0.416} & \myfirst{0.445} & \myfirst{0.381} & 0.424 & 0.388 & \myfirst{0.417} & 0.436 & 0.448 & \myfirst{0.388} & \myfirst{0.419} \\
+& 720 & 0.409 & 0.447 & \myfirst{0.387} & \myfirst{0.429} & 0.803 & 0.633 & \myfirst{0.417} & \myfirst{0.456} & 0.414 & 0.449 & \myfirst{0.405} & \myfirst{0.440} & 0.402 & 0.448 & \myfirst{0.390} & \myfirst{0.427} & 0.451 & 0.473 & \myfirst{0.406} & \myfirst{0.438} & 0.473 & 0.482 & \myfirst{0.408} & \myfirst{0.443} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.367 & 0.411 & \myfirst{0.349} & \myfirst{0.391} & 0.500 & 0.480 & \myfirst{0.363} & \myfirst{0.407} & 0.361 & 0.402 & \myfirst{0.348} & \myfirst{0.387} & 0.389 & 0.435 & \myfirst{0.379} & \myfirst{0.416} & 0.370 & 0.414 & \myfirst{0.362} & \myfirst{0.400} & 0.406 & 0.430 & \myfirst{0.364} & \myfirst{0.403} \\
+\midrule
+\multirow{5}{*}{Traffic}
+& 96 & 0.551 & 0.362 & \myfirst{0.497} & \myfirst{0.337} & \myfirst{0.497} & \myfirst{0.361} & 0.528 & 0.368 & 0.894 & 0.609 & \myfirst{0.662} & \myfirst{0.469} & 0.516 & 0.342 & \myfirst{0.490} & \myfirst{0.332} & 0.677 & 0.474 & \myfirst{0.582} & \myfirst{0.406} & 0.993 & 0.635 & \myfirst{0.601} & \myfirst{0.434} \\
+& 192 & 0.545 & 0.360 & \myfirst{0.499} & \myfirst{0.337} & \myfirst{0.508} & \myfirst{0.365} & 0.537 & 0.370 & 1.030 & 0.651 & \myfirst{0.723} & \myfirst{0.479} & 0.556 & 0.392 & \myfirst{0.518} & \myfirst{0.347} & 1.414 & 0.785 & \myfirst{0.615} & \myfirst{0.430} & 0.676 & 0.459 & \myfirst{0.638} & \myfirst{0.445} \\
+& 336 & 0.546 & 0.359 & \myfirst{0.506} & \myfirst{0.339} & \myfirst{0.522} & \myfirst{0.371} & 0.549 & 0.373 & 0.984 & 0.625 & \myfirst{0.668} & \myfirst{0.460} & 0.599 & 0.403 & \myfirst{0.543} & \myfirst{0.358} & 1.388 & 0.776 & \myfirst{0.639} & \myfirst{0.442} & 0.744 & 0.500 & \myfirst{0.691} & \myfirst{0.477} \\
+& 720 & 0.592 & 0.378 & \myfirst{0.538} & \myfirst{0.353} & \myfirst{0.572} & 0.394 & 0.593 & \myfirst{0.392} & 1.020 & 0.631 & \myfirst{0.821} & \myfirst{0.535} & 0.692 & 0.447 & \myfirst{0.605} & \myfirst{0.387} & 1.599 & 0.851 & \myfirst{0.707} & \myfirst{0.473} & 0.778 & 0.511 & \myfirst{0.757} & \myfirst{0.501} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.559 & 0.365 & \myfirst{0.510} & \myfirst{0.342} & \myfirst{0.525} & \myfirst{0.373} & 0.552 & 0.376 & 0.982 & 0.629 & \myfirst{0.719} & \myfirst{0.486} & 0.591 & 0.396 & \myfirst{0.539} & \myfirst{0.356} & 1.270 & 0.721 & \myfirst{0.636} & \myfirst{0.438} & 0.798 & 0.526 & \myfirst{0.672} & \myfirst{0.464} \\
+\midrule
+\multirow{5}{*}{Electricity}
+& 96 & 0.217 & 0.300 & \myfirst{0.157} & \myfirst{0.255} & 0.184 & 0.302 & \myfirst{0.157} & \myfirst{0.261} & 0.330 & 0.431 & \myfirst{0.164} & \myfirst{0.276} & 0.198 & 0.283 & \myfirst{0.169} & \myfirst{0.264} & 0.197 & 0.315 & \myfirst{0.172} & \myfirst{0.287} & 0.202 & 0.319 & \myfirst{0.153} & \myfirst{0.260} \\
+& 192 & 0.228 & 0.308 & \myfirst{0.176} & \myfirst{0.274} & 0.191 & 0.305 & \myfirst{0.168} & \myfirst{0.271} & 0.214 & 0.326 & \myfirst{0.187} & \myfirst{0.300} & 0.235 & 0.331 & \myfirst{0.196} & \myfirst{0.288} & 0.215 & 0.335 & \myfirst{0.178} & \myfirst{0.287} & 0.230 & 0.344 & \myfirst{0.173} & \myfirst{0.279} \\
+& 336 & 0.246 & 0.325 & \myfirst{0.196} & \myfirst{0.292} & 0.208 & 0.321 & \myfirst{0.185} & \myfirst{0.288} & 0.370 & 0.455 & \myfirst{0.209} & \myfirst{0.318} & 0.238 & 0.326 & \myfirst{0.208} & \myfirst{0.299} & 0.220 & 0.332 & \myfirst{0.206} & \myfirst{0.317} & 0.277 & 0.384 & \myfirst{0.202} & \myfirst{0.311} \\
+& 720 & 0.263 & 0.338 & \myfirst{0.220} & \myfirst{0.314} & \myfirst{0.219} & 0.325 & 0.218 & \myfirst{0.317} & 0.644 & 0.613 & \myfirst{0.268} & \myfirst{0.380} & 0.268 & 0.348 & \myfirst{0.241} & \myfirst{0.329} & 0.337 & 0.426 & \myfirst{0.256} & \myfirst{0.362} & 0.365 & 0.451 & \myfirst{0.250} & \myfirst{0.348} \\
+\cmidrule(lr){2-26}
+& \emph{Avg.}
+& 0.239 & 0.318 & \myfirst{0.187} & \myfirst{0.284} & 0.201 & 0.313 & \myfirst{0.182} & \myfirst{0.284} & 0.389 & 0.456 & \myfirst{0.207} & \myfirst{0.318} & 0.235 & 0.322 & \myfirst{0.203} & \myfirst{0.295} & 0.242 & 0.352 & \myfirst{0.203} & \myfirst{0.313} & 0.268 & 0.375 & \myfirst{0.194} & \myfirst{0.299} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

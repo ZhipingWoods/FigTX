@@ -1,0 +1,79 @@
+begin{document}
+\begin{table*}[!htbp]
+\centering
+\caption{
+Evaluation on the Persona-MME and PERSONAMEM benchmarks, tested at context lengths of 32$k$ and 128$k$.
+We report accuracy (\%) for Persona-MME (overall and across six aspects) and PERSONAMEM. The comparison includes two settings: full-context (``Full'') and retrieval-augmented generation (``RAG'').
+Best results are shown in \textbf{bold}.
+The GPT-4o results on PERSONAMEM are from~\cite{jiang2025know}.
+    }
+\label{tab:tab1_eval_pr3}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{c|l|cccccc|c|c}
+\toprule
+\multirow{2}{*}{\textbf{Context}}    & \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Model}}} & \multicolumn{7}{c}{\textbf{Persona-MME}}    & \multicolumn{1}{c}{\multirow{2}{*}{\textbf{PERSONAMEM}}} \\
+\cmidrule(l){3-9}
+& \multicolumn{1}{c}{}   & Memory & Intent & Preference & Behavior & Relationship & Growth & Overall &            \\
+\midrule
+    & GPT-4o     &   \textbf{86.99} & \textbf{83.87} & \textbf{63.12} & 57.14 & 71.30 & 73.87 & \textbf{72.35}    &     39.20        \\
+\cmidrule(l){2-10}
+\rowcolor{gray!15}
+ \cellcolor[HTML]{FFFFFF}\multirow{2}{*}{32$k$-Full}  & Qwen2.5-VL-7B &   66.13 & 66.85 & 59.75 & 59.24 & 68.45 & 70.69 & 64.84    &    43.63        \\
+  & InternVL3-8B   &   56.45 & 76.24 & 57.20 & 54.35 & 69.05 & 74.14 & 64.04     &      52.97      \\
+ & InternVL3-38B    &    66.67 & 85.64 & 66.53 & 59.78 & 72.02 & 77.59 & 71.04    &     \textbf{57.93}       \\
+  & OneVision-1.5-8B       &    74.19 & 74.59 & 60.59 & 53.26 & 72.62 & 74.14 & 67.76    &     52.80       \\
+\cmidrule(l){1-10}
+ & Qwen2.5-VL-7B & 65.05 & 68.51 & 50.42 & 57.61 & 60.71 & 68.39 & 61.20 &    45.67        \\
+\rowcolor{blue!10}
+\cellcolor[HTML]{FFFFFF}\multirow{1}{*}{32$k$-RAG}& PersonaVLM$_{\text{SFT}}$      &  67.20 & 70.17 & 49.58 & 57.07 & 70.24 & 80.46 & 64.84{\color{gray}$_{+3.64}$}     &     52.12{\color{gray}$_{+6.45}$}       \\
+\rowcolor{blue!15}
+\cellcolor[HTML]{FFFFFF}  & PersonaVLM$_{\text{RL}}$   &    69.89 & 76.80 & 58.05 & \textbf{69.02} &\textbf{ 73.21} & \textbf{86.78} & 71.48{\color{gray}$_{+10.28}$}     &      56.53{\color{gray}$_{+10.86}$}      \\
+\midrule
+\midrule
+   & GPT-4o                  &   \textbf{84.44} & 75.63 & 59.12 & 55.65 & 65.98 & 76.64 & 69.23    &    45.32        \\
+\cmidrule(l){2-10}
+\cmidrule(l){2-10}
+\rowcolor{gray!15}
+ \cellcolor[HTML]{FFFFFF}\multirow{2}{*}{128$k$-Full}    & Qwen2.5-VL-7B     &    50.60 & 54.73 & 52.41 & 54.30 & 55.83 & 60.90 & 54.48    &    3.08       \\
+  & InternVL3-8B      &   57.23 & 68.92 & 53.48 & 54.97 & 69.17 & 76.69 & 62.43    &      36.62      \\
+& InternVL3-38B    &    67.47 & 71.62 & \textbf{64.71} & 58.94 & 65.00 & 76.69 & 67.18    &         46.56   \\
+  & OneVision-1.5-8B    &    52.44 & 54.79 & 58.15 & 45.33 & 65.25 & 67.18 & 56.66    &     14.28       \\
+\cmidrule(l){1-10}
+\cmidrule(l){2-10}
+ & Qwen2.5-VL-7B &  56.63 & 63.51 & 50.27 & 55.63 & 61.67 & 70.68 & 59.01     &    37.88     \\
+\rowcolor{blue!10}
+\cellcolor[HTML]{FFFFFF}\multirow{1}{*}{128$k$-RAG} & PersonaVLM$_{\text{SFT}}$      &     67.47 & 75.68 & 59.36 & 51.66 & 71.67 & 81.95 & 67.18{\color{gray}$_{+8.17}$}     &      43.60{\color{gray}$_{+5.72}$}       \\
+\rowcolor{blue!15}
+ \cellcolor[HTML]{FFFFFF}  & PersonaVLM$_{\text{RL}}$   &  69.28 & \textbf{77.70} & 61.50 & \textbf{60.26} & \textbf{75.00} & \textbf{87.97} & \textbf{71.05}{\color{gray}$_{+12.04}$}  &    \textbf{ 47.28}{\color{gray}$_{+9.4}$}       \\
+\bottomrule
+\end{tabular}}
+\vspace{-2mm}
+\end{table*}
+\begin{table}[!tbp]
+    \centering
+    \caption{Evaluation of personalized alignment on the Persona-MME and P-SOUPS benchmarks.}
+    \label{tab:alignment}
+\resizebox{0.5\textwidth}{!}{
+    \begin{tabular}{l|cc|cccc}
+    \toprule
+        \multirow{2}{*}{\textbf{Model}} & \multicolumn{2}{c}{\textbf{Persona-MME}} & \multicolumn{4}{c}{\textbf{P-SOUPS}}\\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-7}
+        &{32$k$} & {128$k$} & ${\text{Expertise}}$ & ${\text{Informativeness}}$ & ${\text{Style}}$ & ${\text{Overall}}$ \\
+\midrule
+Qwen2.5-VL-7B & 69.91 & 52.27 & 39.00 & 49.34 & 23.00 & 37.11 \\
+InternVL3-8B & 55.75 & 55.56 & 47.16 & 51.81 &26.16 & 41.71 \\
+InternVL3-38B & 64.60 & 63.01  &  \textbf{{52.80}} & 53.30 & 32.83 & 46.32 \\
+Qwen3-30B-A3B & 80.09 & 83.06  & 51.67 & \textbf{54.60}  & 35.16 & 47.14 \\
+\midrule
+\multicolumn{7}{l}{\ \textit{baseline with different strategies} } \\
+Self-Critic &59.73&57.66&39.67&49.33&23.67 & 37.50 \\
+Few-Shot &-&-&42.16&48.66& 28.33& 39.67\\
+\midrule
+\rowcolor{blue!15}
+ \cellcolor[HTML]{FFFFFF}
+PersonaVLM (ours) & \textbf{89.16} & \textbf{ 92.22 }& 51.16 & {53.65} &\textbf{44.00}  & \textbf{49.60} \\
+\bottomrule
+\end{tabular}}
+\vspace{-5mm}
+\end{table}
+\end{document}

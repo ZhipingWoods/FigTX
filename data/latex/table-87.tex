@@ -1,0 +1,103 @@
+\definecolor{bronze}{rgb}{1,1,0.6}
+\definecolor{silve}{rgb}{0.969,0.796,0.600}
+\definecolor{gold}{rgb}{0.941,0.592,0.600}
+\definecolor{purple}{rgb}{0.913,0.753,0.941}
+\newcommand{\gold}[1]{\colorbox{gold}{{#1}}}
+\newcommand{\silve}[1]{\colorbox{silve}{{#1}}}
+\newcommand{\bronze}[1]{\colorbox{bronze}{{#1}}}
+\newcommand{\purple}[1]{\colorbox{purple}{{#1}}}
+\usepackage{xspace}
+\newcommand\nst{\textsuperscript{st}\xspace}
+\newcommand\nd{\textsuperscript{nd}\xspace}
+\newcommand\rd{\textsuperscript{rd}\xspace}
+\newcommand\nth{\textsuperscript{th}\xspace}
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+    \footnotesize
+   \centering
+   \setlength\tabcolsep{1pt}
+    \scalebox{0.98}{
+        \begin{tabular}{c|c|c|c|c|c|c}
+        \hline
+        \multirow{2}{*}{\textbf{Method}} & \textbf{PSNR} $\uparrow$ & \textbf{SSIM} $\uparrow$ & \textbf{LPIPS} $\downarrow$ & \textbf{PSNR}
+        $\uparrow$ & \textbf{SSIM} $\uparrow$ & \textbf{LPIPS} $\downarrow$   \\
+        \cline{2-7}
+        & \multicolumn{3}{c|}{\textbf{S3 - 1K}} & \multicolumn{3}{c}{\textbf{S3 - 4K}}\\
+       \hline ENeRF ~\cite{lin2022efficient} & 30.7611 & 0.8702 & 0.0943 & 28.7297 & 0.8462 & 0.1590 \\
+        \hline DVA ~\cite{remelli2022drivable} & 31.3487 & 0.8770 & 0.0910 & \bronze{29.3681} & 0.8503 & 0.1655 \\
+        \hline
+        HoloChar ~\cite{shetty2024holoported} & 30.7795 & 0.8814 & \bronze{0.0841} & 28.9313 & \bronze{0.8620} & \bronze{0.1549} \\
+        \hline
+        GHG ~\cite{kwon2024generalizable}& \bronze{31.4086} & \bronze{0.8840} & 0.0907 & 29.2304 & 0.8537 & 0.1551 \\
+        \hline
+        \textbf{Ours} & \silve{32.8897} & \silve{0.9057} & \silve{0.0612} & \silve{29.8369} & \silve{0.8662} & \silve{0.1389} \\
+        \hline
+        \textbf{Ours-Large} & \gold{33.1960} & \gold{0.9113} & \gold{0.0560} & \gold{30.0311} & \gold{0.8722} & \gold{0.1322}\\
+        \hline
+         & \multicolumn{3}{c|}{\textbf{S22 - 1K}} & \multicolumn{3}{c}{\textbf{S22 - 4K}}\\
+         \hline ENeRF ~\cite{lin2022efficient} & 32.7524 & 0.8721 & 0.0853 & 30.2329 & 0.8325 & 0.1703\\
+        \hline DVA ~\cite{remelli2022drivable} & \bronze{33.7842} & \bronze{0.8887} & \bronze{0.0664} & \gold{31.2019} & 0.8448 & 0.1711 \\
+        \hline
+        HoloChar ~\cite{shetty2024holoported} & 32.2055 & 0.8850 & 0.0775 & 30.1391 & \silve{0.8533} & 0.1691\\
+        \hline
+        GHG ~\cite{kwon2024generalizable}& 33.3187 & 0.8847 & 0.0846 & \silve{30.8346} & 0.8448 & \bronze{0.1675}\\
+        \hline
+        \textbf{Ours} & \silve{34.1119} & \silve{0.9066} & \silve{0.0568} & 30.6427 & \bronze{0.8480} & \silve{0.1387} \\
+        \hline
+        \textbf{Ours-Large} & \gold{34.2425} & \gold{0.9113} & \gold{0.0531} & \bronze{30.8126} & \gold{0.8565} & \gold{0.1290}\\
+        \hline
+        \hline
+         & \multicolumn{3}{c|}{\textbf{S2618 - Half Res}} & \multicolumn{3}{c}{\textbf{S2618 - Full Res}}\\
+         \hline ENeRF ~\cite{lin2022efficient} & 29.6588 & 0.8761 & 0.0989 & 27.6079 & 0.8439 & 0.1537 \\
+        \hline DVA ~\cite{remelli2022drivable} & \bronze{30.8135} & \bronze{0.8917} & \bronze{0.0774} & \bronze{29.2767} & 0.8611 & \silve{0.1295} \\
+        \hline
+        HoloChar ~\cite{shetty2024holoported} & 28.3811 & 0.8722 & 0.1132 & 28.1441 & \bronze{0.8666} & 0.1602\\
+        \hline
+        GHG ~\cite{kwon2024generalizable}& 29.6830 & 0.8831 & 0.1059 & 28.4991 & 0.8597 & 0.1587\\
+        \hline
+        \textbf{Ours} & \silve{31.2413} & \silve{0.9101} & \silve{0.0747} & \silve{29.3799} & \silve{0.8719} & \bronze{0.1355} \\
+        \hline
+        \textbf{Ours-Large} & \gold{31.5920} & \gold{0.9179} & \gold{0.0678} & \gold{29.6887} & \gold{0.8815} & \gold{0.1235}\\
+        \hline
+        \end{tabular}
+        }
+          \vspace{-5pt}
+\caption{
+\textbf{Quantitative Comparison.}
+We evaluate our approach on 3 subjects, i.e. S3~\cite{habermann2021real}, S22~\cite{Pang_2024_CVPR}, and S2618~\cite{zheng2022structured} in terms of rendering quality and consistently outperform prior works for both variants of our method, i.e., \textit{Ours} and \textit{Ours-Large}.}
+\vspace{-15pt}
+\label{tab:quantitative}
+\normalsize
+\end{table}
+\begin{table}[t]
+  \centering
+      \small
+          \scalebox{0.9}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Methods} & \textbf{Backbone} & \textbf{Tex Res} & \textbf{CD}$\downarrow$ & \textbf{SR}$\downarrow$ & \textbf{SI} $\downarrow$ \\
+    \hline
+     DDC & GCN & - & 1.173& 0.388 &1.162  \\
+    \hline
+     LBS & - & - & 2.117  & \gold{0.236} &\gold{0.768}  \\
+    \hline
+     w/o RGB & CNN & 256 & 1.150 & \bronze{0.360} &0.895  \\
+     w/o NML  & CNN & 256 & 1.117 &0.387 & 0.869 \\
+     w/ 1 View  & CNN & 256 & \bronze{1.109} &\silve{0.356 }& \bronze{0.822} \\
+     w/ 2 View  & CNN & 256 & \silve{1.096} &0.365 &0.881 \\
+    \textbf{Ours} & CNN & 256 & \gold{1.070} & 0.374 & \silve{0.810} \\
+    \hline
+    \end{tabular}
+    }
+  \vspace{-5pt}
+  \caption{
+  \textbf{Quantitative Ablation.}
+  Here, we study the influence of image features, normal features, number of views, and network architectures on the template deformation.
+  Our full model with, both, sparse-view image clues and normal features achieves better accuracy while maintaining a smooth geometry.
+  }
+  \vspace{-5pt}
+  \label{tab:ablation_geo}
+  \normalsize
+\end{table}
+\end{document}

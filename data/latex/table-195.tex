@@ -1,0 +1,192 @@
+\definecolor{star}{HTML}{FFBE7A}
+\definecolor{first}{HTML}{98CC70}
+\definecolor{second}{HTML}{DFE674}
+\definecolor{third}{HTML}{FFECB2}
+\definecolor{below}{HTML}{FF8888}
+\definecolor{equal}{HTML}{FFCCCC}
+\newcommand{\cmark}{\textcolor{LimeGreen}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
+\newcommand{\onestar}{\ding{73}}
+\newcommand{\twostar}{\ding{73}\ding{73}}
+\newcommand{\threestar}{\ding{73}\ding{73}\ding{73}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Strategic reasoning evaluation results. For each environment, the \colorbox{first}{first}, \colorbox{second}{second}, and \colorbox{third}{third} best results are highlighted in green, while the results \colorbox{below}{below random} are highlighted in red.}
+\label{tab:reasoning}
+\scriptsize
+\setlength{\tabcolsep}{6.5pt}
+\begin{tabular}{cccccccccccc}
+\toprule
+\multirow{2}{*}{Models\footnotemark}
+& \multirow{2}{*}{Overall} & \multicolumn{3}{c}{Cooperative} & \multicolumn{4}{c}{Comptitive} & \multicolumn{3}{c}{Mixed-Motive} \\
+& & \textit{Hanabi} & \textit{Overcooked} & \textit{KAZ} & \textit{Board}
+& \textit{Poker}    & \textit{Pong} & \textit{MPE} & \textit{Dilemma} & \textit{Hunt} & \textit{Battle} \\
+\midrule
+Oracle & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ \\
+\midrule
+\texttt{o3} & \cellcolor{first} $84.9$ & $79.7$ & \cellcolor{second} $69.8$ & \cellcolor{third} $90.1$ & \cellcolor{third} $97.2$ & $99.1$ & $64.6$ & \cellcolor{second} $97.5$ & \cellcolor{second} $85.5$ & \cellcolor{third} $80.2$ & \cellcolor{third} $85.4$ \\
+\texttt{gemini-2.5-pro} & \cellcolor{third} $83.4$ & \cellcolor{second} $79.9$ & $54.5$ & $88.6$ & \cellcolor{first} $98.5$ & \cellcolor{first} $100.0$ & \cellcolor{first} $86.5$ & $96.5$ & $76.4$ & $73.0$ & $79.9$ \\
+\texttt{claude-3-7-sonnet} & $81.1$ & $73.0$ & $62.8$ & \cellcolor{first} $92.9$ & $75.2$ & $99.5$ & $69.4$ & $89.8$ & \cellcolor{third} $82.6$ & $79.7$ & \cellcolor{second} $85.7$ \\
+\texttt{ui-tars-1-5} & $81.5$ & $75.4$ & $59.8$ & $83.0$ & \cellcolor{second} $98.0$ & \cellcolor{first} $100.0$ & $74.4$ & $92.2$ & $76.0$ & $74.9$ & $81.0$ \\
+\texttt{doubao-1-5-thinking-pro} & $74.7$ & $42.2$ & $52.4$ & $77.5$ & $91.0$ & $98.6$ & $66.0$ & $87.2$ & $76.7$ & $74.9$ & $80.0$ \\
+\texttt{qvq-max} & $74.5$ & $75.1$ & $63.6$ & $74.6$ & $83.3$ & $95.2$ & $50.7$ & $83.6$ & $69.5$ & $72.0$ & $77.7$ \\
+\midrule
+\texttt{gemini-2.5} w/o thinking & \cellcolor{second} $84.5$ & \cellcolor{second} $79.9$ & $38.8$ & $82.8$ & $88.2$ & $97.2$ & \cellcolor{second} $84.3$ & \cellcolor{third} $97.3$ & \cellcolor{first} $92.5$ & \cellcolor{first} $93.1$ & \cellcolor{first} $90.8$ \\
+\texttt{claude-3-7} w/o thinking & $80.5$ & $75.9$ & $59.7$ & $85.6$ & $79.0$ & $99.6$ & $70.1$ & $90.6$ & $81.8$ & \cellcolor{second} $80.4$ & $82.8$ \\
+\texttt{gpt-4.1} & $80.3$ & $72.1$ & $62.0$ & \cellcolor{second} $92.6$ & $67.0$ & \cellcolor{first} $100.0$ & $75.4$ & \cellcolor{first} $98.9$ & $76.7$ & $76.8$ & $81.2$ \\
+\texttt{qwen-vl-max} & $80.2$ & $76.1$ & \cellcolor{third} $68.2$ & $85.2$ & $81.2$ & $99.2$ & $69.0$ & $88.2$ & $78.4$ & $76.4$ & $80.6$ \\
+\texttt{doubao-1-5-vision-pro} & $77.6$ & \cellcolor{first} $80.0$ & $33.1$ & $67.8$ & $89.3$ & \cellcolor{first} $100.0$ & \cellcolor{third} $77.7$ & $90.8$ & $78.0$ & $77.6$ & $81.2$ \\
+\texttt{grok-2-vision} & $70.2$ & $75.2$ & $46.8$ & $59.8$ & $80.3$ & $59.5$ & $71.0$ & $78.7$ & $76.4$ & $73.3$ & $81.0$ \\
+\midrule
+\texttt{Qwen2.5-VL-72B-Ins.} & $80.3$ & $76.0$ & \cellcolor{first} $72.9$ & $85.5$ & $75.1$ & \cellcolor{first} $100.0$ & $65.2$ & $87.7$ & $79.8$ & $79.0$ & $82.4$ \\
+\texttt{InternVL3-78B} & $74.1$ & $74.6$ & $43.6$ & $63.8$ & $64.3$ & $99.2$ & $66.7$ & $89.2$ & $81.1$ & $76.7$ & $81.8$ \\
+\texttt{Llama-3.2-90B-Vision-Ins.} & $67.8$ & $30.7$ & $58.6$ & $87.1$ & $59.7$ & $81.6$ & $59.5$ & $94.3$ & $68.5$ & $66.0$ & $72.4$ \\
+\midrule
+Random & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Strategic reasoning evaluation results. For each environment, the \colorbox{first}{first}, \colorbox{second}{second}, and \colorbox{third}{third} best results are highlighted in green, while the results \colorbox{below}{below random} are highlighted in red.}
+\label{tab:reasoning}
+\scriptsize
+\setlength{\tabcolsep}{6.5pt}
+\begin{tabular}{cccccccccccc}
+\toprule
+\multirow{2}{*}{Models}
+& \multirow{2}{*}{Overall} & \multicolumn{3}{c}{Cooperative} & \multicolumn{4}{c}{Comptitive} & \multicolumn{3}{c}{Mixed-Motive} \\
+& & \textit{Hanabi} & \textit{Overcooked} & \textit{KAZ} & \textit{Board}
+& \textit{Poker}    & \textit{Pong} & \textit{MPE} & \textit{Dilemma} & \textit{Hunt} & \textit{Battle} \\
+\midrule
+Oracle & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ \\
+\midrule
+\texttt{o3} & $46.6$ & \cellcolor{first} $61.2$ & \cellcolor{first} $40.5$ & $30.8$ & \cellcolor{first} $29.0$ & \cellcolor{first} $67.0$ & \cellcolor{below} $25.8$ & $33.8$ & \cellcolor{second} $59.2$ & \cellcolor{first} $57.5$ & \cellcolor{first} $61.5$ \\
+\texttt{claude-3-7-sonnet} & $40.4$ & \cellcolor{third} $39.0$ & $26.0$ & $29.0$ & \cellcolor{third} $24.2$ & $65.2$ & \cellcolor{first} $44.8$ & \cellcolor{first} $35.8$ & \cellcolor{third} $53.8$ & \cellcolor{third} $42.5$ & $43.2$ \\
+\texttt{gemini-2.5-pro} & $39.6$ & \cellcolor{second} $51.2$ & $22.0$ & $28.8$ & \cellcolor{second} $26.8$ & $59.8$ & \cellcolor{below} $24.5$ & $35.0$ & $52.5$ & $35.8$ & \cellcolor{second} $60.0$ \\
+\texttt{ui-tars-1-5} & $39.0$ & $25.5$ & $18.2$ & \cellcolor{third} $38.5$ & $23.2$ & \cellcolor{second} $65.8$ & \cellcolor{below} $30.8$ & $33.5$ & \cellcolor{first} $63.0$ & $41.5$ & \cellcolor{third} $50.0$ \\
+\texttt{doubao-1-5-thinking-pro} & $36.3$ & $32.8$ & $26.2$ & $27.5$ & $19.8$ & \cellcolor{second} $65.8$ & \cellcolor{second} $44.2$ & $34.8$ & $26.5$ & \cellcolor{second} $45.2$ & $40.0$ \\
+\texttt{qvq-max} & $30.8$ & $32.2$ & $19.0$ & $24.5$ & $21.8$ & $63.0$ & $37.8$ & \cellcolor{third} $35.5$ & \cellcolor{below} $25.2$ & \cellcolor{below} $21.5$ & $27.0$ \\
+\midrule
+\texttt{gpt-4.1} & $36.0$ & $23.0$ & \cellcolor{second} $27.0$ & $27.8$ & $22.5$ & $58.2$ & $41.5$ & \cellcolor{first} $35.8$ & $49.8$ & $36.8$ & $38.0$ \\
+\texttt{qwen-vl-max} & $31.2$ & $26.5$ & $26.0$ & \cellcolor{first} $46.0$ & $19.5$ & $52.2$ & \cellcolor{below} $23.5$ & $31.0$ & $26.2$ & \cellcolor{below} $23.5$ & $37.2$ \\
+\texttt{doubao-1-5-vision-pro} & $30.1$ & $15.0$ & $22.2$ & $18.5$ & $15.8$ & $58.2$ & \cellcolor{below} $31.2$ & $31.5$ & $37.2$ & $36.0$ & $34.8$ \\
+\texttt{claude-3-7} w/o thinking & $29.6$ & $9.8$ & \cellcolor{below} $16.0$ & $35.8$ & $18.0$ & $57.2$ & \cellcolor{third} $43.2$ & $32.2$ & $31.0$ & \cellcolor{below} $26.0$ & $26.8$ \\
+\texttt{gemini-2.5} w/o thinking & $29.0$ & $21.5$ & $19.2$ & $20.8$ & $14.8$ & $56.5$ & $34.0$ & $27.0$ & $31.8$ & $30.5$ & $33.8$ \\
+\texttt{grok-2-vision} & $26.2$ & $12.8$ & $17.2$ & $25.5$ & $10.8$ & $59.5$ & \cellcolor{below} $20.8$ & $25.2$ & $30.2$ & $31.5$ & $29.0$ \\
+\midrule
+\texttt{Qwen2.5-VL-72B-Ins.} & $32.2$ & $26.8$ & \cellcolor{third} $26.5$ & \cellcolor{second} $39.5$ & $23.8$ & $50.8$ & \cellcolor{below} $27.0$ & $34.2$ & $30.0$ & \cellcolor{below} $27.2$ & $36.8$ \\
+\texttt{InternVL3-78B} & $29.1$ & $25.2$ & $20.5$ & $24.0$ & $14.0$ & \cellcolor{below} $45.2$ & $34.8$ & $30.2$ & $37.0$ & $30.0$ & $30.2$ \\
+\texttt{Llama-3.2-90B-Vision-Ins.} & $26.4$ & $20.0$ & \cellcolor{below} $16.5$ & $20.8$ & $11.8$ & $52.8$ & $36.2$ & $32.8$ & \cellcolor{below} $22.2$ & \cellcolor{below} $26.2$ & \cellcolor{below} $25.0$ \\
+\midrule
+Random & $23.0$ & $8.8$ & $16.7$ & $16.2$ & $4.2$ & $50.0$ & $33.3$ & $19.5$ & $25.4$ & $29.3$ & $26.5$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Strategic reasoning evaluation results. For each environment, the \colorbox{first}{first}, \colorbox{second}{second}, and \colorbox{third}{third} best results are highlighted in green, while the results \colorbox{below}{below random} are highlighted in red.}
+\label{tab:reasoning}
+\scriptsize
+\setlength{\tabcolsep}{7.5pt}
+\begin{tabular}{cccccccccc}
+\toprule
+\multirow{2}{*}{Type} & \multirow{2}{*}{Games} & {Full} & {Deter-} & {Simul-} & {Sym-} & {Spatial} & {Theory} & {Long-Term} & {Team} \\
+& & Obs. & {ministic} & {taneous} & {metric} & {Perception} & {of Mind} & {Planning} & {Collaboration} \\
+\midrule
+\multirow{3}{*}{Cooperative} & \textit{Hanabi} & {\small \xmark} & {\small \xmark} & {\small \xmark} & {\small \xmark} & {\small \onestar} &  {\small \threestar} &  {\small \threestar} &  {\small \threestar} \\
+& \textit{Overcooked} & {\small \cmark} & {\small \cmark} & {\small \cmark} & {\small \xmark} &  {\small \twostar} &  {\small \twostar} &  {\small \twostar} &  {\small \threestar} \\
+& \textit{KAZ} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \xmark} & {\small \threestar} & {\small \onestar} & {\small \twostar} & {\small \twostar} \\
+\midrule
+\multirow{4}{*}{Competitive} & \textit{Board}
+\footnotemark
+& {\small \cmark} & {\small \cmark} & {\small \xmark} & {\small \xmark} &  {\small \twostar} &  {\small \threestar} &  {\small \threestar} &  {\small \onestar} \\
+& \textit{Poker} & {\small \xmark} & {\small \xmark} & {\small \xmark} & {\small \xmark} &  {\small \onestar} &  {\small \threestar} &  {\small \onestar} &  {\small \onestar} \\
+& \textit{Pong} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \cmark} &  {\small \threestar} &  {\small \onestar} &  {\small \onestar} &  {\small \onestar} \\
+& \textit{MPE} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \xmark} &  {\small \threestar} &  {\small \twostar} &  {\small \twostar} &  {\small \onestar} \\
+\midrule
+\multirow{3}{*}{\makecell{Mixed-\\Motive}} & \textit{Dilemma} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \cmark} &  {\small \twostar} &  {\small \twostar} &  {\small \twostar} &  {\small \onestar} \\
+& \textit{Hunt} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \cmark} &  {\small \twostar} &  {\small \threestar} &  {\small \twostar} &  {\small \twostar} \\
+& \textit{Battle} & {\small \cmark} & {\small \xmark} & {\small \cmark} & {\small \cmark} &  {\small \twostar} &  {\small \twostar} &  {\small \twostar} &  {\small \threestar} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Strategic reasoning evaluation results. For each environment, the \colorbox{first}{first}, \colorbox{second}{second}, and \colorbox{third}{third} best results are highlighted in green, while the results \colorbox{below}{below random} are highlighted in red.}
+\label{tab:reasoning}
+\scriptsize
+\setlength{\tabcolsep}{6.5pt}
+\begin{tabular}{cccccccccccc}
+\toprule
+\multirow{2}{*}{Models}
+& \multirow{2}{*}{Overall} & \multicolumn{3}{c}{Cooperative} & \multicolumn{4}{c}{Comptitive} & \multicolumn{3}{c}{Mixed-Motive} \\
+& & \textit{Hanabi} & \textit{Overcooked} & \textit{KAZ} & \textit{Board}
+& \textit{Poker}    & \textit{Pong} & \textit{MPE} & \textit{Dilemma} & \textit{Hunt} & \textit{Battle} \\
+\midrule
+Oracle & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ \\
+\midrule
+\texttt{o3} & \cellcolor{first} $31.4$ & \cellcolor{second} $55.8$ & \cellcolor{second} $15.6$ & \cellcolor{first} $29.5$ & \cellcolor{first} $65.0$ & \cellcolor{second} $61.8$ & \cellcolor{first} $8.6$ & $37.2$ & \cellcolor{below} $-0.4$ & \cellcolor{second} $24.0$ & \cellcolor{second} $16.7$ \\
+\texttt{gemini-2.5-pro} & \cellcolor{second} $23.2$ & \cellcolor{third} $32.9$ & \cellcolor{first} $17.1$ & \cellcolor{third} $8.4$ & \cellcolor{second} $55.0$ & $27.3$ & \cellcolor{second} $6.5$ & \cellcolor{second} $38.9$ & \cellcolor{below} $-9.6$ & \cellcolor{third} $21.5$ & \cellcolor{first} $33.8$ \\
+\texttt{doubao-1-5-thinking-pro} & \cellcolor{third} $20.3$ & \cellcolor{first} $56.7$ & $10.1$ & \cellcolor{second} $14.1$ & $10.0$ & \cellcolor{third} $48.5$ & \cellcolor{third} $2.9$ & $38.5$ & $0.7$ & $17.2$ & $4.0$ \\
+\texttt{claude-3-7-sonnet} & $18.1$ & $6.7$ & \cellcolor{third} $10.1$ & $5.3$ & \cellcolor{third} $20.0$ & \cellcolor{first} $72.9$ & \cellcolor{below} $-0.5$ & \cellcolor{first} $39.4$ & $4.6$ & $19.9$ & $2.5$ \\
+\texttt{ui-tars-1-5} & $12.9$ & \cellcolor{equal} $0.0$ & $2.0$ & \cellcolor{below} $-4.7$ & $5.0$ & $36.4$ & \cellcolor{below} $-0.9$ & $19.4$ & \cellcolor{first} $33.1$ & \cellcolor{first} $24.9$ & \cellcolor{third} $13.6$ \\
+\texttt{qvq-max} & $3.6$ & \cellcolor{equal} $0.0$ & $2.0$ & \cellcolor{below} $-1.7$ & $5.0$ & \cellcolor{below} $-8.7$ & $0.4$ & \cellcolor{third} $38.6$ & \cellcolor{equal} $0.0$ & $0.7$ & \cellcolor{below} $-0.5$ \\
+\midrule
+\texttt{gpt-4.1} & $4.8$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-0.5$ & \cellcolor{below} $-5.3$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-7.1$ & $0.2$ & $31.5$ & \cellcolor{second} $17.8$ & $11.2$ & $0.5$ \\
+\texttt{gemini-2.5} w/o thinking & $4.8$ & \cellcolor{equal} $0.0$ & $2.0$ & \cellcolor{equal} $0.0$ & \cellcolor{equal} $0.0$ & $18.2$ & $1.0$ & $23.8$ & \cellcolor{below} $-0.7$ & $0.7$ & $2.5$ \\
+\texttt{qwen-vl-max} & $0.2$ & $1.2$ & \cellcolor{below} $-0.5$ & \cellcolor{below} $-5.3$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-20.5$ & \cellcolor{below} $-0.3$ & $14.4$ & \cellcolor{below} $-0.4$ & $13.2$ & \cellcolor{below} $-0.5$ \\
+\texttt{claude-3-7} w/o thinking & \cellcolor{below} $-0.6$ & \cellcolor{equal} $0.0$ & $2.0$ & $3.5$ & $5.0$ & \cellcolor{below} $-23.6$ & \cellcolor{below} $-0.9$ & $5.6$ & $1.4$ & $0.2$ & $1.0$ \\
+\texttt{doubao-1-5-vision-pro} & \cellcolor{below} $-0.9$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-0.5$ & \cellcolor{below} $-5.3$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-40.2$ & \cellcolor{below} $-0.9$ & $32.9$ & \cellcolor{below} $-2.1$ & $7.8$ & \cellcolor{below} $-0.5$ \\
+\texttt{grok-2-vision} & \cellcolor{below} $-6.7$ & \cellcolor{equal} $0.0$ & $1.5$ & \cellcolor{equal} $0.0$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-11.8$ & \cellcolor{below} $-0.1$ & \cellcolor{below} $-58.2$ & $1.1$ & \cellcolor{below} $-0.4$ & $0.5$ \\
+\midrule
+\texttt{Qwen2.5-VL-72B-Ins.} & $3.0$ & $0.8$ & \cellcolor{below} $-0.5$ & \cellcolor{below} $-5.3$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-3.1$ & \cellcolor{below} $-0.8$ & $19.6$ & \cellcolor{equal} $0.0$ & $19.6$ & \cellcolor{below} $-0.5$ \\
+\texttt{InternVL3-78B} & $1.2$ & \cellcolor{equal} $0.0$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-3.5$ & \cellcolor{equal} $0.0$ & $4.0$ & \cellcolor{below} $-0.9$ & $5.9$ & \cellcolor{third} $5.0$ & \cellcolor{below} $-0.2$ & $1.5$ \\
+\texttt{Llama-3.2-90B-Vision-Ins.} & \cellcolor{below} $-6.3$ & \cellcolor{equal} $0.0$ & $1.5$ & \cellcolor{equal} $0.0$ & \cellcolor{equal} $0.0$ & \cellcolor{below} $-39.4$ & \cellcolor{below} $-0.9$ & \cellcolor{below} $-29.6$ & $0.4$ & $3.6$ & $1.0$ \\
+\midrule
+Random & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Strategic reasoning evaluation results. For each environment, the \colorbox{first}{first}, \colorbox{second}{second}, and \colorbox{third}{third} best results are highlighted in green, while the results \colorbox{below}{below random} are highlighted in red.}
+\label{tab:reasoning}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\centering
+\begin{tabular}{cccccccccc}
+\toprule
+\multirow{2}{*}{Model} & \multicolumn{3}{c}{\textit{Hanabi}} & \multicolumn{3}{c}{\textit{Breakthrough}} & \multicolumn{3}{c}{\textit{Monster Hunt}} \\
+& Text-Only & Multimodal & CoT & Text-Only & Multimodal & CoT& Text-Only & Multimodal & CoT \\
+\midrule
+Optimal & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$ & $100.0$  \\
+\midrule
+\texttt{o3} & $62.9_{\pm7.1}$ & $55.8_{\pm20.9}$ & N/A & $95.0_{\pm15.0}$ & $80.0_{\pm40.0}$ & N/A & $45.3_{\pm7.7}$ & $24.0_{\pm3.2}$ & N/A  \\
+\texttt{o4-mini} & $37.1_{\pm26.1}$ & $42.9_{\pm30.5}$ & N/A & $30.0_{\pm47.0}$ & $30.0_{\pm47.0}$ & N/A & $23.2_{\pm4.2}$ & $24.9_{\pm8.2}$ & N/A  \\
+\texttt{gemini-2.5-pro} & $22.5_{\pm36.7}$ & $32.9_{\pm35.5}$ & N/A & $55.0_{\pm49.5}$ & $55.0_{\pm49.5}$ & N/A & $50.4_{\pm9.0}$ & $21.5_{\pm6.0}$ & N/A  \\
+\texttt{gemini-2.5-flash} & $40.8_{\pm21.9}$ & $27.1_{\pm36.0}$ & N/A & $30.0_{\pm42.3}$ & $20.0_{\pm25.7}$ & N/A & $15.63_{\pm4.6}$ & $26.2_{\pm5.8}$ & N/A\\
+\texttt{claude-3-7-sonnet} & $33.8_{\pm35.8}$ & $6.7_{\pm21.1}$ & N/A & $45.0_{\pm50.0}$ & $20.0_{\pm39.8}$ & N/A & $27.3_{\pm4.6}$ & $19.9_{\pm3.5}$ & N/A  \\
+\texttt{doubao-1-5-thinking-pro} & $37.5_{\pm32.9}$ & $56.7_{\pm22.8}$ & N/A & $15.0_{\pm37.0}$ & $10.0_{\pm21.0}$ & N/A & $27.6_{\pm6.1}$ & $17.2_{\pm11.3}$ & N/A  \\
+\texttt{ui-tars-1-5} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & N/A & $20.0_{\pm40.0}$ & $30.0_{\pm47.0}$ & N/A & $12.6_{\pm5.1}$ & $24.8_{\pm3.3}$ & N/A \\
+\texttt{qvq-max} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & N/A & $5.0_{\pm15.8}$ & $5.0_{\pm15.8}$ & N/A & $15.1_{\pm5.7}$ & $0.7_{\pm4.5}$ & N/A \\
+\midrule
+\texttt{gemini-2.5} w/o thinking & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $3.3_{\pm10.5}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $20.0_{\pm39.8}$ & $5.1_{\pm4.9}$ & $0.7_{\pm8.9}$ & $6.3_{\pm9.8}$  \\
+\texttt{claude-3-7} w/o thinking & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $5.0_{\pm15.8}$ & $5.0_{\pm15.8}$ & $10.0_{\pm31.5}$ & $15.0_{\pm5.8}$ & $0.2_{\pm8.2}$ & $12.4_{\pm8.6}$ \\
+\texttt{gpt-4.1} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $10.0_{\pm31.5}$ & $13.0_{\pm6.8}$ & $11.2_{\pm5.6}$ & $18.5_{\pm10.9}$  \\
+\texttt{qwen-vl-max} & $0.0_{\pm0.0}$ & $1.2_{\pm2.0}$ & $0.0_{\pm0.0}$ & $5.0_{\pm15.8}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $14.1_{\pm7.3}$ & $13.2_{\pm20.2}$ & $-0.6_{\pm8.3}$  \\
+\texttt{doubao-1-5-vision-pro} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $5.0_{\pm5.0}$ & $10.0_{\pm21.0}$ & $0.0_{\pm0.0}$ & $5.0_{\pm31.5}$ & $7.8_{\pm8.8}$ & $8.1_{\pm6.3}$ & $16.2_{\pm15.0}$  \\
+\texttt{grok-2-vision} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $5.1_{\pm5.3}$ & $-0.4_{\pm5.8}$ & $3.0_{\pm3.9}$ \\
+\midrule
+\texttt{Qwen2.5-VL-72B-Ins.} & $6.2_{\pm6.6}$ & $0.8_{\pm1.8}$ & $2.9_{\pm6.2}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $16.2_{\pm9.6}$ & $19.6_{\pm25.7}$ & $23.3_{\pm22.9}$  \\
+\texttt{InternVL3-78B} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $1.7_{\pm5.2}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & {$4.8_{\pm3.9}$} & $-1.8_{\pm9.2}$ & $8.2_{\pm7.6}$  \\
+\texttt{Llama-3.2-90B-Vision-Ins.} & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $0.0_{\pm0.0}$ & $5.5_{\pm3.7}$ & $3.6_{\pm4.9}$ & $3.0_{\pm8.8}$  \\
+\midrule
+Random & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$ & $0.0$  \\
+\bottomrule
+\end{tabular}
+\setlength{\tabcolsep}{6pt}
+\end{table*}
+\end{document}

@@ -1,0 +1,234 @@
+\begin{document}
+\begin{table}[!t]
+\tiny
+    \centering
+    \begin{tabular}{c|cccc|c}
+\hline
+\textbf{\textsc{MINTQA-pop}} & \textbf{1-hop} & \textbf{2-hop} & \textbf{3-hop} & \textbf{4-hop} & \textbf{Total} \\
+\hline
+\#Samples & 5,894 & 4,428 & 4,664 & 2,901 & 17,887 \\
+\hline
+\#Input Tok. & 52,488 & 59,699 & 74,363 & 57,579 & 244,129 \\
+\#Input Vocab & 7,468 & 5,410 & 7,094 & 4,491 & 18,852 \\
+Avg. In. Len. & 8.91 & 13.48 & 15.94 & 19.85 & 13.65 \\
+\#Output Tok. & 11,526 & 6,249 & 6,196 & 5,610 & 29,581 \\
+\#Output Vocab & 3,398 & 420 & 228 & 210 & 3,721 \\
+Avg. Out. Len. & 1.96 & 1.41 & 1.33 & 1.93 & 1.65 \\
+Avg. Ctx. Len. & 32.93 & 375.93 & 549.18 & 706.12 & 361.63 \\
+\#Relations & 124 & 84 & 85 & 98 & 140 \\
+\#Entities & 7,482 & 4,357 & 5,191 & 3,180 & 18,501 \\
+\hline
+\textbf{\textsc{MINTQA-ti}} &  &  &  &  &  \\
+\hline
+\#Samples & 3,949 & 2,198 & 2,057 & 2,275 & 10,479 \\
+\#Input Tok. & 34,014 & 30,471 & 34,106 & 44,959 & 143,550 \\
+\#Input Vocab & 5,586 & 3,113 & 2,439 & 2,695 & 10,345 \\
+Avg. In. Len. & 8.61 & 13.86 & 16.58 & 19.76 & 13.70 \\
+\#Output Tok. & 8,064 & 5,738 & 4,365 & 5,086 & 23,253 \\
+\#Output Vocab & 1,710 & 1,004 & 996 & 809 & 3,318 \\
+Avg. Out. Len. & 2.04 & 2.61 & 2.12 & 2.24 & 2.22 \\
+Avg. Ctx. Len. & 56.44 & 321.32 & 487.22 & 645.61 & 324.47 \\
+\#Relations & 123 & 147 & 149 & 147 & 189 \\
+\#Entities & 4,096 & 2,484 & 2,250 & 2,346 & 9,616 \\
+\hline
+    \end{tabular}
+    \caption{Data statistics of MINTQA.}
+    \label{tab:data_statis_table}
+    \vspace{-0.3cm}
+\end{table}
+\begin{table}[!t]
+\tiny
+\centering
+\begin{tabular}{l|cc|cc}
+\hline
+\multirow{2}{*}{Model} & \multicolumn{2}{c|}{\textsc{MINTQA-pop}} & \multicolumn{2}{c}{\textsc{MINTQA-ti}} \\
+\cline{2-5}
+& Acc & F1 & Acc & F1 \\
+\hline
+GPT-3.5 & 49.32 & 49.15 & 47.32 & 47.27 \\
+GPT-4o-mini & 47.77 & 46.98 & 47.48 & 47.14 \\
+GPT-4o & 37.13 & 33.19 & 44.67 & 43.83 \\
+\hline
+LLaMA-3.1-8B & 30.88 & 23.66 & 43.05 & 30.15 \\
+LLaMA-3.1-70B & 54.60 & 54.53 & 48.46 & 47.70 \\
+LLaMA-3.2-1B & 31.40 & 24.71 & 43.07 & 30.74 \\
+LLaMA-3.2-3B & 30.82 & 23.56 & 43.05 & 30.10 \\
+\hline
+Qwen2.5-1.5B & 41.76 & 41.55 & 51.03 & 51.03 \\
+Qwen2.5-3B & 33.42 & 28.22 & 43.62 & 33.43 \\
+Qwen2.5-7B& 32.11 & 25.63 & 43.12 & 31.24 \\
+Qwen2.5-14B & 65.33 & 63.42 & 53.25 & 42.62 \\
+Qwen2.5-32B & 68.13 & 63.53 & 53.87 & 43.39 \\
+Qwen2.5-72B & 32.25 & 26.34 & 43.57 & 34.20 \\
+\hline
+Gemma-2-2B & 30.82 & 23.56 & 43.06 & 30.11 \\
+Gemma-2-9B & 54.37 & 54.37 & 50.99 & 50.65 \\
+Gemma-2-27B & 69.39 & 63.95 & 55.58 & 41.72 \\
+\hline
+Phi-3-mini & 32.28 & 26.05 & 43.23 & 32.96 \\
+Phi-3-small & 35.28 & 30.68 & 44.35 & 41.48 \\
+Phi-3-medium & 40.77 & 38.12 & 44.19 & 42.75 \\
+\hline
+Mistral-7B-v0.3 & 38.13 & 36.23 & 46.37 & 45.53 \\
+Mixtral-8x7B-v0.1 & 68.29 & 43.32 & 56.96 & 36.97 \\
+Ministral-8B-2410 & 30.86 & 23.63 & 43.06 & 30.13 \\
+\hline
+\end{tabular}
+\caption{The accuracy and F1 scores of different models in determining whether sub-questions should be retrieved or directly answered.}
+\label{tab:ex2-part2}
+\vspace{-0.3cm}
+\end{table}
+\begin{table*}[t]
+\scriptsize
+    \centering
+    \begin{tabular}{c|ccccc|c}
+    \hline
+    Dataset& \# Questions & Multi-hop & Time & Popularity & Sub-questions & Original of Generated Questions \\
+    \hline
+    PopQA \cite{Mallen2022WhenNT} & 14,268 & $\times$ & $\times$ & $\checkmark$ &$\times$ & Templates \\
+    WiTQA \cite{Maekawa2024RetrievalHO} & 14,837 & $\times$ & $\times$ & $\checkmark$ & $\times$ &Machine \\
+    Head-to-tail \cite{Sun2023HeadtoTailHK}& 18,171 & $\times$ & $\times$ & $\checkmark$ &$\times$ & Template \\
+    RetrievalQA \cite{Zhang2024RetrievalQAAA} & 1,271 & $\times$ & $\checkmark$ & $\checkmark$ & $\times$ &Mixed \\
+    \hline
+    FreshQA \cite{vu-etal-2024-freshllms} & 600 & $\checkmark$ & $\checkmark$ & $\times$ &$\times$ & Human \\
+    MultihopQA-RAG \cite{Tang2024MultiHopRAGBR} & 2,556 & $\checkmark$ & $\times$ & $\times$ &$\times$ & Machine \\
+    HotpotQA \cite{Yang2018HotpotQAAD} & 112,779 & $\checkmark$ & $\times$ & $\times$ &$\times$ & Human \\
+    MuSiQue \cite{Trivedi2021MM} & 24,814 & $\checkmark$ & $\times$ & $\times$ &$\times$ & Human \\
+    2WikiMultiHopQA \cite{Ho2020ConstructingAM} & 192,606 & $\checkmark$ & $\times$ & $\times$ & $\times$ &Templates \\
+    Mintaka \cite{Sen2022MintakaAC} & 20,000 & $\checkmark$ & $\times$ & $\times$ & $\times$ &Human \\
+    FanoutQA \cite{Zhu2024FanOutQAAM}& 1,034 & $\checkmark$ & $\times$ & $\times$ & $\checkmark$  &Human \\
+    \hline
+    Ours & 28,366 & $\checkmark$ & $\checkmark$ & $\checkmark$ &$\checkmark$  & Machine \\
+    \hline
+    \end{tabular}
+\caption{Comparison between our dataset and other datasets.}
+\label{data_compare}
+\end{table*}
+\begin{table*}[!tbp]
+    \centering
+    \tiny
+    \begin{tabular}{l|cccccc|ccccccc}
+        \hline
+        \multirow{2}{*}{Model} & \multicolumn{6}{c|}{POP} & \multicolumn{7}{c}{TI} \\
+        \cline{2-14}
+        & 1 & 0.67 & 0.5 & 0.33 & 0.25 & 0 & 1 & 0.75 & 0.67 & 0.5 & 0.33 & 0.25 & 0 \\        \hline
+        \multicolumn{14}{l}{\textbf{GPT}} \\
+        \hline
+        GPT-3.5 & 83.94 & 2.74 & 69.59 & 18.46 & 9.40 & 49.34 & 9.68 & 4.34 & 8.79 & 8.88 & 2.02 & 2.30 & 17.97 \\
+        GPT-4o & 89.11 & 3.23 & 87.83 & 29.95 & 14.65 & 63.42 & 14.73 & 7.85 & 15.80 & 14.03 & 3.85 & 6.91 & 22.89 \\
+        GPT-4o-Mini & 84.32 & 2.88 & 78.55 & 26.24 & 12.30 & 47.96 & 12.31 & 6.20 & 12.09 & 11.32 & 3.49 & 4.93 & 18.90 \\
+        \hline
+        \multicolumn{14}{l}{\textbf{Llama}} \\
+        \hline
+        Llama-3.1 & 75.87 & 2.18 & 54.91 & 19.88 & 7.70 & 38.29 & 11.29 & 5.37 & 8.65 & 9.59 & 5.50 & 5.43 & 21.73 \\
+        Llama-3.1-70B & 90.42 & 2.32 & 68.99 & 22.84 & 12.15 & 55.23 & 13.47 & 7.44 & 11.95 & 15.80 & 4.22 & 7.57 & 23.06 \\
+        Llama-3.2-1B & 64.51 & 0.49 & 29.30 & 4.24 & 5.45 & 23.59 & 6.35 & 2.69 & 5.36 & 5.33 & 2.57 & 2.96 & 14.29 \\
+        Llama-3.2-3B & 75.87 & 1.41 & 58.91 & 14.22 & 7.05 & 29.17 & 7.40 & 5.37 & 6.18 & 6.84 & 3.12 & 4.44 & 15.91 \\
+        \hline
+        \multicolumn{14}{l}{\textbf{Qwen}} \\
+        \hline
+        Qwen-1.5B & 62.44 & 3.79 & 49.13 & 14.84 & 7.00 & 22.68 & 8.49 & 5.17 & 8.10 & 7.32 & 2.39 & 4.44 & 16.41 \\
+        Qwen-3B & 62.82 & 3.65 & 51.57 & 12.06 & 6.40 & 23.40 & 7.89 & 4.96 & 5.22 & 5.68 & 3.30 & 4.28 & 13.62 \\
+        Qwen-7B & 73.62 & 5.34 & 61.49 & 12.81 & 6.35 & 26.87 & 9.40 & 4.55 & 7.83 & 7.81 & 3.12 & 4.93 & 16.15 \\
+        Qwen-14B & 78.59 & 5.20 & 73.66 & 37.68 & 11.75 & 35.18 & 13.29 & 6.82 & 12.36 & 10.39 & 4.77 & 5.43 & 18.97 \\
+        Qwen-32B & 81.13 & 6.04 & 76.87 & 30.17 & 12.25 & 35.69 & 12.56 & 7.23 & 13.46 & 11.45 & 3.49 & 7.89 & 19.47 \\
+        Qwen-72B & 80.56 & 5.41 & 78.74 & 31.85 & 10.60 & 40.55 & 12.63 & 8.47 & 14.29 & 11.90 & 3.67 & 5.26 & 20.63 \\
+        \hline
+        \multicolumn{14}{l}{\textbf{Gemma}} \\
+        \hline
+        Gemma-2-2B & 57.18 & 1.05 & 36.83 & 10.73 & 4.40 & 24.39 & 7.30 & 4.13 & 5.08 & 5.73 & 1.47 & 2.80 & 16.18 \\
+        Gemma-2-9B & 80.28 & 1.62 & 65.33 & 26.63 & 11.75 & 33.99 & 10.73 & 4.55 & 6.04 & 7.19 & 2.39 & 4.28 & 18.14 \\
+        Gemma-2-27B & 80.56 & 2.74 & 70.07 & 27.83 & 9.85 & 37.74 & 12.17 & 6.40 & 9.20 & 9.50 & 3.85 & 7.40 & 18.87 \\
+        \hline
+        \multicolumn{14}{l}{\textbf{Phi}} \\
+        \hline
+        Phi-3-mini-4K & 79.53 & 2.67 & 64.41 & 23.06 & 10.70 & 33.17 & 9.61 & 5.58 & 11.13 & 9.19 & 2.39 & 7.57 & 15.45 \\
+        Phi-3-small-8K & 74.74 & 2.18 & 60.06 & 21.33 & 9.60 & 34.34 & 9.93 & 5.17 & 7.42 & 9.41 & 2.02 & 5.26 & 15.85 \\
+        Phi-3-medium-4K & 84.79 & 2.60 & 70.35 & 25.57 & 11.40 & 45.97 & 10.87 & 6.82 & 12.50 & 11.10 & 2.20 & 4.28 & 17.34 \\
+        \hline
+        \multicolumn{14}{l}{\textbf{Mistral}} \\
+        \hline
+        Mistral-7B & 81.31 & 1.48 & 48.78 & 12.81 & 8.00 & 36.20 & 9.12 & 3.93 & 7.14 & 7.55 & 2.39 & 4.11 & 18.21 \\
+        Mixtral-8x7B & 84.69 & 2.74 & 66.03 & 24.16 & 10.95 & 47.30 & 13.43 & 5.58 & 10.85 & 10.92 & 4.22 & 5.10 & 20.40 \\
+        Mistral-8B & 76.06 & 4.50 & 56.34 & 28.75 & 11.75 & 35.57 & 10.84 & 5.58 & 11.26 & 9.28 & 5.32 & 8.72 & 23.29 \\
+        \hline
+    \end{tabular}
+        \caption{The model's accuracy in the zero-shot setting is analyzed within \textsc{MINTQA-pop} and \textsc{MINTQA-ti}, categorized based on the proportion of popular facts and old facts. A value of 0 indicates that the questions are entirely composed of unpopular facts or new facts, with other numbers increasing proportionally.}
+    \label{tab:app_zero}
+\end{table*}
+\begin{table*}[ht]
+\centering
+\tiny
+\begin{tabular}{l|ccc|ccc|ccc}
+\hline
+\multirow{2}{*}{Model} & \multicolumn{3}{c|}{BM25} & \multicolumn{3}{c|}{Contrieve} & \multicolumn{3}{c}{PromptRetrieval} \\
+\cline{2-10}
+& Acc (\%) & Avg. Sub & Avg. Ret  & Acc (\%) & Avg. Sub  & Avg. Ret  & Acc (\%) & Avg. Sub  & Avg. Ret  \\
+\hline
+\multicolumn{10}{c}{\textsc{MINTQA-pop}} \\
+\hline
+\multicolumn{10}{l}{\textbf{Qwen Models}} \\
+Qwen2.5\mbox{-}1.5B & 25.86 & 1.13 & 28.31 & 26.02 & 1.15 & 27.33 & 26.13 & 1.15 & 27.44 \\
+Qwen2.5\mbox{-}14B & 53.77 & 3.44 & 35.56 & 53.35 & 3.45 & 35.51 & 55.53 & 3.41 & 35.34 \\
+Qwen2.5\mbox{-}32B & 50.33 & 2.79 & 42.27 & 48.56 & 2.77 & 43.04 & 50.84 & 2.81 & 42.07 \\
+Qwen2.5\mbox{-}3B & 31.16 & 1.78 & 86.53 & 29.56 & 1.70 & 87.18 & 31.55 & 1.69 & 87.04 \\
+Qwen2.5\mbox{-}72B & 58.63 & 3.01 & 44.76 & 57.42 & 3.05 & 44.47 & 60.89 & 3.02 & 43.66 \\
+Qwen2.5\mbox{-}7B & 32.98 & 2.18 & 52.29 & 34.89 & 2.11 & 51.84 & 36.58 & 2.09 & 52.85 \\
+\hline
+\multicolumn{10}{l}{\textbf{Llama Models}} \\
+LLaMA\mbox{-}3.1\mbox{-}70B & 64.80 & 3.41 & 99.61 & 62.55 & 3.38 & 99.63 & 69.21 & 3.31 & 99.61 \\
+LLaMA\mbox{-}3.1\mbox{-}8B & 50.01 & 3.88 & 97.57 & 50.19 & 4.05 & 97.67 & 54.38 & 4.01 & 97.52 \\
+LLaMA\mbox{-}3.2\mbox{-}1B & 20.53 & 1.79 & 76.01 & 20.86 & 1.79 & 73.50 & 21.13 & 1.80 & 73.37 \\
+LLaMA\mbox{-}3.2\mbox{-}3B& 37.23 & 3.48 & 93.65 & 37.70 & 3.49 & 93.88 & 38.04 & 3.50 & 94.03 \\
+\hline
+\multicolumn{10}{l}{\textbf{Mistral Models}} \\
+Mistral\mbox{-}7B\mbox{-}v0.3 & 29.47 & 3.13 & 58.72 & 28.80 & 3.24 & 54.67 & 30.73 & 3.20 & 57.56 \\
+Mixtral\mbox{-}8x7B\mbox{-}v0.1 & 48.28 & 3.61 & 35.81 & 48.05 & 3.60 & 36.16 & 49.00 & 3.59 & 34.18 \\
+Ministral\mbox{-}8B\mbox{-}\mbox{-}2410 & 35.91 & 2.95 & 0.55 & 36.04 & 2.94 & 0.53 & 36.04 & 2.94 & 0.51 \\
+\hline
+\multicolumn{10}{l}{\textbf{Phi Models}} \\
+Phi\mbox{-}3\mbox{-}medium & 40.16 & 2.98 & 36.31 & 39.65 & 2.94 & 36.35 & 41.90 & 2.96 & 36.12 \\
+Phi\mbox{-}3\mbox{-}mini& 26.81 & 4.75 & 46.98 & 25.64 & 4.71 & 50.50 & 27.63 & 4.71 & 48.51 \\
+Phi\mbox{-}3\mbox{-}small & 37.09 & 2.92 & 26.66 & 37.19 & 2.88 & 27.43 & 39.14 & 2.87 & 26.84 \\
+\hline
+\multicolumn{10}{l}{\textbf{Gemma Models}} \\
+Gemma\mbox{-}2\mbox{-}27B& 64.64 & 4.05 & 98.89 & 60.82 & 4.09 & 98.82 & 68.64 & 4.32 & 99.07 \\
+Gemma\mbox{-}2\mbox{-}2B & 34.20 & 4.96 & 19.88 & 34.62 & 4.96 & 20.11 & 35.62 & 4.96 & 19.98 \\
+Gemma\mbox{-}2\mbox{-}9B & 39.99 & 3.93 & 8.17 & 40.20 & 3.92 & 8.57 & 40.56 & 3.92 & 8.30 \\
+\hline
+\multicolumn{10}{c}{\textsc{MINTQA-ti}} \\
+\hline
+\multicolumn{10}{l}{\textbf{Qwen Models}} \\
+Qwen2.5\mbox{-}1.5B & 9.49 & 1.13 & 31.17 & 9.39 & 1.14 & 31.49 & 9.47 & 1.14 & 31.53 \\
+Qwen2.5\mbox{-}14B & 39.40 & 3.65 & 54.94 & 41.53 & 3.63 & 55.21 & 40.91 & 3.62 & 54.82 \\
+Qwen2.5\mbox{-}32B & 33.87 & 2.86 & 65.51 & 34.91 & 2.87 & 65.70 & 33.75 & 2.89 & 65.35 \\
+Qwen2.5\mbox{-}3B & 18.18 & 1.83 & 90.41 & 17.55 & 1.78 & 90.75 & 17.76 & 1.75 & 90.76 \\
+Qwen2.5\mbox{-}72B & 44.79 & 3.42 & 59.75 & 45.99 & 3.45 & 59.77 & 44.44 & 3.47 & 59.68 \\
+Qwen2.5\mbox{-}7B & 20.36 & 2.35 & 67.42 & 21.83 & 2.21 & 69.75 & 21.34 & 2.21 & 70.45 \\
+\hline
+\multicolumn{10}{l}{\textbf{Llama Models}} \\
+LLaMA\mbox{-}3.1\mbox{-}70B & 51.99 & 3.70 & 99.46 & 52.16 & 3.69 & 99.39 & 50.59 & 3.71 & 99.37 \\
+LLaMA\mbox{-}3.1\mbox{-}8B & 38.24 & 3.99 & 97.73 & 40.40 & 4.10 & 97.78 & 39.02 & 4.11 & 97.72 \\
+LLaMA\mbox{-}3.2\mbox{-}1B & 9.25 & 1.94 & 72.61 & 9.47 & 1.98 & 67.81 & 8.99 & 1.99 & 68.19 \\
+LLaMA\mbox{-}3.2\mbox{-}3B & 25.89 & 3.73 & 93.03 & 27.39 & 3.75 & 93.19 & 24.82 & 3.74 & 93.05 \\
+\hline
+\multicolumn{10}{l}{\textbf{Mistral Models}} \\
+Mistral\mbox{-}7B\mbox{-}v0.3 & 9.86 & 3.19 & 53.88 & 9.77 & 3.41 & 51.53 & 10.16 & 3.36 & 53.89 \\
+Mixtral\mbox{-}8x7B\mbox{-}v0.1 & 24.91 & 3.97 & 33.44 & 26.19 & 3.95 & 33.41 & 25.72 & 3.96 & 32.48 \\
+Ministral\mbox{-}8B\mbox{-}2410 & 10.69 & 2.99 & 3.27 & 10.75 & 2.99 & 3.21 & 10.71 & 2.98 & 3.23 \\
+\hline
+\multicolumn{10}{l}{\textbf{Phi Models}} \\
+Phi\mbox{-}3\mbox{-}medium & 19.58 & 3.19 & 42.20 & 19.12 & 3.21 & 41.70 & 19.18 & 3.19 & 41.80 \\
+Phi\mbox{-}3\mbox{-}mini & 17.38 & 4.68 & 52.05 & 16.94 & 4.65 & 56.79 & 17.21 & 4.65 & 53.90 \\
+Phi\mbox{-}3\mbox{-}small & 15.38 & 3.15 & 39.14 & 15.71 & 3.11 & 39.23 & 16.20 & 3.11 & 38.83 \\
+\hline
+\multicolumn{10}{l}{\textbf{Gemma Models}} \\
+Gemma\mbox{-}2\mbox{-}27B & 48.39 & 4.49 & 98.61 & 45.35 & 4.53 & 98.65 & 47.45 & 4.53 & 98.65 \\
+Gemma\mbox{-}2\mbox{-}2B & 24.67 & 4.93 & 36.10 & 25.34 & 4.94 & 36.90 & 24.48 & 4.93 & 36.54 \\
+Gemma\mbox{-}2\mbox{-}9B & 15.29 & 4.59 & 19.91 & 16.08 & 4.58 & 19.95 & 16.50 & 4.58 & 19.99 \\
+\hline
+\end{tabular}
+\caption{The full results for ``Generate then Adaptively Retrieve'' are as follows: \textbf{Acc} represents the accuracy of the model in answering questions, \textbf{Avg. Sub} indicates the average number of sub-questions generated by the model, and \textbf{Avg. Ret} refers to the average number of sub-questions deemed necessary for retrieval by the model.}
+\label{tab:dynamic-generate-full}
+\end{table*}
+\end{document}

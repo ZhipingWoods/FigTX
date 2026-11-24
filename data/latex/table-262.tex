@@ -1,0 +1,127 @@
+\begin{document}
+\begin{table*}[t]
+\centering
+\vspace{-0.5em}
+\caption{A sample of average top-1 accuracy (\%) of different methods on six audio CL benchmarks.
+}
+\vspace{-0.5em}
+\label{tab:baselines_all}
+\renewcommand\arraystretch{1.05}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lC{1.4cm}C{1.4cm}C{1.4cm}C{1.4cm}C{1.4cm}C{1.4cm}}
+%\begin{tabular}{lcccccc}
+\toprule
+\multirow{2.5}{*}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Coarse-Grained}} & \multicolumn{3}{c}{\textbf{Fine-Grained}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & \textbf{ESC-50} & \textbf{US8K} & \textbf{SC2} & \textbf{TIMIT-2} & \textbf{TIMIT-3} & \textbf{VocalSet} \\
+\midrule
+\multicolumn{7}{l}{\textit{Naive Methods}} \\
+\midrule
+EAT (LoRA) + Joint Training   & 96.50 & 98.07 & 95.91 & 95.22 & 95.22    & 76.65 \\
+% EAT (Frozen) + joint training & 92.50 & 96.52 & 75.02 & 75.87 & 75.87 & 62.17 \\
+% \midrule
+EAT (Frozen) + Linear probe   & 40.50 & 49.99 & 32.84 & \phantom{0}2.30  & \phantom{0}4.92  & 13.82 \\
+EAT (Prompt) + Linear Probe~\cite{lester2021power}   & 58.75 & 44.98 & 41.54 & \phantom{0}1.67  & \phantom{0}1.43  & 22.04 \\
+EAT (Adapter) + Linear Probe~\cite{houlsby2019parameter}  & 59.25 & 38.76 & 55.33 & \phantom{0}6.22  & 14.12 & 16.45 \\
+EAT (LoRA) + Linear Probe~\cite{hu2021lora}     & 64.00 & 49.68 & 30.56 & \phantom{0}0.00  & \phantom{0}2.62  & 15.79 \\
+\midrule
+\multicolumn{7}{l}{\textit{PEFT-Based CL Methods %(Adapters, Prompts, LoRA)
+}} \\
+\midrule
+L2P~\cite{wang2022learning} & 39.50 & 38.75 & 14.70 & \phantom{0}1.50 & \phantom{0}2.53 & 20.39 \\
+DualPrompt~\cite{wang2022dualprompt}    & 57.00 & 42.40 & 21.92 & \phantom{0}5.87 & 10.00 &  12.50 \\
+S-Prompt++~\cite{wang2022s}    & 55.00 & 42.57 & 27.23 & \phantom{0}6.43 & \phantom{0}8.25 & 17.76  \\
+HiDe-Prompt~\cite{wang2023hierarchical}   & 83.75 & 79.89 & 40.10 & 47.78 & 49.60 & 48.36 \\
+HiDe-LoRA~\cite{wang2025hide}     & 88.75 & 76.48 & 33.66 & 47.30 & 49.60 & 46.05 \\
+HiDe-Adapter~\cite{wang2025hide}  & 82.75 & 78.03 & 33.71 & \phantom{0}7.14 & 12.22 & 49.67 \\
+LoRASub~\cite{liu2025lora}  & 57.50 &  57.81 & 34.24 & \phantom{0}0.00 & \phantom{0}0.00 & 24.01 \\
+\midrule
+\multicolumn{7}{l}{\textit{Statistics-Based CL Methods % (First-/Higher-order Statistics)
+}} \\
+\midrule
+Nearest Class Mean (NCM)~\cite{rebuffi2017icarl} & 33.25 & 36.09 & \phantom{0}9.30  & \phantom{0}6.90 & \phantom{0}6.83 & 32.89  \\
+Nearest Class Mean (NCM) w/ FSA     & 49.00 & 42.44 & 57.60 & 23.97 & 34.68 & 34.53 \\
+ACL (High-Order)~\cite{zhuang2022acil} & 90.00 & 95.98 & 80.29 & 75.56 &75.56  & 62.50 \\
+RanPAC (High-Order) w/o FSA        & 92.50 & 96.49 & 81.22 & 75.87 & 75.87 & 61.51 \\
+RanPAC (High-Order)~\cite{mcdonnell2023ranpac}                 & 92.25 & 97.08 & 90.53 & 85.63 & 89.92 & 62.82 \\
+\midrule
+PACE (Ours) & \textbf{95.75} & \textbf{97.49} & \textbf{91.87} & \textbf{90.95} & \textbf{94.05} & \textbf{69.08} \\
+\bottomrule
+\end{tabular}
+}
+% \vspace{-1.5em}
+\end{table*}
+\begin{table*}[t]
+\centering
+\begin{minipage}{0.49\linewidth}
+\setlength{\tabcolsep}{2pt}
+\centering
+\caption{Ablation results of our improved FSA on coarse-grained datasets.}
+\vspace{-0.25cm}
+\label{tab:abl_coarse}
+\small
+\resizebox{\linewidth}{!}{
+\begin{tabular}{L{2.5cm}lll}
+\toprule
+\textbf{Method} & \textbf{ESC-50} & \textbf{US8K} & \textbf{SC2} \\
+\midrule
+w/o FSA
+    & 92.50 & 96.49 & 81.22 \\
+Naive FSA
+    & 92.25\textsuperscript{$-$\phantom{0}0.27\%}
+    & 97.08\textsuperscript{$+$\phantom{0}0.61\%}
+    & 90.53\textsuperscript{$+$11.46\%} \\
+Low Learning Rate
+    & 93.75\textsuperscript{$+$\phantom{0}1.35\%}
+    & 97.35\textsuperscript{$+$\phantom{0}0.89\%}
+    & 90.95\textsuperscript{$+$11.98\%} \\
+Learning \& Freeze
+    & 94.50\textsuperscript{$+$\phantom{0}2.16\%}
+    & 97.38\textsuperscript{$+$\phantom{0}0.92\%}
+    & 91.30\textsuperscript{$+$12.41\%} \\
+Our FSA
+    & 95.75\textsuperscript{$+$\phantom{0}3.51\%}
+    & 97.49\textsuperscript{$+$\phantom{0}1.04\%}
+    & 91.87\textsuperscript{$+$13.11\%} \\
+\bottomrule
+\end{tabular}
+}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\linewidth}
+\setlength{\tabcolsep}{2pt}
+\centering
+\caption{Ablation results of our key components on fine-grained datasets.}
+\vspace{-0.25cm}
+\label{tab:abl_fine}
+\small
+\resizebox{\linewidth}{!}{
+\begin{tabular}{L{2.5cm}lll}
+\toprule
+\textbf{Method} & \textbf{TIMIT-2} & \textbf{TIMIT-3} & \textbf{VocalSet} \\
+\midrule
+Ours
+    & 90.95 & 94.05 & 69.08 \\
+Ours w/o FSA
+    & 75.87\textsuperscript{$-$16.57\%}
+    & 75.87\textsuperscript{$-$19.35\%}
+    & 61.51\textsuperscript{$-$10.97\%} \\
+Ours w/o MSA
+    & 85.63\textsuperscript{$-$\phantom{0}5.86\%}
+    & 89.92\textsuperscript{$-$\phantom{0}4.40\%}
+    & 62.82\textsuperscript{$-$\phantom{0}9.06\%} \\
+Ours w/o $\mathcal{L}_{\mathrm{reg}}$
+    & 89.21\textsuperscript{$-$\phantom{0}1.91\%}
+    & 93.73\textsuperscript{$-$\phantom{0}0.34\%}
+    & 66.78\textsuperscript{$-$\phantom{0}3.33\%} \\
+Ours w/o GP
+    & 88.01\textsuperscript{$-$\phantom{0}3.23\%}
+    & 89.05\textsuperscript{$-$\phantom{0}5.31\%}
+    & 58.55\textsuperscript{$-$15.26\%} \\
+\bottomrule
+\end{tabular}
+}
+\end{minipage}
+% \vspace{-0.5cm}
+\end{table*}
+\end{document}

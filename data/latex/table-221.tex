@@ -1,0 +1,58 @@
+\begin{document}
+\begin{table*}[t]
+% \renewcommand{\arraystretch}{0.2}
+% \tabcolsep=0.1cm
+\centering
+% \small
+\caption{Quantitative comparison of WaDi and other methods on zero-shot COCO 2014 results. $^\ast$ indicates our reproduced results, and $^\wr$ indicates results using the official pre-trained models. ‘-’ denotes unknown. Best and second-best scores are in \textbf{bold} and \underline{underline}, respectively. ``Image-free" refers to training without supervision from real images.}
+\vspace{-0.4cm}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccccccccccc}
+% \begin{tabularx}{\textwidth}{l*{10}{C}}
+\toprule
+\textbf{Method} & \textbf{\#Params} & \textbf{NFEs} & \textbf{Type} & \textbf{Trainable params} & \textbf{FID} $\downarrow$ & \textbf{CLIP} $\uparrow$ & \textbf{Precision} $\uparrow$ & \textbf{Recall} $\uparrow$ & \textbf{Image-free?} & \textbf{Training Data} \\
+\midrule
+\rowcolor{gray!20} \multicolumn{11}{c}{Stable Diffusion 1.5-based backbone} \\
+SD 1.5 ($\textit{cfg}=3.0$) & 860M & 25 & U-Net & 860M & 8.78 & 0.30 & 0.59 & 0.53 & \xmark & 5B \\
+\cdashline{1-11}
+% LCM~\citep{luo2023latent} & 860M & 1 & U-Net & 860M & 132.09 & 0.23 & - & - & \xmark & 12M \\
+LCM-LoRA$^\wr$ & 860M & 1 & LoRA & 67.50M & 77.73 & 0.24 & 0.22 & 0.15 & \xmark & 12M \\
+InstaFlow & 860M & 1 & U-Net & 860M & 13.10 & 0.28 & 0.53 & 0.45 & \xmark & 3.2M \\
+UFOGen & 860M & 1 & U-Net & 860M & 12.78 & - & - & - & \xmark & 12M \\
+DMD & 860M & 1 & U-Net & 860M & \underline{11.49} & \textbf{0.32} & - & - & \xmark & 3M \\
+% DMD2 & 860M & 1 & U-Net & 860M & 8.35 & - & - & - & \xmark & 3M \\
+DMD2$^\ast$ & 860M & 1 & U-Net & 860M & 12.96 & 0.30& \underline{0.60} & \underline{0.47} & \cmark & 1.4M \\
+% SiD-LSG & 860M & 1 & U-Net & 860M & 8.15 & 0.30& - & - & \cmark & 12M \\
+SiD-LSG$^\ast$ & 860M & 1 & U-Net & 860M & 14.27 & 0.30& 0.56 & \textbf{0.48} & \cmark & 1.4M \\
+PCM & 860M & 1 & U-Net & 860M & 17.91 & 0.29& - & - & \xmark & 3M \\
+Hyper-SD$^\wr$ & 860M & 1 & LoRA & 67.25M & 22.90 & \underline{0.31}& \textbf{0.62} & 0.25 & \xmark & - \\
+% YOSO & 860M & 1 & U-Net & - & - & - & - & - & \cmark & 700M \\
+YOSO$^\wr$ & 860M & 1 & LoRA & 67.25M & 23.68 & 0.29 & 0.56 & 0.36 & \xmark & 4M \\
+\rowcolor{blue!10} WaDi & 860M & 1 & LoRaD & 83.80M & \textbf{10.79} & \underline{0.31} & \textbf{0.62} & \textbf{0.48} & \cmark & 1.4M \\
+% \rowcolor{blue!10} WaDi ($\textit{cfg}=3.0$) & 860M & 1 & LoRaD & 83.8M & \textbf{13.379} & \textbf{0.302} & - & - & \cmark & 1.4M \\
+\midrule
+\rowcolor{gray!20} \multicolumn{11}{c}{Stable Diffusion 2.1-based backbone} \\
+SD 2.1 ($\textit{cfg}=3.0$) & 865M & 1 & U-Net & 865M & 9.60 & 0.32 & 0.59 & 0.50 & \xmark & 5B \\
+\cdashline{1-11}
+SD-Turbo$^\wr$ & 865M & 1 & U-Net & 865M & 16.14 & \textbf{0.33} & \textbf{0.65} & 0.35 & \xmark & - \\
+Swiftbrush & 865M & 1 & U-Net & 865M & 16.67 & 0.29 & 0.47 & 0.46 & \cmark & 1.4M \\
+Swiftbrushv2$^\ast$ & 865M & 1 & U-Net+LoRA & 884.14M & 15.98 & \textbf{0.33} & 0.58 & \underline{0.47} & \cmark & 1.4M \\
+% Swiftbrushv2b & 865M & 1 & LoRA & unk & \textbf{13.21} & \textbf{0.32} & 0.61 & 0.38 & - & 1.4M \\
+% TiUE & 865M & 1 & U-Net & 865M & \underline{13.09} & \underline{0.31} & \underline{0.60} & \textbf{0.48} & \cmark & 1.4M \\
+% SiD-LSG & 865M & 1 & U-Net & 865M & 9.52 & 0.308 & - & - & - & 12M \\
+SiD-LSG$^\ast$ & 865M & 1 & U-Net & 865M & 15.17 & 0.30 & 0.56 & 0.46 & \cmark & 1.4M \\
+TiUE$^\wr$ & 865M & 1 & U-Net & 865M & \underline{13.49} & \underline{0.31} & 0.59 & \textbf{0.48} & \cmark & 1.4M \\
+\rowcolor{blue!10} WaDi & 865M & 1 & LoRaD & 94.43M & \textbf{12.34} & \underline{0.31} & \underline{0.60} & \textbf{0.48} & \cmark & 1.4M \\
+\midrule
+\rowcolor{gray!20} \multicolumn{11}{c}{PixArt-$\alpha$-based backbone} \\
+PixArt-$\alpha$ ($\textit{cfg}=4.5$)$^\wr$ & 610.86M & 20 & DiT & 610.86M & 8.75 & 0.32 & 0.75 & 0.45 & \xmark & 25M \\
+\cdashline{1-11}
+Swiftbrush$^\ast$ & 610.86M & 1 & DiT & 610.86M & 29.89 & \underline{0.28} & 0.50 & 0.26 & \cmark & 1.4M \\
+PG-SB$^\ast$ & 610.86M & 1 & DiT & 610.86M & \underline{25.58} & \underline{0.28} & \underline{0.53} & \underline{0.27} & \cmark & 1.4M \\
+% DMD & 0.6B & 1 & DiT & 0.6B & - & 0.32 & 0.55 & 0.18 & - & - \\
+\rowcolor{blue!10} WaDi & 610.86M & 1 & LoRaD & 81.22M & \textbf{18.99} & \textbf{0.30} & \textbf{0.64} & \textbf{0.29} & \cmark & 1.4M \\
+\bottomrule
+\end{tabular}}
+\label{tab:main_score}
+\vspace{-0.5cm}
+\end{table*}

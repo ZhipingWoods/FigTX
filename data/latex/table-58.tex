@@ -1,0 +1,46 @@
+\newcommand{\up}[1]{\textcolor{brown}{{$\uparrow$ #1}}}
+\newcommand{\down}[1]{\textcolor{brown}{{$\downarrow$ #1}}}
+\definecolor{Gray}{gray}{0.9}
+%%%%%%%
+\begin{document}
+\begin{table*}[th]
+\centering \normalsize \setlength{\tabcolsep}{5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccccccc}
+\toprule
+\textbf{Method} & \textbf{Params} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STS-B} & \textbf{SICK-R} & \textbf{Avg.} & \textbf{Time}\\
+\midrule  \iffalse \midrule
+\multicolumn{10}{l}{\it{Unsupervised Contrastive Training}}\\
+SimCSE-BERT  & 110M & 68.40 & 82.41 & 74.38 & 80.91 & 78.56 &    76.85     &      72.23      & 76.25 \\
+SimCSE-RoBERTa & 123M & 70.16 &  81.77 & 73.24 & 81.36 & 80.65 & 80.22 & 68.56 & 76.57 \\
+PromptBERT  & 110M & 71.56 & 84.58 & 76.98 & 84.47 & 80.60 &  81.60 & 69.87& 78.54 \\
+PromptRoBERTa & 123M &  73.94 & 84.74 & 77.28 & 84.99 & 81.74 & 81.88 & 69.50 & 79.15 \\
+\midrule
+\midrule
+\multicolumn{10}{l}{\it{Without Contrastive Training}}\\
+\fi
+BERT avg & 110M & 30.87 & 59.89 & 47.73 & 60.29 & 63.73 & 47.29 & 58.22 & 52.57 & -\\
+BERT prompt & 110M & 60.96  & 73.83 & 62.18 & 71.54 & 68.68 & 70.60 & 67.16 & 67.85 & -\\
+ST5-Enc avg & 4.8B & 34.97 & 60.19 & 47.59 & 66.40 & 70.62 & 62.83 & 63.57 & 58.02 & -\\
+LLaMA2 avg & 7B & 35.49 & 53.15 & 40.12 & 55.35 & 53.26 & 42.10 &      49.96 & 47.06 & $1.00\times$ \\
+LLaMA2 echo & 7B & 52.40 &72.40&61.24&72.67&73.51&65.73& 64.39& 66.05 & $1.67\times$ \\
+\midrule
+% \fi
+{PromptEOL} & 7B & 58.81 & 77.01 & 66.34 & 73.22 & 73.56 & 71.66 & 69.64 & 70.03 & $1.00\times$ \\
+{PromptEOL} + TP (\textbf{\textit{Ours}}) & 7B & \cellcolor{gray!20}66.90 \up{8.09}& \cellcolor{gray!20}83.12 \up{6.11}& \cellcolor{gray!20}74.31 \up{7.97}& \cellcolor{gray!20}79.87 \up{6.65}& \cellcolor{gray!20}80.03 \up{6.47}& \cellcolor{gray!20}80.67 \up{9.01}& \cellcolor{gray!20}75.40 \up{5.76}& \cellcolor{gray!20}77.19 \up{7.16} & $1.04\times$ \\
+\midrule
+{MetaEOL}  & 7B& 64.16 & 81.61 & 73.09 & 81.11 & 78.94 & 77.96 & 74.86 & 75.96 & $8.17\times$ \\
+MetaEOL + TP (\textbf{\textit{Ours}}) & 7B&  \cellcolor{gray!20}66.15 \up{1.99}& \cellcolor{gray!20}82.37 \up{0.76}& \cellcolor{gray!20}74.89 \up{1.80}& \cellcolor{gray!20}83.77 \up{2.66}& \cellcolor{gray!20}81.49 \up{2.55}& \cellcolor{gray!20}81.46 \up{3.50}& \cellcolor{gray!20}75.27 \up{0.41}& \cellcolor{gray!20}77.91 \up{1.95} & $8.29\times$ \\
+\midrule
+Pretended CoT & 7B& 67.45 & 83.89 & 74.14 & 79.47 & 80.76 & 78.95 & 73.33 & 76.86 & $1.18\times$ \\
+Pretended CoT + TP (\textbf{\textit{Ours}})& 7B& \cellcolor{gray!20}68.52 \up{1.07}& \cellcolor{gray!20}83.44 \down{0.45}& \cellcolor{gray!20}75.23 \up{1.09}& \cellcolor{gray!20}79.36 \down{0.11}& \cellcolor{gray!20}81.33 \up{0.57}& \cellcolor{gray!20}80.37 \up{1.42}& \cellcolor{gray!20}74.51 \up{1.18}& \cellcolor{gray!20}77.54 \up{0.68} & $1.20\times$ \\
+\midrule
+Knowledge  & 7B& 65.60 & 82.82 & 74.48 & 80.75 & 80.13 & 80.34 & 75.89 & 77.14 & $1.17\times$\\
+Knowledge + TP (\textbf{\textit{Ours}})& 7B& \cellcolor{gray!20}66.03 \up{0.43}& \cellcolor{gray!20}83.43 \up{0.61}& \cellcolor{gray!20}74.50 \up{0.02}& \cellcolor{gray!20}80.94 \up{0.19}& \cellcolor{gray!20}81.28 \up{1.15}& \cellcolor{gray!20}80.45 \up{0.11}& \cellcolor{gray!20}76.13 \up{0.24}& \cellcolor{gray!20}77.54 \up{0.40} & $1.20\times$ \\
+\bottomrule
+\end{tabular}
+}
+\caption{Results on STS tasks (Spearman correlation scaled by 100x) using LLaMA2-7B as backbone. The Time column refers to the ratio of inference time for various prompt methods relative to PromptEOL on the STS-B test dataset, ensuring the same output layer.}
+\label{tab:results}
+\end{table*}
+\end{document}

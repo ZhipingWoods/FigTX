@@ -1,0 +1,119 @@
+\begin{document}
+\begin{table*}[t!]
+    \centering
+    \caption{Main performance comparison across RGB-T, RGB-D, and RGB-E datasets. SEATrack delivers strong overall results on five benchmarks, with outstanding parameter efficiency. L.P. denotes Learnable Parameters. \textsuperscript{*} indicates reproduced results.
+    % \vspace{-5pt}
+    % The Top-3 results are highlighted in \textcolor{red!80!black}{red}, \textcolor{blue!70!black}{blue}, and \textcolor{green!60!black}{green}, respectively. }
+    \label{tab:main}
+    \resizebox{1\linewidth}{!}{
+    % \small
+    % \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+    \begin{tabular}{c|c|c|ccc|cc|ccc|ccc|cc|c|c}
+        \toprule
+        % \rowcolor{lightgray!30}
+        \multicolumn{1}{c|}{} &
+        \multicolumn{1}{c|}{} &
+        \multicolumn{1}{c|}{} &
+        \multicolumn{3}{c|}{\textbf{LasHeR}} &
+        \multicolumn{2}{c|}{\textbf{RGBT234}} &
+        \multicolumn{3}{c|}{\textbf{DepthTrack}} &
+        \multicolumn{3}{c|}{\textbf{VOT-RGBD2022}} &
+        \multicolumn{2}{c|}{\textbf{VisEvent}} &
+        % \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{$\Delta$}\uparrow}} &
+        \multicolumn{1}{c|}{} &
+        \multicolumn{1}{c}{}\\
+        \cline{4-16}
+            % \rowcolor{lightgray!30}
+            \multirow{-2}{*}{\textbf{Type}} &
+            \multirow{-2}{*}{\textbf{Method}} &
+            \multirow{-2}{*}{\textbf{Source}} &
+            \multirow{1.3}*{PR\textuparrow} &
+            \multirow{1.3}*{NPR\textuparrow} &
+            \multirow{1.3}*{SR\textuparrow} &
+            \multirow{1.3}*{MPR\textuparrow} &
+            \multirow{1.3}*{MSR\textuparrow} &
+            \multirow{1.3}*{PR\textuparrow} &
+            \multirow{1.3}*{RE\textuparrow} &
+            \multirow{1.3}*{F-score\textuparrow} &
+            \multirow{1.3}*{EAO\textuparrow} &
+            \multirow{1.3}*{Acc.\textuparrow} &
+            \multirow{1.3}*{Rob.\textuparrow} &
+            \multirow{1.3}*{PR\textuparrow} &
+            \multirow{1.3}*{SR\textuparrow} &
+            \multirow{-2}{*}{\textbf{L.P.}\text{\textdownarrow}} &
+            \multirow{-2}{*}{\textbf{FPS}\textuparrow}\\
+        \midrule
+        % \multirow{7}{*}{\makecell{\rotatebox{90}{\textbf{FFT}}}}
+        \multirow{7}{*}{\makecell{\textbf{FFT}}}
+        & TBSI~\cite{hui2023bridging} & CVPR'23 & 69.2 & 65.7 & 55.6 & 87.1 & 63.7 & - & - & - & - & - & - & - & - & 203M & 36.2\\
+        & IIMF~\cite{chen2024simplifying} & MM'24 & 72.4 & 68.4 & 58.1 & 86.8 & 64.4 & - & - & - & - & - & - & - & - & 182M & -\\
+        & CAFormer~\cite{xiao2025cross} & AAAI'25 & 70.0 & 66.1 & 55.6 & 88.3 & 66.4 & - & - & - & - & - & - & - & - & - & 83.6\\
+        & DeT~\cite{yan2021depthtrack} & CVPR'21 & - & - & - & - & - & 56.0 & 50.6 & 53.2 & 65.7 & 76.0 & 84.5 & - & - & - & -\\
+        & TABBTrack~\cite{ying2025temporal} & PR'25 & - & - & - & - & - & 62.2 & 61.5 & 61.8 & 72.2 & 82.1 & 87.4 & - & - & - & 27\\
+        & PHPTrack~\cite{wang2025prior} & TCSVT'25 & - & - & - & - & - & - & - & - & - & - & - & 77.8 & 61.1 & 93.7M & 21.5\\
+        & CMDTrack~\cite{zhang2025cross} & TPAMI'25 & 68.8 & - & 56.6 & 85.9 & 61.8 & 59.1 & 60.7 & 59.8 & - & - & - & 75.8 & 61.3 & 31M & 67\\
+        & MamTrack~\cite{sun2025exploring} & CVPR'25 & 67.4 & - & 54.2 & 84.4 & 62.4 & - & - & - & - & - & - & 79.2 & 61.6 & - & 18.1\\
+        & SMSTrack~\cite{chan2025smstracker} & ICCV'25 & 70.3 & - & 56.0 & 86.9 & 64.5 & 64.1 & 63.1 & 63.6 & 74.8 & 82.2 & 89.7 & 76.3 & 60.4 & 98.2M\textsuperscript{*} & 24.1\\
+        \midrule
+        % \multirow{14}{*}{\makecell{\rotatebox{90}{\textbf{PEFT}}}}
+        \multirow{14}{*}{\makecell{\textbf{PEFT}}}
+        & ProTrack~\cite{yang2022prompting} & MM'22 & 53.8 & 49.8 & 42.0 & 79.5 & 59.9 & 58.3 & 57.3 & 57.8 & 65.1 & 80.1 & 80.2 & 63.2 & 47.1 & - & -\\
+        & ViPT~\cite{zhu2023visual} & CVPR'23 & 65.1 & 61.6 & 52.5 & 83.5 & 61.7 & 59.2 & 59.6 & 59.4 & 72.1 & 81.5 & 87.1 & 75.8 & 59.2 & 0.8M & -\\
+        & VADT~\cite{zhang2024visual} & ICASSP'24 & - & - & - & - & - & 60.3 & 60.6 & 61.0 & 72.1 & 81.6 & 87.3 & - & - & - & -\\
+        & TATrack~\cite{wang2024temporal} & AAAI'24 & 70.2 & 66.7 & 56.1 & 87.2 & 64.4 & - & - & - & - & - & - & - & - & - & 26.1\\
+        & BAT~\cite{cao2024bi} & AAAI'24 & 70.2 & 66.4 & 56.3 & 86.8 & 64.1 & - & - & - & - & - & - & - & - & 0.3M & -\\
+        & eMoET~\cite{chen2024emoetrackerenvironmentalmoebasedtransformer} & RAL'24 & - & - & - & - & - & - & - & - & - & - & - & 76.4 & 61.3 & 8.4M & -\\
+        & UnTrack~\cite{wu2024single} & CVPR'24 & 64.6 & 60.0 & 51.3 & 84.2 & 62.5 & 61.1 & 60.8 & 61.0 & 72.1 & 82.0 & 86.9 & 75.5 & 58.9 & 6.6M & 25.6\\
+        & OneTracker~\cite{hong2024onetracker} & CVPR'24 & 67.2 & - & 53.8 & 85.7 & 64.2 & 60.7 & 60.4 & 60.9 & 72.7 & 81.9 & 87.2 & 76.7 & 60.8 & 2.8M & -\\
+        & SDSTrack~\cite{hou2024sdstrack} & CVPR'24 & 66.5 & 62.6 & 53.1 & 84.8 & 62.5 & 61.9 & 60.9 & 61.4 & 72.8 & 81.2 & 88.3 & 76.7 & 59.7 & 14.8M & 20.8\\
+        & SNNPTrack~\cite{sun2025exploring} & ICASSP'25 & - & - & - & - & - & - & - & - & - & - & - & 76.9 & 59.8 & 2.1M & -\\
+        & M\textsuperscript{3}Track~\cite{tang2025m} & SPL'25 & 65.8 & - & 52.5 & 84.5 & 63.0 & 56.4 & 58.5 & 57.4 & - & - & - & 76.7 & 59.6 & 1.7M & 31.1\\
+        & XTrack~\cite{tan2025xtrack} & ICCV'25 & 69.1 & 65.5 & 55.7 & 87.4 & 64.9 & 61.8 & 62.0 & 61.5 & 74.0 & 82.1 & 88.8 & 77.5 & 60.9 & 5.4M\textsuperscript{*} & 10.3\textsuperscript{*}\\
+        % MVTTG~\cite{wang2024multi} & IF'24 & \underline{69.1} & 55.1 & 84.5 & 62.7 & \textbf{63.5} & \textbf{63.1} & \textbf{63.3} & - & - & - & 75.8 & \textbf{61.7} & 1.82M & -\\
+        % \cline{2-18}
+        \cmidrule(){2-18}
+        & \cellcolor{cyan!15}SEATrack & \cellcolor{cyan!15}Ours & \cellcolor{cyan!15}\textbf{71.6} & \cellcolor{cyan!15}\textbf{67.5} & \cellcolor{cyan!15}\textbf{57.3} & \cellcolor{cyan!15}\textbf{87.8} & \cellcolor{cyan!15}\textbf{63.9} & \cellcolor{cyan!15}\textbf{62.9} & \cellcolor{cyan!15}\textbf{63.5} & \cellcolor{cyan!15}\textbf{63.2} & \cellcolor{cyan!15}\textbf{73.6} & \cellcolor{cyan!15}\textbf{82.1} & \cellcolor{cyan!15}\textbf{88.4} & \cellcolor{cyan!15}\textbf{77.1} & \cellcolor{cyan!15}\textbf{60.3} & \cellcolor{cyan!15}\textbf{0.6M} & \cellcolor{cyan!15}\textbf{63.5}\\
+        \bottomrule
+    \end{tabular}
+}
+    \vspace{-10pt}
+\end{table*}
+\begin{table}[t]
+    \centering
+    \caption{Component-wise Ablation Studies.}
+    \label{tab:component_ablation}
+    % \vspace{-5pt}
+    \resizebox{\linewidth}{!}{
+    % \small
+    \begin{tabular}{cc|cc|ccc|cc|c}
+        \toprule
+        % \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Variants}}} &
+        \multicolumn{1}{c}{\multirow{2}{*}{\textbf{AMG-LoRA}}} &
+        \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{HMoE}}} &
+        \multicolumn{2}{c|}{\textbf{LasHeR}} &
+        \multicolumn{3}{c|}{\textbf{DepthTrack}} &
+        \multicolumn{2}{c|}{\textbf{VisEvent}} &
+        \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Param.}}} \\
+        % \multicolumn{1}{c}{\multirow{2}{*}{\textbf{FPS}}} \\
+        \cline{3-9}
+            & &
+            \multirow{1.3}*{PR} &
+            \multirow{1.3}*{SR} &
+            \multirow{1.3}*{PR} &
+            \multirow{1.3}*{RE} &
+            \multirow{1.3}*{F-score} &
+            \multirow{1.3}*{PR} &
+            \multirow{1.3}*{SR} & \\
+        \midrule
+        - & - & 51.5 & 41.2 & 53.6 & 52.2 & 52.9 & 69.5 & 53.4 & 0 \\
+        \midrule
+        \checkmark & - & 69.8 & 55.7 & 58.1 & 57.2 & 57.6 & 75.6 & 59.1 & 0.14M \\
+        - & \checkmark & 67.4 & 54.2 & 60.9 & 61.3 & 61.1 & 76.5 & 59.9 & 0.46M \\
+        \midrule
+        \rowcolor{cyan!15} \checkmark & \checkmark & \textbf{71.6} & \textbf{57.3} & \textbf{62.9} & \textbf{63.5} & \textbf{63.2} & \textbf{77.1} & \textbf{60.3} & \textbf{0.6M} \\
+        \bottomrule
+    \end{tabular}
+    }
+    \vspace{-10pt}
+\end{table}
+\end{document}

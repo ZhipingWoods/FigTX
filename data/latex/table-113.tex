@@ -1,0 +1,77 @@
+\definecolor{sproutgreen}{RGB}{66, 204, 113}
+\definecolor{myorange}{RGB}{255,155,30}
+\definecolor{mycyan}{RGB}{120,190,250}
+\definecolor{upcolor}{RGB}{230, 70, 70}
+\definecolor{downcolor}{RGB}{50, 150, 100}
+\definecolor{myblue}{RGB}{59, 125, 206}
+\definecolor{myred}{RGB}{255, 77, 77}
+\definecolor{bestcolor}{RGB}{198, 229, 217}
+\definecolor{headercolor}{RGB}{234, 242, 248}
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Results of the comparative experiments (accuracy in $\%$). The best results and the second-best results are highlighted in bold and underlined, respectively. The numbers after the arrows indicate the absolute improvement (shown in \textcolor{upcolor}{red}) or decline (shown in \textcolor{downcolor}{green}) compared with the original model.}
+ \renewcommand\arraystretch{1.0}
+\label{tab:performance_transposed}
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{}c@{\hspace{0.6em}}c@{\hspace{0.6em}}*{10}{c}@{}}
+\toprule
+ \multirow{3}{*}{Model} & \multirow{2}{*}{Data}& \multicolumn{2}{c}{Multidisciplinary} & \multicolumn{2}{c}{Mathematic} & \multicolumn{2}{c}{Programming} & \multicolumn{2}{c}{Reasoning} & \multirow{3}{*}{AVG}\\
+ \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+ & Volume &  MMLU & GPQA & GSM8K & MATH & HumanEval & MBPP & TheoremQA & BBH\\
+ & & (5-Shot) & (0-Shot CoT) & (0-Shot CoT) & (0-Shot CoT) & (0-Shot) & (3-Shot) & (5-Shot) & (3-Shot CoT)\\
+\midrule
+\multicolumn{11}{c}{\textbf{Source Models}} \\
+\midrule
+\rowcolor{gray!20}Q-14B & -- & 78.54 & 45.45 & 90.22 & 75.04 & 78.66 & 70.60 & 22.88 & 80.45 & 67.73 \\
+\rowcolor{gray!20}M-24B & -- & 80.95 & 46.46 & 91.89 & 68.84 & 79.88 & 68.20 & 37.12 & 82.71 & 69.51 \\
+\rowcolor{gray!20}P-14B & -- & 81.26 & 52.53 & 86.88 & 74.66 & 84.15 & 71.20 & 37.38 & 82.09 & 71.27 \\
+\midrule
+\multicolumn{11}{c}{\textbf{Target Model: Llama3.2-3B-Instruct}} \\
+\midrule
+ Base & -- & 59.77 & 27.78 & 68.92 & 34.82 & 56.10 & 48.20 & 23.88 & 53.86 & 46.67 \\
+ FuseChat & 95K & 59.88$_{\textcolor{upcolor}{\uparrow 0.11}}$ & \underline{28.28}$_{\textcolor{upcolor}{\uparrow 0.50}}$ & 69.52$_{\textcolor{upcolor}{\uparrow 0.60}}$ & 36.14$_{\textcolor{upcolor}{\uparrow 1.32}}$ & 54.27$_{\textcolor{downcolor}{\downarrow 1.83}}$ & 47.60$_{\textcolor{downcolor}{\downarrow 0.60}}$ & \underline{24.25}$_{\textcolor{upcolor}{\uparrow 0.37}}$ & \textbf{55.03$_{\textcolor{upcolor}{\uparrow 1.17}}$} & 46.87$_{\textcolor{upcolor}{\uparrow 0.20}}$ \\
+ SFT & 90K & \textbf{62.32$_{\textcolor{upcolor}{\uparrow 2.55}}$} & 25.76$_{\textcolor{downcolor}{\downarrow 2.02}}$ & 76.65$_{\textcolor{upcolor}{\uparrow 7.73}}$ & 48.92$_{\textcolor{upcolor}{\uparrow 14.1}}$ & 55.49$_{\textcolor{downcolor}{\downarrow 0.61}}$ & \underline{50.60}$_{\textcolor{upcolor}{\uparrow 2.40}}$ & 14.75$_{\textcolor{downcolor}{\downarrow 9.13}}$ & 46.08$_{\textcolor{downcolor}{\downarrow 7.78}}$ & 47.57$_{\textcolor{upcolor}{\uparrow 0.90}}$ \\
+ FuseChat-3.0 & 90K & \underline{62.03}$_{\textcolor{upcolor}{\uparrow 2.26}}$ & 22.22$_{\textcolor{downcolor}{\downarrow 2.02}}$ & \underline{78.39}$_{\textcolor{upcolor}{\uparrow 7.73}}$ & \textbf{52.42$_{\textcolor{upcolor}{\uparrow 17.6}}$} & \underline{57.93}$_{\textcolor{upcolor}{\uparrow 1.83}}$ & \textbf{51.00$_{\textcolor{upcolor}{\uparrow 2.80}}$} & 18.62$_{\textcolor{downcolor}{\downarrow 5.26}}$ & 44.97$_{\textcolor{downcolor}{\downarrow 8.89}}$ & \underline{48.45}$_{\textcolor{upcolor}{\uparrow 1.78}}$ \\
+ Condor & 90K & 60.50$_{\textcolor{upcolor}{\uparrow 0.73}}$ & 27.78$_{\textcolor{upcolor}{\uparrow 0.00}}$ & 71.57$_{\textcolor{upcolor}{\uparrow 2.65}}$ & \underline{48.96}$_{\textcolor{upcolor}{\uparrow 14.14}}$ & 53.66$_{\textcolor{downcolor}{\downarrow 2.44}}$ & 45.80$_{\textcolor{downcolor}{\downarrow 2.40}}$ & 22.38$_{\textcolor{downcolor}{\downarrow 1.50}}$ & 44.01$_{\textcolor{downcolor}{\downarrow 9.85}}$ & 46.83$_{\textcolor{upcolor}{\uparrow 0.16}}$ \\
+ \rowcolor{mycyan!30} Bohdi (Ours) & 1733 & 61.33$_{\textcolor{upcolor}{\uparrow 1.56}}$ & \textbf{30.30$_{\textcolor{upcolor}{\uparrow 2.52}}$} & \textbf{78.62$_{\textcolor{upcolor}{\uparrow 9.70}}$} & 47.92$_{\textcolor{upcolor}{\uparrow 13.10}}$ & \textbf{58.54$_{\textcolor{upcolor}{\uparrow 2.44}}$} & 49.60$_{\textcolor{upcolor}{\uparrow 1.40}}$ & \textbf{25.12$_{\textcolor{upcolor}{\uparrow 1.24}}$} & \underline{54.90}$_{\textcolor{upcolor}{\uparrow 1.04}}$ & \textbf{50.79$_{\textcolor{upcolor}{\uparrow 4.12}}$} \\
+\midrule
+\multicolumn{11}{c}{\textbf{Target Model: Gemma2-9B-IT}} \\
+\midrule
+Base & -- & 71.59 & 28.79 & 81.50 & 45.96 & 65.85 & 57.60 & 15.62 & 70.97 & 54.74 \\
+FuseChat & 95K & \underline{71.76}$_{\textcolor{upcolor}{\uparrow 0.17}}$ & 34.34$_{\textcolor{upcolor}{\uparrow 5.55}}$ & \underline{80.14}$_{\textcolor{downcolor}{\downarrow 1.36}}$ & 46.88$_{\textcolor{upcolor}{\uparrow 0.92}}$ & \textbf{66.46$_{\textcolor{upcolor}{\uparrow 0.61}}$} & \underline{58.80}$_{\textcolor{upcolor}{\uparrow 1.20}}$ & 16.62$_{\textcolor{upcolor}{\uparrow 1.00}}$ & 71.42$_{\textcolor{upcolor}{\uparrow 0.45}}$ & \underline{55.80}$_{\textcolor{upcolor}{\uparrow 1.06}}$ \\
+SFT & 90K & 60.50$_{\textcolor{downcolor}{\downarrow 11.09}}$ & 30.81$_{\textcolor{upcolor}{\uparrow 2.02}}$ & 68.43$_{\textcolor{downcolor}{\downarrow 13.07}}$ & 50.00$_{\textcolor{upcolor}{\uparrow 4.04}}$ & 64.02$_{\textcolor{downcolor}{\uparrow 1.83}}$ & 56.40$_{\textcolor{downcolor}{\downarrow 1.20}}$ & 15.38$_{\textcolor{downcolor}{\downarrow 0.24}}$ & 71.60$_{\textcolor{upcolor}{\uparrow 0.63}}$ & 52.14$_{\textcolor{downcolor}{\downarrow 2.60}}$\\
+FuseChat-3.0 & 90K & 66.12$_{\textcolor{downcolor}{\downarrow 5.47}}$ & 30.81$_{\textcolor{upcolor}{\uparrow 2.02}}$ & 70.35$_{\textcolor{downcolor}{\downarrow 11.15}}$ & 47.54$_{\textcolor{upcolor}{\uparrow 1.58}}$ & 62.20$_{\textcolor{downcolor}{\downarrow 3.65}}$ & 57.20$_{\textcolor{downcolor}{\downarrow 0.4}}$ & \underline{20.00}$_{\textcolor{upcolor}{\uparrow 4.38}}$ & 71.08$_{\textcolor{upcolor}{\uparrow 0.11}}$ & 53.16$_{\textcolor{downcolor}{\downarrow 1.58}}$\\
+Condor & 90K & 70.03$_{\textcolor{downcolor}{\downarrow 1.56}}$ & \underline{36.87}$_{\textcolor{upcolor}{\uparrow 8.08}}$ & 68.61$_{\textcolor{downcolor}{\downarrow 12.89}}$ & \underline{51.08}$_{\textcolor{upcolor}{\uparrow 5.12}}$ & \underline{65.85}$_{\textcolor{upcolor}{\uparrow 0.00}}$ & 57.80$_{\textcolor{upcolor}{\uparrow 0.20}}$ & 14.88$_{\textcolor{downcolor}{\downarrow 0.74}}$ & \textbf{74.46$_{\textcolor{upcolor}{\uparrow 3.49}}$} & 54.95$_{\textcolor{upcolor}{\uparrow 0.21}}$ \\
+\rowcolor{mycyan!30} Bohdi (Ours) & 1756 & \textbf{71.77$_{\textcolor{upcolor}{\uparrow 0.18}}$} & \textbf{37.88$_{\textcolor{upcolor}{\uparrow 9.09}}$} & \textbf{83.62$_{\textcolor{upcolor}{\uparrow 2.12}}$} & \textbf{54.20$_{\textcolor{upcolor}{\uparrow 8.24}}$} & 64.02$_{\textcolor{downcolor}{\downarrow 1.83}}$ & \textbf{60.40$_{\textcolor{upcolor}{\uparrow 2.80}}$} & \textbf{26.88$_{\textcolor{upcolor}{\uparrow 11.26}}$} & \underline{72.40}$_{\textcolor{upcolor}{\uparrow 1.43}}$ & \textbf{58.90$_{\textcolor{upcolor}{\uparrow 4.16}}$} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\vspace{-12pt}
+\end{table*}
+\begin{table}[h]
+\centering
+\caption{Experimental results of fusing the target model Gemma2-9B-IT with three smaller source models, including Llama3.2-3B-Instruct, Qwen2.5-3B-Instruct, and Gemma2-2B-IT using Bohdi. The numbers after the arrows indicate the absolute improvement (shown in \textcolor{upcolor}{red}) or decline (shown in \textcolor{downcolor}{green}) compared with the original model.}
+ \renewcommand\arraystretch{1.0}
+\label{tab:weak2strong}
+\begin{adjustbox}{max width=1\textwidth}
+\begin{tabular}{c*{10}{c}}
+\toprule
+\multirow{3}{*}{Model} & \multicolumn{2}{c}{Multidisciplinary} & \multicolumn{2}{c}{Mathematic} & \multicolumn{2}{c}{Programming} & \multicolumn{2}{c}{Reasoning} & \multirow{3}{*}{AVG} \\
+ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+ &  MMLU & GPQA & GSM8K & MATH & HumanEval & MBPP & TheoremQA & BBH\\
+ & (5-Shot) & (0-Shot CoT) & (0-Shot CoT) & (0-Shot CoT) & (0-Shot) & (3-Shot) & (5-Shot) & (3-Shot CoT)\\
+\midrule
+\rowcolor{gray!20}{Llama3.2-3B-Instruct} & 59.77 & 27.78 & 68.92 & 34.82 & 56.10 & 48.20 & 23.88 & 53.86 & 46.67 \\
+\rowcolor{gray!20}{Qwen2.5-3B-Instruct}  & 65.33 & 37.88 & 82.34 & 62.96 & 73.17 & 56.80 & 15.00 & 46.18 & 54.95 \\
+\rowcolor{gray!20}{Gemma2-2B-IT} & 56.69 & 20.20 & 59.21 & 18.68 & 45.73 & 41.00 & 7.25 & 42.52 & 36.41  \\
+\midrule
+Gemma2-9B-IT & 71.59 & 28.79 & 81.50 & 45.96 & 65.85 & 57.60 & 15.62 & 70.97 & 54.74 \\
+ Bohdi-Gemma2-9B-IT & {71.46$_{\textcolor{downcolor}{\downarrow 0.13}}$} & {35.86$_{\textcolor{upcolor}{\uparrow 7.07}}$} & {81.50$_{\textcolor{upcolor}{\uparrow 0.00}}$} & {48.80$_{\textcolor{upcolor}{\uparrow 2.84}}$} & {62.20$_{\textcolor{downcolor}{\downarrow 3.65}}$} & {59.40$_{\textcolor{upcolor}{\uparrow 1.80}}$} & {19.25$_{\textcolor{upcolor}{\uparrow 3.63}}$} & {71.22$_{\textcolor{upcolor}{\uparrow 0.25}}$} & {56.21$_{\textcolor{upcolor}{\uparrow 1.47}}$} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\vspace{-10pt}
+\end{table}
+\end{document}

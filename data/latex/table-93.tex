@@ -1,0 +1,78 @@
+\begin{document}
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{The ablation experiments on the IC-BIN dataset \cite{icbin}.
+h0 signifies the absence of histogram-based weight adjustment; h1 denotes weight adjustment using a single histogram; h3 represents weight adjustment using multiple histograms; f indicates the prediction of only the object’s front surface. Cell colors indicate column-wise values from low (dark blue) to high (dark red).}
+\begin{tabular}{l|c|cccc}
+\toprule
+\multicolumn{2}{c}{Method}     & \makecell{AR of \\ ADD-(S)} & \makecell{AR of \\ ADD-S} & \makecell{AUC of \\ ADD(-S)} & \makecell{AUC of \\ ADD-S} \\
+\midrule
+\makecell{Zebra- \\ Pose}      & f         & \cellcolor[HTML]{D0E8F0} 55.85 & \cellcolor[HTML]{ADD8E6} 61.82 & \cellcolor[HTML]{ADD8E6} 72.91 & \cellcolor[HTML]{ADD8E6} 76.40 \\
+\midrule
+CCE  & f      & \cellcolor[HTML]{ADD8E6} 55.42 & \cellcolor[HTML]{D0E8F0} 62.15 & \cellcolor[HTML]{E8F4F8} 73.58 & \cellcolor[HTML]{E8F4F8} 78.14 \\
+\midrule
+HBCE & f      & \cellcolor[HTML]{E8F4F8} 56.82 & \cellcolor[HTML]{E8F4F8} 63.50 & \cellcolor[HTML]{D0E8F0} 73.15 & \cellcolor[HTML]{D0E8F0} 76.56 \\
+\midrule
+\multirow{3}{*}{HCCE} & f(h0)  & \cellcolor[HTML]{F0D0D0} 61.35 & \cellcolor[HTML]{F0D0D0} 67.00 & \cellcolor[HTML]{F0D0D0} 76.35 & \cellcolor[HTML]{F0D0D0} 79.82 \\
+& f(h1) & \cellcolor[HTML]{F8E8E8} 60.44   & \cellcolor[HTML]{F8E8E8} 65.23 & \cellcolor[HTML]{F8E8E8} 74.92 & \cellcolor[HTML]{F8E8E8} 78.68 \\
+& f(h3) & \cellcolor[HTML]{EAA4A4} 61.95  & \cellcolor[HTML]{EAA4A4} 68.30 & \cellcolor[HTML]{EAA4A4} 77.67 & \cellcolor[HTML]{EAA4A4} 81.11 \\
+\bottomrule
+\end{tabular}
+\label{tab1}
+\end{table}
+\begin{table}[b]
+\centering
+\footnotesize
+\caption{Effect of front and back surface information on the Average Precision (AP) of BOP scores.}
+\begin{tabular}{c|c|cccc}
+\toprule
+\multicolumn{1}{l|}{Dataset}                  & Object                           & f    & b    & bf   & bfu  \\
+\midrule
+\multicolumn{1}{c|}{\multirow{8}{*}{LM-O \cite{bib60}}}   & \multicolumn{1}{c|}{ape}         & \cellcolor[HTML]{D0E8F0} 84.9 & \cellcolor[HTML]{F8E8E8} 85.7 & \cellcolor[HTML]{F8E8E8} 85.7 & \cellcolor[HTML]{F0D0D0} 85.8 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{can}         & \cellcolor[HTML]{D0E8F0} 94.8 & \cellcolor[HTML]{D0E8F0} 94.8 & \cellcolor[HTML]{F8E8E8} 95.2 & \cellcolor[HTML]{F0D0D0} 95.5 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{cat}         & \cellcolor[HTML]{E8F4F8} 87.2 & \cellcolor[HTML]{D0E8F0} 85.9 & \cellcolor[HTML]{F8E8E8} 87.6 & \cellcolor[HTML]{F0D0D0} 87.7 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{driller}     & \cellcolor[HTML]{D0E8F0} 93.1 & \cellcolor[HTML]{D0E8F0} 93.1 & \cellcolor[HTML]{F0D0D0} 94.5 & \cellcolor[HTML]{F0D0D0} 94.5 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{duck}        & \cellcolor[HTML]{D0E8F0} 78.7 & \cellcolor[HTML]{F8E8E8} 82.1 & \cellcolor[HTML]{E8F4F8} 80.5 & \cellcolor[HTML]{F0D0D0} 82.4 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{eggbox}      & \cellcolor[HTML]{E8F4F8} 56.6 & \cellcolor[HTML]{F0D0D0} 57.1 & \cellcolor[HTML]{D0E8F0} 56.0 & \cellcolor[HTML]{F0D0D0} 57.1 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{glue}        & \cellcolor[HTML]{E8F4F8} 84.4 & \cellcolor[HTML]{D0E8F0} 83.9 & \cellcolor[HTML]{F8E8E8} 85.8 & \cellcolor[HTML]{F0D0D0} 86.1 \\
+\multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{holepuncher} & \cellcolor[HTML]{F8E8E8} 82.2 & \cellcolor[HTML]{D0E8F0} 75.8 & \cellcolor[HTML]{E8F4F8} 80.1 & \cellcolor[HTML]{F0D0D0} 82.3 \\
+\midrule
+\multicolumn{1}{l|}{\multirow{3}{*}{TUD-L \cite{bib6}}}  & \multicolumn{1}{c|}{obj01}       & \cellcolor[HTML]{D0E8F0} 95.0 & \cellcolor[HTML]{E8F4F8} 95.4 & \cellcolor[HTML]{F8E8E8} 95.7 & \cellcolor[HTML]{F0D0D0} 95.8 \\
+\multicolumn{1}{l|}{}                        & \multicolumn{1}{c|}{obj02}       & \cellcolor[HTML]{D0E8F0} 85.4 & \cellcolor[HTML]{F8E8E8} 86.3 & \cellcolor[HTML]{E8F4F8} 86.1 & \cellcolor[HTML]{F0D0D0} 86.8 \\
+\multicolumn{1}{l|}{}                        & \multicolumn{1}{c|}{obj03}       & \cellcolor[HTML]{F8E8E8} 93.2 & \cellcolor[HTML]{D0E8F0} 92.2 & \cellcolor[HTML]{E8F4F8} 92.6 & \cellcolor[HTML]{F0D0D0} 93.3 \\
+\midrule
+\multicolumn{1}{l|}{\multirow{2}{*}{IC-BIN \cite{icbin}}} & \multicolumn{1}{c|}{obj01}       & \cellcolor[HTML]{E8F4F8} 62.9 & \cellcolor[HTML]{D0E8F0} 58.5 & \cellcolor[HTML]{F8E8E8} 63.6 & \cellcolor[HTML]{F0D0D0} 63.7 \\
+\multicolumn{1}{l|}{}                        & \multicolumn{1}{c|}{obj02}       & \cellcolor[HTML]{E8F4F8} 70.1 & \cellcolor[HTML]{D0E8F0} 65.9 & \cellcolor[HTML]{F8E8E8} 70.7 & \cellcolor[HTML]{F0D0D0} 71.5 \\
+\midrule
+\multicolumn{2}{c|}{Mean}                                                       & \cellcolor[HTML]{E8F4F8} 82.2 & \cellcolor[HTML]{D0E8F0} 81.3 & \cellcolor[HTML]{F8E8E8} 82.6 & \cellcolor[HTML]{F0D0D0} 83.3 \\
+\bottomrule
+\end{tabular}
+\label{tab2}
+\end{table}
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Comparison with SOTA methods on seven classic BOP core datasets in 6D localization and 2D segmentation tasks. Scores are expressed as percentages.}
+\begin{tabular}{@{}l|ccc|ccc|ccc@{}}
+\toprule
+Task  & \multicolumn{3}{c|}{6D Localization} & \multicolumn{3}{c|}{2D Segmentation} & \multicolumn{3}{c}{6D Localization} \\
+\midrule
+Test Data & \multicolumn{3}{c|}{RGB} & \multicolumn{3}{c|}{RGB} & \multicolumn{3}{c}{RGB-D} \\
+\midrule
+Method & \multicolumn{1}{l}{GPose \cite{gpose}} & \multicolumn{1}{l}{ZebraPose \cite{bib10}} & \multicolumn{1}{l|}{Ours} & \multicolumn{1}{l}{DLZDet \cite{DLZDet}} & \multicolumn{1}{l}{ZebraPose \cite{bib10}} & \multicolumn{1}{l|}{Ours} & \multicolumn{1}{l}{PFA \cite{PFA}} & \multicolumn{1}{l}{GDRNPP \cite{gdrnpp}} & \multicolumn{1}{l}{Ours} \\
+\midrule
+${AR(AP)_{LM-O}}$ & 69.9  & 72.9  & \textbf{75.5}  & 46.0    & 51.6  & \textbf{52.7}  & 79.2  & 79.2  & \textbf{80.5} \\
+${AR(AP)_{T-LESS}}$ & 79.9  & 82.1  & \textbf{85.6}  & 58.4  & 72.1  & \textbf{76.8}  & 84.9  & 87.2  & \textbf{87.9} \\
+${AR(AP)_{TUD-L}}$ & 83.1  & 85.0    & \textbf{86.9}  & 73.2  & 71.8  & \textbf{76.7}  & \textbf{96.3}  & 93.6  & 94.4 \\
+${AR(AP)_{IC-BIN}}$ & 62.6  & 59.2  & \textbf{63.5}  & 31.6  & 49.3  & \textbf{51.2}  & 70.6  & 70.2  & \textbf{72.4} \\
+${AR(AP)_{ITODD}}$ & 46.0    & 50.4  & \textbf{54.2}  & 23.9  & 46.2  & \textbf{51.3}  & 52.6  & 58.8  & \textbf{73.4} \\
+${AR(AP)_{HB}}$ & 87.6  & \textbf{92.2}  & 91.9  & 60.0    & 68.9  & \textbf{76.1}  & 86.7  & 90.9  & \textbf{93.1} \\
+${AR(AP)_{YCB-V}}$ & 80.9  & 82.8  & \textbf{83.9}  & 66.9  & 73.1  & \textbf{74.5}  & 89.9  & 83.4  & \textbf{91.1} \\
+\midrule
+${AR(AP)_{Core}}$ & 72.9  & 74.9  & \textbf{77.3}  & 51.4  & 61.9  & \textbf{65.6}  & 80.0    & 80.5  & \textbf{84.7} \\
+\bottomrule
+\end{tabular}
+\label{tab3}
+\end{table*}
+\end{document}

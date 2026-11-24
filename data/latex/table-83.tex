@@ -1,0 +1,118 @@
+\definecolor{lightcyan}{RGB}{210, 245, 245}
+\definecolor{lightgreen}{RGB}{220, 245, 220}
+\definecolor{deepercyan}{RGB}{130, 180, 200}
+\definecolor{lightblue}{RGB}{242, 251, 252}
+\definecolor{headerbg}{RGB}{220, 230, 240}
+\definecolor{rowgray}{RGB}{245, 245, 245}
+\definecolor{rowwhite}{RGB}{252, 252, 252}
+\definecolor{highlightorange}{RGB}{255, 102, 0}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1}
+  \setlength{\tabcolsep}{7pt}
+  \caption{Performance comparison of Phi-3.5-Mini and Llama-3.1-8B after SFT and DPO on French and Chinese datasets. The table shows evaluation results on various evaluation languages (EL)}
+  \label{tab:ft_one_dpo}
+  \begin{tabular}{lcccccccccc}
+    \toprule
+    & & & \multicolumn{4}{c}{\textbf{French Fine-Tuning}} & \multicolumn{4}{c}{\textbf{Chinese Fine-Tuning}} \\
+    \cmidrule(lr){4-7} \cmidrule(lr){8-11}
+    \multirow{-2}{*}{\textbf{Model}} & \multirow{-2}{*}{\textbf{EL}} & \multirow{-2}{*}{\textbf{Orig.}} & \textbf{S Enh.} & \textbf{D Enh.} & \textbf{S Diff.} & \textbf{D Diff.} & \textbf{S Enh.} & \textbf{D Enh.} & \textbf{S Diff.} & \textbf{D Diff.} \\
+    \midrule
+    \multirow[c]{6}{*}{\textbf{Phi-3.5-Mini}} & French   & 0.196     & --    & --    & -- & -- & 0.397 & 0.425 &   0.202  & 0.229 \\
+     & German   & 0.208          & 0.466 &  0.488 & 0.258 & 0.258 & 0.441 & 0.465&  0.233  & 0.257 \\
+     & Spanish  & 0.248         & 0.467 & 0.495 & 0.219 & 0.247 & 0.521 & 0.550 & 0.273 & 0.302  \\
+     & \cellcolor{lightblue}Chinese & \cellcolor{lightblue}0.199 & \cellcolor{lightblue}0.345 & \cellcolor{lightblue}0.330 & \cellcolor{lightblue}0.146 & \cellcolor{lightblue}0.131  & \cellcolor{lightblue}--    & \cellcolor{lightblue}--    & \cellcolor{lightblue}--   & \cellcolor{lightblue}--  \\
+     & \cellcolor{lightblue}Japanese& \cellcolor{lightblue}0.127 & \cellcolor{lightblue}0.306 & \cellcolor{lightblue}0.325 & \cellcolor{lightblue}0.178 & \cellcolor{lightblue}0.198 & \cellcolor{lightblue}0.478 & \cellcolor{lightblue}0.510 &  \cellcolor{lightblue}0.350 &  \cellcolor{lightblue}0.383  \\
+     & \cellcolor{lightblue}Korean  & \cellcolor{lightblue}0.086   & \cellcolor{lightblue}0.246 &  \cellcolor{lightblue}0.265 & \cellcolor{lightblue}0.160 & \cellcolor{lightblue}0.179 & \cellcolor{lightblue}0.458 & \cellcolor{lightblue}0.492 &  \cellcolor{lightblue}0.373  & \cellcolor{lightblue}0.406 \\
+    \midrule
+    \multirow[c]{6}{*}{\textbf{Llama-3.1-8B}} & French   & --    & --    & --    & --    & --    & 0.506 & 0.518 & 0.343 & 0.355 \\
+     & German   & 0.189 & 0.388 & 0.395 & 0.199 & 0.206 & 0.494 & 0.502 & 0.304 & 0.312 \\
+     & Spanish  & 0.145 & 0.409 & 0.418 & 0.264 & 0.273 & 0.438 & 0.445 & 0.293 & 0.300 \\
+     & \cellcolor{lightblue}Chinese & \cellcolor{lightblue}0.289 & \cellcolor{lightblue}0.453 & \cellcolor{lightblue}0.445 & \cellcolor{lightblue}0.164 & \cellcolor{lightblue}0.156 & \cellcolor{lightblue}--    & \cellcolor{lightblue}--    & \cellcolor{lightblue}--   & \cellcolor{lightblue}--    \\
+     & \cellcolor{lightblue}Japanese& \cellcolor{lightblue}0.124 & \cellcolor{lightblue}0.357 & \cellcolor{lightblue}0.368 & \cellcolor{lightblue}0.232 & \cellcolor{lightblue}0.243 & \cellcolor{lightblue}0.561 & \cellcolor{lightblue}0.570 & \cellcolor{lightblue}0.436 & \cellcolor{lightblue}0.445 \\
+     & \cellcolor{lightblue}Korean  & \cellcolor{lightblue}0.143 & \cellcolor{lightblue}0.320 & \cellcolor{lightblue}0.328 & \cellcolor{lightblue}0.178 & \cellcolor{lightblue}0.185 & \cellcolor{lightblue}0.504 & \cellcolor{lightblue}0.515 & \cellcolor{lightblue}0.362 & \cellcolor{lightblue}0.373 \\
+    \bottomrule
+  \end{tabular}\
+  \vspace{-1em}
+\end{table*}
+\definecolor{headerbg}{RGB}{255, 183, 77}  % 亮橙色标题栏
+\definecolor{rowgray}{RGB}{255, 236, 209}  % 浅橙色行
+\definecolor{rowblue}{RGB}{255, 247, 230}  % 淡黄色行
+\definecolor{darkgreen}{RGB}{0, 150, 0}  % 深绿色勾选符号
+\begin{table*}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1}
+\setlength{\tabcolsep}{2.4mm}
+\caption{Models used in our experiments along with their versions, organizations, licenses, and purposes. \textit{Eval}: Model used for evaluation; \textit{FT}: Model used for fine-tuning.}
+\label{tab:all_models}
+\rowcolors{2}{rowblue}{rowgray}  % 交替行颜色
+\begin{tabular}{lccccc}
+    \toprule[1.5pt]
+    \rowcolor{headerbg}
+    \textcolor{white}{\textbf{Model}} &
+    \textcolor{white}{\textbf{Version}} &
+    \textcolor{white}{\textbf{Organization}} &
+    \textcolor{white}{\textbf{License}} &
+    \textcolor{white}{\textbf{Eval}} &
+    \textcolor{white}{\textbf{FT}} \\
+    \midrule[0.8pt]
+    GPT-4o-mini       & gpt-4o-mini-2024-07-18       & OpenAI      & Proprietary            & \textcolor{darkgreen}{\checkmark} & \\
+    GPT-4o            & gpt-4o-2024-08-06            & OpenAI      & Proprietary            & \textcolor{darkgreen}{\checkmark} & \\
+    Gemma-2-9B        & Gemma-2-9B-it                & Google      & Gemma License          & \textcolor{darkgreen}{\checkmark} & \textcolor{darkgreen}{\checkmark} \\
+    Gemma-2-27B       & Gemma-2-27B-it               & Google      & Gemma License          & \textcolor{darkgreen}{\checkmark} & \\
+    Llama-3.1-8B      & Meta-Llama-3.1-8B-Instruct   & Meta        & Llama 3.1 Community    & \textcolor{darkgreen}{\checkmark} & \textcolor{darkgreen}{\checkmark} \\
+    Llama-3.1-70B     & Meta-Llama-3.1-70B-Instruct  & Meta        & Llama 3.1 Community    & \textcolor{darkgreen}{\checkmark} & \\
+    Yi-Lightning      & Yi-Lightning                 & 01 AI       & Proprietary            & \textcolor{darkgreen}{\checkmark} & \\
+    Qwen2.5-7B        & Qwen2.5-7B-Instruct          & Alibaba     & Qwen License           & \textcolor{darkgreen}{\checkmark} & \textcolor{darkgreen}{\checkmark} \\
+    Qwen2.5-72B       & Qwen2.5-72B-Instruct         & Alibaba     & Qwen License           & \textcolor{darkgreen}{\checkmark} & \\
+    o1-mini           & o1-mini-2024-09-12           & OpenAI      & Proprietary            & \textcolor{darkgreen}{\checkmark} & \\
+    Phi-3.5-mini      & Phi-3.5-mini-instruct        & Microsoft   & MIT                    &  & \textcolor{darkgreen}{\checkmark} \\
+    Claude-3.5-Sonnet & claude-3-5-sonnet-20241022   & Anthropic   & Proprietary            & \textcolor{darkgreen}{\checkmark} & \\
+    \bottomrule[1.5pt]
+\end{tabular}
+\end{table*}
+\begin{table*}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\caption{Percentage distribution of weaknesses across different categories for each language, compared to overall averages. Percentages exceeding the overall average for each category are highlighted in \textcolor{highlightorange}{orange}.  Column abbreviations are as follows: Sci \& Tech (Science \& Technology), Gen Knowl. (General Knowledge), Geo \& Env. (Geography \& Environment), Soc \& Cult. (Society \& Culture), Arts \& Lit. (Arts \& Literature), and Hist \& Events (History \& World Events).}
+\label{tab:category}
+\rowcolors{2}{rowwhite}{rowgray}
+\begin{tabular}{lcccccc}
+    \toprule[1.5pt]
+    \rowcolor{headerbg}
+    \textcolor{black}{\textbf{Language}} &
+    \textcolor{black}{\textbf{Sci \& Tech}} &
+    \textcolor{black}{\textbf{Gen Knowl.}} &
+    \textcolor{black}{\textbf{Geo \& Env.}} &
+    \textcolor{black}{\textbf{Soc \& Cult.}} &
+    \textcolor{black}{\textbf{Arts \& Lit.}} &
+    \textcolor{black}{\textbf{Hist \& Events}} \\
+    \midrule[0.8pt]
+    \midrule[0.8pt]
+    Amharic   & \textcolor{highlightorange}{61.95\%} & 8.12\%   & 5.41\%   & 15.94\% & 2.26\%   & \textcolor{highlightorange}{6.32\%}   \\
+    Arabic    & \textcolor{highlightorange}{55.42\%} & \textcolor{highlightorange}{15.57\%} & 0.71\%   & 9.20\%     & \textcolor{highlightorange}{9.91\%}   & \textcolor{highlightorange}{9.20\%}     \\
+    Bengali   & \textcolor{highlightorange}{46.17\%} & \textcolor{highlightorange}{16.47\%} & \textcolor{highlightorange}{10.21\%} & 17.87\% & \textcolor{highlightorange}{7.66\%}   & 1.62\%   \\
+    Chinese   & 25.73\% & 6.43\%   & \textcolor{highlightorange}{7.60\%}    & \textcolor{highlightorange}{47.08\%} & \textcolor{highlightorange}{12.28\%} & 0.88\%   \\
+    French    & 37.50\%   & \textcolor{highlightorange}{13.78\%} & \textcolor{highlightorange}{10.26\%} & \textcolor{highlightorange}{26.28\%} & 6.73\%   & \textcolor{highlightorange}{5.45\%}   \\
+    German    & 42.24\% & \textcolor{highlightorange}{19.88\%} & \textcolor{highlightorange}{9.32\%}   & 22.36\% & 0.62\%   & \textcolor{highlightorange}{5.59\%}   \\
+    Hebrew    & 43.26\% & 10.02\%   & 0.58\%       & 22.57\% & \textcolor{highlightorange}{16.30\%}   & \textcolor{highlightorange}{6.27\%}   \\
+    Hindi     & 44.95\% & \textcolor{highlightorange}{17.74\%} & 3.06\%   & 20.49\% & \textcolor{highlightorange}{11.31\%} & 2.45\%   \\
+    Italian   & \textcolor{highlightorange}{49.15\%} & 6.10\%     & 3.39\%   & \textcolor{highlightorange}{26.10\%}   & 5.76\%   & \textcolor{highlightorange}{9.49\%}   \\
+    Japanese  & \textcolor{highlightorange}{48.09\%} & \textcolor{highlightorange}{15.29\%} & \textcolor{highlightorange}{12.42\%} & 19.11\% & 4.46\%   & 0.64\%   \\
+    Korean    & 27.41\% & \textcolor{highlightorange}{16.45\%} & \textcolor{highlightorange}{23.25\%} & \textcolor{highlightorange}{25.66\%} & 3.07\%   & 4.17\%   \\
+    Spanish   & 23.97\% & \textcolor{highlightorange}{18.18\%} & 4.55\%   & 19.01\% & \textcolor{highlightorange}{21.90\%}     & \textcolor{highlightorange}{12.40\%}    \\
+    Swahili   & \textcolor{highlightorange}{47.96\%} & 8.87\%   & 3.12\%   & \textcolor{highlightorange}{30.94\%} & 4.32\%   & 4.80\%    \\
+    Ukrainian & 39.01\% & 10.53\% & 4.33\%   & \textcolor{highlightorange}{34.98\%} & 6.81\%   & 4.33\%   \\
+    Yoruba    & \textcolor{highlightorange}{53.01\%} & 6.52\%   & \textcolor{highlightorange}{7.87\%}   & 21.03\% & 4.67\%   & \textcolor{highlightorange}{6.89\%}   \\
+    Zulu      & \textcolor{highlightorange}{47.40\%}   & \textcolor{highlightorange}{13.36\%} & 0.98\%   & \textcolor{highlightorange}{25.60\%}   & \textcolor{highlightorange}{8.44\%}   & 4.22\%   \\
+    \textbf{Overall Average} & 45.36\% & 12.20\% & 6.63\% & 23.40\% & 7.15\% & 5.26\% \\
+    \bottomrule[1.5pt]
+\end{tabular}
+\end{table*}
+\end{document}

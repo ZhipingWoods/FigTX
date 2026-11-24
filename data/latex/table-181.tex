@@ -1,0 +1,52 @@
+\definecolor{upred}{HTML}{B94A37}
+\definecolor{downblue}{HTML}{2F46C5}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Comparison between NuWa and training-dependent pruning baselines, with the best and second-best accuracies highlighted in bold and underlined, respectively. Subscripts indicate improvements over DeiT-Base. “(FT)” denotes fine-tuning on $\mathcal{D_S}$.}
+\label{tab:training_dependent_comparison}
+\begin{scriptsize}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{l||ccc|c||ccc|c||ccc|c}
+\toprule
+\textbf{Method} & $\mathcal{S}_1$/10 & $\mathcal{S}_2$/10 & $\mathcal{S}_3$/10 & \textit{Avg.} & $\mathcal{S}_4$/25 & $\mathcal{S}_5$/25 & $\mathcal{S}_6$/25 & \textit{Avg.} & $\mathcal{S}_7$/50 & $\mathcal{S}_8$/50 & $\mathcal{S}_9$/50 & \textit{Avg.}\\
+\hline\hline
+\textbf{DeiT-Base} & 71.20 & 81.60 & 83.00 & 78.60 & 79.92 & 82.56 & 80.67 & 81.05 & 80.48 & 79.64 & 84.96 & 81.69\\
+\rowcolor[gray]{0.95}
+\textbf{DeiT-Base (FT)} & 96.60 & 99.00 & 97.80 & 97.80 \textsubscript{\textcolor{upred}{$\uparrow$19.20}} & 96.40 & 96.96 & 96.96 & 96.77 \textsubscript{\textcolor{upred}{$\uparrow$15.72}} & 95.00 & 93.36 & 94.68 & 94.35 \textsubscript{\textcolor{upred}{$\uparrow$12.66}}\\
+\hline\hline\rowcolor[HTML]{FFF2E0}
+\textbf{Anchor Model} & 95.80 & 98.60 & 98.60 & 97.67 \textsubscript{\textcolor{upred}{$\uparrow$19.07}} & 94.80 & 97.92 & 96.72 & 96.48 \textsubscript{\textcolor{upred}{$\uparrow$15.43}} & 95.04 & 94.20 & 94.92 & 94.72 \textsubscript{\textcolor{upred}{$\uparrow$13.03}}\\
+\hline\hline
+\multicolumn{13}{l}{\textit{\textcolor{gray!70}{\textbf{Pruning Rate = 0.40}}}}\\
+\textbf{Random} & 94.80 & 97.00 & 97.00 & 96.30 \textsubscript{\textcolor{upred}{$\uparrow$17.70}} & 94.48 & 95.12 & 95.44 & 95.01 \textsubscript{\textcolor{upred}{$\uparrow$13.96}} & 92.64 & 91.32 & 92.88 & 92.28 \textsubscript{\textcolor{upred}{$\uparrow$10.59}}\\
+\rowcolor[gray]{0.95}
+\textbf{X-Pruner} & 96.20 & 98.40 & 97.40 & 97.33 \textsubscript{\textcolor{upred}{$\uparrow$18.73}} & \underline{95.44} & \textbf{97.12} & 95.76 & \underline{96.11} \textsubscript{\textcolor{upred}{$\uparrow$15.06}} & 92.88 & 92.52 & 93.64 & 93.01 \textsubscript{\textcolor{upred}{$\uparrow$11.32}}\\
+\textbf{DC-ViT} & 75.80 & 95.20 & 91.00 & 87.33 \textsubscript{\textcolor{upred}{$\uparrow$8.73}} & 89.44 & 91.76 & 90.24 & 90.48 \textsubscript{\textcolor{upred}{$\uparrow$9.43}} & 88.88 & 87.96 & 88.16 & 88.33 \textsubscript{\textcolor{upred}{$\uparrow$6.64}}\\
+\rowcolor[gray]{0.95}
+\textbf{RECAP} & \underline{96.60} & 98.20 & \underline{98.80} & \underline{97.87} \textsubscript{\textcolor{upred}{$\uparrow$19.27}} & 95.04 & 96.72 & 95.36 & 95.71 \textsubscript{\textcolor{upred}{$\uparrow$14.66}} & 93.48 & 92.84 & 93.80 & 93.37 \textsubscript{\textcolor{upred}{$\uparrow$11.68}}\\
+\textbf{MDP} & 93.80 & 97.00 & 96.40 & 95.73 \textsubscript{\textcolor{upred}{$\uparrow$17.13}} & 93.36 & 96.16 & 94.32 & 94.61 \textsubscript{\textcolor{upred}{$\uparrow$13.56}} & 92.80 & 92.12 & 93.24 & 92.72 \textsubscript{\textcolor{upred}{$\uparrow$11.03}}\\
+\hline\rowcolor[HTML]{FFF2E0}
+\textbf{\textit{NuWa}} & 96.00 & \underline{98.60} & 98.60 & 97.73 \textsubscript{\textcolor{upred}{$\uparrow$19.13}} & 94.40 & \underline{97.04} & \underline{96.72} & 96.05 \textsubscript{\textcolor{upred}{$\uparrow$15.00}} & \underline{93.68} & \underline{92.88} & \underline{94.44} & \underline{93.67} \textsubscript{\textcolor{upred}{$\uparrow$11.98}}\\
+\rowcolor[HTML]{FFF6E2}
+\textbf{\textit{NuWa (FT)}} & \textbf{97.00} & \textbf{98.80} & \textbf{98.80} & \textbf{98.20 \textsubscript{\textcolor{upred}{$\uparrow$19.60}}} & \textbf{96.16} & \underline{97.04} & \textbf{96.72} & \textbf{96.64 \textsubscript{\textcolor{upred}{$\uparrow$15.59}}} & \textbf{93.96} & \textbf{93.52} & \textbf{94.80} & \textbf{94.09 \textsubscript{\textcolor{upred}{$\uparrow$12.40}}}\\
+\hline\hline
+\multicolumn{13}{l}{\textit{\textcolor{gray!70}{\textbf{Pruning Rate = 0.60}}}}\\
+\textbf{Random} & 88.00 & 95.00 & 92.40 & 91.80 \textsubscript{\textcolor{upred}{$\uparrow$13.20}} & 90.48 & 93.36 & 91.52 & 91.79 \textsubscript{\textcolor{upred}{$\uparrow$10.74}} & 89.48 & 87.64 & 89.64 & 88.92 \textsubscript{\textcolor{upred}{$\uparrow$7.23}}\\
+\rowcolor[gray]{0.95}
+\textbf{X-Pruner} & 91.20 & 95.40 & 95.60 & 94.07 \textsubscript{\textcolor{upred}{$\uparrow$15.47}} & \underline{91.58} & 93.04 & \underline{93.11} & \underline{92.58} \textsubscript{\textcolor{upred}{$\uparrow$11.53}} & \underline{90.24} & \underline{88.18} & \underline{90.07} & \underline{89.50} \textsubscript{\textcolor{upred}{$\uparrow$7.81}}\\
+\textbf{DC-ViT} & 68.20 & 79.20 & 73.80 & 73.73 \textsubscript{\textcolor{downblue}{$\downarrow$4.87}} & 70.56 & 75.68 & 75.84 & 74.02 \textsubscript{\textcolor{downblue}{$\downarrow$7.02}} & 69.84 & 69.44 & 71.32 & 70.20 \textsubscript{\textcolor{downblue}{$\downarrow$11.49}}\\
+\rowcolor[gray]{0.95}
+\textbf{RECAP} & 89.40 & 95.40 & 93.80 & 92.87 \textsubscript{\textcolor{upred}{$\uparrow$14.27}} & 88.88 & 92.08 & 90.24 & 90.40 \textsubscript{\textcolor{upred}{$\uparrow$9.35}} & 88.60 & 87.88 & 89.16 & 88.55 \textsubscript{\textcolor{upred}{$\uparrow$6.86}}\\
+\textbf{MDP} & 90.00 & 95.80 & \underline{95.80} & 93.87 \textsubscript{\textcolor{upred}{$\uparrow$15.27}} & 90.88 & \underline{94.80} & 91.52 & 92.40 \textsubscript{\textcolor{upred}{$\uparrow$11.35}} & 90.00 & 85.00 & 90.04 & 88.35 \textsubscript{\textcolor{upred}{$\uparrow$6.66}}\\
+\hline\rowcolor[HTML]{FFF2E0}
+\textbf{\textit{NuWa}} & \underline{91.80} & \underline{96.20} & 94.60 & \underline{94.20} \textsubscript{\textcolor{upred}{$\uparrow$15.60}} & 89.84 & 92.00 & 92.48 & 91.44 \textsubscript{\textcolor{upred}{$\uparrow$10.39}} & 85.32 & 86.20 & 85.96 & 85.83 \textsubscript{\textcolor{upred}{$\uparrow$4.14}}\\
+\rowcolor[HTML]{FFF6E2}
+\textbf{\textit{NuWa (FT)}} & \textbf{95.20} & \textbf{98.40} & \textbf{97.80} & \textbf{97.13 \textsubscript{\textcolor{upred}{$\uparrow$18.53}}} & \textbf{95.36} & \textbf{96.88} & \textbf{95.60} & \textbf{95.95 \textsubscript{\textcolor{upred}{$\uparrow$14.90}}} & \textbf{92.32} & \textbf{92.12} & \textbf{93.44} & \textbf{92.63\textsubscript{\textcolor{upred}{$\uparrow$10.94}}}\\
+\hline
+\bottomrule
+\end{tabular}
+\end{scriptsize}
+\vskip -0.15in
+\end{table*}
+\end{document}

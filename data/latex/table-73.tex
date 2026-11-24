@@ -1,0 +1,38 @@
+\begin{table*}[ht]
+\centering
+\small
+\begin{tabular}{cc|cccccc|ccc|ccc}
+\toprule
+\multirow{2}{*}{\#Para} & \multirow{2}{*}{Method} & \multicolumn{9}{c|}{SpecBench} & \multicolumn{3}{c}{MBPP} \\ \cmidrule{3-11} \cmidrule{12-14}
+ &  & MT & Trans & Sum & QA & Math & RAG & MAT & Ts/s & Speed & MAT & Ts/s & Speed \\
+ \midrule
+\multirow{6}{*}{7B}
+~ & AR & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 54.30 & 1.00 & 1.00 & 56.15 & 1.00 \\
+~ & Lade & 1.42 & 1.12 & 1.21 & 1.21 & 1.52 & 1.13 & 1.64 & 69.03 & 1.27 & 1.66 & 79.16 & 1.41 \\
+~ & PLD & 1.53 & 0.98 & \textbf{2.36} & 1.10 & 1.50 & 1.74 & 1.75 & 83.30 & 1.53 & 1.39 & 66.65 & 1.19 \\
+~ & REST & 1.37 & 1.05 & 1.12 & 1.42 & 1.06 & 1.30 & 1.84 & 66.29 & 1.22 & 2.08 & 87.08 & 1.55 \\
+\rowcolor[RGB]{230, 230, 230} \cellcolor{white} ~ & Medusa & 1.90 & 1.57 & 1.48 & 1.58 & 1.87 & 1.45 & 2.31 & 89.41 & 1.65 & - & - & - \\
+~ & TR & \textbf{2.17} & \textbf{1.90} & 1.94 & \textbf{1.95} & \textbf{2.40} & \textbf{1.78} & \textbf{2.70} & \textbf{110.06} & \textbf{2.03} & \textbf{2.93} & \textbf{131.20} & \textbf{2.34} \\
+% ~ & \textit{shuffle} & \textit{2.16} & \textit{1.91} & \textit{1.93} & \textit{1.94} & \textit{2.37} & \textit{1.72} & \textit{2.71} & \textit{109.07} & \textit{2.01} & - & - & - \\
+ \midrule
+\multirow{6}{*}{13B}
+~ & AR & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 39.41 & 1.00 & 1.00 & 41.31 & 1.00 \\
+~ & Lade & 1.29 & 1.06 & 1.16 & 1.12 & 1.48 & 1.09 & 1.63 & 47.50 & 1.21 & 1.73 & 56.87 & 1.38 \\
+~ & PLD & 1.45 & 1.01 & \textbf{2.10} & 1.02 & 1.55 & 1.65 & 1.67 & 57.01 & 1.45 & 1.48 & 52.20 & 1.26 \\
+~ & REST & 1.51 & 1.14 & 1.31 & 1.50 & 1.17 & 1.50 & 1.82 & 53.34 & 1.35 & 2.05 & 70.13 & 1.70 \\
+\rowcolor[RGB]{230, 230, 230} \cellcolor{white} ~ & Medusa & 1.94 & 1.66 & 1.57 & 1.62 & 1.98 & 1.53 & 2.39 & 67.92 & 1.72 & - & - & - \\
+~ & TR & \textbf{1.98} & \textbf{1.77} & 1.89 & \textbf{1.75} & \textbf{2.21} & \textbf{1.73} & \textbf{2.72} & \textbf{74.57} & \textbf{1.89} & \textbf{3.08} & \textbf{93.42} & \textbf{2.26} \\
+ \midrule
+\multirow{6}{*}{33B}
+~ & AR & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 18.44 & 1.00 & 1.00 & 19.44 & 1.00 \\
+~ & Lade & 1.32 & 1.09 & 1.20 & 1.17 & 1.55 & 1.14 & 1.61 & 23.03 & 1.25 & 1.70 & 29.22 & 1.50 \\
+~ & PLD & 1.43 & 1.06 & \textbf{1.94} & 1.08 & 1.55 & 1.41 & 1.55 & 25.89 & 1.40 & 1.41 & 25.89 & 1.33 \\
+~ & REST & 1.63 & 1.27 & 1.42 & 1.61 & 1.29 & 1.57 & 1.81 & 26.99 & 1.46 & 2.10 & 36.85 & 1.90 \\
+\rowcolor[RGB]{230, 230, 230} \cellcolor{white} ~ &  Medusa & \textbf{1.98} & \textbf{1.75} & 1.63 & 1.68 & 2.09 & 1.61 & 2.32 & 33.11 & 1.80 & - & - & - \\
+~ & TR & 1.95 & \textbf{1.75} & 1.92 & \textbf{1.77} & \textbf{2.24} & \textbf{1.78} & \textbf{2.63} & \textbf{35.16} & \textbf{1.91} & \textbf{3.05} & \textbf{45.43} & \textbf{2.34} \\
+ \bottomrule
+\end{tabular}
+\caption{Performance of different methods on SpecBench (Vicuna) and on MBPP (Code Llama) across all parameter sizes.
+}
+\label{tab:main_results}
+\end{table*}

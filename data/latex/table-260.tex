@@ -1,0 +1,186 @@
+\definecolor{TinaCrimson}{HTML}{2A5487} % Renamed from Crimson
+% \RequirePackage[dvipsnames]{xcolor}
+% \definecolor{Crimson}{HTML}{990000}
+\definecolor{CalGoldHex}{HTML}{F0F4F8}
+% \definecolor{CalGoldHex}{HTML}{FFF5E1}
+\definecolor{IronGrey}{HTML}{6D6E71}
+\definecolor{YaleBlue}{HTML}{2A5487}
+\definecolor{roverR1}{RGB}{255, 107, 157}
+\definecolor{roverO}{RGB}{78, 205, 196}
+\definecolor{roverV}{RGB}{69, 183, 209}
+\definecolor{roverE}{RGB}{249, 202, 36}
+\definecolor{roverR2}{RGB}{108, 92, 231}
+\definecolor{table_red}{RGB}{255,46,99}
+\definecolor{table_blue}{RGB}{8,217,214}
+\definecolor{table_gray}{RGB}{156,156,156}
+\definecolor{morandigray}{RGB}{155,175,185}
+\definecolor{morandipink}{RGB}{235,205,215}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\RequirePackage[colorlinks=true, allcolors=YaleBlue]{hyperref}
+\RequirePackage{xspace}
+\newcommand{\name}{\textcolor{roverR1}{\textbf{R}}%
+  \textcolor{roverO}{\textbf{O}}%
+  \textcolor{roverV}{\textbf{V}}%
+  \textcolor{roverE}{\textbf{E}}%
+  \textcolor{roverR2}{\textbf{R}}\xspace}
+\newcommand{\ourvg}[0]{\textbf{ROVER-IG}\xspace}
+\newcommand{\ourir}[0]{\textbf{ROVER-TG}\xspace}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+    \centering
+    \vspace{-5mm}
+    \caption{Visual performance comparison with image editing models on. We evaluate image editing models and unified models, measuring \textbf{Reasoning Visual (RV)}, \textbf{Visual Consistency (VC)}, and \textbf{Image Quality (IQ)} performance.}
+    \vspace{-3pt}
+    \label{tab: editing}
+    \setlength\tabcolsep{2pt}
+    \setlength\extrarowheight{1pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l*{13}{p{1cm}}}
+        \toprule
+         \multirow{2}{*}{\textbf{Visual Generation Quality}}
+        & \multicolumn{3}{c}{\textit{Nature Science}}
+          & \multicolumn{3}{c}{\textit{Culture \& Art}}
+          & \multicolumn{3}{c}{\textit{Common Sense}}
+          & \multicolumn{3}{c}{\textit{Logic \& Math}}
+          & \multirow{2}{*}{\textit{\textbf{Overall}}}  \\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+        & RV & VC & IQ & RV & VC & IQ & RV & VC & IQ & RV & VC & IQ & \\
+        \midrule
+
+        \rowcolor{blue!10}
+        \multicolumn{14}{l}{\textbf{Image Editing Models}} \\
+
+        Qwen-Image-Edit~\citep{wu2025qwenimagetechnicalreport}
+            &46.7 &69.1 &89.8 &62.5 &69.6 &95.2 &53.1 &74.2 &94.4 &30.4 & 64.5 & 87.2 &47.1 \\
+        FLUX.1 Kontext~\citep{labs2025flux1kontextflowmatching}
+            &37.4 &61.9 &83.5 &44.9 &64.6 &88.8 &42.3 &62.1 &85.0 &20.2 &50.6 &78.2 &40.9 \\
+        UltraEdit(SD3)~\citep{zhao2024ultraedit}
+            &27.0 &43.6 &75.7 &45.2 &42.6 &79.0 &27.9 &37.3 &74.7 &25.2 &60.1 &76.1 &34.6 \\
+        VAREdit-8B~\citep{mao2025visual}
+            &34.6 &64.3 &75.4 &46.5 &58.5 &78.2 &33.6 &59.0 &75.0 &17.4 &46.6 &57.1 &37.5 \\
+        Step1X-Edit v1.1~\citep{liu2025step1x-edit}
+            &38.2 &75.7 &85.5 &50.5 &62.7 &83.8 &35.2 &67.9 &85.3 &16.1 &61.1 &85.9 & 42.1\\
+        Step1X-Edit v1.2~\citep{liu2025step1x-edit}
+            &46.2 &76.8 &80.6 &50.6 &63.0 &79.2 &46.1 &67.2 &79.6 &18.4 &61.1 &72.2 & \sota{57.4} \\
+        \midrule
+        \rowcolor{morandigray!30}
+        \multicolumn{14}{l}{\textbf{Closed-source Unified Models}} \\
+
+        Nano Banana~\citep{comanici2025gemini}
+            & 77.3 & 85.7 & 87.0 & 76.6  & 78.4  & 89.2 & 74.8 & 87.1 & 93.8 & 55.1 & 70.3 &  81.0 & \sota{79.6}   \\
+        Gemini 2.0 Flash~\citep{comanici2025gemini}
+            & 68.8 & 72.0 & 81.1 &71.9 & 65.3 & 83.2 & 66.1 & 76.4 & 91.2 & 42.6 & 68.0 & 79.3 & 72.1\\
+        GPT-5~\citep{hurst2024gpt}
+            & 71.3 & 69.9 & 90.5 & 72.6 & 58.8 & 96.0 & 65.3 & 80.9 & 87.2 & 45.8 & 74.9 & 86.6 & 74.9\\
+
+        \midrule
+
+        \rowcolor{morandigray!30}
+        \multicolumn{14}{l}{\textbf{Open-source Unified Models}} \\
+        BAGEL-Think~\citep{deng2025emerging}
+            &54.0 &65.5 &78.0 &63.7 &65.8 &71.6 &55.9 &76.9 &80.2 &20.8 &48.7 &76.6 & \sota{62.9} \\
+        BAGEL~\citep{deng2025emerging}
+            &35.9 &53.6 &69.9 &49.2 &50.2 &71.9 &42.0 &59.1 &73.0 & 27.1&59.2 &79.8 &37.8 \\
+
+        \bottomrule
+    \end{tabular}
+    }
+\end{table*}
+\begin{table}[t]
+    \centering
+    \caption{\textbf{Summary of Multimodal Reasoning Benchmarks.} We compare existing works from aspects including: $^1$interleave, $^2$process evaluation, $ ^3$vision necessaity, $^4$multidimensional evaluation, $^5$hybrid evaluation, and $^6$whether manual annotations and filtering are applied.}
+    \vspace*{-5pt}
+    \label{table_benchmark_comparison}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{rrccccccr}
+    \toprule
+    \multirow{2}{*}{\textbf{Benchmark}} &  \multirow{2}{*}{\textbf{Venue}} & \multirow{2}{*}{\textbf{Inter.}} & \textbf{Process} & \textbf{Vision} & \multirow{2}{*}{\textbf{Multi.}} & \textbf{Hybrid} & \textbf{Manual} & \multirow{2}{*}{\textbf{\#Types}}
+    \\
+    & & & \textbf{Eval} & \textbf{Necess.} & & \textbf{Eval} & \textbf{Anno.}
+    \\
+    \midrule\midrule
+    ReasonPix2Pix~\citep{jin2024reasonpix2pix} & \textcolor{gray}{{\small arXiv'24}} & \textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & $1$
+    \\
+    ReasonEdit~\citep{huang2024smartedit} &\textcolor{gray}{{\small CVPR'24}} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_red}{\cmark} & $1$\\
+    EditWorld~\citep{yang2024editworld} & \textcolor{gray}{{\small MM'25}} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & $7$
+    \\
+    Reason50K~\citep{he2025reasoning} & \textcolor{gray}{{\small arXiv'25}} & \textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & $4$
+    \\
+    KRIS-Bench~\citep{wu2025kris} & \textcolor{gray}{{\small arXiv'25}} &\textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} &\textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark}&\textcolor{table_red}{\cmark} &$7$\\
+    RISEBench~\citep{zhao2025envisioning} & \textcolor{gray}{{\small arXiv'25}} &\textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark}& \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark} & $4$\\
+    WorldGenBench~\citep{zhang2025worldgenbench} & \textcolor{gray}{{\small arXiv'25}} &\textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} &\textcolor{table_blue}{\xmark} &\textcolor{table_red}{\cmark}&\textcolor{table_red}{\cmark}& \textcolor{table_blue}{\xmark} & 2\\
+    Unified-Bench~\citep{yan2025can} & \textcolor{gray}{{\small arXiv'25}} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & $1$ \\
+    MetaQuery~\citep{pan2025transfer} & \textcolor{gray}{{\small arXiv'25}} & \textcolor{table_red}{\cmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_red}{\cmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & \textcolor{table_blue}{\xmark} & -
+    \\
+    \midrule
+    \textbf{\name} & {\textbf{Ours}} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark} & \textcolor{table_red}{\cmark}  & $23$
+    \\
+    \bottomrule
+\end{tabular}
+}
+\vspace*{-15pt}
+\end{table}
+\begin{table}[t]
+    \centering
+    \caption{\textbf{Main Results on Verbally-Augmented Visual Generation.} We evaluate 13 closed- and open-source unified models across four conceptual domains. \textbf{Verb.-Aug.} denotes verbally-augmented reasoning. Performance is measured using three key metrics: \textbf{Reasoning Process (RP)}, which assesses the logical quality of the verbal reasoning; \textbf{Alignment (Align.)}, which quantifies the consistency between the reasoning process and the generated visual output; and \textbf{Reasoning Visual (RV)}, which measures how well the final image reflects the target description.
+}
+    \vspace{-3pt}
+    \label{tab: ig}
+    \setlength\tabcolsep{2pt}
+    \setlength\extrarowheight{1pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l*{15}{p{1cm}}}
+        \toprule
+         \multirow{2}{*}{\begin{tabular}{c}\textbf{Verb.-Aug. Reasoning} \\ \textbf{for Visual Generation}\end{tabular}}
+        & \multicolumn{3}{c}{\textit{Nature Science}}
+          & \multicolumn{3}{c}{\textit{Culture \& Art}}
+          & \multicolumn{3}{c}{\textit{Common Sense}}
+          & \multicolumn{3}{c}{\textit{Logic \& Math}}
+          & \multicolumn{3}{c}{\textit{\textbf{Overall}}}  \\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13} \cmidrule(lr){14-16}
+        & RP &  Align. & RV & RP &  Align. & RV & RP &  Align. & RV & RP &  Align. & RV & RP &  Align. & RV \\
+        \midrule
+
+        \rowcolor{morandigray!30}
+        \multicolumn{16}{l}{\textbf{Closed-source Unified Models}} \\
+
+        Nano Banana~\citep{comanici2025gemini}
+            & 64.8 & 88.8 & 77.3 & 68.1 & 81.9 & 76.6 & 61.8 & 85.0 & 74.8 & 78.6 & 66.1 & 55.1 & \sota{67.0}  & \sota{82.3} & \sota{73.2} \\
+        Gemini 2.0 Flash~\citep{comanici2025gemini}
+            & 64.1 & 88.4 & 68.8  & 62.8 & 78.7 & 71.9  & 57.8 & 74.4 & 66.1  & 74.5 & 63.2& 42.6  & 64.8 & 78.6 & 62.3  \\
+        GPT-5~\citep{hurst2024gpt}
+            & 61.7 & 87.9 & 71.3 & 63.4 & 80.2 & 72.6 & 56.3 & 77.2 & 65.3 & 75.4 & 60.2 & 45.8 & 64.2 & 76.4 & 63.7\\
+
+        \midrule
+
+        \rowcolor{morandigray!30}
+        \multicolumn{16}{l}{\textbf{Open-source Unified Models}} \\
+
+        BAGEL-Think~\citep{deng2025emerging}
+            &58.1 &64.2 &54.0 &53.2 &78.0 &63.7 &50.1 &69.4 &55.9 & 57.7&26.2 &20.8 & \sota{54.3} &\sota{64.4} &\sota{52.7} \\
+        BAGEL~\citep{deng2025emerging}
+            & - & - &35.9 & - & - &49.2 & - & - &42.0 & - & - &27.1 & - & - &40.5 \\
+        Step1X-Edit v1.2~\citep{liu2025step1x-edit}
+            &29.7 &59.7 &46.2 &31.4 &71.6 &50.6 &28.7 &61.0 &46.1 &77.5 &35.5 &18.4 &37.0&60.3 & 43.5 \\
+        UniCoT~\citep{qin2025unicot}
+            & 52.4 & 68.9 & 38.2 & 57.3 & 69.2 & 63.9 & 53.1 & 64.3 & 56.3 & 50.3& 23.1 & 21.5 & 50.7 & 56.3 & 47.4\\
+        BLIP3o-NEXT~\citep{chen2025blip3}
+            & - & - & 38.2 & - & - & 47.5 & - & - & 43.3& - & - & 22.5& - & - & 37.8\\
+        Ovis-U1~\citep{wang2025ovisu1}
+            & - & - &  28.6 & - & - &  44.3 & - & - & 42.1& - & - & 20.5 & - & - & 33.8 \\
+        UniPic2-Metaquery-9B~\citep{wei2025skyworkunipic20building}
+            & - & - & 33.8 & - & - & 52.7 & - & - & 43.2 & - & - & 27.1 & - & - & 39.2\\
+        ILLUME+~\citep{huang2025illume+}
+            & - & - & 28.1 & - & - & 43.2& - & - & 36.9& - & - & 20.1 & - & - & 32.0\\
+        Emu2-Gen~\citep{Emu2}
+            & - & - & 29.1 & - & - & 42.6 & - & - & 37.4 &- & - & 20.3 & - &- & 32.3\\
+        OmniGen2~\citep{wu2025omnigen2}
+            & - & - & 27.4 & - & - & 42.3 & - & - &  39.2& - & - & 20.2 & - & - & 32.2\\
+        \bottomrule
+    \end{tabular}
+    }
+\vspace{-5mm}
+\end{table}
+\end{document}

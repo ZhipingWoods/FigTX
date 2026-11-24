@@ -1,0 +1,116 @@
+\newcommand{\best}[1]{\cellcolor{ForestGreen!20}$\mathbf{{#1}}$}
+\newcommand{\second}[1]{\cellcolor{LimeGreen!20}\uline{{$#1$}}}
+\newcommand{\third}[1]{\cellcolor{yellow!20}$#1$}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\resizebox{\linewidth}{!}{
+    \begin{tabular}{l*{12}{c}}
+        \toprule
+        \multirow{2}{*}{\textbf{Methods}} & \multicolumn{4}{c}{\textbf{qqq{}}} & \multicolumn{4}{c}{\textbf{HOI4D}} & \multicolumn{4}{c}{\textbf{qqq{}}} \\
+        \cmidrule(lr){2-5} \cmidrule(lr){6-9} \cmidrule(lr){10-13}
+         & {Axis ($^\circ$)} & {Pos (m)} & {State ($^\circ$/m)} & {Fail (\%)} & {Axis ($^\circ$)} & {Pos (m)} & {State ($^\circ$/m)} & {Fail (\%)} & {Axis ($^\circ$)} & {Pos (m)} & {State ($^\circ$/m)} & {Fail (\%)} \\
+        \midrule
+        MonST3R~\cite{zhang2024monst3r} (ICP)
+        & $52.7 / 61.5$ & $1.14$ & $66.2 / 0.27$ & \second{11.7}
+        & $67.3 / 66.1$ & $0.45$ & $60.8 / 0.06$ & \best{0.0}
+        & $54.6 / 59.1$ & $0.68$ & $65.9 / 0.21$ & \best{0.0} \\
+        MonST3R (CoTr3)
+        & \third{46.8 / 58.9} & $1.20$ & \third{45.3 / 0.18} & \second{11.7}
+        & $54.7 / 51.5$ & $0.44$ & $44.8 / 0.07$ & \best{0.0}
+        & $56.8 / 52.4$ & $0.70$ & $57.4 / 0.22$ & \best{0.0} \\
+        MonST3R (GT depth+CoTr3)
+        & $57.6 / 63.5$ & \third{1.10} & $46.5 / 0.18$ & \second{11.7}
+        & \third{48.6 / 30.1} & $0.41$ & \third{37.6 / 0.06} & \best{0.0}
+        & \third{51.4 / 56.2} & $0.55$ & \third{54.3 / 0.21} & \best{0.0} \\
+        SpatialTrackerV2~\cite{xiao2025spatialtracker}
+        & $59.8 / 69.1$ & $1.22$ & $48.6 / 0.19$ & \third{30.0}
+        & $57.9 / 44.6$ & $0.46$ & $41.9 / 0.07$ & \best{0.0}
+        & $59.4 / 49.8$ & \third{0.49} & $57.5 / 0.22$ & \second{20.0} \\
+        SpatialTrackerV2 (GT depth)
+        & $48.7 / 69.3$ & \third{1.10} & $46.8 / 0.19$ & \third{30.0}
+        & $54.3 / 38.8$ & $0.43$ & $38.7 / 0.07$ & \best{0.0}
+        & $60.8 / 42.6$ & $0.58$ & $55.6 / 0.22$ & \second{20.0} \\
+        BundleSDF~\cite{wen2023bundlesdf} (GT mask)
+        & \second{38.2 / 55.9} & \second{0.95} & \second{23.4 / 0.20} & $55.0$
+        & \second{26.3 / 24.5} & \second{0.24} & \second{\phantom{1}9.1 / 0.07} & $43.3$
+        & \second{32.0 / 52.1} & $0.58$ & \second{15.6 / 0.22} & \third{36.7} \\
+        ArtGS~\cite{liu2025artgs}
+        & $64.3 / 23.4$ & $1.69$ & $\phantom{1}\text{--} / \text{--}\phantom{1}$ & $95.0$
+        & $60.5 / 53.2$ & \third{0.35} & $\phantom{1}\text{--} / \text{--}\phantom{1}$ & $66.7$ & $70.1 / 18.2$ & \second{0.34} & $\phantom{1}\text{--} / \text{--}\phantom{1}$ & $66.7$ \\
+        \name{} (Ours)
+        & \best{\phantom{1}5.3 / \phantom{1}5.4} & \best{0.03} & \best{\phantom{1}5.0 / 0.02} & \best{\phantom{1}1.7}
+        & \best{12.4 / \phantom{1}1.3} & \best{0.06} & \best{\phantom{1}9.1 / 0.02} & \best{0.0}
+        & \best{\phantom{1}5.6 / \phantom{1}5.5} & \best{0.05} & \best{\phantom{1}8.4 / 0.03} & \best{0.0} \\
+        \bottomrule
+    \end{tabular}
+}
+\caption{\textbf{Articulated motion estimation.}
+We report articulation axis direction error ($^\circ$), axis position error (meters; applicable only to revolute joints), joint state error ($^\circ$ for revolute and meters for prismatic joints), and failure rate (\%).
+Values are shown as “XX / YY” for revolute (XX) and prismatic (YY) joints.}
+\label{tab:articulated_motion_results}
+\vspace{-5px}
+\end{table*}
+\begin{table*}[h]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l*{9}{c}}
+\toprule
+\multirow{3}{*}{\textbf{Methods}}
+& \multicolumn{3}{c}{\textbf{\syntheticdatasetname{}}}
+& \multicolumn{3}{c}{\textbf{HOI4D}}
+& \multicolumn{3}{c}{\textbf{\realdatasetname{}}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+& \multicolumn{2}{c}{6D part pose} & \multicolumn{1}{c}{Reconstruction}
+& \multicolumn{2}{c}{6D part pose} & \multicolumn{1}{c}{Reconstruction}
+& \multicolumn{2}{c}{6D part pose} & \multicolumn{1}{c}{Reconstruction} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-4}
+\cmidrule(lr){5-6} \cmidrule(lr){7-7}
+\cmidrule(lr){8-9} \cmidrule(lr){10-10}
+& ADD-S (\%) $\uparrow$ & ADD (\%) $\uparrow$ & CD (cm) $\downarrow$
+& ADD-S (\%) $\uparrow$ & ADD (\%) $\uparrow$ & CD (cm) $\downarrow$
+& ADD-S (\%) $\uparrow$ & ADD (\%) $\uparrow$ & CD (cm) $\downarrow$ \\
+\midrule
+MonST3R~\cite{zhang2024monst3r} (ICP)
+& $14.36$ & $\phantom{1}9.62$ & $29.8$
+& $29.41$ & $19.12$ & $6.4$
+& $13.21$ & $\phantom{1}9.11$ & $13.4$ \\
+MonST3R~\cite{zhang2024monst3r} (CoTr3)
+& \third{33.58} & \third{21.94} & $23.6$
+& $44.72$ & $25.98$ & $2.1$
+& $18.64$ & $11.35$ & $17.6$ \\
+MonST3R~\cite{zhang2024monst3r} (GT depth+CoTr3)
+& \second{37.12} & \second{30.48} & \third{13.9}
+& $54.83$ & $37.11$ & $1.3$
+& $20.11$ & \third{14.62} & \third{13.2} \\
+SpatialTrackerV2~\cite{xiao2025spatialtracker}
+& $26.94$ & $13.11$ & $34.7$
+& \second{61.25} & \second{41.02} & \third{0.9}
+& $19.77$ & 13.92 & $18.5$ \\
+SpatialTrackerV2~\cite{xiao2025spatialtracker} (GT depth)
+& $29.71$ & $15.43$ & \second{9.88}
+& \third{60.98} & \third{40.21} & \second{0.8}
+& \second{22.94} & \second{15.22} & $13.5$ \\
+BundleSDF~\cite{wen2023bundlesdf} (GT mask)
+& $22.84$ & $12.37$ & $17.1$
+& $53.12$ & $35.22$ & $1.4$
+& \third{20.88} & $12.91$ & \second{10.6} \\
+ArtGS~\cite{liu2025artgs}
+& $\text{--}$ & $\text{--}$ & $20.3$
+& $\text{--}$ & $\text{--}$ & $6.8$
+& $\text{--}$ & $\text{--}$ & $20.6$ \\
+\name{} (Ours)
+& \best{78.96} & \best{71.28} & \best{\phantom{1}3.2}
+& \best{79.43} & \best{69.85} & \best{0.7}
+& \best{75.62} & \best{68.11} & \best{\phantom{1}6.1} \\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{6D part pose estimation and reconstruction.}
+We report 6D part pose accuracy using ADD-S and ADD (higher is better) and surface reconstruction quality using Chamfer Distance (CD, lower is better) across the \syntheticdatasetname{}, HOI4D, and \realdatasetname{} datasets.
+}
+\vspace{-10px}
+\label{tab:part_pose_reconstruction_results}
+\end{table*}
+\end{document}

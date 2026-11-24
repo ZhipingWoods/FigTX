@@ -1,0 +1,84 @@
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\definecolor{mygray}{gray}{0.92}
+%%%%%%%
+\begin{document}
+\definecolor{opensourcecolor}{HTML}{fdf3d0}
+\definecolor{ourscolor}{HTML}{f0ccce}
+\definecolor{scalingcolor}{HTML}{cadfb8}
+% \definecolor{mygray}{gray}{0.9} % mygray 颜色由您在主文档中定义
+\renewcommand{\theadfont}{\scriptsize\bfseries}
+\begin{table*}[t]
+    \caption{\textbf{Main Results (avg@8 acc \%).}
+    All benchmarks use exact match on verifiable instances for objective results, avoiding any LLM-as-a-judge. Notably, our results are achieved via direct RL without any supervised fine-tuning.
+    $^\dag$Our reproduction uses official author-provided prompts. $^*$NoisyRollout is trained using the training set of Geo3k.}
+    \centering
+    \scriptsize
+    % 增加行高，1.0是默认值
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{3.2pt}
+        % --- 使用 tabularx 环境，宽度为 \textwidth ---
+        % --- 最后一列的类型从 'c' 改为 'C' (居中且可伸展) ---
+        \begin{tabularx}{\textwidth}{l|cccccc|c|c|C}
+            \toprule
+            % 将 \multirow 嵌套在 \multicolumn 中，以仅居中这一个单元格
+            \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Model}}} &
+            \multicolumn{6}{c|}{\scriptsize\bfseries Mathematical \& Geometric} &
+            \multicolumn{1}{c|}{\scriptsize\bfseries Logical} &
+            \multicolumn{1}{c|}{\thead{\scriptsize Multi-\\ \scriptsize discipline}} &
+            % --- 使用 \multicolumn 来确保表头也是居中的 ---
+            \multicolumn{1}{c}{\multirow{2}{*}{\thead{\scriptsize Avg.}}} \\
+            \cmidrule{2-7} \cmidrule{8-8} \cmidrule{9-9}
+            & \thead{MathVerse} & \thead{DynaMath} & \thead{MMK12} & \thead{Geo3k} & \thead{MathVision} & \thead{We-Math} & \thead{LogicVista} & \thead{MMMU-Pro} & \\
+            \midrule
+            \rowcolor{opensourcecolor} \multicolumn{10}{c}{\scriptsize \em Open-Source Models (Trained via Pure RL) }\\
+            \midrule
+            MM-Eureka-7B$^\dag$ & 67.1 & 65.4 & 67.5 & 40.3 & 31.1 & 65.5 & 46.3 & 30.3 & 51.7 \\
+            ThinkLite-7B$^\dag$ & 64.2 & 64.6 & 62.6 & 37.6 & \underline{32.0} & 66.5 & 39.4 & 28.0 & 49.4 \\
+            VL-Rethinker-7B$^\dag$ & \underline{68.8} & 65.7 & 68.3 & 40.7 & 31.9 & 68.9 & 46.3 & \underline{37.0} & 53.5 \\
+            NoisyRollout-7B$^\dag$ & 67.8 & 65.5 & 50.0 & \,\,\textbf{51.8}$^*$ & 22.1 & \underline{71.0} & \underline{47.3} & 34.5 & 51.3 \\
+            R1-ShareVL-7B$^\dag$ & 68.0 & 65.1 & 70.9 & 41.2 & 30.1 & 69.9 & 45.6 & 35.1 & 53.2 \\
+            PAPO-D-7B & 68.6 & \,\,\underline{66.8}$^\dag$ & 80.6 & 44.1 & \,\,30.6$^\dag$ & 68.3 & 46.7 & 36.3 & \underline{55.3} \\
+            \midrule
+            Qwen2.5-VL-7B & 39.0 & 55.7 & 42.5 & 37.1 & 18.4 & 46.4 & 42.4 & 25.1 & 38.3 \\
+            \qquad\quad\, + GRPO & 66.5 & 65.8 & 72.3 & 40.2 & 30.7 & 68.1 & 45.6 & 35.2 & 53.1 \\
+            \qquad\quad\, + DAPO & 68.3 & 66.6 & \underline{82.1} & 41.5 & 30.5 & 68.0 & 46.8 & 35.9 & 55.0 \\
+            \rowcolor{mygray} \qquad\quad\, + VPPO & \textbf{71.6} & \textbf{68.1} & \textbf{82.8} & \underline{46.5} & \textbf{33.3} & \textbf{71.5} & \textbf{47.9} & \textbf{37.9} & \textbf{57.5} \\
+            \midrule
+            \midrule
+            \rowcolor{scalingcolor} \multicolumn{10}{c}{\scriptsize \em Scaling to Larger Models }\\
+            \midrule
+            MM-Eureka-32B$^\dag$ & 71.8 & 72.0 & 73.4 & 51.0 & \underline{43.2} & 75.0 & 56.8 & 43.1 & 60.8 \\
+            NoisyRollout-32B$^\dag$ & 73.0 & 72.2 & 60.2 & \,\,\textbf{56.6}$^*$ & 27.9 & 75.7 & 56.2 & 43.1 & 58.1 \\
+            \midrule
+            Qwen2.5-VL-32B & 68.5 & 68.7 & 68.8 & 47.0 & 39.3 & 71.0 & 52.8 & 39.6 & 57.0 \\
+            \qquad\quad\, \textcolor{black}{+ GRPO} & \underline{\textcolor{black}{74.2}} & \textcolor{black}{71.6} & \textcolor{black}{80.7} & \textcolor{black}{51.4} & \textcolor{black}{42.8} & \underline{\textcolor{black}{76.7}} & \textcolor{black}{58.3} & \textcolor{black}{45.4} & \textcolor{black}{62.6} \\
+\qquad\quad\, \textcolor{black}{+ DAPO} & \textcolor{black}{73.3} & \underline{\textcolor{black}{72.6}} & \textbf{\textcolor{black}{86.4}} & \textcolor{black}{51.4} & \textcolor{black}{42.8} & \textcolor{black}{76.2} & \underline{\textcolor{black}{58.9}} & \underline{\textcolor{black}{46.4}} & \underline{\textcolor{black}{63.5}} \\
+            \rowcolor{mygray} \qquad\quad\, + VPPO & \textbf{75.1} & \textbf{73.1} & \underline{86.3} & \underline{53.4} & \textbf{44.6} & \textbf{77.7} & \textbf{59.2} & \textbf{47.1} & \textbf{64.6} \\
+            \bottomrule
+        \end{tabularx}
+    \label{tab:main_result}
+    \vspace{-4mm}
+\end{table*}
+\begin{table}[h!]
+    \caption{
+        \textbf{Ablation study on the method for dependency calculation.}
+        We compare the impact of different computationally-feasible token-scoring heuristics on final model performance. The results validate our choice of using KL Divergence as the most effective method for quantifying visual dependency.
+    }
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.4}
+    \renewcommand{\theadfont}{\scriptsize\bfseries}
+    \setlength{\tabcolsep}{2.1pt}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        % --- THE CHANGE IS HERE ---
+        \textbf{Guidance Metric} & \thead{MathVerse} & \thead{DynaMath} & \thead{MMK12} & \thead{Geo3k} & \thead{MathVision} & \thead{We-Math} & \thead{LogicVista} & \thead{MMMU-Pro} & \thead{Avg.} \\
+        \midrule
+        \rowcolor{mygray} \textbf{KL Divergence (Default)} & \textbf{71.6} & \textbf{68.1} & \textbf{82.8} & \textbf{46.5} & \textbf{33.3} & \textbf{71.5} & \textbf{47.9} & \textbf{37.9} & \textbf{57.5} \\
+        JS Divergence & 71.8 & 67.6 & 82.7 & 45.1 & 32.6 & 70.8 & 47.8 & 36.9 & 56.9 \\
+        Top-1 Probability Drop & 61.5 & 64.4 & 74.9 & 31.5 & 30.1 & 62.3 & 44.7 & 33.3 & 50.3 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:dependency_method_ablation}
+\end{table}
+\end{document}

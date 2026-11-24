@@ -1,0 +1,54 @@
+\newcommand{\specialcell}[2][l]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+%%%%%%%
+\begin{document}
+\begin{table*}[ht!]
+\centering
+% \scriptsize  % Reduce the font size to fit the page
+\caption{\textbf{Performance Comparisons.} We evaluate our method by comparing the mean intersection-over-union (mIoU) on the PASCAL-$5^{i}$ and COCO-$20^{i}$ datasets against other state-of-the-art methods. To ensure the robustness and reliability of the results, we perform each experiment five times using different random seeds and report the average mIoU scores for both 1-shot and 5-shot settings. The highest values are indicated in \textbf{bold}, the second-highest are \underline{underlined}, and the average mIoU is \colorbox{gray!70}{highlighted}.
+}
+ \label{tab:Compresults}
+% \begin{tabular}{|p{1.5cm}|p{2cm}|p{1.5cm}|p{0.7cm} |p{0.7cm} |p{0.7cm} |p{0.7cm} ||p{0.7cm}|p{0.7cm} |p{0.7cm} |p{0.7cm} |p{0.7cm} ||p{.7cm}|}
+% \rowcolors{2}{white}{gray!25}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}p{1.5cm}|p{2.5cm}|p{1.7cm}|c |c |c |c ||c| c |c |c |c ||c@{}}
+\toprule
+\specialcell[t]{\textbf{Dataset}} & \specialcell[t]{\textbf{Method}} & \specialcell[t]{\textbf{Conference}}& \multicolumn{5}{c|}{\cellcolor[gray]{0.9}\textbf{1-shot}} & \multicolumn{5}{c}{\cellcolor[gray]{0.9}\textbf{5-shot}} \\
+&  &  & Fold-0 & Fold-1 & Fold-2 & Fold-3 & Mean & Fold-0 & Fold-1 & Fold-2 & Fold-3 & Mean \\
+\midrule
+% \noalign{\gdef\rowcolor{\relax}}
+% \rowcolor{white}
+\multirow{13}{*}{PASCAL-$5^{i}$} & NTRENet \cite{liu2022learning} & CVPR'22 & 65.4 & 72.3 & 59.4 & 59.8 & 63.2 & 66.2 & 72.8 & 61.7 & 62.2 & 65.7 \\
+% \noalign{\gdef\rowcolors{2}{white}{gray!25}}
+& BAM \cite{lang2022learning} & CVPR'22 & 69.0 & 73.6 & 67.5 & 61.1 & 67.8 & 70.6 & 75.1 & 70.8 & 67.2 & 70.9 \\
+& AAFormer \cite{wang2022adaptive} & ECCV'22 & 69.1 & 73.3 & 59.2 & 65.2 & 66.7 & 72.5 & 74.7 & 62.0 & 61.3 & 67.6 \\
+& SSP \cite{fan2022self} & ECCV'22 & 60.5 & 67.8 & 56.1 & 61.4 & 61.5 & 67.5 & 72.7 & 75.2 & 62.1 & 69.3 \\
+& IPMT \cite{liu2022intermediate} & NeurIPS'22 & 72.8 & 73.7 & 59.2 & 61.6 & 66.8 & 73.1 & 74.7 & 61.6 & 63.4 & 68.2 \\
+& ABCNet \cite{wang2023rethinking} & CVPR'23 & 68.8 & 73.4 & 59.6 & 65.0 & 66.5 & 71.7 & 74.2 & 74.8 & 67.0 & 69.6 \\
+& HDMNet \cite{peng2023hierarchical} & CVPR'23 & 71.0 & 75.4 & 62.1 & 69.4 & 69.7 & 71.3 & 76.2 & 71.3 & 68.5 & 71.8 \\
+& MIANet \cite{yang2023mianet} & CVPR'23 & 68.5 & 75.8 & 64.5 & 68.7 & 69.4 & 70.2 & 77.4 & 70.0 & 68.8 & 71.7 \\
+& MSI \cite{moon2023msi} & ICCV'23 & 71.0 & 72.5 & 63.8 & 65.9 & 68.3 & 73.0 & 74.2 & 70.5 & 66.6 & 71.1 \\
+& SCCAN \cite{xu2023self} & ICCV'23 & 68.3 & 72.5 & 66.8 & 58.9 & 66.6 & 72.3 & 74.1 & 69.1 & 65.6 & 70.3 \\
+& LLaFS \cite{zhu2023llafs}& CVPR’24 & \textbf{74.2} & \underline{78.8} & \textbf{72.3} & \underline{68.5} & \underline{73.5} & \textbf{75.9} & \underline{80.1} & \textbf{75.8} & \underline{70.7} & \textbf{75.6} \\
+\rowcolor[HTML]{D9EAD3}
+& \textbf{DSV-LFS} &  & \underline{71.67} & \textbf{81.97} & \underline{71.17} &  \textbf{75.04} &\cellcolor[gray]{0.7} \textbf{74.96} & \underline{72.03} & \textbf{82.01} & \underline{71.32} & \textbf{75.51} & \cellcolor[gray]{0.7} \underline{75.21} \\
+\hline
+\hline
+\multirow{13}{*}{COCO-$20^{i}$} & NTRENet \cite{liu2022learning} & CVPR'22 & 36.8 & 42.6 & 39.7 & 39.3 & 38.2 & 38.2 & 44.1 & 40.4 & 38.4 & 40.3 \\
+& BAM \cite{lang2022learning} & CVPR'22 & 43.4 & 50.6 & 47.5 & 43.6 & 46.3 & 49.3 & 54.2 & 51.6 & 49.9 & 51.2 \\
+& SSP \cite{fan2022self} & ECCV'22 & 35.5 & 39.6 & 37.9 & 36.7 & 37.4 & 40.6 & 47.0 & 45.1 & 43.9 & 44.1 \\
+& AAFormer \cite{wang2022adaptive} & ECCV'22 & 39.8 & 44.6 & 41.1 & 41.6 & 41.8 & 42.9 & 50.1 & 45.5 & 49.6 & 49.6 \\
+& MM-Former \cite{zhang2022mask} & NeurIPS'22 & 40.5 & 47.7 & 45.2 & 43.4 & 44.2 & 40.4 & 47.4 & 50.0 & 48.8 & 46.6 \\
+& IPMT \cite{liu2022intermediate} & NeurIPS'22 & 41.4 & 45.2 & 45.6 & 40.4 & 43.2 & 43.3 & 47.5 & 43.8 & 42.5 & 44.3 \\
+& ABCNet \cite{wang2023rethinking} & CVPR'23 & 42.3 & 46.2 & 46.0 & 44.1 & 44.7 & 44.5 & 51.7 & 52.2 & 46.4 & 49.1 \\
+& HDMNet \cite{peng2023hierarchical} & CVPR'23 & 43.8 & 50.8 & 50.6 & 49.4 & 48.6 & 50.6 & 61.6 & 55.7 & 56.6 & 56.1 \\
+& MIANet \cite{yang2023mianet} & CVPR'23 & 42.5 & 50.3 & 47.8 & 47.4 & 47.7 & 45.8 & 58.2 & 51.3 & 51.9 & 51.7 \\
+& MSI \cite{moon2023msi} & ICCV'23 & 42.4 & 47.4 & 44.9 & 44.6 & 44.8 & 47.1 & 53.2 & 53.4 & 51.9 & 51.9 \\
+& SCCAN \cite{xu2023self} & ICCV'23 & 40.4 & 42.6 & 41.4 & 40.7 & 41.3 & 47.2 & 57.2 & 59.2 & 52.1 & 53.9 \\
+& LLaFS \cite{zhu2023llafs}& CVPR’24 & \underline{47.5} & \underline{58.8} & \underline{56.2} & \underline{53.0} & \underline{53.9} & \underline{53.2} & \underline{63.8} & \underline{63.1} & \underline{60.0} & \underline{60.0} \\
+\rowcolor[HTML]{D9EAD3}
+& \textbf{DSV-LFS} &  & \textbf{69.97} & \textbf{73.35} & \textbf{70.69} & \textbf{71.32} &\cellcolor[gray]{0.7} \textbf{71.33} & \textbf{71.05} & \textbf{73.81} & \textbf{71.32} & \textbf{71.45} & \cellcolor[gray]{0.7} \textbf{71.90} \\
+\bottomrule
+\end{tabular}}%
+\label{tab:performance_comparison}
+\end{table*}

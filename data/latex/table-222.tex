@@ -1,0 +1,231 @@
+\begin{document}
+\begin{table*}[t]
+\caption{Performance under High-Scale Domain Imbalanced.
+Average and Last accuracy (\%) across 8 domains, comparing parametric and parameter-free methods.
+Results are averaged over 4 seeds with 95\% confidence intervals in subscripts. Domain names are abbreviated.}
+\label{tab:high_scale}
+\centering
+\setlength{\tabcolsep}{0.9mm}
+\resizebox{0.98\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c c c}
+\toprule\midrule\rowcolor{gray!24}
+\multicolumn{11}{c}{\textbf{High-Scale Domain Imbalance}}
+\\\midrule
+& \rotatebox{0}{Aircraft}
+& \rotatebox{0}{ArtBench}
+& \rotatebox{0}{DTD}
+& \rotatebox{0}{EuroSAT}
+& \rotatebox{0}{Galaxy}
+& \rotatebox{0}{MNIST}
+& \rotatebox{0}{Organ}
+& \rotatebox{0}{Flower}
+& \rotatebox{0}{\textbf{Average}}
+& \rotatebox{0}{{$\boldsymbol{\sigma}$}} \\ \toprule
+\multicolumn{1}{l}{\quad Zero-shot}
+  & 23.91 & 50.88 & 41.90 & 37.58 & 9.80 & 44.01 & 17.97 & 67.40 & 56.41 & 18.76
+\\\midrule\hline
+% \rowcolor{lightgray}
+\multicolumn{11}{l}{\textbf{Average Acc.}}\\
+\quad Primal-RAIL~\cite{xu2024advancing}
+  & \textcolor{gray}{$37.33_{\pm 0.17}$} & \textcolor{gray}{$60.39_{\pm 0.74}$} & \textcolor{gray}{$68.79_{\pm 1.20}$ }& \textcolor{gray}{$72.40_{\pm 1.11}$}
+  & \textcolor{gray}{$23.11_{\pm 8.42}$} & \textcolor{gray}{$77.77_{\pm 6.00}$} & \textcolor{gray}{$53.50_{\pm 0.75}$} & \textcolor{gray}{$90.30_{\pm 0.67}$}
+  & \textcolor{gray}{$53.49_{\pm 0.79}$} & \textcolor{gray}{$22.04_{\pm 1.59}$} \\\hdashline
+\quad FeCAM~\cite{goswami2023fecam}
+  & $10.75_{\pm 3.36}$ & $0.00_{\pm 0.00}$  & $33.64_{\pm 12.40}$ & $0.00_{\pm 0.00}$
+  & $0.00_{\pm 0.00}$  & $0.00_{\pm 0.00}$  & $0.00_{\pm 0.00}$   & $1.38_{\pm 2.61}$
+  & $8.91_{\pm 2.75}$  & $11.91_{\pm 4.23}$ \\
+\quad RanPAC~\cite{mcdonnell2023ranpac}
+  & $\underline{36.99_{\pm 1.19}}$ & $\underline{36.34_{\pm 3.74}}$ & $66.35_{\pm 0.79}$ & $73.02_{\pm 5.11}$
+  & $\mathbf{40.97_{\pm 6.77}}$ & $\mathbf{82.33_{\pm 4.10}}$ & $\mathbf{60.66_{\pm 4.46}}$
+  & $92.82_{\pm 1.23}$ & $\underline{49.98_{\pm 0.61}}$ & $21.57_{\pm 1.61}$ \\
+\quad KLDA~\cite{momeni2025continual}
+  & $29.19_{\pm 0.47}$ & $31.66_{\pm 2.65}$ & $\underline{68.07_{\pm 1.66}}$ & $\mathbf{75.21_{\pm 4.56}}$
+  & $36.85_{\pm 3.87}$ & $\underline{79.95_{\pm 3.97}}$ & $59.52_{\pm 3.92}$ & \textit{$95.19_{\pm 1.46}$}
+  & $41.06_{\pm 0.80}$ & $24.61_{\pm 0.91}$ \\
+\quad \textsc{HyCal}(Ours)
+  & $\mathbf{40.97_{\pm 0.69}}$ & $\mathbf{49.99_{\pm 2.27}}$ & $\mathbf{69.84_{\pm 1.07}}$
+  & $\underline{74.70_{\pm 1.71}}$ & $\underline{39.65_{\pm 2.62}}$ & $77.56_{\pm 6.05}$
+  & $\underline{60.47_{\pm 4.63}}$ & $\mathbf{95.34_{\pm 0.78}}$
+  & $\mathbf{54.48_{\pm 0.78}}$ & $19.50_{\pm 0.76}$ \\\midrule\hline
+% \rowcolor{lightgray}
+\multicolumn{11}{l}{\textbf{Last Acc.}}\\
+\quad Primal-RAIL~\cite{xu2024advancing}
+  & \textcolor{gray}{$36.91_{\pm 0.61}$ }& \textcolor{gray}{$60.44_{\pm 0.90}$} & \textcolor{gray}{$67.75_{\pm 0.68}$ }& \textcolor{gray}{$71.66_{\pm 1.11}$}
+  & \textcolor{gray}{$20.90_{\pm 7.20}$} & \textcolor{gray}{$77.73_{\pm 6.05}$ }& \textcolor{gray}{$53.23_{\pm 0.61}$} & \textcolor{gray}{$90.30_{\pm 0.67}$}
+  & \textcolor{gray}{$59.86_{\pm 1.51}$ }& \textcolor{gray}{$22.53_{\pm 1.36}$ }\\\hdashline
+\quad FeCAM~\cite{goswami2023fecam}
+  & $10.56_{\pm 3.43}$ & $0.00_{\pm 0.00}$ & $33.64_{\pm 12.40}$ & $0.00_{\pm 0.00}$
+  & $0.00_{\pm 0.00}$  & $0.00_{\pm 0.00}$ & $0.00_{\pm 0.00}$   & $1.38_{\pm 2.61}$
+  & $5.69_{\pm 1.90}$  & $11.90_{\pm 4.24}$ \\
+\quad RanPAC~\cite{mcdonnell2023ranpac}
+  & $37.20_{\pm 1.33}$ & $36.86_{\pm 2.51}$ & $66.71_{\pm 0.65}$ & $72.89_{\pm 4.74}$
+  & $\mathbf{41.04_{\pm 6.97}}$ & $\mathbf{81.25_{\pm 4.61}}$
+  & $\underline{60.25_{\pm 4.51}}$ & $92.82_{\pm 1.23}$
+  & $61.13_{\pm 1.29}$ & $21.29_{\pm 1.67}$ \\
+\quad KLDA~\cite{momeni2025continual}
+  & $\underline{39.38_{\pm 0.57}}$ & $\underline{37.67_{\pm 2.96}}$ & $\underline{68.99_{\pm 1.64}}$
+  & $\mathbf{75.18_{\pm 4.39}}$ & $37.11_{\pm 3.07}$ & $\underline{78.77_{\pm 4.20}}$
+  & $59.17_{\pm 4.10}$ & $\underline{95.19_{\pm 1.46}}$
+  & $\underline{61.43_{\pm 0.94}}$ & $21.89_{\pm 0.78}$ \\
+\quad \textsc{HyCal}(Ours)
+  & $\mathbf{40.98_{\pm 0.61}}$ & $\mathbf{49.68_{\pm 2.23}}$ & $\mathbf{69.59_{\pm 0.93}}$
+  & $\underline{74.63_{\pm 1.78}}$ & $\underline{39.54_{\pm 2.62}}$ & $77.71_{\pm 5.24}$
+  & $\mathbf{60.51_{\pm 4.73}}$ & $\mathbf{95.34_{\pm 0.78}}$
+  & $\mathbf{63.50_{\pm 0.73}}$ & $19.55_{\pm 0.80}$ \\
+\bottomrule
+\end{tabular}
+}% end resizebox
+\end{table*}
+\begin{table}[t!]
+\caption{Performance on $\text{S}_\text{CDE}$ across XD-VSCIL settings.}
+\label{tab:CDE}
+\centering
+% \renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{0.4mm}
+\scriptsize
+\resizebox{0.8\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Method   & $\boldsymbol{\text{S}_{\text{adapt}}}$  & $\boldsymbol{\text{S}_{\text{last}}}$ & $\boldsymbol{\text{S}_{\text{CDE}}}$ \\
+\hline\midrule\rowcolor{gray!8}
+\multicolumn{4}{c}{\textbf{Balanced-in-Class Domain}} \\
+\midrule
+Primal-RAIL~\cite{xu2024advancing}
+  & \textcolor{gray}{$52.77_{\pm 0.34}$}  & \textcolor{gray}{$67.39_{\pm 0.68}$}  & \textcolor{gray}{$59.19_{\pm 0.47}$} \\\hdashline
+FeCAM~\cite{goswami2023fecam}
+  & $10.80_{\pm 14.71}$ & $11.55_{\pm 1.95}$  & $10.06_{\pm 6.65}$ \\
+RanPAC~\cite{mcdonnell2023ranpac}
+  & $\mathbf{56.42_{\pm 11.30}}$ & $63.97_{\pm 12.04}$ & $\underline{59.29_{\pm 0.36}}$ \\
+KLDA~\cite{momeni2025continual}
+  & $47.47_{\pm 0.25}$  & $\mathbf{70.61_{\pm 0.90}}$ & $56.77_{\pm 0.47}$ \\
+\textbf{\textsc{HyCal} (Ours)}
+  & $\underline{53.63_{\pm 0.14}}$ & $\underline{70.49_{\pm 0.23}}$ & $\mathbf{60.92_{\pm 0.17}}$ \\
+\midrule \midrule
+\rowcolor{gray!16}
+\multicolumn{4}{c}{\textbf{Cross-Scale Imbalance}} \\
+\midrule
+Primal-RAIL~\cite{xu2024advancing}
+  & \textcolor{gray}{$46.95_{\pm 0.83}$}  & \textcolor{gray}{$57.27_{\pm 1.67}$}  & \textcolor{gray}{$51.60_{\pm 1.18}$} \\\hdashline
+FeCAM~\cite{goswami2023fecam}
+  & $10.67_{\pm 3.58}$   & $20.05_{\pm 7.06}$  & $13.91_{\pm 4.68}$ \\
+RanPAC~\cite{mcdonnell2023ranpac}
+  & $49.32_{\pm 2.56}$   & $62.08_{\pm 5.98}$  & $54.96_{\pm 3.92}$ \\
+KLDA~\cite{momeni2025continual}
+  & $\mathbf{52.25_{\pm 0.48}}$ & $\mathbf{69.39_{\pm 1.15}}$ & $\mathbf{59.61_{\pm 0.72}}$ \\
+\textbf{\textsc{HyCal} (Ours)}
+  & $\underline{51.99_{\pm 0.35}}$ & $\underline{68.83_{\pm 0.57}}$ & $\underline{59.24_{\pm 0.41}}$ \\
+\midrule \midrule
+\rowcolor{gray!24}
+\multicolumn{4}{c}{\textbf{High-Scale Domain Imbalance}} \\
+\midrule
+Primal-RAIL~\cite{xu2024advancing}
+  & \textcolor{gray}{$49.41_{\pm 10.41}$} & \textcolor{gray}{$57.86_{\pm 2.22}$} & \textcolor{gray}{$53.18_{\pm 6.51}$} \\\hdashline
+FeCAM~\cite{goswami2023fecam}
+  & $5.15_{\pm 13.52}$   & $1.85_{\pm 0.62}$  & $1.84_{\pm 2.08}$ \\
+RanPAC~\cite{mcdonnell2023ranpac}
+  & $\mathbf{50.07_{\pm 8.59}}$ & $56.44_{\pm 10.35}$ & $\underline{52.57_{\pm 1.16}}$ \\
+KLDA~\cite{momeni2025continual}
+  & $42.39_{\pm 0.64}$   & $\underline{58.79_{\pm 1.47}}$ & $49.26_{\pm 0.95}$ \\
+\textbf{\textsc{HyCal} (Ours)}
+  & $\underline{47.71_{\pm 0.53}}$ & $\mathbf{61.39_{\pm 1.05}}$ & $\mathbf{53.70_{\pm 0.74}}$ \\
+\bottomrule
+\end{tabular}
+}% end resizebox
+\end{table}
+\begin{table*}[ht]
+\caption{Performance across 5, 10, 15, 20-shots on FSCIL benchmarks, averaged over 4 seeds with 95\% confidence intervals.}
+\label{tab:multishot}
+\centering
+\normalsize
+\setlength{\tabcolsep}{1pt}
+\renewcommand{\arraystretch}{1.02}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l ccc ccc ccc ccc}
+\toprule
+            & \multicolumn{3}{c}{\textbf{5-shot}}
+            & \multicolumn{3}{c}{\textbf{10-shot}}
+            & \multicolumn{3}{c}{\textbf{15-shot}}
+            & \multicolumn{3}{c}{\textbf{20-shot}} \\
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$ \\
+\midrule
+Primal-RAIL~\cite{xu2024advancing}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$} \\\hdashline
+FeCAM~\cite{goswami2023fecam}
+ & $8.90_{\pm1.12}$ & $8.48_{\pm0.28}$ & $4.27_{\pm6.13}$
+ & $11.16_{\pm3.26}$ & $14.62_{\pm4.23}$ & $7.22_{\pm1.76}$
+ & $22.48_{\pm6.51}$ & $25.29_{\pm2.84}$ & $21.57_{\pm8.40}$
+ & $21.37_{\pm3.18}$ & $25.06_{\pm2.13}$ & $18.31_{\pm10.96}$ \\
+RanPAC~\cite{mcdonnell2023ranpac}
+ & $\underline{58.04_{\pm1.53}}$ & $\underline{45.48_{\pm2.89}}$ & $\underline{51.94_{\pm1.10}}$
+ & $64.34_{\pm0.26}$ & $\underline{53.13_{\pm0.78}}$ & $\underline{56.19_{\pm0.11}}$
+ & $66.52_{\pm0.41}$ & $56.62_{\pm0.40}$ & $57.86_{\pm0.30}$
+ & $67.85_{\pm0.24}$ & $58.29_{\pm0.40}$ & $\underline{58.70_{\pm0.17}}$ \\
+KLDA~\cite{momeni2025continual}
+ & $56.54_{\pm0.61}$ & $7.46_{\pm0.08}$ & $29.13_{\pm0.06}$
+ & $\underline{66.01_{\pm0.46}}$ & $43.62_{\pm0.44}$ & $53.34_{\pm0.34}$
+ & $\underline{68.55_{\pm0.51}}$ & $\underline{57.19_{\pm0.63}}$ & $\underline{58.78_{\pm0.39}}$
+ & $\underline{69.73_{\pm0.88}}$ & $\underline{59.65_{\pm0.61}}$ & $52.13_{\pm0.68}$ \\
+\textbf{\textsc{HyCal} (Ours)}
+ & $\mathbf{60.82_{\pm0.97}}$ & $\mathbf{50.58_{\pm0.74}}$ & $\mathbf{60.36_{\pm1.35}}$
+ & $\mathbf{66.52_{\pm0.28}}$ & $\mathbf{56.69_{\pm0.47}}$ & $\mathbf{57.27_{\pm0.21}}$
+ & $\mathbf{69.02_{\pm0.37}}$ & $\mathbf{59.27_{\pm0.62}}$ & $\mathbf{59.06_{\pm0.22}}$
+ & $\mathbf{70.67_{\pm0.21}}$ & $\mathbf{60.90_{\pm0.56}}$ & $\mathbf{60.21_{\pm0.06}}$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\begin{table*}[ht]
+\caption{Performance across 5, 10, 15, 20-shots on FSCIL benchmarks, averaged over 4 seeds with 95\% confidence intervals.}
+\label{tab:multishot}
+\centering
+\normalsize
+\setlength{\tabcolsep}{1pt}
+\renewcommand{\arraystretch}{1.02}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l ccc ccc ccc ccc}
+\toprule
+            & \multicolumn{3}{c}{\textbf{5-shot}}
+            & \multicolumn{3}{c}{\textbf{10-shot}}
+            & \multicolumn{3}{c}{\textbf{15-shot}}
+            & \multicolumn{3}{c}{\textbf{20-shot}} \\
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$
+            & Last Acc. & Avg Acc. & $\boldsymbol{\text{S}_{\text{CDE}}}$ \\
+\midrule
+Primal-RAIL~\cite{xu2024advancing}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$}
+ & \textcolor{gray}{$59.40_{\pm1.88}$} & \textcolor{gray}{$51.61_{\pm1.10}$} & \textcolor{gray}{$52.58_{\pm1.73}$} \\\hdashline
+FeCAM~\cite{goswami2023fecam}
+ & $8.90_{\pm1.12}$ & $8.48_{\pm0.28}$ & $4.27_{\pm6.13}$
+ & $11.16_{\pm3.26}$ & $14.62_{\pm4.23}$ & $7.22_{\pm1.76}$
+ & $22.48_{\pm6.51}$ & $25.29_{\pm2.84}$ & $21.57_{\pm8.40}$
+ & $21.37_{\pm3.18}$ & $25.06_{\pm2.13}$ & $18.31_{\pm10.96}$ \\
+RanPAC~\cite{mcdonnell2023ranpac}
+ & $\underline{58.04_{\pm1.53}}$ & $\underline{45.48_{\pm2.89}}$ & $\underline{51.94_{\pm1.10}}$
+ & $64.34_{\pm0.26}$ & $\underline{53.13_{\pm0.78}}$ & $\underline{56.19_{\pm0.11}}$
+ & $66.52_{\pm0.41}$ & $56.62_{\pm0.40}$ & $57.86_{\pm0.30}$
+ & $67.85_{\pm0.24}$ & $58.29_{\pm0.40}$ & $\underline{58.70_{\pm0.17}}$ \\
+KLDA~\cite{momeni2025continual}
+ & $56.54_{\pm0.61}$ & $7.46_{\pm0.08}$ & $29.13_{\pm0.06}$
+ & $\underline{66.01_{\pm0.46}}$ & $43.62_{\pm0.44}$ & $53.34_{\pm0.34}$
+ & $\underline{68.55_{\pm0.51}}$ & $\underline{57.19_{\pm0.63}}$ & $\underline{58.78_{\pm0.39}}$
+ & $\underline{69.73_{\pm0.88}}$ & $\underline{59.65_{\pm0.61}}$ & $52.13_{\pm0.68}$ \\
+\textbf{\textsc{HyCal} (Ours)}
+ & $\mathbf{60.82_{\pm0.97}}$ & $\mathbf{50.58_{\pm0.74}}$ & $\mathbf{60.36_{\pm1.35}}$
+ & $\mathbf{66.52_{\pm0.28}}$ & $\mathbf{56.69_{\pm0.47}}$ & $\mathbf{57.27_{\pm0.21}}$
+ & $\mathbf{69.02_{\pm0.37}}$ & $\mathbf{59.27_{\pm0.62}}$ & $\mathbf{59.06_{\pm0.22}}$
+ & $\mathbf{70.67_{\pm0.21}}$ & $\mathbf{60.90_{\pm0.56}}$ & $\mathbf{60.21_{\pm0.06}}$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

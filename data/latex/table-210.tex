@@ -1,0 +1,216 @@
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+\definecolor{firstplace}{rgb}{0.56, 0.78, 0.58}
+\definecolor{secondplace}{rgb}{0.9, 1.0, 0.9} % Light yellow
+\definecolor{thirdplace}{rgb}{1.0, 1.0, 0.8}
+\newcommand{\cellfirst}{\cellcolor{firstplace}}
+\newcommand{\cellsecond}{\cellcolor{secondplace}}
+\newcommand{\cellthird}{\cellcolor{thirdplace}}
+\definecolor{papercolor}{rgb}{0.988, 0.549, 0.012}
+\newcommand{\papernamecolor}{\textcolor{papercolor}{\textbf{\papername}}}
+%%%%%%%
+\begin{document}
+\begin{table}[t!]
+\centering
+\setlength{\tabcolsep}{2pt}
+\resizebox{1.0\columnwidth}{!}{
+\begin{tabular}{l cc cc cc cc cc}
+\toprule
+    \multirow{2}{*}{\textbf{Method}}
+    & \multicolumn{2}{c}{\bf NYUv2 \cite{silberman2012nyuv2}}
+    & \multicolumn{2}{c}{\bf KITTI \cite{geiger2012kitti}}
+    & \multicolumn{2}{c}{\bf ETH3D \cite{schops2017eth3d}}
+    & \multicolumn{2}{c}{\bf ScanNet \cite{dai2017scannet}}
+    & \multicolumn{2}{c}{\bf DIODE \cite{vasiljevic2019diode}} \\
+
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+& Rel & $\delta_{1.25}$
+& Rel &$\delta_{1.25}$
+& Rel & $\delta_{1.25}$
+& Rel &$\delta_{1.25}$
+& Rel & $\delta_{1.25}$
+\\
+\midrule
+% MiDaS \cite{ranftl2020midas} &
+% 11.1 &
+% 88.5 &
+% 23.6 &
+% 63.0 &
+% 18.4 &
+% 75.2 &
+% 12.1 &
+% 84.6 &
+% 33.2 &
+% 71.5
+% \\
+% LeReS \cite{yin2021leres} &
+% 9.0 &
+% 91.6 &
+% 14.9 &
+% 78.4 &
+% 17.1 &
+% 77.7 &
+% 9.1 &
+% 91.7 &
+% 27.1 &
+% 76.6
+% \\
+Omnidata~\cite{eftekhar2021omnidata} &
+7.4 &
+94.5 &
+14.9 &
+83.5 &
+16.6 &
+77.8 &
+7.5 &
+93.6 &
+33.9 &
+74.2
+\\
+% DPT \cite{ranftl2021dpt} & 9.8 &
+% 90.3 &
+% 10.0 &
+% 90.1 &
+% 7.8 &
+% 94.6 &
+% 8.2 &
+% 93.4 &
+% 18.2 &
+% 75.8
+% \\
+DepthAny v2 \cite{yang2024depthanythingv2} &
+\cellthird{4.3} &
+\cellthird{97.9} &
+\cellthird{8.0} &
+\cellthird{94.4} &
+5.7 &
+\cellsecond{98.3} &
+\cellthird{(4.2)} &
+(97.9) &
+\cellfirst{21.6} &
+75.2
+\\
+Marigold \cite{ke2023marigold} &
+5.5 &
+96.4 &
+9.9 &
+91.6 &
+6.5 &
+96.0 &
+6.4 &
+95.1 &
+30.8 &
+77.3 \\
+Diffusion-E2E\cite{garcia2025diffusione2e} &
+5.2 & 96.6 &
+9.6 & 91.9 &
+6.2 & 95.9 &
+5.8 & 96.2 &
+30.2 & 77.9 \\
+MoGe~\cite{wang2025moge} &
+\cellsecond{3.6} & \cellsecond{98.0} &
+\cellfirst{5.5} & \cellfirst{97.6} &
+\cellsecond{3.3} & \cellfirst{98.8} &
+\cellsecond{3.5} & \cellthird{98.3} &
+\cellsecond{22.4} & \cellfirst{82.3} \\
+\midrule
+VGGT~\cite{wang2025vggt} & \cellsecond{3.6} & \cellsecond{98.0} & 8.8 & 92.7 & \cellthird{3.8} & \cellthird{97.9} & \cellfirst{(2.7)} & \cellsecond{(98.8)} & 26.9 & \cellthird{79.1}\\
+\papernamecolor{} & \cellfirst{3.0} & \cellfirst{98.9} & \cellsecond{7.3} & \cellsecond{95.4} & \cellfirst{3.2}& \cellfirst{98.8} & \cellfirst{(2.7)} & \cellfirst{(98.9)} & \cellthird{24.7} & \cellsecond{80.7}\\
+\bottomrule
+\end{tabular}}
+\vspace{-6pt}
+\caption{\textbf{Monocular depth estimation.} Our method achieves competitive zero-shot monocular depth performance.}
+\label{tab:mono_depth}
+\vspace{-6pt}
+\end{table}
+\begin{table}[t!]
+\centering
+\setlength{\tabcolsep}{5pt}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{l l ccc ccc ccc}
+\toprule
+& \multirow{2}{*}{\textbf{Method}}
+& \multicolumn{3}{c}{\textbf{\ethdshort{}}}
+& \multicolumn{3}{c}{\textbf{\dtushort{}}}
+& \multicolumn{3}{c}{\textbf{7-Scenes}}
+\\ \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+& & $\absrel\!\downarrow$ & Acc$\!\downarrow$ & Cp$\!\downarrow$
+& $\absrel\!\downarrow$ & Acc$\!\downarrow$ & Cp$\!\downarrow$
+& $\absrel\!\downarrow$ & Acc$\!\downarrow$ & Cp $\!\downarrow$
+\\
+\midrule
+\multirow{3}{*}{\rotatebox[origin=c]{90}{Onl.}} &
+Spann3R~\cite{wang2025spann3r} &
+24.96& 47.63& 31.87 &
+4.96& 1.89 & 0.64 &
+8.58 & 4.81 & 5.48 \\
+& MUSt3R~\cite{cabon2025must3r} &
+19.91& 45.19& 82.72 &
+5.26& 1.68 & 1.09 &
+11.57 & 8.94 & 14.97 \\
+& CUT3R~\cite{wang2025cut3r} &
+18.83& 38.90& 22.93 &
+9.11& 3.75 & 0.96 &
+6.32 & 2.88 & \cellsecond{3.26} \\
+\midrule
+\multirow{4}{*}{\rotatebox[origin=c]{90}{Offl.}} &
+VGGT~\cite{wang2025vggt} &
+\cellthird{6.02}& \cellthird{12.81}& \cellthird{11.89} &
+\cellsecond{0.83}& \cellfirst{0.22} & \cellfirst{0.08} &
+\cellsecond{5.51} & \cellsecond{2.32} & 3.51 \\
+& $\pi3^\ddagger$~\cite{wang2025pi3} & \cellsecond{5.82}& \cellsecond{10.54}& \cellsecond{10.42} &
+\cellthird{1.57}& \cellthird{0.50} & \cellthird{0.29} &
+\cellthird{5.92} & \cellthird{2.60} & 3.42 \\
+& MapAny$^\ddagger$~\cite{keetha2025mapanything} &
+11.20& 21.87& 19.76 &
+10.37& 4.35 & 1.54 &
+7.61 & 3.48 & \cellthird{3.33} \\
+ & \papernamecolor{} &
+\cellfirst{4.64}& \cellfirst{9.98}& \cellfirst{9.69} &
+\cellfirst{0.81}& \cellfirst{0.22} & \cellfirst{0.08} &
+\cellfirst{4.74} & \cellfirst{1.74} & \cellfirst{2.84} \\
+\bottomrule
+\end{tabular}}
+\vspace{-5pt}
+\caption{\textbf{Multi-view 3D Reconstruction [cm].} For ETH3D and DTU, we use image tuples from RMVDB~\cite{schroppel2022rmvd}. For 7 scenes, we use frames as in Spann3R with improved GT poses (See Tab.~\ref{tab:slam_7scenes}).}
+\label{tab:3d_recon}
+\vspace{-10pt}
+\end{table}
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{l lcccccccccc}
+\toprule
+& &\textbf{360} &\textbf{desk} &\textbf{desk2} &\textbf{floor} &\textbf{plant} &\textbf{room } &\textbf{rpy} &\textbf{teddy} &\textbf{xyz} &\textbf{avg} \\
+\midrule
+
+\multirow{8}{*}{\rotatebox[origin=c]{90}{\bf Calibrated}} &\textbf{ORB-SLAM3 \cite{mur2015orb}} &X &\cellsecond{1.7} &21.0 &X &3.4 &X &X &X &\cellsecond{0.9} &- \\
+&\textbf{DeepV2D \cite{teed2020deepv2d}} &24.3 &16.6 &37.9 &165.3 &20.3 &24.6 &10.5 &31.6 &6.4 &37.5 \\
+&\textbf{DeepFactors \cite{czarnowski2020deepfactors}} &15.9 &17.0 &25.3 &16.9 &30.5 &36.4 &4.3 &60.1 &3.5 &23.3 \\
+&\textbf{DPV-SLAM \cite{lipson2024dpvslam}} &11.2 &\cellthird{1.8} &\cellthird{2.9} &5.7 &\cellthird{2.1} &33.0 &\cellthird{3.0} &8.4 &\cellthird{1.0} &7.6 \\
+&\textbf{DPV-SLAM++ \cite{lipson2024dpvslam}} &13.2 &\cellthird{1.8} &\cellthird{2.9} &5.0 &2.2 &9.6 &3.2 &9.8 &\cellthird{1.0} &5.4 \\
+&\textbf{GO-SLAM \cite{zhang2023goslam}} &8.9 &\cellfirst{1.6} &\cellthird{2.8} &\cellsecond{2.5} &2.6 &\cellsecond{5.2} &\cellfirst{1.9} &4.8 &\cellthird{1.0} &\cellthird{3.5} \\
+&\textbf{DROID-SLAM \cite{teed2021droidslam}} &11.1 &\cellthird{1.8} &4.2 &\cellfirst{2.1} &\cellfirst{1.6} &\cellfirst{4.9} &2.6 &4.8 &1.2 &3.8 \\
+&\textbf{MASt3R-SLAM~\cite{murai2025mast3rslam}} &\cellsecond{4.9} &\cellfirst{1.6} &\cellsecond{2.4} &\cellsecond{2.5} &\cellsecond{2.0} &6.1 &2.7 &\cellthird{4.1} &\cellsecond{0.9} &\cellsecond{3.0} \\
+\midrule
+\multirow{5}{*}{\rotatebox[origin=c]{90}{\bf Uncalibrated}} &\textbf{DROID-SLAM\cite{teed2021droidslam}} &20.2 &3.2 &9.1 &6.4 &4.5 &91.8 &5.6 &4.5 &1.2 &15.8 \\
+&\textbf{MASt3R-SLAM~\cite{murai2025mast3rslam}} &\cellthird{7.0} &3.5 &5.5 &5.6 &3.5 &11.8 &4.1 &11.4 &2.0 &6.0 \\
+& \bf VGGT-SLAM~\cite{maggio2025vggtslam} & 7.1& 2.5& 4.0& 14.1 & 2.3& 10.2& \cellthird{3.0} & \cellsecond{3.4}& 1.4& 5.3\\
+% & Ours-VO-kf-bridge &  8.2 & 3.6 & 4.0& 5.9 & 4.4& 10.9& 3.1 & 7.4& 1.3&  5.4\\
+%  & Ours-VO-kf-bridge (KF)&  7.4 & 3.0 & 3.2&5.0 & 3.9& 10.3& 2.3 & 6.3& 0.8 & 4.7\\
+%  & Ours-VO-kf-loop-baseline-bridge-mid-adaptive &  6.2 & 3.2 & 4.3& 4.3 & 3.5& 9.8& 2.7 & 7.0& 1.3&  4.7 \\
+%  & Ours-VO-kf-loop-baseline-bridge-mid-adaptive (KF)&  5.6 & 2.8 & 3.3&  4.7 & 3.0& 9.3& 2.2 & 6.1& 0.8 & 4.2\\
+  & \lgray\papernamecolor{}  (ALL) &  \lgray4.6 & \lgray1.9 & \lgray2.8& \lgray3.2& \lgray2.9& \lgray5.8& \lgray2.3 & \lgray3.7& \lgray1.1 & \lgray3.1\\
+
+  & \papernamecolor{} (KF) &  \cellfirst{3.9} & \cellsecond{1.7} & \cellfirst{2.3}& \cellthird{2.7}& 2.7& \cellthird{5.5}& \cellsecond{2.2} & \cellfirst{2.8}& \cellfirst{0.8} & \cellfirst{2.7}\\
+\bottomrule
+\end{tabular}}
+\vspace{-5pt}
+\caption{\textbf{SLAM: ATE RMSE [cm] on TUM RGB.} We use image stride of 2 and keyframe poses evaluation as in MASt3R-SLAM~\cite{murai2025mast3rslam} with all poses evaluation shown as a reference. Note that we did not do any post-processing on trajectories }
+\label{tab:slam_tum}
+\vspace{-10pt}
+\end{table}
+\end{document}

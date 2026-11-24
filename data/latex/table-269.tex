@@ -1,0 +1,117 @@
+\newcommand{\method}{ReMix}
+\definecolor{light-gray}{gray}{0.6}
+\colorlet{ourred}{orange!5}
+\colorlet{ourblue}{blue!100}
+\def\paperID{37521} %
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\centering
+\caption{Performance and inference speedup comparison on diverse language benchmarks.} \vspace{-10pt}
+\label{tab:llada-bench}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}!{\vrule width 0pt}p{3.5cm}<{\centering}p{1.5cm}<{\centering}p{2.8cm}<{\centering}p{2.8cm}<{\centering}p{2.0cm}<{\centering}p{2.8cm}<{\centering}p{2.0cm}<{\centering}}
+\toprule
+\multirow{2}{*}{\textbf{Benchmark}} & \multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{Accuracy}} & \multirow{2}{*}{\textbf{Steps}}  & {\textbf{Step}} & \multirow{2}{*}{\textbf{Latency}} & {\textbf{Latency}} \\
+&&&& \textbf{Reduction} && \textbf{Speedup}\\
+\midrule
+\multirow{2}{*}{\shortstack{GSM8K \\ \scriptsize \color{light-gray}{Math Reasoning}}}        & LLaDA & 73.01 & 256 & 1.00 $\times$ & 13.89 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 75.66 (\textcolor{ourblue}{+2.65}) & \cellcolor{ourred} 51.55 (\textcolor{ourblue}{-204.45}) &
+                                 \cellcolor{ourred} 4.97 $\times$ &
+                                 \cellcolor{ourred} 3.00 (\textcolor{ourblue}{-10.89}) &
+                                 \cellcolor{ourred} 4.63 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{MATH-500 \\ \scriptsize \color{light-gray}{Math Reasoning}}}         & LLaDA & 32.20 & 256 & 1.00 $\times$ & 13.96 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 35.00 (\textcolor{ourblue}{+2.80}) & \cellcolor{ourred} 66.33 (\textcolor{ourblue}{-189.67}) &
+                                 \cellcolor{ourred} 3.86 $\times$ &
+                                 \cellcolor{ourred} 3.93 (\textcolor{ourblue}{-10.03}) &
+                                 \cellcolor{ourred} 3.55 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{HumanEval \\ \scriptsize \color{light-gray}{Code Generation}}}   & LLaDA & 43.90 & 256 & 1.00 $\times$ & 19.22 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 44.50 (\textcolor{ourblue}{+0.60}) & \cellcolor{ourred} 89.40 (\textcolor{ourblue}{-166.60}) &
+                                 \cellcolor{ourred} 2.86 $\times$ &
+                                 \cellcolor{ourred} 7.13 (\textcolor{ourblue}{-12.09}) &
+                                 \cellcolor{ourred} 2.70 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{MBPP \\ \scriptsize \color{light-gray}{Code Generation}}}        & LLaDA & 36.20 & 256 & 1.00 $\times$ & 14.11 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 37.00 (\textcolor{ourblue}{+0.80}) & \cellcolor{ourred} 84.28 (\textcolor{ourblue}{-171.72}) &
+                                 \cellcolor{ourred} 3.04 $\times$ &
+                                 \cellcolor{ourred} 5.05 (\textcolor{ourblue}{-9.06}) &
+                                 \cellcolor{ourred} 2.79 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{Countdown \\ \scriptsize \color{light-gray}{Logical Reasoning}}} & LLaDA & 25.78 & 256 & 1.00 $\times$ & 14.39 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 29.68 (\textcolor{ourblue}{+3.90}) & \cellcolor{ourred} 101.44 (\textcolor{ourblue}{-154.56}) &
+                                 \cellcolor{ourred} 2.52 $\times$ &
+                                 \cellcolor{ourred} 6.08 (\textcolor{ourblue}{-8.31}) &
+                                 \cellcolor{ourred} 2.37 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{Sudoku \\ \scriptsize \color{light-gray}{Logical Reasoning}}}    & LLaDA & 14.25 & 256 & 1.00 $\times$ & 19.34 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 18.55 (\textcolor{ourblue}{+4.30}) & \cellcolor{ourred} 84.06 (\textcolor{ourblue}{-171.94}) &
+                                 \cellcolor{ourred} 3.05 $\times$ &
+                                 \cellcolor{ourred} 6.76 (\textcolor{ourblue}{-12.58}) &
+                                 \cellcolor{ourred} 2.86 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{ARC-E \\ \scriptsize \color{light-gray}{Commonsense Reasoning}}}            & LLaDA & 59.68 & 256 & 1.00 $\times$ & 13.70 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 70.54 (\textcolor{ourblue}{+10.86}) & \cellcolor{ourred} 50.69 (\textcolor{ourblue}{-205.31}) &
+                                 \cellcolor{ourred} 5.05 $\times$ &
+                                 \cellcolor{ourred} 2.98 (\textcolor{ourblue}{-10.72}) &
+                                 \cellcolor{ourred} 4.60 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{ARC-C \\ \scriptsize \color{light-gray}{Commonsense Reasoning}}}            & LLaDA & 52.17 & 256 & 1.00 $\times$ & 13.67 & 1.00 $\times$ \\
+                              & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 66.22 (\textcolor{ourblue}{+14.05}) & \cellcolor{ourred} 61.30 (\textcolor{ourblue}{-194.70}) &
+                                 \cellcolor{ourred} 4.18 $\times$ &
+                                 \cellcolor{ourred} 3.49 (\textcolor{ourblue}{-10.18}) &
+                                 \cellcolor{ourred} 3.92 $\times$ \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5pt}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Performance and inference speedup comparison across diverse multimodal understanding and reasoning benchmarks. We use CIDEr for Flickr30k and accuracy for other benchmarks.}\vspace{-9pt}
+\label{tab:mmada-bench}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}!{\vrule width 0pt}p{3.5cm}<{\centering}p{1.5cm}<{\centering}p{2.8cm}<{\centering}p{2.8cm}<{\centering}p{2.0cm}<{\centering}p{2.8cm}<{\centering}p{2.0cm}<{\centering}}
+\toprule
+\multirow{2}{*}{\textbf{Benchmark}} & \multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{Performance}} & \multirow{2}{*}{\textbf{Steps}}  & {\textbf{Step}} & \multirow{2}{*}{\textbf{Latency}} & {\textbf{Latency}} \\
+&&&& \textbf{Reduction} && \textbf{Speedup}\\
+\midrule
+\multirow{2}{*}{\shortstack{Flickr30k-lite \\ \scriptsize \color{light-gray}{Captioning}}}                  & MMaDA & 57.52 & 256 & 1.00 $\times$ & 108.02 & 1.00 $\times$ \\
+       & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 59.59 (\textcolor{ourblue}{+2.07}) & \cellcolor{ourred} 30.13 (\textcolor{ourblue}{-225.87}) &
+                                 \cellcolor{ourred} 8.50 $\times$ &
+                                 \cellcolor{ourred} 14.37 (\textcolor{ourblue}{-93.65}) &
+                                 \cellcolor{ourred} 7.52 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{AI2D-lite \\ \scriptsize \color{light-gray}{Chart Understanding}}}              & MMaDA & 62.40 & 256 & 1.00 $\times$ & 109.27 & 1.00 $\times$  \\
+        & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 62.60 (\textcolor{ourblue}{+0.20}) & \cellcolor{ourred} 37.82 (\textcolor{ourblue}{-218.18}) &
+                                 \cellcolor{ourred} 6.77 $\times$ &
+                                 \cellcolor{ourred} 19.24 (\textcolor{ourblue}{-90.03}) &
+                                 \cellcolor{ourred} 5.68 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{MathVision-mini \\ \scriptsize \color{light-gray}{Math Reasoning}}}            & MMaDA & 12.83  & 256 & 1.00 $\times$ & 111.12 & 1.00 $\times$ \\
+        & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 12.83 (\textcolor{ourblue}{+0.00}) & \cellcolor{ourred} 52.71 (\textcolor{ourblue}{-203.29}) &
+                                 \cellcolor{ourred} 4.86 $\times$ &
+                                 \cellcolor{ourred} 27.56 (\textcolor{ourblue}{-83.56}) &
+                                 \cellcolor{ourred} 4.03 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{MathVista-mini \\ \scriptsize \color{light-gray}{Math Reasoning}}}         & MMaDA & 31.60 & 256 & 1.00 $\times$ & 110.38 & 1.00 $\times$ \\
+        & \cellcolor{ourred} {\method} &\cellcolor{ourred} 34.60
+                                     (\textcolor{ourblue}{+3.00}) &\cellcolor{ourred} 43.61(\textcolor{ourblue}{-212.39}) &\cellcolor{ourred} 5.87 $\times$ &\cellcolor{ourred} 20.73(\textcolor{ourblue}{-89.65}) &\cellcolor{ourred} 5.32 $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{MMMU-val \\ \scriptsize \color{light-gray}{Multi-discipline Reasoning}}}   & MMaDA & 23.33 & 256 & 1.00 $\times$ & 113.76 & 1.00 $\times$ \\
+        & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 24.67 (\textcolor{ourblue}{+1.34}) & \cellcolor{ourred} 58.04 (\textcolor{ourblue}{-197.96}) &
+                                 \cellcolor{ourred} 4.41 $\times$ &
+                                 \cellcolor{ourred} 30.36 (\textcolor{ourblue}{-83.40}) &
+                                 \cellcolor{ourred} 3.75  $\times$ \\
+\midrule
+\multirow{2}{*}{\shortstack{ScienceQA-IMG \\ \scriptsize \color{light-gray}{Multi-discipline Reasoning}}}  & MMaDA & 46.70 & 256 & 1.00 $\times$ & 111.60 & 1.00 $\times$ \\
+        & \cellcolor{ourred} {\method}  & \cellcolor{ourred} 47.35 (\textcolor{ourblue}{+0.65}) & \cellcolor{ourred} 43.86 (\textcolor{ourblue}{-212.14}) &
+                                 \cellcolor{ourred} 5.84 $\times$ &
+                                 \cellcolor{ourred} 21.35 (\textcolor{ourblue}{-69.27}) &
+                                 \cellcolor{ourred} 5.23 $\times$ \\
+\bottomrule
+\end{tabular}}
+\vspace{-10pt}
+\end{table*}
+\end{document}

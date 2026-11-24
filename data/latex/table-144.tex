@@ -1,0 +1,142 @@
+\definecolor{lightlightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{col1}{RGB}{255, 230, 230}
+\definecolor{col2}{rgb}{0.9372, 0.5804, 0.6196}
+\definecolor{col3}{RGB}{233, 255, 245}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{
+\textbf{Ablation study.}
+We report top-1 accuracy}
+\vspace{-2.5mm}
+    \begin{subtable}[t]{0.43\textwidth}
+        \renewcommand{\arraystretch}{1.1}
+        \centering
+        \caption{Learning ``bursty'' prompts by our BPT methods outperforms prior arts VPT and SPT.
+        Refer to Fig.~\ref{fig:splashy-figure} for ``bursty'' distributions.}
+        \resizebox{!}{0.165\textwidth}{
+        \begin{tabular}{lccrcc}
+        \toprule
+        methods & init. & tuning? & \#params & IN-1K & CUB-200\\
+        \midrule
+        \rowcolor{lightlightgrey} VPT~\cite{jia2022visual}           & -      & -            & 7.68  & 63.71 & 42.15\\
+        \rowcolor{lightlightgrey} SPT~\cite{wang2024revisiting}      & -      & -            & 7.68  & 69.98 & 71.15\\
+        BPT-fWhiten                         & whiten & \ding{55}    & 7.68  & 72.09 & 77.48\\
+        BPT-tWhiten                         & whiten & $\checkmark$ & 66.66 & \textbf{72.37} & \textbf{78.54}\\
+        \cellcolor{col2}{BPT-bilinear}  & random & $\checkmark$ & \textbf{6.51}  & 72.15 & 77.86\\
+        \bottomrule
+        \end{tabular}
+        }
+        \label{tab:prompt-strategy}
+    \end{subtable}
+    \hfill
+    \begin{subtable}[t]{0.25\textwidth}
+        \renewcommand{\arraystretch}{1.1}
+        \centering
+        \caption{\textbf{Prompt length}. Increasing length further improves accuracy.}
+        \resizebox{!}{0.285\textwidth}{
+        \begin{tabular}{cccc}
+        \toprule
+        length & params & IN-1K & CUB-200\\
+        \midrule
+        64                       & 6.24 & 71.92 & 76.91\\
+        81                       & 6.37 & 71.94 & 77.60\\
+        \cellcolor{col2}{100} & 6.51 & 72.15 & 77.86\\
+        144                      & 6.84 & 72.39 & 78.36\\
+        196                      & 7.23 & \textbf{72.48} & \textbf{78.87}\\
+        \bottomrule
+        \end{tabular}
+        }
+        \label{tab:prompt-length}
+    \end{subtable}
+    \hfill
+    \begin{subtable}[t]{0.28\textwidth}
+        \renewcommand{\arraystretch}{1.1}
+        \centering
+        \caption{
+        \textbf{Prompt width}. BPT-bilinear learns more compact prompts with higher accuracy.
+        }
+        \resizebox{!}{0.255\textwidth}{
+        \begin{tabular}{cccc}
+        \toprule
+        width & params & IN-1K & CUB-200\\
+        \midrule
+        \rowcolor{lightlightgrey} SPT~\cite{wang2024revisiting}      & 7.68  & 69.98 & 71.15\\
+        25                      & 2.17 & 72.06 & 76.54\\
+        50                      & 4.34 & 72.08 & 76.95\\
+        \cellcolor{col2}{75} & 6.51 & 72.15 & 77.86\\
+        100                     & 8.68 & \textbf{72.18} & \textbf{78.59}\\
+        \bottomrule
+        \end{tabular}
+        }
+        \label{tab:prompt-width}
+    \end{subtable}
+\vspace{-1mm}
+\label{tab:ablation}
+\end{table*}
+\setlength{\tabcolsep}{0.6em}
+\begin{table}[t]
+\centering
+\caption{\small
+\textbf{Analysis of BPT-Deep design choices.}
+Extending from shallow to deep, BPT achieves significant improvements.
+Recall our BPT (-bilinear) allows flexible design of prompt to control the total number of learned parameters.
+We study how to design the bilinear prompt and where to insert prompt in a Transformer network.
+Applying prompt tuning in all Transformer blocks achieves the best performance, but inserting prompts at the top four or six blocks is still competitive with much fewer learned parameter.
+}
+\vspace{-3mm}
+\scalebox{0.8}{
+    \begin{tabular}{l cccc}
+\toprule
+        variant & \#blocks & params ($\times$$10^{-2}$M) & IN-1K & CUB-200\\
+\midrule
+        \rowcolor{lightlightgrey}BPT-Shallow  & 1  & 6.51  & 72.15 & 77.86\\
+        BPT-Deep  & 12 & 49.08 & \textbf{74.73} & \textbf{82.78}\\
+        BPT-Deep  & 6 & 26.04 & 74.62 & 82.33\\
+        BPT-Deep  & \cellcolor{col2}4 & 18.36 & 74.25 & 82.00\\
+        BPT-Deep  & 3 & 14.52 & 74.07 & 80.86\\
+    \midrule
+        \rowcolor{lightlightgrey} SPT-Deep~\cite{wang2024revisiting} & 12 & 18.43 & 73.34 & 80.13\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5mm}
+\label{tab:deep-variant}
+\end{table}
+\setlength{\tabcolsep}{0.34em}
+\begin{table}[t]
+\centering
+\caption{\small
+\textbf{Prompt tuning (pt) \textit{vs}. backbone fune-tuning (ft)} with a ViT-B  supervised pretrained on ImageNet-21K.
+For each method, we report its parameters (in $10^{-2}$M) and the mean accuracy over three random runs on five FGVC datasets.
+Our BPT outperforms the compared pt methods, ft methods, and even the full fine-tuning approach, with far fewer learned parameters.
+}
+\vspace{-3mm}
+\scalebox{0.8}{
+    \begin{tabular}{l cclrc}
+    \toprule
+        Methods & pt & ft & \textcolor{gray}{venue\&year} & \#param. &  mean Acc (\%)\\
+        \midrule
+        \rowcolor{lightlightgrey} Full fine-tuning       & ~ & $\checkmark$ & \textcolor{gray}{---} & 8.60$\times 10^9$  & 88.54\\
+        \rowcolor{lightlightgrey} Linear probing                      & ~ & ~            & \textcolor{gray}{---} & 0.0   & 79.32\\
+        \rowcolor{lightlightgrey} Bias~\cite{zhai2019large}           & ~ & $\checkmark$ & \textcolor{gray}{arXiv 2019} & 10.71 & 88.41\\
+        \rowcolor{lightlightgrey} Adapter~\cite{houlsby2019parameter} & ~ & $\checkmark$ & \textcolor{gray}{ICML 2019} & 23.70 & 85.66\\
+        \rowcolor{lightlightgrey} MP~\cite{gao2023tuning}             & ~ & $\checkmark$ & \textcolor{gray}{ICCV 2023} & 112.68 & 89.38\\
+        \rowcolor{lightlightgrey} LoRA~\cite{hu2021lora}              & ~ & $\checkmark$ & \textcolor{gray}{ICLR 2022} & 39.46 & 89.85\\
+        \rowcolor{lightlightgrey} SSF~\cite{lian2022scaling}          & ~ & $\checkmark$ & \textcolor{gray}{NeurIPS 2022}  & 21.69 & 90.72\\
+        \rowcolor{lightlightgrey} SNF~\cite{wang2023adapting}         & ~ & $\checkmark$ & \textcolor{gray}{CVPR 2023}  & 7.68  & 90.74\\
+        \rowcolor{col1} VPT-Shallow~\cite{jia2022visual}        & $\checkmark$ & & \textcolor{gray}{ECCV 2022}  & 7.68 & 84.62\\
+        \rowcolor{col1} SPT-Shallow~\cite{wang2024revisiting}   & $\checkmark$ & & \textcolor{gray}{ICML 2024}  & 7.68 & 90.10\\
+        \rowcolor{col1} {\bf BPT-Shallow}    & $\checkmark$ & & \textcolor{gray}{\bf ours} & \underline{6.51} & \underline{90.54}\\
+        \rowcolor{col3} VPT-Deep~\cite{jia2022visual}            & $\checkmark$ & & \textcolor{gray}{ECCV 2022}     & 66.98 & 89.11\\
+        \rowcolor{col3} E$^2$VPT~\cite{cheng2023e2vpt}           & $\checkmark$ & & \textcolor{gray}{ICCV 2023}     & 37.98 & 89.22\\
+        \rowcolor{col3} SPT-Deep~\cite{wang2024revisiting}       & $\checkmark$ & & \textcolor{gray}{ICML 2024}     & 18.43 & 91.40\\
+        \rowcolor{col3} {\bf BPT-Deep}                    & $\checkmark$ & & \textcolor{gray}{\bf ours}    & \textbf{18.36} & \textbf{91.72}\\
+    \bottomrule
+    \end{tabular}
+}
+\vspace{-3mm}
+\label{tab:sota_sup}
+\end{table}
+\end{document}

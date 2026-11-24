@@ -1,0 +1,296 @@
+%%%%%%%
+\begin{document}
+% \vspace{-0.1in}
+\begin{table*}[htbp]
+\centering
+\caption{\textbf{Performance on the NAVSIM-v2 \cmtt{navhard} Leaderboard.} PDM-Closed uses ground-truth symbolic inputs for planning, while other methods rely on sensor data. ($*$: pseudo-expert supervision; $\dagger$: reward scoring; S.: per-stage EPDM score.)}
+\vspace{-0.1in}
+\scriptsize
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{l|c|c|*{1}{p{0.03\textwidth}<{\centering}} |*{4}{p{0.03\textwidth}<{\centering}} |*{5}{p{0.03\textwidth}<{\centering}} |l|l}
+    \toprule
+    \textbf{Method}
+    & \textbf{Backbone}
+    & \textbf{Sim.}
+    & \textbf{Stage}
+    & \textbf{NC}↑
+    & \textbf{DAC}↑
+    & \textbf{DDC}↑
+    & \textbf{TLC}↑
+    & \textbf{EP}↑
+    & \textbf{TTC}↑
+    & \textbf{LK}↑
+    & \textbf{HC}↑
+    & \textbf{EC}↑
+    & \textbf{S.}↑
+    & \textbf{EPDMS}↑  \\
+    \midrule
+
+     \makecell[l]{PDM-Closed~\cite{dauner2023pdmclosed}}  & - & - &   \makecell{S 1 \\ S 2} & \makecell{94.4 \\ 88.1} & \makecell{98.8 \\ 90.6} & \makecell{100 \\ 96.3} & \makecell{99.5 \\ 98.5} & \makecell{100 \\ 100} & \makecell{93.5 \\ 83.1} & \makecell{99.3 \\ 73.7} & \makecell{87.7 \\ 91.5} & \makecell{36.0 \\ 25.4} &\makecell{- \\ -} & 51.3    \\
+    \midrule
+    \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{15}{c}{\textit{{Regeression-based Planner}}}\\
+    \multirow{4}{*}{
+    \makecell[l] {
+    LTF~\cite{kashyap2022transfuser}}} & \multirow{4}{*}{ResNet34} & \textit{w/o} &   \makecell{S 1 \\ S 2}  &
+    \makecell{97.3\\79.4}
+    & \makecell{80.2\\69.0}
+    & \makecell{97.8\\85.6}
+    & \makecell{99.3\\98.5}
+    & \makecell{83.4\\83.8}
+    & \makecell{96.2\\76.7}
+    & \makecell{92.9\\47.9}
+    & \makecell{97.8\\97.0}
+    & \makecell{71.1\\70.6}
+    & \makecell[l]{61.3\\39.2}
+    & 24.4    \\
+    \cmidrule{3-15}
+
+    &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}{$^\ast$}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{S 1 \\ S 2}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{96.1 \\85.5}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{85.3 \\66.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.4 \\91.6}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.3 \\99.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{84.7 \\93.0}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{94.7 \\81.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{93.6 \\58.3}
+    & \cellcolor[rgb]{0.9,0.95,1}~\makecell{97.6 \\95.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{77.3 \\42.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell[l]{\textbf{66.3}\textcolor[rgb]{0,0.3,0.6}{{\tiny +5.0}}  \\ \textbf{44.8}\textcolor[rgb]{0,0.3,0.6}{{\tiny +5.6}}  }
+    & \cellcolor[rgb]{0.9,0.95,1}\textbf{30.2} \textcolor[rgb]{0,0.3,0.6}{{↑24\%}}  \\
+        \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{15}{c}{\textit{{Diffusion-based Planner}\quad \quad}} \\
+    \multirow{4}{*}{{\makecell[l]{
+    DiffusionDrive~\cite{liao2025diffusiondrive}}} } & \multirow{4}{*}{ResNet34} & \textit{w/o} &   \makecell{S 1 \\ S 2}
+    & \makecell{96.8 \\ 80.1}
+    & \makecell{ 86.0\\72.8 }
+    & \makecell{ 98.8\\ 84.4}
+    & \makecell{ 99.3\\98.4}
+    & \makecell{ 84.0\\85.9 }
+    & \makecell{ 95.8\\76.6 }
+    & \makecell{ 96.7\\46.4 }
+    & \makecell{ 97.6\\96.3 }
+    & \makecell{79.6\\72.8 }
+    & \makecell[l]{ 66.7\\40.5 }
+    & \cellcolor[rgb]{1,1,1}27.5    \\
+    \cmidrule{3-15}
+    &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}{$^\ast$}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{S 1 \\ S 2}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{97.4 \\86.4}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{88.7 \\72.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.3 \\92.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.3 \\98.5}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{82.8 \\92.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{96.9 \\80.6}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{98.0 \\60.8}
+    & \cellcolor[rgb]{0.9,0.95,1}~\makecell{97.3 \\95.4}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{59.6 \\31.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell[l]{\textbf{67.5}\textcolor[rgb]{0,0.3,0.6}{{\tiny +0.8}} \\ \textbf{46.8}\textcolor[rgb]{0,0.3,0.6}{{\tiny +6.3}} }
+    & \cellcolor[rgb]{0.9,0.95,1}\textbf{32.6} \textcolor[rgb]{0,0.3,0.6}{{↑19\%}}  \\
+    \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{15}{c}{\textit{{Scoring-based Planner}\quad \quad\quad }} \\
+
+    \multirow{8}{*}{{\makecell[l]{
+    GTRS-Dense~\cite{li2025gtrs}}}} &
+
+    \multirow{4}{*}{ResNet34} & \textit{w/o} &   \makecell{S 1 \\ S 2}
+    &\makecell{ 99.3 \\ 92.8 }
+    & \makecell{ 96.6 \\ 88.6}
+    & \makecell{ 99.6 \\ 95.5 }
+    & \makecell{ 100  \\ 99.4}
+    & \makecell{ 57.4 \\ 55.9}
+    & \makecell{ 99.5 \\ 91.3}
+    & \makecell{ 92.6 \\ 55.7}
+    & \makecell{ 89.5 \\ 91.1}
+    & \makecell{16.4 \\ 35.7}
+    & \makecell[l]{67.1\\55.8 }
+    & 38.3    \\
+    \cmidrule{3-15}
+    &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^\dagger}$
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{S 1 \\ S 2}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{97.6 \\94.3}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{96.4 \\92.7}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.3 \\95.1}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{100 \\99.5}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{75.7 \\80.2}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{97.8 \\91.5}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{93.3 \\56.2}
+    & \cellcolor[rgb]{0.9,0.95,1}~\makecell{97.3 \\90.6}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{32.9 \\28.3}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell[l]{ \textbf{72.4}\textcolor[rgb]{0,0.3,0.6}{{\tiny +5.3}} \\ \textbf{63.4}\textcolor[rgb]{0,0.3,0.6}{{\tiny +7.6}} }
+    & \cellcolor[rgb]{0.9,0.95,1}\textbf{46.9} \textcolor[rgb]{0,0.3,0.6}{{↑22\%}} \\
+    \cmidrule{2-15} &
+
+    \multirow{4}{*}{V2-99}
+    & \textit{w/o}&   \makecell{S 1 \\ S 2}  &
+    \makecell{ 98.9 \\ 89.9}
+    & \makecell{ 94.9 \\ 90.5}
+    & \makecell{ 99.1\\ 94.1}
+    & \makecell{ 100 \\ 99.3}
+    & \makecell{ 76.1\\ 77.6}
+    & \makecell{ 98.4\\ 88.5}
+    & \makecell{ 93.8 \\ 56.0}
+    & \makecell{ 94.9\\ 92.0}
+    & \makecell{ 37.8 \\ 30.2}
+    & \makecell[l]{ 70.4\\ 58.5}
+    &   41.9    \\
+    \cmidrule{3-15}
+    & & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^\dagger}$
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{S 1 \\ S 2}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.3 \\94.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{97.6 \\94.3}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.4 \\94.5}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{100 \\99.3}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{71.5 \\79.0}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{99.6 \\92.6}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{96.0 \\57.8}
+    & \cellcolor[rgb]{0.9,0.95,1}~\makecell{95.8 \\93.4}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell{30.7 \\30.9}
+    & \cellcolor[rgb]{0.9,0.95,1}\makecell[l]{\textbf{72.5}\textcolor[rgb]{0,0.3,0.6}{{\tiny +2.1}}\\ \textbf{65.4}\textcolor[rgb]{0,0.3,0.6}{{\tiny +6.9}} }
+    & \cellcolor[rgb]{0.9,0.95,1}\textbf{48.0} \textcolor[rgb]{0,0.3,0.6}{↑15\%} \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:navhard}
+\end{table*}
+\begin{table*}[htbp]
+\centering
+\caption{\textbf{Performance on the NAVSIM-v2 \cmtt{navtest} Leaderboard.} ($*$: pseudo-expert supervision; $\dagger$: reward scoring.)}
+\vspace{-0.1in}
+\scriptsize
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l | c|c |*{4}{p{0.03\textwidth}<{\centering}}|*{5}{p{0.03\textwidth}<{\centering}}|l}
+    \toprule
+    \textbf{Method}
+    & \textbf{Backbone}
+    & \textbf{Sim.}
+    & \textbf{NC}↑
+    & \textbf{DAC}↑
+    & \textbf{DDC}↑
+    & \textbf{TLC}↑
+    & \textbf{EP}↑
+    & \textbf{TTC}↑
+    & \textbf{LK}↑
+    & \textbf{HC}↑
+    & \textbf{EC}↑
+    & \textbf{EPDMS}↑  \\
+    \midrule
+
+     \makecell[l]{Human Agent}  & - & -  & 100 & 100 & 99.8  & 100 & 87.4 & 100 & 100 & 98.1 & 90.1 & 90.3    \\
+    \midrule
+            \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{13}{c}{\textit{{Regression-based Planner}}} \\
+
+    \multirowcell{2}[-0.5ex][l]{
+    LTF~\cite{kashyap2022transfuser}} & \multirowcell{2}[-0.8ex][c]{ResNet34}
+    & \textit{w/o}
+    & 97.7
+    & 94.0
+    & 99.3
+    & 99.8
+    & 87.2
+    & 96.7
+    & 95.5
+    & {98.3}
+    & 82.9
+    & 81.5   \\
+    \cmidrule{3-13}
+     &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^\ast}$
+     & \cellcolor[rgb]{0.9,0.95,1}98.3
+     & \cellcolor[rgb]{0.9,0.95,1}95.6
+     & \cellcolor[rgb]{0.9,0.95,1}99.6
+     & \cellcolor[rgb]{0.9,0.95,1}99.8
+     & \cellcolor[rgb]{0.9,0.95,1}87.1
+     & \cellcolor[rgb]{0.9,0.95,1}97.5
+     & \cellcolor[rgb]{0.9,0.95,1}97.2
+     & \cellcolor[rgb]{0.9,0.95,1}98.3
+     & \cellcolor[rgb]{0.9,0.95,1}88.2
+     & \cellcolor[rgb]{0.9,0.95,1}\textbf{84.4} \textcolor[rgb]{0,0.3,0.6}{{\tiny +2.9}}  \\
+            \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{13}{c}{\textit{{Diffusion-based Planner\quad \quad}}} \\
+   \multirowcell{2}[-0.5ex][l]{
+   DiffusionDrive~\cite{liao2025diffusiondrive}} & \multirowcell{2}[-0.8ex][c]{ResNet34}
+    & \textit{w/o}
+    & {98.4}
+    & 95.5
+    & 99.5
+    & 99.8
+    & 87.5
+    & 97.5
+    & 96.9
+    &  {98.4}
+    & {87.7}
+    & 84.2    \\
+    \cmidrule{3-13}
+     &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^\ast}$
+     & \cellcolor[rgb]{0.9,0.95,1}98.5
+     & \cellcolor[rgb]{0.9,0.95,1}97.1
+     & \cellcolor[rgb]{0.9,0.95,1}99.6
+     & \cellcolor[rgb]{0.9,0.95,1}99.8
+     & \cellcolor[rgb]{0.9,0.95,1}87.4
+     & \cellcolor[rgb]{0.9,0.95,1}97.8
+     & \cellcolor[rgb]{0.9,0.95,1}98.0
+     & \cellcolor[rgb]{0.9,0.95,1}98.3
+     & \cellcolor[rgb]{0.9,0.95,1}87.5
+     & \cellcolor[rgb]{0.9,0.95,1}\textbf{85.9} \textcolor[rgb]{0,0.3,0.6}{{\tiny +1.7}}    \\
+    \rowcolor[HTML]{EEE5F4}\hline
+     \multicolumn{13}{c}{\textit{{Scoring-based Planner\quad \quad\quad }}} \\
+    \multirowcell{4}[-2.5ex][l]{
+    GTRS-Dense~\cite{li2025gtrs}} &
+    \multirowcell{2}[-0.8ex][c]{ResNet34}
+    & \textit{w/o}
+    & {97.6}
+    & 97.5
+    & 99.0
+    & {99.9}
+    & 87.9
+    & 97.0
+    & 95.9
+    & {97.5}
+    & 55.9
+    & 82.3    \\
+    \cmidrule{3-13}
+      &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^\dagger}$
+     & \cellcolor[rgb]{0.9,0.95,1}98.4
+     & \cellcolor[rgb]{0.9,0.95,1}98.8
+     & \cellcolor[rgb]{0.9,0.95,1}99.4
+     & \cellcolor[rgb]{0.9,0.95,1}99.9
+     & \cellcolor[rgb]{0.9,0.95,1}88.0
+     & \cellcolor[rgb]{0.9,0.95,1}98.0
+     & \cellcolor[rgb]{0.9,0.95,1}96.5
+     & \cellcolor[rgb]{0.9,0.95,1}97.6
+     & \cellcolor[rgb]{0.9,0.95,1}58.0
+      & \cellcolor[rgb]{0.9,0.95,1}\textbf{84.6} \textcolor[rgb]{0,0.3,0.6}{{\tiny +2.3}}    \\
+     \cmidrule{2-13} &
+    \multirowcell{2}[-0.8ex][c]{V2-99}
+    & \textit{w/o}
+    & 97.6
+    & 98.5
+    & {99.5}
+    & {99.9}
+    & {89.5}
+    & 97.2
+    & {96.8}
+    & 97.2
+    & 57.2
+    & 84.0    \\
+    \cmidrule{3-13}
+      &  & \cellcolor[rgb]{0.9,0.95,1}\textit{w/}${^{\dagger}}$
+     & \cellcolor[rgb]{0.9,0.95,1}97.6
+     & \cellcolor[rgb]{0.9,0.95,1}98.9
+     & \cellcolor[rgb]{0.9,0.95,1}99.6
+     & \cellcolor[rgb]{0.9,0.95,1}99.9
+     & \cellcolor[rgb]{0.9,0.95,1}89.9
+     & \cellcolor[rgb]{0.9,0.95,1}97.1
+     & \cellcolor[rgb]{0.9,0.95,1}97.2
+     & \cellcolor[rgb]{0.9,0.95,1}97.7
+     & \cellcolor[rgb]{0.9,0.95,1}58.7
+      & \cellcolor[rgb]{0.9,0.95,1}\cellcolor[rgb]{0.9,0.95,1}\textbf{84.6} \textcolor[rgb]{0,0.3,0.6}{{\tiny +0.8}}    \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5pt}
+\label{tab:navtest}
+\end{table*}
+\end{document}

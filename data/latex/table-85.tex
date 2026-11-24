@@ -1,0 +1,92 @@
+% table
+\usepackage{multirow}
+\usepackage{multicol} % used by tables
+\usepackage{booktabs}
+\usepackage{tabularx} % 导入tabularx包
+\usepackage{graphicx} % For \resizebox
+\usepackage{adjustbox} % 导入adjustbox包
+\usepackage{colortbl}
+\usepackage{caption}
+\usepackage{appendix}
+\captionsetup[table]{skip=5pt}
+\usepackage[dvipsnames]{xcolor} % used by tables
+% green-lightgreen-yellow-white
+\colorlet{colorFst}{Green!25}       % first
+\colorlet{colorSnd}{SpringGreen!45} % second
+\colorlet{colorTrd}{Yellow!30}      % third
+\colorlet{colorLow}{darkgray!30}    % low-light color
+\colorlet{colorDeg}{Orange!0}      % degradation
+\newcommand{\fs}{\cellcolor{colorFst}\bf}   % first
+\newcommand{\nd}{\cellcolor{colorSnd}}      % second
+\newcommand{\rd}{\cellcolor{colorTrd}}      % third
+\newcommand{\lo}{\color{colorLow}}          % low-light
+\newcommand{\degr}{\cellcolor{colorDeg}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+    \resizebox{2.1\columnwidth}{!}{
+\begin{tabular}{l|l|cccccc|cccc}
+\toprule
+\multicolumn{1}{l|}{\multirow{3}{*}{\!\!{Domain}\!\!}} & \multirow{2}{*}{{Dataset}} & CLIP$^{*}$ & WinCLIP$^{*}$  & VAND$^{*}$  & MVFA-AD & {\!\!\!\!\!\! AnomalyCLIP$^{*}$\!\!\!\!\!\!}& AdaCLIP & \multicolumn{4}{c}{\textbf{Ours}}\\
+        \cline{3-8} \cline{9-12}
+        & & \footnotesize{OpenCLIP} & \small{CVPR 2023} & \small{CVPRw 2023} & \small{CVPR 2024} & \small{ICLR2024} &\small{ECCV2024}&\multicolumn{4}{c}{-}\\
+        \cline{2-2} \cline{3-8} \cline{9-12}
+        & \small{Available training shots} & - & - & full & full & full & full & 2 & 16 & 64 & full \\
+        \midrule
+        \multirow{3}{*}{Industrial}
+        & BTAD & 30.6 & 32.8 & 91.1 & 90.1 &  93.3 & 90.8 & 92.8 & \rd 94.4 & \nd 96.5 & \fs 97.0\\
+        & MPDD & 62.1 & 95.2 & 94.9 & 94.5 & 96.2 &  96.6 &  96.3 & \nd 96.5 &  \rd 96.3  & \fs 96.7 \\
+        &MVTec-AD & 38.4 & 85.1 & 87.6 & 84.9 &  91.1 & 89.9 & 91.0 & \rd 91.2 & \nd 91.6 & \fs 91.9 \\
+        &\textit{VisA} & 46.6 & 79.6 & 94.2 & 93.4 &  \nd 95.4 & \fs 95.5 & 93.4 & 93.8 & 94.0 & \fs 95.5 \\
+        \midrule
+        \multirow{6}{*}{Medical}&Brain MRI &68.3 & 86.0 & 94.5 &95.6 &  96.2 & 93.9 & \rd 96.3 &  \nd 96.4 & \fs 96.5 & 95.5 \\
+        & Liver CT & 90.5 & 96.2 & 95.6 & 96.8 & 93.9 & 94.5 &  97.3 & \rd 97.7 & \nd 97.7 & \fs 97.8  \\
+        & Retina OCT & 21.3 & 80.6 & 88.5 & 90.9 & 92.6 & 88.5 &  94.2 & \nd 95.1 & \rd 94.4 & \fs 95.5 \\
+        & ColonDB & 49.5 & 51.2 & 78.2 & 78.4 &  82.9 & 80.0 & \rd 83.9 &  83.5 & \fs 84.7 & \nd 84.0 \\
+        & ClinicDB & 47.5 & 70.3 & 85.1 & 83.9 & 85.0 & 85.9 & \nd 89.2 &  87.6 & \rd 87.8 & \fs 89.9 \\
+        & Kvasir & 44.6 & 69.7 & 80.3 &  81.9 &  81.9 & \nd 86.4 & 82.1 & 84.6 & \rd 85.2 & \fs 87.2 \\
+        & CVC-300 & 49.9 & - & 92.8 & 82.6 & 95.4 & 92.9 & 96.0 & \fs 97.4 & \rd 96.0 & \nd 96.4 \\
+        \midrule
+        \multicolumn{2}{c|}{Average} & 49.9 & 74.7 & 89.3 & 88.5 &  91.3 & 90.4 & 92.0 &  \rd 92.6 & \nd 92.8 & \fs 93.4 \\
+\bottomrule
+\end{tabular}
+    }
+    \vspace{-1mm}
+\caption{Pixel-level AUROC of zero-shot AD methods in Industrial and Medical domains. Method sources and the number of shots used for training are noted. Results of methods with $^*$ are copied from the papers or inferred from official weight.
+    Best results are highlighted as \colorbox{colorFst}{\bf \!first\!}, \colorbox{colorSnd}{\!second\!} and \colorbox{colorTrd}{\!third\!}.}
+\label{tb:pixel}
+    \vspace{-1.5mm}
+\end{table*}
+\begin{table*}[t]
+\centering
+    \resizebox{2.1\columnwidth}{!}{
+\begin{tabular}{l|l|ccccc|cccc}
+\toprule
+\multicolumn{1}{l|}{\multirow{3}{*}{\!\!{Domain}\!\!}} & \multirow{2}{*}{{Dataset}} & {\!\!CLIP\&VAND$^{*}$\!\!} & {\!\!WinCLIP$^{*}$\!\!} & {\!\!MVFA-AD\!\!\!} & {\!\! AnomalyCLIP$^{*}$\!\!}  & {\!\!AdaCLIP \!\!} & \multicolumn{4}{c}{\textbf{Ours}}\\
+        \cline{3-7} \cline{8-11}
+        & & \small{OpenCLIP} & \small{CVPR 2023} & \small{CVPR 2024} & \small{ICLR2024} &\small{ECCV2024} &\multicolumn{4}{c}{-}\\
+        \cline{2-2}\cline{3-7} \cline{8-11}
+        & \small{Available training shots} & - & - & full & full & full & 2 & 16 & 64 & full \\
+        \midrule
+        \multirow{3}{*}{Industrial}
+        & BTAD & 73.6 & 68.2 & \rd 94.3 &85.3 & 90.9 & 88.0 &  90.9 &\nd 94.7 & \fs 94.8\\
+        & MPDD &  73.0 & 63.6 & 70.9 &  73.7 &  72.1 & 63.6 & \fs 78.3 &\nd 75.7 &\rd 75.1 \\
+        & MVTec-AD & 86.1 & \nd 91.8 & 86.6 & \rd 90.9 & 90.0 & 85.9 & 89.7 & \fs 92.0 &  90.5 \\
+        & \textit{VisA} & 66.4 &  78.0 & 76.5 &  82.1 & \nd 84.3 & 78.4 & \rd 84.0 & 84.1 & \fs 84.6 \\
+        \midrule
+        \multirow{3}{*}{Medical}&Brain MRI & 58.8 & 66.5 & 70.9 & \rd 83.3 &  80.2 & \fs 84.3 & 80.4 & \nd 83.4 & 80.2  \\
+        & Liver CT & 54.7 & 64.2 & 63.0 &61.6 &  64.2 & \nd 69.4 & 68.1 & \rd 69.2 & \fs 69.7 \\
+        & Retina OCT & 65.6 & 42.5 & 77.3 & 75.7 & \rd 82.7 & 77.4 &  81.0 & \fs 82.9 & \nd 82.7 \\
+        \midrule
+        \multicolumn{2}{c|}{Average}  & 68.3 & 67.8 & 77.1 &  78.4 &  80.6 & 78.1 & \rd 81.8 & \fs 83.1 & \nd 82.5 \\
+\bottomrule
+\end{tabular}
+    }
+    \vspace{-1mm}
+\caption{Image-level AUROC of zero-shot AD methods in Industrial and Medical domains. Method sources and the number of shots used for training are noted. Results of methods with $^*$ are copied from the papers or inferred from official weight.
+    Best results are highlighted as \colorbox{colorFst}{\bf \!first\!}, \colorbox{colorSnd}{\!second\!} and \colorbox{colorTrd}{\!third\!}.}
+\label{tb:image}
+    \vspace{-2.5mm}
+\end{table*}
+\end{document}

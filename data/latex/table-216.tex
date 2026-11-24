@@ -1,0 +1,97 @@
+\begin{document}
+\begin{table}[t]
+  \caption{\textbf{Performance comparison between different frame selection methods.} Base LMMs are Qwen2.5-VL-32B~\cite{bai2025qwen25vltechnicalreport} (left) and Qwen2.5-VL-7B~\cite{bai2025qwen25vltechnicalreport} (right). \textbf{Bold} indicates best performance, while \colorbox{red!10}{Red Box} denote results inferior to uniform sampling.}
+  \label{tab:main}
+  \centering
+  % --- 左侧表格: Qwen2.5-VL-32B ---
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|c|ZZZZ} % 右边四列使用 Z 类型确保等宽
+         \toprule
+         \multirow{2}{*}{Method} & \multirow{2}{*}{\#Frames} & \multirow{2}{*}{MLVU} & \multirow{2}{*}{LVB} & \multicolumn{2}{c}{VideoMME} \\
+         \cmidrule(lr){5-6}
+         & & & & {Medium} & {Long}\\
+         \midrule
+         UNI & 8 & $55.93$ & $53.40$ & $53.89$ & $\textbf{51.56}$ \\
+         Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 8 & $56.03$ & $53.78$ & $54.03$ & \cellcolor{red!10}$49.63$ \\
+         \textbf{DIG}~(\textit{Ours}) & 8 & $\textbf{61.55}$ & $\textbf{56.77}$ & $\textbf{54.12}$ & \cellcolor{red!10}$51.21$ \\
+         \midrule
+         UNI & 16 & $58.79$ & $54.67$ & $55.44$ & $\textbf{53.33}$ \\
+         Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 16 & \cellcolor{red!10}$57.73$ & $56.62$ & \cellcolor{red!10}$55.09$ & \cellcolor{red!10}$51.11$ \\
+         \textbf{DIG}~(\textit{Ours}) & 16 & $\textbf{66.21}$ & $\textbf{58.86}$ & $\textbf{58.62}$ & \cellcolor{red!10}$52.18$ \\
+         \midrule
+         UNI & 32 & $61.91$ & $57.89$ & $57.89$ & $53.33$ \\
+         AKS~\cite{tang2025adaptivekeyframesamplinglong} & 32 & $66.42$ & $59.31$ & $59.89$ & $56.00$ \\
+         Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 32 & \cellcolor{red!10}$60.95$ & \cellcolor{red!10}$57.37$ & $60.43$ & $55.90$ \\
+         \textbf{DIG}~(\textit{Ours}) & 32 & $\textbf{70.69}$ & $\textbf{61.86}$ & $\textbf{60.87}$ & $\textbf{57.76}$ \\
+         \midrule
+         UNI & 64 & $66.24$ & $59.01$ & $64.33$ & $55.67$ \\
+         AKS~\cite{tang2025adaptivekeyframesamplinglong} & 64 & $69.41$ & $61.41$ & $64.67$ & \textbf{58.44} \\
+         Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 64 & \cellcolor{red!10}$66.05$ & $59.61$ & \cellcolor{red!10}$62.80$ & $57.72$ \\
+         \textbf{DIG}~(\textit{Ours}) & 64 & $\textbf{74.19}$ & $\textbf{63.65}$ & $\textbf{66.24}$ & $58.19$ \\
+         \midrule
+         UNI & 128 & $70.24$ & $61.78$ & $68.89$ & $59.67$ \\
+         AKS~\cite{tang2025adaptivekeyframesamplinglong} & 128 & $72.77$ & $62.00$ & \cellcolor{red!10}$68.33$ & $61.44$ \\
+         Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 128 & \cellcolor{red!10}$70.10$ & \cellcolor{red!10}$60.06$ & \cellcolor{red!10}$68.21$ & \cellcolor{red!10}$59.28$ \\
+         \textbf{DIG}~(\textit{Ours}) & 128 & $\textbf{75.20}$ & $\textbf{65.60}$ & $\textbf{69.00}$ & $\textbf{62.29}$ \\
+         \midrule
+         UNI & 192 & $71.76$ & $63.80$ & $69.56$ & $62.00$ \\
+         AKS~\cite{tang2025adaptivekeyframesamplinglong} & 192 & $73.46$ & \cellcolor{red!10}$62.45$ & $69.89$ & \cellcolor{red!10}$61.00$ \\
+         \textbf{DIG}~(\textit{Ours}) & 192 & $\textbf{76.66}$ & $\textbf{66.42}$ & $\textbf{70.11}$ & $\textbf{63.42}$ \\
+         \bottomrule
+      \end{tabular}
+    }
+  \end{minipage}
+\end{table}
+\begin{table}[t]
+  \caption{\textbf{Performance comparison between different frame selection methods.} Base LMMs are Qwen2.5-VL-32B~\cite{bai2025qwen25vltechnicalreport} (left) and Qwen2.5-VL-7B~\cite{bai2025qwen25vltechnicalreport} (right). \textbf{Bold} indicates best performance, while \colorbox{red!10}{Red Box} denote results inferior to uniform sampling.}
+  \label{tab:main}
+  \centering
+  % --- 右侧表格: Qwen2.5-VL-7B ---
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|c|cccc} % 右边四列使用 Z 类型确保等宽
+        \toprule
+        \multirow{2}{*}{Method} & \multirow{2}{*}{\#Frames} & \multirow{2}{*}{MLVU} & \multirow{2}{*}{LVB} & \multicolumn{2}{c}{VideoMME} \\
+        \cmidrule(lr){5-6}
+        & & & & {Medium} & {Long}\\
+        \midrule
+        UNI & 8 & $53.64$ & $51.23$ & $51.36$ & $45.84$ \\
+        Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 8 & $54.42$ & $54.23$ & \cellcolor{red!10}$50.81$ & $\textbf{49.21}$ \\
+        \textbf{DIG}~(\textit{Ours}) & 8 & $\textbf{58.64}$ & $\textbf{55.20}$ & $\textbf{54.23}$ & $46.88$ \\
+        \midrule
+        UNI & 16 & $56.43$ & $54.45$ & $55.94$ & $48.12$ \\
+        Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 16 & $56.81$ & $57.37$ & \cellcolor{red!10}$53.78$ & $49.02$ \\
+        \textbf{DIG}~(\textit{Ours}) & 16 & $\textbf{63.98}$ & $\textbf{57.89}$ & $\textbf{56.81}$ & $\textbf{51.93}$ \\
+        \midrule
+        UNI & 32 & $59.52$ & $56.92$ & $59.08$ & $52.02$ \\
+        AKS~\cite{tang2025adaptivekeyframesamplinglong} & 32 & $65.07$ & $59.31$ & $59.22$ & $53.11$ \\
+        Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 32 & $60.03$ & \cellcolor{red!10}$56.39$ & \cellcolor{red!10}$56.64$ & \cellcolor{red!10}$51.57$ \\
+        \textbf{DIG}~(\textit{Ours}) & 32 & $\textbf{67.20}$ & $\textbf{60.43}$ & $\textbf{61.62}$ & $\textbf{53.24}$ \\
+        \midrule
+        UNI & 64 & $63.61$ & $58.94$ & $61.01$ & $51.27$ \\
+        AKS~\cite{tang2025adaptivekeyframesamplinglong} & 64 & $66.59$ & $60.66$ & $\textbf{62.94}$ & $53.44$ \\
+        Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 64 & \cellcolor{red!10}$63.43$ & \cellcolor{red!10}$57.52$ & $61.32$ & $53.70$ \\
+        \textbf{DIG}~(\textit{Ours}) & 64 & $\textbf{70.65}$ & $\textbf{61.41}$ & $62.61$ & $\textbf{55.30}$ \\
+        \midrule
+        UNI & 128 & $67.31$ & $61.86$ & $65.89$ & $54.84$ \\
+        AKS~\cite{tang2025adaptivekeyframesamplinglong} & 128 & $68.68$ & \cellcolor{red!10}$60.36$ & \cellcolor{red!10}$65.67$ & $\textbf{55.93}$ \\
+        Q-Frame~\cite{zhang2025qframequeryawareframeselection} & 128 & $68.03$ & \cellcolor{red!10}$59.76$ & $65.91$ & $54.81$ \\
+        \textbf{DIG}~(\textit{Ours}) & 128 & $\textbf{71.40}$ & $\textbf{63.13}$ & $\textbf{66.78}$ & $55.69$ \\
+        \midrule
+        UNI & 192 & $69.03$ & $61.93$ & $67.01$ & $55.82$ \\
+        AKS~\cite{tang2025adaptivekeyframesamplinglong} & 192 & $69.93$ & \cellcolor{red!10}$61.26$ & $\textbf{68.22}$ & \cellcolor{red!10}$54.41$ \\
+        \textbf{DIG}~(\textit{Ours}) & 192 & $\textbf{72.32}$ & $\textbf{64.32}$ & $68.00$ & $\textbf{58.24}$ \\
+        \midrule
+        UNI & 256 & $69.15$ & $61.48$ & $66.31$ & $57.12$ \\
+        AKS~\cite{tang2025adaptivekeyframesamplinglong} & 256 & $71.50$ & \cellcolor{red!10}$61.03$ & $67.56$ & \cellcolor{red!10}$55.11$ \\
+        \textbf{DIG}~(\textit{Ours}) & 256 & $\textbf{72.46}$ & $\textbf{64.62}$ & $\textbf{67.66}$ & $\textbf{57.76}$ \\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{minipage}
+  \vspace{-6pt}
+\end{table}
+\end{document}

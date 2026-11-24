@@ -1,0 +1,181 @@
+\begin{document}
+\setlength{\tabcolsep}{6pt}
+\begin{table*}[t]
+\small
+\begin{center}
+\caption{\footnotesize{
+Ablation study on each component on OfficeHome and TerraIncognita dataset.
+}}
+\label{tab:ablation_study}
+\vspace{2.0mm}
+\scalebox{0.7}{
+\begin{tabular}{l|lcccclccccl} % 1 (Method) + 5 (OfficeHome) + 5 (TerraInc) = 11 列
+\hline \addlinespace[0.6mm]
+\rowcolor[HTML]{EFEFEF}
+\cellcolor[HTML]{EFEFEF}
+& \cellcolor[HTML]{EFEFEF} &
+\multicolumn{5}{c}{\cellcolor[HTML]{EFEFEF}\textbf{OfficeHome}} &
+\multicolumn{5}{c}{\cellcolor[HTML]{EFEFEF}\textbf{TerraIncognita}} \\ \cline{3-12}
+\rowcolor[HTML]{EFEFEF}
+\multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}\textbf{Idx}}
+& \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}\textbf{Method}} &
+\textbf{Art} & \textbf{Clipart} & \textbf{Product} & \textbf{Real} & \textbf{Avg.} &
+\textbf{L100} & \textbf{L38} & \textbf{L43} & \textbf{L46} & \textbf{Avg.} \\
+\addlinespace[0.6mm] \hline \addlinespace[0.6mm]
+1
+& \textbf{GPT-4o}
+& 87.10 & 85.36 & 95.20 & 92.82 & 90.12
+& 67.28 & 59.71 & 64.47 & 50.49 & 60.49 \\
+% \addlinespace[0.6mm] \hline \addlinespace[0.6mm]
+% \rowcolor[HTML]{ECF4FF}
+% \textbf{InternVL3-1B}
+% & - & - & - & - & -
+% & - & - & - & - & - \\
+\addlinespace[0.6mm] \hline \addlinespace[0.6mm]
+\rowcolor[HTML]{ECF4FF}
+2
+& \textbf{InternVL3-2B}
+& 3.79 & 3.64 & 2.70 & 3.49 & 3.41
+& 0.16 & 0.25 & 0.15 & 0.33 & 0.22 \\
+3
+& {\color[HTML]{9B9B9B}
+\textbf{+ CLS only}}
+& {\color[HTML]{9B9B9B} 88.59}
+& {\color[HTML]{9B9B9B} 81.49}
+& {\color[HTML]{9B9B9B} 94.46}
+& {\color[HTML]{9B9B9B} 92.10}
+& {\color[HTML]{9B9B9B} 89.16}
+& {\color[HTML]{9B9B9B} 75.26}
+& {\color[HTML]{9B9B9B} 64.66}
+& {\color[HTML]{9B9B9B} 69.98}
+& {\color[HTML]{9B9B9B} 55.99}
+& {\color[HTML]{9B9B9B} 66.47} \\
+4
+& {\color[HTML]{9B9B9B}
+\textbf{+ Reasoning only (Baseline)}}
+& {\color[HTML]{9B9B9B} 87.03}
+& {\color[HTML]{9B9B9B} 82.13}
+& {\color[HTML]{9B9B9B} 93.77}
+& {\color[HTML]{9B9B9B} 91.45}
+& {\color[HTML]{9B9B9B} 88.60}
+& {\color[HTML]{9B9B9B} 74.79}
+& {\color[HTML]{9B9B9B} 61.26}
+& {\color[HTML]{9B9B9B} 69.40}
+& {\color[HTML]{9B9B9B} 58.56}
+& {\color[HTML]{9B9B9B} 66.00} \\
+5
+& {\color[HTML]{F56B00}
+\textbf{+ MTCT}}
+& {\color[HTML]{F56B00} 89.00}
+& {\color[HTML]{F56B00} 83.71}
+& {\color[HTML]{F56B00} 95.49}
+& {\color[HTML]{F56B00} 93.53}
+& {\color[HTML]{F56B00} 90.43$^{(\uparrow1.83\%p)}$}
+& {\color[HTML]{F56B00} 77.82}
+& {\color[HTML]{F56B00} 65.03}
+& {\color[HTML]{F56B00} 72.71}
+& {\color[HTML]{F56B00} 59.41}
+& {\color[HTML]{F56B00} 68.74$^{(\uparrow2.74\%p)}$} \\
+6
+& {\color[HTML]{F56B00}
+\textbf{+ SARR}}
+& {\color[HTML]{F56B00} 88.30}
+& {\color[HTML]{F56B00} 82.54}
+& {\color[HTML]{F56B00} 95.29}
+& {\color[HTML]{F56B00} 93.07}
+& {\color[HTML]{F56B00} 89.80$^{(\uparrow1.20\%p)}$}
+& {\color[HTML]{F56B00} 75.83}
+& {\color[HTML]{F56B00} 62.08}
+& {\color[HTML]{F56B00} 69.51}
+& {\color[HTML]{F56B00} 59.27}
+& {\color[HTML]{F56B00} 66.67$^{(\uparrow0.67\%p)}$} \\
+7
+& {\color[HTML]{009901}
+\textbf{+ MTCT + SARR}}
+& {\color[HTML]{009901} 90.13}
+& {\color[HTML]{009901} 84.57}
+& {\color[HTML]{009901} 96.00}
+& {\color[HTML]{009901} 93.62}
+& {\color[HTML]{009901} 91.08$^{(\uparrow2.48\%p)}$}
+& {\color[HTML]{009901} 82.43}
+& {\color[HTML]{009901} 66.54}
+& {\color[HTML]{009901} 73.62}
+& {\color[HTML]{009901} 61.15}
+& {\color[HTML]{009901} 70.94$^{(\uparrow4.94\%p)}$} \\
+\addlinespace[0.6mm] \hline \addlinespace[0.6mm]
+\rowcolor[HTML]{ECF4FF}
+8
+& \textbf{InternVL3-8B}
+& 81.95 & 78.26 & 91.91 & 88.27 & 85.10
+& 61.84 & 41.27 & 45.60 & 38.66 & 46.84 \\
+9
+& {\color[HTML]{9B9B9B}
+\textbf{+ CLS only}}
+& {\color[HTML]{9B9B9B} 87.27}
+& {\color[HTML]{9B9B9B} 82.59}
+& {\color[HTML]{9B9B9B} 95.11}
+& {\color[HTML]{9B9B9B} 92.59}
+& {\color[HTML]{9B9B9B} 89.39}
+& {\color[HTML]{9B9B9B} 72.80}
+& {\color[HTML]{9B9B9B} 65.64}
+& {\color[HTML]{9B9B9B} 69.70}
+& {\color[HTML]{9B9B9B} 58.62}
+& {\color[HTML]{9B9B9B} 66.69} \\
+10
+& {\color[HTML]{9B9B9B}
+\textbf{+ Reasoning only (Baseline)}}
+& {\color[HTML]{9B9B9B} 86.59}
+& {\color[HTML]{9B9B9B} 82.45}
+& {\color[HTML]{9B9B9B} 94.33}
+& {\color[HTML]{9B9B9B} 91.66}
+& {\color[HTML]{9B9B9B} 88.76}
+& {\color[HTML]{9B9B9B} 74.42}
+& {\color[HTML]{9B9B9B} 60.39}
+& {\color[HTML]{9B9B9B} 68.21}
+& {\color[HTML]{9B9B9B} 55.21}
+& {\color[HTML]{9B9B9B} 64.56} \\
+11
+& {\color[HTML]{F56B00}
+\textbf{+ MTCT}}
+& {\color[HTML]{F56B00} 89.33}
+& {\color[HTML]{F56B00} 83.53}
+& {\color[HTML]{F56B00} 95.79}
+& {\color[HTML]{F56B00} 93.67}
+& {\color[HTML]{F56B00} 90.58$^{(\uparrow1.81\%p)}$}
+& {\color[HTML]{F56B00} 76.78}
+& {\color[HTML]{F56B00} 60.55}
+& {\color[HTML]{F56B00} 71.94}
+& {\color[HTML]{F56B00} 59.47}
+& {\color[HTML]{F56B00} 67.19$^{(\uparrow2.63\%p)}$} \\
+12
+& {\color[HTML]{F56B00}
+\textbf{+ SARR}}
+& {\color[HTML]{F56B00} 90.89}
+& {\color[HTML]{F56B00} 83.34}
+& {\color[HTML]{F56B00} 95.95}
+& {\color[HTML]{F56B00} 93.44}
+& {\color[HTML]{F56B00} 90.91$^{(\uparrow2.14\%p)}$}
+& {\color[HTML]{F56B00} 74.97}
+& {\color[HTML]{F56B00} 60.96}
+& {\color[HTML]{F56B00} 68.28}
+& {\color[HTML]{F56B00} 56.96}
+& {\color[HTML]{F56B00} 65.29$^{(\uparrow0.73\%p)}$} \\
+13
+& {\color[HTML]{009901}
+\textbf{+ MTCT + SARR}}
+& {\color[HTML]{009901} 91.72}
+& {\color[HTML]{009901} 85.14}
+& {\color[HTML]{009901} 96.25}
+& {\color[HTML]{009901} 93.81}
+& {\color[HTML]{009901} 91.73$^{(\uparrow2.97\%p)}$}
+& {\color[HTML]{009901} 81.74}
+& {\color[HTML]{009901} 66.12}
+& {\color[HTML]{009901} 73.38}
+& {\color[HTML]{009901} 61.36}
+& {\color[HTML]{009901} 70.65$^{(\uparrow6.09\%p)}$} \\
+\addlinespace[0.6mm] \hline
+\end{tabular}}
+\end{center}
+\vspace{-5.0mm}
+\end{table*}
+\end{document}

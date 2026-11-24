@@ -1,0 +1,171 @@
+\begin{document}
+\begin{table*}[htbp]
+\centering
+\vspace{-5mm}
+\caption{\textbf{Quantitative comparison of text-to-image generation} on Qwen-Image.}
+\vspace{-2mm}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l | c  c | c  c | c  c | c c c}
+    \toprule
+    \multirow{2}{*}{\textbf{Method}}
+    & \multicolumn{4}{c|}{\textbf{Acceleration}}
+    & \multicolumn{2}{c|}{\textbf{Quality Metrics}}
+    & \multicolumn{3}{c}{\textbf{Perceptual Metrics}} \\
+    \cline{2-10}
+    & \textbf{Latency(s) \(\downarrow\)}
+    & \textbf{Speed \(\uparrow\)}
+    & \textbf{FLOPs(T) \(\downarrow\)}
+    & \textbf{Speed \(\uparrow\)}
+    & \textbf{Image Reward \(\uparrow\)}
+    & \textbf{CLIP \(\uparrow\)}
+    & \textbf{PSNR \(\uparrow\)}
+    & \textbf{SSIM \(\uparrow\)}
+    & \textbf{LPIPS \(\downarrow\)}\rule{0pt}{2ex} \\
+    \midrule
+\textbf{Original: 50 steps }
+& 74.91 & 1.00$\times$ & 12917.56 & 1.00$\times$ & 1.2547 \textcolor{gray!70}{\scriptsize (+0.000\%)} & 35.51 & $\infty$ & 1.000 & 0.000 \\
+$50\%$ steps
+& 37.73 & 1.99$\times$ & 6458.78 & 2.00$\times$ & 1.2048 \textcolor{gray!70}{\scriptsize (-3.979\%)} & 35.31 & 30.85 & 0.798 & 0.249 \\
+$20\%$ steps
+& 15.31 & 4.89$\times$ & 2583.51 & 5.00$\times$ & 0.9234 \textcolor{gray!70}{\scriptsize (-26.42\%)} & 35.17 & 28.52 & 0.627 & 0.504 \\
+\midrule
+\textbf{TaylorSeer}($\mathcal{N}=3$)
+& 36.90 & 2.03$\times$ & 4646.60 & 2.78$\times$ & 1.0685 \textcolor{gray!70}{\scriptsize (-14.83\%)} & 34.76 & 28.29 & 0.504 & 0.628 \\
+\rowcolor{gray!20}
+\textbf{HyCa}($\mathcal{N}=3$)
+& \textbf{35.33} & \textbf{2.12}$\times$ & \textbf{4646.60} & \textbf{2.78}$\times$ & \bf {1.2363} \textcolor[HTML]{0f98b0}{\scriptsize (-1.465\%)} & \textbf{34.97} & \textbf{30.42} & \textbf{0.763} & \textbf{0.247} \\
+\midrule
+\textbf{FORA}($\mathcal{N}=5$)
+& 21.71 & 3.45$\times$ & 2585.46 & 5.00$\times$ & 0.7767 \textcolor{gray!70}{\scriptsize (-38.10\%)} & 34.47 & 24.55 & 0.553 & 0.556 \\
+\textbf{\texttt{ToCa}}($\mathcal{N}=8$)
+& 60.62 & 1.24$\times$ & 2991.34 & 4.32$\times$ & 0.9673 \textcolor{gray!70}{\scriptsize (-22.87\%)} & 34.83 & 29.00 & 0.643 & 0.417 \\
+\textbf{\texttt{DuCa}}($\mathcal{N}$=9)
+& 24.83 & 3.02$\times$ & 2958.13 & 4.37$\times$ & 0.8213 \textcolor{gray!70}{\scriptsize (-34.53\%)} & {34.69} &{28.42} & {0.582} & {0.531} \\
+\textbf{TaylorSeer}($\mathcal{N}=6$)
+& 24.61 & 3.04$\times$ & 2585.46 & 5.00$\times$ & 0.9483 \textcolor{gray!70}{\scriptsize (-24.41\%)} & 34.76 & 28.29 & 0.504 & 0.628 \\
+\rowcolor{gray!20}
+\textbf{HyCa}($\mathcal{N}=6$)
+& \textbf{21.58} & \textbf{3.47}$\times$ & \textbf{2584.46} & \textbf{5.00}$\times$ & \bf {1.1939} \textcolor[HTML]{0f98b0}{\scriptsize (-4.848\%)} & \textbf{34.87} & \textbf{29.65} & \textbf{0.709} & \textbf{0.320} \\
+\midrule
+\textbf{FORA}($\mathcal{N}=6$)
+& 17.89 & 4.19$\times$ & 2323.30 & 5.56$\times$ & 0.4781 \textcolor{gray!70}{\scriptsize (-61.91\%)} & 28.50 & 28.38 & 0.546 & 0.597 \\
+\textbf{\texttt{ToCa}}($\mathcal{N}=12$)
+& 52.72 & 1.42$\times$ & 2406.20 & 5.37$\times$ & 0.5593 \textcolor{gray!70}{\scriptsize (-55.42\%)} & 33.92 & 28.72 & 0.589 & 0.519 \\
+\textbf{\texttt{DuCa}}($\mathcal{N}$=12)
+& 21.82 & 3.43$\times$ & 2171.56 & 5.95$\times$ & 0.5225 \textcolor{gray!70}{\scriptsize (-58.34\%)} & 33.97 & 28.37 & 0.576 & 0.593 \\
+\textbf{TaylorSeer}($\mathcal{N}=7$)
+& 21.88 & 4.32$\times$ & 2323.30 & 5.56$\times$ & 0.9113 \textcolor{gray!70}{\scriptsize (-27.39\%)} & 34.30 & 28.20 & 0.481 & 0.652 \\
+\rowcolor{gray!20}
+\textbf{HyCa}($\mathcal{N}=8$)
+& \textbf{13.92} & \textbf{5.38}$\times$ & \textbf{2066.81} & \textbf{6.25}$\times$ & \bf {1.0811} \textcolor[HTML]{0f98b0}{\scriptsize (-13.84\%)} & \textbf{34.75} & \textbf{28.89} & \textbf{0.600} & \textbf{0.433} \\
+\bottomrule
+\end{tabular}}
+\label{table:Qwenimage}
+\end{table*}
+\begin{table*}[htb]
+\centering
+\vspace{-4mm}
+\caption{\textbf{Quantitative comparison of text-to-video generation} on HunyuanVideo.}
+\vspace{-2mm}
+\setlength\tabcolsep{5.0pt}
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l | c | c  c | c  c | c }
+    \toprule
+    {\bf Method} & {\bf Efficient} &\multicolumn{4}{c|}{\bf Acceleration} &{\bf VBench $\uparrow$}  \\
+    \cline{3-6}
+    {\bf HunyuanVideo} & {\bf Attention } & {\bf Latency(s) $\downarrow$} & {\bf Speed $\uparrow$} & {\bf FLOPs(T) $\downarrow$}  & {\bf Speed $\uparrow$} & \bf Score(\%)\rule{0pt}{2ex}\\
+    \midrule
+  $\textbf{Original: 50 steps}$
+                           & \ding{52}  & 145.00 & 1.00$\times$& {29773.0}   & {1.00$\times$} & 80.66 \textcolor{gray!70}{\scriptsize (+0.0\%)}      \\
+    \midrule
+
+  {$22\%$\textbf{ steps}}  & \ding{52}  & 31.87 & 4.55$\times$ & {6550.1}   & {4.55$\times$} & 78.74 \textcolor{gray!70}{\scriptsize (-2.4\%)}          \\
+\textbf{TeaCache}$({l}=0.4)$
+                           & \ding{52} & 30.49 & 4.76$\times$ & 6550.1 & 4.55$\times$ & 79.36 \textcolor{gray!70}{\scriptsize (-1.6\%)}  \\
+$\textbf{FORA}(N=5)$
+& \ding{52}  & 34.39 & 4.22$\times$  & {5960.4}   & {5.00$\times$} & 78.83 \textcolor{gray!70}{\scriptsize (-2.3\%)}     \\
+$\textbf{\texttt{ToCa}}$ $(\mathcal{N}=5,R=90\%)$
+                           & \ding{56}  & 38.52 & 3.76$\times$ & {7006.2}   & {4.25$\times$} & 78.86 \textcolor{gray!70}{\scriptsize (-2.2\%)}    \\
+
+$\textbf{\texttt{DuCa}} $ $(\mathcal{N}=5,R=90\%)$
+                           & \ding{52}  & 31.69 & 4.58$\times$ & {6483.2}   & {4.48$\times$} & 78.72 \textcolor{gray!70}{\scriptsize (-2.4\%)}    \\
+
+$\textbf{TaylorSeer} $ $(\mathcal{N}=5,O=1)$
+                           & \ding{52}  & 34.84 & 4.16$\times$ & {5960.4}  & {5.00$\times$} & 79.93 \textcolor{gray!70}{\scriptsize (-0.9\%)} \\
+$\textbf{Speca} $ $(\mathcal{N}_{\text{max}}=8, \mathcal{N}_{\text{min}}=2)$
+                           & \ding{52}  & 34.58 & 4.19$\times$ & {5692.7}  & {5.23$\times$} & 79.98 \textcolor{gray!70}{\scriptsize (-0.8\%)} \\
+$\textbf{Clusca} $ $(\mathcal{N}=5,O=1,K=16)$
+                           & \ding{52}  & 35.37 & 4.10$\times$ & {5373.0}  & {5.54$\times$} & 79.96 \textcolor{gray!70}{\scriptsize (-0.9\%)} \\
+$\textbf{FoCa} $ $(\mathcal{N}=5)$
+                           & \ding{52}  & 34.52 & 4.20$\times$ & {5966.5}  & {4.99$\times$} & 79.96 \textcolor{gray!70}{\scriptsize (-0.8\%)} \\
+\rowcolor{gray!20}
+$\textbf{HyCa} $ $(\mathcal{N}=6)$
+                           & \ding{52}  & \bf 28.48 & \textbf{5.09$\times$} & \bf 5359.1  & \textbf{5.56$\times$} & \bf {80.25} \textcolor[HTML]{0f98b0}{\scriptsize (-0.5\%)}  \\
+    \bottomrule
+\end{tabular}}
+\label{table:HunyuanVideo-Metrics}
+\end{table*}
+\begin{table*}[htbp]
+\centering
+\vspace{-7mm}
+\caption{\textbf{Quantitative comparison of text-to-image generation} on FLUX.1-dev.}
+\vspace{-2mm}
+\setlength\tabcolsep{7pt}
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l | c | c  c | c  c | c | c }
+    \toprule
+    \rowcolor{white}
+  {\bf Method} & {\bf Efficient} & \multicolumn{4}{c|}{\bf Acceleration} & \multirow{2}{*} {\bf Image Reward $\uparrow$} & \multirow{2}{*}{\bf CLIP Score $\uparrow$} \\
+    \cline{3-6}
+    {\bf FLUX.1} & {\bf Attention } & {\bf Latency(s) $\downarrow$} & {\bf Speed $\uparrow$} & {\bf FLOPs(T) $\downarrow$}  & {\bf Speed $\uparrow$}\rule{0pt}{2ex} &  & \\
+    \midrule
+        $\textbf{[dev]: 50 steps}$ & \ding{52} & 25.82 & 1.00$\times$ & 3719.50 & 1.00$\times$ & 0.9898 \textcolor{gray!70}{\scriptsize (+0.000\%)} & 32.404 \textcolor{gray!70}{\scriptsize (+0.000\%)} \\
+        \midrule
+        {$60\%$\textbf{ steps}} & \ding{52} & 16.70 & 1.55$\times$ & 2231.70 & 1.67$\times$ & 0.9663 \textcolor{gray!70}{\scriptsize (-2.371\%)} & 32.312 \textcolor{gray!70}{\scriptsize (-0.283\%)} \\
+        {$\Delta$-DiT} ($\mathcal{N}=2$) & \ding{52} & 17.80 & 1.45$\times$ & 2480.01 & 1.50$\times$ & 0.9444 \textcolor{gray!70}{\scriptsize (-4.594\%)} & 32.273 \textcolor{gray!70}{\scriptsize (-0.404\%)} \\
+        {$\Delta$-DiT} ($\mathcal{N}=3$) & \ding{52} & 13.02 & 1.98$\times$ & 1686.76 & 2.21$\times$ & 0.8721 \textcolor{gray!70}{\scriptsize (-11.90\%)} & 32.102 \textcolor{gray!70}{\scriptsize (-0.933\%)} \\
+        $\textbf{DBcache}$ & \ding{52} & 16.88 & 1.53$\times$ & 2384.29 & 1.56$\times$ & 1.0069 \textcolor{gray!70}{\scriptsize (+1.725\%)} & 32.530 \textcolor{gray!70}{\scriptsize (+0.389\%)} \\
+        $\textbf{TaylorSeer}$ $(\mathcal{N}=3, O=2)$ & \ding{52} & 9.89 & 2.61$\times$ & 1320.07 & 2.82$\times$ & 0.9989 \textcolor{gray!70}{\scriptsize (+0.919\%)} & 32.413 \textcolor{gray!70}{\scriptsize (+0.027\%)} \\
+        $\textbf{FoCa}$ $(\mathcal{N}=3)$ & \ding{52} & 9.28 & 2.78$\times$ & 1327.21 & 2.80$\times$ & 0.9890 \textcolor{gray!70}{\scriptsize (-0.081\%)} & 32.577 \textcolor{gray!70}{\scriptsize (+0.533\%)} \\
+        \rowcolor{gray!20}
+        $\textbf{HyCa}$ $(\mathcal{N}=4)$ & \ding{52} & \bf 8.09 & \textbf{3.19$\times$} & \bf 967.91 & \textbf{3.84$\times$} &\bf 1.0182 \textcolor[HTML]{0f98b0}{\scriptsize (+2.865\%)} & \bf 32.671 \textcolor[HTML]{0f98b0}{\scriptsize (+0.822\%)} \\
+        \midrule
+        {$34\%$\textbf{ steps}} & \ding{52} & 9.07 & 2.85$\times$ & 1264.63 & 3.13$\times$ & 0.9453 \textcolor{gray!70}{\scriptsize (-4.498\%)} & 32.114 \textcolor{gray!70}{\scriptsize (-0.893\%)} \\
+        $\textbf{Chipmunk}$ & \ding{52} & 12.72 & 2.02$\times$ & 1505.87 & 2.47$\times$ & 0.9936 \textcolor{gray!70}{\scriptsize (+0.384\%)} & 32.548 \textcolor{gray!70}{\scriptsize (+0.444\%)} \\
+        $\textbf{FORA}$ $(\mathcal{N}=3)$ & \ding{52} & 10.16 & 2.54$\times$ & 1320.07 & 2.82$\times$ & 0.9776 \textcolor{gray!70}{\scriptsize (-1.232\%)} & 32.266 \textcolor{gray!70}{\scriptsize (-0.425\%)} \\
+        $\textbf{\texttt{ToCa}}$ $(\mathcal{N}=6)$ & \ding{56} & 13.16 & 1.96$\times$ & 924.30 & 4.02$\times$ & 0.9802 \textcolor{gray!70}{\scriptsize (-0.968\%)} & 32.083 \textcolor{gray!70}{\scriptsize (-0.990\%)} \\
+        $\textbf{\texttt{DuCa}}$ $(\mathcal{N}=5)$ & \ding{52} & 8.18 & 3.15$\times$ & 978.76 & 3.80$\times$ & 0.9955 \textcolor{gray!70}{\scriptsize (+0.576\%)} & 32.241 \textcolor{gray!70}{\scriptsize (-0.503\%)} \\
+        $\textbf{TaylorSeer}$ $(\mathcal{N}=4, O=2)$ & \ding{52} & 9.24 & 2.80$\times$ & 967.91 & 3.84$\times$ & 0.9857 \textcolor{gray!70}{\scriptsize (-0.414\%)} & 32.413 \textcolor{gray!70}{\scriptsize (+0.027\%)} \\
+        $\textbf{FoCa}$ $(\mathcal{N}=4)$ & \ding{52} & 9.35 & 2.76$\times$ & 1050.70 & 3.54$\times$ & 0.9757 \textcolor{gray!70}{\scriptsize (-1.424\%)} & 32.538 \textcolor{gray!70}{\scriptsize (+0.414\%)} \\
+        $\textbf{Clusca}$ $(\mathcal{N}=4, O=2, K=16)$ & \ding{52} & 9.25 & 2.79$\times$ & 1045.58 & 3.56$\times$ & 0.9850 \textcolor{gray!70}{\scriptsize (-0.485\%)} & 32.441 \textcolor{gray!70}{\scriptsize (+0.114\%)} \\
+        \rowcolor{gray!20}
+        $\textbf{HyCa}$ $(\mathcal{N}=5)$ & \ding{52} & \bf 7.62 & \textbf{3.38$\times$} & \bf 893.54 & \textbf{4.16$\times$} &\bf 1.0066 \textcolor[HTML]{0f98b0}{\scriptsize (+1.700\%)} &\bf 32.693 \textcolor[HTML]{0f98b0}{\scriptsize (+0.890\%)} \\
+        \midrule
+
+        $\textbf{FORA}$ $(\mathcal{N}=4)$ & \ding{52} & 8.12 & 3.14$\times$ & 967.91 & 3.84$\times$ & 0.9730 \textcolor{gray!70}{\scriptsize (-1.695\%)} & 32.142 \textcolor{gray!70}{\scriptsize (-0.809\%)} \\
+        $\textbf{\texttt{ToCa}}$ $(\mathcal{N}=8)$ & \ding{56} & 11.36 & 2.27$\times$ & 784.54 & 4.74$\times$ & 0.9451 \textcolor{gray!70}{\scriptsize (-4.514\%)} & 31.993 \textcolor{gray!70}{\scriptsize (-1.271\%)} \\
+        $\textbf{\texttt{DuCa}}$ $(\mathcal{N}=7)$ & \ding{52} & \bf6.74 & \textbf{3.83$\times$} & 760.14 & 4.89$\times$ & 0.9757 \textcolor{gray!70}{\scriptsize (-1.424\%)} & 32.066 \textcolor{gray!70}{\scriptsize (-1.046\%)} \\
+        \textbf{TeaCache} $({l}=0.8)$ & \ding{52} & 7.21 & 3.58$\times$ & 892.35 & 4.17$\times$ & 0.8683 \textcolor{gray!70}{\scriptsize (-12.28\%)} & 31.704 \textcolor{gray!70}{\scriptsize (-2.159\%)} \\
+        $\textbf{TaylorSeer}$ $(\mathcal{N}=5, O=2)$ & \ding{52} & 7.46 & 3.46$\times$ & 893.54 & 4.16$\times$ & 0.9768 \textcolor{gray!70}{\scriptsize (-1.314\%)} & 32.467 \textcolor{gray!70}{\scriptsize (+0.194\%)} \\
+        $\textbf{FoCa}$ $(\mathcal{N}=6)$ & \ding{52} & 7.54 & 3.42$\times$ & 745.39 & 4.99$\times$ & 0.9713 \textcolor{gray!70}{\scriptsize (-1.870\%)} & \textbf{32.922} \textcolor{gray!70}{\scriptsize (+1.600\%)} \\
+        $\textbf{Speca}$ $(\mathcal{N}_{\text{max}}=8, \mathcal{N}_{\text{min}}=2)$ & \ding{52} & 7.42 & 3.48$\times$ & 791.38 & 4.70$\times$ & 0.9985 \textcolor{gray!70}{\scriptsize (+0.878\%)} & 32.277 \textcolor{gray!70}{\scriptsize (-0.391\%)} \\
+        $\textbf{Clusca}$ $(\mathcal{N}=5, O=1, K=16)$ & \ding{52} & 7.05 & 3.66$\times$ & 897.03 & 4.14$\times$ & 0.9718 \textcolor{gray!70}{\scriptsize (-1.818\%)} & 32.319 \textcolor{gray!70}{\scriptsize (-0.262\%)} \\
+        \rowcolor{gray!20}
+        $\textbf{HyCa}$ $(\mathcal{N}=6)$ & \ding{52} &  6.81 & {3.79$\times$} & \bf 744.81 & \textbf{5.00$\times$} &\bf 1.0014 \textcolor[HTML]{0f98b0}{\scriptsize (+1.163\%)} & 32.483 \bf \textcolor[HTML]{0f98b0}{\scriptsize (+0.244\%)} \\
+        \midrule
+        $\textbf{FORA}$ $(\mathcal{N}=6)$ & \ding{52} & 8.17 & 3.16$\times$ & 744.80 & 4.99$\times$ & 0.7760 \textcolor{gray!70}{\scriptsize (-21.62\%)} & 31.742 \textcolor{gray!70}{\scriptsize (-2.043\%)} \\
+        $\textbf{\texttt{ToCa}}$ $(\mathcal{N}=10)$ & \ding{56} & 7.93 & 3.25$\times$ & 714.66 & 5.20$\times$ & 0.7155 \textcolor{gray!70}{\scriptsize (-27.70\%)} & 31.808 \textcolor{gray!70}{\scriptsize (-1.839\%)} \\
+        $\textbf{\texttt{DuCa}}$ $(\mathcal{N}=9)$ & \ding{52} & 7.27 & 3.55$\times$ & 690.25 & 5.39$\times$ & 0.8382 \textcolor{gray!70}{\scriptsize (-15.33\%)} & 31.759 \textcolor{gray!70}{\scriptsize (-1.993\%)} \\
+        \textbf{TeaCache} $({l}=1)$ & \ding{52} & 8.19 & 3.19$\times$ & 743.63 & 5.01$\times$ & 0.8379 \textcolor{gray!70}{\scriptsize (-15.36\%)} & 31.877 \textcolor{gray!70}{\scriptsize (-1.627\%)} \\
+        $\textbf{TaylorSeer}$ $(\mathcal{N}=7, O=2)$ & \ding{52} & 6.77 & 3.81$\times$ & 671.39 & 5.54$\times$ & 0.9698 \textcolor{gray!70}{\scriptsize (-2.020\%)} & 32.128 \textcolor{gray!70}{\scriptsize (-0.851\%)} \\
+        $\textbf{Clusca}$ $(\mathcal{N}=6, O=1, K=16)$ & \ding{52} & 7.13 & 3.62$\times$ & 748.48 & 4.97$\times$ & 0.9704 \textcolor{gray!70}{\scriptsize (-1.956\%)} & 32.217 \textcolor{gray!70}{\scriptsize (-0.577\%)} \\
+        \rowcolor{gray!20}
+        $\textbf{HyCa}$ $(\mathcal{N}=7)$ & \ding{52} & \bf 6.43 & \textbf{4.01$\times$} & \bf 670.44 & \textbf{5.55$\times$} &\bf 0.9895 \textcolor[HTML]{0f98b0}{\scriptsize (-0.030\%)} &\bf 32.520 \textcolor[HTML]{0f98b0}{\scriptsize (+0.358\%)} \\
+\bottomrule
+\end{tabular}}
+\label{table:FLUX}
+\footnotesize
+\end{table*}
+\end{document}

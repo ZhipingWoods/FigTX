@@ -1,0 +1,85 @@
+\begin{document}
+\begin{table*}[!t]
+% \small
+\renewcommand{\arraystretch}{1.0}
+\centering
+\scalebox{0.88}{
+\begin{tabular}{l|l|ccccc}
+\toprule[1.0pt]
+ \textbf{Context window}  & \textbf{Hard bridge context}   & $w = 10$ & $w = 20$ & $w = 30$ & $w = 40$ & $w = 50$ \\
+\midrule[1.0pt]
+\textbf{Basic} (Figure~\ref{fig: WinStega_context}) & N/A  & \textcolor{red!75!black}{\textbf{3.831}}  & \textcolor{red!75!black}{\textbf{2.054}} &  \textcolor{red!75!black}{\textbf{1.390}}  &  \textcolor{red!75!black}{\textbf{1.023}}  &  \textcolor{red!75!black}{\textbf{0.777}}  \\ \hline
+\multirow{7}{*}{\textbf{ASW} (Figure~\ref{fig: ASW_context})} & 0 token  & 2.476  & 1.458   & 1.003   & 0.766   & 0.568   \\ \cline{2-7}
+ & Random 5 tokens  & 2.681 &  1.529  &  1.071  & 0.774   &  0.589  \\
+ & Random 10 tokens  & 2.705 &  1.580  &  1.094  &  0.775  &  0.592   \\ \cline{2-7}
+ & \texttt{``[Some texts are missing here]\textbackslash n''}  & 2.279  & 1.303   &  0.936  &  0.690  & 0.507   \\
+ & \texttt{``[previous message removed]\textbackslash n''} & 2.240  & 1.315   &  0.937  & 0.682   & 0.505   \\
+ & \texttt{``[CONTEXT TRUNCATED]\textbackslash n''} & 2.201 &  1.268  &  \textcolor{green!50!black}{\textbf{0.904}}  &  \textcolor{green!50!black}{\textbf{0.655}}  & 0.496   \\
+ & \texttt{``...\textbackslash n''} & \textcolor{green!50!black}{\textbf{2.195}} &  \textcolor{green!50!black}{\textbf{1.266}}  &  0.908  &  0.664  & \textcolor{green!50!black}{\textbf{0.487}}  \\
+\bottomrule[1.0pt]
+\end{tabular}}
+ \caption{Average KL divergence $D_{\text{KL}}(\boldsymbol{p}_{\text{full}}^{(t)}||\boldsymbol{p}_{\text{window}}^{(t)})$ at each step $t$ under different settings (lower is better). \textcolor{red!75!black}{\textbf{Red}} values indicate the highest (the worst), and \textcolor{green!50!black}{\textbf{green}} values indicate the lowest (the best) in each column.}
+ \label{table: KL_hard}
+\end{table*}
+\begin{table*}[!t]
+% \small
+\renewcommand{\arraystretch}{1.0}
+\centering
+\scalebox{0.68}{
+\begin{tabular}{l|l|cccc|c|cc}
+\toprule[1pt]
+\multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{Bridge context}} & \multicolumn{4}{c|}{\textbf{Text quality}} & \textbf{Imperceptibility}      & \multicolumn{2}{c}{\textbf{Efficiency}} \\ \cline{3-9}
+                        &                                    & $\Delta$PPL$\downarrow$  & BLEU$\uparrow$  & ROUGE-L$\uparrow$ & BERTScore$\uparrow$ & Steganalysis ACC$\downarrow$ & Capacity$\uparrow$     & Time (s)$\downarrow$     \\ \hline \rowcolor{gray!20}
+\textbf{Full context}            & N/A    &  1.090   &  0.405     &  0.257     &    0.856       &       0.560                &   1.024      &   115.43   \\  \hline
+\textbf{WinStega}                & N/A                                &  \textcolor{red!75!black}{\textbf{31.486}}    &  \textcolor{red!75!black}{\textbf{0.082}}  &    \textcolor{red!75!black}{\textbf{0.098}}   &    \textcolor{red!75!black}{\textbf{0.699}}       &       \textcolor{red!75!black}{\textbf{0.955}}                &  1.995       &       22.250               \\ \hline
+  \textbf{ASW}  & 0 token       &   5.157   &   0.220    &  0.190     &     0.806      &        0.885               &    0.966     &      29.702                \\ \hline
+                 \multirow{2}{*}{\textbf{ASW (hard)}}       & \texttt{``[CONTEXT TRUNCATED]\textbackslash n''}                             &  3.246    &   0.242    &   0.195    &    0.816       &    0.830                   &   1.012      &   30.868                   \\
+                        & \texttt{``...\textbackslash n''}                             &  4.560    &   0.248    &   0.195    &     0.816      &         0.815              &     1.035    &       30.505               \\ \cline{1-9}
+\multirow{3}{*}{\textbf{ASW (soft)}}   & Random untrained  $\theta_{\text{bridge}}$                           &  4.066    &   0.200    &   0.185    &    0.797       &    0.910      &     0.980    &    31.819                  \\
+                        & $\theta_{\text{bridge}}$ trained with forward KL                       & \textcolor{green!50!black}{\textbf{0.201}}    &   \textcolor{green!50!black}{\textbf{0.276}}    &  \textcolor{green!50!black}{\textbf{0.200}}     & \textcolor{green!50!black}{\textbf{0.828}}           &     \textcolor{green!50!black}{\textbf{0.745}}                  &   1.606      &     32.594                 \\
+                        & $\theta_{\text{bridge}}$ trained with reverse KL                      &  4.336    &   0.267    &    \textcolor{green!50!black}{\textbf{0.200}}    &    0.825       &       0.770                &    1.124     & 31.499   \\ \bottomrule[1pt]
+\end{tabular}}
+ \caption{Average results across various metrics under different methods, where the setting is Qwen2.5-7B-Instruct, $l_{\text{bridge}} = 8$, and $w = 10$. \textcolor{red!75!black}{\textbf{Red}} values indicate the worst, and \textcolor{green!50!black}{\textbf{green}} values indicate the best in each column.}
+ \label{table: Main result}
+\end{table*}
+\begin{table*}[!t]
+% \small
+\renewcommand{\arraystretch}{1.0}
+\centering
+\scalebox{0.68}{
+\begin{tabular}{l|l|cccc|c|cc}
+\toprule[1pt]
+\multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{Bridge context}} & \multicolumn{4}{c|}{\textbf{Text quality}} & \textbf{Imperceptibility}      & \multicolumn{2}{c}{\textbf{Efficiency}} \\ \cline{3-9}
+                        &                                    & $\Delta$PPL$\downarrow$  & BLEU$\uparrow$  & ROUGE-L$\uparrow$ & BERTScore$\uparrow$ & Steganalysis ACC$\downarrow$ & Capacity$\uparrow$     & Time (s)$\downarrow$     \\     \hline \rowcolor{blue!8}
+\multicolumn{9}{c}{InstructionWild~\cite{instructionwild}} \\  \hline \rowcolor{gray!20}
+\textbf{Full context}            & N/A    &  1.090   &  0.405     &  0.257     &    0.856       &       0.560                &   1.024      &   115.43   \\  \hline
+\textbf{WinStega}                & N/A                                &  31.486    &  0.082  &    0.098   &    0.699       &       0.955               &  1.995       &       22.250               \\ \hline
+  \textbf{ASW} & 0 token                            &   5.157   &   0.220    &  0.190     &     0.806      &        0.885               &    0.966     &      29.702                \\ \hline
+        \multirow{2}{*}{\textbf{ASW (hard)}}                 & \texttt{``[CONTEXT TRUNCATED]\textbackslash n''}                             &  3.246    &   0.242    &   0.195    &    0.816       &    0.830                   &   1.012      &   30.868                   \\
+                        & \texttt{``...\textbackslash n''}                             &  4.560    &   0.248    &   0.195    &     0.816      &         0.815              &     1.035    &       30.505               \\ \cline{1-9}
+\multirow{3}{*}{\textbf{ASW (soft)}}   & Random untrained  $\theta_{\text{bridge}}$                           &  4.066    &   0.200    &   0.185    &    0.797       &    0.910      &     0.980    &    31.819                  \\
+                        & $\theta_{\text{bridge}}$ trained with forward KL                       & 0.201    & 0.276    &  0.200     & 0.828           &     0.745                  &   1.606      &     32.594                 \\
+                        & $\theta_{\text{bridge}}$ trained with reverse KL                      &  4.336    &   0.267    &    0.200    &    0.825       &       0.770                &    1.124     & 31.499   \\ \hline \rowcolor{blue!8}
+\multicolumn{9}{c}{databricks-dolly-15k~\cite{DatabricksBlog2023DollyV2}} \\  \hline \rowcolor{gray!20}
+\textbf{Full context}            & N/A    &  0.435   &   0.392   &  0.340   &     0.851     &  0.600            &   0.960   &  50.517 \\  \hline
+\textbf{WinStega}                & N/A                                  &  35.162    &  0.064     &   0.097    &    0.661      &        0.960            &   2.996    &  22.549               \\ \hline
+  \textbf{ASW}  & 0 token        &   5.332   &   0.197    &  0.214    &   0.815        &     0.895         &   0.892     &    28.405                                     \\  \hline
+          \multirow{2}{*}{\textbf{ASW (hard)}}              & \texttt{``[CONTEXT TRUNCATED]\textbackslash n''}                             &   5.165   &    0.214   &   0.226    &    0.823      &         0.810           &   0.986    &   28.872           \\
+                        & \texttt{``...\textbackslash n''}                             &  5.244   &  0.208   &   0.219  &    0.817     &      0.865        &       0.933  &   27.874                  \\ \cline{1-9}
+\multirow{3}{*}{\textbf{ASW (soft)}}   & Random untrained  $\theta_{\text{bridge}}$                           &  6.956   &  0.173   &   0.201  &  0.798       &          0.905             &      0.864   &   30.944               \\
+                        & $\theta_{\text{bridge}}$ trained with forward KL                       &   1.085  &   0.217  &  0.218   &    0.820     &        0.825               &  1.534       &     29.921             \\
+                        & $\theta_{\text{bridge}}$ trained with reverse KL                      & 5.084    &  0.214   &  0.225   &    0.825     &     0.805       &     1.047    & 29.941   \\ \hline \rowcolor{blue!8}
+\multicolumn{9}{c}{Super-NaturalInstructions~\cite{wang-etal-2022-super}} \\  \hline \rowcolor{gray!20}
+\textbf{Full context}            & N/A    &  0.669   &   0.333   &  0.342   &     0.839     &           0.720   &   0.819   & 13.790  \\  \hline
+\textbf{WinStega}                & N/A        &   22.171   &  0.024  &  0.077   &    0.644      &            0.985         &   3.003     &   22.519                  \\ \hline
+ \textbf{ASW}  & 0 token                            &   11.507   &    0.105   &   0.162   &    0.786       &       0.925       &   0.980     &        32.340             \\ \hline
+    \multirow{2}{*}{\textbf{ASW (hard)}}                     & \texttt{``[CONTEXT TRUNCATED]\textbackslash n''}                             &   12.622   &   0.107    &    0.164   &     0.792     &   0.880     &   1.030    &    37.687          \\
+                        & \texttt{``...\textbackslash n''}         &   12.117  &  0.107   &  0.163   &    0.788     &            0.875           &   0.995      &     32.654                \\ \cline{1-9}
+\multirow{3}{*}{\textbf{ASW (soft)}}   & Random untrained  $\theta_{\text{bridge}}$                           &  12.230   &  0.106   &  0.162   &     0.784    &          0.930             &    1.030     &   40.115               \\
+                        & $\theta_{\text{bridge}}$ trained with forward KL                       &   5.786  &  0.109   &  0.165   &   0.789      &    0.860     &   1.750      &    38.240              \\
+                        & $\theta_{\text{bridge}}$ trained with reverse KL          &  10.820   & 0.109    &  0.167   &    0.790     &          0.855             &     1.211    &  38.652  \\  \bottomrule[1pt]
+\end{tabular}}
+ \caption{Average results across various metrics under different datasets and different methods, where the setting is Qwen2.5-7B-Instruct, $l_{\text{bridge}} = 8$, and $w = 10$.}
+ \label{table: Effect of dataset}
+\end{table*}
+\end{document}

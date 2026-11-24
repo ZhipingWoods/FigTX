@@ -1,0 +1,51 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Behavioral divergence between human and LLM-simulated users on $\tau$-bench tasks (mean$\pm$std across three independent human annotation batches). \textbf{D1--D4} are per-dimension S{\o}rensen--Dice coefficients (higher$=$closer to human), see Appendix \ref{app:behavioral_metric_definitions} for definitions. \textbf{Eval} measures agreement between LLM and human evaluators on multi-dimensional surveys, computed as $(1{-}\mathrm{MAE})\times100$. The \textbf{User-Sim Index (USI)} aggregates D1--D4, Eval, and a calibration score $(1{-}\mathrm{ECE})\times100$ into a single 0--100 measure of human alignment.  Models are grouped into \colorbox{blue!5}{proprietary}, \colorbox{green!5}{open-source}, and \colorbox{orange!5}{specialized} categories, ranked by USI within each group. \textbf{Bold} indicates the best model per column.}
+\label{tab:behavioral_divergence}
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}l cccc c cc c@{}}
+\toprule
+\textbf{Model} & \textbf{D1 Comm.} & \textbf{D2 Info.} & \textbf{D3 Clarif.} & \textbf{D4 React.} & \textbf{Eval} & \textbf{ECE}$\downarrow$ & \textbf{USI} \\
+\midrule
+Human (inter-ann.) & 87.4$_{\pm6.8}$ & 97.9$_{\pm0.9}$ & 88.0$_{\pm1.3}$ & 93.5$_{\pm2.5}$ & 97.4$_{\pm5.0}$ & 0.069$_{\pm0.022}$ & 92.9$_{\pm0.9}$ \\
+\midrule
+\rowcolor{blue!5} Gemini2.0-Flash & 51.6$_{\pm1.6}$ & \textbf{88.9$_{\pm1.1}$} & 68.2$_{\pm2.1}$ & 76.9$_{\pm3.7}$ & 73.7$_{\pm0.8}$ & 0.196$_{\pm0.020}$ & 73.3$_{\pm0.4}$ \\
+\rowcolor{blue!5} GPT-5.1 & 47.3$_{\pm6.9}$ & 77.4$_{\pm0.6}$ & 73.3$_{\pm2.0}$ & \textbf{88.1$_{\pm2.6}$} & 72.1$_{\pm1.5}$ & 0.331$_{\pm0.030}$ & 70.9$_{\pm0.6}$ \\
+\rowcolor{blue!5} GPT-5 & 49.7$_{\pm5.6}$ & 73.7$_{\pm0.7}$ & 73.2$_{\pm2.3}$ & 73.4$_{\pm3.3}$ & 74.5$_{\pm1.1}$ & 0.210$_{\pm0.019}$ & 70.6$_{\pm1.2}$ \\
+\rowcolor{blue!5} GPT-5-mini & 39.4$_{\pm5.9}$ & 74.4$_{\pm0.7}$ & \textbf{83.1$_{\pm2.3}$} & 68.7$_{\pm1.6}$ & 73.5$_{\pm0.5}$ & 0.174$_{\pm0.019}$ & 70.3$_{\pm0.9}$ \\
+\rowcolor{blue!5} GPT-4o & 31.5$_{\pm2.5}$ & 84.4$_{\pm0.7}$ & 74.6$_{\pm2.9}$ & 72.4$_{\pm2.0}$ & 73.7$_{\pm1.1}$ & 0.206$_{\pm0.035}$ & 69.3$_{\pm0.6}$ \\
+\rowcolor{blue!5} GPT-4o-mini & 40.6$_{\pm1.8}$ & 84.7$_{\pm0.9}$ & 70.2$_{\pm3.7}$ & 73.7$_{\pm1.4}$ & 75.7$_{\pm0.3}$ & 0.382$_{\pm0.035}$ & 67.8$_{\pm0.6}$ \\
+\rowcolor{blue!5} Gemini-3-Pro & 40.1$_{\pm2.7}$ & 81.4$_{\pm0.7}$ & 65.5$_{\pm5.3}$ & 57.6$_{\pm3.1}$ & 73.8$_{\pm0.2}$ & 0.190$_{\pm0.020}$ & 66.6$_{\pm0.2}$ \\
+\rowcolor{blue!5} Claude-3.5-Sonnet & 39.2$_{\pm1.1}$ & 76.9$_{\pm0.7}$ & 59.6$_{\pm5.2}$ & 59.3$_{\pm3.5}$ & 74.1$_{\pm0.7}$ & 0.123$_{\pm0.020}$ & 66.1$_{\pm0.3}$ \\
+\rowcolor{blue!5} Gemini-2.5-Flash-Lite & 47.9$_{\pm1.8}$ & 86.0$_{\pm1.2}$ & 73.2$_{\pm2.0}$ & 59.5$_{\pm3.2}$ & 69.6$_{\pm1.0}$ & 0.430$_{\pm0.035}$ & 65.5$_{\pm0.3}$ \\
+\rowcolor{blue!5} Claude-4.5-Haiku & 25.9$_{\pm0.8}$ & 73.4$_{\pm0.8}$ & 55.6$_{\pm5.1}$ & 59.0$_{\pm3.5}$ & 75.4$_{\pm0.6}$ & 0.133$_{\pm0.022}$ & 62.7$_{\pm0.5}$ \\
+\rowcolor{blue!5} Gemini-3-Flash & 37.7$_{\pm3.5}$ & 77.4$_{\pm0.7}$ & 56.5$_{\pm4.9}$ & 43.9$_{\pm2.5}$ & 71.7$_{\pm1.3}$ & 0.133$_{\pm0.035}$ & 62.3$_{\pm0.2}$ \\
+\rowcolor{blue!5} Claude-Sonnet-4 & 48.9$_{\pm1.5}$ & 68.0$_{\pm0.6}$ & 47.0$_{\pm4.7}$ & 43.3$_{\pm2.6}$ & 76.1$_{\pm0.8}$ & 0.145$_{\pm0.035}$ & 61.5$_{\pm0.5}$ \\
+\rowcolor{blue!5} Gemini-3.1-Pro & 44.1$_{\pm1.9}$ & 67.1$_{\pm0.6}$ & 48.9$_{\pm4.6}$ & 45.3$_{\pm2.7}$ & 75.1$_{\pm0.9}$ & 0.212$_{\pm0.035}$ & 59.9$_{\pm0.4}$ \\
+\rowcolor{blue!5} Gemini-2.5-Flash & 38.4$_{\pm1.3}$ & 73.5$_{\pm0.8}$ & 56.0$_{\pm4.8}$ & 43.6$_{\pm2.7}$ & 68.8$_{\pm0.7}$ & 0.255$_{\pm0.035}$ & 59.1$_{\pm0.5}$ \\
+\rowcolor{blue!5} Claude-Opus-4 & 32.6$_{\pm1.3}$ & 71.9$_{\pm0.7}$ & 46.6$_{\pm4.5}$ & 44.9$_{\pm2.8}$ & 73.4$_{\pm0.4}$ & 0.188$_{\pm0.009}$ & 58.4$_{\pm0.5}$ \\
+\rowcolor{blue!5} Claude-3.7-Sonnet & 26.4$_{\pm1.0}$ & 71.2$_{\pm0.7}$ & 50.8$_{\pm4.8}$ & 48.9$_{\pm3.1}$ & 72.7$_{\pm1.3}$ & 0.216$_{\pm0.030}$ & 58.1$_{\pm0.5}$ \\
+\rowcolor{blue!5} GPT-3.5-turbo & 39.9$_{\pm1.1}$ & 74.1$_{\pm0.6}$ & 58.5$_{\pm1.5}$ & 59.9$_{\pm2.1}$ & 73.9$_{\pm0.7}$ & 0.582$_{\pm0.035}$ & 58.0$_{\pm0.2}$ \\
+\rowcolor{blue!5} Claude-3-Haiku & 22.1$_{\pm1.0}$ & 55.7$_{\pm0.6}$ & 72.1$_{\pm4.0}$ & 56.9$_{\pm3.3}$ & \textbf{78.3$_{\pm0.5}$} & 0.394$_{\pm0.035}$ & 57.6$_{\pm0.5}$ \\
+\midrule
+\rowcolor{green!5} DeepSeek-V3.1 & 45.1$_{\pm2.7}$ & 86.6$_{\pm1.0}$ & 74.5$_{\pm1.7}$ & 87.6$_{\pm2.0}$ & 74.3$_{\pm0.5}$ & 0.122$_{\pm0.017}$ & \textbf{76.0$_{\pm1.2}$} \\
+\rowcolor{green!5} Llama-4-Maverick & 48.8$_{\pm0.7}$ & 82.6$_{\pm0.8}$ & 78.3$_{\pm3.1}$ & 66.6$_{\pm2.3}$ & 76.7$_{\pm1.0}$ & 0.094$_{\pm0.014}$ & 73.9$_{\pm0.8}$ \\
+\rowcolor{green!5} Qwen3-235B & \textbf{60.8$_{\pm1.8}$} & 75.3$_{\pm0.6}$ & 71.5$_{\pm5.3}$ & 56.3$_{\pm2.4}$ & 74.6$_{\pm0.7}$ & 0.111$_{\pm0.029}$ & 71.2$_{\pm0.8}$ \\
+\rowcolor{green!5} Qwen2.5-7B & 35.2$_{\pm1.3}$ & 70.9$_{\pm0.7}$ & 75.4$_{\pm6.1}$ & 74.8$_{\pm2.0}$ & 73.3$_{\pm1.2}$ & 0.174$_{\pm0.024}$ & 68.7$_{\pm1.4}$ \\
+\rowcolor{green!5} Qwen3-Next-80B & 38.5$_{\pm1.5}$ & 73.2$_{\pm0.5}$ & 68.4$_{\pm2.7}$ & 67.9$_{\pm1.7}$ & 71.0$_{\pm2.2}$ & 0.099$_{\pm0.008}$ & 68.2$_{\pm0.5}$ \\
+\rowcolor{green!5} GPT-oss-120B & 41.8$_{\pm1.1}$ & 63.9$_{\pm0.4}$ & 65.1$_{\pm0.9}$ & 77.0$_{\pm3.3}$ & 74.4$_{\pm1.3}$ & 0.155$_{\pm0.024}$ & 67.8$_{\pm0.6}$ \\
+\rowcolor{green!5} MiniMax-M2.5 & 48.1$_{\pm0.4}$ & 72.8$_{\pm0.7}$ & 54.4$_{\pm5.3}$ & 62.1$_{\pm3.0}$ & 75.7$_{\pm0.1}$ & \textbf{0.088$_{\pm0.034}$} & 67.4$_{\pm0.7}$ \\
+\rowcolor{green!5} Llama-3.3-70B & 43.9$_{\pm1.7}$ & 66.1$_{\pm0.6}$ & 54.1$_{\pm5.2}$ & 61.6$_{\pm2.5}$ & 74.6$_{\pm0.8}$ & 0.149$_{\pm0.024}$ & 64.3$_{\pm0.5}$ \\
+\rowcolor{green!5} Kimi-K2.5 & 46.5$_{\pm1.9}$ & 66.0$_{\pm0.4}$ & 51.8$_{\pm5.3}$ & 47.2$_{\pm2.7}$ & 75.0$_{\pm1.1}$ & 0.174$_{\pm0.033}$ & 61.5$_{\pm0.8}$ \\
+\midrule
+\rowcolor{orange!5} CoSER-8B & 37.8$_{\pm1.1}$ & 71.5$_{\pm0.6}$ & 71.6$_{\pm2.0}$ & 69.9$_{\pm1.6}$ & 63.3$_{\pm0.6}$ & 0.125$_{\pm0.012}$ & 66.9$_{\pm0.4}$ \\
+\rowcolor{orange!5} UserLM-8B & 30.8$_{\pm0.6}$ & 50.8$_{\pm0.4}$ & 56.8$_{\pm1.5}$ & 80.0$_{\pm3.5}$ & 67.4$_{\pm0.8}$ & 0.154$_{\pm0.016}$ & 61.7$_{\pm0.5}$ \\
+\rowcolor{orange!5} HumanLike-7B & 35.7$_{\pm0.3}$ & 55.0$_{\pm0.5}$ & 51.6$_{\pm3.3}$ & 65.9$_{\pm3.4}$ & 72.8$_{\pm1.3}$ & 0.237$_{\pm0.016}$ & 59.6$_{\pm0.2}$ \\
+\rowcolor{orange!5} HumanLM-opinion & 30.1$_{\pm0.5}$ & 19.5$_{\pm0.2}$ & 38.5$_{\pm5.6}$ & 50.7$_{\pm5.9}$ & 61.6$_{\pm0.3}$ & 0.215$_{\pm0.038}$ & 46.5$_{\pm0.8}$ \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\end{document}

@@ -1,0 +1,78 @@
+\usepackage{arydshln}
+\newcommand{\method}{\textsc{HisAnaloy}\xspace}\makeatletter
+\def\adl@drawiv#1#2#3{%
+        \hskip.5\tabcolsep
+        \xleaders#3{#2.5\@tempdimb #1{1}#2.5\@tempdimb}%
+                #2\z@ plus1fil minus1fil\relax
+        \hskip.5\tabcolsep}
+\newcommand{\cdashlinelr}[1]{%
+  \noalign{\vskip\aboverulesep
+           \global\let\@dashdrawstore\adl@draw
+           \global\let\adl@draw\adl@drawiv}
+  \cdashline{#1}
+  \noalign{\global\let\adl@draw\@dashdrawstore
+           \vskip\belowrulesep}}
+\makeatother
+\definecolor{color1}{RGB}{210, 235, 180}
+\definecolor{color2}{RGB}{240, 190, 140}
+\definecolor{color3}{RGB}{220, 200, 230}
+\definecolor{color4}{RGB}{150, 170, 210}
+%%%%%%%
+\begin{document}
+\newcolumntype{a}{>{\columncolor{BlueGreen!10}\centering\arraybackslash}p{0.88cm}}
+\newcolumntype{b}{>{\columncolor{Blue!10}\centering\arraybackslash}p{0.88cm}}
+\newcolumntype{d}{>{\columncolor{Purple!10}\centering\arraybackslash}p{0.88cm}}
+\newcolumntype{q}{>{\columncolor{Gray!10}\centering\arraybackslash}p{0.88cm}}
+\newcolumntype{e}{>{\columncolor{Brown!10}\centering\arraybackslash}p{0.88cm}}
+\setlength\tabcolsep{1.3pt}
+\begin{table*}[t]
+  \centering
+  \caption{Results of different methods on Popular Analogies and General Analogies based on ChatGPT and Llama3.1-8B.}
+    \small
+    \begin{tabular}{claaabbbdddqqqe}
+    \toprule
+    \textbf{Dataset} & \multicolumn{1}{c}{\textbf{Method}} & \textbf{T$_{\texttt{Abs}}$} & \textbf{T$_{\texttt{Lit}}$} & \textbf{T$_{\texttt{All}}$}  & \textbf{B$_{\texttt{Abs}}$} & \textbf{B$_{\texttt{Lit}}$} & \textbf{B$_{\texttt{All}}$}  & \textbf{P$_{\texttt{Abs}}$} & \textbf{P$_{\texttt{Lit}}$} & \textbf{P$_{\texttt{All}}$}  & \textbf{R$_{\texttt{Abs}}$} & \textbf{R$_{\texttt{Lit}}$} & \textbf{R$_{\texttt{All}}$}  & \textbf{MDS} \\
+    \midrule
+    \multirow{14}[8]{*}{Popular} & \multicolumn{13}{c}{GPT-3.5-Turbo} \\
+%\cmidrule{2-17}confidence interval
+\cmidrule{2-15}
+& Direct Re.  & 2.70  & 0.15  & 0.54  & 2.55  & 0.14  & 0.61  & 2.70  & \underline{0.09}  & 0.70  & 2.70  & \underline{0.09}  & 0.70  & 3.67  \\
+          & Two-stage Re.  & 2.85  & \textbf{0.13} & 0.59  & 2.45  & 0.12  & 0.53  & 2.65  & \textbf{0.08} & 0.69  & 2.60  & 0.10  & 0.60  & 3.41  \\
+          \cdashlinelr{2-15}
+          & Direct Gen.   & 3.10  & 0.15  & 0.64  & 2.64  & 0.11  & \underline{0.68}  & 2.94  & 0.12  & 0.73  & \underline{3.15}  & 0.10  & 0.75  & 3.97  \\
+          & Two-stage Gen.   & 3.25  & 0.16  & 0.65  & \textbf{2.90} & 0.12  & 0.67  & 2.80  & 0.13  & 0.68  & 2.80  & 0.12  & 0.69  & 3.74  \\
+          & Summarizing  & \underline{3.30}  & 0.14  & \underline{0.67}  & 2.70  & \underline{0.11}  & 0.63  & \textbf{3.30} & 0.10  & \textbf{0.82} & \textbf{3.19} & 0.10  & \underline{0.76}  & \underline{4.14}  \\
+          & Self-reflection   & \textbf{3.40} & \underline{0.13}  & \textbf{0.71} & \underline{2.89}  & \textbf{0.09} & \textbf{0.73} & \underline{3.09}  & 0.10  & \underline{0.75}  & 3.09  & \textbf{0.09} & \textbf{0.79} & \textbf{4.18} \\
+\cmidrule{2-15}
+& \multicolumn{13}{c}{Llama3.1-8B} \\
+\cmidrule{2-15}
+& Direct Re.     & 2.70  & 0.15  & 0.54  & 2.55  & 0.14  & 0.61  & 2.70  & 0.09  & 0.70  & 2.70  & \textbf{0.09} & 0.70  & 3.67  \\
+          & Two-stage Re.& 2.80  & \textbf{0.11} & 0.63  & 2.45  & 0.10  & 0.59  & 2.60  & \underline{0.08}  & 0.69  & 2.44  & 0.12  & 0.55  & 3.38  \\
+          \cdashlinelr{2-15}
+          & Direct Gen.   & \underline{3.30}  & 0.13  & \textbf{0.70} & 2.69  & 0.09  & 0.69  & \underline{2.90}  & 0.10  & 0.69  & \textbf{3.10} & 0.10  & \textbf{0.74} & 3.90  \\
+          & Two-stage Gen.  & 2.94  & \underline{0.13}  & 0.64  & 2.55  & \underline{0.08}  & 0.67  & 2.80  & \textbf{0.08} & \underline{0.73}  & 2.80  & 0.10  & 0.68  & 3.81  \\
+          & Summarizing & 3.24  & 0.14  & 0.64  & \underline{2.74}  & \textbf{0.08} & \underline{0.74}  & 2.69  & 0.08  & 0.70  & \underline{2.94}  & \underline{0.09}  & \underline{0.73}  & \underline{3.92}  \\
+          & Self-reflection   & \textbf{3.34} & 0.13  & \underline{0.70}  & \textbf{2.84} & 0.08  & \textbf{0.74 } & \textbf{3.15} & 0.09  & \textbf{0.81} & 2.89  & 0.10  & 0.71  & \textbf{4.13} \\
+    \midrule
+    \multirow{14}[8]{*}{General} & \multicolumn{13}{c}{GPT-3.5-Turbo} \\
+\cmidrule{2-15}
+& Direct Re.  & 3.29  & 0.18  & 0.53  & 3.00  & 0.13  & 0.67  & 2.97  & \underline{0.11}  & 0.69  & 2.99  & 0.12  & 0.66  & 3.64  \\
+          & Two-stage Re.  & 2.93  & 0.19  & 0.51  & 2.69  & 0.15  & 0.58  & 2.63  & 0.12  & 0.60  & 2.75  & 0.14  & 0.58  & 3.21  \\
+         \cdashlinelr{2-15}
+          & Direct Gen.  & 2.88  & \textbf{0.13} & \underline{0.62}  & 2.67  & \textbf{0.10} & 0.65  & 2.63  & \textbf{0.09} & 0.69  & 2.79  & \textbf{0.10} & \underline{0.68}  & 3.69  \\
+          & Two-stage Gen.  & 3.20  & 0.20  & 0.57  & 2.82  & 0.16  & 0.63  & 3.01  & 0.13  & 0.70  & 2.99  & 0.13  & 0.67  & 3.65  \\
+          & Summarizing  & \underline{3.49}  & 0.18  & \textbf{0.64} & \underline{3.02}  & 0.13  & \underline{0.68}  & \underline{3.11}  & 0.12  & \underline{0.74}  & \underline{3.07}  & 0.13  & 0.67  & \underline{3.83}  \\
+          & Self-reflection  & \textbf{3.52} & \underline{0.17}  & 0.61  & \textbf{3.21} & \underline{0.12}  & \textbf{0.73} & \textbf{3.16} & 0.11  & \textbf{0.75} & \textbf{3.13} & \underline{0.12}  & \textbf{0.70} & \textbf{3.93} \\
+\cmidrule{2-15}          & \multicolumn{13}{c}{Llama3.1-8B} \\
+\cmidrule{2-15}
+& Direct Re.  & 3.29  & 0.18  & 0.53  & 3.00  & 0.13  & 0.67  & 2.97  & 0.11  & 0.69  & 2.99  & 0.12  & 0.66  & 3.64  \\
+          & Two-stage Re.  & 3.11  & \underline{0.16}  & 0.58  & 2.78  & \textbf{0.11} & 0.64  & 2.81  & \textbf{0.09} & 0.71  & 2.73  & \underline{0.11}  & 0.63  & 3.60  \\
+          \cdashlinelr{2-15}
+          & Direct Gen.  & \underline{3.44}  & 0.19  & 0.60  & \underline{3.08}  & 0.15  & 0.67  & \underline{3.04}  & 0.13  & 0.72  & 3.01  & 0.14  & 0.66  & 3.73  \\
+          & Two-stage Gen.  & 3.21  & \textbf{0.15} & \textbf{0.63} & 2.91  & \underline{0.11}  & 0.69  & 2.91  & \underline{0.10}  & 0.73  & 2.80  & \textbf{0.11} & 0.66  & 3.77  \\
+          & Summarizing  & 3.41  & 0.17  & 0.61  & \textbf{3.11} & 0.11  & \textbf{0.72} & 3.02  & 0.10  & \underline{0.74}  & \underline{3.09}  & 0.12  & \underline{0.70}  & \underline{3.90}  \\
+          & Self-reflection   & \textbf{3.46} & 0.18  & \underline{0.62}  & \underline{3.08}  & 0.13  & \underline{0.70}  & \textbf{3.08} & 0.11  & \textbf{0.75} & \textbf{3.12} & 0.13  & \textbf{0.70 } & \textbf{3.91 } \\
+    \bottomrule
+    \end{tabular}%
+\end{table*}%
+\end{document}

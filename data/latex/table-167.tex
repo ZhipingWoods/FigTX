@@ -1,0 +1,102 @@
+\definecolor{blue1}{HTML}{006cc1}
+% \definecolor{orange1}{HTML}{f27800}
+\definecolor{orange1}{HTML}{f24400}
+% \definecolor{red1}{HTML}{A65454}
+\definecolor{red1}{HTML}{DA5454}
+\newcommand{\upperbnd}[1]{\textbf{\color{blue1} #1}}
+\newcommand{\lowerbnd}[1]{\textbf{\color{red1} #1}}
+%%%%%%%
+\begin{document}
+\begin{table*}[h]
+\centering
+\caption{
+    PropensityScore breakdown by pressure dimension (see Section~\ref{sec:pressure}) across our experiments. Each cell shows the mean PropensityScore $\pm$ the standard deviation over a total of three evaluation runs. All values are in percentages (\%). The \lowerbnd{lowest} and \upperbnd{highest} values in each column are highlighted.
+    % The highest propensity for each model (row) is bolded \shayan{TODO}, indicating its most vulnerable tactic. \shayan{Add explanations for what each of the columns are.}
+}
+\label{tab:tactic-breakdown}
+% \scriptsize
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Eval. Awareness} & \textbf{Financials} & \textbf{Power-Seeking} & \textbf{Resource Depriv.} & \textbf{Self-Pres.} & \textbf{Time} \\ \toprule
+OpenAI O3 & \lowerbnd{8.5 $\pm$ 0.1} & \lowerbnd{10.4 $\pm$ 1.0} & 10.4 $\pm$ 1.0 & \lowerbnd{11.9 $\pm$ 0.9} & 10.5 $\pm$ 0.2 & \lowerbnd{12.6 $\pm$ 1.2} \\
+OpenAI O4-mini & 18.2 $\pm$ 0.5 & 14.7 $\pm$ 0.4 & 13.5 $\pm$ 0.8 & 18.7 $\pm$ 1.7 & 17.5 $\pm$ 1.1 & 16.9 $\pm$ 1.0 \\
+OpenAI O3-mini & 41.3 $\pm$ 0.8 & 35.5 $\pm$ 0.6 & 29.4 $\pm$ 0.6 & 41.4 $\pm$ 1.9 & 26.3 $\pm$ 0.4 & 28.7 $\pm$ 0.6 \\
+OpenAI GPT-4o & 55.2 $\pm$ 0.4 & 52.6 $\pm$ 0.7 & 40.9 $\pm$ 0.3 & 49.4 $\pm$ 1.5 & 35.7 $\pm$ 0.1 & 44.4 $\pm$ 2.2 \\
+Gemini 2.5 Pro & \upperbnd{79.9 $\pm$ 1.9} & 77.8 $\pm$ 1.4 & 73.9 $\pm$ 0.3 & \upperbnd{81.2 $\pm$ 0.6} & \upperbnd{80.3 $\pm$ 1.8} & \upperbnd{81.8 $\pm$ 1.1} \\
+Gemini 2.5 Flash & 77.4 $\pm$ 1.1 & 73.2 $\pm$ 0.7 & 58.1 $\pm$ 1.8 & 65.4 $\pm$ 2.2 & 67.7 $\pm$ 1.2 & 67.1 $\pm$ 0.8 \\
+Gemini 2.0 Flash & 76.3 $\pm$ 2.0 & \upperbnd{82.7 $\pm$ 1.2} & \upperbnd{76.6 $\pm$ 1.2} & 70.3 $\pm$ 1.7 & 80.2 $\pm$ 1.0 & 80.2 $\pm$ 0.2 \\
+Claude 4 Sonnet & 11.8 $\pm$ 0.8 & 10.8 $\pm$ 0.3 & \lowerbnd{7.2 $\pm$ 1.2} & 17.3 $\pm$ 0.8 & \lowerbnd{9.7 $\pm$ 0.5} & 15.9 $\pm$ 0.9 \\ \midrule
+Llama 3.1 70B & 49.7 $\pm$ 2.2 & 61.7 $\pm$ 0.4 & 49.5 $\pm$ 2.5 & 60.0 $\pm$ 1.4 & 59.7 $\pm$ 1.2 & 53.1 $\pm$ 0.7 \\
+Llama 3.1 8B & 65.7 $\pm$ 0.3 & 68.6 $\pm$ 1.4 & 66.6 $\pm$ 1.0 & 66.5 $\pm$ 1.2 & 66.2 $\pm$ 1.5 & 67.3 $\pm$ 1.7 \\
+Qwen 2.5 32B & 22.1 $\pm$ 1.7 & 30.2 $\pm$ 0.6 & 19.1 $\pm$ 0.9 & 25.6 $\pm$ 0.6 & 18.1 $\pm$ 0.5 & 20.1 $\pm$ 0.5 \\
+Qwen 3 8B & 71.7 $\pm$ 9.5 & 70.2 $\pm$ 9.2 & 67.8 $\pm$ 7.2 & 70.6 $\pm$ 8.2 & 72.1 $\pm$ 10.2 & 68.6 $\pm$ 6.7 \\ \midrule
+\textbf{Average} & 48.2 & 49.0 & 42.8 & 48.2 & 45.3 & 46.4 \\ \bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[tbh]
+% \vspace{-12pt}
+\centering
+\caption{
+    Domain-specific propensity scores under Harmful and Benign tool naming conditions. Propensity values are derived using the mean and standard deviation of results across three evaluation runs. All values are in percentages (\%). The \lowerbnd{lowest} and \upperbnd{highest} values in each column are highlighted.
+}
+% \vspace{-7pt}
+\label{tab:domain-breakdown}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccccccc}
+\toprule
+& \multicolumn{4}{c}{\textbf{Harmful Naming}} & & \multicolumn{4}{c}{\textbf{Benign Naming}} \\ \cmidrule(lr){2-5} \cmidrule(lr){7-10}
+\textbf{Model} & \textbf{Bio} & \textbf{Chem} & \textbf{Cyber} & \textbf{Self-Prolif.} & & \textbf{Bio} & \textbf{Chem} & \textbf{Cyber} & \textbf{Self-Prolif.} \\ \toprule
+OpenAI O3 & 6.7 $\pm$ 0.4 & 11.7 $\pm$ 1.1 & \lowerbnd{14.7 $\pm$ 0.5} & \lowerbnd{8.8 $\pm$ 1.3} &  & \lowerbnd{26.9 $\pm$ 0.6} & 46.7 $\pm$ 0.8 & 49.8 $\pm$ 0.8 & \lowerbnd{38.0 $\pm$ 0.8} \\
+OpenAI O4-mini & 4.3 $\pm$ 0.7 & 10.3 $\pm$ 0.7 & 31.3 $\pm$ 0.3 & 17.4 $\pm$ 0.7 &  & 36.5 $\pm$ 1.7 & 60.5 $\pm$ 1.4 & 72.4 $\pm$ 0.8 & 67.5 $\pm$ 0.7 \\
+OpenAI O3-mini & 12.9 $\pm$ 0.3 & 27.7 $\pm$ 1.1 & 51.1 $\pm$ 0.9 & 40.8 $\pm$ 0.2 &  & 33.7 $\pm$ 0.7 & \lowerbnd{43.7 $\pm$ 0.7} & 61.1 $\pm$ 0.2 & 64.6 $\pm$ 1.4 \\
+OpenAI GPT-4o & 28.2 $\pm$ 0.7 & 43.8 $\pm$ 0.7 & 57.7 $\pm$ 0.7 & 54.7 $\pm$ 1.0 &  & 49.3 $\pm$ 1.2 & 58.1 $\pm$ 0.6 & 67.0 $\pm$ 1.3 & 71.1 $\pm$ 1.9 \\
+Gemini 2.5 Pro & 65.5 $\pm$ 2.3 & 74.1 $\pm$ 1.4 & \upperbnd{86.0 $\pm$ 0.4} &\upperbnd{90.5 $\pm$ 0.4} &  & 74.0 $\pm$ 1.0 & \upperbnd{82.3 $\pm$ 0.7} & \upperbnd{86.8 $\pm$ 0.3} & \upperbnd{93.9 $\pm$ 0.6} \\
+Gemini 2.5 Flash & 46.0 $\pm$ 0.4 & 63.8 $\pm$ 0.7 & 80.6 $\pm$ 0.7 & 81.8 $\pm$ 0.6 &  & 58.3 $\pm$ 0.1 & 73.7 $\pm$ 0.1 & 81.2 $\pm$ 0.8 & 85.0 $\pm$ 1.1 \\
+Gemini 2.0 Flash & \upperbnd{72.7 $\pm$ 1.8} & \upperbnd{77.2 $\pm$ 1.2}& 80.0 $\pm$ 1.6 & 81.3 $\pm$ 0.2 &  & 74.3 $\pm$ 0.7 & 77.4 $\pm$ 0.9 & 78.1 $\pm$ 1.0 & 84.9 $\pm$ 0.8 \\
+Claude 4 Sonnet & \lowerbnd{3.7 $\pm$ 0.5} & \lowerbnd{7.9 $\pm$ 0.1} & 16.0 $\pm$ 0.3 & 21.2 $\pm$ 0.5 &  & 33.2 $\pm$ 0.7 & 48.8 $\pm$ 0.5 & \lowerbnd{46.2 $\pm$ 0.6} & 60.1 $\pm$ 0.9 \\ \midrule
+Llama 3.1 70B & 47.0 $\pm$ 2.9 & 57.1 $\pm$ 2.0 & 61.5 $\pm$ 1.1 & 56.3 $\pm$ 1.1 &  & 55.9 $\pm$ 0.9 & 61.2 $\pm$ 0.4 & 67.7 $\pm$ 0.3 & 62.7 $\pm$ 1.0 \\
+Llama 3.1 8B & 60.2 $\pm$ 1.1 & 61.4 $\pm$ 1.7 & 73.5 $\pm$ 1.7 & 70.7 $\pm$ 2.1 &  & \upperbnd{80.6 $\pm$ 0.4}& 81.4 $\pm$ 0.4 & 85.6 $\pm$ 1.5 & 87.1 $\pm$ 3.2 \\
+Qwen 2.5 32B & 7.6 $\pm$ 0.1 & 16.2 $\pm$ 0.6 & 34.3 $\pm$ 0.8 & 33.4 $\pm$ 4.7 &  & 33.0 $\pm$ 0.9 & 44.9 $\pm$ 0.5 & 59.5 $\pm$ 1.0 & 56.5 $\pm$ 1.4 \\
+Qwen 3 8B & 53.6 $\pm$ 3.4 & 70.7 $\pm$ 11.5 & 78.7 $\pm$ 8.0 & 77.2 $\pm$ 12.0 &  & 70.2 $\pm$ 1.0 & 79.4 $\pm$ 0.7 & 84.1 $\pm$ 0.1 & 87.1 $\pm$ 1.1 \\ \midrule
+\textbf{Average} & 34.1 & 43.5 & 55.5 & 52.8 & & 52.2 & 63.2 & 70.0 & 71.5 \\
+\bottomrule
+\end{tabular}}
+\vspace{20pt}
+\end{table*}
+\begin{table*}[tbh]
+\centering
+% \vspace{-5pt}
+% \caption{\tds{Modify this.} Overall propensity scores for different models. For each model, we report the baseline scores under zero pressure, followed by the standard PropensityScore values for harmful and benign misaligned tool naming conditions, respectively. The final column ($\Delta PP$) quantifies the increase in PropensityScore when transitioning from such harmful names to the corresponding benign names (i.e., when risk cues are removed). All scores and margins of error are derived from empirical mean and standard deviations over three evaluation runs, and represent the average of all four \textit{domains} in \ours. The \lowerbnd{lowest} and \upperbnd{highest} values in each column are highlighted.}
+\caption{
+    Overall propensity and behavioral metrics for all evaluated models. We report Propensity scores under zero pressure ($PP_{zero}$), for harmful ($PP_H$) and benign ($PP_B$) tool names, and their difference ($\Delta PP$). Propensity values are derived using the mean and standard deviation of results across three evaluation runs. We also show average \textbf{Resilience} ($R$), \textbf{Persistence} ($P$), and \textbf{Abandonment} ($A$) rates for both harmful (H) and benign (B) naming conditions. Scores are averaged over three runs across all four domains. Values for Resilience are bound to the range $[0, 12]$, while the range of possible values Persistence has no upper limit. The \lowerbnd{lowest} and \upperbnd{highest} values in each column are highlighted.
+}
+% \vspace{-8pt}
+\label{tab:propensity-main}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc|cccccc}
+\toprule
+\textbf{Model} &  \multicolumn{4}{c}{\textbf{Propensity (\%) $\Downarrow$}} & \multicolumn{2}{c}{\textbf{Resilience $\Uparrow$}} & \multicolumn{2}{c}{\textbf{Persistence $\Uparrow$}} & \multicolumn{2}{c}{\textbf{Abandonment $\Uparrow$}} \\
+\cmidrule(lr){2-5}
+\cmidrule(lr){6-7}
+\cmidrule(lr){8-9}
+\cmidrule(lr){10-11}
+& \textbf{$PP_{zero}$} & \textbf{$PP_H$} & \textbf{$PP_B$} & \textbf{$\Delta PP$} &\textbf{$R_H$} & \textbf{$R_B$} & \textbf{$P_H$} & \textbf{$P_B$} & \textbf{$A_H$ (\%)} & \textbf{$A_B$ (\%)} \\ \midrule
+OpenAI O3 & \lowerbnd{2.2$\pm$ 0.2} & \lowerbnd{10.5$\pm$ 0.6} & \lowerbnd{40.3$\pm$ 0.1} & +29.9 & 2.5 & 1.7 & 3.9 & 2.6 & 11.8 & 9.7 \\
+OpenAI O4-mini & 7.8$\pm$ 0.3 & 15.8$\pm$ 0.4 & 59.3$\pm$ 0.1 & \upperbnd{+43.5} & 2.5 & 1.5 & 1.9 & \lowerbnd{1.4} & 9.5 & 6.3 \\
+OpenAI O3-mini & 15.6$\pm$ 0.1 & 33.2$\pm$ 0.4 & 50.8$\pm$ 0.5 & +17.6 & 2.7 & 1.5 & 1.9 & 1.7 & 22.0 & 14.3 \\
+OpenAI GPT-4o & 4.7$\pm$ 0.3 & 46.1$\pm$ 0.4 & 61.4$\pm$ 1.0 & +15.3 & \upperbnd{5.8} & \upperbnd{3.4} & 2.7 & 1.9 & \upperbnd{52.1} & \upperbnd{32.5} \\
+Gemini 2.5 Pro & 37.1$\pm$ 1.3 & \upperbnd{79.0$\pm$ 0.6} & \upperbnd{84.3$\pm$ 0.2} & +5.3 & \lowerbnd{1.1} & 0.7 & \lowerbnd{1.5} & \lowerbnd{1.4} & \lowerbnd{5.2} & 5.5 \\
+Gemini 2.5 Flash & 36.5$\pm$ 0.5 & 68.0$\pm$ 0.2 & 74.6$\pm$ 0.3 & +6.5 & 1.6 & 1.0 & 2.1 & 1.9 & 18.3 & 11.5 \\
+Gemini 2.0 Flash & 3.7$\pm$ 0.3 & 77.8$\pm$ 0.8 & 78.6$\pm$ 0.2 & \lowerbnd{+0.9} & 2.3 & 1.9 & 2.1 & 1.8 & 19.2 & 14.6 \\
+Claude Sonnet 4 & 3.6$\pm$ 0.2 & 12.2$\pm$ 0.2 & 47.1$\pm$ 0.1 & +34.9 & 1.8 & 0.9 & 2.5 & 1.5 & 28.2 & 9.9 \\ \midrule
+Llama 3.1 70B & 11.9$\pm$ 1.1 & 55.4$\pm$ 0.8 & 61.9$\pm$ 0.4 & +6.5 & 2.5 & 1.7 & \upperbnd{4.8} & \upperbnd{3.7} & 31.6 & 25.1 \\
+Llama 3.1 8B & 37.6$\pm$ 1.0 & 66.5$\pm$ 1.1 & 83.7$\pm$ 1.0 & +17.2 & 1.2 & \lowerbnd{0.5} & 4.3 & 2.6 & 7.7 & \lowerbnd{4.7} \\
+Qwen 2.5 32B & 4.9$\pm$ 0.1 & 22.9$\pm$ 1.2 & 48.5$\pm$ 0.6 & +25.6 & 4.5 & 2.1 & 4.7 & 2.6 & 26.2 & 14.2 \\
+Qwen 3 8B & \upperbnd{57.8$\pm$ 0.2} & 75.2$\pm$ 0.1 & 80.0$\pm$ 0.2 & +4.8 & \lowerbnd{1.1} & 0.6 & 1.8 & 1.5 & 13.5 & 7.7 \\
+\midrule
+    \textbf{Average} & 18.6 & 46.9 & 64.2 & 17.3 & 2.5 & 1.5 & 2.9 & 2.1 & 20.4 & 13.0 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

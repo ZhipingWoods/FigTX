@@ -1,0 +1,435 @@
+\begin{document}
+\definecolor{up}{rgb}{0.8, 0, 0.0}
+\definecolor{down}{rgb}{0.0, 0.7, 0.0}
+\definecolor{right}{rgb}{0.8, 0.7, 0.0}
+\begin{table*}
+    \centering
+    % \begin{adjustbox}{width=\textwidth}
+    \resizebox{16cm}{!}{
+    \begin{tabular}{c|c|cc|cc|cc|cc|cc}
+        \hline
+        \rowcolor{blue!10}
+        \multicolumn{2}{c|}{\textbf{Dataset}} & \multicolumn{2}{c|}{ \cellcolor{yellow!10}{\textbf{PI (CSQA)}}} & \multicolumn{2}{c|}{\cellcolor{yellow!10}{\textbf{PI (MMLU)}}} & \multicolumn{2}{c|}{\cellcolor{yellow!10}{\textbf{PI (GSM8k)}}} & \multicolumn{2}{c|}{\cellcolor{red!10}{\textbf{TA (InjecAgent)}}} & \multicolumn{2}{c}{\textbf{MA (PosionRAG)}} \\
+        \hline
+        \rowcolor{blue!5}
+        \textbf{Topology} & \textbf{Model} & \textbf{R0} & \textbf{R3/R3+GS} & \textbf{R0} & \textbf{R3+GS} & \textbf{R0} & \textbf{R3+GS} & \textbf{R0} & \textbf{R3+GS} & \textbf{R0} & \textbf{R3+GS} \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06$ &
+        $45.93/27.50_{\textcolor{down}{\downarrow 18.43}}$ &
+        $19.59$ &
+        $34.46/21.96_{\textcolor{down}{\downarrow 12.50}}$ &
+        $11.25$ &
+        $15.24/9.58_{\textcolor{down}{\downarrow 5.66}}$ &
+        $3.07$ &
+        $36.54/2.96_{\textcolor{down}{\downarrow 33.58}}$ &
+        $8.78$ &
+        $18.13/9.95_{\textcolor{down}{\downarrow 33.58}}$ \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $22.00$ &
+        $34.17/23.33_{\textcolor{down}{\downarrow 10.84}}$ &
+        $15.00$ &
+        $27.33/14.09_{\textcolor{down}{\downarrow 13.24}}$ &
+        $14.16$ &
+        $10.83/10.00_{\textcolor{down}{\downarrow 0.83}}$ &
+        $5.00$ &
+        $16.15/5.38_{\textcolor{down}{\downarrow 10.77}}$ &
+        $8.78$ &
+        $16.38/11.70_{\textcolor{down}{\downarrow 4.68}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Chain & LLaMA-3.1-70b &
+        $27.40$ &
+        $52.22/35.33_{\textcolor{down}{\downarrow 16.89}}$ &
+        $19.41$ &
+        $43.68/19.34_{\textcolor{down}{\downarrow 24.34}}$ &
+        $13.40$ &
+        $11.74/5.55_{\textcolor{down}{\downarrow 6.19}}$ &
+        $50.00$ &
+        $69.61/60.77_{\textcolor{down}{\downarrow 8.84}}$ &
+        $8.19$ &
+        $40.94/14.62_{\textcolor{down}{\downarrow 26.32}}$ \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $26.25$ &
+        $50.00/28.84_{\textcolor{down}{\downarrow 21.16}}$ &
+        $18.00$ &
+        $38.00/15.00_{\textcolor{down}{\downarrow 23.00}}$ &
+        $6.67$ &
+        $7.08/6.27_{\textcolor{down}{\downarrow 0.81}}$ &
+        $5.83$ &
+        $20.83/29.16_{\textcolor{up}{\uparrow 8.33}}$ &
+        $11.11$ &
+        $50.88/38.60_{\textcolor{down}{\downarrow 12.08}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $23.75$ &
+        $55.21/31.25_{\textcolor{down}{\downarrow 23.96}}$ &
+        $16.36$ &
+        $43.68/10.45_{\textcolor{down}{\downarrow 33.23}}$&
+        $8.33$ &
+        $10.00/8.75_{\textcolor{down}{\downarrow 1.25}}$ &
+        $27.15$ &
+        $42.67/42.67_{\textcolor{down}{\downarrow 0.00}}$ &
+        $8.19$ &
+        $29.83/16.96_{\textcolor{down}{\downarrow 12.87}}$ \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06$ &
+        $45.31/31.87_{\textcolor{down}{\downarrow 13.44}}$ &
+        $18.88$ &
+        $29.72/18.53_{\textcolor{down}{\downarrow 20.79}}$ &
+        $12.5$ &
+        $16.66/9.58_{\textcolor{down}{\uparrow 7.08}}$ &
+        $4.16$ &
+        $47.5/4.16_{\textcolor{down}{\downarrow 43.34}}$ &
+        $8.19$ &
+        $18.72/9.36_{\textcolor{down}{\downarrow 9.36}}$ \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $18.66$ &
+        $34.00/24.66_{\textcolor{down}{\downarrow 9.34}}$ &
+        $10.56$ &
+        $18.31/11.26_{\textcolor{down}{\downarrow 7.05}}$ &
+        $7.91$ &
+        $7.91/6.25_{\textcolor{down}{\downarrow 1.66}}$ &
+        $0.00$ &
+        $12.50/1.67_{\textcolor{down}{\downarrow 10.83}}$ &
+        $8.19$ &
+        $19.89/10.53_{\textcolor{down}{\downarrow 9.36}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Tree & LLaMA-3.1-70b &
+        $33.91$ &
+        $56.33/39.13_{\textcolor{down}{\downarrow 17.20}}$ &
+        $17.22$ &
+        $38.18/16.84_{\textcolor{down}{\downarrow 21.34}}$ &
+        $13.79$ &
+        $10.59/5.76_{\textcolor{down}{\downarrow 4.83}}$ &
+        $37.5$ &
+        $70.83/58.33_{\textcolor{down}{\downarrow 12.50}}$ &
+        $17.08$ &
+        $43.29/14.02_{\textcolor{down}{\downarrow 29.27}}$ \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $28.70$ &
+        $42.95/29.74_{\textcolor{down}{\downarrow 13.21}}$ &
+        $22.00$ &
+        $46.67/25.33_{\textcolor{down}{\downarrow 21.34}}$ &
+        $7.08$ &
+        $6.67/7.08_{\textcolor{up}{\uparrow 0.41}}$ &
+        $4.31$ &
+        $25.86/29.31_{\textcolor{up}{\uparrow 3.45}}$ &
+        $13.45$ &
+        $36.26/26.32_{\textcolor{down}{\downarrow 9.94}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $24.68$ &
+        $63.43/28.75_{\textcolor{down}{\downarrow 35.68}}$ &
+        $7.00$ &
+        $31.33/8.02_{\textcolor{down}{\downarrow 23.31}}$ &
+        $7.08$ &
+        $10.42/7.08_{\textcolor{down}{\downarrow 3.34}}$ &
+        $36.84$ &
+        $47.37/50.87_{\textcolor{up}{\uparrow 3.50}}$ &
+        $8.78$ &
+        $38.60/15.79_{\textcolor{down}{\downarrow 22.81}}$ \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06$ &
+        $48.75/29.06_{\textcolor{down}{\downarrow 19.69}}$ &
+        $18.67$ &
+        $30.00/20.00_{\textcolor{down}{\downarrow 10.00}}$ &
+        $12.91$ &
+        $19.58/9.58_{\textcolor{down}{\downarrow 10.00}}$ &
+        $2.67$ &
+        $40.18/3.57_{\textcolor{down}{\downarrow 36.61}}$ &
+        $10.48$ &
+        $13.81/11.43_{\textcolor{down}{\downarrow 2.40}}$ \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $28.57$ &
+        $40.95/29.06_{\textcolor{down}{\downarrow 11.89}}$ &
+        $7.50$ &
+        $20.8/8.33_{\textcolor{down}{\downarrow 12.47}}$ &
+        $10.59$ &
+        $7.20/7.20_{\textcolor{down}{\downarrow 0.00}}$ &
+        $0.83$ &
+        $6.67/0.83_{\textcolor{down}{\downarrow 5.84}}$ &
+        $8.78$ &
+        $22.81/8.77_{\textcolor{down}{\downarrow 14.04}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Star & LLaMA-3.1-70b &
+        $31.93$ &
+        $55.64/34.01_{\textcolor{down}{\downarrow 21.63}}$ &
+        $15.67$ &
+        $42.61/20.13_{\textcolor{down}{\downarrow 22.48}}$ &
+        $7.76$ &
+        $9.38/4.26_{\textcolor{down}{\downarrow 5.12}}$ &
+        $49.14$ &
+        $70.69/49.14_{\textcolor{down}{\downarrow 21.55}}$ &
+        $8.54$ &
+        $50.61/20.22_{\textcolor{down}{\downarrow 30.39}}$ \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $25.97$ &
+        $56.87/30.25_{\textcolor{down}{\downarrow 26.62}}$ &
+        $20.61$ &
+        $43.24/19.58_{\textcolor{down}{\downarrow 23.66}}$ &
+        $6.25$ &
+        $5.83/5.00_{\textcolor{down}{\downarrow 0.83}}$ &
+        $6.67$ &
+        $16.67/25.00_{\textcolor{up}{\uparrow 8.33}}$ &
+        $11.70$ &
+        $47.20/36.16_{\textcolor{down}{\downarrow 11.04}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $24.68$ &
+        $74.37/29.06_{\textcolor{down}{\downarrow 45.31}}$ &
+        $6.68$ &
+        $45.82/7.30_{\textcolor{down}{\downarrow 38.52}}$ &
+        $8.89$ &
+        $7.15/8.74_{\textcolor{up}{\uparrow 1.59}}$ &
+        $17.86$ &
+        $67.86/25.00_{\textcolor{down}{\downarrow 42.86}}$ &
+        $8.78$ &
+        $42.96/12.28_{\textcolor{down}{\downarrow 30.68}}$ \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $28.75$ &
+        $54.23/29.37_{\textcolor{down}{\downarrow 24.86}}$ &
+        $18.98$ &
+        $38.83/20.27_{\textcolor{down}{\downarrow 18.56}}$ &
+        $11.25$ &
+        $17.92/11.67_{\textcolor{up}{\uparrow 6.25}}$ &
+        $3.33$ &
+        $26.16/3.33_{\textcolor{down}{\downarrow 22.83}}$ &
+        $8.19$ &
+        $14.62/11.11_{\textcolor{down}{\downarrow 3.51}}$ \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $20.00$ &
+        $44.06/21.56_{\textcolor{down}{\downarrow 22.50}}$ &
+        $14.63$ &
+        $29.26/8.54_{\textcolor{down}{\downarrow 20.72}}$ &
+        $9.32$ &
+        $7.63/5.08_{\textcolor{down}{\downarrow 2.55}}$ &
+        $0.83$ &
+        $3.33/4.16_{\textcolor{up}{\uparrow 0.83}}$ &
+        $7.02$ &
+        $16.38/11.70_{\textcolor{down}{\downarrow 4.68}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Random & LLaMA-3.1-70b &
+        $26.24$ &
+        $53.59/36.75_{\textcolor{down}{\downarrow 16.84}}$ &
+        $18.77$ &
+        $51.35/15.38_{\textcolor{down}{\downarrow 35.97}}$ &
+        $12.91$ &
+        $7.11/3.62_{\textcolor{down}{\downarrow 3.49}}$ &
+        $48.33$ &
+        $65.00/53.33_{\textcolor{down}{\downarrow 11.67}}$ &
+        $10.70$ &
+        $44.66/16.99_{\textcolor{down}{\downarrow 27.67}}$ \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $26.62$ &
+        $41.14/27.15_{\textcolor{down}{\downarrow 13.99}}$ &
+        $23.33$ &
+        $49.33/23.33_{\textcolor{down}{\downarrow 26.00}}$ &
+        $7.08$ &
+        $10.33/7.5_{\textcolor{down}{\downarrow 2.83}}$ &
+        $5.00$ &
+        $17.5/24.16_{\textcolor{up}{\uparrow 6.66}}$ &
+        $9.95$ &
+        $41.53/30.17_{\textcolor{down}{\downarrow 11.36}}$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $23.75$ &
+        $76.25/32.18_{\textcolor{down}{\downarrow 44.07}}$ &
+        $3.97$ &
+        $45.71/5.11_{\textcolor{down}{\downarrow 40.60}}$ &
+        $9.16$ &
+        $7.91/7.5_{\textcolor{down}{\downarrow 0.41}}$ &
+        $24.16$ &
+        $50.00/26.67_{\textcolor{down}{\downarrow 23.33}}$ &
+        $13.25$ &
+        $31.32/12.05_{\textcolor{down}{\downarrow 19.27}}$ \\
+        \hline
+        \multicolumn{12}{l}{
+  \footnotesize$\S$ ASR: In our work, ASR represents the proportion of agents that exhibit malicious or incorrect behaviors. A lower value of this metric is indicative of superior performance.
+ }
+    \end{tabular}}
+    \vspace{-0.5em}
+        \caption{11111}
+    \vspace{-0.6em}
+    \label{fact-csqa-gsm8k}
+    % \end{adjustbox}
+\end{table*}
+\begin{table*} \small
+    \centering
+    \label{detail_csqa}
+    % \begin{adjustbox}{width=\textwidth}
+    \resizebox{16cm}{!}{
+    \begin{tabular}{c|c|cccc}
+        \hline
+        \rowcolor{blue!10}
+        \multicolumn{2}{c|}{\textbf{Dataset}} & \multicolumn{4}{c}{ \cellcolor{yellow!10}{\textbf{PI (CSQA)}}} \\
+        \hline
+        \rowcolor{blue!5}
+        \textbf{Topology} & \textbf{Model} & \textbf{R0/R0+GS} & \textbf{R1/R1+GS} & \textbf{R2/R2+GS} & \textbf{R3/R3+GS} \\
+        % \hline
+        % % \rowcolor{white}
+        % \multicolumn{11}{l}{\textbf{Fact:} \textit{\textcolor{gray}{A dataset consisting of 153 GPT-generated fact statements for the network to check their truthfulness.}}} \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06/26.88$ &
+        $38.12/27.50$ &
+        $44.06/29.06$ &
+        $45.93/27.50$ \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $22.00/20.67$ &
+        $28,67/20.67$ &
+        $32.67/22.00$ &
+        $34.67/23.33$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Chain & LLaMA-3.1-70b &
+        $27.40/25.08$ &
+        $36.52/32.33$ &
+        $44.03/33.33$ &
+        $52.22/35.33$ \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $26.25/26.33$ &
+        $40.31/26.95$ &
+        $48.13/28.52$ &
+        $50.00/28.84$ \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $23.75/23.75$ &
+        $39.68/30.00$ &
+        $50.31/29.69$ &
+        $55.31/31.25$ \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06/29.38$ &
+        $38.75/32.19$ &
+        $43.43/31.87$ &
+        $45.31/31.87$  \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $18.66/23.33$ &
+        $28.66/24.00$ &
+        $33.33/24.00$ &
+        $34.00/24.67$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Tree & LLaMA-3.1-70b &
+        $33.91/32.60$ &
+        $46.75/39.13$ &
+        $54.34/37.55$ &
+        $56.33/39.13$  \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $28.70/28.70$ &
+        $36.99/27.67$ &
+        $22.01/29.78$ &
+        $42.95/29.47$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $24.68/23/13$ &
+        $42.81/28.44$ &
+        $59.06/27/81$ &
+        $63.43/28.75$  \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $29.06/29.06$ &
+        $39.37/28.75$ &
+        $46.56/28.75$ &
+        $48.75/29.06$  \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $28.57/26.67$ &
+        $30.47/25.71$ &
+        $33.33/25.71$ &
+        $40.95/24.76$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Star & LLaMA-3.1-70b &
+        $31.93/30.71$ &
+        $45.61/31.96$ &
+        $51.05/32.51$ &
+        $55.64/34.01$  \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $25.97/26.92$ &
+        $52.24/29.37$ &
+        $55.91/28.98$ &
+        $56.81/30.25$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $24.68/25.31$ &
+        $48.43/28.75$ &
+        $66.25/29.69$ &
+        $74.37/29.06$  \\
+        \hline
+        \rowcolor{gray!10}
+        % Chain \makebox[50pt][r]{\textcolor{green!90!black}{\ding{51}}} &
+        \cellcolor{gray!10} & GPT-4o-mini &
+        $28.75/29.78$ &
+        $45.45/30.63$ &
+        $51.56/30.63$ &
+        $54.23/29.37$  \\
+        \rowcolor{white}
+        \cellcolor{gray!10} & GPT-4o &
+        $20.00/20.00$ &
+        $27.19/20.94$ &
+        $35.94/21.25$ &
+        $44.06/21.56$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} Random & LLaMA-3.1-70b &
+        $26.24/27.00$ &
+        $44.44/30.79$ &
+        $50.00/34.77$ &
+        $53.59/36.75$  \\
+        \rowcolor{white}
+        % Star\makebox[33pt][r]{\textcolor{red!90!black}{\ding{55}}}&
+        \cellcolor{gray!10} & Claude-3.5-haiku &
+        $26.62/26.62$ &
+        $40.06/26.88$ &
+        $41.14/27.18$ &
+        $41.14/27.15$  \\
+        \rowcolor{gray!10}
+        \cellcolor{gray!10} & Deepseek-V3 &
+        $23.75/25.00$ &
+        $46.56/29.38$ &
+        $70.31/30.63$ &
+        $76.25/32.18$  \\
+        \hline
+        \multicolumn{6}{l}{
+  \footnotesize$\S$ ASR: In our work, ASR represents the proportion of agents that exhibit malicious or incorrect behaviors.
+ }
+    \end{tabular}}
+        \caption{\small{ASR after each round of conversation for MAS constructed by different LLMs on CSQA Dataset.}}
+    % \vspace{-0.6em}
+    % \end{adjustbox}
+\end{table*}
+\end{document}

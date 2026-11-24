@@ -1,0 +1,157 @@
+\usepackage{threeparttable}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\vspace{-3ex}
+\caption{Test set results (zero-shot) of LLMs on }
+% \vspace{-1ex}
+\resizebox{\linewidth}{!}{ %
+\begin{tabular}{l | c c c | c c | c c | c | c}
+\toprule
+\textbf{Datasets ($\rightarrow$)} &  {\textbf{MIMIC.}} & {\textbf{eICU}} & {\textbf{TREQS}} & {\textbf{MedCalc.}} & \textbf{MedAgent.} &
+ \textbf{BioCoder} & \textbf{BioDS.} & \textbf{EHRSHOT} & \textbf{Avg.}  \\
+\textbf{Baselines ($\downarrow$) / Metrics ($\rightarrow$)} & SR & SR & SR & SR & SR & SR & SR & Acc  & Score \\ \midrule
+\multicolumn{10}{l}{\textit{API-based Proprietary LLMs$^\dagger$}: We only consider Microsoft Azure OpenAI API services due to credentialed health data use agreement.} \\ \midrule
+\texttt{gpt-4o-mini (2024-07-28)}~\citep{hurst2024gpt} & 35.97 &16.57 &38.39 &73.11 &40.38 &30.12 &57.35 &7.84 &37.47 \\
+\texttt{gpt-4o (2024-08-06)}~\citep{hurst2024gpt} & 43.04 &43.44 &53.47 &73.97 &54.23 &30.12  & 58.16 &33.53 &48.75 \\
+\texttt{gpt-4.1-mini (2025-04-14)}~\citep{gpt-4-1} & 62.79 &63.44 &69.75 &84.36 &54.23 &47.46 &63.47 &48.28 &61.72 \\
+\texttt{gpt-4.1 (2025-04-14)}~\citep{gpt-4-1} & 69.36 &64.75 &\textbf{74.97} &\textbf{86.23} &57.63 &\textbf{52.95} &67.35 &\textbf{87.93} &\textbf{70.15} \\
+\texttt{gpt-o4-mini (2025-04-16)}~\citep{o4-mini}  & \textbf{76.45} &\textbf{70.16} &74.47 &78.45 &\textbf{59.32} &42.94 &\textbf{73.47} &50.07 &65.67 \\
+$^\ddagger$\texttt{codex-mini (2025-05-16)}~\citep{chen2021evaluating}& 67.30 &64.75 &74.57 &82.49 &58.76 &48.78 & 67.64 & 58.76 & 65.38 \\
+\midrule
+\multicolumn{10}{l}{\textit{OSS (Base Size): < 10B parameters}} \\
+\midrule
+\texttt{Qwen3-1.7B}~\citep{qwen3} & 20.12& 10.62 &15.08 &46.24 & 16.95 &15.38 &6.12 &1.87 & 16.55 \\
+\texttt{Qwen3-4B}~\citep{qwen3} & 27.23 &30.77& 28.85 &52.80& 15.25& 19.16&20.41 & 23.85  &27.29\\
+\texttt{gemma-3-4b-it}~\citep{team2025gemma} & 27.36 &29.10& 24.52& 42.49& 18.64 &17.95 &8.16& 4.37& 21.57\\
+$^\vee$\texttt{medgemma-4b-it}~\citep{medgemma-hf} & 15.51& 13.11& 14.85& 41.89&17.62& 26.74 &17.82 &1.33& 18.61 \\
+\texttt{Qwen3-8B}~\citep{qwen3} & \textbf{29.08}& \textbf{34.53}& \textbf{37.37}& \textbf{54.59}& 20.34&20.51&\textbf{24.49} & \textbf{25.71} & \textbf{30.83} \\
+\texttt{Qwen2.5-7B-Instruct}~\citep{yang2024qwen2} & 13.08& 15.57& 12.76& 25.91& \textbf{30.36} &21.79& 10.20& 5.42& 17.43\\
+\texttt{Llama-3.1-8B-Instruct}~\citep{dubey2024llama} & 16.67& 25.00&19.17 &27.53& 16.95& 18.59& 9.19& 2.36& 16.97\\
+\texttt{Ministral-8B-Instruct-2410}~\citep{Ministral-8b} & 16.70& 14.92& 25.39& 49.81& 22.03& 23.72 &12.24 &7.79& 22.27\\
+% \texttt{Mistral-Nemo-Instruct-2407}~\citep{adler2024nemotron} \\
+% coding
+$^\ddagger$\texttt{Qwen2.5-Coder-7B-Instruct}~\citep{hui2024qwen2} & 9.12& 10.66 &15.63 &24.62 &18.75 &10.60 &17.24 &10.55 &14.65\\
+% medical
+$^\vee$\texttt{HuatuoGPT-o1-7B}~\citep{chen2024huatuogpt} & 4.99 & 7.04& 7.04 & 38.05 & 18.64 & 28.21 & 19.88& 5.03 & 16.11 \\
+$^\vee$\texttt{m1-7B-23K}~\citep{huang2025m1} & 6.88& 9.56 &7.04 &28.24 &9.32& 20.26 &14.71 &0.00 & 12.00\\
+% $^\vee$\texttt{ClinicalGPT-R1}~\citep{lan2025clinicalgpt} \\
+$^\vee$\texttt{MedReason-8B}~\citep{wu2025medreason} & 9.12 & 9.51& 9.15& 43.31 & 21.46& \textbf{31.42}& 17.42& 3.88& 18.16\\
+% $^\vee$\texttt{MedS$^3$}~\citep{jiang2025meds3medicalsmalllanguage} \\
+% \rowcolor{Goldenrod!16} \textbf{\ours{} (Qwen3-1.7B)}  \\
+% \rowcolor{Dandelion!16} \textbf{\ours{} (Qwen3-4B)}  \\
+% \rowcolor{Peach!16} \textbf{\ours{} (Qwen2.5-7B-Instruct)} & 64.13& 66.91& 72.02& 90.06& 52.54& 34.62& 69.39& 29.55 &59.90 \\
+% \rowcolor{RedOrange!16} \textbf{\ours{} (Qwen3-8B)}  \\
+\midrule
+\multicolumn{10}{l}{\textit{OSS (Large Size): 10 - 30B parameters}}  \\
+\midrule
+% \texttt{gemma-3-12b-it}~\citep{team2025gemma} \\
+\texttt{Qwen3-14B}~\citep{qwen3} & 31.50 &31.97& 30.05& \textbf{61.38}& 22.03& 22.60 & \textbf{26.53} & {26.77}& 31.60 \\
+\texttt{Qwen2.5-14B-Instruct}~\citep{yang2024qwen2} & 17.21& 14.07& 16.43 &27.40& \textbf{35.59}& \textbf{29.49}& 16.33 & 4.45 &20.12\\
+\texttt{DeepSeek-R1-Distill-Qwen-14B}~\citep{guo2025deepseek} & 35.12& 38.52 &32.96& 48.09 &32.20& 21.29& 24.49& 11.39& 30.51\\
+% coding
+$^\ddagger$\texttt{Qwen2.5-Coder-14B-Instruct}~\citep{hui2024qwen2} & \textbf{41.82} & \textbf{44.26} &\textbf{35.78}& 33.75 &30.42 &26.28 &22.45 & \textbf{28.37} &\textbf{32.89}\\
+% $^\ddagger$\texttt{DeepSeek-Coder-V2-Lite-Instruct}~\citep{zhu2024deepseek} \\
+% medical
+$^\vee$\texttt{Baichuan-M1-14B-Instruct}~\citep{wang2025baichuan} & 4.50& 12.19& 7.36& 1.82 & 21.46 & 16.34 &17.42 & 0.00 & 10.14 \\
+% $^\vee$\texttt{BioMedGPT-R1}~\citep{luo2024biomedgpt} \\
+% \rowcolor{SeaGreen!16} \textbf{\ours{} (Qwen2.5-14B-Instruct)} & 64.54& 63.52 & 76.08 & 92.45 & 54.32 & 43.56 & 92.96 & 43.56 & 66.37\\
+% \rowcolor{JungleGreen!16} \textbf{\ours{} (Qwen3-14B)}  \\
+\midrule
+\multicolumn{10}{l}{\textit{OSS (XL Size): > 30B parameters}}  \\
+\midrule
+\texttt{Qwen3-32B}~\citep{qwen3} & 52.48& 60.95& 53.82& 63.82 &45.93& 32.67 & 28.57& 47.29& 48.19 \\
+\texttt{Qwen2.5-32B-Instruct}~\citep{yang2024qwen2} & 54.56& 45.41& 62.81& 69.96& 40.67& 27.45& 22.45& 18.13& 42.68\\
+\texttt{QwQ-32B}~\citep{qwq32b} & 62.31& 56.72& \textbf{66.15} & 67.69& \textbf{47.46}& \textbf{42.31}& 14.29& \textbf{55.05}& \textbf{51.50}\\
+\texttt{DeepSeek-R1-Distill-Qwen-32B}~\citep{guo2025deepseek} & 62.18& 58.36& 65.82 &60.14 &43.56 &28.66 & 26.53 &31.17 & 47.05 \\
+\texttt{Llama-3.3-70B-Instruct}~\citep{dubey2024llama} &39.93&25.08&24.98&\textbf{84.99}& 39.40& 27.55 & 24.49& 29.93& 37.04\\
+\texttt{DeepSeek-R1-Distill-Llama-70B}~\citep{guo2025deepseek} & \textbf{64.59}& \textbf{64.92}& 56.98& 76.96 &28.81 &32.05 & \textbf{42.86} & 33.42 & 50.07\\
+\bottomrule
+\end{tabular}
+}
+\label{tab:main_results}
+% \vspace{-3ex}
+\end{table*}
+\begin{table*}[t]
+\centering
+\renewcommand\arraystretch{0.92}
+\caption{performance on finetuned with sampled trajectories.
+}
+% \vspace{-1ex}
+\resizebox{1.01\linewidth}{!}{ %
+\begin{tabular}{l | c c c| c c| c c| c | c c }
+\toprule
+% & \multicolumn{9}{c|}{{In-distribution}} & \multicolumn{6}{c}{{Out-of-distribution}} \\
+% \cmidrule(lr){2-10} \cmidrule(lr){11-16}
+\textbf{Datasets ($\rightarrow$)} &  {\textbf{MIMIC-III}} & {\textbf{eICU}} & {\textbf{TREQS}} & {\textbf{MedCalc.}} & \textbf{MedAgent.} &
+ \textbf{BioCoder} & \textbf{BioDS.} & \textbf{EHRSHOT} & \textbf{Avg.} & \textcolor{OliveGreen}{\textbf{$\Delta$}} \\
+\textbf{Base ($\downarrow$) / Metrics ($\rightarrow$)} & SR & SR & SR & SR & SR & SR  & SR & Acc & \multicolumn{2}{c}{Score} \\ \midrule
+% \texttt{Qwen3-1.7B}  \\
+% \quad +SFT  & & & & & & & & & & \\
+% \texttt{Qwen3-4B}  \\
+% \quad +SFT  & & & & & & & & & & \\
+% \texttt{Qwen3-8B}  \\
+% \quad +SFT  & & & & & & & & & & \\
+\rowcolor{Gray!16} \texttt{Qwen2.5-7B-Instruct} & 13.08 & 15.57 &12.76& 25.91& 30.36& 21.79 & 10.20 & 5.42 & 16.89 & --\\
+\quad +SFT  & 57.83 & 61.48& {72.66}& 89.06& 50.85& 28.33& 55.10& 15.62 & 53.87 & \textcolor{OliveGreen}{(\emph{+36.98})}\\
+% \quad +DPO  & 49.59 & 43.61& 46.68& 49.20& 45.25& 30.13& 69.39& 26.43& 45.04 & \textcolor{OliveGreen}{(\emph{+28.15})}\\
+\quad \quad +DPO  & {64.13} & {66.91} & 72.02 & {90.06} & {52.54} & {34.62} & {69.39} & {29.55}& {59.90} & \textcolor{OliveGreen}{(\emph{+43.02})}\\
+% +iDPO \\
+% \midrule
+% \hdashline
+\quad \quad +PPO  & 66.10& 67.25& \textbf{73.88} & 74.52& 51.33& 32.71& 65.47& 32.40 & 57.96 & \textcolor{OliveGreen}{(\emph{+41.07})}\\
+\rowcolor{Peach!16} \quad \quad +GRPO  & \textbf{68.21} & \textbf{68.73} & {70.50}& \textbf{92.33}& \textbf{55.87}& \textbf{37.40}& \textbf{71.11} & \textbf{33.18} & \textbf{62.17} & \textcolor{OliveGreen}{(\emph{+45.28})}\\
+\midrule
+\rowcolor{Gray!16} \texttt{Qwen2.5-14B-Instrust} & 17.21 & 14.07& 16.43& 27.40& 35.59& 29.49& 16.33& 4.45& 20.12 & --\\
+\quad +SFT  & 61.45& 62.46& {76.38}& {94.36}& 52.54& 39.80& 89.80& 34.58 & 63.92 & \textcolor{OliveGreen}{(\emph{+43.80})} \\
+% \quad +DPO  & 57.49 & 59.18 & 70.45 & 71.32 & 47.46 & 42.95 & 91.84 & 41.33 &60.25 & \textcolor{OliveGreen}{(\emph{+40.13})} \\
+\quad \quad +DPO  & {64.54} & {63.52} & 76.08 & 92.45 & {54.32} & {43.56} & {92.96}& {43.56} &{66.37} & \textcolor{OliveGreen}{(\emph{+46.25})}\\
+% \rowcolor{JungleGreen!16} {(Qwen3-14B)}  \\
+% +iDPO \\
+% \midrule
+% \hdashline
+\quad \quad +PPO  & 67.55 & 68.53 & \textbf{78.32} & 94.86 & 53.22 & 45.88 & 91.33 & 56.79 & 69.56  & \textcolor{OliveGreen}{(\emph{+49.44})}\\
+\rowcolor{SeaGreen!16} \quad \quad +GRPO & \textbf{68.78} & \textbf{69.34} & {76.84} & \textbf{95.81} & \textbf{57.41} & \textbf{49.32} & \textbf{94.78} & \textbf{59.05} & \textbf{71.42} & \textcolor{OliveGreen}{(\emph{+51.30})}\\
+\bottomrule
+\end{tabular}%
+% \vspace{-6ex}
+}
+\label{tab:training_results}
+\end{table*}
+\begin{table*}[t]
+% \vspace{-3ex}
+\caption{Summary of related biomedical reasoning and coding datasets with task details and execution environments}
+\label{tab:related}
+\vspace{-1ex}
+\begin{threeparttable}
+\centering
+\renewcommand\arraystretch{0.98}
+\resizebox{1.0\linewidth}{!}{ %
+\begin{tabular}{@{}l|cc|cccc|cccc|ccc@{}}
+\toprule
+ & \multicolumn{2}{c|}{\textbf{Domain}} & \multicolumn{4}{c|}{\textbf{Task}} & \multicolumn{4}{c|}{\textbf{Environment \& Facility}} & \multicolumn{3}{c}{\textbf{Scale (\#Instances)}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-7} \cmidrule(lr){8-11} \cmidrule(lr){12-14}
+\textbf{Datasets ($\downarrow$)} & QA & Coding & DB & DA & Bioinfo & ML &
+Execution & Interaction & Isolation & Training  & {\# Train} & {\# Test} & {\# Traj.}\\ \midrule
+MedMCQA~\citep{pal2022medmcqa} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 3K & 4.18K & \textcolor{red}{\XSolidBrush} \\
+MedQA~\citep{jin2021disease} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 11.4K & 1.27K & \textcolor{red}{\XSolidBrush} \\
+PubMedQA~\citep{jin-etal-2019-pubmedqa} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 450 & 500 & \textcolor{red}{\XSolidBrush} \\
+BioASQ~\citep{tsatsaronis2015overview} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 745 & 140 & \textcolor{red}{\XSolidBrush} \\
+MedAgentsBench~\citep{tang2025medagentsbench} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 862 & \textcolor{red}{\XSolidBrush} \\
+MIRAGE~\citep{xiong2024benchmarking} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 7.66K & \textcolor{red}{\XSolidBrush} \\
+HealthBench~\citep{healthbench} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 5K & \textcolor{red}{\XSolidBrush} \\
+\midrule
+EHRSQL~\citep{lee2022ehrsql} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 15.5K & 1.73K & \textcolor{red}{\XSolidBrush} \\
+MedCalcBench~\citep{khandekar2024medcalc} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & 10.1K & 1.05K & \textcolor{red}{\XSolidBrush} \\
+MedAgentBench~\citep{jiang2025medagentbench} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 300 & \textcolor{red}{\XSolidBrush} \\
+BioCoder~\citep{tang2024biocoder} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & -- & 1.24K & \textcolor{red}{\XSolidBrush} \\
+BioDSBench~\citep{wang2024can} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 128 & \textcolor{red}{\XSolidBrush} \\
+EHRSHOT~\citep{wornow2023ehrshot} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & \textcolor{red}{\XSolidBrush} & -- & 15 & \textcolor{red}{\XSolidBrush} \\
+\rowcolor{RoyalPurple!12} \textbf{ (Ours)} & \textcolor{red}{\XSolidBrush} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} & \textcolor{green}{\CheckmarkBold} &  \textbf{59.2K}& \textbf{13.2K} & \textbf{6.7K}\\
+\bottomrule
+\end{tabular}}
+\end{threeparttable}
+% \vspace{-3ex}
+\end{table*}
+\end{document}

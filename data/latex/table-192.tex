@@ -1,0 +1,50 @@
+\definecolor{lightred}{RGB}{255,199,206}
+%\definecolor{lightblue}{RGB}{204, 222, 240}
+\definecolor{lightblue}{RGB}{217, 231, 244}
+%%%%%%%
+\begin{document}
+\begin{table*}[htbp]
+\centering
+\caption{Quantitative comparison between the proposed method and existing state-of-the-art approaches. The best and second-best performances for each metric are highlighted with {\setlength{\fboxsep}{2.3pt}\colorbox{lightred}{Red}} and {\setlength{\fboxsep}{2.3pt}\colorbox{lightblue}{Blue}} backgrounds, respectively.}\vspace{-2mm}
+\renewcommand\arraystretch{1.4}
+{\footnotesize\centerline{\tabcolsep=2.9pt
+\begin{tabular}{c|ccccc|ccccc|ccccc}
+\toprule
+\textbf{Datasets} & \multicolumn{5}{c|}{\textbf{M$^3$FD}}             & \multicolumn{5}{c|}{\textbf{FMB}}              & \multicolumn{5}{c}{\textbf{VT5000}} \\
+\midrule
+\textbf{Methods} & $\rm{MI} \uparrow$ & ${Q_{AB/F}} \uparrow$  & ${Q_{CB}} \uparrow$   & ${Q_{CV}} \downarrow$   & ${Q_{CC}} \uparrow$    & $\rm{MI}$ & ${Q_{AB/F}}$  & ${Q_{CB}}$   & ${Q_{CV}}$   & ${Q_{CC}}$    & $\rm{MI}$ & ${Q_{AB/F}}$  & ${Q_{CB}}$   & ${Q_{CV}}$   & ${Q_{CC}}$ \\
+\midrule
+CoCo\cite{51} & 1.9284  & 0.3980  & 0.4004  & 813.92  & 0.6101  & 2.1332  & 0.3857  & 0.3893  & 615.32  & \cellcolor{lightred}{0.6834} & 1.9208  & 0.3660  & 0.4270  & 788.37  & \cellcolor{lightblue}{0.7075} \\
+TDAL\cite{10} & 1.4305  & 0.3047  & 0.3605  & 1073.90  & 0.5077  & 1.4922  & 0.3306  & 0.3367  & 740.31  & 0.5818  & 1.6225  & 0.3071  & 0.4193  & 981.00  & 0.6396  \\
+IRFS\cite{11}  & 1.9552  & 0.5165  & 0.3996  & 719.71  & 0.5578  & 2.1391  & 0.5470  & 0.3874  & 462.69  & 0.6248  & 1.9670  & 0.4735  & 0.4773  & 523.45  & 0.6980  \\
+SMiF\cite{16} & 2.1313  & \cellcolor{lightblue}{0.6601} & \cellcolor{lightblue}{0.4683} & \cellcolor{lightblue}{488.67} & 0.6192  & 2.2615  & \cellcolor{lightblue}{0.6924} & \cellcolor{lightblue}{0.4650} & \cellcolor{lightblue}{326.10} & 0.6743  & 1.7521  & 0.5059  & 0.4925  & 472.46  & 0.6823  \\
+MRFS\cite{7}  & 2.2639  & 0.5540  & 0.4218  & 633.00  & \cellcolor{lightblue}{0.6370} & 2.3991  & 0.6230  & 0.4329  & 433.04  & 0.6701  & 1.9274  & 0.5150  & 0.4507  & 416.98  & 0.6957  \\
+TIMF\cite{14} & \cellcolor{lightred}{2.5942} & 0.4938  & 0.3405  & 880.86  & 0.6325  & \cellcolor{lightblue}{2.4035} & 0.5023  & 0.3180  & 748.51  & 0.6532  & \cellcolor{lightred}{2.5749} & 0.5196  & \cellcolor{lightblue}{0.5139} & 591.51  & 0.6947  \\
+SAGE\cite{8}  & 2.1834  & 0.5903  & 0.4386  & 508.77  & 0.6173  & 2.3767  & 0.6372  & 0.4421  & 333.38  & 0.6767  & 2.0776  & \cellcolor{lightblue}{0.5249} & 0.4604  & \cellcolor{lightblue}{392.64} & 0.7054  \\
+
+Ours  & \cellcolor{lightblue}{2.5265} & \cellcolor{lightred}{0.6900} & \cellcolor{lightred}{0.4729} & \cellcolor{lightred}{472.62} & \cellcolor{lightred}{0.6385} & \cellcolor{lightred}{2.6219} & \cellcolor{lightred}{0.7124} & \cellcolor{lightred}{0.4736} & \cellcolor{lightred}{316.41} & \cellcolor{lightblue}{0.6831} & \cellcolor{lightblue}{2.3352} & \cellcolor{lightred}{0.6519} & \cellcolor{lightred}{0.5414} & \cellcolor{lightred}{331.15} & \cellcolor{lightred}{0.7091} \\
+\bottomrule
+\end{tabular}}}\vspace{-4mm}
+\label{tab:1}%
+\end{table*}%
+\begin{table}[htbp]
+\centering
+\vspace{-2mm}
+\caption{Quantitative comparison of the proposed method with the “joint training” methods. The number of parameters and the computational cost of the trainable parts are reported in the table. The best and second-best performances for each metric are highlighted with {\setlength{\fboxsep}{2.3pt}\colorbox{lightred}{Red}} and {\setlength{\fboxsep}{2.3pt}\colorbox{lightblue}{Blue}} backgrounds, respectively.}\vspace{-2mm}
+\renewcommand\arraystretch{1.4}
+{\footnotesize\centerline{\tabcolsep=2.5pt
+\begin{tabular}{c|c|c|cc|c|c}
+\toprule
+\multirow{2}{*}{\textbf{Methods}} & \textbf{OD}    & \textbf{Seg}   & \multicolumn{2}{c|}{\textbf{SOD}} & \multicolumn{1}{c|}{\multirow{2}{*}{\thead{\textbf{Params}\\(M)}}} & \multirow{2}{*}{\thead{\textbf{FLOPs}\\(G)}} \\
+\cline{2-5}          & mAP$_{50 \rightarrow 95} \uparrow$   & mIoU $\uparrow$  & mF$_{\beta} \uparrow$    & E$_m \uparrow$    &       &  \\
+\midrule
+IRFS\cite{11}  & \cellcolor{lightblue}{0.6180} & 59.10  & \cellcolor{lightred}{0.8319} & \cellcolor{lightred}{0.9194} & \cellcolor{lightblue}{39.95} & 253.08  \\
+MRFS\cite{7}  & 0.5959  & \cellcolor{lightred}{61.48} & 0.7800  & 0.8879  & 134.97  & \cellcolor{lightblue}{219.16} \\
+SMiF\cite{16} & 0.6092  & \cellcolor{lightblue}{61.20} & 0.8004  & 0.9012  & 45.60  & 526.20  \\
+
+Ours  & \cellcolor{lightred}{0.6304} & 60.34  & \cellcolor{lightblue}{0.8129} & \cellcolor{lightblue}{0.9087} &\cellcolor{lightred}{0.46} & \cellcolor{lightred}{174.06} \\
+\bottomrule
+\end{tabular}}}\vspace{-2.5mm}
+\label{tab:3}%
+\end{table}%
+\end{document}

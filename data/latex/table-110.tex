@@ -1,0 +1,512 @@
+\documentclass[letterpaper]{article} % DO NOT CHANGE THIS
+\usepackage[submission]{aaai2026}  % DO NOT CHANGE THIS
+\usepackage{times}  % DO NOT CHANGE THIS
+\usepackage{helvet}  % DO NOT CHANGE THIS
+\usepackage{courier}  % DO NOT CHANGE THIS
+\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
+\usepackage{graphicx} % DO NOT CHANGE THIS
+\urlstyle{rm} % DO NOT CHANGE THIS
+\def\UrlFont{\rm}  % DO NOT CHANGE THIS
+\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\frenchspacing  % DO NOT CHANGE THIS
+\setlength{\pdfpagewidth}{8.5in} % DO NOT CHANGE THIS
+\setlength{\pdfpageheight}{11in} % DO NOT CHANGE THIS
+%
+% These are recommended to typeset algorithms but not required. See the subsubsection on algorithms. Remove them if you don't have algorithms in your paper.
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{pifont} %182/183/184
+\usepackage{subcaption}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{amsfonts,amssymb}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{soul}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{amsfonts,amssymb}
+\usepackage{microtype}
+%\usepackage{subfigure}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{soul}
+\usepackage{colortbl}
+\usepackage{booktabs,makecell, multirow, tabularx}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{bbding}
+\usepackage{pifont}
+\usepackage{wasysym}
+\usepackage{utfsym}
+\usepackage{fontawesome}
+\usepackage{mdframed}
+\usepackage{arydshln}
+% %%%%%%%%%%%%%%%%%%%   MVTec 3D-AD (I-AUROC)
+%\checkmark  \Checkmark
+%\XSolidBrush
+% \cmidrule{1-8} 横线
+% \usepackage{arydshln}虚线宏包
+%\hdashline
+%\cdashline{2-3} % 第二、三列虚线
+%左 $\leftarrow$，右 $\rightarrow$，上 $\uparrow$，下 $\downarrow$
+%整行填充颜色
+%\usepackage[table]{xcolor}
+%\usepackage{colortbl}
+%\rowcolor{blue!20}
+%合并行和列
+%\multicolumn{2}{c|}{\multirow{2}{*}{Method}}
+%\multicolumn{2}{c|}{Method}
+%定义颜色
+% \definecolor{color1}{RGB}{229,229,229}
+% \cellcolor{color1}
+%定义字体
+% \newcommand{\zzz}[1]{{\color{color1} #1}}
+\def\bf{\bfseries\sffamily}
+\usepackage{xifthen}
+\newcommand{\expandref}[2]{\ref{#1}\hyperref[#1]{#2}}
+\newcommand{\kindatiny}{\fontsize{6pt}{7.2pt}\selectfont}
+\newlength\savewidth\newcommand\shline{\noalign{\global\savewidth\arrayrulewidth
+  \global\arrayrulewidth 0.5pt}\hline\noalign{\global\arrayrulewidth\savewidth}}
+\newcommand{\tablestyle}[2]{%
+    \fontfamily{ptm}\selectfont%
+    \let\itold\it%
+    \def\it{\itold \fontfamily{ptm}\selectfont}%
+    \setlength{\tabcolsep}{#1}\renewcommand{\arraystretch}{#2}\centering\kindatiny%
+    \let\citeold\cite%
+    \renewcommand{\cite}[1]{\normalfont\fontfamily{ptm}\selectfont\tiny\citeold{##1}}%
+}
+\newcommand{\bigtablestyle}[2]{%
+    \fontfamily{ptm}\selectfont%
+    \let\itold\it%
+    \def\it{\itold \fontfamily{ptm}\selectfont}%
+    \setlength{\tabcolsep}{#1}\renewcommand{\arraystretch}{#2}\centering\footnotesize%
+    \let\citeold\cite%
+    \renewcommand{\cite}[1]{\normalfont\fontfamily{ptm}\selectfont\footnotesize\citeold{##1}}%
+}
+\renewcommand{\paragraph}[1]{\vspace{1.25mm}\noindent\textbf{#1}}
+\newcommand\blfootnote[1]{\begingroup\renewcommand\thefootnote{}\footnote{#1}\addtocounter{footnote}{-1}\endgroup}
+\newcolumntype{x}[1]{>{\centering\arraybackslash}p{#1pt}}
+\newcolumntype{y}[1]{>{\raggedright\arraybackslash}p{#1pt}}
+\newcolumntype{z}[1]{>{\raggedleft\arraybackslash}p{#1pt}}
+\newcolumntype{w}{>{\centering\arraybackslash}p{18pt}}
+\newcolumntype{a}{>{\centering\arraybackslash}p{16pt}}
+\captionsetup{skip=4pt}
+\newcommand{\uu}[1]{{#1}}
+\newcommand{\bb}[1]{\textbf{#1}}
+\newcommand{\rp}[2]{{#1\textcolor{c0-item-text}{\tiny /#2}}}
+\definecolor{c0-title-bkg}{HTML}{ffffff}
+\definecolor{c0-title-text}{HTML}{000000}
+\definecolor{c0-item-bkg}{HTML}{ffffff}
+% \definecolor{c0-item-text}{HTML}{818589}
+\definecolor{c0-item-text}{HTML}{676767}
+\definecolor{c1-title-bkg}{HTML}{d1e2dd}
+\definecolor{c1-title-text}{HTML}{005953}
+\definecolor{c1-item-bkg}{HTML}{e6efec}
+\definecolor{c1-item-text}{HTML}{2d7b6d}
+\definecolor{c2-title-bkg}{HTML}{cfe1e1}
+\definecolor{c2-title-text}{HTML}{005760}
+\definecolor{c2-item-bkg}{HTML}{e4eeed}
+\definecolor{c2-item-text}{HTML}{24797b}
+\definecolor{c3-title-bkg}{HTML}{cddfe5}
+\definecolor{c3-title-text}{HTML}{00536b}
+\definecolor{c3-item-bkg}{HTML}{e2ecef}
+\definecolor{c3-item-text}{HTML}{287687}
+\definecolor{c4-title-bkg}{HTML}{cedce8}
+\definecolor{c4-title-text}{HTML}{124e74}
+\definecolor{c4-item-bkg}{HTML}{e1eaf1}
+\definecolor{c4-item-text}{HTML}{3a7190}
+\definecolor{c5-title-bkg}{HTML}{d0d9eb}
+\definecolor{c5-title-text}{HTML}{324779}
+\definecolor{c5-item-bkg}{HTML}{e1e8f3}
+\definecolor{c5-item-text}{HTML}{4d6b97}
+\definecolor{c6-title-bkg}{HTML}{d3d5ed}
+\definecolor{c6-title-text}{HTML}{493e7b}
+\definecolor{c6-item-bkg}{HTML}{e3e5f5}
+\definecolor{c6-item-text}{HTML}{61639b}
+\definecolor{c7-title-bkg}{HTML}{dad1ed}
+\definecolor{c7-title-text}{HTML}{5a3477}
+\definecolor{c7-item-bkg}{HTML}{e5e1f5}
+\definecolor{c7-item-text}{HTML}{725b99}
+\definecolor{c8-title-bkg}{HTML}{ded1ec}
+\definecolor{c8-title-text}{HTML}{633273}
+\definecolor{c8-item-bkg}{HTML}{ebe2f6}
+\definecolor{c8-item-text}{HTML}{7c5997}
+\definecolor{c9-title-bkg}{HTML}{e5d1eb}
+\definecolor{c9-title-text}{HTML}{6c2f6b}
+\definecolor{c9-item-bkg}{HTML}{f0e0f6}
+\definecolor{c9-item-text}{HTML}{885591}
+\definecolor{c10-title-bkg}{HTML}{ebd1e7}
+\definecolor{c10-title-text}{HTML}{722e5f}
+\definecolor{c10-item-bkg}{HTML}{f5e2f3}
+\definecolor{c10-item-text}{HTML}{915487}
+\definecolor{avg-title-bkg}{HTML}{f3f3f3}
+\definecolor{avg-title-text}{HTML}{000000}
+\definecolor{avg-item-bkg}{HTML}{f3f3f3}
+\definecolor{avg-item-text}{HTML}{000000}
+\newcommand{\addpadding}{%
+  \rule{0pt}{\dimexpr\normalbaselineskip-1pt\relax}%
+}
+\newcommand{\cc}[2][c0]{\cellcolor{#1-item-bkg}\textcolor{#1-item-text}{\it \tiny{#2}}}
+\newcommand{\ct}[2][c0]{\addpadding{\cellcolor{#1-item-bkg}\textcolor{#1-title-text}{#2}}}
+\definecolor{promptcolor}{HTML}{D1D0F2}
+\definecolor{promptcolorheader}{HTML}{bdbcec}
+\newcommand{\promptbox}[2]{
+    \begin{tcolorbox}[
+        top=0.3em,bottom=0.3em,left=0.5em,right=0.5em,
+        toptitle=0.3em,bottomtitle=0.2em,boxsep=0pt,
+        colframe=promptcolorheader,colback=promptcolor!50,boxrule=0.5pt,
+        title={\footnotesize \fontfamily{zi4}\selectfont #1}
+    ]
+        \footnotesize
+        {\fontfamily{zi4}\selectfont #2}
+    \end{tcolorbox}
+}
+% Define a more robust rotate box (from stack overflow)
+\ExplSyntaxOn
+\cs_generate_variant:Nn \coffin_typeset:Nnnnn {Nffff}
+\NewDocumentCommand\rotbox{ O{l,H} D<>{0pt,0pt} m m}{
+    % O{l,H}=optional argument[] with default value l,H
+    % l=left edge of box, and H=text baseline
+    % D<>{0pt,0pt}= optional argument<> with default value 0pt,0pt
+    % which are x and y offsets respectively
+    % by default the coffin is placed at the intersection of its left
+    % edge and the text baseline with no offset from this point.
+    \hcoffin_set:Nn \l_tmpa_coffin {#4}
+    % put the stuff in a coffin
+    \coffin_rotate:Nn \l_tmpa_coffin {#3}
+    % rotate it
+    \coffin_typeset:Nffff \l_tmpa_coffin
+    % this macro requires 5 args where
+    % #1=coffin name, \l_tmpa_coffin above
+    % #2=a pole, default left edge
+    % #3=another pole, default text baseline
+    % #4=x-offset from pole intersection, default 0pt
+    % #5=y-offset from pole intersection, default 0pt
+        {\clist_item:nn{#1}{1}}
+        % #1 of \rotbox is a comma separated list with default l,H
+        % take the first item from this clist, this is our first pole
+        {\clist_item:nn{#1}{2}}
+        % #1 of \rotbox is a comma separated list with default l,H
+        % take the second item from this clist, this is our next pole
+        {\clist_item:nn{#2}{1}}
+        % #2 of \rotbox is a comma separted list with default 0pt,0pt
+        % get x-offset as first item on this list
+        {\clist_item:nn{#2}{2}}
+        % #2 of \rotbox is a comma separted list with default 0pt,0pt
+        % get y-offset as second item on this list
+}
+\ExplSyntaxOff
+\DeclareRobustCommand{\PEcore}{PE$_\text{core}$}
+\DeclareRobustCommand{\PElang}{PE$_\text{lang}$}
+\DeclareRobustCommand{\PEspat}{PE$_\text{spatial}$}
+\DeclareRobustCommand{\PEplm}{PE$_\text{PLM}$}
+\newlength{\ccustomlen}
+\setlength{\ccustomlen}{2cm}
+\newcommand{\ccustom}[3][c0]{%
+    \cellcolor{#1-item-bkg}{%
+        \rotbox[l,t]{90}{%
+            \parbox[t]{\ccustomlen}{%
+                \ifthenelse{\isempty{#3}}{%
+                    \mbox{%
+                        \kindatiny\textcolor{#1-title-text}{#2}%
+                    }%
+                }{%
+                    \kindatiny\textcolor{#1-title-text}{#2} \\%
+                    \tiny{\textcolor{#1-item-text}{\it #3}}%
+                }%
+            }%
+        }%
+    }%
+}
+\newcommand{\cb}[3][c0]{%
+    \setlength{\ccustomlen}{1.2cm}%
+    \ccustom[#1]{#2}{#3}%
+}
+\newcommand{\ca}[1]{\cellcolor{avg-item-bkg}{#1}}
+\newcommand{\cat}[1]{\addpadding{\cellcolor{avg-item-bkg}{#1}}}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\def\eg{\emph{e.g.}\xspace}
+\def\ie{\emph{i.e.}\xspace}
+\def\vs{\emph{vs.}\xspace}
+\newcommand{\etc}{\emph{etc.}\xspace}
+\makeatother
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+    \centering
+    \makebox[\linewidth][c]{
+    \tablestyle{0pt}{1.15}
+    \begin{tabular}{y{55}www awwwwww awwwwwwww awwww}
+        \shline
+        \multirow{2}{*}{\vspace{-2.2cm} Model}  &&&& \multicolumn{7}{c}{\ct[c1]{\it Zero-Shot Classification}} %
+        & \multicolumn{9}{c}{\ct[c2]{\it Zero-Shot Fine-Grained Classification}} %
+        & \multicolumn{5}{c}{\ct[c3]{\it Zero-Shot Retrieval}}\\
+            & \cb{Encoder Params}{}
+            & \cb{Resolution}{}
+            & \cb{Data}{}
+            & \cb[c1]{\textit{\textbf{Avg Class.}}}{}
+            & \cb[c1]{ImageNet}{val~\cite{imagenet}}
+            & \cb[c1]{ImageNet}{v2~\cite{imagenetv2}}
+            & \cb[c1]{ObjectNet}{IN Classes~\cite{objectnet}}
+            & \cb[c1]{ImageNet}{Adversarial~\cite{imagenet-a}}
+            & \cb[c1]{ImageNet}{Renditions~\cite{imagenet-r}}
+            & \cb[c1]{ImageNet}{Sketch~\cite{imagenet-sketch}}
+            %
+            & \cb[c2]{\textit{\textbf{Avg Fine.}}}{}
+            & \cb[c2]{Food}{101~\cite{food101}}
+            & \cb[c2]{Flowers}{Oxford~\cite{flower102}}
+            & \cb[c2]{Pets}{Oxford~\cite{pets}}
+            & \cb[c2]{Cars}{Stanford~\cite{cars}}
+            & \cb[c2]{Aircrafts}{FGVC~\cite{aircraft}}
+            & \cb[c2]{Countries}{211~\cite{thomee2016yfcc100m}}
+            & \cb[c2]{Scenes}{SUN397~\cite{sun397}}
+            & \cb[c2]{Satellite}{RESISC~\cite{cheng_2017_resisc}}
+            %
+            & \cb[c3]{\textit{\textbf{Avg Retrieval}}}{}
+            & \cb[c3]{MS-COCO}{txt$\rightarrow$img~\cite{coco}}
+            & \cb[c3]{MS-COCO}{img$\rightarrow$txt~\cite{coco}}
+            & \cb[c3]{Flickr-30k}{txt$\rightarrow$img~\cite{flickr}}
+            & \cb[c3]{Flickr-30k}{img$\rightarrow$txt~\cite{flickr}}
+            \\
+        \hline
+        \multicolumn{4}{l}{{\textit{Proprietary}}} & \cat{} &&&&&&& \cat{} &&&&&&&&& \cat{} \\
+        BASIC~\cite{basic}          & 2.4B    & 224 & 6.6B    & \ca{\textcolor{black}{84.3}} & \textcolor{black}{85.7} & \textcolor{black}{80.6} & \textcolor{black}{82.3} & \textcolor{black}{85.6} & \textcolor{black}{95.7} & {\textcolor{black}{76.1}} %
+                & \ca{\textcolor{black}-} & \textcolor{black}{95.1} & \textcolor{black}{91.2} & \textcolor{black}{97.9} &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- & \textcolor{black}{76.2} & \textcolor{black}{72.7}
+            %
+            & \ca{\textcolor{black}-} & \textcolor{black}- & \textcolor{black}- & \textcolor{black}- & \textcolor{black}-  \\
+        CoCa~\cite{coca}            & 1.0B    & 576 & 4.8B    & \ca{\textcolor{black}{85.7}} & {\textcolor{black}{86.3}} & {\textcolor{black}{80.7}} & \textcolor{black}{82.7} & {\textcolor{black}{90.2}} & {\textcolor{black}{96.5}} & {\textcolor{black}{77.6}}  %
+                & \ca{\textcolor{black}-} &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}-
+        %
+        & \ca{\textcolor{black}{72.6}} & \textcolor{black}{51.2} & \textcolor{black}{66.3} & \textcolor{black}{80.4} & \textcolor{black}{92.5} \\
+        LiT-22B~\cite{vit22b}       & 21.7B\,\,\,   & 224 & 15B     & \ca{\textcolor{black}-}    & {\textcolor{black}{85.9}} & {\textcolor{black}{80.9}} & {\textcolor{black}{87.6}} & \textcolor{black}{90.1} & \textcolor{black}{96.0} &  \textcolor{black}-  %
+                & \ca{\textcolor{black}-} &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}- &\textcolor{black}-
+            %
+            & \ca{\textcolor{black}-} & \textcolor{black}- & \textcolor{black}- & \textcolor{black}- & \textcolor{black}-  \\
+        \hline
+
+        \multicolumn{4}{l}{{\textit{B Scale}}} & \cat{} &&&&&&& \cat{} &&&&&&&&& \cat{} \\
+        SigLIP-B/16$^\dagger$~\cite{siglip}                & 0.1B  & 224 & 10B
+        & \ca{69.9} & 76.2 & 69.5 & 70.7 & 45.1 & 90.2 & 67.9 %
+        & \ca{69.5} & 91.6 & 85.2 & 94.2 & 90.8 & 44.0 & 15.9 & 70.0 & 64.6 %
+        & \ca{69.8} & 47.2 & 64.5 & 77.9 & 89.6 \\
+        SigLIP2-B/16$^\dagger$~\cite{siglip2}      & 0.1B & 224 & 10B
+        & \ca{{73.1}} & {78.2} & {71.4} & \textbf{73.6} & {55.0} & \textbf{91.7} & \textbf{68.9} %
+        & \ca{{73.1}} & \textbf{92.8} & {85.7} & \textbf{95.4} & \textbf{93.4} & {54.8} & {19.2} & {72.7} & {71.1} %
+        & \ca{{73.7}} & \textbf{52.1} & {68.9} & {80.7} & {93.0} \\
+        {\bf \PEcore{B}}                & 0.1B  & 224 & 5.4B
+        & \ca{\textbf{73.2}} & \textbf{78.4} & \textbf{71.7} & {71.9} & \textbf{62.4} & {88.7} & {66.1} %
+        & \ca{\textbf{75.0}} & {92.5} & \textbf{86.5} & {94.6} & {92.1} & \textbf{57.0} & \textbf{30.5} & \textbf{74.0} & \textbf{72.7} %
+        & \ca{\textbf{74.3}} & {50.9} & \textbf{71.0} & \textbf{80.8} & \textbf{94.4} \\
+        \hline
+        \multicolumn{4}{l}{{\textit{L Scale}}} & \cat{} &&&&&&& \cat{} &&&&&&&&& \cat{} \\
+        SigLIP-L/16$^\dagger$~\cite{siglip} & 0.3B  & 384 & 10B
+        & \ca{80.7} & 82.1 & 75.9 & 80.9 & 76.5 & 95.0 & {73.6} %
+        & \ca{74.4} & 95.6 & {89.4} & \textbf{96.8} & {94.8} & 53.2 & 24.7 & 72.5 & 67.9 %
+        & \ca{74.7} & 52.8 & 70.5 & 82.6 & 92.9 \\
+        SigLIP2-L/16$^\dagger$~\cite{siglip2}   & 0.3B & 384 & 10B
+        & \ca{{83.3}} & {83.1} & {77.4} & {84.4} & {84.3} & \textbf{95.7} & \textbf{75.5} %
+        & \ca{{78.4}}& {96.1}& \textbf{90.0}& {96.4}& \textbf{95.8} & {67.0} & {31.6} & {74.8} & {75.5}
+            %
+        & \ca{{76.7}} & {55.3} & {71.4} & {85.0} & {95.2} \\
+        {\bf \PEcore{L}}                & 0.3B  & 336 & 5.4B
+        & \ca{\textbf{83.9}} & \textbf{83.5} & \textbf{77.9} & \textbf{84.7} & \textbf{89.0} & {95.2} & 73.4 %
+        & \ca{\textbf{80.0}} & \textbf{96.2} & 87.2 & {96.4} & 93.7 & \textbf{67.8} & \textbf{45.6} & \textbf{77.4} & \textbf{75.7} %
+        & \ca{\textbf{78.8}} & \textbf{57.1} & \textbf{75.9} & \textbf{85.5} & \textbf{96.6} \\
+        \hline
+        \multicolumn{4}{l}{{\textit{Unbounded Scale}}} & \cat{} &&&&&&& \cat{} &&&&&&&&& \cat{} \\
+
+        DFN-H+$^\dagger$~\cite{dfn} & 0.6B  & 378 & 5B   & \ca{81.6} & 84.3 & 78.3 & 79.6 & 79.6 & 93.6 & 73.3 %
+        & \ca{80.5} & 96.2 & \textbf{91.6} & 96.8 & \textbf{96.0} & 72.5 & 37.9 & 77.4 & {75.9}
+        & \ca{75.8} & 55.6 & 71.8 & 82.1 & 93.6  \\
+        InternVL-C~\cite{internvl}  & 5.5B    & 224 & 5B      & \ca{82.5} & 83.2 & 77.3 & 80.6 & 83.8 & 95.7 & 74.3 %
+            & \ca{76.4} & 95.3 & 85.8 & 96.3 & 94.4 & 53.3 & 35.1 & 76.3 & 74.4
+            %
+            & \ca{{78.6}} & {\bf 58.6} & {74.9} & {85.0} & 95.7 \\
+        EVA 18B~\cite{eva18b}       & 17.5B\,\,\, & 224 & 2B       & \ca{83.6} & 83.8 & 77.9 & 82.2 & 87.3 & 95.7 & 74.7 %
+            & \ca{78.8} & 95.8 & 86.0 & 96.1 & {94.9} & 59.7 & 43.1 & {77.7} & \textbf{76.9}
+            & \ca{77.5} & 56.2 & 73.6 & 83.3 & {\bf 96.7} \\
+        EVA 18B+~\cite{eva18b} & 17.5B\,\,\, & 336 & 2B
+            & \ca{84.1} & 83.9 & 78.2 & 83.6 & 88.9 & 95.6 & 74.3 %
+            & \ca{-} & -&- &- &- &- &- &- &-
+            & \ca{-} & - & - & - & - \\
+        SigLIP2-g-opt$^\dagger$~\cite{siglip2}      & 1.1B & 384 & 10B
+        & \ca{{86.2}} & 85.0 & {79.8} &  {88.0} & 90.5 & \textbf{96.6} & \textbf{77.4} %
+                & \ca{81.0} & \textbf{97.0} & {91.5} & \textbf{97.8} & {95.9} & {73.6} & 40.1 & 76.3 & {75.9}
+            & \ca{78.0} & 56.1 & 72.8 & \textbf{86.0} & 95.4 \\
+        {\bf \PEcore{G}} {\tiny\it (image only)}                & 1.9B  & 448 & 5.4B    & \ca{86.0} & {85.2} & \textbf{80.2} & 87.1 & {91.2} & 96.1 & 76.1 %
+             & \ca{{82.7}} & 96.6 & 91.0 & 96.4 & 94.6 & {76.7} & {57.3} & 77.5 & 71.8
+             & \ca{74.9} & 53.1 & 70.9 & 81.6 & 93.9 \\
+        {\bf \PEcore{G}}                & 1.9B  & 448 & 5.4B    & \ca{{\bf 86.6}} & \textbf{85.4} & \textbf{80.2} & \textbf{88.2} & \textbf{92.6} & {96.5} & {76.5} %
+                & \ca{\bf 83.7} & {96.9} & 91.4 & {96.9} & 94.7 & \textbf{78.2} & \textbf{57.6} & \textbf{78.5} & 75.8
+            & \ca{\bf 78.9} & {58.1} & {\bf 75.4} & {85.7} & {96.2} \\
+        \shline
+    \end{tabular}
+    }
+    \caption{{\bf Zero-Shot Image Results.} Image zero-shot performance of \PEcore{} compared to the state-of-the-art for \textit{both} proprietary and open models.  \PEcore{G} is the first vision encoder to outperform the best models trained on the proprietary JFT-3B~\cite{vit} and WebLI~\cite{pali} on general classification.
+    Moreover at all model sizes, \PEcore{} obtains state-of-the-art results across general classification, retrieval, and finegrained classification.
+    $^\dagger$Re-evaluated: DFN by~\cite{eva18b}; SigLIP and SigLIP2 by us with the same benchmark settings if not reported in~\cite{siglip2} (see Appendix~\ref{appx:zeroshot_settings}).
+    }
+    \label{tab:core_general_image}
+\end{table*}
+\begin{table}[t!]
+    \centering
+    \begin{minipage}[t]{0.58\textwidth}
+    \vspace{0pt} % for alignment
+    \centering
+    \tablestyle{0pt}{1.2}
+    \begin{tabular}{y{60}www wwww wwww}
+        \shline
+        \multirow{2}{*}{\vspace{-2.2cm} Model}  &&&& \multicolumn{4}{c}{\ct[c1]{\it Zero-Shot Classification}} %
+        & \multicolumn{4}{c}{\ct[c4]{\it Zero-Shot Retrieval}}\\
+            & \cb{Encoder Params}{}
+            & \cb{Resolution}{}
+            & \cb{Data}{}
+            & \cb[c1]{ObjectNet~\cite{objectnet}}{IN Overlap (113)}
+            & \cb[c1]{ObjectNet~\cite{objectnet}}{All Classes (313)}
+            & \cb[c1]{iNaturalist}{2017~\cite{inat2017}}
+            & \cb[c1]{Dollar St}{58~\cite{dollar_st, datacomp}}
+            & \cb[c4]{TextCaps}{img$\rightarrow$txt~\cite{sidorov2020textcaps}}
+            & \cb[c4]{TextCaps {\tiny \bf Flip}}{img$\rightarrow$txt~\cite{sidorov2020textcaps}}
+            & \cb[c4]{PVD Bench}{text$\rightarrow$vid}
+            & \cb[c4]{PVD Bench}{vid$\rightarrow$txt}
+            \\
+        \hline
+        \addpadding
+        %\multicolumn{4}{l}{{\textit{B Scale}}} &&&&&&&&  \\
+        {SigLIP2-B/16~\cite{siglip2}} & 0.1B  & 224 & 10B & \textbf{73.6} & \textbf{59.1} & {16.9}& \textbf{55.9} & {72.0} & {69.8} & {53.9} & {60.1} \\
+        {\bf \PEcore{B}} & 0.1B  & 224 & 5.4B & {71.9} & {58.3} & \textbf{25.9} & {52.1} & \textbf{72.3} & \textbf{71.9} & \textbf{59.8} & \textbf{61.1} \\
+        \hline
+        \addpadding
+        {SigLIP2-L/16~\cite{siglip2}} & 0.3B  & 384 & 10B & {84.4} & {73.2}
+        & {26.7} & {57.6} & {78.0} & {76.2} & {61.9} & \textbf{67.1} \\
+        {\bf \PEcore{L}} & 0.3B  & 336 & 5.4B & \textbf{84.7} & \textbf{74.3} & \textbf{35.3}& \textbf{59.6} & \textbf{78.5} & \textbf{78.3} & \textbf{64.7} & {65.2} \\
+        \hline
+        \addpadding
+        {InternVL-C~\cite{internvl}} & 5.5B & 224 & 5B & 80.6 & 67.2 & 19.4 & 58.2 &  72.3 & 67.8 & {63.4} & 65.1 \\
+        {SigLIP2-g-opt~\cite{siglip2}} & 1.1B  & 384 & 10B & {88.0} & {78.1} & {31.5} &  {59.3} & \textbf{78.8} & {76.9} & {62.5} & {67.1} \\
+        {\bf \PEcore{G}} & 1.9B  & 448 & 5.4B & \textbf{88.2} & \textbf{79.0} & \textbf{41.1}& \textbf{62.3} & \textbf{78.8}
+        & \textbf{78.7} & \textbf{77.0} & \textbf{76.6} \\
+        \shline
+    \end{tabular}
+    \caption{{\bf Additional Zero-Shot Results.} We present several additional zero-shot benchmarks from existing datasets and our own PVD (\S\ref{sec:pvd}) to address evaluation gaps left by standard benchmarks.
+    }
+    \label{tab:core_pe_bench}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.36\textwidth}
+    \vspace{0pt} % for alignment
+    {
+        \centering
+        \tablestyle{0pt}{1.2}
+        \begin{tabular}{y{60}www www}
+        \shline
+        \multirow{2}{*}{\vspace{-2.2cm} Model} &&&& \multicolumn{3}{c}{\ct[c1]{\it Encoder Probing}} \\ %
+            & \cb{Encoder Params}{}
+            & \cb{Resolution}{}
+            & \cb{Data}{}
+            & \cb[c1]{ImageNet~\cite{imagenet}}{KNN}
+            & \cb[c1]{ImageNet~\cite{imagenet}}{Linear}
+            & \cb[c1]{ImageNet~\cite{imagenet}}{Attention}  \\
+            \hline
+            \addpadding
+            DINOv2-g~\cite{dinov2} & 1.1B & 224 & 145M & 83.5 & 86.5 & \hphantom{$^\dagger$}87.2$^\dagger$ \\
+            RADIOv2.5-g~\cite{heinrich2024radio2.5} & 1.1B & 518 & - & {85.3} & - & - \\
+            AIMv2 3B~\cite{aimv2} & 2.7B & 448 & 7.2B& -  & - & {89.5} \\
+            InternVL-C~\cite{internvl} & 5.5B & 224 & 5B & - & 88.2  & - \\
+            EVA 18B~\cite{eva18b} & 17.5B\,\,\, & 224 & 2B & - & {88.9} & - \\
+            {\bf \PEcore{G}} & 1.9B & 448 & 5.4B & {\bf 86.8}  & {\textbf{89.5}} & {\bf 89.8} \\
+            \shline
+        \end{tabular}
+    }
+    \caption{\textbf{Encoder Probing Results.} We evaluate \PEcore{G}'s frozen features using the typical probing methods to compare to models without zero-shot support. $^\dagger$from \cite{aimv2}.}
+    \label{tab:core_frozen_features}
+    \end{minipage}
+\end{table}
+\begin{table*}[b!]
+    \centering
+    \vspace{-10pt}
+    \makebox[\linewidth][c]{
+    \tablestyle{0pt}{1.05}
+        \begin{tabular}{y{50}wx{20} awwww awwww awww a awwwwww}
+        \shline
+        \multirow{2}{*}{\vspace{-2.2cm} Model}  &&& \multicolumn{5}{c}{\ct[c3]{\it OCR / Chart / Doc. Q\&A}} %
+        & \multicolumn{5}{c}{\ct[c4]{\it Visual Q\&A}} & \multicolumn{4}{c}{\ct[c5]{\it Captioning}} & \multicolumn{1}{c}{\ct[c6]{}} & \multicolumn{7}{c}{\ct[c7]{\it Video}} \\
+            & \cb{Encoder Params}{}
+            & \cb{Resolution}{Patch Size}
+            & \cb[c3]{\textit{\textbf{Avg. OCR QA}}}{}
+            & \cb[c3]{ChartQA}{Acc.~\cite{zheng2024chartqa}}
+            & \cb[c3]{DocVQA}{Acc.~\cite{mathew2021docvqa}}
+            & \cb[c3]{Info. QA}{Acc.~\cite{mathew2022infographicvqa}}
+            & \cb[c3]{AI2D}{Acc.~\cite{kembhavi2016ai2d}}
+            %
+            & \cb[c4]{\textit{\textbf{Avg. VQA}}}{}
+            & \cb[c4]{TextVQA}{Acc.~\cite{singh2019textvqa}}
+            & \cb[c4]{OK-VQA}{Acc.~\cite{schwenk2022okvqa}}
+            & \cb[c4]{POPE}{Acc. ~\cite{li2023popebenchmark}}
+            & \cb[c4]{VQAv2}{Acc.~\cite{goyal2017vqav2}}
+            %
+            & \cb[c5]{\textit{\textbf{Avg. Cap.}}}{}
+            & \cb[c5]{Flicker}{CIDEr~\cite{flickr}}
+            & \cb[c5]{COCO}{CIDEr ~\cite{coco}}
+            & \cb[c5]{No Cap}{CIDEr~\cite{agrawal2019nocaps}}
+            % <--
+            % <--
+            & \cb[c6]{\textit{\textbf{Avg. Ground.}}}{RefCOCO/g/+~\cite{kazemzadeh2014referitgame}}
+            & \cb[c7]{\textit{\textbf{Avg. Video}}}{}
+            & \cb[c7]{VideoMME}{Acc.~\cite{fu2024videomme}}
+            & \cb[c7]{STAR}{Acc.~\cite{wu2021star}}
+            & \cb[c7]{TGIF-QA}{Acc.~\cite{jang2017tgif}}
+            & \cb[c7]{EgoSchema}{Acc.~\cite{mangalam2024egoschema}}
+            & \cb[c7]{MVBench}{Acc.~\cite{li2024mvbench}}
+            & \cb[c7]{PerceptionTest}{Acc.~\cite{patraucean2024perceptiontest}} \\
+        \hline
+\multicolumn{1}{l}{{\textit{256 Tokens per Image}}}                & & & \cat{} &&&&& \ca{} &&&&& \ca{} &&&& \ca{} & \ca{} &&&&&&  \\
+MetaCLIP-L~\cite{metaclip}                  & 0.3B           & \rp{224}{14} & \ca{44.9} & 47.9 & 33.0 & 28.7 & 70.2 & \ca{68.4} & 47.6 & 62.5 & 86.9 & 76.5 & \ca{110.5} & 87.5 & 130.0 & 114.1& \ca{60.6}  & \ca{53.9} & 46.1 & 51.0 & 66.4 & 58.6 & 49.4 & 51.9  \\
+MetaCLIP-G~\cite{metaclip}                  & 1.8B             & \rp{224}{14} & \ca{44.8} & 47.6 & 33.1 & 27.9 & 70.6 & \ca{68.8} & 48.2 & 63.5 & 86.5 & 76.9 & \ca{111.1} & 86.5 & 132.1 & 114.8& \ca{60.5}  & \ca{53.1} & 45.0 & 50.7 & 66.4 & 56.0 & 48.7 & 51.9  \\
+\textbf{\PElang{} G}$^\dagger$                 & \,\,\,1.7B$^*$          & \rp{224}{14} & \ca{53.7} & 61.3 & 47.1 & 32.2 & 74.1 & \ca{71.8} & 55.1 & 65.3 & 86.8 & 79.8 & \ca{116.4} & 91.0 & 136.9 & 121.2 & \ca{65.7} & \ca{55.5} & 47.3 & 55.7 & 68.9 & 59.6 & 48.6 & 52.9 \\
+\hline
+\multicolumn{1}{l}{{\textit{576 Tokens per Image}}}                 & & & \cat{} &&&&& \ca{} &&&&& \ca{} &&&& \ca{} & \ca{} &&&&&&  \\
+CLIP~\cite{clip}                          & 0.3B           & \rp{336}{14} & \ca{53.5} & 61.7 & 49.5 & 32.8 & 70.1 & \ca{72.7} & 60.7 & 63.9 & 87.3 & 78.9 & \ca{113.3} & 92.0 & 132.9 & 115.0& \ca{65.0}  & \ca{54.2} & 46.3 & 52.1 & 68.6 & 57.4 & 48.5 & 52.3  \\
+AIMv2-L~\cite{aimv2}                        & 0.3B           & \rp{336}{14} & \ca{53.3} & 61.6 & 48.0 & 32.1 & 71.4 & \ca{73.7} & 62.7 & 64.3 & 87.7 & 80.1 & \ca{115.2} & 90.9 & 135.6 & 119.2 & \ca{63.3} & \ca{52.5} & 44.3 & 50.9 & 67.5 & 54.4 & 44.9 & 53.2  \\
+AIMv2 L Dist.~\cite{aimv2}                      & 0.3B           & \rp{336}{14} & \ca{53.7} & 61.1 & 49.4 & 31.5 & 72.7 & \ca{74.1} & 62.8 & 64.8 & 88.3 & 80.3 & \ca{117.8} & 94.7 & 137.5 & 121.2& \ca{62.6}  & \ca{53.8} & 44.3 & 52.4 & 65.0 & 57.4 & 50.0 & 53.6  \\
+SigLIP2-so~\cite{siglip2}                 & 0.4B           & \rp{384}{16} & \ca{58.9} & 69.0 & 58.3 & 35.2 & 73.1 & \ca{76.8} & 69.8 & \textbf{67.2} & 88.7 & 81.6 & \ca{116.5} & 92.1 & 137.7 & 119.8& \ca{67.4}  & \ca{54.5} & 45.5 & 53.1 & 67.2 & 57.6 & 49.3 & 54.5  \\
+SigLIP2-g-opt~\cite{siglip2}                 & 1.1B                       & \rp{384}{16} & \ca{56.2} & 63.1 & 55.3 & 34.0 & 72.4 & \ca{77.0} & 70.3 & 66.7 & 89.6 & 81.6 & \ca{117.7} & 94.9 & 137.8 & 120.3& \ca{66.5}  & \ca{53.9} & 46.2 & 53.9 & 66.6 & 53.8 & 48.5 & 54.7  \\
+\textbf{\PElang{} G}$^\dagger$                 & \,\,\,1.7B$^*$           & \rp{336}{14} & \ca{66.9} & 76.8 & 73.6 & 41.1 & 76.1 & \ca{76.2} & 68.5 & 66.0 & 89.1 & 81.3 & \ca{119.7} & 96.1 & 139.6 & 123.4 & \ca{68.9} & \ca{58.1} & 48.7 & 58.9 & 70.5 & 61.8 & 52.7 & 55.9 \\
+\hline
+\multicolumn{1}{l}{{\textit{1024 Tokens per Image}}}                 & & & \cat{} &&&&& \ca{} &&&&& \ca{} &&&& \ca{} & \ca{} &&&&&&  \\
+InternViT 2.5 L~\cite{chen2024internvit2p5}  & 0.3B           & \rp{448}{14} & \ca{60.6} & 74.1 & 59.2 & 35.9 & 73.1 & \ca{74.2} & 65.4 & 64.4 & 87.6 & 79.6 & \ca{112.3} & 88.4 & 133.7 & 114.9& \ca{66.9}  & \ca{50.6} & 45.2 & 44.8 & 62.7 & 54.2 & 46.0 & 50.5  \\
+SigLIP2-so~\cite{siglip2}                 & 0.4B           & \rp{512}{16} & \ca{63.3} & 72.1 & 69.3 & 39.0 & 72.7 & \ca{77.9} & 74.8 & 66.0 & 89.0 & \textbf{81.8} & \ca{117.4} & 93.5 & 138.3 & 120.2& \ca{69.6}  & \ca{55.8} & 46.2 & 55.4 & 67.0 & \textbf{62.0} & 50.0 & 54.5  \\
+\textbf{\PEcore{L}}                      & 0.3B & \rp{448}{14}           & \ca{59.4} & 68.7 & 62.5 & 36.6 & 69.7 & \ca{74.7} & 67.7 & 64.3 & 88.3 & 78.7 & \ca{112.7} & 89.6 & 133.4 & 114.9& \ca{59.7}  & \ca{50.9} & 41.7 & 51.2 & 61.6 & 52.6 & 47.4 & 50.6  \\
+\textbf{\PElang{L}}                      & 0.3B & \rp{448}{14}           & \ca{71.1} & 81.0 & 81.9 & 46.4 & 75.0 & \ca{77.1} & 73.0 & 65.5 & 89.3 & 80.8 & \ca{117.3} & 94.3 & 137.3 & 120.1& \ca{70.5}  & \ca{56.5} & 47.0 & 57.2 & 68.0 & 59.8 & 52.3 & 54.7  \\
+\hline
+DINOv2-g~\cite{dinov2}                      & 1.1B             & \rp{448}{14} & \cat{30.0} & 19.6 & 14.7 & 24.2 & 61.5 & \ca{61.0} & 19.3 & 60.4 & 88.6 & 75.8 & \ca{109.4} & 86.5 & 131.6 & 110.1& \ca{64.9}  & \ca{49.5} & 39.7 & 52.1 & 60.1 & 46.8 & 47.4 & 50.8 \\
+AIMv2 3B~\cite{aimv2}                     & 2.7B             & \rp{448}{14} & \ca{48.9} & 40.5 & 53.9 & 33.9 & 67.2 & \ca{73.0} & 64.1 & 64.0 & 85.2 & 78.9 & \ca{115.7} & 93.8 & 135.2 & 118.1& \ca{36.1}  & \ca{54.6} & 45.1 & 54.5 & 66.7 & 55.4 & 51.7 & 54.3 \\
+InternViT2.5-6B~\cite{chen2024internvit2p5}  & 5.5B             & \rp{448}{14} & \ca{59.9} & 72.3 & 59.4 & 35.2 & 72.5 & \ca{75.5} & 68.9 & 64.9 & 88.2 & 80.2 & \ca{115.0} & 92.2 & 136.3 & 116.3& \ca{68.0}  & \ca{49.6} & 44.5 & 47.0 & 62.6 & 45.8 & 48.9 & 48.5 \\
+\textbf{\PEcore{G}}                       & 1.9B           & \rp{448}{14} & \ca{60.8} & 69.9 & 65.4 & 36.7 & 71.1 & \ca{73.3} & 65.9 & 60.7 & 88.4 & 78.0 & \ca{112.5} & 91.6 & 133.6 & 112.4 & \ca{66.6}  & \ca{52.0} & 42.3 & 53.1 & 62.9 & 51.4 & 48.8 & 53.6 \\
+\textbf{\PElang{G}}                 & \,\,\,1.7B$^*$ & \rp{448}{14} & \ca{\textbf{72.4}} & \textbf{80.5} & \textbf{84.4} & \textbf{48.3} & \textbf{76.4} & \ca{\textbf{78.1}} & \textbf{75.2} & 65.4 & \textbf{90.1} & \textbf{81.8} & \ca{\textbf{120.1}} & \textbf{96.6} & \textbf{140.0} & \textbf{123.6} & \ca{\textbf{71.3}} & \ca{\textbf{58.0}} & \textbf{48.0} & \textbf{60.1} & \textbf{69.4} & \textbf{62.0} & \textbf{52.4} & \textbf{56.0} \\
+        \shline
+    \end{tabular}
+    }
+    \caption{{\bf MLLM Results with Llama 3.1 8B.} We compare various vision encoders at their native resolution using Llama 3.1-instruct 8B~\cite{llama3} as the language model. The table compares models of similar class in number of vision tokens and parameters. \PElang{} shows strong performance across all benchmarks, including against models 3$\times$ its size. $^*$\PElang{} has 1.7B parameters since we discard the last 3 layers during language alignment. $^\dagger$Interpolated without extra training. }
+    \label{tab:lang_mllm_bench}
+\end{table*}
+\end{document}

@@ -1,0 +1,74 @@
+\definecolor{myblue}{rgb}{0.9,0.95,1.0}
+\definecolor{mygreen}{rgb}{0.9,1.0,0.9}
+\usepackage[accsupp]{axessibility}
+\usepackage{sidecap}
+\usepackage{colortbl} % For table row colors
+\definecolor{lightgray}{RGB}{240,240,240} % Define a subtle gray for alternating rows
+\definecolor{headerblue}{RGB}{200,220,255} % Define a soft blue for headers
+\definecolor{headeryellow}{RGB}{255, 255, 180} % Soft yellow for headers
+\definecolor{headerlavender}{RGB}{200, 200, 255} % Lavender-like pastel for headers
+%%%%%%%
+\begin{document}
+\definecolor{Gray}{gray}{0.93}
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Verification performance of different watermarking methods under various attacks. \textbf{TPR@1\%FPR} is reported for in-generation semantic watermarking methods (TreeRing to ROBIN), where lower values indicate better attack performance. \textbf{Bit Accuracy} is reported for post-hoc bitstream-based methods (DwtDct to VINE), where values near 0.5 indicate successful watermark randomization. \texttt{RAVEN} achieves the lowest detection rates across both categories, demonstrating superior removal efficacy while maintaining visual quality.}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{l|>{\columncolor{myblue!50}}c>{\columncolor{myblue!50}}c>{\columncolor{myblue!50}}c>{\columncolor{myblue!50}}c>{\columncolor{myblue!50}}c>{\columncolor{myblue!50}}c|c|>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c>{\columncolor{mygreen!50}}c|c}
+\toprule
+\small \rotatebox{70}{Attack} & \rotatebox{70}{TreeRing~\cite{wen2023tree}} & \rotatebox{70}{Zodiac~\cite{zhang2024robust}} & \rotatebox{70}{HSTR~\cite{lee2025semantic}} & \rotatebox{70}{RingID~\cite{ci2024ringid}} & \rotatebox{70}{\shortstack{HSQR~\cite{lee2025semantic}\\\textcolor{blue}{\scriptsize }}} & \rotatebox{70}{ROBIN~\cite{huang2024robin}} & \rotatebox{70}{Avg.} & \rotatebox{70}{DwtDct~\cite{cox2008digital}} & \rotatebox{70}{DwtDctSvd~\cite{cox2008digital}} & \rotatebox{70}{RivaGAN~\cite{zhang2019robust}} & \rotatebox{70}{Stable Sign.~\cite{fernandez2023stable}} & \rotatebox{70}{Gauss Shad.~\cite{yang2024gaussian}} & \rotatebox{70}{TrustMark~\cite{bui2023trustmark}} & \rotatebox{70}{Stega St.~\cite{tancik2020stegastamp}} & \rotatebox{70}{VINE~\cite{lu2024robust}} & \rotatebox{70}{Avg.}\\
+\midrule
+\rowcolor{Gray} \multicolumn{17}{c}{\textbf{MS-COCO}~\cite{lin2014microsoft}} \\
+\midrule
+Clean    & 0.957 & 0.998 & 1.000 & 1.000 & 1.000 & 1.000 & 0.993 & 0.863 & 1.000 & 0.999 & 0.995 & 1.000 & 0.952 & 1.000& 1.000& 0.968  \\
+\midrule
+Bright.  & 0.463 & 0.843 & 0.899 & 0.988 & 0.991 & 0.985 & 0.862 & 0.572 & 0.555 & 0.862 & 0.894 & 0.962 & 0.918 & 0.992 & 0.998 & 0.839\\
+Cont.    & 0.900 & 0.998 & 1.000 & 1.000 & 1.000 & 0.994 & 0.982 & 0.522 & 0.473 & 0.986 & 0.978 & 1.000 & 0.927 & 1.000  & 0.998 & 0.876\\
+JPEG     & 0.548 & 0.973 & 0.994 & 1.000 & 1.000 & 0.986 & 0.917 & 0.516 & 0.602 & 0.821 & 0.806 & 0.992 &  0.919& 1.000 & 1.000 &0.851\\
+Blur     & 0.934 & 0.998 & 1.000 & 1.000 & 1.000 & 0.991 & 0.987 & 0.677 & 1.000 & 0.998 & 0.911 & 1.000 &  0.942& 0.990 &0.973 &0.944\\
+Noise    & 0.412 & 0.880 & 0.806 & 0.987 & 0.983 & 0.840 & 0.818 & 0.859 & 1.000 & 0.969 & 0.721 & 0.997 & 0.772 & 0.971 & 0.979 &0.878\\
+BM3D     & 0.815 & 0.997 & 0.999 & 1.000 & 1.000 & 0.863 & 0.946 & 0.532 & 0.784 & 0.934 & 0.838 & 0.999 & 0.886 &0.997 & 1.000 & 0.886\\
+\midrule
+Center Crop     & 0.509 & 0.989 & 1.000 & 1.000 & 1.000 & 0.884 & 0.897 & 0.729 & 0.744 & 0.991 & 0.987 & 0.998 & 0.890 & 0.924& 0.953 & 0.890  \\
+Random Crop     & 0.734 & 0.995 & 1.000 & 1.000 & 1.000 & 0.790 & 0.920 & 0.810 & 0.861 & 0.995 & 0.991 & 1.000 & 0.724 & 0.887 & 0.915 & 0.898\\
+\midrule
+VAE-B~\cite{balle2018variational}    & 0.509 & 0.944 & 0.973 & 0.992 & 0.992 & 0.817 & 0.871 & 0.523 & 0.648 & 0.570 & 0.717 & 0.982 &   0.834 & 0.883& 0.950 & 0.788\\
+VAE-C~\cite{cheng2020learned}    & 0.536 & 0.958 & 0.982 & 1.000 & 1.000 & 0.820 & 0.883 & 0.521 & 0.596 & 0.552 & 0.715 & 0.987 & 0.847 & 0.870 & 0.915 & 0.778\\
+Regen.~\cite{zhao2024invisible}   & 0.543 & 0.972 & 0.997 & 1.000 & 1.000 & 0.873 & 0.898 & 0.519 & 0.644 & 0.608 & \textbf{0.478} & 0.999 & 0.790 & 0.854 & 0.881 & 0.752\\
+Rinse    & 0.461 & 0.905 & 0.982 & 0.997 & 0.999 & 0.793 & 0.856 & 0.508 & 0.561 & 0.527 & 0.494 & 0.999 & 0.713 & 0.809& 0.831 & 0.716\\
+\midrule
+CtrlGen+~\cite{liu2024image}   & 0.090 & 0.314 & 0.776 & 1.000 & 1.000 &0.328 & 0.585 & 0.532 & 0.517 & \textbf{0.481} & 0.564 & 1.000 & 0.683 & \textbf{0.557} & 0.887 & 0.640\\
+UnMarker~\cite{kassis2025unmarker}     & 0.032 & 0.092 & 0.031&  0.257 & 0.018 &0.039 & 0.078 & \textbf{0.483} & 0.528 & 0.553 & 0.511 & 0.592 & 0.547 &0.636 & 0.617 & 0.573\\
+\midrule
+\texttt{{RAVEN}} (Ours)    & \textbf{0.020} & \textbf{0.067} & \textbf{0.025} & \textbf{0.018} & \textbf{0.015} & \textbf{0.012} & \textbf{0.026} & 0.517 & \textbf{0.472} & 0.499 & 0.519 &\textbf{0.540} & \textbf{0.476} & 0.575& \textbf{0.588} &\textbf{0.533}\\
+\midrule
+\rowcolor{Gray} \multicolumn{17}{c}{\textbf{SD-Prompts}~\cite{Santana2022StableDiffusionPrompts}} \\
+\midrule
+Clean    & 0.944 & 0.998 & 1.000 & 1.000 & 1.000 & 1.000 & 0.990 & 0.819 & 1.000& 0.991 & 0.994 & 1.000 & 0.970 & 1.000 & 1.000 & 0.972\\
+\midrule
+Bright.  & 0.471 & 0.748 & 0.742 & 0.972 & 0.955 & 0.999 & 0.815 & 0.557 & 0.537 & 0.823 & 0.899 & 0.949 & 0.922 & 0.992 & 1.000 & 0.835\\
+Cont.    & 0.894 & 0.999 & 1.000 & 1.000 & 1.000 & 1.000 & 0.982 & 0.516 & 0.459 & 0.963 & 0.967 & 0.999 & 0.928 & 0.988 & 0.983 & 0.850\\
+JPEG     & 0.466 & 0.979 & 0.990 & 1.000 & 0.999 & 0.989 & 0.904 & 0.506 & 0.610 & 0.810 & 0.769 & 0.990 & 0.936 & 1.000& 1.000 & 0.828\\
+Blur     & 0.912 & 0.999 & 1.000 & 1.000 & 1.000 & 0.981 & 0.982 & 0.685 & 0.999 & 0.988 & 0.888 & 0.998 & 0.910 & 0.994 & 0.980 & 0.930\\
+Noise    & 0.423 & 0.903 & 0.850 & 0.988 & 0.992 & 1.000 & 0.859 & 0.822 & 0.998 & 0.961 & 0.742 & 0.992 &  0.819& 0.960 & 0.948 & 0.905\\
+BM3D     & 0.802 & 1.000 & 1.000 & 1.000 & 1.000 & 0.876 & 0.946 & 0.530 & 0.859 & 0.915 & 0.809 & 1.000 &  0.864& 1.000& 0.971 & 0.869\\
+\midrule
+Center Crop     & 0.469 & 0.994 & 1.000 & 1.000 & 1.000 & 0.860 & 0.887 & 0.723 & 0.743 & 0.980 & 0.983 & 1.000 & 0.872 & 0.893 & 0.920 & 0.889\\
+Random Crop     & 0.749 & 0.996 & 1.000 & 1.000 & 1.000 & 0.799 & 0.924 & 0.794 & 0.860 & 0.983 & 0.990 & 1.000 & 0.749 & 0.891& 0.912 & 0.897\\
+\midrule
+VAE-B~\cite{balle2018variational}    & 0.509 & 0.940 & 0.983 & 0.996 & 0.996 & 0.849 & 0.879 & 0.513 & 0.659 & 0.572 & 0.677 & 0.976 & 0.820 & 0.853 & 0.862 & 0.742\\
+VAE-C~\cite{cheng2020learned}    & 0.514 & 0.975 & 0.987 & 1.000 & 0.999 & 0.881 & 0.893 & 0.512 & 0.620 & 0.535 & 0.671 & 0.994 & 0.829 & 0.881& 0.900 &  0.743\\
+Regen.~\cite{zhao2024invisible}   & 0.543 & 0.958 & 0.999 & 1.000 & 1.000 & 0.857 & 0.893 & 0.509 & 0.623 & 0.567 & 0.493 & 0.999 & 0.803 &0.852 & 0.890 & 0.717\\
+Rinse    & 0.498 & 0.872 & 0.967 & 0.983 & 0.991 & 0.783 & 0.849 & 0.493 & 0.547 & 0.528 & 0.511 & 0.951 & 0.751 & 0.839 & 0.872 & 0.687\\
+\midrule
+CtrlGen+~\cite{liu2024image}      & 0.076 & 0.283 & 0.768 & 1.000 & 1.000 & 0.127& 0.542 & 0.494 & \textbf{0.471} & 0.548 & 0.591 & 1.000 & 0.655 &\textbf{0.562} & 0.813 & 0.642\\
+UnMarker~\cite{kassis2025unmarker}     & 0.028 & 0.084 & \textbf{0.036} & 0.284 & 0.024 & 0.043& 0.083 &0.485 &  0.507  & 0.548 & \textbf{0.511}& 0.579&0.523 &0.658 & 0.604 & 0.552\\
+\midrule
+\texttt{RAVEN}   & \textbf{0.025} & \textbf{0.062} & 0.038 & \textbf{0.024} & \textbf{0.020} &\textbf{0.018} & \textbf{0.031} & \textbf{0.471} & 0.504 &  \textbf{0.477}  & 0.523&\textbf{0.562} &\textbf{0.480} & 0.587 & \textbf{0.600} & \textbf{0.526}\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\label{tab:identify_transposed}
+\end{table*}
+\end{document}

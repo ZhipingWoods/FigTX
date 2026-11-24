@@ -1,0 +1,61 @@
+\definecolor{lightorange}{rgb}{1, 0.87, 0.68}
+\definecolor{lightgreen}{rgb}{0.76, 0.88, 0.76}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.97}
+\definecolor{lightred}{rgb}{0.92, 0.29, 0.36}
+\definecolor{lavender}{rgb}{0.92, 0.88, 1}
+\definecolor{lightcyan}{rgb}{0.424, 0.651, 0.804}
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\centering
+\caption{\textbf{Results on ImageNet-1K and CIFAR-100 datasets}. Metrics evaluate accuracy, calibration performance and OOD detection. Best in bold, second-best underlined.}
+\label{tab:vit}
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.15}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l c c c c c c c c c @{\hspace{4pt}\vrule\hspace{2pt}\vrule\hspace{4pt}} c c c c c c c c c}
+\toprule
+\multirow[c]{3}{*}{\large\textbf{Method}} &
+\multicolumn{9}{c}{\textbf{\large\scshape ImageNet-1K}} &
+\multicolumn{9}{c}{\textbf{\large\scshape CIFAR-100}} \\
+\cmidrule(lr){2-10}\cmidrule(lr){11-19}
+ & \textbf{Heads} & \textbf{Acc}$\uparrow$ & \textbf{Brier}$\downarrow$ & \textbf{NLL}$\downarrow$ & \textbf{ECE}$\downarrow$ & \textbf{aECE}$\downarrow$ & \multicolumn{3}{c}{\textbf{OOD Avg}} &
+   \textbf{Heads} & \textbf{Acc}$\uparrow$ & \textbf{Brier}$\downarrow$ & \textbf{NLL}$\downarrow$ & \textbf{ECE}$\downarrow$ & \textbf{aECE}$\downarrow$ & \multicolumn{3}{c}{\textbf{OOD Avg}} \\
+\cmidrule(lr){8-10}\cmidrule(lr){17-19}
+ &  &  &  &  &  &  &
+ \textbf{AUROC}$\uparrow$ & \textbf{FPR95}$\downarrow$ & \textbf{AUPR}$\uparrow$ &
+  &  &  &  &  &  &
+ \textbf{AUROC}$\uparrow$ & \textbf{FPR95}$\downarrow$ & \textbf{AUPR}$\uparrow$ \\
+\midrule
+\textsc{Single}               & 12 & 80.67 & 0.27 & \underline{0.71} & \textbf{0.01} & \textbf{0.01} & 84.40 & 50.25 & 60.91
+                             & 12 & 92.15 & 0.11 & 0.25 & \textbf{0.007} & \textbf{0.005} & 85.46 & 40.27 & 93.55 \\
+                             \midrule
+\textsc{Deep Ensembles}            & 12 & \textbf{82.19} & \textbf{0.25} & \textbf{0.65} & \textbf{0.01} & \textbf{0.01} & 85.48 & \textbf{46.93} & \underline{62.76}
+                             & 12 & \textbf{93.52} & \textbf{0.09} & \textbf{0.22} & 0.01 & 0.01 & 86.08 & 38.67 & 94.26 \\
+\textsc{Packed Ensembles}              & 12 & 79.23 & 0.29 & 0.78 & \textbf{0.01} & \textbf{0.01} & 83.26 & 51.65 & 58.17
+                             & 12 & 90.63 & 0.13 & 0.31 & 0.01 & 0.008 & 86.99 & 38.54 & 93.48 \\
+\textsc{MIMO}                & 12 & 80.59 & 0.27 & 0.72 & \textbf{0.01} & \textbf{0.01} & 83.63 & 52.64 & 59.14
+                             & 12 & \underline{92.62} & \underline{0.10} & \underline{0.23} & 0.009 & 0.008 & 88.08 & \underline{37.00} & 95.15 \\
+
+\textsc{Batch Ensembles}      &12&80.53&0.27&0.72&0.01&0.01&84.34&50.38&60.71
+                             &12&92.19&0.11&0.26&0.008&0.006&86.27&39.66&93.66 \\
+\textsc{MC dropout}          &12&80.3&0.28&0.73&0.02&0.02&83.7&51.44&58.9
+                             &12&92.04&0.11&0.25&0.01&0.01&84.74&42.53&93.12 \\
+
+\textsc{LoRA Ensembles}            & 12 & 80.68 & 0.27 & \underline{0.71} & \textbf{0.01} & \textbf{0.01} & 84.24 & 50.59 & 60.35
+                             & 12 & 92.14 & 0.11 & 0.26 & \textbf{0.007} & \underline{0.006} & 85.77 & 40.18 & 93.53 \\
+                             \midrule
+\textsc{OBA}                 & -- & 78.52 & 0.30 & 0.85 & 0.03 & 0.03 & 82.61 & 54.90 & 54.89
+                             & -- & 91.88&0.11&0.26&\textbf{0.007}&\textbf{0.005}&85.85&40.48&93.41 \\
+\textsc{Taylor}              &  8 & 80.68 & 0.28 & 0.79 & 0.02 & \underline{0.02} & 84.38 & 54.51 & 59.46
+                             & 10 & 91.59 & 0.12 & 0.31 & 0.01 & 0.01 & 88.79 & 40.35 & 95.03 \\
+\textsc{CircAvg}             &  8 & 80.22 & 0.28 & 0.77 & 0.02 & \underline{0.02} & \underline{85.71} & 50.23 & 62.41
+                             & 10 & 91.67 & 0.12 & 0.30 & 0.01 & 0.01 & \textbf{89.77} & 37.79 & \underline{95.21} \\
+\midrule
+ \rowcolor{lightgreen} \textsc{Hydra Ens (Taylor)}   &  8x3 & \underline{81.20} & \underline{0.26} & 0.75 & \textbf{0.01} & \textbf{0.01} & 85.36 & 50.50 & 60.75
+                             & 10x3 & 92.00 & 0.11 & 0.28 & \underline{0.008} & 0.007 & 88.89 & 39.57 & \textbf{95.46} \\
+ \rowcolor{lightgreen}\textsc{Hydra Ens (Circ)}     &  8x3 & 80.88 & 0.27 & 0.74 & \textbf{0.01} & \textbf{0.01} & \textbf{86.29} & \underline{47.62} & \textbf{63.15}
+                             & 10x3 & 92.11 & 0.12 & 0.28 & \underline{0.008} & 0.006 & \underline{89.43} & \textbf{36.44} & 95.17 \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\end{document}

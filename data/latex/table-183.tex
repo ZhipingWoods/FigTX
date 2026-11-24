@@ -1,0 +1,83 @@
+\definecolor{RankFirst}{RGB}{255,242,204}  % 1st (light yellow)
+\definecolor{RankSecond}{RGB}{255,204,153} % 3rd (orange)
+\definecolor{RankThird}{RGB}{221,235,247} % 2nd (light blue)
+\definecolor{coralPink}{HTML}{ED028C}
+\newcommand{\cmark}{\ding{51}}  % checkmark
+\newcommand{\xmark}{\ding{55}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{\textbf{Quantitative comparison on PIE-bench}~\cite{ju2023direct}.
+\textbf{T-free}: Training-free. \textbf{I-free}: Inversion-free.
+The best/second/third results in each numeric column are highlighted with
+\colorbox{RankFirst}{yellow}/\colorbox{RankSecond}{orange}/\colorbox{RankThird}{blue} backgrounds, respectively.
+A comprehensive table with extended metrics (e.g., SSIM, Structure Distance) is available in Appendix.}
+\label{tab:main_comparison_final}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l l | ccc | cc | cc | cccc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Type}} & \multirow{2}{*}{\textbf{Method}} &
+\multicolumn{3}{c|}{\textbf{Consistency}} &
+\multicolumn{2}{c|}{\textbf{CLIP Semantics}} &
+\multicolumn{2}{c|}{\textbf{Properties}} &
+\multicolumn{4}{c}{\textbf{Efficiency}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-13}
+& &
+\textbf{PSNR}$\uparrow$ &
+\textbf{MSE}${}_{\text{10}^3}\downarrow$ &
+\textbf{LPIPS}${}_{\text{10}^3}\downarrow$ &
+\textbf{Whole}$\uparrow$ &
+\textbf{Edited}$\uparrow$ &
+\textbf{T-free} &
+\textbf{I-free} &
+\textbf{Step}$\downarrow$ &
+\textbf{NFE}$\downarrow$ &
+\textbf{Runtime(s)}$\downarrow$ &
+\textbf{VRAM(MiB)}$\downarrow$ \\
+\midrule
+% --- Multi-step (>=30 steps) ---
+\multirow{5}{*}{\shortstack[c]{Multi-step \\ ($\ge$ 30 steps)}} &
+DDIM + MasaCtrl~\cite{songdenoising,cao2023masactrl} &
+21.25 & 8.58 & 106.59 & 24.13 & 21.13 & \cmark & \xmark & 50 & 100 & 55.20 & 12272 \\
+& Direct Inversion + MasaCtrl~\cite{ju2023direct,cao2023masactrl} &
+21.78 & 7.99 & \cellcolor{RankThird}87.38 & 24.42 & 21.38 & \cmark & \xmark & 50 & 100 & 79.10 & 12272 \\
+& DDIM + PnP~\cite{songdenoising,tumanyan2023plug} &
+21.26 & 8.42 & 113.58 & 25.45 & 22.54 & \cmark & \xmark & 50 & 100 & 28.01 & \cellcolor{RankThird}9262 \\
+& Direct Inversion + PnP~\cite{ju2023direct,tumanyan2023plug} &
+21.43 & 8.10 & 106.26 & \cellcolor{RankThird}25.48 & \cellcolor{RankThird}22.63 & \cmark & \xmark & 50 & 100 & 28.03 & \cellcolor{RankThird}9262 \\
+& FlowEdit (SD3)~\cite{kulikov2025flowedit} &
+22.17 & 7.69 & 104.81 & \cellcolor{RankFirst}26.64 & \cellcolor{RankFirst}23.69 & \cmark & \cmark & \cellcolor{RankThird}33 & 33 & 7.22 & 17140 \\
+\midrule
+% --- Few-step (4 steps) ---
+\multirow{3}{*}{\shortstack[c]{Few-step \\ (4 steps)}} &
+TurboEdit (SDXL-Turbo)~\cite{deutch2024turboedit} &
+21.44 & 9.49 & 108.60 & 24.66 & 21.79 & \cmark & \cmark &
+\cellcolor{RankSecond}4 & \cellcolor{RankThird}4 & 2.69 & 13826 \\
+& InfEdit (SD1.4)~\cite{xu2023inversion} &
+\cellcolor{RankFirst}24.14 & \cellcolor{RankThird}6.82 & \cellcolor{RankFirst}55.69 &
+24.89 & 21.88 & \cmark & \cmark &
+\cellcolor{RankSecond}4 & \cellcolor{RankThird}4 & 1.41 & \cellcolor{RankFirst}6502 \\
+& InstantEdit (PeRFlow-SD1.5)~\cite{gong2025instantedit} &
+\cellcolor{RankThird}23.80 & \cellcolor{RankFirst}4.21 & \cellcolor{RankSecond}60.92 &
+24.97 & 21.82 & \cmark & \xmark &
+\cellcolor{RankSecond}4 & 8 & 1.30 & 16270 \\
+\midrule
+% --- One-step (1 step) ---
+\multirow{4}{*}{\shortstack[c]{One-step}} &
+SwiftEdit (SwiftBrush-v2)~\cite{nguyen2025swiftedit} &
+21.71 & 8.22 & 91.22 & 24.93 & 21.85 & \xmark & \xmark &
+\cellcolor{RankFirst}1 & \cellcolor{RankSecond}2 & \cellcolor{RankThird}0.54 & 15060 \\
+& \textbf{ChordEdit (SwiftBrush-v2)} &
+22.04 & 7.13 & 111.22 & 25.12 & 22.58 & \cmark & \cmark &
+\cellcolor{RankFirst}1 & \cellcolor{RankSecond}2 & \cellcolor{RankSecond}\textbf{0.38} & \cellcolor{RankSecond}6988 \\
+& \textbf{ChordEdit (w/o prox, SD-Turbo)} &
+\cellcolor{RankSecond}23.89 & \cellcolor{RankSecond}5.05 & 88.36 & 24.97 & 21.87 & \cmark & \cmark &
+\cellcolor{RankFirst}1 & \cellcolor{RankFirst}1 & \cellcolor{RankFirst}\textbf{0.20} & \cellcolor{RankSecond}6988 \\
+& \textbf{ChordEdit (SD-Turbo)} &
+22.20 & 6.84 & 128.25 & \cellcolor{RankSecond}25.58 & \cellcolor{RankSecond}22.96 & \cmark & \cmark &
+\cellcolor{RankFirst}1 & \cellcolor{RankSecond}2 & \cellcolor{RankSecond}\textbf{0.38} & \cellcolor{RankSecond}6988 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

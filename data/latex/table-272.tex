@@ -1,0 +1,179 @@
+\usepackage[table]{xcolor}
+\usepackage{adjustbox}
+\definecolor{color_gray}{RGB}{229,229,229}
+\definecolor{color_blue}{RGB}{252,182,165}
+\definecolor{color_pink}{RGB}{255,217,178}
+\definecolor{color_yellow}{RGB}{255,255,204}
+\definecolor{secondcolor}{RGB}{189,215,238}
+\definecolor{firstcolor}{RGB}{255,153,153}
+\newcommand{\firstcolor}[1]{\cellcolor[rgb]{1,.60,.60}{#1}}
+\newcommand{\secondcolor}[1]{\cellcolor[rgb]{.741,.843,.933}{#1}}
+% \newcommand{\secondcolor}[1]{\multicolumn{1}{>{\columncolor{secondcolor}}c}{#1}}
+\definecolor{bb}{rgb}{0.0, 0.0, 0.5}
+\definecolor{Gray}{gray}{0.9}
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{colortbl}
+%%%  新包  end
+%定义定理颜色匡  start
+\usepackage{tcolorbox}
+\newtcolorbox{commentbox}{
+    colback=gray!2,          % 浅灰色背景gray!5
+    colframe=black,         % 灰色边框
+    arc=2pt,                  % 圆角大小
+    boxrule=0.5pt,            % 边框线宽
+    left=2pt,                 % 左边距
+    right=2pt,                % 右边距
+    top=2pt,                  % 上边距
+    bottom=2pt,               % 下边距
+    boxsep=1pt,               % 内容与边框的间距
+    fontupper=\itshape,       % 斜体字体
+    % before upper={\textbf{Comment:}\ }, % 添加 "Comment:" 前缀
+}
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+\centering
+% \setlength{\tabcolsep}{1.0mm}{
+\small
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l|cccc|cccccccccc}
+\toprule
+\multirow{2}{*}{{Models}} &
+\multicolumn{3}{c}{{CharXiv}} &
+{ChartQA} &
+\multicolumn{3}{c}{{ReachQA}} &
+\multicolumn{3}{c}{{ChartBench}} &
+{ChartX} &
+\multicolumn{3}{c}{{ECDBench}}\\
+\cmidrule(lr){2-4} \cmidrule(lr){5-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-12} \cmidrule(lr){13-15}
+& {Rea.} & {Des.}  & {Avg.} & {QA} & {Rea.} & {Recog.} & {Avg.} & {Binary} & {NQA} & {Avg.} &{QA} & {Rea.} & {Des.} & {Avg.} \\
+\hline
+\multicolumn{15}{c}{\textbf{Baselines}} \\
+\hline
+Human                 & 80.50 & 92.10 & 89.78 & -      & 65.10 & 84.60 & 74.85 &  - &  -  & -    & -    & -  & -  & -  \\
+Random (GPT-4o) \cite{achiam2023gpt}        & 10.80 & 19.85 & 18.04 & 30.04  & 8.20  & 13.30 & 10.75 & -  & 22.73  & -  & 11.46 & 4.58 & 1.63 & 3.10 \\
+\hline
+\multicolumn{15}{c}{\textbf{Proprietary multimodal large language models}} \\
+\midrule
+GPT-4o mini \cite{achiam2023gpt}            & 34.10 & 74.92  & 66.76 & 77.52  & 27.20  & 53.50 & 40.35 & -  & 34.93  & - & 44.36 & 24.26 & 57.27 & 40.77 \\
+GPT-4o \cite{achiam2023gpt}                  & 47.10 & 84.45  & 76.98 &  85.70   & 39.70  & 66.80  & 53.25 & -  & 52.88  & - & 58.33 & 35.62 & 70.18 & 52.90 \\
+Claude 3.5 Sonnet \cite{anthropic2024claude3.5sonnet}       & 60.20  & 84.30  &  79.48  & 90.80   & 51.70  & 74.30  & 63.00  &  -  & 48.29 & - & 42.71 & 41.99 & 68.14 & 55.07 \\
+\midrule
+\multicolumn{15}{c}{\textbf{Open-source multimodal large language models}} \\
+\hline
+\rowcolor{gray!10}LLaVA-Next-Llama3-8B \cite{li2024llavanext}    & 19.70 & 38.90 & 35.06 & 64.56 & 8.00 & 23.30 & 15.65 & 61.18 & 38.29 & 58.64 & 27.69 & 4.74 & 17.16 & 10.95 \\
++ ECD   &  \cellcolor{green!8}{21.80} & \cellcolor{green!8}{59.05} & \cellcolor{green!8}{51.60} & \cellcolor{green!8}{68.64} & \cellcolor{green!8}{12.70} & \cellcolor{green!8}{37.50} & \cellcolor{green!8}{25.10} & \cellcolor{green!8}{64.21} & \cellcolor{green!8}{47.05} & \cellcolor{green!8}{62.30} & \cellcolor{green!8}{46.61} & \cellcolor{green!8}{16.50} & \cellcolor{green!8}{46.65} & \cellcolor{green!8}{31.58}  \\
+\rowcolor{gray!10}MiniCPM-V2.6 \cite{yao2024minicpm}  & 25.40 & 52.65 & 47.20 & 76.96 & 14.50 & 48.10 & 31.30 & 75.67 & 52.33 & 73.08 & 47.31 & 15.15 & 39.95 & 27.53\\
++ ECD  &  \cellcolor{green!8}{26.90} & \cellcolor{green!8}{61.90} & \cellcolor{green!8}{54.91} & \cellcolor{green!8}77.28 & \cellcolor{green!8}17.50 & \cellcolor{green!8}48.40 & \cellcolor{green!8}32.95 & \cellcolor{red!8}70.77 & \cellcolor{green!8}52.81 & \cellcolor{red!8}68.77 & \cellcolor{green!8}50.43 & \cellcolor{green!8}18.14 & \cellcolor{green!8}52.21 & \cellcolor{green!8}35.17 \\
+\rowcolor{gray!10}Phi-3-Vision \cite{abdin2024phi}   & 31.50  & 60.52 & 54.72 & 81.92 & 28.40 & 62.80 & 45.60 & 71.92 & 62.71 & 70.90 & 67.53 & 21.65 & 41.18 & 31.41   \\
++ ECD   & \cellcolor{green!8}{33.40} & \cellcolor{green!8}{68.00} & \cellcolor{green!8}{61.08} & \cellcolor{green!8}{84.88} & \cellcolor{green!8}{32.80} & \cellcolor{green!8}{64.50} & \cellcolor{green!8}{48.65} & \cellcolor{green!8}{73.49} &  \cellcolor{green!8}{63.76} & \cellcolor{green!8}{72.41} & \cellcolor{green!8}{71.44} & \cellcolor{green!8}{29.49} & \cellcolor{green!8}{59.31} & \cellcolor{green!8}{44.40} \\
+\rowcolor{gray!10}Qwen2.5-VL-7B \cite{bai2025qwen2}   & 41.20  & 66.40 & 61.36 & 83.04 & 29.70 & 71.90 & 50.80 & 80.99 & 67.81 & 79.53 & 67.80 & 19.04 & 57.35 & 38.19   \\
++ ECD   & \cellcolor{red!8}{40.20} & \cellcolor{green!8}{74.20} & \cellcolor{green!8}{67.40} & \cellcolor{green!8}{85.32} & \cellcolor{green!8}{36.20} & \cellcolor{red!8}{70.80} & \cellcolor{green!8}{53.50} & \cellcolor{red!8}{79.35} &  \cellcolor{green!8}{70.86} & \cellcolor{red!8}{78.41} & \cellcolor{green!8}{70.83} & \cellcolor{green!8}{35.38} & \cellcolor{green!8}{66.34} & \cellcolor{green!8}{50.86} \\
+\bottomrule
+\end{tabular}
+}
+% }
+\caption{
+Comparing MLLMs on six test sets.
+``Rea.'', ``Des.'',  and ``Recog.'' mean reasoning,  descriptive, and recognition questions, respectively.
+``Binary'' denotes ``yes/no'' answers, and NQA means numerical QAs.
+When fine-tuned on our effective chart dataset, except a few individual metrics (highlighted in
+\sethlcolor{red!8}
+\hl{{red}}), the four open-source MLLMs display overall improvements (highlighted in
+\sethlcolor{green!8}
+\hl{{green}}).
+}
+\label{tab:main}
+\end{table*}
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.0mm}
+{
+\begin{tabular}{l|cccccc}
+\toprule
+\multicolumn{1}{c|}{\multirow{2}{*}{Training set}} & \multicolumn{6}{c}{{Test set}}                                                                                 \\ \cline{2-7}
+\multicolumn{1}{l|}{}                       & {CharXiv}                 & {ChartQA}               & {ReachQA}               & {ChartBench}             & {ChartX}  & {ECDBench}  \\ \hline
+\rowcolor{gray!10}Baseline           & 35.06                   & 64.56                 & 15.65                & 58.64                  & 27.69  & 10.95             \\ \hline
+ChartQA                       & \cellcolor{green!8}{\ul 35.16}           & \cellcolor{green!8}\textbf{68.92} & \cellcolor{red!8}15.00          & \cellcolor{green!8}{61.41}           & \cellcolor{green!8}31.51  & \cellcolor{green!8}13.11        \\
+ChartBench                     & \cellcolor{red!8}32.86           & \cellcolor{red!8}61.56         & \cellcolor{green!8}18.35          & \cellcolor{green!8}\textbf{75.13} & \cellcolor{green!8}37.33  & \cellcolor{green!8}10.99         \\
+ReachQA                      & \cellcolor{red!8}30.68           & \cellcolor{red!8}64.50         & \cellcolor{green!8}{\ul 24.35}          & \cellcolor{red!8}57.59           & \cellcolor{green!8}{\ul 39.24} & \cellcolor{green!8}{\ul 13.48}          \\
+ECD                          & \cellcolor{green!8}\textbf{51.60} & \cellcolor{green!8}{\ul 68.64}   & \cellcolor{green!8}\textbf{25.10} & \cellcolor{green!8}{\ul 62.30}     & \cellcolor{green!8}\textbf{46.61} & \cellcolor{green!8}\textbf{31.58} \\ \bottomrule
+\end{tabular}
+}
+\vspace{-1mm}
+\caption{
+% Performance gains from different training sets.
+Comparing different chart training sets of their fine-tuning performance on 6 test sets.
+%Performance improvements from synthetic training datasets.
+\sethlcolor{green!8}
+\hl{{Green}} indicates performance growth and \sethlcolor{red!8}
+\hl{{red}} highlights decline. We use LLaVA-Next-Llama3-8B~\cite{li2024llavanext} as the baseline and fine-tune it on ChartQA~\cite{masry2022chartqa}, ChartBench~\cite{xu2023chartbench}, ReachQA~\cite{he2024distill}, and ECD. For each column, best number is in \textbf{bold}, and second best \underline{underlined}.
+}
+\label{tab:training comparison}
+\vspace{-5mm}
+\end{table}
+\begin{table*}[ht!]
+\centering
+\caption{I-AUROC scores on  MVTec 3D-AD dataset (10-0 with 0 step). The \colorbox{firstcolor}{red}/\colorbox{secondcolor}{blue} indicates the best/second-best results.}
+%\footnotesize
+%\tiny
+%\Large
+\setlength{\tabcolsep}{2.8mm} %2.2mm
+\renewcommand{\arraystretch}{0.9}
+\adjustbox{width=1\linewidth}{
+   \begin{tabular}{c|l|c|c ccc ccc ccc |c}
+       \toprule
+%%%%%%%%%%
+\rowcolor{gray!10}& &&  &  &  &  &  &  &  &   &  & & \\
+\rowcolor{gray!10}\multirow{-2}{*}{}
+                 & \multirow{-2}{*}{Method}
+                 & \multirow{-2}{*}{Year}
+                &\multirow{-2}{*}{Bagel}
+                &\multirow{-2}{*}{Cable Gland}
+                &\multirow{-2}{*}{Carrot}
+                &\multirow{-2}{*}{Cookie}
+                &\multirow{-2}{*}{Dowel}
+                &\multirow{-2}{*}{Foam}
+                &\multirow{-2}{*}{Peach}
+                &\multirow{-2}{*}{Potato}
+                &\multirow{-2}{*}{Rope}
+                &\multirow{-2}{*}{Tire}
+                 &\multirow{-2}{*}{Mean} \\
+%%%%%%%%%%%%%% RGB数据
+\midrule[0.5pt]
+\multirow{8}{*}{\rotatebox{90}{RGB}}
+ &UniAD  &NIPS22 &82.7 &89.8 &76.8 &77.3 &96.7 &70.5 &70.0 &51.6 &\firstcolor{\textbf{97.4}} &75.7 &78.9\\
+%&RD4AD  &CVPR22 &82.5 &90.1 &87.3 &46.0 &96.7 &74.3 &64.3 &62.5 &96.3 &79.2 &77.9\\
+&SimpleNet  &CVPR23 &76.2 &70.3 &71.4 &66.7 &83.7 &77.4 &62.0 &56.7 &95.6 &65.3 &72.5\\
+&DeSTSeg  &CVPR23 &89.7 &84.8 &79.1 &67.4 &77.3 &77.9 &82.2 &62.9 &93.5 &80.8 &79.6\\
+&MambaAD  &NIPS24 &87.7 &\secondcolor{\textbf{\textcolor{ForestGreen}{94.3}}} &90.7 &61.2 &\secondcolor{\textbf{\textcolor{ForestGreen}{97.6}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{84.0}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{92.8}}} &66.8 &\firstcolor{\textbf{97.4}} &\secondcolor{\textbf{\textcolor{ForestGreen}{90.0}}} &86.2\\
+&DiAD  &AAAI24 &\firstcolor{\textbf{100.0}} &68.1 &\secondcolor{\textbf{\textcolor{ForestGreen}{94.4}}} &69.4 &\firstcolor{\textbf{98.0}} &\firstcolor{\textbf{100.0}} &58.0 &76.3 &89.2 &\firstcolor{\textbf{92.7}} &84.6\\
+&IUF  &ECCV24 &88.3 &\firstcolor{\textbf{95.0}} &\firstcolor{\textbf{100.0}} &\firstcolor{\textbf{89.7}} &93.7 &73.6 &83.3 &\firstcolor{\textbf{93.1}} &91.1 &63.5 &\secondcolor{\textbf{\textcolor{ForestGreen}{87.1}}}\\
+&CDAD  &CVPR25 &87.4 &88.4 &74.9 &67.6 &91.2 &70.7 &64.2 &59.9 &86.2 &73.8 &76.4\\
+%%%%%%%%%%%%%% ours
+& IB-IUMAD &- & \secondcolor{\textbf{\textcolor{ForestGreen}{95.4}}} & 93.1 & 90.0& \secondcolor{\textbf{\textcolor{ForestGreen}{82.1}}}& 92.9& 68.4& \firstcolor{\textbf{94.6}}& \secondcolor{\textbf{\textcolor{ForestGreen}{90.4}}}& \secondcolor{\textbf{\textcolor{ForestGreen}{96.7}}}& 85.6 & \firstcolor{\textbf{88.9}}\\
+%%%%%%%%%%%%%% Depth数据
+\midrule[0.5pt]
+\multirow{4}{*}{\rotatebox{90}{3D}}
+            %&UniAD  &NIPS22 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0\\
+            &DiAD  &AAAI24 &\firstcolor{\textbf{79.4}} &59.2 &\firstcolor{\textbf{71.7}} &65.2 &\firstcolor{\textbf{78.4}} &74.5 &\secondcolor{\textbf{\textcolor{ForestGreen}{56.3}}} &65.0 &60.1 &\secondcolor{\textbf{\textcolor{ForestGreen}{64.2}}} &67.4\\
+            &IUF  &ECCV24 &68.9 &\secondcolor{\textbf{\textcolor{ForestGreen}{96.5}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{68.4}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{73.5}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{75.4}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{76.7}}} &55.0 &\secondcolor{\textbf{\textcolor{ForestGreen}{72.3}}} &\firstcolor{\textbf{89.1}} &61.4 &\secondcolor{\textbf{\textcolor{ForestGreen}{73.7}}}\\
+            &CDAD  &CVPR25  &64.7 &65.2 &54.7 &68.9 &56.3 &62.7 &55.1 &51.9 &58.6&\firstcolor{\textbf{67.7}} &60.6\\
+%%%%%%%%%%%% ours
+              &IB-IUMAD &- & \secondcolor{\textbf{\textcolor{ForestGreen}{69.1}}} & \firstcolor{\textbf{99.3}} & 63.6& \firstcolor{\textbf{74.8}}& 65.5& \firstcolor{\textbf{82.2}}& \firstcolor{\textbf{69.7}}& \firstcolor{\textbf{96.4}}& \secondcolor{\textbf{\textcolor{ForestGreen}{76.6}}}& 60.4 & \firstcolor{\textbf{75.8}}\\
+%%%%%%%%%%%%%% RGB+Depth数据
+\midrule[0.5pt]
+\multirow{4}{*}{\rotatebox{90}{RGB + 3D}}
+            %&UniAD  &NIPS22 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0 &00.0\\
+            &DiAD  &AAAI24 &\firstcolor{\textbf{100.0}} &73.9 &\firstcolor{\textbf{97.2}} &71.6 &\firstcolor{\textbf{97.6}} &\firstcolor{\textbf{98.7}} &69.4  &\secondcolor{\textbf{\textcolor{ForestGreen}{78.3}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{94.3}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{85.6}}} &86.7\\
+            &IUF  &ECCV24 &97.2 &\secondcolor{\textbf{\textcolor{ForestGreen}{96.9}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{89.1}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{75.4}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{93.4}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{89.7}}} &\secondcolor{\textbf{\textcolor{ForestGreen}{95.6}}} &74.2 &\firstcolor{\textbf{98.4}} &77.3 &\secondcolor{\textbf{\textcolor{ForestGreen}{88.7}}}\\
+            &CDAD  &CVPR25 &90.3 &89.7 &78.2 &68.4 &92.5 &73.4 &65.9 &63.3 &89.4 &79.7 &79.1\\
+%%%%%%%%%%%%%%%%%  Ours
+            & IB-IUMAD &- &\secondcolor{\textbf{\textcolor{ForestGreen}{98.3}}} & \firstcolor{\textbf{97.5}} & 86.3& \firstcolor{\textbf{84.6}}& 90.5& 69.4& \firstcolor{\textbf{98.7}}& \firstcolor{\textbf{100.0}}& \firstcolor{\textbf{98.4}}& \firstcolor{\textbf{86.4}} & \firstcolor{\textbf{91.0}}\\
+             \bottomrule
+       \end{tabular}
+   }
+\end{table*}
+\end{document}

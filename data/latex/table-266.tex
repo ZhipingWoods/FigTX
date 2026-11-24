@@ -1,0 +1,285 @@
+\newcommand{\glipsum}[1]{\textcolor{gray}{\lipsum[#1]}}
+\newcommand{\benchmark}{\textsc{VideoMathQA}}
+\definecolor{small}{RGB}{255, 255, 255}
+\definecolor{big}{RGB}{148, 153, 192}
+\newcommand{\rgbrank}[2]{% #1 is the value to display, #2 is the percentile rank (0–100)
+  \pgfmathsetmacro{\percent}{%
+    \ifnum#2<10
+      0 + #2% For percentiles 0–10: gradient from 0% to 10%
+    \else
+      \ifnum#2<30
+        10 + (#2-10) * 0.5% For percentiles 10–30: gradient from 10% to 20%
+      \else
+        \ifnum#2<45
+          20 + (#2-30) * 1.33% For percentiles 30–45: gradient from 20% to 40%
+        \else
+          50 + (#2-45) * 0.91% For percentiles 45 and above: gradient from 50% to 100%
+        \fi
+      \fi
+    \fi
+  }%
+  \edef\temp{\noexpand\cellcolor{big!\percent!small}}\temp
+  \temp #1% Display the value in a color based on computed percent
+}
+%%%%%%%
+\begin{document}
+\definecolor{small}{RGB}{255, 255, 255}
+\definecolor{big}{RGB}{169, 204, 227}
+\begin{table*}[t]
+% \vspace{-1em}
+\centering
+\renewcommand{\arraystretch}{1.08}
+\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l c | cc | cc | cccccccccc | ccc | c }
+\toprule
+\multirow{2}{*}{\textbf{Models}} & \multirow{2}{*}{\textbf{Size}} &
+\multicolumn{2}{c|}{\textbf{MCQ}} &
+\multicolumn{2}{c|}{\textbf{MBin}} &
+\multicolumn{10}{c|}{\textbf{Mathematic Concepts}} &
+\multicolumn{3}{c|}{\textbf{Duration}} &
+\textbf{CoT} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-16} \cmidrule(lr){17-19}
+& & \textbf{V} & \textbf{+Sub} & \textbf{V} & \textbf{+Sub} &
+\textbf{GAng} & \textbf{GAre} & \textbf{GLen} &
+\textbf{Chart} & \textbf{Stat} & \textbf{Arth} &
+\textbf{Topo} & \textbf{Grph} & \textbf{Cntg} & \textbf{Pzle} &
+\textbf{Short} & \textbf{Med} & \textbf{Long} & \textbf{Eval} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Random & - & 17.4 & 17.4 & 7.9 & 7.9 & 8.7 & 7.0 & 7.8 & 10.7 & 8.7 & 3.9 & 6.7 & 11.1 & 2.6 & 11.1 & 9.0 & 7.8 & 6.9 & - \\
+\midrule
+\multicolumn{20}{l}{\textbf{\textit{Open-source ($<9$\textnormal{B})}}} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Video-R1~\cite{videoR1} & 7B & \rgbrank{23.8}{19} & \rgbrank{27.6}{19} & \rgbrank{18.1}{31} & \rgbrank{20.0}{44} & \rgbrank{13.0}{19} & \rgbrank{26.8}{50} & \rgbrank{23.5}{44} & \rgbrank{9.3}{6} & \rgbrank{13.0}{13} & \rgbrank{34.6}{81} & \rgbrank{20.0}{44} & \rgbrank{16.7}{19} & \rgbrank{18.4}{44} & \rgbrank{16.7}{0} & \rgbrank{21.6}{50} & \rgbrank{26.0}{44} & \rgbrank{11.4}{13} & \rgbrank{3.9}{50} \\
+LLaVA-Video~\cite{llavavideo178} & 7B & \rgbrank{26.4}{44} & \rgbrank{23.6}{0} & \rgbrank{20.0}{56} & \rgbrank{16.0}{0} & \rgbrank{4.4}{0} & \rgbrank{15.5}{6} & \rgbrank{23.5}{44} & \rgbrank{16.0}{56} & \rgbrank{21.7}{38} & \rgbrank{7.7}{0} & \rgbrank{26.7}{88} & \rgbrank{0.0}{0} & \rgbrank{21.1}{75} & \rgbrank{18.5}{13} & \rgbrank{16.4}{6} & \rgbrank{16.9}{0} & \rgbrank{14.4}{25} & \rgbrank{2.7}{0} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 7B & \rgbrank{25.2}{38} & \rgbrank{29.5}{44} & \rgbrank{17.6}{19} & \rgbrank{18.3}{13} & \rgbrank{13.0}{19} & \rgbrank{15.5}{6} & \rgbrank{11.8}{0} & \rgbrank{20.0}{88} & \rgbrank{21.7}{38} & \rgbrank{36.5}{88} & \rgbrank{13.3}{6} & \rgbrank{16.7}{19} & \rgbrank{10.5}{6} & \rgbrank{16.7}{0} & \rgbrank{16.4}{6} & \rgbrank{20.1}{6} & \rgbrank{18.2}{69} & \rgbrank{3.7}{38} \\
+InternVL3~\cite{zhu2025internvl3} & 8B & \rgbrank{28.8}{56} & \rgbrank{26.9}{6} & \rgbrank{17.9}{25} & \rgbrank{20.0}{44} & \rgbrank{17.4}{38} & \rgbrank{22.5}{25} & \rgbrank{27.5}{63} & \rgbrank{13.3}{19} & \rgbrank{4.4}{0} & \rgbrank{17.3}{13} & \rgbrank{13.3}{6} & \rgbrank{16.7}{19} & \rgbrank{7.9}{0} & \rgbrank{24.1}{44} & \rgbrank{19.4}{31} & \rgbrank{23.4}{19} & \rgbrank{9.9}{6} & \rgbrank{3.4}{25} \\
+InternVideo2.5~\cite{internvideo25} & 8B & \rgbrank{24.3}{25} & \rgbrank{27.6}{19} & \rgbrank{18.3}{38} & \rgbrank{19.8}{31} & \rgbrank{26.1}{44} & \rgbrank{25.4}{44} & \rgbrank{13.7}{6} & \rgbrank{14.7}{44} & \rgbrank{26.1}{69} & \rgbrank{21.2}{19} & \rgbrank{13.3}{6} & \rgbrank{27.8}{81} & \rgbrank{18.4}{44} & \rgbrank{18.5}{13} & \rgbrank{17.9}{25} & \rgbrank{25.3}{31} & \rgbrank{15.2}{38} & \rgbrank{3.0}{6} \\
+VideoChat-R1~\cite{videochatR1} & 7B & \rgbrank{22.4}{0} & \rgbrank{28.3}{31} & \rgbrank{21.4}{63} & \rgbrank{19.8}{31} & \rgbrank{13.0}{19} & \rgbrank{29.6}{56} & \rgbrank{15.7}{13} & \rgbrank{10.7}{13} & \rgbrank{17.4}{19} & \rgbrank{26.9}{44} & \rgbrank{6.7}{0} & \rgbrank{22.2}{50} & \rgbrank{18.4}{44} & \rgbrank{24.1}{44} & \rgbrank{20.9}{44} & \rgbrank{25.3}{31} & \rgbrank{12.1}{19} & \rgbrank{3.6}{31} \\
+\midrule
+\multicolumn{20}{l}{\textbf{\textit{Open-source ($<40$\textnormal{B})}}} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Oryx-1.5~\cite{liu2024oryx} & 32B & \rgbrank{29.1}{63} & \rgbrank{33.6}{63} & \rgbrank{21.7}{69} & \rgbrank{25.2}{75} & \rgbrank{34.8}{63} & \rgbrank{35.2}{88} & \rgbrank{43.1}{94} & \rgbrank{13.3}{19} & \rgbrank{17.4}{19} & \rgbrank{21.2}{19} & \rgbrank{20.0}{44} & \rgbrank{22.2}{50} & \rgbrank{18.4}{44} & \rgbrank{22.2}{31} & \rgbrank{30.6}{94} & \rgbrank{29.2}{63} & \rgbrank{15.2}{38} & \rgbrank{3.7}{38} \\ % Oryx-1.5 to fix everything
+InternVL3~\cite{zhu2025internvl3} & 38B & \rgbrank{30.0}{69} & \rgbrank{31.4}{56} & \rgbrank{21.7}{69} & \rgbrank{25.0}{69} & \rgbrank{43.5}{88} & \rgbrank{31.0}{75} & \rgbrank{25.5}{56} & \rgbrank{16.0}{56} & \rgbrank{17.4}{19} & \rgbrank{32.7}{63} & \rgbrank{20.0}{44} & \rgbrank{11.1}{6} & \rgbrank{13.2}{25} & \rgbrank{31.5}{81} & \rgbrank{26.9}{63} & \rgbrank{31.2}{75} & \rgbrank{15.9}{50} & \rgbrank{4.1}{56} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 32B & \rgbrank{31.4}{75} & \rgbrank{36.9}{75} & \rgbrank{22.6}{81} & \rgbrank{27.1}{81} & \rgbrank{47.8}{100} & \rgbrank{29.6}{56} & \rgbrank{33.3}{81} & \rgbrank{16.0}{56} & \rgbrank{26.1}{69} & \rgbrank{32.7}{63} & \rgbrank{13.3}{6} & \rgbrank{16.7}{19} & \rgbrank{23.7}{88} & \rgbrank{29.6}{75} & \rgbrank{29.1}{88} & \rgbrank{32.5}{81} & \rgbrank{18.9}{88} & \rgbrank{4.9}{81} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\multicolumn{20}{l}{\textbf{\textit{Open-source ($<80$\textnormal{B})}}} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LLaVA-Video~\cite{llavavideo178} & 72B & \rgbrank{23.6}{13} & \rgbrank{29.3}{38} & \rgbrank{14.8}{13} & \rgbrank{18.6}{19} & \rgbrank{8.7}{6} & \rgbrank{22.5}{25} & \rgbrank{17.7}{19} & \rgbrank{14.7}{44} & \rgbrank{8.7}{6} & \rgbrank{21.2}{19} & \rgbrank{26.7}{88} & \rgbrank{11.1}{6} & \rgbrank{26.3}{100} & \rgbrank{20.4}{25} & \rgbrank{17.2}{19} & \rgbrank{21.4}{13} & \rgbrank{16.7}{56} & \rgbrank{3.1}{13} \\
+LLaVA-OV~\cite{llavaov} & 72B & \rgbrank{23.3}{6} & \rgbrank{26.9}{6} & \rgbrank{14.3}{6} & \rgbrank{18.1}{6} & \rgbrank{8.7}{6} & \rgbrank{14.1}{0} & \rgbrank{19.6}{31} & \rgbrank{13.3}{19} & \rgbrank{21.7}{38} & \rgbrank{26.9}{44} & \rgbrank{20.0}{44} & \rgbrank{22.2}{50} & \rgbrank{10.5}{6} & \rgbrank{25.9}{56} & \rgbrank{15.7}{0} & \rgbrank{23.4}{19} & \rgbrank{14.4}{25} & \rgbrank{3.2}{19} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 72B & \rgbrank{37.4}{94} & \rgbrank{36.9}{75} & \rgbrank{24.5}{88} & \rgbrank{28.6}{94} & \rgbrank{30.4}{56} & \rgbrank{31.0}{75} & \rgbrank{31.4}{75} & \rgbrank{24.0}{94} & \rgbrank{21.7}{38} & \rgbrank{50.0}{94} & \rgbrank{13.3}{6} & \rgbrank{22.2}{50} & \rgbrank{15.8}{38} & \rgbrank{25.9}{56} & \rgbrank{27.6}{69} & \rgbrank{34.4}{88} & \rgbrank{22.7}{94} & \rgbrank{5.0}{94} \\
+InternVL3~\cite{zhu2025internvl3} & 78B & \rgbrank{34.1}{81} & \rgbrank{37.1}{88} & \rgbrank{25.2}{94} & \rgbrank{27.9}{88} & \rgbrank{39.1}{81} & \rgbrank{39.4}{94} & \rgbrank{33.3}{81} & \rgbrank{13.3}{19} & \rgbrank{26.1}{69} & \rgbrank{23.1}{38} & \rgbrank{33.3}{100} & \rgbrank{22.2}{50} & \rgbrank{10.5}{6} & \rgbrank{40.7}{100} & \rgbrank{28.4}{81} & \rgbrank{36.4}{94} & \rgbrank{17.4}{63} & \rgbrank{4.9}{81} \\
+\midrule
+\multicolumn{20}{l}{\textbf{\textit{Proprietary Models}}} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Claude-3.7-sonnet & - & \rgbrank{24.8}{31} & \rgbrank{29.5}{50} & \rgbrank{12.1}{0} & \rgbrank{19.3}{25} & \rgbrank{34.8}{63} & \rgbrank{29.6}{56} & \rgbrank{19.6}{31} & \rgbrank{4.0}{0} & \rgbrank{26.1}{69} & \rgbrank{13.5}{6} & \rgbrank{20.0}{44} & \rgbrank{16.7}{19} & \rgbrank{21.1}{75} & \rgbrank{22.2}{31} & \rgbrank{23.1}{56} & \rgbrank{26.0}{44} & \rgbrank{7.6}{0} & \rgbrank{4.2}{63} \\
+GPT-4o & - & \rgbrank{27.1}{50} & \rgbrank{34.3}{69} & \rgbrank{18.6}{44} & \rgbrank{22.9}{56} & \rgbrank{26.1}{44} & \rgbrank{22.5}{25} & \rgbrank{17.7}{19} & \rgbrank{17.3}{75} & \rgbrank{30.4}{94} & \rgbrank{32.7}{63} & \rgbrank{20.0}{44} & \rgbrank{33.3}{88} & \rgbrank{13.2}{25} & \rgbrank{25.9}{56} & \rgbrank{19.4}{31} & \rgbrank{29.9}{69} & \rgbrank{18.2}{69} & \rgbrank{4.9}{81} \\
+Gemini-2.0-Flash & - & \rgbrank{35.2}{88} & \rgbrank{38.8}{94} & \rgbrank{19.5}{50} & \rgbrank{24.8}{63} & \rgbrank{34.8}{63} & \rgbrank{21.1}{19} & \rgbrank{27.5}{63} & \rgbrank{18.7}{81} & \rgbrank{21.7}{38} & \rgbrank{28.9}{56} & \rgbrank{13.3}{6} & \rgbrank{33.3}{88} & \rgbrank{18.4}{44} & \rgbrank{33.3}{94} & \rgbrank{27.6}{69} & \rgbrank{27.9}{56} & \rgbrank{18.2}{69} & \rgbrank{4.7}{69} \\
+GPT-o4-mini & - & \rgbrank{49.8}{100} & \rgbrank{61.4}{100} & \rgbrank{42.1}{100} & \rgbrank{44.8}{100} & \rgbrank{43.5}{88} & \rgbrank{49.3}{100} & \rgbrank{45.1}{100} & \rgbrank{40.0}{100} & \rgbrank{65.2}{100} & \rgbrank{63.5}{100} & \rgbrank{20.0}{44} & \rgbrank{72.2}{100} & \rgbrank{23.7}{88} & \rgbrank{31.5}{81} & \rgbrank{45.5}{100} & \rgbrank{44.8}{100} & \rgbrank{42.4}{100} & \rgbrank{6.9}{100} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bottomrule
+\end{tabular}%
+}
+\caption{Performance on \benchmark~ using \emph{chain-of-thoughts prompting} in MCQ and Multi-Binary (MBin) settings. We report results with video-only (V) and video+subtitle (+Sub) inputs to highlight the effect of subtitles on multimodal grounding. MBin performance is further broken down across ten mathematical concepts and three video duration categories. The table covers open-source models across multiple size tiers.
+}
+% performance.}
+\label{tab:cot_table_1}
+\vspace{-1em}
+\end{table*}
+\definecolor{small}{RGB}{255, 255, 255}
+\definecolor{big}{RGB}{169, 204, 227}
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{1.08}
+\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l c | cc | cc | cccccccccc | ccc }
+\toprule
+\multirow{2}{*}{\textbf{Models}} & \multirow{2}{*}{\textbf{Size}} &
+\multicolumn{2}{c|}{\textbf{MCQ}} &
+\multicolumn{2}{c|}{\textbf{MBin}} &
+\multicolumn{10}{c|}{\textbf{Mathematic Concepts}} &
+\multicolumn{3}{c}{\textbf{Duration}} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-16} \cmidrule(lr){17-19}
+& & \textbf{V} & \textbf{+Sub} & \textbf{V} & \textbf{+Sub} &
+\textbf{GAng} & \textbf{GAre} & \textbf{GLen} &
+\textbf{Chart} & \textbf{Stat} & \textbf{Arth} &
+\textbf{Topo} & \textbf{Grph} & \textbf{Cntg} & \textbf{Pzle} &
+\textbf{Short} & \textbf{Med} & \textbf{Long} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Random & - & 17.4 & 17.4 & 7.9 & 7.9 & 8.7 & 7.0 & 7.8 & 10.7 & 8.7 & 3.9 & 6.7 & 11.1 & 2.6 & 11.1 & 9.0 & 7.8 & 6.9 \\
+\midrule
+\multicolumn{19}{c}{\textit{Proprietary Models}} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Claude-3.7-sonnet & - & \rgbrank{26.2}{50} & \rgbrank{27.1}{46} & \rgbrank{8.6}{0} & \rgbrank{9.5}{0} &
+\rgbrank{17.4}{43} & \rgbrank{9.9}{0} & \rgbrank{5.9}{0} & \rgbrank{8.0}{0} &
+\rgbrank{17.4}{25} & \rgbrank{11.5}{7} & \rgbrank{13.3}{25} & \rgbrank{5.6}{4} &
+\rgbrank{5.3}{0} & \rgbrank{9.3}{4} & \rgbrank{8.2}{0} & \rgbrank{11.0}{0} &
+\rgbrank{9.1}{4} \\
+GPT-4o & - & \rgbrank{20.2}{0} & \rgbrank{24.5}{32} & \rgbrank{12.6}{4} & \rgbrank{13.6}{4} &
+\rgbrank{13.0}{25} & \rgbrank{12.7}{11} & \rgbrank{15.7}{4} & \rgbrank{12.0}{25} &
+\rgbrank{4.4}{0} & \rgbrank{17.3}{25} & \rgbrank{20.0}{46} & \rgbrank{5.6}{4} &
+\rgbrank{7.9}{4} & \rgbrank{20.4}{54} & \rgbrank{14.2}{4} & \rgbrank{15.6}{14} &
+\rgbrank{10.6}{11} \\
+Gemini-1.5-Flash & - & \rgbrank{20.5}{4} & \rgbrank{23.1}{21} & \rgbrank{12.6}{4} & \rgbrank{17.6}{36} &
+\rgbrank{26.1}{61} & \rgbrank{15.5}{14} & \rgbrank{19.6}{29} & \rgbrank{9.3}{11} &
+\rgbrank{17.4}{25} & \rgbrank{23.1}{57} & \rgbrank{6.7}{0} & \rgbrank{22.2}{68} &
+\rgbrank{15.8}{46} & \rgbrank{24.1}{64} & \rgbrank{17.9}{25} & \rgbrank{22.1}{50} &
+\rgbrank{12.1}{29} \\
+Gemini-2.0-Flash & - & \rgbrank{28.6}{71} & \rgbrank{31.7}{75} & \rgbrank{14.1}{14} & \rgbrank{20.5}{57} &
+\rgbrank{30.4}{75} & \rgbrank{23.9}{50} & \rgbrank{27.5}{64} & \rgbrank{13.3}{36} &
+\rgbrank{8.7}{7} & \rgbrank{19.2}{39} & \rgbrank{13.3}{25} & \rgbrank{16.7}{61} &
+\rgbrank{7.9}{4} & \rgbrank{33.3}{89} & \rgbrank{25.4}{57} & \rgbrank{24.0}{64} &
+\rgbrank{11.4}{25} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\multicolumn{19}{c}{\textit{Open-source Models ($<5$\textnormal{B})}} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 3B & \rgbrank{26.9}{57} & \rgbrank{27.6}{50} & \rgbrank{19.3}{54} & \rgbrank{19.6}{56} &
+\rgbrank{26.1}{61} & \rgbrank{23.9}{50} & \rgbrank{23.5}{36} & \rgbrank{21.3}{93} &
+\rgbrank{34.8}{100} & \rgbrank{17.3}{25} & \rgbrank{26.7}{86} & \rgbrank{11.1}{32} &
+\rgbrank{15.8}{46} & \rgbrank{20.4}{54} & \rgbrank{25.4}{57} & \rgbrank{23.4}{61} &
+\rgbrank{15.9}{75} \\
+InternVL2.5~\cite{internvl25} & 2B & \rgbrank{24.3}{36} & \rgbrank{20.7}{4} & \rgbrank{14.3}{18} & \rgbrank{14.5}{11} &
+\rgbrank{21.7}{54} & \rgbrank{9.9}{0} & \rgbrank{27.5}{64} & \rgbrank{10.7}{18} &
+\rgbrank{4.4}{0} & \rgbrank{15.4}{14} & \rgbrank{20.0}{46} & \rgbrank{0.0}{0} &
+\rgbrank{15.8}{46} & \rgbrank{16.7}{29} & \rgbrank{17.9}{25} & \rgbrank{16.9}{18} &
+\rgbrank{8.3}{0} \\
+PLM-LLaMA~\cite{cho2025perceptionlm} & 3B & \rgbrank{22.9}{29} & \rgbrank{22.1}{14} & \rgbrank{13.6}{11} & \rgbrank{15.0}{18} &
+\rgbrank{17.4}{43} & \rgbrank{16.9}{25} & \rgbrank{25.5}{46} & \rgbrank{8.0}{0} &
+\rgbrank{26.1}{68} & \rgbrank{9.6}{0} & \rgbrank{20.0}{46} & \rgbrank{11.1}{32} &
+\rgbrank{13.2}{29} & \rgbrank{13.0}{21} & \rgbrank{16.4}{11} & \rgbrank{18.8}{29} &
+\rgbrank{9.1}{4} \\
+InternVL3~\cite{zhu2025internvl3} & 2B & \rgbrank{22.4}{21} & \rgbrank{23.3}{29} & \rgbrank{18.8}{46} & \rgbrank{16.4}{29} &
+\rgbrank{21.7}{54} & \rgbrank{16.9}{25} & \rgbrank{17.7}{11} & \rgbrank{17.3}{64} &
+\rgbrank{30.4}{86} & \rgbrank{15.4}{14} & \rgbrank{20.0}{46} & \rgbrank{22.2}{68} &
+\rgbrank{13.2}{29} & \rgbrank{5.6}{0} & \rgbrank{18.7}{36} & \rgbrank{14.9}{7} &
+\rgbrank{15.9}{75} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\multicolumn{19}{c}{\textit{Open-source Models ($<9$\textnormal{B})}} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+PLM-LLaMA~\cite{cho2025perceptionlm} & 8B & \rgbrank{22.1}{18} & \rgbrank{23.1}{21} & \rgbrank{16.7}{32} & \rgbrank{14.5}{11} &
+\rgbrank{13.0}{25} & \rgbrank{11.3}{7} & \rgbrank{17.7}{11} & \rgbrank{13.3}{36} &
+\rgbrank{17.4}{25} & \rgbrank{17.3}{25} & \rgbrank{20.0}{46} & \rgbrank{11.1}{32} &
+\rgbrank{10.5}{11} & \rgbrank{16.7}{29} & \rgbrank{16.4}{11} & \rgbrank{14.9}{7} &
+\rgbrank{12.1}{29} \\
+Oryx-1.5~\cite{liu2024oryx} & 7B & \rgbrank{22.6}{25} & \rgbrank{22.6}{18} & \rgbrank{16.9}{36} & \rgbrank{17.4}{32} &
+\rgbrank{13.0}{25} & \rgbrank{23.9}{50} & \rgbrank{23.5}{36} & \rgbrank{9.3}{11} &
+\rgbrank{21.7}{54} & \rgbrank{23.1}{57} & \rgbrank{20.0}{46} & \rgbrank{5.6}{4} &
+\rgbrank{18.4}{75} & \rgbrank{11.1}{11} & \rgbrank{20.2}{43} & \rgbrank{20.8}{43} &
+\rgbrank{10.6}{11} \\
+LLaVA-OV~\cite{llavaov} & 7B & \rgbrank{20.7}{7} & \rgbrank{21.2}{7} & \rgbrank{14.8}{21} & \rgbrank{15.5}{21} &
+\rgbrank{8.7}{0} & \rgbrank{15.5}{14} & \rgbrank{17.7}{11} & \rgbrank{16.0}{57} &
+\rgbrank{30.4}{86} & \rgbrank{17.3}{25} & \rgbrank{13.3}{25} & \rgbrank{5.6}{4} &
+\rgbrank{15.8}{46} & \rgbrank{11.1}{11} & \rgbrank{16.4}{11} & \rgbrank{18.8}{29} &
+\rgbrank{10.6}{11} \\
+LongVA-DPO~\cite{longva} & 7B & \rgbrank{21.4}{11} & \rgbrank{21.7}{11} & \rgbrank{16.2}{29} & \rgbrank{14.1}{7} &
+\rgbrank{8.7}{0} & \rgbrank{15.5}{14} & \rgbrank{17.7}{11} & \rgbrank{12.0}{25} &
+\rgbrank{30.4}{86} & \rgbrank{9.6}{0} & \rgbrank{6.7}{0} & \rgbrank{5.6}{4} &
+\rgbrank{10.5}{11} & \rgbrank{18.5}{39} & \rgbrank{14.9}{7} & \rgbrank{11.7}{4} &
+\rgbrank{15.9}{75} \\
+Video-R1~\cite{videoR1} & 7B & \rgbrank{21.4}{11} & \rgbrank{17.4}{0} & \rgbrank{16.0}{25} & \rgbrank{16.2}{25} &
+\rgbrank{8.7}{0} & \rgbrank{22.5}{39} & \rgbrank{25.5}{46} & \rgbrank{16.0}{57} &
+\rgbrank{26.1}{68} & \rgbrank{13.5}{11} & \rgbrank{6.7}{0} & \rgbrank{5.6}{4} &
+\rgbrank{13.2}{29} & \rgbrank{9.3}{4} & \rgbrank{16.4}{11} & \rgbrank{16.9}{18} &
+\rgbrank{15.2}{68} \\
+InternVL2.5~\cite{internvl25} & 8B & \rgbrank{24.3}{39} & \rgbrank{24.8}{36} & \rgbrank{18.6}{43} & \rgbrank{18.6}{39} &
+\rgbrank{26.1}{61} & \rgbrank{19.7}{32} & \rgbrank{17.7}{11} & \rgbrank{17.3}{64} &
+\rgbrank{21.7}{54} & \rgbrank{19.2}{39} & \rgbrank{26.7}{86} & \rgbrank{11.1}{32} &
+\rgbrank{10.5}{11} & \rgbrank{20.4}{54} & \rgbrank{17.9}{25} & \rgbrank{22.7}{57} &
+\rgbrank{14.4}{57} \\
+LLaVA-Video~\cite{llavavideo178} & 7B & \rgbrank{26.9}{57} & \rgbrank{26.4}{43} & \rgbrank{20.0}{61} & \rgbrank{19.3}{54} &
+\rgbrank{13.0}{25} & \rgbrank{21.1}{36} & \rgbrank{31.4}{75} & \rgbrank{17.3}{64} &
+\rgbrank{17.4}{25} & \rgbrank{15.4}{14} & \rgbrank{26.7}{86} & \rgbrank{5.6}{4} &
+\rgbrank{18.4}{75} & \rgbrank{18.5}{39} & \rgbrank{23.9}{54} & \rgbrank{20.8}{43} &
+\rgbrank{12.9}{39} \\
+InternVideo2.5~\cite{internvideo25} & 8B & \rgbrank{25.2}{43} & \rgbrank{28.6}{64} & \rgbrank{19.1}{50} & \rgbrank{19.1}{43} &
+\rgbrank{34.8}{82} & \rgbrank{22.5}{39} & \rgbrank{15.7}{4} & \rgbrank{14.7}{50} &
+\rgbrank{21.7}{54} & \rgbrank{19.2}{39} & \rgbrank{20.0}{46} & \rgbrank{27.8}{82} &
+\rgbrank{10.5}{11} & \rgbrank{18.5}{39} & \rgbrank{18.7}{36} & \rgbrank{22.1}{50} &
+\rgbrank{15.9}{75} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 7B & \rgbrank{26.7}{54} & \rgbrank{27.9}{54} & \rgbrank{19.8}{57} & \rgbrank{19.1}{43} &
+\rgbrank{8.7}{0} & \rgbrank{25.4}{61} & \rgbrank{25.5}{46} & \rgbrank{18.7}{79} &
+\rgbrank{13.0}{11} & \rgbrank{23.1}{57} & \rgbrank{13.3}{25} & \rgbrank{5.6}{4} &
+\rgbrank{15.8}{46} & \rgbrank{16.7}{29} & \rgbrank{22.4}{50} & \rgbrank{19.5}{36} &
+\rgbrank{15.2}{68} \\
+InternVL3~\cite{zhu2025internvl3} & 8B & \rgbrank{29.1}{75} & \rgbrank{27.9}{54} & \rgbrank{20.0}{61} & \rgbrank{20.7}{61} &
+\rgbrank{13.0}{25} & \rgbrank{29.6}{68} & \rgbrank{27.5}{64} & \rgbrank{13.3}{36} &
+\rgbrank{13.0}{11} & \rgbrank{28.9}{75} & \rgbrank{20.0}{46} & \rgbrank{22.2}{68} &
+\rgbrank{15.8}{46} & \rgbrank{14.8}{25} & \rgbrank{25.4}{57} & \rgbrank{24.0}{64} &
+\rgbrank{12.1}{29} \\
+VideoChat-R1~\cite{videochatR1} & 7B & \rgbrank{27.6}{64} & \rgbrank{29.1}{68} & \rgbrank{21.2}{75} & \rgbrank{21.2}{64} &
+\rgbrank{8.7}{0} & \rgbrank{22.5}{39} & \rgbrank{31.4}{75} & \rgbrank{21.3}{93} &
+\rgbrank{17.4}{25} & \rgbrank{30.8}{79} & \rgbrank{6.7}{0} & \rgbrank{11.1}{32} &
+\rgbrank{15.8}{46} & \rgbrank{18.5}{39} & \rgbrank{26.9}{68} & \rgbrank{20.1}{39} &
+\rgbrank{16.7}{89} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\multicolumn{19}{c}{\textit{Open-source Models ($<40$\textnormal{B})}} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Aria~\cite{li2024aria} & 34B & \rgbrank{23.8}{32} & \rgbrank{26.4}{39} & \rgbrank{17.4}{39} & \rgbrank{19.1}{43} &
+\rgbrank{8.7}{0} & \rgbrank{25.4}{61} & \rgbrank{19.6}{29} & \rgbrank{22.7}{100} &
+\rgbrank{17.4}{25} & \rgbrank{19.2}{39} & \rgbrank{20.0}{46} & \rgbrank{11.1}{32} &
+\rgbrank{21.1}{93} & \rgbrank{11.1}{11} & \rgbrank{21.6}{46} & \rgbrank{16.9}{18} &
+\rgbrank{18.9}{96} \\
+Oryx-1.5~\cite{liu2024oryx} & 32B & \rgbrank{30.5}{79} & \rgbrank{33.1}{89} & \rgbrank{22.9}{79} & \rgbrank{24.1}{71} &
+\rgbrank{30.4}{75} & \rgbrank{39.4}{96} & \rgbrank{31.4}{75} & \rgbrank{10.7}{18} &
+\rgbrank{17.4}{25} & \rgbrank{21.2}{54} & \rgbrank{6.7}{0} & \rgbrank{11.1}{32} &
+\rgbrank{15.8}{46} & \rgbrank{33.3}{89} & \rgbrank{27.6}{71} & \rgbrank{29.9}{82} &
+\rgbrank{13.6}{46} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 32B & \rgbrank{32.4}{89} & \rgbrank{32.6}{86} & \rgbrank{25.7}{89} & \rgbrank{24.8}{79} &
+\rgbrank{43.5}{96} & \rgbrank{31.0}{71} & \rgbrank{25.5}{46} & \rgbrank{14.7}{50} &
+\rgbrank{26.1}{68} & \rgbrank{26.9}{71} & \rgbrank{6.7}{0} & \rgbrank{27.8}{82} &
+\rgbrank{10.5}{11} & \rgbrank{33.3}{89} & \rgbrank{28.4}{79} & \rgbrank{30.5}{86} &
+\rgbrank{14.4}{57} \\
+InternVL2.5~\cite{internvl25} & 38B & \rgbrank{31.0}{82} & \rgbrank{33.6}{93} & \rgbrank{24.1}{82} & \rgbrank{26.0}{86} &
+\rgbrank{43.5}{96} & \rgbrank{38.0}{93} & \rgbrank{39.2}{100} & \rgbrank{8.0}{0} &
+\rgbrank{13.0}{11} & \rgbrank{32.7}{82} & \rgbrank{6.7}{0} & \rgbrank{11.1}{32} &
+\rgbrank{18.4}{75} & \rgbrank{29.6}{79} & \rgbrank{34.3}{93} & \rgbrank{31.8}{89} &
+\rgbrank{10.6}{11} \\
+InternVL3~\cite{zhu2025internvl3} & 38B & \rgbrank{31.7}{86} & \rgbrank{35.7}{96} & \rgbrank{25.2}{86} & \rgbrank{29.5}{100} &
+\rgbrank{34.8}{82} & \rgbrank{42.3}{100} & \rgbrank{37.3}{96} & \rgbrank{13.3}{36} &
+\rgbrank{17.4}{25} & \rgbrank{25.0}{68} & \rgbrank{13.3}{25} & \rgbrank{33.3}{100} &
+\rgbrank{26.3}{100} & \rgbrank{40.7}{100} & \rgbrank{35.8}{100} & \rgbrank{38.3}{100} &
+\rgbrank{12.9}{39} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\multicolumn{19}{c}{\textit{Open-source Models ($<80$\textnormal{B})}} \\
+\midrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LLaVA-Video~\cite{llavavideo178} & 72B &
+\rgbrank{28.3}{68} & \rgbrank{30.0}{71} & \rgbrank{20.2}{68} & \rgbrank{24.3}{75} &
+\rgbrank{8.7}{0} & \rgbrank{32.4}{79} & \rgbrank{25.5}{46} & \rgbrank{20.0}{89} &
+\rgbrank{13.0}{11} & \rgbrank{36.5}{93} & \rgbrank{13.3}{25} & \rgbrank{22.2}{68} &
+\rgbrank{21.1}{93} & \rgbrank{24.1}{64} & \rgbrank{27.6}{71} & \rgbrank{27.3}{71} &
+\rgbrank{17.4}{93} \\
+LLaVA-OV~\cite{llavaov} & 72B &
+\rgbrank{25.5}{46} & \rgbrank{28.3}{61} & \rgbrank{21.0}{71} & \rgbrank{24.8}{79} &
+\rgbrank{17.4}{43} & \rgbrank{31.0}{71} & \rgbrank{23.5}{36} & \rgbrank{12.0}{25} &
+\rgbrank{21.7}{54} & \rgbrank{38.5}{96} & \rgbrank{20.0}{46} & \rgbrank{27.8}{82} &
+\rgbrank{18.4}{75} & \rgbrank{31.5}{86} & \rgbrank{30.6}{82} & \rgbrank{28.6}{75} &
+\rgbrank{14.4}{57} \\
+InternVL2.5~\cite{internvl25} & 78B &
+\rgbrank{33.3}{93} & \rgbrank{31.7}{79} & \rgbrank{28.3}{96} & \rgbrank{27.9}{89} &
+\rgbrank{39.1}{89} & \rgbrank{36.6}{82} & \rgbrank{31.4}{75} & \rgbrank{18.7}{79} &
+\rgbrank{26.1}{68} & \rgbrank{32.7}{82} & \rgbrank{26.7}{86} & \rgbrank{27.8}{82} &
+\rgbrank{13.2}{29} & \rgbrank{27.8}{71} & \rgbrank{33.6}{86} & \rgbrank{35.1}{93} &
+\rgbrank{13.6}{46} \\
+Qwen2.5-VL~\cite{Qwen2.5-VL} & 72B & \rgbrank{36.9}{100} & \rgbrank{37.6}{100} & \rgbrank{26.0}{93} & \rgbrank{27.9}{89} &
+\rgbrank{26.1}{61} & \rgbrank{36.6}{82} & \rgbrank{31.4}{75} & \rgbrank{17.3}{64} &
+\rgbrank{30.4}{86} & \rgbrank{38.5}{96} & \rgbrank{20.0}{46} & \rgbrank{16.7}{61} &
+\rgbrank{18.4}{75} & \rgbrank{29.6}{79} & \rgbrank{34.3}{93} & \rgbrank{29.2}{79} &
+\rgbrank{19.7}{100} \\
+InternVL3~\cite{zhu2025internvl3} & 78B & \rgbrank{33.3}{93} & \rgbrank{31.7}{79} & \rgbrank{28.3}{96} & \rgbrank{27.9}{89} &
+\rgbrank{39.1}{89} & \rgbrank{36.6}{82} & \rgbrank{31.4}{75} & \rgbrank{18.7}{79} &
+\rgbrank{26.1}{68} & \rgbrank{32.7}{82} & \rgbrank{26.7}{86} & \rgbrank{27.8}{82} &
+\rgbrank{13.2}{29} & \rgbrank{27.8}{71} & \rgbrank{33.6}{86} & \rgbrank{35.1}{93} &
+\rgbrank{13.6}{46} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bottomrule
+\end{tabular}%
+}
+\caption{Performance on \benchmark~ using \emph{direct answer prompting} in both MCQ and Multi-Binary (MBin) settings. We report results with video-only (V) and video+subtitle (+Sub) inputs to highlight the effect of subtitles on multimodal grounding. MBin performance is further broken down across ten mathematical concepts and three video duration categories. The table covers open-source models across multiple size tiers. The mathematic concepts are geometric angle (GAng), geometric area (GAre), geometric length (GLen), chart reading (Chart), statistics and probability (Stat), arithmetic and calculus (Arth), topology (Topo), graph theory (Grph), counting (Cntg) and puzzles (Pzle).
+% Since models directly output the final answer, no post-processing is applied,
+% making instruction-following critical.
+}
+\label{tab:non_cot_table_2}
+\vspace{-1.5em}
+\end{table*}
+\end{document}

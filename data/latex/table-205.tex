@@ -1,0 +1,135 @@
+\usepackage[accsupp]{axessibility}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multirow}
+\usepackage{colortbl}
+\definecolor{celadon}{rgb}{0.67, 0.88, 0.69}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+\newcommand{\ourcolor}{\cellcolor{Cyan!15}}
+\newcommand{\socolor}{\cellcolor{Gray!15}}
+\newcommand{\tocolor}{\cellcolor{Gray!15}}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}
+\usepackage{fancyhdr}
+%%%%%%%
+\begin{document}
+\begin{table*}[!ht]
+\begin{center}
+\footnotesize
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{clccc|ccc|ccc|ccc|c}
+\toprule
+& \multirow{2}{*}{\textbf{Method}} & \multicolumn{12}{c}{\textbf{Accuracy (Top-1\%)}} \\
+& & H→A & M→A & K→A & A→H & M→H & K→H & H→M & A→M & K→M & M→K & H→K & A→K &  \textbf{Avg.} \\
+\midrule
+& \socolor Source Only & \socolor 45.7 & \socolor \textbf{55.2} & \socolor 38.1 & \socolor 51.7 & \socolor 68.8 & \socolor 47.1 & \socolor 47.5 & \socolor 46.5 & \socolor 37.0 & \socolor 79.4 & \socolor 57.0 & \socolor 53.9 & \socolor 52.3 \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{1}{*}{\rotatebox{90}{ZS}}}
+& CLIP (ViT-B/16) \cite{radford2021learning} & 36.5 & 36.5 & 36.5 & 60.0 & 60.0 & 60.0 & 48.5 & 48.5 & 48.5 & 68.1 & 68.1 & 68.1 & 53.3 \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{3}{*}{\rotatebox{90}{SFVUDA}}}
+& ATCoN \cite{atcon} & 17.9 & 27.2 & 17.2 & 26.7 & 47.3 & 48.2 & 30.7 & 17.2 & 32.5 & 57.7 & 48.5 & 31.0 & 33.5 \\
+& EXTERN \cite{extern} & 26.2 & 18.1 & 23.9 & 26.2 & 53.7 & 55.8 & 40.7 & 18.2 & 35.2 & 68.1 & 57.6 & 51.4 & 39.6 \\
+& STHC \cite{li2023source} & 15.5 & 48.7 & 34.8 & 18.4 & 56.3 & 76.6 & 13.8 & 39.8 & 50.1 & 44.6 & 27.3 & 44.7 & 39.2 \\
+& DALL-V \cite{zara2023unreasonable} & 24.0 & 24.0 & 24.0 & 57.9 & 65.4 & 52.5 & 47.0 & 45.7 & 47.0 & 78.1 & 76.7 & 75.0 & 51.4 \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{5}{*}{\rotatebox{90}{VUDA}}} & DANN \cite{dann} & 14.2 & 22.8 & 21.2 & 20.1 & 43.3 & 37.5 & 29.5 & 19.7 & 21.7 & 58.8 & 38.2 & 27.0 & 29.5 \\
+& MK-MMD \cite{mkmdd} & 20.3 & 21.0 & 21.7 & 18.7 & 50.4 & 36.2 & 25.7 & 18.0 & 24.0 & 58.5 & 33.8 & 26.1 & 29.5 \\
+& TA$^3$N \cite{chen2019temporal} & 14.4 & 21.6 & 19.9 & 14.9 & 43.0 & 37.7 & 25.7 & 15.6 & 31.5 & 55.5 & 38.4 & 23.4 & 28.5 \\
+&  UNITE \cite{unite} &  48.0 &  44.1 &  37.5 &  67.9 &  \textbf{74.2} &  \textbf{65.8} & 51.8 &  50.0 &  48.0 &  \textbf{89.9} &  69.9 &  63.6 &  59.2 \\
+& \ourcolor Ours w/o LMFT  & \ourcolor 43.6 & \ourcolor 45.9 & \ourcolor 39.4 & \ourcolor 68.3 & \ourcolor 72.1 & \ourcolor 57.5 & \ourcolor 57.5 & \ourcolor \textbf{54.8} & \ourcolor 53.5 & \ourcolor 84.0 & \ourcolor 81.8 & \ourcolor 85.4 & \ourcolor 62.0 \\
+& \ourcolor Ours & \ourcolor \textbf{47.8} & \ourcolor 46.6 & \ourcolor \textbf{44.9} & \ourcolor \textbf{74.6} & \ourcolor \textbf{74.2} & \ourcolor 59.2 & \ourcolor \textbf{60.0} & \ourcolor 48.3 & \ourcolor \textbf{54.8} & \ourcolor 83.7 & \ourcolor \textbf{83.6} & \ourcolor \textbf{86.6} & \ourcolor \textbf{64.5} \\
+\midrule
+& \tocolor Target Only & \tocolor 76.1 & \tocolor  76.1 & \tocolor 76.1 & \tocolor 86.3 & \tocolor 86.3 & \tocolor 86.3 & \tocolor 72.8 & \tocolor 72.8 & \tocolor 72.8 & \tocolor 95.6 & \tocolor 95.6 & \tocolor 95.6 & \tocolor 82.7 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+\vspace{-15pt}
+\caption{VUDA results on \textit{Daily-DA}. Colored rows show our results, and the results in other rows are taken from \cite{li2023source} and \cite{unite}.
+}
+\vspace{-15pt}
+\label{tab:uda_dailyDA}
+\end{table*}
+\begin{table}[t]
+\begin{center}
+\footnotesize
+\resizebox{0.75\linewidth}{!}{
+\begin{tabular}{clcc|c}
+\toprule
+& \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Accuracy (Top-1\%)}} \\
+& & H→U & U→H & \textbf{Avg.} \\
+\midrule
+&  \socolor Source Only & \socolor 93.3& \socolor 81.9 & \socolor 87.6 \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{1}{*}{\rotatebox{90}{ZS}}}
+& CLIP (ViT-B/16) \cite{radford2021learning} & 88.8 & 91.7 & 90.3 \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{4}{*}{\rotatebox{90}{SFVUDA}}} & ATCoN \cite{atcon} & 85.3 & 79.7 & 82.5 \\
+& EXTERN \cite{extern} & 91.9 & {88.9} & 90.4 \\
+& STHC \cite{li2023source}& 92.1 & {90.9} & {91.5} \\
+& DALL-V \cite{zara2023unreasonable} & 93.1 & {88.9} & {91.0} \\
+\midrule
+\scriptsize \parbox[t]{2mm}{\multirow{7}{*}{\rotatebox{90}{VUDA}}} & DANN \cite{dann} & 74.4 & 75.1 & 74.8 \\
+& MK-MMD \cite{mkmdd} & 74.7 & 79.7 & 77.2 \\
+& TA$^3$N \cite{chen2019temporal} & 78.1 & 84.8 & 81.5 \\
+& CO$^2$A \cite{da2022dual} & 95.8 & 87.8 & 91.8 \\
+& UDAVT \cite{dacostaUnsupervisedDomainAdaptation2022} & 96.8 & 92.3 & 94.6 \\
+& UNITE \cite{unite} & 92.5 & \textbf{95.0} & 93.8 \\
+& \ourcolor Ours w/o LMFT & \ourcolor 98.3 & \ourcolor 92.5 & \ourcolor 95.4 \\
+& \ourcolor Ours& \ourcolor \textbf{98.6} & \ourcolor 94.2 & \ourcolor \textbf{96.4} \\
+\midrule
+& \tocolor Target Only & \tocolor 98.9 & \tocolor 97.2 & \tocolor 98.1 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+\vspace{-15pt}
+\caption{VUDA results on {\textit{UCF$\leftrightarrow$HMDB}\(_{full}\)}.
+Rows in colors are our experimental results, and others are from \cite{li2023source} and \cite{unite}.
+}
+\vspace{-2mm}
+\label{tab:uda_ucf-hmdb}
+\end{table}
+\begin{table}[ht]
+    \vspace{-5pt}
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3.5pt}
+    \begin{tabular}{lcccccc}
+        \toprule
+        & Model & Accuracy ↑ & Clips/s ↑ & GFLOPs ↓ & Cost ↓ \\
+        \midrule
+        % ----- M→H -----
+        \multirow{6}{*}{\scriptsize\rotatebox{90}{M→H}}
+        & \textcolor{gray}{ViT-B/16 \cite{dosovitskiy2020image}} & \textcolor{gray}{72.1} & \textcolor{gray}{3.8} & \textcolor{gray}{266} & \textcolor{gray}{1.00$\times$} \\
+        & Random & 71.7 & 3.6 & 216 & 0.81$\times$ \\
+        & ToMe \cite{bolya2022token} & 72.5 & 1.8 & 242 & 0.91$\times$ \\
+        & PruMerge \cite{prumerge} & 71.7 & 3.5 & 493 & 1.85$\times$ \\
+        & DivPrune \cite{divprune} & 72.9 & 0.2 & 223 & 0.84$\times$ \\
+        & \cellcolor{gray!20!white}\textbf{LMFT (Ours)} &
+          \cellcolor{gray!20!white}\textbf{74.2} &
+          \cellcolor{gray!20!white}\textbf{3.9} &
+          \cellcolor{gray!20!white}\textbf{217} &
+          \cellcolor{gray!20!white}\textbf{0.82}$\times$ \\
+        \midrule
+        % ----- H→M -----
+        \multirow{6}{*}{\scriptsize\rotatebox{90}{H→M}}
+        & \textcolor{gray}{ViT-B/16 \cite{dosovitskiy2020image}} & \textcolor{gray}{57.5} & \textcolor{gray}{3.5} & \textcolor{gray}{266} & \textcolor{gray}{1.00$\times$} \\
+        & Random & 56.5 & 3.7 & 218 & 0.82$\times$ \\
+        & ToMe \cite{bolya2022token} & 59.0 & 2.2 & 243 & 0.91$\times$ \\
+        & PruMerge \cite{prumerge} & 57.9 & 2.8 & 496 & 1.86$\times$ \\
+        & DivPrune \cite{divprune} & 56.5 & 0.2 & 226 & 0.85$\times$ \\
+        & \cellcolor{gray!20!white}\textbf{LMFT (Ours)} &
+          \cellcolor{gray!20!white}\textbf{60.0} &
+          \cellcolor{gray!20!white}\textbf{3.7} &
+          \cellcolor{gray!20!white}\textbf{218} &
+          \cellcolor{gray!20!white}\textbf{0.82}$\times$ \\
+        \bottomrule
+    \end{tabular}
+    \vspace{-5pt}
+    \caption{Inference efficiency of token reduction methods.}
+    \vspace{-5pt}
+    \label{tab:ab_inference}
+\end{table}
+\end{document}

@@ -1,0 +1,98 @@
+\definecolor{lightred}{rgb}{1, 0.60, 0.63}
+\definecolor{lightblue}{rgb}{0.55, 0.63, 1.0}
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\newcommand{\RedText}[1]{\textcolor[RGB]{254,67,101}{#1}}
+\newcommand{\BlueText}[1]{\textcolor[RGB]{0,90,171}{#1}}
+\newcommand{\GreenText}[1]{\textcolor[RGB]{0,124,62}{#1}}
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\uppercase\expandafter{\romannumeral #1}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\renewcommand \arraystretch{1.05}
+\caption{Quantitative comparison results on typical fusion datasets. The best and second-best results are highlighted in \textcolor{lightred}{\textbf{Red}} and \textcolor[HTML]{7B68EE}{Purple}.} \label{tab:normal}
+\setlength{\tabcolsep}{2pt}
+\resizebox{0.975\textwidth}{!}{
+\begin{tabular}{@{}lccccccccccccccccccccccccccccccccccc@{}}
+\toprule
+& \multicolumn{8}{l}{\textbf{MSRS}} & \textbf{} & \multicolumn{8}{l}{\textbf{LLVIP}} & \textbf{} & \multicolumn{8}{l}{\textbf{RoadScene}} & \multicolumn{1}{l}{} & \multicolumn{8}{l}{\textbf{FMB}} \\ \cmidrule(lr){2-9} \cmidrule(lr){11-18} \cmidrule(lr){20-27} \cmidrule(l){29-36}
+\multirow{-2}{*}{\textbf{Methods}} & \textbf{EN} & \textbf{} & \textbf{SD} & \textbf{} & \textbf{VIF} & \textbf{} & \textbf{Qabf} & \textbf{} & \textbf{} & \textbf{EN} &  & \textbf{SD} &  & \textbf{VIF} &  & \textbf{Qabf} & \textbf{} & \textbf{} & \textbf{EN} & \textbf{} & \textbf{SD} & \textbf{} & \textbf{VIF} & \textbf{} & \textbf{Qabf} &  &  & \textbf{EN} & \textbf{} & \textbf{SD} & \textbf{} & \textbf{VIF} & \textbf{} & \textbf{Qabf} & \textbf{} \\ \midrule
+\textbf{DDFM} & 6.431 &  & 47.815 &  & 0.844 &  & 0.643 &  &  & 6.914 &  & 48.556 &  & 0.693 &  & 0.517 &  &  & 6.994 &  & 47.094 &  & \cellcolor[HTML]{E6E6FA}0.775 &  & 0.595 &  &  & 6.426 &  & 40.597 &  & 0.495 &  & 0.442 &  \\
+\textbf{DRMF} & 6.268 &  & 45.117 &  & 0.669 &  & 0.550 &  &  & 6.901 &  & 50.736 &  & 0.786 &  & 0.626 &  &  & 6.231 &  & 44.221 &  & 0.728 &  & 0.527 &  &  & 6.842 &  & 41.816 &  & 0.578 &  & 0.372 &  \\
+\textbf{EMMA} & 6.747 &  & 52.753 &  & \cellcolor[HTML]{E6E6FA}0.886 &  & 0.605 &  &  & 6.366 &  & 47.065 &  & 0.743 &  & 0.547 &  &  & 6.959 &  & 46.749 &  & 0.698 &  & \cellcolor[HTML]{E6E6FA}0.664 &  &  & 6.788 &  & 38.174 &  & 0.542 &  & 0.436 &  \\
+\textbf{LRRNet} & 6.761 &  & 49.574 &  & 0.713 &  & \cellcolor[HTML]{E6E6FA}0.667 &  &  & 6.191 &  & 48.336 &  & 0.864 &  & 0.575 &  &  & \cellcolor[HTML]{E6E6FA}7.185 &  & 46.400 &  & 0.756 &  & 0.658 &  &  & 6.432 &  & 48.154 &  & 0.501 &  & 0.368 &  \\
+\textbf{SegMiF} & \cellcolor[HTML]{E6E6FA}7.006 &  & \cellcolor[HTML]{E6E6FA}57.073 &  & 0.764 &  & 0.586 &  &  & 7.260 &  & 45.892 &  & 0.539 &  & 0.459 &  &  & 6.736 &  & 48.975 &  & 0.629 &  & 0.584 &  &  & 6.363 &  & 47.398 &  & 0.539 &  & 0.482 &  \\
+\textbf{Text-IF} & 6.619 &  & 55.881 &  & 0.753 &  & 0.656 &  &  & 6.364 &  & 49.868 &  & 0.859 &  & 0.566 &  &  & 6.836 &  & 47.596 &  & 0.634 &  & 0.609 &  &  & \cellcolor[HTML]{FFC7CE}\textbf{7.397} &  & 47.726 &  & 0.568 &  & 0.528 &  \\
+\textbf{Text-DiFuse} & 6.990 &  & 56.698 &  & 0.850 &  & 0.603 &  &  & \cellcolor[HTML]{FFC7CE}\textbf{7.546} &  & \cellcolor[HTML]{E6E6FA}55.725 &  & \cellcolor[HTML]{E6E6FA}0.883 &  & \cellcolor[HTML]{E6E6FA}0.659 &  &  & 6.826 &  & \cellcolor[HTML]{E6E6FA}50.230 &  & 0.683 &  & 0.662 &  &  & 6.888 &  & \cellcolor[HTML]{E6E6FA}49.558 &  & \cellcolor[HTML]{E6E6FA}0.793 &  & \cellcolor[HTML]{E6E6FA}0.653 &  \\
+\textbf{ControlFusion} & \cellcolor[HTML]{FFC7CE}\textbf{7.340} &  & \cellcolor[HTML]{FFC7CE}\textbf{60.360} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.927} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.718} &  &  &\cellcolor[HTML]{E6E6FA}7.354 &  & \cellcolor[HTML]{FFC7CE}\textbf{56.631} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.968} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.738} &  &  & \cellcolor[HTML]{FFC7CE}\textbf{7.421} &  & \cellcolor[HTML]{FFC7CE}\textbf{51.759} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.817} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.711} &  &  & \cellcolor[HTML]{E6E6FA}7.036 &  & \cellcolor[HTML]{FFC7CE}\textbf{50.905} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.872} &  & \cellcolor[HTML]{FFC7CE}\textbf{0.730} &  \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\begin{table*}[t]
+\centering
+\renewcommand \arraystretch{1.05}
+\caption{Quantitative comparison results under different degradation scenarios with pre-enhancement.} \label{tab:degradation}
+\setlength{\tabcolsep}{2pt}
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{@{}lccccccccccccccccccccccccccccccccccc@{}}
+\toprule
+& \multicolumn{8}{l}{\textbf{VI (Blur)}} & \multicolumn{1}{l}{\textbf{}} & \multicolumn{8}{l}{\textbf{VI (Rain)}} & \multicolumn{1}{l}{\textbf{}} & \multicolumn{8}{l}{\textbf{VI (Low light, LL)}} & \multicolumn{1}{l}{\textbf{}} & \multicolumn{8}{l}{\textbf{VI (Over-exposure, OE)}} \\ \cmidrule(lr){2-9} \cmidrule(lr){11-27} \cmidrule(l){29-36}
+\multirow{-2}{*}{\textbf{Methods}} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} & \textbf{} & \textbf{TReS} &  & \textbf{SD} &  &  & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  &  & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  \\ \midrule
+\textbf{DDFM} & 0.141 & & 39.421 & & 39.047 & & 35.411 & & & 0.191 & & 38.836 & & 46.285 & & 36.376 & & & 0.156 & & 39.495 & & 41.782 & & 31.759 & & & 0.143 & & 43.167 & & 43.440 & & 32.099 & \\
+\textbf{DRMF} & 0.128 & & 40.739 & & 40.968 & & 40.722 & & & 0.174 & & \cellcolor[HTML]{E6E6FA}48.164 & & 48.565 & & 41.174 & & & 0.143 & & 41.428 & & 37.947 & & 38.287 & & & \cellcolor[HTML]{E6E6FA}0.190 & & 48.334 & & 42.582 & & 44.256 & \\
+\textbf{EMMA} & 0.131 & & 43.472 & & 41.744 & & 42.553 & & & 0.138 & & 45.824 & & 44.916 & & 43.378 & & & 0.158 & & 39.674 & & 44.827 & & 40.857 & & & 0.180 & & 46.731 & & 47.616 & & 40.242 & \\
+\textbf{LRRNet} & 0.163 & & 42.981 & & 37.268 & & 45.389 & & & 0.185 & & 43.291 & & 41.891 & & 46.285 & & & 0.164 & & 40.486 & & 34.836 & & 41.639 & & & 0.160 & & 42.548 & & 48.414 & & 42.190 & \\
+\textbf{SegMiF} & 0.152 & & 43.005 & & 43.516 & & 44.000 & & & \cellcolor[HTML]{E6E6FA}0.195 & & 40.528 & & 49.094 & & 44.274 & & & 0.177 & & 44.073 & & 48.376 & & 44.829 & & & 0.166 & & \cellcolor[HTML]{E6E6FA}49.132 & & 38.019 & & 38.484 & \\
+\textbf{Text-IF} & 0.164 & & 44.801 & & 46.542 & & \cellcolor[HTML]{E6E6FA}48.401 & & & 0.164 & & 41.287 & & 47.380 & & 49.298 & & & 0.163 & & 41.096 & & 49.174 & & 47.257 & & & 0.172 & & 40.298 & & 45.599 & & 47.330 & \\
+\textbf{Text-DiFuse} & \cellcolor[HTML]{E6E6FA}0.172 & & \cellcolor[HTML]{E6E6FA}44.958 & & \cellcolor[HTML]{E6E6FA}47.699 & & 46.376 & & & 0.173 & & 39.243 & & \cellcolor[HTML]{E6E6FA}50.017 & & 47.297 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.192} & & \cellcolor[HTML]{E6E6FA}46.734 & & \cellcolor[HTML]{E6E6FA}50.126 & & \cellcolor[HTML]{E6E6FA}49.883 & & & 0.183 & & 39.095 & & \cellcolor[HTML]{E6E6FA}49.596 & & \cellcolor[HTML]{E6E6FA}50.279 & \\
+\textbf{ControlFusion} & \cellcolor[HTML]{FFC7CE}\textbf{0.184} & & \cellcolor[HTML]{FFC7CE}\textbf{47.849} & & \cellcolor[HTML]{FFC7CE}\textbf{50.240} & & \cellcolor[HTML]{FFC7CE}\textbf{50.287} & & & \cellcolor[HTML]{FFC7CE}\textbf{0.196} & & \cellcolor[HTML]{FFC7CE}\textbf{52.319} & & \cellcolor[HTML]{FFC7CE}\textbf{52.465} & & \cellcolor[HTML]{FFC7CE}\textbf{50.901} & & & \cellcolor[HTML]{E6E6FA}0.183 & & \cellcolor[HTML]{FFC7CE}\textbf{48.420} & & \cellcolor[HTML]{FFC7CE}\textbf{51.072} & & \cellcolor[HTML]{FFC7CE}\textbf{53.787} & & & \cellcolor[HTML]{FFC7CE}\textbf{0.191} & & \cellcolor[HTML]{FFC7CE}\textbf{50.301} & & \cellcolor[HTML]{FFC7CE}\textbf{52.961} & & \cellcolor[HTML]{FFC7CE}\textbf{54.218} & \\
+\midrule
+& \multicolumn{8}{l}{\textbf{VI (Rain and Haze, RH)}} & \textbf{} & \multicolumn{8}{l}{\textbf{IR (Low-contrast, LC)}} & \textbf{} & \multicolumn{8}{l}{\textbf{IR (Random noise, RN)}} & \textbf{} & \multicolumn{8}{l}{\textbf{IR (Stripe noise, SN)}} \\ \cmidrule(lr){2-9} \cmidrule(lr){11-18} \cmidrule(lr){20-27} \cmidrule(l){29-36}
+\multirow{-2}{*}{\textbf{Methods}} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} & \textbf{} & \textbf{TReS} &  & \textbf{EN} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{EN} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{EN} &  \\ \midrule
+\textbf{DDFM} & 0.158 & & 43.119 & & 44.095 & & 6.897 & & & 0.172 & & 44.490 & & 44.545 & & 37.452 & & & 0.186 & & 34.059 & & 32.807 & & 6.029 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.209} & & 48.479 & & 32.377 & & 6.399 & \\
+\textbf{DRMF} & 0.171 & & 45.524 & & 43.693 & & 6.230 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.208} & & 43.982 & & 45.561 & & 40.315 & & & \cellcolor[HTML]{E6E6FA}0.192 & & 44.617 & & 44.085 & & 5.744 & & & 0.187 & & 44.714 & & 43.650 & & 6.354 & \\
+\textbf{EMMA} & 0.169 & & 39.092 & & 46.046 & & 6.517 & & & 0.154 & & 48.724 & & 43.113 & & \cellcolor[HTML]{E6E6FA}53.861 & & & 0.172 & & 39.666 & & 44.466 & & 6.184 & & & 0.153 & & 42.802 & & 44.239 & & 6.382 & \\
+\textbf{LRRNet} & 0.170 & & 48.571 & & 48.973 & & 7.363 & & & 0.151 & & 48.718 & & 45.266 & & 51.605 & & & 0.158 & & 48.274 & & 37.090 & & \cellcolor[HTML]{E6E6FA}7.295 & & & 0.137 & & 46.511 & & 36.610 & & \cellcolor[HTML]{FFC7CE}\textbf{7.702} & \\
+\textbf{SegMiF} & 0.147 & & 46.139 & & 45.019 & & 7.281 & & & 0.160 & & 44.659 & & 51.427 & & 44.448 & & & 0.180 & & 42.664 & & 39.496 & & 6.669 & & & 0.169 & & 49.887 & & 39.247 & & 6.855 & \\
+\textbf{Text-IF} & \cellcolor[HTML]{E6E6FA}0.178 & & 50.568 & & 50.271 & & 6.956 & & & 0.187 & & 49.299 & & 49.266 & & 47.032 & & & 0.169 & & 46.647 & & 48.491 & & 6.256 & & & 0.161 & & 49.019 & & 47.755 & & 6.085 & \\
+\textbf{Text-DiFuse} & 0.175 & & \cellcolor[HTML]{E6E6FA}52.788 & & \cellcolor[HTML]{E6E6FA}53.073 & & \cellcolor[HTML]{E6E6FA}7.470 & & & 0.165 & & \cellcolor[HTML]{E6E6FA}50.092 & & \cellcolor[HTML]{E6E6FA}51.715 & & 39.429 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.203} & & \cellcolor[HTML]{E6E6FA}49.278 & & \cellcolor[HTML]{E6E6FA}49.479 & & 6.982 & & & 0.194 & & \cellcolor[HTML]{FFC7CE}\textbf{51.762} & & \cellcolor[HTML]{E6E6FA}49.288 & & 7.089 & \\
+\textbf{ControlFusion} & \cellcolor[HTML]{FFC7CE}\textbf{0.189} & & \cellcolor[HTML]{FFC7CE}\textbf{54.287} & & \cellcolor[HTML]{FFC7CE}\textbf{54.465} & & \cellcolor[HTML]{FFC7CE}\textbf{7.891} & & & \cellcolor[HTML]{E6E6FA}0.196 & & \cellcolor[HTML]{FFC7CE}\textbf{51.986} & & \cellcolor[HTML]{FFC7CE}\textbf{52.846} & & \cellcolor[HTML]{FFC7CE}\textbf{57.827} & & & 0.189 & & \cellcolor[HTML]{FFC7CE}\textbf{50.711} & & \cellcolor[HTML]{FFC7CE}\textbf{51.668} & & \cellcolor[HTML]{FFC7CE}\textbf{7.724} & & & \cellcolor[HTML]{E6E6FA}0.200 & & \cellcolor[HTML]{E6E6FA}50.097 & & \cellcolor[HTML]{FFC7CE}\textbf{50.264} & & \cellcolor[HTML]{E6E6FA}7.619 & \\
+\midrule
+& \multicolumn{8}{l}{\textbf{VI (OE) and IR (LC)}} & \textbf{} & \multicolumn{8}{l}{\textbf{VI(Low light and Noise, LN)}} & \textbf{} & \multicolumn{8}{l}{\textbf{VI (RH) and IR (RN)}} & \textbf{} & \multicolumn{8}{l}{\textbf{VI (LL) and IR (SN)}} \\ \cmidrule(lr){2-9} \cmidrule(lr){11-18} \cmidrule(lr){20-27} \cmidrule(l){29-36}
+\multirow{-2}{*}{\textbf{Methods}} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{EN} &  & \textbf{} & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{SD} &  &  & \textbf{CLIP-IQA} &  & \textbf{MUSIQ} &  & \textbf{TReS} &  & \textbf{EN} &  \\ \midrule
+\textbf{DDFM} & 0.168 & & 43.814 & & 41.894 & & 36.095 & & & 0.172 & & 48.293 & & 31.791 & & 6.298 & & & 0.151 & & 33.440 & & 32.134 & & 37.342 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.189} & & 36.433 & & 42.630 & & 5.776 & \\
+\textbf{DRMF} & \cellcolor[HTML]{E6E6FA}0.184 & & 42.399 & & 39.374 & & 40.847 & & & 0.201 & & 44.363 & & 43.063 & & 5.875 & & & 0.174 & & 43.663 & & 43.858 & & 37.997 & & & 0.142 & & 38.241 & & 41.049 & & 5.280 & \\
+\textbf{EMMA} & 0.130 & & 39.892 & & 42.076 & & 43.362 & & & 0.174 & & 42.201 & & 43.382 & & 5.838 & & & 0.165 & & 39.146 & & 44.458 & & \cellcolor[HTML]{E6E6FA}51.205 & & & 0.130 & & 37.367 & & 43.888 & & 6.318 & \\
+\textbf{LRRNet} & 0.136 & & 47.209 & & 42.636 & & 46.684 & & & 0.144 & & 46.386 & & 35.779 & & \cellcolor[HTML]{FFC7CE}\textbf{7.306} & & & 0.128 & & 47.954 & & 36.831 & & 49.917 & & & 0.154 & & 38.426 & & 35.970 & & \cellcolor[HTML]{E6E6FA}7.007 & \\
+\textbf{SegMiF} & 0.114 & & 44.021 & & 42.256 & & 33.647 & & & 0.136 & & 49.178 & & 38.570 & & 5.819 & & & 0.147 & & 42.354 & & 39.156 & & 31.717 & & & 0.151 & & 41.287 & & 37.079 & & 6.767 & \\
+\textbf{Text-IF} & 0.174 & & 48.808 & & 47.998 & & \cellcolor[HTML]{E6E6FA}48.848 & & & \cellcolor[HTML]{E6E6FA}0.217 & & 48.100 & & 47.510 & & 5.204 & & & 0.158 & & 45.821 & & 47.626 & & 46.543 & & & 0.140 & & 41.429 & & 46.220 & & 5.525 & \\
+\textbf{Text-DiFuse} & 0.131 & & \cellcolor[HTML]{E6E6FA}49.021 & & \cellcolor[HTML]{FFC7CE}\textbf{50.980} & & 47.640 & & & 0.185 & & \cellcolor[HTML]{FFC7CE}\textbf{50.775} & & \cellcolor[HTML]{E6E6FA}48.610 & & 6.440 & & & \cellcolor[HTML]{FFC7CE}\textbf{0.181} & & \cellcolor[HTML]{E6E6FA}48.645 & & \cellcolor[HTML]{E6E6FA}48.937 & & 38.808 & & & 0.161 & & \cellcolor[HTML]{E6E6FA}47.734 & & \cellcolor[HTML]{E6E6FA}48.448 & & 6.738 & \\
+\textbf{ControlFusion} & \cellcolor[HTML]{FFC7CE}\textbf{0.187} & & \cellcolor[HTML]{FFC7CE}\textbf{50.479} & & \cellcolor[HTML]{E6E6FA}50.298 & & \cellcolor[HTML]{FFC7CE}\textbf{50.955} & & & \cellcolor[HTML]{FFC7CE}\textbf{0.225} & & \cellcolor[HTML]{E6E6FA}49.333 & & \cellcolor[HTML]{FFC7CE}\textbf{49.513} & & \cellcolor[HTML]{E6E6FA}7.111 & & & \cellcolor[HTML]{E6E6FA}0.179 & & \cellcolor[HTML]{FFC7CE}\textbf{50.107} & & \cellcolor[HTML]{FFC7CE}\textbf{51.091} & & \cellcolor[HTML]{FFC7CE}\textbf{55.417} & & & \cellcolor[HTML]{E6E6FA}0.167 & & \cellcolor[HTML]{FFC7CE}\textbf{50.632} & & \cellcolor[HTML]{FFC7CE}\textbf{48.971} & & \cellcolor[HTML]{FFC7CE}\textbf{7.055} & \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-0.05in}
+\end{table*}
+\begin{table}[t]  % Adjust the width as needed
+\centering
+\renewcommand{\arraystretch}{1.0}
+\caption{Quantitative results of the ablation studies.}
+\label{tab:ablation}
+\setlength{\tabcolsep}{1pt}
+\resizebox{0.95\linewidth}{!}{
+\begin{tabular}{@{}ccccccccccccccccccccccccccc@{}}
+\toprule
+& \multicolumn{8}{l}{\textbf{VI(LL \& Noise)}} & \multicolumn{1}{l}{\textbf{}} & \multicolumn{8}{l}{\textbf{VI(OE) and IR(LC)}} & \textbf{} & \multicolumn{8}{l}{\textbf{VI (RH) and IR(Noise)}} \\ \cmidrule(lr){2-9} \cmidrule(lr){11-18} \cmidrule(l){20-27}
+\multirow{-2}{*}{\textbf{Configs}} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} & \textbf{} & \textbf{TReS} & \textbf{} & \textbf{EN} & \textbf{} & \textbf{} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} & \textbf{} & \textbf{TReS} & \textbf{} & \textbf{SD} & \textbf{} & \textbf{} & \textbf{CLIP-IQA} & \textbf{} & \textbf{MUSIQ} & \textbf{} & \textbf{TReS} & \textbf{} & \textbf{SD} & \textbf{} \\ \midrule
+\textbf{\Rmnum{1}}& 0.132 &  & 42.424 &  & 42.839 &  & 4.788 &  &  & 0.166 &  & 41.983 &  & 42.841 &  & 39.917 &  &  & 0.147 &  & 43.619 &  & 47.932 &  & \cellcolor[HTML]{E6E6FA}48.935 &  \\
+\textbf{\Rmnum{2}} & 0.152 &  & 45.582 &  & 45.358 &  & 5.855 &  &  & 0.151 &  & 43.646 &  & 42.002 &  & 39.208 &  &  & \cellcolor[HTML]{E6E6FA}0.167 &  & 47.862 &  & 45.007 &  & 44.347 &  \\
+\textbf{\Rmnum{3}} & 0.154 &  & \cellcolor[HTML]{E6E6FA}46.571 &  & 44.495 &  & 5.013 &  &  & 0.155 &  & 44.286 &  & 44.561 &  & 42.068 &  &  & 0.156 &  & 43.007 &  & 43.816 &  & 41.544 &  \\
+\textbf{\Rmnum{4}} & 0.129 &  & 38.960 &  & 41.310 &  & 5.414 &  &  & 0.172 &  & 41.743 &  & 39.125 &  & 38.748 &  &  & 0.118 &  & \cellcolor[HTML]{E6E6FA}48.882 &  & 46.245 &  & 45.910 &  \\
+\textbf{\Rmnum{5}} & \cellcolor[HTML]{E6E6FA}0.173 &  & 45.281 &  & \cellcolor[HTML]{E6E6FA}46.291 &  & \cellcolor[HTML]{E6E6FA}6.279 &  &  & \cellcolor[HTML]{E6E6FA}0.181 &  & \cellcolor[HTML]{E6E6FA}45.386 &  & \cellcolor[HTML]{E6E6FA}47.519 &  & \cellcolor[HTML]{E6E6FA}46.860 &  &  & 0.149 &  & 46.714 &  & \cellcolor[HTML]{E6E6FA}48.094 &  & 46.950 &  \\
+\textbf{Ours} & \cellcolor[HTML]{FFC7CE}\textbf{0.225} &  & \cellcolor[HTML]{FFC7CE}\textbf{49.333} &  & \cellcolor[HTML]{FFC7CE}\textbf{49.513} &  & \cellcolor[HTML]{FFC7CE}\textbf{7.111} &  &  & \cellcolor[HTML]{FFC7CE}\textbf{0.187} &  & \cellcolor[HTML]{FFC7CE}\textbf{50.479} &  & \cellcolor[HTML]{FFC7CE}\textbf{50.298} &  & \cellcolor[HTML]{FFC7CE}\textbf{50.955} &  &  & \cellcolor[HTML]{FFC7CE}\textbf{0.179} &  & \cellcolor[HTML]{FFC7CE}\textbf{50.107} &  & \cellcolor[HTML]{FFC7CE}\textbf{51.091} &  & \cellcolor[HTML]{FFC7CE}\textbf{55.417} &  \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+\end{document}

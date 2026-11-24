@@ -1,0 +1,195 @@
+\definecolor{Gray}{gray}{0.9}
+\definecolor{mygreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{myred}{rgb}{0.8, 0.25, 0.33}
+\definecolor{myblue}{rgb}{0.19, 0.55, 0.91}
+\definecolor{uclablue}{rgb}{0.15, 0.45, 0.68}
+\definecolor{ucladblue}{rgb}{0.0, 0.33, 0.53}
+\definecolor{ucladdblue}{rgb}{0.0, 0.23, 0.36}
+\definecolor{uclagold}{rgb}{1.0, 0.82, 0.0}
+\definecolor{ucladgold}{rgb}{1.0, 0.78, 0.17}
+\definecolor{ucladdgold}{rgb}{1.0, 0.72, 0.11}
+\definecolor{boxgreen}{rgb}{0.02, 0.66, 0.02}
+\definecolor{boxred}{rgb}{0.66, 0.1, 0.1}
+\definecolor{boxblue}{rgb}{0.01, 0.01, 0.73}
+\definecolor{mypink}{rgb}{.99,.91,.95}
+\definecolor{myyellow}{rgb}{.99,.94,.82}
+% \newcommand{\OURS}[0]{SPADE}
+% \newcommand{\OURS}[0]{TANGERINE}
+\newcommand{\ours}[0]{FaithLens}
+\newcommand{\thought}[1]{\textcolor{blue!70!black}{\textbf{Thought:} #1}}
+\newcommand{\observation}[1]{\textcolor{brown!80!black}{\textbf{Observation:} #1}}
+\newcommand{\action}[1]{\textcolor{green!60!black}{\textbf{Action:} #1}}
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+\centering
+% \small
+% \footnotesize
+\scriptsize
+% \setlength{\tabcolsep}{5pt}
+\resizebox{1\linewidth}{!}{
+\begin{tabular}{l c c c}
+\toprule
+{\multirow{2}{*}{\textbf{Method}}} &
+\multicolumn{2}{c}{\textbf{Effectiveness}} &
+\multicolumn{1}{c}{\textbf{Explainability}}  \\
+\cmidrule(lr){2-3}
+\cmidrule(lr){4-4}
+ & \textbf{Std $\downarrow$} & \textbf{Avg $\uparrow$} & \textbf{Avg  $\uparrow$} \\
+\midrule
+Llama-3.1-8B-Inst & 10.9 & 56.3 & 71.9  \\
+Direct SFT on 52K Data & 6.1 &79.1  & N/A \\
+\rowcolor{blue!5} \textbf{FaithLens} & \textbf{4.6} & \textbf{86.4} &  \textbf{90.4} \\
+\hdashline[2pt/3pt]
+- w/o. Cold-start SFT Stage &5.7 &83.4 & 88.1 \\
+- w/o. Data Filtering & 6.7 &81.2 & 82.3  \\
+- w/o. Label Correctness Filtering & 5.3 &83.5 & 86.0 \\
+- w/o. Explanation Quality Filtering &4.8 &85.8 & 83.4 \\
+- w/o. Data Diversity Filtering &6.4 &85.0 & 89.3 \\
+\hdashline[2pt/3pt]
+- w/o. Rule-based RL Stage& 6.0 &82.6 &83.8  \\
+- w/o. Explanation Quality Reward& 5.1& 85.7& 84.7 \\
+\bottomrule
+\end{tabular}
+}
+\caption{
+\textbf{Ablation Study.} N/A means the trained model cannot provide the corresponding explanations.
+}
+\label{tab:ablation}
+\end{table}
+\begin{table}[t]
+\scriptsize
+\centering
+\resizebox{0.93\linewidth}{!}{
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Read.} & \textbf{Help.} & \textbf{Info.} & \textbf{Avg} \\
+\midrule
+\multicolumn{5}{c}{\cellcolor{mypink} \textbf{Using GPT-5-mini as a Judge}} \\
+GPT-4o  & 90.2 &84.6 &72.5 &82.4  \\
+o1 &  89.2 &80.9 &75.6 &81.9  \\
+DeepSeek-V3.2-Non-Think&  90.6 &90.5 &85.1 &88.7  \\
+DeepSeek-V3.2-Think & 91.2 &93.1 &84.1& 89.5  \\
+Claude-3.7-Sonnet & 90.7 &93.8 &83.5 &89.3  \\
+Llama-3.1-405B-Inst & 88.6 &78.3 &81.6& 82.8  \\
+GPT-4.1 & 95.3 &94.6 &82.8 &90.9 \\
+o3-mini &   91.8 &88.3 &70.8 &83.6  \\
+o3 & 93.2 &96.9 &85.5 &91.9 \\
+\hdashline[2pt/3pt]
+ClearCheck & 83.2 &78.6 &68.2 &76.7  \\
+CoT from FaithLens & 79.2 &75.3 &67.6 &74.0  \\
+\rowcolor{blue!5} \textbf{FaithLens} & 91.9 &93.7 &85.6& 90.4  \\
+\rowcolor{blue!5}  $\Delta$ Compared to Llama-3.1-8B-Inst. &\textcolor[rgb]{0.7,0,0}{+18.7 } &\textcolor[rgb]{0.7,0,0}{+23.5 } &\textcolor[rgb]{0.7,0,0}{+18.0 }  & \textcolor[rgb]{0.7,0,0}{+20.1 }\\
+% \bottomrule
+\midrule
+\rowcolor{mypink} \multicolumn{5}{c}{\cellcolor{mypink} \textbf{Ablation Study}} \\
+Llama-3.1-8B-Inst & 75.3 &72.3 &68.2 &71.9 \\
+Direct SFT on 52K Data  & N/A & N/A& N/A &N/A \\
+\rowcolor{blue!5} \textbf{FaithLens} & {92.4} &{93.4} &{85.4} & {90.4}  \\
+- w/o. Cold-start SFT Stage & 90.2 &90.2 &83.8 &88.1 \\
+- w/o. Data Filtering  & 85.2 &82.8 &78.9 &82.3  \\
+- w/o. Label Correctness Filtering & 88.3 &88.2& 81.6 &86.0  \\
+- w/o. Explanation Quality Filtering & 85.5 &84.3 &80.3 &83.4  \\
+- w/o. Data Diversity Filtering &91.7 &91.7 &84.5& 89.3  \\
+- w/o. Rule-bsaed RL Stage & 87.8 &84.2 &79.5 &83.8 \\
+- w/o. Explanation Quality Reward & 88.5 &85.6 &80.1 &84.7 \\
+\midrule
+\rowcolor{mypink} \multicolumn{5}{c}{\cellcolor{mypink} \textbf{Generalization Study}} \\
+Llama-3.1-8B-Inst &  75.3 &72.3 &68.2& 71.9  \\
+Llama-3.1-70B-Inst & 90.8 &78.6 &81.2 &83.5  \\
+Llama-3.1-405B-Inst & 90.6 &79.6 &81.0 &83.7 \\
+\rowcolor{blue!5} \textbf{FaithLens-8B}& {92.4} &{93.4} &{85.4} &{90.4}  \\
+\hdashline[2pt/3pt]
+Qwen-2.5-3B-Inst & 86.7&78.6&72.6&79.3  \\
+Qwen-2.5-7B-Inst & 88.6&80.2&76.4&81.7  \\
+Qwen-2.5-32B-Inst &  90.4&81.6&80.6&84.2  \\
+\rowcolor{blue!5} \textbf{FaithLens-3B}& {90.6}&{91.6}&{82.6}&{88.3}  \\
+\rowcolor{blue!5} \textbf{FaithLens-7B}&  {93.5}&{92.6}&{84.8}&{90.3} \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Detailed Explainability Results for Using GPT-5-mini as a Judge, Ablation Study and Generalization Study.} We evaluate the generated explanations from three dimensions, including readability (Read.), helpfulness (Help.), and informativeness (Info.).
+We use GPT-4.1 as a judge for Ablation Study and Generalization Study.
+N/A means that the trained model cannot provide the corresponding explanations.
+}
+\label{tb:detailed_exp}
+\end{table}
+\begin{table*}[!t]
+\centering
+\resizebox{1\hsize}{!}{
+\begin{tabular}{lcccccccccccccc}
+\toprule
+% \toprule
+ \multirow{2}{*}{\textbf{{Model}}}&
+    \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Agg-}}\\ \textbf{{CNN}}\end{tabular}} &
+    \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Agg-}}\\ \textbf{{XSum}}\end{tabular}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Claim}}\\ \textbf{{Verify}}\end{tabular}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Expert}}\\ \textbf{{QA}}\end{tabular}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{FC-}}\\ \textbf{{GPT}}\end{tabular}} &
+  \multirow{2}{*}{\textbf{{LfQA}}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{RAG}}\\ \textbf{{Truth}}\end{tabular}} &
+  \multirow{2}{*}{\textbf{{Reveal}}} &
+    \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Tofu-}}\\ \textbf{{MediaS}}\end{tabular}} &
+    \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{{Tofu-}}\\ \textbf{{MeetB}}\end{tabular}} &
+  \multirow{2}{*}{\textbf{{Wice}}} & \multirow{2}{*}{\textbf{{HoVer}}} & \multicolumn{2}{c}{
+    \begin{tabular}[c]{@{}c@{}}
+        \textbf{Overall}
+    \end{tabular}
+}  \\
+% \cmidrule(lr){14-15}
+\cline{14-15}
+ &  &  &  &  &  &  &  &  &   &   & & &  \textbf{Std ($\sigma$) $\downarrow$} & \textbf{Avg ($\mu$) $\uparrow$}   \\
+\midrule
+\rowcolor{mypink} \multicolumn{15}{c}{\cellcolor{mypink} \textbf{Ablation Study}} \\
+Llama-3.1-8B-Inst & 43.1 & 48.6 & 63.6 & 49.8 & 69.8 & 46.1 & 52 & 78.2 & 50.8 & 62.3 & 48.2 & 63.6 & 10.9 & 56.3 \\
+Direct SFT on 52K Data  & 72.2 & 70.1 & 77.6 & 76.8 & 85.9 & 87.2 & 80.4 & 90.9 & 78.5 & 75.3 & 78.1 & 76.2 & 6.1 & 79.1 \\
+\rowcolor{blue!5} \textbf{FaithLens} &{84.9}&{79.0}&{89.4}&{79.6}&{92.4}&{92.1}&{86.8}&{92.2}&{85.1}&{87.2}&85.6&{82.9}&{4.6}&{86.4}   \\
+- w/o. Cold-start SFT Stage &82.9 & 73.9 & 85.8 & 78.3 & 89.1 & 88.8 & 85.3 & 93.3 & 75.3 & 84.7 & 83.3 & 80.3 & 5.7 & 83.4 \\
+- w/o. Data Filtering  & 78.2 & 72.5 & 86.9 & 73.5 & 87.9 & 87.7 & 82.7 & 90.9 & 70.9 & 79.2 & 85.3 & 78.6 & 6.7 & 81.2 \\
+- w/o. Label Correctness Filtering & 77.7 & 82.4 & 86.0 & 79.0 & 92.4 & 84.1 & 84.5 & 93.2 & 75.9 & 81.0 & 84.4 & 81.2 & 5.3 & 83.5 \\
+- w/o. Explanation Quality Filtering & 84.9 & 83.4 & 84.7 & 76.8 & 92.4 & 87.6 & 85.5 & 94.4 & 82.4 & 88.4 & 87.8 & 81.6 & 4.8 & 85.8 \\
+- w/o. Data Diversity Filtering & 82.1 & 74.7 & 87.1 & 79.4 & 94.6 & 92.1 & 91.3 & 91.1 & 76.4 & 85.5 & 84.4 & 81.8 & 6.4 & 85.0 \\
+- w/o. Rule-bsaed RL Stage & 78.1 & 78.0 & 87.2 & 79.2 & 87.0 & 89.7 & 82.9 & 94.4 & 74.1 & 79.8 & 84.4 & 76.9 & 6.0 & 82.6 \\
+- w/o. Explanation Quality Reward & 84.9 & 83.1 & 87.1 & 76.3 & 89.1 & 93.2 & 90.2 & 92.1 & 80.4 & 82.1 & 87.8 & 82.1 & 5.1 & 85.7 \\
+\midrule
+\rowcolor{mypink} \multicolumn{15}{c}{\cellcolor{mypink} \textbf{Claim Decontextualization Study}} \\
+GPT-4o & 62.3 & 74.9 & 78.3 & 68.6 & 85.9 & 75.0 & 82.0 & 86.7 & 71.6 & 76.7 & 77.6 & 73.8 & 6.9 & 76.1 \\
+o1 & 68.1 &76.6 &77.1& 71.8 &85.0 &76.2 &78.8 &86.3 &65.8 &76.3 &76.6 &79.9 &6.0 &76.5  \\
+GPT-4.1 & 74.1 &73.6 &81.6 &80.3 &91.3 &81.1 &89.1 &93.2 &75.9 &86.3 &86.4 &82.6 &6.5 &83.0 \\
+o3 &  67.6& 77.3 &83.2 &79.2 &86.9 &87.6& 80.6 &92.1 &83.2 &82.7 &82.1 &81.3& 6.0 &82.0 \\
+\hdashline[2pt/3pt]
+AlignScore & 45.3 &67.2 &79.8 &75.6 &83.7 &86.7 &82.5 &91.1 &75.9 &77.2 &67.1 &72.4 &11.9 &75.4   \\
+FactCG & 76.4 &68.6 &76.2 &75.7 &89.0 &85.6 &78.3 &89.7 &79.0 &71.4 &72.5 &73.2 &6.8 &78.0   \\
+MiniCheck & 70.0 &72.7 &85.6 &72.9 &86.8 &88.9 &86.9 &91.0 &74.3 &77.8 &85.6 &74.9& 7.5 &80.6 \\
+ClearCheck & 72.8 &78.6 &85.4 &72.7 &87.9 &87.2 &83.8 &86.7 &67.8 &75.8& 81.8 &80.3 &6.6 &80.1  \\
+\rowcolor{blue!5} \textbf{FaithLens} & {84.9}& {79.0} &{89.4} & {79.6} &{92.4} &{92.1} &{86.8} &{92.2} &{85.1} & {87.2} &{85.6} & {82.9} & {4.6} &{86.4}  \\
+\midrule
+\rowcolor{mypink} \multicolumn{15}{c}{\cellcolor{mypink} \textbf{Claim Decomposition Study}} \\
+GPT-4o & 63.6 &75.8 &78.2 &68.6 &85.9 &75.1 &82.0 &86.7 &72.6 &77.8 &78.3 &74.1 &6.6 &76.6  \\
+o1 & 69.2 &78.3 &77.2 &72.3 &85.0 &76.3 &79.6 &85.6 &66.8 &76.9 &79.0 &80.2 &5.6 &77.2  \\
+GPT-4.1 & 75.3 &74.2 &82.0& 81.0 &91.3 &81.5 &89.1 &93.3 &75.9 &86.2 &86.6 &82.8 &6.2 &83.3  \\
+o3 &  68.9 &79.1 &82.2 &79.6& 86.9 &87.7 &81.7 &92.2 &82.9 &84.6 &82.9 &81.4& 5.7 &82.5  \\
+\hdashline[2pt/3pt]
+AlignScore &  47.2& 69.2& 80.1 &75.9 &83.7& 86.7 &84.3 &92.2 &75.4 &76.7 &68.1 &74.2 &11.5 &76.1  \\
+FactCG & 78.2 &69.2 &76.3 &76.1 &89.0 &87.3& 78.3 &91.1 &79.6 &71.9 &72.5 &73.6 &7.1 &78.6  \\
+MiniCheck & 72.0 &74.3 &86.2 &71.6 &86.8 &88.8 &87.1 &90.9 &74.6 &77.0 &85.6 &74.5 &7.3 &80.8  \\
+ClearCheck & 73.5 &78.8 &86.2& 73.3 &87.9 &87.3 &83.8 &85.6 &68.3 &75.3 &82.0 &80.4& 6.4 &80.2  \\
+\rowcolor{blue!5} \textbf{FaithLens}& {85.3} &{79.5} & {89.6} &{80.0} & {92.4} & {92.1} &{86.9} &{92.0} & {85.2} &{87.4} &{85.6} & {82.9} &{4.4} &{86.6}  \\
+\midrule
+\rowcolor{mypink} \multicolumn{15}{c}{\cellcolor{mypink} \textbf{Generalization Study}} \\
+Llama-3.1-8B-Inst & 43.1&48.6&63.6&49.8&69.8&46.1&52.0&78.2&50.8&62.3&48.2&63.6&10.9 &56.3  \\
+Llama-3.1-70B-Inst & 56.3&62.8&68.3&62.7&81.9&64.0&72.9&81.8&62.0&78.3&71.4&79.0&8.7 &70.1  \\
+Llama-3.1-405B-Inst &65.5&71.6&80.7&68.8&82.0&76.3&80.7&84.0&67.3&78.8&72.5&81.6&6.4 &75.8  \\
+\rowcolor{blue!5} \textbf{FaithLens-8B}& {84.9}&{79.0}&{89.4}&{79.6}&{92.4}&{92.1}&{86.8}&{92.2}&{85.1}&{87.2}&{85.6}&{82.9}&{4.6} &{86.4} \\
+\hdashline[2pt/3pt]
+Qwen-2.5-3B-Inst & 55.2&67.9&78.0&80.1&78.1&78.3&67.0 &90.0 &65.3 &79.5 &70.0&70.6&9.1 &73.3  \\
+Qwen-2.5-7B-Inst & 52.0&63.6&78.4&80.7&85.8&79.5&68.0 &92.1 &62.3& 70.1 &82.1&72.0&11.3 &73.9  \\
+Qwen-2.5-32B-Inst & 53.8&65.0&76.8&66.1&83.0&71.5&75.0&82.9&69.6&77.8&81.9&74.1&8.6 &73.1  \\
+\rowcolor{blue!5} \textbf{FaithLens-3B}& {82.3}&{78.3}&{91.1}&{77.6}&{90.2}&{80.6}&{85.3}&{91.1}&{80.2}&{83.2}&{80.3}&{80.6}&{4.9} &{83.4}  \\
+\rowcolor{blue!5} \textbf{FaithLens-7B}&  {83.6} & {79.3} & {87.6} & {78.3} & {91.3} & {82.1} & {87.1} & {92.1} & {84.2} & {85.2} & {84.3} & {83.1} & {4.2} &{84.9}  \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{Detailed Effectiveness Results for Ablation Study, Claim Study, and Generalization Study.}
+We report experimental results on 12 various datasets from LLM-AggreFact and HoVer benchmarks.}
+\label{tb:detail_main}
+\end{table*}
+\end{document}

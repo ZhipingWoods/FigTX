@@ -1,0 +1,134 @@
+% --- 绿色梯度（正向提升，越高越深）---
+\definecolor{pos1}{HTML}{E8F5E9}   % 0–20%
+\definecolor{pos2}{HTML}{A5D6A7}   % 20–50%
+\definecolor{pos3}{HTML}{4CAF50}   % 50–80%
+\definecolor{pos4}{HTML}{1B5E20}   % 80%+
+% --- 红色梯度（负向退化，越低越深）---
+\definecolor{neg1}{HTML}{FFEBEE}   % 0 to -20%
+\definecolor{neg2}{HTML}{EF9A9A}   % -20 to -100%
+\definecolor{neg3}{HTML}{E53935}   % -100 to -500%
+\definecolor{neg4}{HTML}{7F0000}   % -500%+
+% --- 自动着色命令 ---
+\newcommand{\dpos}[2]{%  #1=value text, #2=number for threshold
+  \ifnum#2>80
+    \cellcolor{pos4}\textcolor{white}{\textbf{#1}}%
+  \else\ifnum#2>50
+    \cellcolor{pos3}\textcolor{white}{#1}%
+  \else\ifnum#2>20
+    \cellcolor{pos2}{#1}%
+  \else
+    \cellcolor{pos1}{#1}%
+  \fi\fi\fi
+}
+\newcommand{\dneg}[2]{%  #1=value text, #2=abs number for threshold
+  \ifnum#2>500
+    \cellcolor{neg4}\textcolor{white}{\textbf{#1}}%
+  \else\ifnum#2>100
+    \cellcolor{neg3}\textcolor{white}{#1}%
+  \else\ifnum#2>20
+    \cellcolor{neg2}{#1}%
+  \else
+    \cellcolor{neg1}{#1}%
+  \fi\fi\fi
+}
+\newcommand{\dzero}{--}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Overall comparison. $\Delta$: relative improvement of Ours over each method; $\Delta_c$: improvement from adding conditioning (+C). Lower is better for all metrics. Cell color encodes $\Delta$ magnitude: \colorbox{pos3}{\textcolor{white}{green}} = Ours is better; \colorbox{neg3}{\textcolor{white}{red}} = Ours is worse.}
+\label{main_table}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.18}
+\small
+\begin{tabular}{l ccc ccc ccc ccc}
+\toprule
+\rowcolor{gray!15}
+\textbf{Method} &
+\multicolumn{3}{c}{\textbf{JSD}} &
+\multicolumn{3}{c}{\textbf{JSD\_DIFF}} &
+\multicolumn{3}{c}{\textbf{RMSE}} &
+\multicolumn{3}{c}{\textbf{MAE}} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(lr){11-13}
+\rowcolor{gray!15}
+ & Val & $\Delta$ & $\Delta_c$
+ & Val & $\Delta$ & $\Delta_c$
+ & Val & $\Delta$ & $\Delta_c$
+ & Val & $\Delta$ & $\Delta_c$ \\
+\midrule
+RNN-GAN
+ & 0.8326 & \dpos{93.33\%}{93} & \dpos{17.75\%}{17}
+ & 0.3040 & \dpos{88.86\%}{88} & \dneg{-0.61\%}{0}
+ & 0.3875 & \dpos{94.23\%}{94} & \dneg{-95.73\%}{95}
+ & 0.3866 & \dpos{95.86\%}{95} & \dneg{-69.45\%}{69} \\
+\quad + $C$
+ & 0.6848 & \dpos{91.89\%}{91} & \dzero
+ & 0.3058 & \dpos{88.93\%}{88} & \dzero
+ & 0.7585 & \dpos{97.05\%}{97} & \dzero
+ & 0.6552 & \dpos{97.56\%}{97} & \dzero \\
+\addlinespace[2pt]
+TCN-GAN
+ & 0.6931 & \dpos{91.99\%}{91} & \dpos{0.00\%}{0}
+ & 0.3040 & \dpos{88.86\%}{88} & \dpos{5.02\%}{5}
+ & 0.4601 & \dpos{95.14\%}{95} & \dneg{-1.79\%}{1}
+ & 0.4500 & \dpos{96.45\%}{96} & \dneg{-2.97\%}{2} \\
+\quad + $C$
+ & 0.6931 & \dpos{91.99\%}{91} & \dzero
+ & 0.2887 & \dpos{88.28\%}{88} & \dzero
+ & 0.4683 & \dpos{95.23\%}{95} & \dzero
+ & 0.4634 & \dpos{96.55\%}{96} & \dzero \\
+\addlinespace[2pt]
+Trans.-GAN
+ & 0.2978 & \dpos{81.36\%}{81} & \dpos{49.53\%}{49}
+ & 0.0493 & \dpos{31.29\%}{31} & \dpos{37.58\%}{37}
+ & 0.0300 & \dpos{25.36\%}{25} & \dneg{-6.74\%}{6}
+ & 0.0255 & \dpos{37.27\%}{37} & \dpos{8.13\%}{8} \\
+\quad + $C$
+ & 0.1503 & \dpos{63.06\%}{63} & \dzero
+ & 0.0308 & \dneg{-10.07\%}{10}& \dzero
+ & 0.0320 & \dpos{30.08\%}{30} & \dzero
+ & 0.0234 & \dpos{31.72\%}{31} & \dzero \\
+\addlinespace[2pt]
+DiT
+ & 0.1268 & \dpos{56.22\%}{56} & \dpos{37.95\%}{37}
+ & 0.0198 & \dneg{-70.86\%}{70} & \dneg{-241.63\%}{241}
+ & 0.0291 & \dpos{23.30\%}{23} & \dneg{-13.28\%}{13}
+ & 0.0233 & \dpos{31.37\%}{31} & \dneg{-13.72\%}{13} \\
+\quad + $C$
+ & 0.0787 & \dpos{29.44\%}{29} & \dzero
+ & 0.0677 & \dpos{49.99\%}{49} & \dzero
+ & 0.0330 & \dpos{32.29\%}{32} & \dzero
+ & 0.0265 & \dpos{39.65\%}{39} & \dzero \\
+\addlinespace[2pt]
+CSDI
+ & 0.1119 & \dpos{50.36\%}{50} & \dpos{2.15\%}{2}
+ & 0.2198 & \dpos{84.60\%}{84} & \dneg{-1.85\%}{1}
+ & 0.0755 & \dpos{70.39\%}{70} & \dneg{-2.12\%}{2}
+ & 0.0531 & \dpos{69.90\%}{69} & \dneg{-3.06\%}{3} \\
+\quad + $C$
+ & 0.1094 & \dpos{49.27\%}{49} & \dzero
+ & 0.2238 & \dpos{84.88\%}{84} & \dzero
+ & 0.0771 & \dpos{71.01\%}{71} & \dzero
+ & 0.0548 & \dpos{70.79\%}{70} & \dzero \\
+\addlinespace[2pt]
+keGAN
+ & 0.6895 & \dpos{91.95\%}{91} & \dpos{41.18\%}{41}
+ & 0.0660 & \dpos{48.69\%}{48} & \dneg{-76.21\%}{76}
+ & 0.3281 & \dpos{93.19\%}{93} & \dpos{91.88\%}{91}
+ & 0.3217 & \dpos{95.03\%}{95} & \dpos{93.15\%}{93} \\
+\quad + $C$
+ & 0.4056 & \dpos{86.31\%}{86} & \dzero
+ & 0.1162 & \dpos{70.88\%}{70} & \dzero
+ & 0.0266 & \dpos{16.08\%}{16} & \dzero
+ & 0.0220 & \dpos{27.36\%}{27} & \dzero \\
+\midrule
+\rowcolor{blue!10}
+\textbf{Ours}
+ & \textbf{0.0555} & \dzero & \dzero
+ & \textbf{0.0338} & \dzero & \dzero
+ & \textbf{0.0224} & \dzero & \dzero
+ & \textbf{0.0160} & \dzero & \dzero \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\end{document}

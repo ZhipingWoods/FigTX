@@ -1,0 +1,37 @@
+\begin{document}
+\begin{table*}[th!]
+\centering
+\caption{\textbf{Evaluation on the MultiSPA benchmark.} Our Multi-SpatialMLLM significantly outperforms baselines across both qualitative and quantitative subtasks, demonstrating an average 36\% gain and surpassing even larger proprietary models.}
+\label{tab:multispa_benchmark}
+\vspace{-0.7em}
+\scalebox{1}{\tablestyle{3.9pt}{1}
+\begin{tabular}{rcccc
+>{\columncolor[HTML]{EFEFEF}}c
+>{\columncolor[HTML]{EFEFEF}}c
+>{\columncolor[HTML]{EFEFEF}}c}
+\toprule
+ & \textbf{Multi-SpatialMLLM} & InternVL-8B  & InternVL-26B & SpatialRGPT~\cite{SpatialRGPT} & Claude-3.5 & Gemini-2.0 & GPT-4o \\ \midrule
+Average & \textbf{56.11} \improve{35.68} & 20.43 & 21.36 & 16.24 & 27.50 & 30.31 & 28.87 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Depth Perception}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Comparison & \textbf{74.00} \improve{24.50} & 49.50 & 50.50 & 52.17 & 38.17 & 57.00 & 54.84 \\
+Value & \textbf{75.33} \improve{71.99} & 3.34 & 2.50 & 3.00 & 34.84 & 28.67 & 22.50 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Visual Correspondence}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Coordinate & \textbf{49.00} \improve{47.33} & 1.67 & 1.67 & 0.00 & 1.33 & 5.67 & 2.00 \\
+MCQ & \textbf{90.00} \improve{56.67} & 33.33 & 44.00 & 30.67 & 54.67 & 73.00 & 67.67 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Camera Orientation}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Direction & \textbf{90.83} \improve{42.66} & 48.17 & 49.34 & 54.67 & 62.17 & 62.17 & 58.84 \\
+Degree & \textbf{45.50} \improve{42.16} & 3.34 & 5.17 & 4.84 & 10.50 & 16.34 & 17.50 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Camera Translation}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Direction & \textbf{85.89} \improve{33.56} & 52.33 & 50.22 & 53.22 & 55.11 & 51.89 & 54.78 \\
+Distance & \textbf{42.33} \improve{28.00} & 14.33 & 13.00 & 7.33 & 16.33 & 14.00 & 13.67 \\
+Vector & \textbf{18.00} \improve{17.67} & 0.33 & 0.67 & 0.00 & 0.33 & 0.33 & 0.00 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Object Movement}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Distance & \textbf{40.42} \improve{31.58} & 8.84 & 8.75 & 2.57 & 8.50 & 9.42 & 8.92 \\
+Vector & \textbf{12.92} \improve{10.42} & 2.50 & 3.58 & 0.00 & 1.92 & 2.33 & 5.25 \\
+\multicolumn{1}{l}{\cellcolor[HTML]{ECF4FF}\textit{Object Perception}} & \multicolumn{7}{l}{\cellcolor[HTML]{ECF4FF}\textbf{}} \\
+Size & \textbf{49.11} \improve{21.66} & 27.45 & 26.89 & 22.33 & 46.11 & 42.89 & 40.44 \\ \bottomrule
+\end{tabular}
+}
+\vspace{-3mm}
+\end{table*}
+\end{document}

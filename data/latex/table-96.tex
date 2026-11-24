@@ -1,0 +1,52 @@
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{dino}{RGB}{249,231,227}
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}ccccccccccc@{}}
+\toprule
+\textbf{Model}                    & \textbf{LC-Lung} & \textbf{LC-Colon} & \textbf{CRC100K} & \textbf{SkinCancer} & \textbf{Pcam} & \textbf{BACH} & \textbf{Osteo} & \textbf{WSSSLUAD} & \textbf{SICAPv2} & \textbf{Average} \\ \midrule
+OpenAI-CLIP-L              & 70.4    & 81.1     & 40.3    & 19.4        & 55.5 & 34.3 & 53.9  & 81.2     & 25.4    & 51.3 \\
+PLIP                     & 87.9      & 90.2       & 52.8      & 42.5         & 51.8   & 34.3   & 52.9    & 73.1     & 42.5      & 58.6 \\
+QuiltNet                & 80.0      & 91.0       & 49.5      & 46.4         & 58.7   & 43.8   & 53.8    & 70.5     & 37.3      & 58.9 \\
+PathCLIP        & 88.9    & 94.3   & 55.3    & 35.1        & 72.5 & 46.8   & 69.2   & \underline{85.1}     & 48.3    & 66.2 \\
+BiomedCLIP               & 48.8      & 94.3       & 29.9      & 31.7         & 84.0   & 39.8   & 36.7    & 73.7      & 32.2     & 52.9 \\
+
+PathGen-CLIP-L      & \underline{89.8}    & \underline{99.3}   & \textbf{78.0}    & \underline{70.6}        & \underline{88.2} & \underline{71.5}   & \underline{74.6}   & 82.2     & \textbf{63.5}    & \underline{79.7} \\
+\rowcolor{aliceblue} CPath-CLIP      & \textbf{97.1}    & \textbf{100.0}   & \textbf{78.0}    & \textbf{74.2}        & \textbf{95.9} & \textbf{72.3}   & \textbf{80.7}   & \textbf{87.1}     & \underline{63.1}    & \textbf{83.2} \\
+\bottomrule
+\end{tabular}}
+\caption{Zero-shot classification comparison of various CLIP models on different pathology image classification datasets with accuracy (\%). The best performance is highlighted in \textbf{bold}, while the second-best is \underline{underlined}.}
+\label{tab:zero-shot}
+\end{table*}
+\begin{table*}[!t]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}lcccccccccccc@{}}
+\toprule
+\textbf{} & \multicolumn{2}{c}{\textbf{Test Overall}} & \multicolumn{2}{c}{\textbf{PubMed}} & \multicolumn{2}{c}{\textbf{SocialPath}} & \multicolumn{2}{c}{\textbf{EduContent}} & \multicolumn{2}{c}{\textbf{Atlas}} &\multicolumn{2}{c}{\textbf{PathCLS}} \\
+& Tiny  & ALL  & Tiny  & ALL & Tiny  & All & Tiny  & All  & Tiny  & ALL  & Tiny  & ALL\\
+& (1156)  & (9677)  & (281)  & (3068) & (235)  & (1855) & (255)  & (1938)  & (208)  & (1007) & (177)  & (1809)\\\midrule
+%
+\rowcolor{dino}  Expert performance &  71.8 &  - &  72.9 & -& 71.5 &  - &  69.0 &  - & 68.3 &  - & 78.9 &  - \\
+\midrule
+\multicolumn{13}{c}{\textbf{General Large Multimodal Models}} \\ \midrule
+InstructBLIP-FLAN-T5-XXL & 34.3 & 33.9 & 39.1 & 37.2 & 33.6 & 34.3 & 34.5 & 36.0 & 38.5 & 39.3 & 22.6 & 22.7  \\
+LLaVA-1.5-13B            & 38.8 & 37.6 & 44.5 & 41.0 & 40.4 & 40.4 & 34.1 & 39.4 & 47.1 & 44.3 & 24.9 & 23.5  \\
+Qwen-VL-MAX        & 49.2 & 45.9 & 53.0 & 50.9 & 53.6 & 49.3 & 52.2 & 47.9  & \underline{51.4} & 49.8 & 30.5 & 29.6 \\
+Gemini Pro Vision  & 42.8 & 42.7 & 43.8 & 44.9 & 42.4 & 42.0 & 43.5 & 43.7 & 49.5 & 49.4 & 32.8 & \underline{34.7}   \\
+GPT-4V-1106             & \underline{53.9} & \underline{49.8} & \underline{59.4} & \underline{53.5} & \underline{58.7} & \underline{53.9} & \underline{60.4} & \underline{53.6} & 48.1 & \underline{52.8}  & \underline{36.2} & 33.8\\
+\midrule
+\multicolumn{13}{c}{\textbf{Pathology-specific Large Multimodal Models}} \\ \midrule
+LLaVA-Med & 25.3 & 26.2 & 28.5 & 27.7 & 28.9 & 27.3 & 22.7 & 27.2 & 22.6 & 30.7 & 22.6 & 20.3\\
+Quilt-LLaVA    & 45.6 & 41.5 & 47.3 & 42.6 & 46.4 & 46.6 & 51.8 & 45.3 & 46.2 & 42.7 & 32.2 & 29.2\\
+PathGen-LLaVA & 60.1 & 58.4 & 60.1 & 60.1 & 60.9 & 58.8 & 60.8 & 60.7 & 63.5 & 64.9 & 54.2 & 48.9\\
+\rowcolor{aliceblue} CPath-Omni & \textbf{72.4} & \textbf{72.2} & \textbf{74.0} & \textbf{69.9} & \textbf{76.6} & \textbf{71.8} & \textbf{69.8} & \textbf{70.6} & \textbf{65.9} & \textbf{70.6} & \textbf{75.7} & \textbf{79.0}\\
+\bottomrule
+\end{tabular}}
+\caption{Overall results of models on the PathMMU \textbf{test set}. The best-performing LMM in each subset for general and pathology domain LMMs is \textbf{in-bold}, and the top-performing LMM is {\underline{underlined}}.}
+\label{tab:overall_results_pathmmu}
+\end{table*}
+\end{document}

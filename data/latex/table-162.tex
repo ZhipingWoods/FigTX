@@ -1,0 +1,39 @@
+\definecolor{stdcolor}{HTML}{f2f3f5}
+\definecolor{twicolor}{HTML}{fff5e6}
+\definecolor{gencolor}{HTML}{e0f7fa}
+\definecolor{ourscolor}{HTML}{f2f2f2}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{\textbf{Comprehensive Results across All Tasks.} We evaluate models across a total of four domains including Sequential Planning (VSP, VSP-Super, and Maze), Combinatorial Optimization (TSP), Constraint Satisfaction (Sudoku), and Spatial Configuration (Jigsaw and VisPuzzle). Evaluation is conducted on varying difficulty levels, defined by grid size for Sequential Planning and Jigsaw, number of cities for TSP, and number of given clues for Sudoku. ``N/A'' denotes vanilla models without training. The Avg column represents the grand mean calculated from individual task averages.}
+\label{tab:merged_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c|cccccc|cc|ccc|ccc|ccc|ccc|c|c}
+\toprule
+\multirow{2}{*}{\textbf{Model}} & \multirow{2}{*}{\textbf{Setting}} & \multicolumn{6}{c|}{\textbf{VSP}} & \multicolumn{2}{c|}{\textbf{VSP-Super}} & \multicolumn{3}{c|}{\textbf{Maze}} & \multicolumn{3}{c|}{\textbf{TSP}} & \multicolumn{3}{c|}{\textbf{Sudoku}} & \multicolumn{3}{c|}{\textbf{Jigsaw}} & \multirow{2}{*}{\textbf{VisP.}}  & \multirow{2}{*}{\textbf{Avg}}\\ \cline{3-22}
+ &  & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7}  & \textbf{8}  & \textbf{16} & \textbf{32} & \textbf{8} & \textbf{16} & \textbf{32} & \textbf{12} & \textbf{15} & \textbf{18}  & \textbf{45} & \textbf{40} & \textbf{35} & \textbf{2} & \textbf{3} & \textbf{4} & \\ \midrule
+% 闭源模型
+\rowcolor{stdcolor} \multicolumn{24}{c}{\textbf{Closed Source MLLMs}} \\ \midrule
+Gemini-3-Flash & N/A & 100 & 100 & 100 & 99 & 83 & 98 & 52 & 3 & 0 &0 & 0 & 25 & 9 & 4 & 69 & 29 & 3 & 71 & 16 & 0 & 89.5& 41.3 \\
+GPT-5 & N/A & 99 & 70 & 67 & 43 & 36 & 29 & 3 &0 & 2 & 0 & 0 & 0 & 0 & 0 & 2 & 0 & 0 & 30 & 0 & 0 & 78.0 &21.1\\
+\midrule
+\rowcolor{twicolor} \multicolumn{24}{c}{\textbf{Open Source MLLMs}} \\ \midrule
+% 开源模型 Qwen 8B
+\multirow{3}{*}{Qwen3-VL-8B} & N/A & 64 & 46 & 33 & 21 & 12 & 21 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 7 & 0 & 0 & 28.0&9.1 \\
+ & SFT & 99 & 96 & 98 & 96 & 92 & 86 & 61 & 8 & 53 & 37 & 0 & 59 & 60 & 43 & 30 & 17 & 2 & 95 & 56 & 9 & 78.8 &51.6\\
+ & GRPO & 91 & 70 & 70 & 31 & 34 & 24 & 0 & 0 & 0 &0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 6 & 0 & 0 & 28.0&11.9 \\ \midrule
+% 开源模型 Qwen 32B
+\multirow{3}{*}{Qwen3-VL-32B} & N/A & 75 & 51 & 47 & 25 & 23 & 26 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 9 & 0 & 0 & 29.5&10.5 \\
+ & SFT & 96 & 99 & 98 & 100 & 99 & 90 & 85 & 21 & 91 & 57 & 3 & 69 & 59 & 52 & 32 & 22 & 2 & 97 & 72 & 28 & 95.8&62.9 \\
+ & GRPO & 99 & 90 & 95 & 69 & 73 & 58 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 1 & 0 & 64 & 4 & 0 & 83.0&26.9 \\ \midrule
+% Generative Reasoners
+\rowcolor{gencolor} \multicolumn{24}{c}{\textbf{Generative Multimodal Reasoners}} \\ \midrule
+Qwen-Image-Edit-2509 & N/A & 33 & 36 & 22 & 12 & 11 & 7 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 7.5&4.0 \\
+\rowcolor{ourscolor} \textbf{DiffThinker (Ours)} & Flow Matching & \textbf{99} & \textbf{100} & \textbf{98} & \textbf{99} & \textbf{100} & \textbf{100} & \textbf{96} & \textbf{83} & \textbf{100} & \textbf{97} & \textbf{56} & \textbf{74} & \textbf{62} & \textbf{58} & \textbf{98} & \textbf{95} & \textbf{57} & \textbf{99} & \textbf{97} & \textbf{80} & \textbf{98.3} &\textbf{87.4}\\ \midrule
+Qwen-Image-Edit-2511 & N/A & 50 & 55 & 44 & 16 & 23 & 23 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 11.5 &6.7\\
+\rowcolor{ourscolor} \textbf{DiffThinker++ (Ours)} & Flow Matching & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{98} & \textbf{100} & \textbf{100} & \textbf{99} & \textbf{80} & \textbf{100} & \textbf{100} & \textbf{65} & \textbf{76} & \textbf{72} & \textbf{59} & \textbf{97} & \textbf{94} & \textbf{55} & \textbf{99} & \textbf{98} & \textbf{80} & \textbf{98.8} &\textbf{88.5}\\ \bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

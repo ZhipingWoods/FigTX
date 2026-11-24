@@ -1,0 +1,50 @@
+\definecolor{LightCyan}{RGB}{232,241,255}
+\definecolor{WhiteColr}{RGB}{255,255,255}
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+\footnotesize
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llcc|ccccc@{}}
+\toprule[1.5pt]
+\multicolumn{2}{l}{Steering Method} & \begin{tabular}[c]{@{}c@{}}Source \\ Dataset \end{tabular} & Intensity & \begin{tabular}[c]{@{}c@{}}Open-Ended \\ Generation \\ Acc. ($\%$) ↑ \end{tabular} &
+\begin{tabular}[c]{@{}c@{}}Self-Report \\ QA Acc. \\ ($\%$) $\uparrow$ \end{tabular}&
+\begin{tabular}[c]{@{}c@{}}Lexical\\ Alignment \\ Loss ↓ \end{tabular}&
+\begin{tabular}[c]{@{}c@{}}Fluency\\ ($1-5$) ↑ \end{tabular}&
+\begin{tabular}[c]{@{}c@{}}Coherency\\ ($1-5$) ↑ \end{tabular}
+\\
+\midrule
+\rowcolor{LightCyan} & No Steering                &-&-&
+-& -& -& $\mathbf{5.0_{\scriptstyle\pm0.0}}$& $\mathbf{4.7_{\scriptstyle\pm0.0}}$\\
+\midrule
+\multicolumn{4}{l}{Prompt-Based Methods} & & & \\
+\rowcolor{WhiteColr} & Zero-shot                 & - & med & $74.6_{\scriptstyle\pm0.0}$& $100.0_{\scriptstyle\pm0.0}$& $0.59_{\scriptstyle\pm0.00}$& $4.9_{\scriptstyle\pm0.0}$& $4.6_{\scriptstyle\pm0.0}$\\
+\rowcolor{LightCyan} & Zero-shot                 & - & high &$77.5_{\scriptstyle\pm0.0}$& $100.0_{\scriptstyle\pm0.0}$& $0.58_{\scriptstyle\pm0.00}$& $4.8_{\scriptstyle\pm0.0}$& $4.6_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & Few-shot                  & \textsc{EmoVignette} & med & $84.6_{\scriptstyle\pm0.3}$& $100.0_{\scriptstyle\pm0.0}$& $0.50_{\scriptstyle\pm0.01}$& $4.7_{\scriptstyle\pm0.0}$& $4.4_{\scriptstyle\pm0.0}$\\
+\rowcolor{LightCyan} & Few-shot                  & \textsc{EmoVignette} & high & $\mathbf{87.3_{\scriptstyle\pm1.8}}$& $\mathbf{100.0_{\scriptstyle\pm0.0}}$& $0.51_{\scriptstyle\pm0.01}$& $4.6_{\scriptstyle\pm0.0}$& $4.3_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & Descriptive               & \textsc{EmoVignette} & med & $81.4_{\scriptstyle\pm0.0}$& $100.0_{\scriptstyle\pm0.0}$& $0.50_{\scriptstyle\pm0.00}$& $4.8_{\scriptstyle\pm0.0}$& $4.6_{\scriptstyle\pm0.0}$\\
+\rowcolor{LightCyan} & Descriptive               & \textsc{EmoVignette} & high & $84.2_{\scriptstyle\pm0.0}$& $100.0_{\scriptstyle\pm0.0}$& $\mathbf{0.50_{\scriptstyle\pm0.00}}$& $4.7_{\scriptstyle\pm0.0}$& $4.4_{\scriptstyle\pm0.0}$\\
+\midrule
+\multicolumn{4}{l}{Vector Injection to All Layers} &\\
+\rowcolor{LightCyan} & Probe from last token        &\textsc{EmotionQuery}&   $0.55$ & $52.6_{\scriptstyle\pm1.5}$& $0.0_{\scriptstyle\pm0.0}$& $0.63_{\scriptstyle\pm0.01}$& $4.7_{\scriptstyle\pm0.0}$& $4.3_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & Probe from all tokens        &\textsc{GoEmotions}&     $0.55$ & $69.9_{\scriptstyle\pm0.2}$& $74.8_{\scriptstyle\pm0.7}$& $0.57_{\scriptstyle\pm0.00}$& $1.6_{\scriptstyle\pm0.0}$& $1.2_{\scriptstyle\pm0.0}$\\
+\rowcolor{LightCyan} & Probe from last token        &\textsc{EmoTranslate}&   $0.55$ & $72.7_{\scriptstyle\pm1.2}$& $1.7_{\scriptstyle\pm0.6}$& $0.58_{\scriptstyle\pm0.01}$& $4.5_{\scriptstyle\pm0.0}$& $4.0_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & Probe from last token        &\textsc{EmoTranslate}&   $0.80$ & $92.4_{\scriptstyle\pm1.5}$& $33.8_{\scriptstyle\pm5.3}$& $0.56_{\scriptstyle\pm0.01}$& $2.4_{\scriptstyle\pm0.1}$& $1.7_{\scriptstyle\pm0.0}$\\
+\midrule
+\multicolumn{4}{l}{Vector Injection to Layers 16 and 17} & \\
+\rowcolor{LightCyan} & Probe from last token        &\textsc{GoEmotions}&   $5.0$ & $61.5_{\scriptstyle\pm0.8}$& $51.0_{\scriptstyle\pm0.7}$& $0.57_{\scriptstyle\pm0.00}$& $3.7_{\scriptstyle\pm0.0}$& $3.2_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & Probe from all tokens        &\textsc{GoEmotions}&   $3.0$ & $50.3_{\scriptstyle\pm0.9}$& $85.7_{\scriptstyle\pm0.0}$& $0.58_{\scriptstyle\pm0.00}$& $4.8_{\scriptstyle\pm0.0}$& $4.6_{\scriptstyle\pm0.0}$\\
+\rowcolor{LightCyan} & Probe from all tokens        &\textsc{GoEmotions}&   $5.0$ & $74.5_{\scriptstyle\pm0.8}$& $98.6_{\scriptstyle\pm0.0}$& $0.57_{\scriptstyle\pm0.01}$& $4.3_{\scriptstyle\pm0.0}$& $3.9_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & MeanDiff from all tokens     &\textsc{GoEmotions}&   $5.0$ & $74.6_{\scriptstyle\pm0.2}$& $98.6_{\scriptstyle\pm0.0}$& $0.57_{\scriptstyle\pm0.01}$& $4.3_{\scriptstyle\pm0.0}$& $3.8_{\scriptstyle\pm0.0}$\\
+\midrule
+\multicolumn{4}{l}{PEFT Methods} &\\
+\rowcolor{LightCyan} & DPO         &\textsc{CARER}& $128$ & $57.8_{\scriptstyle\pm0.0}$& $34.0_{\scriptstyle\pm0.0}$& $0.65_{\scriptstyle\pm0.00}$& $4.5_{\scriptstyle\pm0.0}$& $3.8_{\scriptstyle\pm0.0}$\\
+\rowcolor{WhiteColr} & SFT         &\textsc{EmoTranslate}& $2048$ & $73.5_{\scriptstyle\pm2.3}$& $46.7_{\scriptstyle\pm4.1}$& $0.56_{\scriptstyle\pm0.00}$& $4.8_{\scriptstyle\pm0.0}$& $4.3_{\scriptstyle\pm0.1}$\\
+\bottomrule[1.5pt]
+\end{tabular}
+\caption{Comparison of steering approaches for emotion control in \texttt{Llama3.1-8B-Instruct}. For each class of techniques, we report only the most representative methods, with full results in App.~\ref{sec:app_llama_emo_detailed_experiments}. All experiments are run with three random seeds, and summary statistics are reported.}
+\label{tab:steering-agg}
+\vspace{-4mm}
+\end{table*}
+\end{document}

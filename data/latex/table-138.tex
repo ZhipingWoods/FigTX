@@ -1,0 +1,167 @@
+\definecolor{forestgreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{ashgrey}{rgb}{0.7, 0.75, 0.71}
+\definecolor{color_gray}{RGB}{229,229,229}
+\definecolor{color_blue}{RGB}{252,182,165}
+\definecolor{color_pink}{RGB}{255,217,178}
+\definecolor{color_yellow}{RGB}{255,255,204}
+\definecolor{secondcolor}{RGB}{189,215,238}
+\definecolor{firstcolor}{RGB}{255,153,153}
+\newcommand{\firstcolor}[1]{\cellcolor[rgb]{1,.60,.60}{#1}}
+\newcommand{\secondcolor}[1]{\cellcolor[rgb]{.741,.843,.933}{#1}}
+%%%%%%%
+\begin{document}
+%%%%%  MVTec 3D-AD
+\begin{table*}[t!]%\normalsize
+    \centering
+        \caption{I-AUROC/AUPRO results of our approach on MVTec 3D-AD under four incremental unified anomaly detection settings.}
+    % \vspace{-.15cm}
+    %\renewcommand{\arraystretch}{1}
+    \renewcommand\arraystretch{1.2} %4.2
+    \setlength{\tabcolsep}{1.5mm}{
+    \resizebox{\linewidth}{!}{
+    {\begin{tabular}{c|l|ccc|ccc|ccc|ccc}
+    \toprule[1.0pt]
+    \rowcolor{gray!10}&  &\multicolumn{3}{c|}{10-0 with 0 step (setting 1) }&\multicolumn{3}{c|}{9-1 with 1 step (setting 2)} &\multicolumn{3}{c|}{6-4 with 1 step (setting 3)}&\multicolumn{3}{c}{6-1 with 4 steps (setting 4)}\\
+    \rowcolor{gray!10}&\multirow{-2}{*}{Method}&I-AUROC   &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}})  &I-AUROC   &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}}) &I-AUROC   &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}})
+        &I-AUROC    &AUPRO &FM (\textcolor{ForestGreen}{$\Downarrow$})\\
+            % \midrule[0.5pt]
+            % \multicolumn{16}{c}{mvtec-3dad} \\
+            \midrule[0.5pt]
+            \multirow{3}{*}
+            %%%%%RGB
+            {\rotatebox{90}{RGB}}
+            &IUF \scriptsize (ECCV24) &87.1 &88.5 &-- / -- &82.4&85.1 & 2.9 / 1.5 &76.7&78.6 &8.3 / 6.9 &73.9 &76.3&12.5 / 7.9\\
+            &CDAD \scriptsize (CVPR25) &76.4 &87.5 &-- / --&74.2 &83.9&2.1 / 1.9 &68.9&77.5 &7.4 / 6.3 &67.4 &73.9 &\secondcolor{\textbf{\textcolor{ForestGreen}{8.0}} / 6.7}\\
+            &IB-IUMAD &\firstcolor{\textbf{88.9}}  &\firstcolor{\textbf{89.3}} &\secondcolor{-- / --}
+            &\firstcolor{\textbf{85.3}} &\firstcolor{\textbf{87.6}} &\secondcolor{\textbf{\textcolor{ForestGreen}{1.8}} / \textbf{\textcolor{ForestGreen}{1.3}} } &\firstcolor{\textbf{79.8}}
+            &\firstcolor{\textbf{81.2}} &\textbf{\textcolor{ForestGreen}{6.5}} / \secondcolor{\textbf{\textcolor{ForestGreen}{5.8}}} &\firstcolor{\textbf{75.7}} &\firstcolor{\textbf{80.5}}
+            &8.7 / \secondcolor{\textbf{\textcolor{ForestGreen}{6.3}}}\\
+            \midrule[0.5pt]
+            \multirow{3}{*}
+            %%%%%3D
+            {\rotatebox{90}{3D}}
+            &IUF \scriptsize (ECCV24) &73.7 &65.4 &-- / -- &70.4 &62.1 &1.6 / 1.4&67.4&59.2 &4.4 / 3.6 &66.8 &59.7 &4.7 / 3.0\\
+            &CDAD \scriptsize (CVPR25) &60.6 &40.6 &-- / --&58.8 &39.2 &\secondcolor{1.1 / \textbf{\textcolor{ForestGreen}{0.2}} }&55.5&37.9 &1.7 / 0.9&56.1 &38.5 &2.5 / \textbf{1.4}\\
+            &IB-IUMAD &\firstcolor{\textbf{75.8}} &\firstcolor{\textbf{67.6}} &\secondcolor{-- / --}
+            &\firstcolor{\textbf{74.9}} &\firstcolor{\textbf{65.5}} &\secondcolor{\textbf{\textcolor{ForestGreen}{-0.3}} / 0.7 }&\firstcolor{\textbf{72.6}}
+            &\firstcolor{\textbf{64.3}} &\secondcolor{\textbf{\textcolor{ForestGreen}{1.3}} / \textbf{\textcolor{ForestGreen}{0.2}}}  &\firstcolor{\textbf{71.2}} &\firstcolor{\textbf{64.1}} &\secondcolor{\textbf{\textcolor{ForestGreen}{2.2}} / \textbf{\textcolor{ForestGreen}{1.4}}}\\
+            \midrule[0.5pt]
+            \multirow{3}{*}
+            %%%%%RGB+3D
+            {\rotatebox{90}{RGB+3D}}
+            &IUF \scriptsize (ECCV24) &88.7 &89.2 &-- / --&84.2 &86.6 &3.7 / 2.2 &79.2&80.2 &10.6 / 7.3 &75.1 &79.5 &15.1 / 8.4\\
+            &CDAD \scriptsize (CVPR25) &79.1 &88.1 &-- / --&75.1 &85.3 &3.4 / 2.1 &70.1&78.5 &8.5 / 7.1&69.5 &75.7 &\secondcolor{\textbf{\textcolor{ForestGreen}{8.9}} / 7.7}\\
+            &IB-IUMAD &\firstcolor{\textbf{91.0}} &\firstcolor{\textbf{90.4}} &\secondcolor{-- / --}
+            &\firstcolor{\textbf{87.5}} &\firstcolor{\textbf{89.1}} &\secondcolor{\textbf{\textcolor{ForestGreen}{2.3}} / \textbf{\textcolor{ForestGreen}{0.8}}} &\secondcolor{\firstcolor{\textbf{82.4}}}
+             &\firstcolor{\textbf{84.7}}
+            &\secondcolor{\textbf{\textcolor{ForestGreen}{6.8}} / \textbf{\textcolor{ForestGreen}{6.4}}} &\firstcolor{\textbf{78.6} }&\firstcolor{\textbf{82.4}} &\secondcolor{9.3 / \textbf{\textcolor{ForestGreen}{6.9}}}\\
+            \bottomrule[1.0pt]
+    \end{tabular}}}}
+\end{table*}
+\begin{table*}[h]%\normalsize
+    \caption{I-AUROC/AUPRO results of our approach on Eyecandies under four incremental unified anomaly detection settings.}
+    \centering
+    % \vspace{-.15cm}
+    %\renewcommand{\arraystretch}{1}
+    \renewcommand\arraystretch{1.2} %4.2
+    \setlength{\tabcolsep}{1.5mm}{
+    \resizebox{\linewidth}{!}{
+    {\begin{tabular}{c|l|ccc|ccc|ccc|ccc}
+    \toprule[1.0pt]
+    \rowcolor{gray!10}&  &\multicolumn{3}{c|}{10-0 with 0 step (setting 1)} &\multicolumn{3}{c|}{9-1 with 1 step (setting 2)} &\multicolumn{3}{c|}{6-4 with 1 step (setting 3)}&\multicolumn{3}{c}{6-1 with 4 steps (setting 4)}\\
+\rowcolor{gray!10}&\multirow{-2}{*}{Method}&I-AUROC   &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}}) &I-AUROC    &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}}) &I-AUROC    &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}})
+        &I-AUROC    &AUPRO &FM (\textbf{\textcolor{ForestGreen}{$\Downarrow$}})\\
+            % \midrule[0.5pt]
+            % \multicolumn{16}{c}{mvtec-3dad} \\
+            \midrule[0.5pt]
+            \multirow{3}{*}{\rotatebox{90}{RGB}}
+            %%%%%    RGB
+            &IUF \scriptsize (ECCV24) &77.2 &84.0 &-- / --&73.9 &79.6 &3.8 / 3.5 &62.9 &68.6&12.4 / 9.1 &63.6 &69.1 &10.6 / 8.8\\
+            &CDAD \scriptsize (CVPR25) &78.1 &82.1 &-- / --&73.2 &76.5 &4.2 / 3.1 &63.7 &70.4 &9.5 / 7.7 &65.5&72.3 &8.4 / 6.3\\
+            &IB-IUMAD &\firstcolor{\textbf{78.5}}  &\firstcolor{\textbf{85.3}} &\secondcolor{-- / --}
+            &\firstcolor{\textbf{74.1}}
+            &\firstcolor{\textbf{83.2}} &\secondcolor{\textbf{\textcolor{ForestGreen}{2.7}} / \textbf{\textcolor{ForestGreen}{1.1}}} &\firstcolor{\textbf{65.4}} &\firstcolor{\textbf{71.2}}
+            &\secondcolor{\textbf{\textcolor{ForestGreen}{8.1}} / \textbf{\textcolor{ForestGreen}{6.5}}} &\firstcolor{\textbf{66.5}} &\firstcolor{\textbf{72.7}} &\secondcolor{\textbf{\textcolor{ForestGreen}{7.3}} / \textbf{\textcolor{ForestGreen}{5.7}}}\\
+            \midrule[0.5pt]
+            \multirow{3}{*}{\rotatebox{90}{3D}}
+            %%%%%    3D
+            &IUF \scriptsize (ECCV24) &57.2  &39.4 &-- / --&55.6 &36.4 &2.1 / 0.8 &51.5&37.4 &3.8 / 1.2 &51.9 &38.2 &3.0 / 1.1\\
+            &CDAD \scriptsize (CVPR25) &58.4  &30.2 &-- / --&57.1 &29.3 &\secondcolor{\textbf{\textcolor{ForestGreen}{0.9}} / \textbf{\textcolor{ForestGreen}{0.1}}} &\firstcolor{\textbf{53.1}}&29.6 &\secondcolor{4.2 / \textbf{\textcolor{ForestGreen}{-0.4}}} &52.9  &30.1 &\secondcolor{4.4 / \textbf{\textcolor{ForestGreen}{0.3}}}\\
+            &IB-IUMAD &\firstcolor{\textbf{59.2}}  &\firstcolor{\textbf{43.7}} &\secondcolor{-- / --}
+             &\firstcolor{\textbf{57.5}}
+            &\firstcolor{\textbf{39.8}} &1.4 / 1.3 &52.9 &\firstcolor{\textbf{41.3}}
+            &\secondcolor{\textbf{\textcolor{ForestGreen}{3.5}} / 1.4} &\firstcolor{\textbf{53.3}} &\firstcolor{\textbf{41.9}} &\secondcolor{\textbf{\textcolor{ForestGreen}{2.6}} / 0.9}\\
+            \midrule[0.5pt]
+            \multirow{3}{*}{\rotatebox{90}{RGB+3D}}
+            %%%%%    RGB + 3D
+            &IUF \scriptsize (ECCV24) &78.4  &85.5 &-- / --&74.4 &80.3 &4.3 / 3.8 &64.1 &69.8&14.3 / 8.6 &65.8 &71.5 &12.5 / 8.8\\
+            &CDAD \scriptsize (CVPR25) &79.2 &83.7&-- / --&74.1 &78.8 &4.6 / 3.5 &66.5 &72.3&10.1 / 7.9 &68.2 &73.8 &9.2 / 6.6\\
+            &IB-IUMAD &\firstcolor{\textbf{80.6}}  &\firstcolor{\textbf{86.1}} &\secondcolor{-- / --}
+            &\firstcolor{\textbf{76.7}}
+            &\firstcolor{\textbf{85.6}} &\secondcolor{\textbf{\textcolor{ForestGreen}{3.2}} / \textbf{\textcolor{ForestGreen}{1.6}}} &\firstcolor{\textbf{67.8}} &\firstcolor{\textbf{73.1}}
+            &\secondcolor{\textbf{\textcolor{ForestGreen}{8.4}} / \textbf{\textcolor{ForestGreen}{6.7}}} &\firstcolor{\textbf{69.4}} &\firstcolor{\textbf{75.1}} &\secondcolor{\textbf{\textcolor{ForestGreen}{7.7}} / \textbf{\textcolor{ForestGreen}{6.3}}}\\
+            \bottomrule[1.0pt]
+    \end{tabular}}}}
+\end{table*}
+\begin{table}[t]
+    \centering
+    \caption{The ablation study results on the MVTec 3D-AD dataset.}
+    \renewcommand\arraystretch{1.1}
+    \setlength{\tabcolsep}{0.9mm}
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{cc|cc|cc|cc|c}
+            \toprule[1.0pt]
+            \rowcolor{gray!10}\multicolumn{2}{c|}{Ablation} & \multicolumn{2}{c|}{6-1 with 4} & \multicolumn{2}{c|}{6-4 with 1} & \multicolumn{2}{c|}{9-1 with 1} & \multicolumn{1}{c}{10-0 with 0} \\
+            \rowcolor{gray!10}Mamba & IBFM &I-AUROC &FM &I-AUROC &FM &I-AUROC &FM & I-AUROC \\
+            \midrule[0.5pt]
+            \textcolor{ForestGreen}{\XSolidBrush} & \textcolor{ForestGreen}{\XSolidBrush} & 75.3 & 12.7 & 79.9 & 8.7 & 85.1 & 4.6 & 86.7 \\
+            \textcolor{red}{\textbf{\Checkmark}} & \textcolor{ForestGreen}{\XSolidBrush} & 76.0 & 11.0 & 80.8 & 7.6 & 86.0 & 4.0 & 88.8 \\
+            \textcolor{ForestGreen}{\XSolidBrush} & \textcolor{red}{\Checkmark} & 76.9 & 10.2 & 81.5 & 7.1 & 86.8 & 3.2 & 89.2 \\
+             \textcolor{red}{\Checkmark} & \textcolor{red}{\Checkmark} & \firstcolor{\textbf{78.6}} & \secondcolor{\textbf{\textcolor{ForestGreen}{9.3}}} & \firstcolor{\textbf{82.4}} & \secondcolor{\textbf{\textcolor{ForestGreen}{6.8}}} & \firstcolor{\textbf{87.5}} & \secondcolor{\textbf{\textcolor{ForestGreen}{2.3}}} & \firstcolor{\textbf{91.0}} \\
+            \bottomrule[1.0pt]
+        \end{tabular}
+    }
+\end{table}
+\setlength{\fboxrule}{1.5pt}
+\begin{table}[t]%\normalsize
+    \centering
+    \caption{The impact of multimodal fusion operations.}
+    % \vspace{-.15cm}
+    %\renewcommand{\arraystretch}{1}
+    \renewcommand\arraystretch{1} %4.2
+    \setlength{\tabcolsep}{5.5mm}{
+    \resizebox{\linewidth}{!}{
+    {\begin{tabular}{l|c|c|c}
+    \toprule[1.0pt]
+    \rowcolor{gray!10}  &\multicolumn{3}{c}{MVTec 3D-AD} \\
+    \rowcolor{gray!10}\multirow{-2}{*}{Fusion types}&I-AUROC &P-AUROC &AUPRO \\
+                \midrule[0.5pt]
+Addition &\fcolorbox{secondcolor}{white}{89.8} &\fcolorbox{secondcolor}{white}{96.7}  &88.6  \\
+ConcatFC &88.2 &96.4  &\fcolorbox{secondcolor}{white}{89.5}  \\
+LinearGLU &86.7 &95.8  &88.3 \\  Cross-attention &\fcolorbox{firstcolor}{white}{\textbf{91.0}}&\fcolorbox{firstcolor}{white}{\textbf{97.6}}&\fcolorbox{firstcolor}{white}{\textbf{90.4}}\\
+            \bottomrule[1.0pt]
+    \end{tabular}}}}
+\end{table}
+\setlength{\fboxrule}{1.5pt}
+\begin{table}[t!]%\normalsize
+    \centering
+    \caption{Comparison results in terms of the computing efficiency.}
+    % \vspace{-.15cm}
+    %\renewcommand{\arraystretch}{1}
+    \renewcommand\arraystretch{1} %4.2
+    \setlength{\tabcolsep}{6.0mm}{
+    \resizebox{\linewidth}{!}{
+    {\begin{tabular}{l|c|c|cc}
+    \toprule[1.0pt]
+    \rowcolor{gray!20}  &\multicolumn{3}{c}{MVTec 3D-AD} \\
+    \rowcolor{gray!20}\multirow{-2}{*}{Method}&Frame Rate &Memory &I-AUROC \\
+                \midrule[0.5pt]
+            BTF &3.197 &3810.6  &86.5  \\
+            AST &4.966 &4639.4  &93.7  \\
+            M3DM &0.514 &65261.2  &\fcolorbox{firstcolor}{white}{94.5} \\
+            %3D-ADNAS &24.693 &2693.3 &95.1 \\
+             IB-IUMAD &\fcolorbox{firstcolor}{white}{\textbf{21.427}}&\fcolorbox{firstcolor}{white}{\textbf{1483.7}}&\textbf{91.0}\\
+            \bottomrule[1.0pt]
+    \end{tabular}}}}
+\end{table}
+\end{document}

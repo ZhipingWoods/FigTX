@@ -1,0 +1,112 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|l|c|c|c|c|c|c|c}
+\hline
+\rowcolor{gray!20}
+\textbf{Model} & \textbf{Method} & \textbf{WASSA} & \textbf{SICK} & \textbf{STSB} & \textbf{LCP} & \textbf{CRP} & \textbf{Humicroedit} & \textbf{Avg.}\\
+\hline
+\rowcolor[HTML]{DFFFD6} DeBERTa-v3-Base & Pooling & 0.017/0.107 & 0.163/0.297 & 0.363/0.455 & 0.007/0.076 & 0.429/0.518 & 0.278/0.432 & 0.209/0.314 \\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.013/0.091 & 0.135/0.277 & 0.373/0.462 & 0.006/0.060 & 0.385/0.478 & 0.274/0.423 & 0.197/0.298\\
+\rowcolor[HTML]{DFFFD6} DeBERTa-v3-Large & Pooling & 0.016/0.102 & 0.140/0.281 & 0.353/0.442& 0.007/0.073 & 0.345/0.457 & 0.263/0.419 & 0.187/0.295\\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.012/0.075 & 0.132/0.274 & 0.348/0.414 & 0.005/0.051 & 0.340/0.459 & 0.268/0.421 & 0.184/0.282\\
+\rowcolor[HTML]{DFFFD6} RoBERTa-Base & Pooling & 0.016/0.097 & 0.168/0.300 & 0.364/0.452 & 0.007/0.066 & 0.465/0.535 & 0.293/0.438 & 0.218/0.314\\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.015/0.094 & 0.145/0.294 & 0.353/0.448 & 0.007/0.065 & 0.431/0.517 & 0.289/0.431 &  0.206/0.308\\
+\rowcolor[HTML]{DFFFD6} RoBERTa-Large & Pooling & 0.015/0.097 & 0.153/0.291 & 0.351/0.439 & 0.006/0.060 & 0.376/0.469 & 0.283/0.432 & 0.197/0.298\\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.016/0.099 & 0.152/0.291 & 0.350/0.429 & 0.603/0.059 & 0.366/0.475 & 0.281/0.431 & 0.294/0.297\\
+\rowcolor[HTML]{DFFFD6} ModernBERT-Base & Pooling & 0.016/0.092 & 0.207/0.350 & 0.469/0.517 & 0.006/0.069 & 0.376/0.469 & 0.302/0.447 & 0.229/0.324\\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.015/0.093 & 0.173/0.328 & 0.482/0.536 & 0.006/0.067 & 0.364/0.471 & 0.281/0.430 & 0.220/0.320 \\
+\rowcolor[HTML]{DFFFD6} ModernBERT-Large & Pooling & 0.016/0.093 & 0.160/0.307 & 0.378/0.468 & 0.006/0.060 & 0.341/0.453 & 0.302/0.449 & 0.200/0.305\\
+\rowcolor[HTML]{DFFFD6}  & Masking & 0.150/0.294 & 0.150/0.292 & 0.371/0.462 & 0.006/0.005 & 0.344/0.457 & 0.293/0.441 & 0.219/0.325\\
+\rowcolor[HTML]{FFF5CC} GPT-2 Medium & Pooling & 0.019/0.112 & 0.662/0.619 & 0.427/0.499 & 0.008/0.084 & 0.369/0.476 & 0.394/0.535 & 0.313/0.387\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.018/0.111 & 0.673/0.620 & 0.412/0.490 & 0.008/0.083 & 0.345/0.457& 0.347/0.493 & 0.300/0.375 \\
+\rowcolor[HTML]{FFF5CC} GPT-2 Large & Pooling & 0.018/0.105 & 0.623/0.583 & 0.442/0.522 & 0.007/0.080 & 0.324/0.443 & 0.318/0.463 & 0.288/0.366 \\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.017/0.107 & 0.583/0.523 & 0.423/0.499 & 0.007/0.078 & 0.326/0.446 & 0.323/0.473 & 0.279/0.354 \\
+\rowcolor[HTML]{FFF5CC} SmolLM2-135M & Pooling & 0.017/0.105 & 0.192/0.336 & 0.424/0.489 & 0.007/0.076 & 0.369/0.476 & 0.304/0.450 & 0.218/0.322\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.017/0.106 & 0.175/0.319 & 0.403/0.484 & 0.007/0.076 & 0.366/0.475 & 0.295/0.442 & 0.210/0.317 \\
+\rowcolor[HTML]{FFF5CC} SmolLM2-350M & Pooling & 0.017/0.104 & 0.173/0.310 & 0.407/0.488 & 0.006/0.061 & 0.340/0.459 & 0.338/0.463 & 0.213/0.314\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.017/0.105 & 0.170/0.298 & 0.394/0.481 & 0.006/0.060 & 0.332/0.454 & 0.323/0.462 & 0.207/0.310\\
+\rowcolor[HTML]{FFF5CC} MobileLLM-125M & Pooling & 0.020/0.111 & 0.197/0.354 & 0.419/0.492 & 0.006/0.070 & 0.323/0.446 & 0.302/0.451 & 0.211/0.320\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.019/0.113 & 0.192/0.324 & 0.410/0.491 & 0.006/0.068 & 0.312/0.448 & 0.293/0.442 & 0.205/0.314\\
+\rowcolor[HTML]{FFF5CC} MobileLLM-350M & Pooling & 0.018/0.104 & 0.191/0.336 & 0.394/0.482 & 0.006/0.063& 0.310/0.436 & 0.282/0.431 & 0.200/0.308\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.017/0.105 & 0.187/0.320 & 0.391/0.478 & 0.006/0.063 & 0.309/0.437 & 0.278/0.421 & 0.198/0.304\\
+\rowcolor[HTML]{FFF5CC} MobileLLM-600M & Pooling & 0.017/0.105& 0.181/0.320 & 0.384/0.474 & 0.006/0.063 & 0.301/0.432 & 0.274/0.421 & 0.193/0.302\\
+\rowcolor[HTML]{FFF5CC}  & Generation & 0.017/0.105 & 0.172/0.318 & 0.381/0.472 & 0.006/0.063 & 0.308/0.419 & 0.278/0.438 & 0.193/0.302\\
+\hline
+\end{tabular}%
+}
+\caption{Regression results (MSE/MAE) across six NLP regression tasks comparing bidirectional and unidirectional models under pooling, masking, and generation inference strategies.}
+\label{tab:regression_results}
+\end{table*}
+\begin{table*}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|l|c|c|c|c|c|c|c|c|c|c}
+\hline
+\rowcolor{gray!20}
+\textbf{Model} & \textbf{Method} & \textbf{SST-2} & \textbf{MRPC} & \textbf{QNLI} & \textbf{RTE} & \textbf{CoLA} & \textbf{MNLI} & \textbf{BoolQ} & \textbf{HellaSwag} & \textbf{SIQA} & \textbf{Avg.} \\
+\hline
+\rowcolor[HTML]{EAF3FA} DeBERTa-v3-Base & Pooling & 95.12 & 88.75 & 91.75 & 82.85 & 85.43 & 85.96 & 63.55 & 55.22 & 46.74 & 77.15 \\
+\rowcolor[HTML]{EAF3FA}  & Masking & 96.22 & 90.03 & 93.10 & 85.92 & 88.55 & 88.10 & 65.05 & 68.33 & 61.92 & 81.81\\
+\rowcolor[HTML]{EAF3FA} DeBERTa-v3-Large & Pooling & 96.25 & 92.88 & 94.67 & 88.90 & 94.12 & 91.92 & 65.48 & 58.15 & 52.04 & 81.82\\
+\rowcolor[HTML]{EAF3FA}  & Masking & 96.94 & 94.95 & 95.35 & 90.85 & 93.05 & 91.96 & 65.12 & 74.10 & 66.41 & 85.30 \\
+\rowcolor[HTML]{EAF3FA} RoBERTa-Base & Pooling & 93.80 & 83.40 & 91.13 & 82.20 & 85.45 & 85.95 & 62.10 & 51.78 & 44.63 & 75.72\\
+\rowcolor[HTML]{EAF3FA}  & Masking & 94.80 & 86.10 & 93.42 & 86.02 & 88.25 & 87.20 & 63.80 & 65.33 & 61.12 & 80.45\\
+\rowcolor[HTML]{EAF3FA} RoBERTa-Large & Pooling & 95.12 & 88.40 & 93.76 & 86.10 & 93.02 & 90.14 & 64.00 & 56.23 & 47.15 & 79.66\\
+\rowcolor[HTML]{EAF3FA}  & Masking & 96.67 & 91.98 & 95.10 & 88.45 & 95.33 & 90.92 & 64.25 & 70.35 & 62.45 & 83.83\\
+\rowcolor[HTML]{EAF3FA} ModernBERT-Base & Pooling & 93.70 & 82.40 & 90.25 & 81.52 & 84.22 & 86.02 & 62.00 & 54.18 & 45.70 & 75.78\\
+\rowcolor[HTML]{EAF3FA}  & Masking & 94.92 & 84.05 & 92.88 & 85.00 & 85.80 & 88.55 & 61.35 & 62.00 & 60.00 & 78.95\\
+\rowcolor[HTML]{EAF3FA} ModernBERT-Large & Pooling & 95.00 & 88.55 & 93.50 & 87.32 & 90.25 & 92.80 & 63.50 & 59.00 & 48.50 & 79.82\\
+\rowcolor[HTML]{EAF3FA}  & Masking & 96.32 & 91.10 & 95.12 & 88.50 & 91.02 & 92.10 & 63.90 & 72.42 & 64.33 & 83.42\\
+\rowcolor[HTML]{F8DADA} GPT-2 Medium & Pooling & 92.70 & 84.32 & 90.42 & 68.50 & 79.15 & 78.02 & 62.33 & 36.80 & 37.42 & 69.96\\
+\rowcolor[HTML]{F8DADA}  & Generation & 93.40 & 85.72 & 91.65 & 69.02 & 80.10 & 79.43 & 63.00 & 36.55 & 42.12 & 71.00 \\
+\rowcolor[HTML]{F8DADA} GPT-2 Large & Pooling & 93.75 & 85.50 & 83.35 & 65.90 & 82.85 & 79.55 & 63.50 & 39.20 & 40.50 & 70.68\\
+\rowcolor[HTML]{F8DADA}  & Generation & 94.05 & 87.05 & 85.12 & 67.88 & 84.23 &81.72 & 64.05 & 39.70 & 45.02 & 71.98\\
+\rowcolor[HTML]{F8DADA} SmolLM2-360M & Pooling & 93.80 & 84.20 & 90.92 & 69.90 & 81.22 & 84.10 & 62.75 & 41.20 & 41.55 & 72.18\\
+\rowcolor[HTML]{F8DADA}  & Generation & 94.52 & 85.85 & 91.93 & 70.50 & 83.80 & 85.10 & 62.60 & 42.40 & 49.45 & 73.68\\
+\rowcolor[HTML]{F8DADA} SmolLM2-135M & Pooling & 91.90 & 83.05 & 89.43 & 67.55 & 80.15 & 81.52 & 61.35 & 37.00 & 40.25 & 70.13\\
+\rowcolor[HTML]{F8DADA}  & Generation & 92.80 & 83.85 & 90.05 & 68.12 & 81.82 & 82.78 & 61.70 & 40.00 & 46.20 & 71.59\\
+\rowcolor[HTML]{F8DADA} MobileLLM-125M & Pooling & 92.25 & 81.42 & 89.82 & 68.42 & 79.12 & 81.35 & 59.50 & 32.30 & 40.40 & 69.07\\
+\rowcolor[HTML]{F8DADA}  & Generation & 92.98 & 82.35 & 90.22 & 68.92 & 80.42 & 82.20 & 60.25 & 36.12 & 47.33 & 70.53\\
+\rowcolor[HTML]{F8DADA} MobileLLM-350M & Pooling & 93.00 & 82.65 & 90.32 & 69.55 & 81.58 & 82.55 & 62.05 & 35.42 & 41.50 & 70.73\\
+\rowcolor[HTML]{F8DADA}  & Generation & 94.10 & 82.98 & 90.85 & 70.25 & 82.62 & 83.40 & 62.85 & 39.20 & 50.05 & 72.15\\
+\rowcolor[HTML]{F8DADA} MobileLLM-600M & Pooling & 94.25 & 86.80 & 90.92 & 71.32 & 83.92 & 84.12 & 63.50 & 44.50 & 44.20 & 73.06\\
+\rowcolor[HTML]{F8DADA}  & Generation & 94.95 & 87.55 & 91.50 & 72.02 & 85.92 & 84.30 & 63.75 & 47.80 & 57.32 & 75.68\\
+\hline
+\end{tabular}%
+}
+\caption{Accuracy results across nine NLP classification tasks comparing bidirectional and unidirectional models under pooling, masking, and generation inference strategies using LoRA fine-tuning.}
+\label{tab:performance_lora}
+\end{table*}
+\begin{table*}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|l|l|p{9cm}}
+\hline
+\rowcolor{gray!20}
+\textbf{Dataset} & \textbf{Task Type} & \textbf{Domain} & \textbf{Description} \\
+\hline
+\rowcolor[HTML]{EAF3FA} \textbf{SST-2} \citep{wang2018glue} & Classification & Sentiment Analysis & The Stanford Sentiment Treebank, a binary sentiment classification dataset labeling sentences as positive or negative. \\
+\rowcolor[HTML]{EAF3FA} \textbf{MRPC} \citep{wang2018glue} & Classification & Paraphrase Detection & The Microsoft Research Paraphrase Corpus for detecting whether two sentences are semantically equivalent. \\
+\rowcolor[HTML]{EAF3FA} \textbf{QNLI} \citep{wang2018glue} & Classification & Question Answering / NLI & A question natural language inference dataset built from SQuAD, determining if a context sentence contains the answer. \\
+\rowcolor[HTML]{EAF3FA} \textbf{RTE} \citep{wang2018glue} & Classification & Natural Language Inference & The Recognizing Textual Entailment dataset for determining if a hypothesis is entailed by a premise. \\
+\rowcolor[HTML]{EAF3FA} \textbf{MNLI} \citep{wang2018glue} & Classification & Natural Language Inference & Multi-Genre Natural Language Inference dataset covering entailment, neutral, and contradiction relations across multiple genres. \\
+\rowcolor[HTML]{EAF3FA} \textbf{CoLA} \citep{wang2018glue} & Classification & Grammatical Acceptability & Corpus of Linguistic Acceptability, evaluating whether sentences conform to English grammatical rules. \\
+\rowcolor[HTML]{EAF3FA} \textbf{BoolQ} \citep{clark2019boolq} & Classification & Reading Comprehension & Boolean Questions dataset with yes/no questions based on Wikipedia passages requiring reading comprehension. \\
+\rowcolor[HTML]{EAF3FA} \textbf{HellaSwag} \citep{zellers2019hellaswag} & Classification & Commonsense Reasoning & Tests commonsense reasoning by selecting the most plausible continuation of a given scenario. \\
+\rowcolor[HTML]{EAF3FA} \textbf{SIQA} \citep{sap2019socialiqa} & Classification & Social Intelligence & Social IQa dataset evaluating models' understanding of social situations, emotions, and intentions. \\
+\rowcolor[HTML]{F8DADA} \textbf{WASSA} \citep{vinayakumar2017deepcybernet} & Regression & Emotion Intensity & WASSA-2017 dataset for predicting emotion intensity scores for tweets across multiple emotions. \\
+\rowcolor[HTML]{F8DADA} \textbf{SICK} \citep{marelli-etal-2014-sick} & Regression & Semantic Similarity & Sentences Involving Compositional Knowledge dataset for measuring sentence similarity and entailment. \\
+\rowcolor[HTML]{F8DADA} \textbf{STSB-regression} \citep{cer2017semeval} & Regression & Semantic Similarity & Semantic Textual Similarity Benchmark scored on a continuous scale from 0 to 5. \\
+\rowcolor[HTML]{F8DADA} \textbf{LCP} \citep{shardlow2020complex} & Regression & Lexical Complexity & Lexical Complexity Prediction dataset for predicting the complexity of words within their context. \\
+\rowcolor[HTML]{F8DADA} \textbf{CRP} \citep{shardlow2020complex} & Regression & Complex Word Identification & Complex Word Identification dataset from SemEval, labeling words as simple or complex in context. \\
+\rowcolor[HTML]{F8DADA} \textbf{Humicroedit} \citep{hossain2019president} & Regression & Humor Perception & SemEval humor dataset evaluating the impact of small text edits (micro-edits) on humor perception. \\
+\hline
+\end{tabular}%
+}
+\caption{Overview of the 16 benchmark datasets used in our experiments across classification and regression tasks.}
+\label{tab:datasets}
+\end{table*}
+\end{document}

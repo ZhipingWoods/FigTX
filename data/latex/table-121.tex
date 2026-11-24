@@ -1,0 +1,81 @@
+\definecolor{deepgreen}{RGB}{0, 70, 0}
+\definecolor{deepred}{RGB}{182, 32, 22}
+\definecolor{jsongreen}{RGB}{0, 153, 0}
+\definecolor{lightblue}{RGB}{230, 246, 250}
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor[rgb]{0.0, 0.6, 0.0}{\ding{51}}} % Muted dark green
+\newcommand{\xmark}{\textcolor[rgb]{0.7, 0.0, 0.0}{\ding{55}}} % Muted dark red
+\newcommand{\pmark}{\textcolor[rgb]{1,0.647,0}{\ding{51}}}
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+\small
+\centering
+\setlength{\tabcolsep}{0.9mm}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Env Type} & \textbf{\makecell{Scal-\\able}} & \textbf{\makecell{Consis-\\tent}} & \textbf{\makecell{Control-\\lable}} & \textbf{\makecell{Sta-\\ble}} & \textbf{\makecell{Explain-\\able}} \\
+\midrule
+Real-World & \xmark & \pmark & \xmark & \pmark & \pmark \\
+LLM-Simulated & \cmark & \xmark & \pmark & \xmark & \xmark \\
+Programmatic & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\caption{Key property comparison of three Env types for LLM training.
+Scalable: ease of large-scale expansion; Consistent: logical coherence between multiple calls; Controllable: flexibility in modifying Env logic; Stable: reproducible over time; Explainable: transparency of Env logic.
+Symbols denote: \cmark full support, \xmark not supported, \pmark partial or conditional support.}
+\label{tab:different_env_type}
+\end{table}
+\begin{table*}[t]
+%\scriptsize
+\small
+\centering
+\setlength{\tabcolsep}{0.55mm}
+\begin{tabular}{lccccccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Model}} & \multicolumn{5}{c}{\textbf{BFCL-v3 Multi-Turn}} & \multicolumn{3}{c}{\textbf{Tau-Bench}} & \multicolumn{3}{c}{\textbf{ACEBench-Agent}} \\
+\cmidrule(r){2-6}\cmidrule(lr){7-9}\cmidrule(lr){10-12}
+ & \textbf{Base}& \textbf{\makecell{Miss-\\Func}} & \textbf{\makecell{Miss-\\Param}} & \textbf{\makecell{Long-\\Context}} & \textbf{Overall} & \textbf{Retail} & \textbf{Airline} & \textbf{Overall} & \textbf{\makecell{Multi-\\Step}} & \textbf{\makecell{Multi-\\Turn}} & \textbf{Overall} \\
+\midrule
+\multicolumn{12}{l}{\textit{\textbf{Advanced Models}}}\\
+GPT-4.1  & 46.00 & 37.50 & 32.00 & 44.50 & 40.00 & 66.95 & 48.0 & 57.48 & 95.00 & 60.00 & 77.50 \\
+Qwen3-235B-Thinking-2507  & 60.00 & 35.00 & 34.00 & 54.00 & 45.75 & 67.8 & 46.00 & 56.90 & 85.00 & 63.33 & 74.17 \\
+Qwen3-235B-Instruct-2507 & 58.00 & 33.00 & 27.50 & 50.50 & 42.25 & 71.30 & 44.00 & 57.65 & 80.00 & 63.33 & 71.67 \\
+Kimi-K2-Instruct-0905 & 57.50 & 35.00 & 42.00 & 49.00 & 45.88 & 69.87 & 54.00 & 61.94 & 85.00 & 73.33 & 79.17  \\
+\midrule
+Qwen3-1.7B  (Thinking)  & 13.50 & 6.00 & 12.50 & 7.00 & \textbf{9.75} & 8.99 & 16.00 & \textbf{12.50} & 35.0 & 28.89 & \textbf{31.95} \\
+\rowcolor{lightblue} \quad + EnvScaler (w/ SFT)
+& 24.50 & 11.50 & 20.00 & 16.50 & \textbf{$\text{18.13}_{\textcolor{deepgreen}{\text{+8.38}}}$}
+& 20.87 & 14.00 & \textbf{$\text{17.44}_{\textcolor{deepgreen}{\text{+4.94}}}$ }
+& 55.00 & 32.22 & \textbf{$\text{43.61}_{\textcolor{deepgreen}{\text{+11.66}}}$} \\
+\rowcolor{lightblue}\quad + EnvScaler (w/ SFT\&RL)
+& 31.50 & 17.00 & 20.50 & 23.00
+& \textbf{$\text{23.00}_{\textcolor{deepgreen}{\text{+13.25}}}$}
+& 18.55 & 14.00 & \textbf{$\text{16.28}_{\textcolor{deepgreen}{\text{+3.78}}}$}
+& 66.67 & 33.33 & \textbf{$\text{50.00}_{\textcolor{deepgreen}{\text{+18.05}}}$} \\
+\midrule
+Qwen3-4B (Thinking) & 32.00 & 20.00 & 24.00 & 25.50 & \textbf{25.38} & 40.87 & 26.00 & \textbf{33.44} & 58.33 & 52.22 & \textbf{55.28}  \\
+\rowcolor{lightblue}\quad + EnvScaler (w/ SFT)
+& 47.00 & 24.00 & 31.50 & 37.00 & \textbf{$\text{34.88}_{\textcolor{deepgreen}{\text{+9.50}}}$}
+& 44.35 & 32.00 & \textbf{$\text{38.20}_{\textcolor{deepgreen}{\text{+4.76}}}$}
+& 73.33 & 60.00 & \textbf{$\text{66.67}_{\textcolor{deepgreen}{\text{+11.39}}}$}  \\
+\rowcolor{lightblue}\quad + EnvScaler (w/ SFT\&RL)
+& 51.00 & 34.00 & 28.00 & 39.00 & \textbf{$\text{38.00}_{\textcolor{deepgreen}{\text{+12.62}}}$}
+& 48.12 & 34.00 & \textbf{$\text{41.06}_{\textcolor{deepgreen}{\text{+7.62}}}$}
+& 80.00 & 61.11 & \textbf{$\text{70.55}_{\textcolor{deepgreen}{\text{+15.27}}}$}  \\
+\midrule
+Qwen3-8B (Thinking) & 32.00 & 33.50 & 22.00 & 28.00 & \textbf{28.88} & 46.38 & 30.00 & \textbf{38.19} & 63.33 & 56.67 & \textbf{60.00}  \\
+\rowcolor{lightblue}\quad + EnvScaler (w/ SFT)
+& 47.00 & 33.00 & 29.50 & 38.50 & \textbf{$\text{37.00}_{\textcolor{deepgreen}{\text{+8.12}}}$}
+& 48.70 & 34.00 & \textbf{$\text{41.35}_{\textcolor{deepgreen}{\text{+3.16}}}$}
+& 83.33 & 60.00 & \textbf{$\text{71.67}_{\textcolor{deepgreen}{\text{+11.67}}}$}  \\
+\rowcolor{lightblue}\quad + EnvScaler (w/ SFT\&RL)
+& 55.50 & 36.00 & 35.00 & 41.00 & \textbf{$\text{41.88}_{\textcolor{deepgreen}{\text{+13.00}}}$}
+& 53.62 & 36.00 & \textbf{$\text{44.81}_{\textcolor{deepgreen}{\text{+6.62}}}$}
+& 85.00 & 60.00 & \textbf{$\text{72.50}_{\textcolor{deepgreen}{\text{+12.50}}}$}  \\
+\bottomrule
+\end{tabular}
+\caption{Performance comparison of models on three benchmarks. We bold the Overall results for each benchmark.}
+\label{tab:main_results}
+\end{table*}
+\end{document}

@@ -1,0 +1,45 @@
+{
+  "name": "figtx",
+  "productName": "FigTX",
+  "version": "0.1.0",
+  "private": true,
+  "description": "论文图表 LaTeX 样式库 —— 表格与图的样式可视化浏览、检索与复用",
+  "author": "ZhipingWoods",
+  "license": "MIT",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "homepage": "https://github.com/ZhipingWoods/FigTX",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZhipingWoods/FigTX.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "electron:dev": "vite build && electron .",
+    "electron:serve": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER=http://localhost:5173 electron .\"",
+    "dist:mac": "vite build && electron-builder --mac",
+    "dist:win": "vite build && electron-builder --win",
+    "dist:linux": "vite build && electron-builder --linux",
+    "dist:all": "vite build && electron-builder -mwl",
+    "data": "node tools/build-data.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.3.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "wait-on": "^8.0.1"
+  }
+}

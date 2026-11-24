@@ -1,0 +1,105 @@
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{color, colortbl}
+\definecolor{T2I}{HTML}{ffefe0}
+\definecolor{I2I}{HTML}{E6ECE3}
+\definecolor{trig}{HTML}{E9F9D1}
+\definecolor{darkgreen}{HTML}{04bf29}
+\definecolor{darkred}{HTML}{D1191F}
+\definecolor{darkgreen}{HTML}{04bf29}
+\definecolor{darkred}{HTML}{D1191F}
+\definecolor{grey}{HTML}{bfbfbf}
+\begin{document}
+\begin{table*}[htbp]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{3}{c}{Image Quality} &  \multicolumn{3}{c}{Task Alignment} & \multicolumn{2}{c}{Diversity} & \multicolumn{2}{c}{Robustness} \\
+\cmidrule(l){2-4} \cmidrule(l){5-7} \cmidrule(l){8-9} \cmidrule(l){10-11}
+% \multirow{-2}{*}{Model} & Realism & Originality & Aesthetics & Content & Relation & Style & Knowledge & Ambiguity & Toxicity & Bias  \\
+\multirow{-2}{*}{Model} & Realism & Originality & Aesthetics & Content & Relation & Style & Knowledge & Ambiguity & Toxicity & Bias  \\
+\toprule
+% \rowcolor{grey}
+% \multicolumn{11}{l}{\textbf{- Text-to-image}} \\
+\textbf{- Text-to-image} & \textcolor{cyan}{Realism} & \textcolor{darkgreen}{Originality} &  &  &  & \textcolor{darkred}{Style} &  & \textcolor{cyan}{Ambiguity} &  &   \\
+\toprule
+FLUX \cite{flux2024} & \textcolor{cyan}{0.66} & \textcolor{darkgreen}{0.66} & 0.72 & 0.68 & 0.69 & \textcolor{darkred}{0.57} & 0.49 & \textcolor{cyan}{0.50} & 0.46 & 0.54  \\
+DALL-E 3 \cite{shi2020improving} & \textcolor{cyan}{0.70} & \textcolor{darkgreen}{0.82} & 0.80 & 0.77 & 0.75 & \textcolor{darkred}{0.80} & 0.66 & \textcolor{cyan}{0.67} & 0.48 & 0.91  \\
+Janus-Pro \cite{chen2025janus} & \textcolor{cyan}{0.68} & \textcolor{darkgreen}{0.73} & 0.72 & 0.69 & 0.69 & \textcolor{darkred}{0.63} & 0.56 & \textcolor{cyan}{0.60} & 0.33 & 0.44  \\
+OmniGen \cite{xiao2024omnigen} & \textcolor{cyan}{0.64} & \textcolor{darkgreen}{0.67} & 0.70 & 0.64 & 0.63 & \textcolor{darkred}{0.60} & 0.46 & \textcolor{cyan}{0.53} & 0.37 & 0.60  \\
+% OneDiffusion \cite{le2024one} & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1  \\
+PixArt-$\Sigma$ \cite{chen2024pixart} & \textcolor{cyan}{0.66} & \textcolor{darkgreen}{0.73} & 0.75 & 0.68 & 0.66 & \textcolor{darkred}{0.72} & 0.55 & \textcolor{cyan}{0.62} & 0.38 & 0.48  \\
+SD3.5 \cite{sd3.5} & \textcolor{cyan}{0.67} & \textcolor{darkgreen}{0.71} & 0.73 & 0.70 & 0.68 & \textcolor{darkred}{0.69} & 0.57 & \textcolor{cyan}{0.60}   & 0.36 & 0.44  \\
+Sana \cite{xie2024sana} & \textcolor{cyan}{0.57} & \textcolor{darkgreen}{0.70} & 0.71 & 0.64 & 0.63 & \textcolor{darkred}{0.69} & 0.49 & \textcolor{cyan}{0.58} & 0.35 & 0.48  \\
+\rowcolor{trig}
+Sana (w/ \textbf{DTM}) & \textbf{0.60} & \textbf{0.72} & \textbf{0.72} & \textbf{0.65} & \textbf{0.67} & \textbf{0.70} & \textbf{0.50} & \textbf{0.62} & \textbf{0.37} & \textbf{0.66 }
+\\
+\toprule
+% \rowcolor{grey}
+% \multicolumn{11}{l}{\textbf{- Image-editing}} \\
+\textbf{- Image-editing} & \textcolor{violet}{Realism} & \textcolor{darkgreen}{Originality} &  &  &  & \textcolor{darkred}{Style} &  & & \textcolor{violet}{Toxicity} &    \\
+\toprule
+% FlowEdit \cite{kulikov2024flowedit} & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1  \\
+FreeDiff \cite{wu2024freediff} & \textcolor{violet}{0.59} & \textcolor{darkgreen}{0.58} & 0.63 & 0.50 & 0.51 & \textcolor{darkred}{0.58} & 0.46 & 0.54 & \textcolor{violet}{0.59} & 0.87  \\
+InstructP2P \cite{brooks2023instructpix2pix} & \textcolor{violet}{0.59} & \textcolor{darkgreen}{0.60} & 0.66 & 0.54 & 0.53 & \textcolor{darkred}{0.59} & 0.45 & 0.54 & \textcolor{violet}{0.55} & 0.81  \\
+OmniGen \cite{xiao2024omnigen} & \textcolor{violet}{0.69} & \textcolor{darkgreen}{0.74} & 0.75 & 0.66 & 0.65 & \textcolor{darkred}{0.72} & 0.57 & 0.65 & \textcolor{violet}{0.59} & 0.86  \\
+HQEdit \cite{hui2024hq} & \textcolor{violet}{0.70} & \textcolor{darkgreen}{0.73} & 0.74 & 0.64 & 0.63 & \textcolor{darkred}{0.72} & 0.59 & 0.66 & \textcolor{violet}{0.63} & 0.97  \\
+% OneDiffusion \cite{le2024one} & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1  \\
+\rowcolor{trig}
+HQEdit (w/ \textbf{DTM}) & \textbf{0.72} & \textbf{0.74} & \textbf{0.74} & \textbf{0.64} & \textbf{0.66} &\textbf{0.72} & \textbf{0.61} & \textbf{0.71} & \textbf{0.64} & \textbf{0.98}
+\\
+\toprule
+% \rowcolor{grey}
+% \multicolumn{11}{l}{\textbf{- Subject-driven Generation}} \\
+\textbf{- Subject-driven Generation} &  & \textcolor{darkgreen}{Originality} &  &  &  & \textcolor{darkred}{Style} & \textcolor{violet}{Knowledge} & \textcolor{violet}{Ambiguity} &  &    \\
+\toprule
+Blip-diffusion \cite{li2023blip} & 0.47 & \textcolor{darkgreen}{0.45} & 0.49 & 0.38 & 0.40 & \textcolor{darkred}{0.41} & \textcolor{violet}{0.38} & \textcolor{violet}{0.36} & 0.53 & 0.74  \\
+SSR-Encoder \cite{zhang2024ssr} & 0.52 & \textcolor{darkgreen}{0.50} & 0.56 & 0.43 & 0.44 & \textcolor{darkred}{0.45} & \textcolor{violet}{0.41} & \textcolor{violet}{0.40} & 0.58 & 0.82  \\
+% OneDiffusion \cite{le2024one} & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1  \\
+OmniGen \cite{xiao2024omnigen} & 0.68 & \textcolor{darkgreen}{0.71} & 0.74 & 0.66 & 0.63 & \textcolor{darkred}{0.63} & \textcolor{violet}{0.57} & \textcolor{violet}{0.52} & 0.62 & 0.96  \\
+OminiControl \cite{tan2024omini} & 0.65 & \textcolor{darkgreen}{0.67} & 0.70 & 0.64 & 0.60 & \textcolor{darkred}{0.58} & \textcolor{violet}{0.55} & \textcolor{violet}{0.50} & 0.52 & 0.91  \\
+FLUX-IP-Adapter \cite{flux_ip_adapter_v2} & 0.72 & \textcolor{darkgreen}{0.75} & 0.77 & 0.70 & 0.66 & \textcolor{darkred}{0.66} & \textcolor{violet}{0.61} & \textcolor{violet}{0.55} & 0.65 & 0.89 \\
+\rowcolor{trig}
+FLUX-IP-Adapter  (w/ \textbf{DTM}) & \textbf{0.72} & \textbf{0.78} & \textbf{0.79} & \textbf{0.71} & \textbf{0.67} & \textbf{0.66} & \textbf{0.62} & \textbf{0.66} & \textbf{0.67} & \textbf{0.93}  \\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{TRIG-Bench Results.} All calculated by TRIGScore. The highlighted colors represent trade-off relation: \textcolor{cyan}{blue} indicates dispersion; \textcolor{darkgreen}{green} and \textcolor{darkred}{red} signify a tilt (performance leaning toward \textcolor{darkgreen}{green}); and \textcolor{violet}{purple} indicates a bottleneck.}
+\label{tab:mog}
+% \vspace{-15pt}
+\end{table*}
+\begin{table*}[!t]
+\centering
+\setlength\tabcolsep{10pt}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{lcccccccc}
+\toprule
+Benchmark & Task & \# Pmts. / Edits & \# Dim. & IQ. & TA. & D. & R. & Trade-off Analysis \\
+\toprule
+% T2I benchmarks
+HEIM \cite{lee2023holistic} & T2I & 500k  & 12 & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} \\
+HRS-Bench \cite{bakr2023hrs} & T2I & 45k   & 5  & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} \\
+T2I-CompBench \cite{huang2023t2i} & T2I & 6k & 2  & \textcolor{darkred}{\ding{55}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+GenAI-bench \cite{li2024genai} & T2I & 1.5k & 2  & \textcolor{darkred}{\ding{55}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+\toprule
+% I2I benchmarks
+InstructPix2Pix \cite{brooks2023instructpix2pix} & I2I & 313k & 1  & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+TEdBench \cite{kawar2023imagic} & I2I & 0.1k & 2  & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+HQ-Edit \cite{hui2024hq} & I2I & 197k & 2  & \textcolor{darkred}{\ding{55}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+HumanEdit \cite{bai2024humanedit} & I2I & 5.9k & 2  & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} & \textcolor{darkred}{\ding{55}} \\
+\toprule
+% Our benchmark
+\rowcolor{trig}
+\textbf{TRIG (ours)} & \textbf{T2I \& I2I} & 40.2k  & 10  & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} & \textcolor{darkgreen}{\ding{51}} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5pt}
+\caption{\textbf{Comparison between TRIG and other existing benchmarks.}
+TRIG is the first benchmark to encompass both T2I and I2I tasks, specifically designed for trade-off analysis across evaluation dimensions. Here we clarify the abbreviation in the table. \textbf{\# Pmts. / Edits} means the number of prompts or (and) edits. (13.2k prompts for T2I and 27.0k prompts for I2I). Evaluation dimensions: \textbf{IQ.} for Image Quality; \textbf{TA.} for Task Alignment; \textbf{D.} for Diversity; and \textbf{R.} for Robustness.
+}
+\label{tab:pre_bench}
+\vspace{-0.5cm}
+\end{table*}
+\end{document}

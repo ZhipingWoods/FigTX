@@ -1,0 +1,79 @@
+\usepackage{colortbl}
+\usepackage{xcolor}         % colors
+\definecolor{ac_gray}{gray}{.2}
+\definecolor{forestgreen}{RGB}{47, 159, 87}%
+\definecolor{forestred}{RGB}{255,70,70}%
+\begin{document}
+\begin{table*}[ht]
+    % \vspace{-4pt}
+    \caption{The performance (\%) of the original ResNet-18 (gray background) and its variants. We report the mean and std of 5 runs with different task orders. Note that the `\#P' denotes the parameter counts of a single architecture here.}
+    % \vspace{-2pt}
+    \label{tab:evaluation_result}
+    \centering
+    \begin{tabular}{@{\hspace{2mm}}ccccccc@{\hspace{2mm}}}
+        \toprule
+        Depth &Width &Penultimate Layer &\#P (M) &AAN $\uparrow$ &FAF $\downarrow$ &FRF $\downarrow$\\
+        \midrule
+        \rowcolor{black!5}
+        18 &64 &GAP &11.23 &86.41$\pm$0.60 &35.76$\pm$1.62 &41.09$\pm$2.08\\
+        \cmidrule(lr){1-7}
+        10 &96 &GAP &11.10 &83.44$\pm$0.84 (-2.97) &33.16$\pm$1.28 (-2.60) &39.15$\pm$2.06 (-1.94)\\
+        18 &64 &$4\times4$ AvgPool &11.38 &84.64$\pm$0.43 (-1.77) &34.17$\pm$2.03 (-1.59) &39.97$\pm$2.71 (-1.12)\\
+        \cmidrule(lr){1-7}
+        26 &52 &GAP &11.56 &86.68$\pm$0.70 (+0.27) &36.02$\pm$1.79 (+0.26) &41.20$\pm$2.37 (+0.11)\\
+        \bottomrule
+    \end{tabular}
+    % \vspace{-4pt}
+\end{table*}
+\begin{table*}[t]
+    \caption{The LA, AIA and FAF (\%) using five state-of-the-art CL methods. `\#P' represents the parameter counts of all used models. `Improvement' represents the boost of Dual-Arch towards original methods. Note that the parameter counts of DER and MEMO vary from incremental settings, resulting in two values for `/20' and `/10'. \textbf{Bolded} indicates best.}
+    % \vspace{-2pt}
+    \label{tab:result_cil}
+    \centering
+    \resizebox{1\textwidth}{!}{
+    \begin{tabular}{@{\hspace{2mm}}lccccccccccccc@{\hspace{2mm}}}
+        \toprule
+        \multirow{2.4}*{Method} &\multirow{2.4}*{\#P (M)} &\multicolumn{3}{c}{CIFAR100/20} &\multicolumn{3}{c}{CIFAR100/10} &\multicolumn{3}{c}{ImageNet100/20} &\multicolumn{3}{c}{ImageNet100/10}\\
+        \cmidrule(lr){3-14}
+        &&LA$\uparrow$ &AIA$\uparrow$ &FAF$\downarrow$ &LA$\uparrow$ &AIA$\uparrow$ &FAF$\downarrow$ &LA$\uparrow$ &AIA$\uparrow$ &FAF$\downarrow$ &LA$\uparrow$ &AIA$\uparrow$ &FAF$\downarrow$\\
+        \midrule
+        iCaRL &22.4 &49.78 &65.63 &33.33 &54.87 &68.30 &27.76 &46.22 &63.89 &41.05 &51.74 &68.47 &35.91\\ %~\cite{rebuffi2017icarl}
+        \color{ac_gray}
+        w/ ArchCraft &17.4 &\textbf{52.60} &\textbf{68.71} &- &55.52 &69.62 &- &45.12 &63.98 &- &52.46 &68.42 &-\\
+        w/ Ours &15.1 &52.53 &67.80 &\textbf{29.49} &\textbf{57.69} &\textbf{70.40} &\textbf{23.63} &\textbf{47.22} &\textbf{65.06} &\textbf{35.66} &\textbf{54.84} &\textbf{69.37} &\textbf{28.22}\\
+        \cmidrule(lr){1-14}
+        Improvement &\textcolor{forestgreen}{$\downarrow$ 33\%} &\textcolor{forestred}{+2.75} &\textcolor{forestred}{+2.17} &\textcolor{forestgreen}{$\downarrow$3.84} &\textcolor{forestred}{+2.82} &\textcolor{forestred}{+2.10} &\textcolor{forestgreen}{$\downarrow$4.13} &\textcolor{forestred}{+1.00} &\textcolor{forestred}{+1.17} &\textcolor{forestgreen}{$\downarrow$5.39} &\textcolor{forestred}{+3.10} &\textcolor{forestred}{+0.90} &\textcolor{forestgreen}{$\downarrow$7.69}\\
+        \midrule
+        WA &22.4 &46.78 &62.75 &\textbf{19.05} &56.98 &69.16 &23.53 &46.98 &65.76 &39.05 &57.64 &71.20 &28.27\\ %~\cite{zhao2020maintaining}
+        \color{ac_gray}
+        w/ ArchCraft &17.4 &53.23 &\textbf{69.19} &- &\textbf{59.79} &71.40 &- &49.94 &67.20 &- &58.86 &71.56 &-\\
+        w/ Ours &15.1 &\textbf{55.02} &68.84 &24.91 &59.78 &\textbf{71.57} &\textbf{17.91} &\textbf{52.84} &\textbf{68.79} &\textbf{31.73} &\textbf{60.84} &\textbf{72.57} &\textbf{24.53}\\
+        \cmidrule(lr){1-14}
+        Improvement &\textcolor{forestgreen}{$\downarrow$ 33\%} &\textcolor{forestred}{+8.24} &\textcolor{forestred}{+6.09} &\textcolor{gray}{$\uparrow$5.86} &\textcolor{forestred}{+2.80} &\textcolor{forestred}{+2.41} &\textcolor{forestgreen}{$\downarrow$5.62} &\textcolor{forestred}{+5.86} &\textcolor{forestred}{+3.03} &\textcolor{forestgreen}{$\downarrow$7.32} &\textcolor{forestred}{+3.20} &\textcolor{forestred}{+1.37} &\textcolor{forestgreen}{$\downarrow$3.74}\\
+        \midrule
+        DER  &224.4/112.2 &58.39 &70.19 &25.63 &61.83 &72.48 &22.13 &64.32 &74.91 &20.51 &67.40 &75.93 &15.22\\ %~\cite{yan2021dynamically}
+        \color{ac_gray}
+        w/ ArchCraft &173.5/86.8 &61.65 &73.59 &- &63.94 &74.84 &- &63.98 &74.50 &- &68.34 &77.26 &-\\
+        w/ Ours &106.9/55.9 &\textbf{64.08} &\textbf{73.86} &\textbf{20.08} &\textbf{66.22} &\textbf{75.08} &\textbf{17.73} &\textbf{65.40} &\textbf{75.17} &\textbf{16.97} &\textbf{68.52} &\textbf{77.49} &\textbf{12.96}\\
+        \cmidrule(lr){1-14}
+        Improvement &\textcolor{forestgreen}{$\downarrow$ 52\%/50\%} &\textcolor{forestred}{+5.69} &\textcolor{forestred}{+3.67} &\textcolor{forestgreen}{$\downarrow$5.55} &\textcolor{forestred}{+4.39} &\textcolor{forestred}{+2.60} &\textcolor{forestgreen}{$\downarrow$4.40} &\textcolor{forestred}{+1.08} &\textcolor{forestred}{+0.26} &\textcolor{forestgreen}{$\downarrow$3.54} &\textcolor{forestred}{+1.12} &\textcolor{forestred}{+1.56} &\textcolor{forestgreen}{$\downarrow$2.26}\\
+        \midrule
+        Foster &22.5 &49.99 &63.39 &35.03 &58.67 &69.95 &27.39  &54.74  &66.77 &34.67  &62.88  &71.09 &25.18\\ %~\cite{wang2022foster}
+        \color{ac_gray}
+        w/ ArchCraft &17.5 &57.22 &69.99 &- &\textbf{61.44} &72.54 &- &54.32 &66.41 &- &61.94 &71.16 &-\\
+        w/ Ours &15.4 &\textbf{57.69} &\textbf{71.01} &\textbf{23.75} &61.23 &\textbf{73.22} &\textbf{18.23} &\textbf{55.20} &\textbf{67.63} &\textbf{32.42} &\textbf{63.24} &\textbf{72.42} &\textbf{25.04} \\
+        \cmidrule(lr){1-14}
+        Improvement &\textcolor{forestgreen}{$\downarrow$ 32\%} &\textcolor{forestred}{+7.70} &\textcolor{forestred}{+7.62} &\textcolor{forestgreen}{$\downarrow$11.28} &\textcolor{forestred}{+2.56} &\textcolor{forestred}{+3.27} &\textcolor{forestgreen}{$\downarrow$9.16} &\textcolor{forestred}{+0.46} &\textcolor{forestred}{+0.86} &\textcolor{forestgreen}{$\downarrow$2.25} &\textcolor{forestred}{+0.36} &\textcolor{forestred}{+1.33} &\textcolor{forestgreen}{$\downarrow$0.14}\\
+        \midrule
+        MEMO &171.7/87.2 &52.10 &67.60 &35.71 &58.46 &70.71 &27.99 &56.10  &69.13 &29.64  &61.64  &73.31 &21.87\\ %~\cite{zhou2023model}
+        \color{ac_gray}
+        w/ ArchCraft &126.6/64.6 &57.28 &72.07 &- &61.93 &73.30 &- &57.46 &70.54 &- &62.46 &74.01 &-\\
+        w/ Ours &101.1/53.1 &\textbf{62.39} &\textbf{72.69} &\textbf{24.09} &\textbf{65.35} &\textbf{74.34} &\textbf{20.82} &\textbf{60.26} &\textbf{72.53} &\textbf{24.59} &\textbf{65.40} &\textbf{75.54} &\textbf{16.53}\\
+        \cmidrule(lr){1-14}
+        Improvement &\textcolor{forestgreen}{$\downarrow$ 41\%/39\%} &\textcolor{forestred}{+10.29} &\textcolor{forestred}{+5.09} &\textcolor{forestgreen}{$\downarrow$11.62} &\textcolor{forestred}{+6.89} &\textcolor{forestred}{+3.63} &\textcolor{forestgreen}{$\downarrow$7.17} &\textcolor{forestred}{+4.16} &\textcolor{forestred}{+3.40} &\textcolor{forestgreen}{$\downarrow$5.05} &\textcolor{forestred}{+3.76} &\textcolor{forestred}{+2.23} &\textcolor{forestgreen}{$\downarrow$5.34}\\
+        \bottomrule
+    \end{tabular}
+    }
+    % \vspace{-4pt}
+\end{table*}
+\end{document}

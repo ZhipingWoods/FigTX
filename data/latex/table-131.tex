@@ -1,0 +1,85 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+\centering
+% \setlength{\tabcolsep}{1.0mm}{
+\small
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l|cccc|cccccccccc}
+\toprule
+\multirow{2}{*}{{Models}} &
+\multicolumn{3}{c}{{CharXiv}} &
+{ChartQA} &
+\multicolumn{3}{c}{{ReachQA}} &
+\multicolumn{3}{c}{{ChartBench}} &
+{ChartX} &
+\multicolumn{3}{c}{{ECDBench}}\\
+\cmidrule(lr){2-4} \cmidrule(lr){5-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-12} \cmidrule(lr){13-15}
+& {Rea.} & {Des.}  & {Avg.} & {QA} & {Rea.} & {Recog.} & {Avg.} & {Binary} & {NQA} & {Avg.} &{QA} & {Rea.} & {Des.} & {Avg.} \\
+\hline
+\multicolumn{15}{c}{\textbf{Baselines}} \\
+\hline
+Human                 & 80.50 & 92.10 & 89.78 & -      & 65.10 & 84.60 & 74.85 &  - &  -  & -    & -    & -  & -  & -  \\
+Random (GPT-4o) \cite{achiam2023gpt}        & 10.80 & 19.85 & 18.04 & 30.04  & 8.20  & 13.30 & 10.75 & -  & 22.73  & -  & 11.46 & 4.58 & 1.63 & 3.10 \\
+\hline
+\multicolumn{15}{c}{\textbf{Proprietary multimodal large language models}} \\
+\midrule
+GPT-4o mini \cite{achiam2023gpt}            & 34.10 & 74.92  & 66.76 & 77.52  & 27.20  & 53.50 & 40.35 & -  & 34.93  & - & 44.36 & 24.26 & 57.27 & 40.77 \\
+GPT-4o \cite{achiam2023gpt}                  & 47.10 & 84.45  & 76.98 &  85.70   & 39.70  & 66.80  & 53.25 & -  & 52.88  & - & 58.33 & 35.62 & 70.18 & 52.90 \\
+Claude 3.5 Sonnet \cite{anthropic2024claude3.5sonnet}       & 60.20  & 84.30  &  79.48  & 90.80   & 51.70  & 74.30  & 63.00  &  -  & 48.29 & - & 42.71 & 41.99 & 68.14 & 55.07 \\
+\midrule
+\multicolumn{15}{c}{\textbf{Open-source multimodal large language models}} \\
+\hline
+\rowcolor{gray!10}LLaVA-Next-Llama3-8B \cite{li2024llavanext}    & 19.70 & 38.90 & 35.06 & 64.56 & 8.00 & 23.30 & 15.65 & 61.18 & 38.29 & 58.64 & 27.69 & 4.74 & 17.16 & 10.95 \\
++ ECD   &  \cellcolor{green!8}{21.80} & \cellcolor{green!8}{59.05} & \cellcolor{green!8}{51.60} & \cellcolor{green!8}{68.64} & \cellcolor{green!8}{12.70} & \cellcolor{green!8}{37.50} & \cellcolor{green!8}{25.10} & \cellcolor{green!8}{64.21} & \cellcolor{green!8}{47.05} & \cellcolor{green!8}{62.30} & \cellcolor{green!8}{46.61} & \cellcolor{green!8}{16.50} & \cellcolor{green!8}{46.65} & \cellcolor{green!8}{31.58}  \\
+\rowcolor{gray!10}MiniCPM-V2.6 \cite{yao2024minicpm}  & 25.40 & 52.65 & 47.20 & 76.96 & 14.50 & 48.10 & 31.30 & 75.67 & 52.33 & 73.08 & 47.31 & 15.15 & 39.95 & 27.53\\
++ ECD  &  \cellcolor{green!8}{26.90} & \cellcolor{green!8}{61.90} & \cellcolor{green!8}{54.91} & \cellcolor{green!8}77.28 & \cellcolor{green!8}17.50 & \cellcolor{green!8}48.40 & \cellcolor{green!8}32.95 & \cellcolor{red!8}70.77 & \cellcolor{green!8}52.81 & \cellcolor{red!8}68.77 & \cellcolor{green!8}50.43 & \cellcolor{green!8}18.14 & \cellcolor{green!8}52.21 & \cellcolor{green!8}35.17 \\
+\rowcolor{gray!10}Phi-3-Vision \cite{abdin2024phi}   & 31.50  & 60.52 & 54.72 & 81.92 & 28.40 & 62.80 & 45.60 & 71.92 & 62.71 & 70.90 & 67.53 & 21.65 & 41.18 & 31.41   \\
++ ECD   & \cellcolor{green!8}{33.40} & \cellcolor{green!8}{68.00} & \cellcolor{green!8}{61.08} & \cellcolor{green!8}{84.88} & \cellcolor{green!8}{32.80} & \cellcolor{green!8}{64.50} & \cellcolor{green!8}{48.65} & \cellcolor{green!8}{73.49} &  \cellcolor{green!8}{63.76} & \cellcolor{green!8}{72.41} & \cellcolor{green!8}{71.44} & \cellcolor{green!8}{29.49} & \cellcolor{green!8}{59.31} & \cellcolor{green!8}{44.40} \\
+\rowcolor{gray!10}Qwen2.5-VL-7B \cite{bai2025qwen2}   & 41.20  & 66.40 & 61.36 & 83.04 & 29.70 & 71.90 & 50.80 & 80.99 & 67.81 & 79.53 & 67.80 & 19.04 & 57.35 & 38.19   \\
++ ECD   & \cellcolor{red!8}{40.20} & \cellcolor{green!8}{74.20} & \cellcolor{green!8}{67.40} & \cellcolor{green!8}{85.32} & \cellcolor{green!8}{36.20} & \cellcolor{red!8}{70.80} & \cellcolor{green!8}{53.50} & \cellcolor{red!8}{79.35} &  \cellcolor{green!8}{70.86} & \cellcolor{red!8}{78.41} & \cellcolor{green!8}{70.83} & \cellcolor{green!8}{35.38} & \cellcolor{green!8}{66.34} & \cellcolor{green!8}{50.86} \\
+\bottomrule
+\end{tabular}
+}
+% }
+\caption{
+Comparing MLLMs on six test sets.
+``Rea.'', ``Des.'',  and ``Recog.'' mean reasoning,  descriptive, and recognition questions, respectively.
+``Binary'' denotes ``yes/no'' answers, and NQA means numerical QAs.
+When fine-tuned on our effective chart dataset, except a few individual metrics (highlighted in
+\sethlcolor{red!8}
+\hl{{red}}), the four open-source MLLMs display overall improvements (highlighted in
+\sethlcolor{green!8}
+\hl{{green}}).
+}
+\label{tab:main}
+\end{table*}
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.0mm}
+{
+\begin{tabular}{l|cccccc}
+\toprule
+\multicolumn{1}{c|}{\multirow{2}{*}{Training set}} & \multicolumn{6}{c}{{Test set}}                                                                                 \\ \cline{2-7}
+\multicolumn{1}{l|}{}                       & {CharXiv}                 & {ChartQA}               & {ReachQA}               & {ChartBench}             & {ChartX}  & {ECDBench}  \\ \hline
+\rowcolor{gray!10}Baseline           & 35.06                   & 64.56                 & 15.65                & 58.64                  & 27.69  & 10.95             \\ \hline
+ChartQA                       & \cellcolor{green!8}{\ul 35.16}           & \cellcolor{green!8}\textbf{68.92} & \cellcolor{red!8}15.00          & \cellcolor{green!8}{61.41}           & \cellcolor{green!8}31.51  & \cellcolor{green!8}13.11        \\
+ChartBench                     & \cellcolor{red!8}32.86           & \cellcolor{red!8}61.56         & \cellcolor{green!8}18.35          & \cellcolor{green!8}\textbf{75.13} & \cellcolor{green!8}37.33  & \cellcolor{green!8}10.99         \\
+ReachQA                      & \cellcolor{red!8}30.68           & \cellcolor{red!8}64.50         & \cellcolor{green!8}{\ul 24.35}          & \cellcolor{red!8}57.59           & \cellcolor{green!8}{\ul 39.24} & \cellcolor{green!8}{\ul 13.48}          \\
+ECD                          & \cellcolor{green!8}\textbf{51.60} & \cellcolor{green!8}{\ul 68.64}   & \cellcolor{green!8}\textbf{25.10} & \cellcolor{green!8}{\ul 62.30}     & \cellcolor{green!8}\textbf{46.61} & \cellcolor{green!8}\textbf{31.58} \\ \bottomrule
+\end{tabular}
+}
+\vspace{-1mm}
+\caption{
+% Performance gains from different training sets.
+Comparing different chart training sets of their fine-tuning performance on 6 test sets.
+%Performance improvements from synthetic training datasets.
+\sethlcolor{green!8}
+\hl{{Green}} indicates performance growth and \sethlcolor{red!8}
+\hl{{red}} highlights decline. We use LLaVA-Next-Llama3-8B~\cite{li2024llavanext} as the baseline and fine-tune it on ChartQA~\cite{masry2022chartqa}, ChartBench~\cite{xu2023chartbench}, ReachQA~\cite{he2024distill}, and ECD. For each column, best number is in \textbf{bold}, and second best \underline{underlined}.
+}
+\label{tab:training comparison}
+\vspace{-5mm}
+\end{table}
+\end{document}

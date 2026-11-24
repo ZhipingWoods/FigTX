@@ -1,0 +1,98 @@
+\usepackage{xcolor}
+\newcommand{\omark}{\text{\ding{108}}}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{myyellow}{RGB}{181, 181, 27}
+\newcommand{\greencheck}{{\color{ForestGreen}\ding{52}}}
+\newcommand{\yellowcheck}{{\color{myyellow}\ding{52}}}
+\newcommand{\redcheck}{{\color{red}\ding{55}}}
+\usepackage[table,xcdraw,usenames,dvipsnames]{xcolor}
+\newcommand{\blue}[1]{$_{\color{BlueGreen}\downarrow #1}$}
+\newcommand{\red}[1]{$_{\color{RedOrange}\uparrow #1}$}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{pifont}
+\definecolor{mygrey}{gray}{0.4}
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\centering
+\caption{Performance comparison with single agent, hand-craft multi-agent systems, and automated agentic workflows. The base LLM is consistently set as gpt-4o-mini for all baselines. We \textbf{bold} the best results and \underline{underline} the runner-ups.}
+\label{tab:rq1_performance}
+\renewcommand\tabcolsep{8pt}
+\renewcommand\arraystretch{1.1}
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l|cccccc}
+\Xhline{1.2pt}
+\rowcolor{CadetBlue!20}
+{\textbf{Method}} & \textbf{GSM8K} & \textbf{MATH} & \textbf{MultiArith} & \textbf{HumanEval} & \textbf{MBPP}  & {\textbf{Avg.}} \\
+\Xhline{1.2pt}
+Vanilla  & $87.45$ & $46.29$ & $96.85$ & $87.08$ & $71.83$ & $77.50$ \\
+\hline
+\rowcolor{gray!10}CoT~\citep{cot} & $87.10$\blue{0.35} & $46.40$\red{0.11} & $96.31$\blue{0.54} & $88.13$\red{1.05} & $71.83$\blue{0.00} & $77.95$ \\
+ComplexCoT~\cite{fu2022complexity}  & $86.89$\blue{0.56} & $46.53$\red{0.24} & $96.70$\blue{0.15} & $87.49$\red{0.41} & $72.36$\red{0.53} & $78.00$ \\
+\rowcolor{gray!10}SC (CoT$\times 5$)~\citep{wang2023selfconsistency}  & $87.57$\red{0.12} & $47.91$\red{1.62} & $96.58$\blue{0.27} & $88.60$\red{1.52} & $73.60$\red{1.77} & $78.85$  \\
+\hline
+MultiPersona~\citep{multi-persona} & $87.50$\red{0.05} & $45.43$\blue{0.86} & $97.49$\red{0.64} & $88.32$\red{1.24} & $73.19$\red{1.36} & $78.39$ \\
+\rowcolor{gray!10}LLM-Debate~\citep{arXiv2023_MultiAgent-Debate} & $89.47$\red{2.02} & $48.54$\red{2.25} & $97.33$\red{0.48} & $88.68$\red{1.60} & $70.29$\blue{1.54} & $78.86$ \\
+LLM-Blender~\citep{blender} & $88.35$\red{0.90} & $46.92$\red{0.63} & $97.29$\red{0.44} & $88.80$\red{1.72} & $77.05$\red{5.22} & $79.68$ \\
+\rowcolor{gray!10}DyLAN~\citep{arXiv2023_Dynamic-LLM-Agent}  & $89.98$\red{2.53} & $48.63$\red{2.34} & $97.12$\red{0.27} & $90.42$\red{3.34} & $77.30$\red{5.47} & $80.69$ \\
+AgentVerse~\citep{chen2023agentverse}  & $89.91$\red{2.46} & $47.35$\red{1.06} & $97.50$\red{0.65} & $89.29$\red{2.21} & $74.28$\red{2.45} & $79.67$ \\
+\rowcolor{gray!10}MacNet~\citep{qian2024scaling}  & $87.95$\red{0.50} & $45.18$\blue{1.11} & $96.03$\blue{0.82} & $84.57$\blue{2.51} & $65.28$\blue{6.55} & $75.00$ \\
+\hline
+AutoAgents~\citep{chen2023autoagents}  & $87.69$\red{0.24} & $45.32$\blue{0.97} & $96.42$\blue{0.43} & $87.64$\red{0.56} & $71.95$\red{0.12} & $77.80$ \\
+\rowcolor{gray!10}GPTSwarm~\citep{zhuge2024gptswarm}  & $89.14$\red{1.69} & $47.88$\red{1.59} & $96.79$\blue{0.06} & $89.32$\red{2.24} & $77.43$\red{5.60} & $80.11$  \\
+ADAS~\cite{hu2024adas}  & $86.12$\blue{1.33} & $43.18$\blue{3.11} & $96.02$\blue{0.83} & $84.19$\blue{2.89} & $68.13$\blue{3.70} & $75.13$  \\
+\rowcolor{gray!10}AgentSquare~\cite{shang2024agentsquare} & $87.62$\red{0.17} & $48.51$\red{2.22} & \underline{$97.77$}\red{0.92} & {89.08}\red{2.00} & $78.46$\red{6.63} & {$80.29$} \\
+AFlow~\citep{zhang2024aflow}  & \underline{$91.16$}\red{3.71} & \underline{$51.28$}\red{4.91} & $96.22$\blue{0.63} & \underline{$90.93$}\red{3.85} & \underline{$81.67$}\red{9.84} & \underline{$82.25$}  \\
+\hline
+\rowcolor{gray!10}\textbf{ourmethod (Ours)}  & {$\mathbf{92.30}$}\red{4.85} & \textbf{$\mathbf{51.82}$}\red{5.53} & \textbf{$\mathbf{98.80}$}\red{1.95} & \textbf{$\mathbf{92.85}$}\red{5.77} & \textbf{$\mathbf{82.17}$}\red{10.34} & \textbf{$\mathbf{83.59}$} \\
+\Xhline{1.2pt}
+\end{tabular}
+}
+\vspace{-1.5em}
+\end{table*}
+\begin{table}[!t]
+% \centering
+% \label{tab:main_results}
+\caption{Performance on GAIA benchmark. {The best and runner-up results are \textbf{bolded} and \underline{underlined}, respectively.}}
+% 146 245 75 ｜ 466
+% \vspace{-0.5em}
+\label{tab:rq1_gaia}
+\renewcommand\tabcolsep{8pt}
+\renewcommand\arraystretch{1.1}
+\centering
+  %  \renewcommand\tabcolsep{6.5pt}
+  % \renewcommand\arraystretch{1.1}
+  \footnotesize
+\begin{tabular}{l|cccc}
+    \Xhline{1.2pt}
+    \rowcolor{CadetBlue!20}
+    \textbf{Method} & \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3}& \textbf{Avg.} \\
+    \Xhline{1pt}
+    % GPT-4 \\
+    GPT-4o-mini  & $7.53$ & $4.40$ & $0$ & $4.65$\\
+   \rowcolor{gray!10} GPT-4 & $9.68$ & $1.89$ & $2.08$ & $4.05$ \\
+    \hline
+    AutoGPT & $13.21$ & $0$ & $3.85$ & $4.85$\\
+    \rowcolor{gray!10}TapeAgent & \underline{$23.66$} & $14.47$ & $\mathbf{10.20}$ & $16.61$ \\
+   % \rowcolor{gray!10} DAS Agent\\
+   Sibyl & $21.51$ & $15.72$ & $4.08$  & $15.61$\\
+    \hline
+    \rowcolor{gray!10}AutoAgents & $16.13$ & $0$ & $0$ & $5.16$  \\
+    GPTSwarm & $23.66$ & $16.35$ & $2.04$ &  \underline{$16.33$}\\
+    \rowcolor{gray!10}ADAS & $13.98$ & $4.40$ & $0$ & $6.69$ \\
+    AgentSquare & $22.58$ & $15.72$ & $6.25$ & \underline{$16.34$} \\
+    \rowcolor{gray!10}AFlow & $10.75$ & $8.81$ & $4.08$ & $8.00$  \\
+
+    \hline
+    ourmethod  & \textbf{$\mathbf{25.91}$} & \textbf{$\mathbf{22.01}$} & \underline{$6.25$} &  $\mathbf{20.69}$ \\
+   % \rowcolor{gray!10}\ourmethod-R  & {\underline{90.30}} & {\color{RedOrange} $\uparrow$\underline{18.62}}\\
+    \Xhline{1.2pt}
+\end{tabular}
+  \vspace{-0.9em}
+\vspace{-1.em}
+\end{table}
+\end{document}

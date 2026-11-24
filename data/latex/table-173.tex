@@ -1,0 +1,201 @@
+\usepackage[table]{xcolor}
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{lightblue}{RGB}{242,249,255}
+\definecolor{lightpink}{RGB}{255,239,239}
+\definecolor{lightgray}{RGB}{243,243,243}
+%%%%%%%
+\begin{document}
+\begin{table*}[tb]
+    \belowrulesep=0pt
+    \aboverulesep=0pt
+    \centering
+    \caption{\footnotesize Comparison of lossless compression performance (bits/Byte) on five tactile datasets. The best results are highlighted in \textbf{\color{darkblue}bold blue}, second-best in \textbf{bold}, and third to fifth in \underline{underline}. For TaCo, 12M/48M/96M denotes the model parameter. To show the compression performance more clearly, we also list the compression ratios relative to the uncompressed data (8 bits/Byte) in parentheses only for the best and second best results.}
+    \tabsize
+    \renewcommand{\arraystretch}{1.1}
+    \setlength{\tabcolsep}{6.5pt}
+    \newcommand{\centerdash}[1]{\ifx#1-\multicolumn{1}{c}{-}\else#1\fi}
+    \vspace{-6pt}
+    \begin{tabular}{p{0.24cm}p{4cm}|lllll}
+    \toprule
+     & \multirow{2}{*}{\textbf{Compressor}}
+     % & \multirow{2}{*}{\textbf{\#Params}$\downarrow$}
+     % & \multirow{2}{*}{\textbf{MACs}$\downarrow$}
+     % & \multirow{2}{*}{\makecell{\textbf{Speed}$\uparrow$\\
+     & \multicolumn{5}{c}{\textbf{bits/Byte$\downarrow$}}\\[1pt]
+     \cmidrule{3-7}
+     &
+     & TouchandGo
+     & ObjectFolder
+     & SSVTP
+     & ObjTac
+     & YCB-Slide\\
+    \midrule
+    & \cellcolor{lightgray}{uncompressed}
+    & \cellcolor{lightgray}{8 ($1\times$)}
+    & \cellcolor{lightgray}{8 ($1\times$)}
+    & \cellcolor{lightgray}{8 ($1\times$)}
+    & \cellcolor{lightgray}{8 ($1\times$)}
+    & \cellcolor{lightgray}{8 ($1\times$)}\\
+    \cmidrule{1-7}
+    \multirow{9.3}{*}{\rotatebox{90}{\textbf{Off-the-Shelf}}}
+    & gzip \citep{gzip}   & 2.298 & 3.969 & 2.234 &  0.571 & 2.185\\
+    & zstd \citep{zstd}   & 2.263 & 3.966 & 2.233 &  0.568 & 2.184\\
+    & bzip2 \citep{bzip2} & 2.288 & 4.031 & 2.255 &  0.594 & 2.205\\
+    & FLIF \citep{flif}   & \underline{0.808} ($10\times$) & 3.765 & 1.567 &  \textbf{0.363} ($22\times$) & \underline{1.489} ($5\times$)\\
+    & BPG  \citep{bpg}    & 1.293 & 3.726 & 2.000 &  0.513 & 1.922\\
+    & WebP \citep{webp}   & 0.936 & 3.612 & 1.820 &  \underline{0.424} ($19\times$) & 1.767\\
+    & JPEG-XL \citep{jpegxl}    & \underline{0.739} ($11\times$) & 3.657 & \underline{1.478} ($5\times$) & \underline{0.382} ($21\times$) & \underline{1.431} ($6\times$)\\
+    & JPEG2000 \citep{jpeg2000} & 1.552 & 3.989 & 1.997 & 1.399 & 1.916\\
+    & PNG \citep{png}    & 2.500 & 3.964 & 2.233 & 0.579 & 2.183\\
+    \cmidrule{1-7}
+    \multirow{8.3}{*}{\rotatebox{90}{\textbf{Neural}}}
+    % & L3C \citep{l3c}   & 5M & 6.86M & 178 &  &  &  & & \\
+    % & IDF \citep{idf}   & - & - & - &  &  &  &  & & \\
+    & DLPR \citep{dlpr} & 1.082 & 3.774 & 1.539 & 0.522 & 1.503\\
+    & P2LLM \citep{p2llm}  & 1.212 & \underline{3.400} & 1.804 &  0.546 & 1.512\\
+    & Llama3* \citep{lmic} & 2.055 & 3.465 & 1.975 &  0.834 & 1.905\\
+    & RWKV* \citep{lmic}   & 2.223 & 3.718 & 2.010 &  0.540 & 1.880\\
+    & DualComp-I \citep{dualcomp} & 0.948 & \underline{3.126} ($3\times$) & \underline{1.442} ($6\times$) & 0.540 & \underline{1.388} ($6\times$)\\
+    % \cmidrule{1-7}
+    % \multirow{3.3}{*}{\rotatebox{90}{\textbf{Data-Driven}}}
+    & \cellcolor{lightpink}TaCo-LL-12M (ours)
+    % & \cellcolor{lightpink}12M
+    % & \cellcolor{lightpink}11.6M
+    % & \cellcolor{lightpink}614
+    & \cellcolor{lightpink}\underline{0.622} ($13\times$)
+    & \cellcolor{lightpink}\underline{3.098} ($3\times$)
+    & \cellcolor{lightpink}\underline{1.457} ($6\times$)
+    & \cellcolor{lightpink}0.569
+    & \cellcolor{lightpink}1.520\\
+
+    & \cellcolor{lightpink}TaCo-LL-48M (ours)
+    % & \cellcolor{lightpink}48M
+    % & \cellcolor{lightpink}33.3M
+    % & \cellcolor{lightpink}360
+    & \cellcolor{lightpink}\textbf{0.504 ($16\times$)}
+    & \cellcolor{lightpink}\textbf{2.923 ($3\times$)}
+    & \cellcolor{lightpink}\textbf{1.249 ($6\times$)}
+    & \cellcolor{lightpink}\underline{0.411} ($20\times$)
+    & \cellcolor{lightpink}\textbf{1.321 ($6\times$)}\\
+
+    & \cellcolor{lightpink}TaCo-LL-96M (ours)
+    % & \cellcolor{lightpink}96M
+    % & \cellcolor{lightpink}59.9M
+    % & \cellcolor{lightpink}317
+    & \cellcolor{lightpink}\textcolor{darkblue}{\textbf{0.447} ($18\times$)}
+    & \cellcolor{lightpink}\textcolor{darkblue}{\textbf{2.709} ($3\times$)}
+    & \cellcolor{lightpink}\textcolor{darkblue}{\textbf{1.066} ($8\times$)}
+    & \cellcolor{lightpink}\textcolor{darkblue}{\textbf{0.360} ($22\times$)}
+    & \cellcolor{lightpink}\textcolor{darkblue}{\textbf{1.073} ($8\times$)}\\
+    \bottomrule
+    \end{tabular}
+    \label{tab:compare-lossless-rd}
+\end{table*}
+\begin{table*}[tb]
+    \belowrulesep=0pt
+    \aboverulesep=0pt
+    \centering
+    \tabsize
+    \caption{\footnotesize The complexity of lossless compression algorithms on five tactile datasets. $\dag$ and $\ddag$ indicates speeds measured on MacBook Pro CPU and NVIDIA A100 GPU, respectively.}
+    \renewcommand{\arraystretch}{1.1}
+    \setlength{\tabcolsep}{2.5pt}
+    \newcommand{\centerdash}[1]{\ifx#1-\multicolumn{1}{c}{-}\else#1\fi}
+    \vspace{-6pt}
+    \begin{tabular}{p{0.22cm}p{3.5cm}|lll lllll}
+    \toprule
+     & \multirow{2}{*}{\textbf{Compressor}}
+     & \multirow{2}{*}{\textbf{\#Params}$\downarrow$}
+     & \multirow{2}{*}{\textbf{MACs}$\downarrow$}
+     % & \multirow{2}{*}{\makecell{\textbf{Speed}$\uparrow$\\
+     & \multirow{2}{*}{\textbf{\makecell{Speed\\(KB/s)}}$\uparrow$}
+     & \multicolumn{5}{c}{\textbf{Speed (FPS)$\uparrow$}}  \\ [1pt]
+     % & \multicolumn{5}{c}{\textbf{bits/Byte$\downarrow$}}\\ [1pt]
+     \cmidrule{6-10}
+
+     &
+     &
+     &
+     &
+     & TouchandGo
+     & ObjectFolder
+     & SSVTP
+     & ObjTac
+     & YCB-Slide\\
+
+    \midrule
+    % & \cellcolor{lightgray}{uncompressed}
+    % & \cellcolor{lightgray}{8 ($1\times$)}
+    % & \cellcolor{lightgray}{8 ($1\times$)}
+    % & \cellcolor{lightgray}{8 ($1\times$)}
+    % & \cellcolor{lightgray}{8 ($1\times$)}
+    % & \cellcolor{lightgray}{8 ($1\times$)}\\
+
+    \midrule
+    \multirow{9.3}{*}{\rotatebox{90}{\textbf{Off-the-Shelf}}}
+    & gzip \citep{gzip}   & - & - & 14500$^\dag$
+    & 15.7$^\dag$ & 252$^\dag$ & 62.9$^\dag$ & 190$^\dag$ & 63.9$^\dag$ \\
+    & zstd \citep{zstd}   & - & - & 11000$^\dag$
+    & 11.9$^\dag$ & 191$^\dag$ & 47.7$^\dag$ & 144$^\dag$ & 47.4$^\dag$ \\
+    & bzip2 \citep{bzip2} & - & - & 3300$^\dag$
+    & 3.58$^\dag$ & 57.3$^\dag$ & 14.3$^\dag$ & 43.3$^\dag$ & 14.3$^\dag$ \\
+    & FLIF \citep{flif}   & - & - & 652$^\dag$
+    & 0.71$^\dag$ & 11.3$^\dag$ & 2.84$^\dag$ & 8.56$^\dag$ & 2.84$^\dag$ \\
+    & BPG  \citep{bpg}    & - & - & 180$^\dag$
+    & 0.20$^\dag$ & 3.13$^\dag$ & 0.78$^\dag$ & 2.36$^\dag$ & 0.78$^\dag$ \\
+    & WebP \citep{webp}   & - & - & 330$^\dag$
+    & 0.36$^\dag$ & 5.73$^\dag$ & 1.43$^\dag$ & 4.33$^\dag$ & 1.43$^\dag$ \\
+    & JPEG-XL \citep{jpegxl}  & - & - & 970$^\dag$
+    & 1.05$^\dag$ & 16.8$^\dag$ & 4.21$^\dag$ & 12.7$^\dag$ & 4.21$^\dag$ \\
+    & JPEG2000 \citep{jpeg2000} & - & - & 5000$^\dag$
+    & 5.43$^\dag$ & 86.8$^\dag$ & 21.7$^\dag$ & 65.7$^\dag$ & 21.7$^\dag$ \\
+    & PNG \citep{png}   & - & - & 200$^\dag$
+    & 0.22$^\dag$ & 3.47$^\dag$ & 0.87$^\dag$ & 2.63$^\dag$ & 0.87$^\dag$ \\
+    \midrule
+    \multirow{8.3}{*}{\rotatebox{90}{\textbf{Neural}}}
+    % & L3C \citep{l3c}   & 5M & 6.86M & 178 &  &  &  & & \\
+    % & IDF \citep{idf}   & - & - & - &  &  &  &  & & \\
+    & DLPR \citep{dlpr} & 22.3M & - & 640$^\ddag$
+    & 0.69$^\ddag$ & 11.1$^\ddag$ & 2.78$^\ddag$ & 8.41$^\ddag$ & 2.78$^\ddag$ \\
+    & P2LLM \citep{p2llm}  & 8B & - & 20$^\ddag$
+    & 0.02$^\ddag$ & 0.35$^\ddag$ & 0.09$^\ddag$ & 0.26$^\ddag$ & 0.09$^\ddag$ \\
+    & Llama3* \citep{lmic} & 8B & 7.8G & 20$^\ddag$
+    & 0.02$^\ddag$ & 0.35$^\ddag$ & 0.09$^\ddag$ & 0.26$^\ddag$ & 0.09$^\ddag$ \\
+    & RWKV* \citep{lmic}   & 7B & 7.2G & 86$^\ddag$
+    & 0.09$^\ddag$ & 1.49$^\ddag$ & 0.37$^\ddag$ & 1.13$^\ddag$ & 0.37$^\ddag$ \\
+    & DualComp-I \citep{dualcomp} & 96M & 59.9M & 317$^\ddag$
+    & 0.34$^\ddag$ & 5.50$^\ddag$ & 1.38$^\ddag$ & 4.16$^\ddag$ & 1.38$^\ddag$ \\
+    & \cellcolor{lightpink}TaCo-LL-12M (ours)
+    & \cellcolor{lightpink}12M
+    & \cellcolor{lightpink}11.6M
+    & \cellcolor{lightpink}614$^\ddag$
+    & \cellcolor{lightpink}0.67$^\ddag$
+    & \cellcolor{lightpink}10.7$^\ddag$
+    & \cellcolor{lightpink}2.66$^\ddag$
+    & \cellcolor{lightpink}8.06$^\ddag$
+    & \cellcolor{lightpink}2.66$^\ddag$ \\
+
+    & \cellcolor{lightpink}TaCo-LL-48M (ours)
+    & \cellcolor{lightpink}48M
+    & \cellcolor{lightpink}33.3M
+    & \cellcolor{lightpink}360$^\ddag$
+    & \cellcolor{lightpink}0.39$^\ddag$
+    & \cellcolor{lightpink}6.25$^\ddag$
+    & \cellcolor{lightpink}1.56$^\ddag$
+    & \cellcolor{lightpink}4.73$^\ddag$
+    & \cellcolor{lightpink}1.56$^\ddag$ \\
+
+    & \cellcolor{lightpink}TaCo-LL-96M (ours)
+    & \cellcolor{lightpink}96M
+    & \cellcolor{lightpink}59.9M
+    & \cellcolor{lightpink}317$^\ddag$
+    & \cellcolor{lightpink}0.34$^\ddag$
+    & \cellcolor{lightpink}5.50$^\ddag$
+    & \cellcolor{lightpink}1.38$^\ddag$
+    & \cellcolor{lightpink}4.16$^\ddag$
+    & \cellcolor{lightpink}1.38$^\ddag$ \\
+    % & \cellcolor{lightpink}317
+    \bottomrule
+    \end{tabular}
+    \label{tab:compare-lossless}
+\end{table*}
+\end{document}

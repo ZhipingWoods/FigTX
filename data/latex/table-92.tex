@@ -1,0 +1,362 @@
+\newcommand{\Ours}{Corvid\xspace}
+\newcommand{\mmconnector}{GateMixer\xspace}
+\newcommand{\mmcot}{{MCoT-Instruct}\xspace}
+% *
+\definecolor{darkgreen}{rgb}{0.0, 0.8, 0.0}
+%%%%%%%
+\begin{document}
+\begin{table*}[!th]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{1.2mm}{
+\begin{tabular}{@{}c|>{\raggedleft\arraybackslash}m{3.4cm}|>{\centering\arraybackslash}p{11.8cm}}
+\toprule
+Name
+&\multicolumn{1}{c|}{Data Type (Proportion)}
+&\multicolumn{1}{c}{Source Datasets}
+\\
+\midrule
+\rowcolor{gray!20} \cellcolor{white!20}
+&Coarse-grained (32.1\%)
+&LLaVA-Pretrain~\cite{liu2024improvedllava} (321K)
+\\
+&\multirow{2}{*}{Fine-grained (32.1\%)}
+&ALLaVA-4V~\cite{chen2024allava} (195K), Docci~\cite{onoe2024docci} (15K), ShareGPT-4o~\cite{cui2024sharegpt4o} (49K), ShareGPT4V~\cite{chen2023sharegpt4v} (52K), VG~\cite{krishna2017visual}~(10K)
+\\
+\rowcolor{gray!20} \cellcolor{white!20}
+\multirow{-4}{*}{MGA-1M}
+&Chart, Math, OCR (35.8\%)
+&ChartCap~\cite{kantharaj2022chart} (30K), MAVIS-Cap~\cite{zhang2024mavis} (306K), TextCaps~\cite{sidorov2020textcaps} (22K)
+\\
+\midrule
+&CoT Reasoning (20.2\%)
+&\textbf{MCoT-Instruct} (124K), MAVIS-Instruct~\cite{zhang2024mavis} (81K)
+\\
+ \cellcolor{white!20}
+&\multirow{2}{*}{Direct Reasoning (31.3\%)}
+&AI2D~\cite{kembhavi2016diagram} (4K), CLEVR~\cite{johnson2017clevr} (70K), CLEVR-Math~\cite{lindstrom2022clevr} (85K), HatefulMemes~\cite{kiela2020hateful} (8K), VSR~\cite{liu2022visual} (2K), IconQA~\cite{lu2021iconqa} (27K), Inter-GPS~\cite{lu2021inter} (1K), RAVEN~\cite{zhang2019raven} (21K), TallyQA~\cite{acharya2019tallyqa} (99K), TQA~\cite{alawwad2024enhancing} (1K)
+\\
+&\multirow{2}{*}{Chart, Figure, Table (29.7\%)}
+&ChartQA~\cite{masry2022chartqa} (18K), DVQA~\cite{kafle2018dvqa} (49K), FigureQA~\cite{kahou2017figureqa} (49K), HiTab~\cite{cheng2021hitab} (2K), MapQA~\cite{chang2022mapqa} (37K), PlotQA~\cite{methani2020plotqa} (49K), SQA~\cite{iyyer2017search} (9K), TAT-QA~\cite{zhu2021tat} (2K), WikiSQL~\cite{zhong2017seq2sql} (49K), WTQ~\cite{pasupat2015compositional} (38K)
+\\
+ \cellcolor{white!20}
+&\multirow{2}{*}{OCR, Doc (13.8\%)}
+&IAM~\cite{marti2002iam} (6K), OCRVQA~\cite{mishra2019ocr} (80K), InfoGraphicVQA~\cite{mathew2022infographicvqa} (2K), TextVQA~\cite{singh2019towards} (22K), Visualmrc~\cite{tanaka2021visualmrc} (3K), DocVQA~\cite{mathew2021docvqa} (10K), ST-VQA~\cite{biten2019scene} (17K)
+\\
+\multirow{-8}{*}{\Ours-1M}
+&Language-only (5.0\%)
+&CamelMath~\cite{li2023camel} (12K), Dolly~\cite{mike2023free} (15K), Orca-Math~\cite{mitra2024orca} (13K), OpenHermes-2.5~\cite{openhermes} (12K)
+\\
+\midrule
+\rowcolor{teal!20} \cellcolor{white!20}
+o1-320K
+&CoT Reasoning (100\%)
+&\textbf{MCoT-Instruct} (163K), MAVIS-Instruct~\cite{zhang2024mavis} (137K), CamelMath~\cite{li2023camel} (20K)
+\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+\caption{\textbf{Summary of training data.}
+\textbf{MCoT-Instruct} is our high-quality multimodal CoT instruction-following dataset, refined and standardized from diverse publicly available reasoning datasets (see Supplementary Material for complete details).
+Numbers in parentheses indicate the number of conversation instances used for each dataset.
+}
+\label{tab:training_data}
+\vspace{-2mm}
+\end{table*}
+\begin{table}[!t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{.8mm}{
+\begin{tabular}{r|cccc}
+\toprule
+\multicolumn{1}{c|}{\multirow{1}{*}{{MLLMs}}}
+&SEED-IMG
+&MMT-Val
+&RWQA
+&BLINK
+\\
+\midrule
+Monkey-Chat-7B~\cite{li2024monkey}
+&68.9 &53.3 &52.4 &47.1
+\\
+DeepSeek-VL-7B~\cite{lu2024deepseek}
+&70.1 &53.5 &54.2 &40.9
+\\
+Molmo-7B-D~\cite{deitke2024molmo}
+&74.1 &56.8 &68.2 &46.1
+\\
+VITA-v1.5-7B~\cite{fu2025vita15}
+&74.1 &59.5 &66.9 &45.0
+\\
+POINTS1.5-7B~\cite{liu2024points1}
+&75.1 &61.8 &67.5 &44.0
+\\
+MiniCPM-V-2.6-7B~\cite{yao2024minicpm}
+&74.0 &60.8 &65.0 &55.2
+\\
+Qwen2.5-VL-7B~\cite{bai2025qwen2.5-vl}
+&76.9 &62.7 &68.8 &56.1
+\\
+InternVL2.5-8B-MPO~\cite{wang2024enhancing}
+&76.8 &62.5 &68.8 &\underline{56.6}
+\\
+Ovis2-8B~\cite{lu2024ovis}
+&\textbf{77.2} &\textbf{66.6} &72.5 &54.3
+\\
+\midrule
+\rowcolor{gray!20}
+\multicolumn{5}{c}{$\blacktriangledown$~\textit{base LLM: Llama3-8B-Instruct}}
+\\
+VILA1.5-8B~\cite{lin2024vila}
+&65.0 &48.7 &43.4 &39.5
+\\
+Slime-8B~\cite{zhang2024beyond}
+&69.8 &50.2 &58.0 &38.8
+\\
+Mantis-8B~\cite{jiang2024mantis}
+&71.2 &54.3 &59.5 &50.1
+\\
+LLaVA-NeXT-8B~\cite{liu2024llavanext}
+&72.5 &53.1 &58.4 &43.5
+\\
+Bunny-8B~\cite{he2024efficient}
+&73.5 &54.8 &60.4 &41.6
+\\
+Eagle-X5-7B~\cite{shi2024eagle}
+&73.6 &52.6 &63.8 &22.4
+\\
+Ovis1.5-8B~\cite{lu2024ovis}
+&75.4 &60.7 &64.2 &39.8
+\\
+Idefics3-8B~\cite{laurenccon2024building}
+&73.8 &58.4 &62.6 &50.3
+\\
+% \midrule
+\rowcolor{green!20}
+\textbf{\Ours-base-8B}
+&76.4 &62.5 &\textbf{77.0} &55.7
+\\
+\rowcolor{green!20}
+\textbf{\Ours-o1-8B}
+&\underline{77.0} &\underline{65.9} &\underline{76.4} &\textbf{57.9}
+\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+\caption{\textbf{Results on comprehensive multimodal benchmarks.}
+% All results are derived from VLMEvalKit.
+}
+\label{tab:comp_understand}
+\vspace{-2mm}
+\end{table}
+% *******************************************************************
+\begin{table*}[!th]
+\footnotesize
+\centering
+\setlength{\tabcolsep}{1.4mm}{
+\begin{tabular}{l|c|ccccccccc}
+\toprule
+\multicolumn{1}{c|}{SFT Data}
+&\textbf{Average}
+&MMStar
+&MMMU
+&SQA-IMG
+&AI2D
+&MathVista
+&MathVerse
+&WeMath
+&MathVision
+&DynaMath
+\\
+\midrule
+\rowcolor{gray!20}
+LLaVA-665K
+&44.1
+&51.0&49.5&89.6&66.7
+&43.8&26.7&35.7&16.7&16.8
+\\
+% Bunny-695K
+% \\
+\rowcolor{gray!20}
+Cambrian-1M$^\dagger$
+&51.9
+&57.7 &60.7&88.8 &77.0
+&57.0 &31.1&46.8 &25.0&22.7
+\\
+\rowcolor{gray!20}
+Ovis-1M$^\dagger$
+&53.8
+&61.3 &\textbf{57.7} &93.0 &81.6
+&61.3 &32.9 &49.9 &24.1 &21.9
+\\
+\midrule
+\Ours-1M
+&\textbf{55.6}
+&\textbf{62.4} &{57.4} &\textbf{93.2} &\textbf{82.8}
+&\textbf{64.8} &\textbf{34.8} &\textbf{54.0} &\textbf{26.8} &\textbf{24.5}
+\\
+$\mathcal{D}_\text{raw rationale}$-1M
+&51.2
+&55.0 &55.1 &90.7 &81.9
+&54.5 &28.8 &49.0 &23.9 &21.9
+\\
+$\mathcal{D}_\text{direct}$-1M
+&45.7
+&49.8 &44.6 &85.7 &79.1
+&50.9 &24.3 &44.4 &13.6 &18.5
+\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+\caption{\textbf{Effect of high-quality CoT data.}
+Cambrian-1M$^\dagger$ and Ovis-1M$^\dagger$ are sampled from Cambrian-10M~\cite{tong2024cambrian} and Ovis-dataset~\cite{lu2024ovis}.
+}
+\label{tab:abl_sft_data}
+% \vspace{-1mm}
+\end{table*}
+\begin{table*}[!t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{1.mm}{
+\begin{tabular}{r|cccc|ccccccc}
+\toprule
+&\multicolumn{4}{c|}{\multirow{1}{*}{\textit{Problem Solving}}}
+&\multicolumn{5}{c}{\multirow{1}{*}{\textit{Mathematical Reasoning}}}
+\\
+\multicolumn{1}{c|}{\multirow{-2}{*}{{MLLMs}}}
+&MMStar
+&MMMU
+&SQA-IMG%$^\text{I}$
+&AI2D
+&MathVista
+&MathVerse
+&WeMath
+&MathVision
+&DynaMath
+\\
+\midrule
+LLaVA-v1.5-7B~\cite{liu2024improvedllava}
+&33.1 &35.7 &69.2 &55.5
+&25.5 &4.3 &7.0 &11.4 &1.4
+\\
+Janus-Pro-7B~\cite{chen2025janus}
+&46.5 &41.6 &83.2 &68.1
+&42.5 &15.9 &9.7 &14.7 &4.0
+\\
+Molmo-7B-D~\cite{deitke2024molmo}
+&54.4 &48.7 &92.2 &79.6
+&48.7 &4.2 &- &16.2 &12.6
+\\
+GLM-4v-9B~\cite{glm2024chatglm}
+&54.8 &46.9 &\underline{96.7} &71.2
+&52.2 &15.9 &11.8 &15.0 &8.6
+\\
+MiniCPM-V-2.6-7B~\cite{yao2024minicpm}
+&57.5 &49.8 &\underline{96.7} &82.1
+&60.8 &17.6 &- &18.4 &9.8
+\\
+URSA-8B~\cite{luo2025ursa}
+&- &- &- &-
+&58.8 &31.0 &32.8 &28.7 &13.2
+\\
+InternVL2.5-4B-MPO~\cite{wang2024enhancing}
+&- &- &- &-
+&64.1 &26.0 &- &22.5 &10.0
+\\
+VITA-v1.5-7B~\cite{fu2025vita15}
+&60.2 &52.6 &95.8 &79.2
+&66.2 &23.4 &19.4 &19.5 &9.6
+\\
+POINTS1.5-7B~\cite{liu2024points1}
+&61.1 &53.8 &95.0 &81.4
+&66.4 &26.6 &24.6 &22.0 &14.2
+\\
+Ovis2-4B~\cite{lu2024ovis}
+&61.6 &49.0 &94.0 &85.7
+&69.6 &38.5 &16.9 &21.5 &18.0
+\\
+InternVL2.5-8B~\cite{chen2024expanding}
+&63.2 &56.2 &- &84.6
+&64.5 &22.8 &23.5 &17.0 &9.4
+\\
+MiniCPM-o-2.6-7B~\cite{yao2024minicpm}
+&63.3 &50.9 &\textbf{98.8} &\underline{86.1}
+&\textbf{73.3} &35.0 &25.2 &21.7 &10.4
+\\
+Qwen2.5-VL-7B~\cite{bai2025qwen2.5-vl}
+&64.1 &56.2 &88.3 &84.1
+&65.8 &31.5 &36.4 &25.8 &14.8
+\\
+Ovis2-8B~\cite{lu2024ovis}
+&\underline{64.6} &\underline{57.4} &95.1 &\textbf{86.6}
+&71.8 &\textbf{42.3} &27.2 &25.9 &20.4
+\\
+\midrule
+\rowcolor{gray!20}
+\multicolumn{10}{c}{$\blacktriangledown$~\textit{base LLM: Llama3-8B-Instruct}}
+\\
+VILA1.5-8B~\cite{lin2024vila}
+&39.7 &37.4 &73.2 &58.8
+&37.4 &- &- &- &-
+\\
+Mantis-8B~\cite{jiang2024mantis}
+&41.3 &41.1 &75.5 &60.4
+&32.7 &- &- &- &-
+\\
+Slime-8B~\cite{zhang2024beyond}
+&43.5 &38.8 &78.0 &68.5
+&41.8 &22.9 &- &- &-
+\\
+LLaVA-NeXT-8B~\cite{liu2024llavanext}
+&43.9 &43.1 &73.1 &72.8
+&37.7 &- &- &- &-
+\\
+Idefics3-8B~\cite{laurenccon2024building}
+&55.0 &46.6 &91.3 &76.5
+&58.7 &- &- &- &-
+\\
+MiniCPM-V-2.5-8B~\cite{yao2024minicpm}
+&51.8 &45.8 &89.2 &78.4
+&54.5 &- &- &- &-
+\\
+Bunny-8B~\cite{he2024efficient}
+&45.4 &43.4 &79.1 &69.4
+&35.2 &- &- &- &-
+\\
+Ovis1.5-8B~\cite{lu2024ovis}
+&57.3 &48.3 &88.8 &82.5
+&63.0 &- &- &- &-
+\\
+Cambrian-8B~\cite{tong2024cambrian}
+&- &42.7 &80.4 &73.0
+&49.0 &- &- &- &-
+\\
+Eagle-X5-8B~\cite{shi2024eagle}
+&- &43.8 &84.3 &76.1
+&52.7 &- &- &- &-
+\\
+% \midrule
+\rowcolor{green!20}\textbf{\Ours-base-8B}
+&62.4 &\underline{57.4} &93.2 &82.8
+&64.8 &34.8 &\underline{54.0} &\underline{26.8} &\underline{24.5}
+\\
+\rowcolor{green!20}\textbf{\Ours-o1-8B}
+&\textbf{65.2} &\textbf{59.7} &93.8 &85.0
+&\underline{72.0} &\underline{40.1} &\textbf{59.8} &\textbf{30.1} &\textbf{33.2}
+\\
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+\caption{\textbf{Comparison with state-of-the-art MLLMs on multimodal reasoning benchmarks.}
+The best and runner-up results in each section are highlighted in \textbf{bold} and \underline{underlined}, respectively.
+The performance of compared MLLMs is mainly derived from VLMEvalKit.
+}
+\label{tab:comp_reasoning}
+% \vspace{-2mm}
+\end{table*}
+\end{document}

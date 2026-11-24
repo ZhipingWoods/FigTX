@@ -1,0 +1,115 @@
+\definecolor{Lightgray}{gray}{0.92}
+\definecolor{blond}{rgb}{0.98, 0.94, 0.75}
+\definecolor{lightblue}{rgb}{0.1, 0.1, 0.75}
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{cornflowerblue}{rgb}{0.27, 0.51, 0.8}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+ \centering
+    \resizebox{0.97\textwidth}{!}{
+    \Large\addtolength{\tabcolsep}{-2pt}
+\begin{tabular}{lccccccccccccc}
+\toprule
+\rowcolor{Lightgray} \multicolumn{12}{c}{\textbf{UnAV100}} \\
+\hline
+\multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{Size}} & \multicolumn{4}{c}{Distribution Matching} & & \multicolumn{2}{c}{Audio Quality} & & MM Align. & Temporal Align. \\
+\cline{3-6} \cline{8-9} \cline{11-12}
+  &  & \textbf{FD$_\textrm{VGG}$ $\downarrow$} & \textbf{FD$_\textrm{PANNs}$ $\downarrow$} & \textbf{FD$_\textrm{PASST}$ $\downarrow$} & \textbf{KL$_\textrm{PASST}$ $\downarrow$} & &\textbf{ISC$_\textrm{PANNs}$ $\uparrow$} & \textbf{ISC$_\textrm{PASST}$ $\uparrow$} & & \textbf{IB-Score $\uparrow$} & \textbf{DeSync $\downarrow$} \\
+\toprule
+% Ground Truth & - & 0.0 & 0.0 & 0.0 & 0.0 & - & - & - & - \\
+MMAudio-S~\cite{cheng2025mmaudio} & 157M & 4.62 & 10.69 & 349.11 & 1.85 & & 5.92 & 6.02 &&  28.63 & 0.906\\
+MMAudio-L~\cite{cheng2025mmaudio} & 1.03B & 3.86 & 9.01 & 296.79 & 1.79 & &6.18 & 6.41 &&  30.71 & 0.593 \\
+MMAudio-L + NTK~\cite{cheng2025mmaudio} &1.03B  & 4.08 & 8.43 & 301.45 & 1.76 & &6.05 & 6.17 &&  30.24 & 0.599 \\
+LoVA~\cite{cheng2025lova} & 1.06B & 3.36 &7.50  & 223.29 & 1.56 & &6.17 & \textbf{8.46} &&  24.62 & 1.232 \\
+V-AURA~\cite{viertola2025vaura} & 695M & 4.57 & 6.16 & 321.64 & 1.69 & &7.35 & 5.22 &&  29.36 & 1.191 \\
+HunyuanVideo-Foley-XXL~\cite{shan2025hunyuanvideofoley} & 5.13B   & 4.89   &10.28     &284.36    &1.80 & &5.60  &6.01    &&  32.90   & 0.757\\
+% Mamba-Onescan & - & - & - & - & - & - & - & - & - \\
+% Mamba-non-causal SMALL & - & - & - & - & - & - & - & - & - \\
+ \rowcolor{aliceblue} MMHNet - S (ours) & 157M & {3.35} & {5.87} & 217.00 & \textbf{1.29} & & 7.62 & 8.21 &&  36.82 & 0.439 \\
+% MM-HNet - M & - & - & - & - & - & - & - & - & - \\
+ \rowcolor{aliceblue} MMHNet - L (ours) & 1.09B & \textbf{1.80} & \textbf{5.29} & \textbf{209.06} & 1.49 & &\textbf{8.10} & {7.35} &&  \textbf{36.27} & \textbf{0.410} \\
+% Reduced Params. MM-HNet & - & - & - & - & - & - & - & - & - \\
+\toprule
+\rowcolor{Lightgray} \multicolumn{12}{c}{\textbf{LongVale}} \\
+\hline
+\multirow{2}{*}{\textbf{Method}}& \multirow{2}{*}{\textbf{Size}} & \multicolumn{4}{c}{Distribution Matching} & & \multicolumn{2}{c}{Audio Quality} & & MM Align. & Temporal Align. \\
+\cline{3-6} \cline{8-9} \cline{11-12}
+  &  & \textbf{FD$_\textrm{VGG}$ $\downarrow$} & \textbf{FD$_\textrm{PANNs}$ $\downarrow$} & \textbf{FD$_\textrm{PASST}$ $\downarrow$} & \textbf{KL$_\textrm{PASST}$ $\downarrow$} & &\textbf{ISC$_\textrm{PANNs}$ $\uparrow$} & \textbf{ISC$_\textrm{PASST}$ $\uparrow$} & & \textbf{IB-Score $\uparrow$} & \textbf{DeSync $\downarrow$} \\
+\toprule
+% Ground Truth & - & 0.0 & 0.0 & 0.0 & 0.0 & - & - & - & - \\
+MMAudio-S~\cite{cheng2025mmaudio} & 157M & 8.86 & 22.23 & 550.57 & 2.34 && 3.27 & 3.42 && 21.52  & 0.972  \\
+MMAudio-L~\cite{cheng2025mmaudio} & 1.03B & 7.20 & 16.12 & 531.55 & 2.05 && 2.72 & 2.59 && 21.60  & 0.678  \\
+MMAudio-L + NTK~\cite{cheng2025mmaudio} &1.03B  & 6.41 &  13.76 & 481.45 & 2.05   && 2.84  & 2.76  && 23.43  & 0.666 \\
+LoVA~\cite{cheng2025lova} & 1.06B & 7.62  &21.81 & 527.58 & 2.36  && 2.46 & \textbf{3.57}  && 17.04 & 1.233   \\
+V-AURA~\cite{viertola2025vaura} & 695M &6.46  &14.87   &498.74   &1.87 &&3.22 & 2.67  && 19.67 &1.282 \\
+HunyuanVideo-Foley-XXL~\cite{shan2025hunyuanvideofoley} & 5.13B   &14.56   & 28.00     &750.96    & 2.58 &&2.28  &2.40&    &18.75    &1.082 \\
+% Mamba-Onescan & - & - & - & - & - & - & - & - & - \\
+% Mamba-non-causal SMALL & - & - & - & - & - & - & - & - & - \\
+ \rowcolor{aliceblue} MMHNet - S (ours) & 157M & 3.35 & 10.10 & \textbf{323.39}
+ & {1.75} & & 3.68 & {3.50} &&\textbf{30.62}  & \textbf{0.438}   \\
+% MM-HNet - Medium & - & - & - & - & - & - & - & - & - \\
+ \rowcolor{aliceblue} MMHNet - L (ours) & 1.09B & \textbf{3.23} & \textbf{10.03} & 331.75 & \textbf{1.64} && \textbf{4.25} & 3.20 && 30.00  & 0.465   \\
+\hline
+\end{tabular}
+}
+\vspace{-0.1cm}
+\caption{Comparison of methods across various evaluation metrics on UnAV100~\cite{geng2023unav100} and LongVale~\cite{geng2025longvale}. %Arrows indicate whether lower ($\downarrow$) or higher ($\uparrow$) values are better.
+}
+\vspace{-0.2cm}
+\label{tab:result_unav100_longvale}
+\end{table*}
+\begin{table}[t!]
+ \centering
+    \resizebox{0.497\textwidth}{!}{
+    \Large\addtolength{\tabcolsep}{-2pt}
+\begin{tabular}{lccccc}
+\toprule
+% \\textbf{UnAV100} \\
+\rowcolor{Lightgray} \multicolumn{6}{c}{\textbf{VGGSound}}\\
+\textbf{Method}  & \textbf{FD$_\textrm{VGG}$ $\downarrow$}    & \textbf{ISC$_\textrm{PANNs}$ $\uparrow$} & \textbf{ISC$_\textrm{PASST}$ $\uparrow$} & \textbf{IB-Score $\uparrow$} & \textbf{DeSync $\downarrow$} \\
+\hline
+% Ground Truth & - & 0.0 & 0.0 & 0.0 & 0.0 & - & - & - & - \\
+MMAudio-S~\cite{cheng2025mmaudio}  & 1.66      & 18.02  &  12.46 & 32.27 &0.444 \\
+MMAudio-L~\cite{cheng2025mmaudio}  & \textbf{0.97}     & 17.40  & 13.33 & \textbf{33.22} &\textbf{0.442} \\
+LoVA~\cite{cheng2025lova}  & 1.70     &9.73  &9.91 &- &- \\
+V-AURA~\cite{viertola2025vaura}  & 2.88       &10.08  &- &27.64 &0.654 \\
+ \rowcolor{aliceblue}MMHNet-S (ours)  & 1.54     & 16.73  & 12.52 & 32.11 &0.460 \\
+ \rowcolor{aliceblue}MMHNet-L (ours)  & 2.09 &\textbf{20.52}  &\textbf{15.34} &32.11 &0.460 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-0.25cm}
+\caption{Comparison of methods under a fixed audio length $\sim$10 seconds on VGGSound. Baseline results are based on the reports in~\cite{cheng2025mmaudio,cheng2025lova}.}
+\vspace{-0.4cm}
+\label{tab:vggsound}
+\end{table}
+\begin{table}[t!]
+ \centering
+    \resizebox{0.497\textwidth}{!}{
+    \Large\addtolength{\tabcolsep}{-2pt}
+\begin{tabular}{lcccccccc}
+\toprule
+% \\textbf{UnAV100} \\
+\rowcolor{Lightgray} \multicolumn{7}{c}{\textbf{UnAV100}}\\
+\textbf{Variant}  & \textbf{FD$_\textrm{PANNs}$ $\downarrow$} & \textbf{FD$_\textrm{PASST}$ $\downarrow$}  & \textbf{ISC$_\textrm{PANNs}$ $\uparrow$} & \textbf{ISC$_\textrm{PASST}$ $\uparrow$} & \textbf{IB-Score $\uparrow$} & \textbf{DeSync $\downarrow$} \\
+\hline
+% Ground Truth & - & 0.0 & 0.0 & 0.0 & 0.0 & - & - & - & - \\
+Non-Hierarchical   & 6.31   & 264.43  & 6.58  & 6.72 & 35.00 &0.621 \\
+ \rowcolor{aliceblue} Hierarchical   & \textbf{5.87}   &\textbf{217.00}   &\textbf{7.62}  &\textbf{8.21} &\textbf{36.82} &\textbf{0.439} \\
+% Non-Causal Mamba-2  &3.52   &323.39 &3.68 &3.50 &30.62 &0.438 \\
+\hline
+\rowcolor{Lightgray} \multicolumn{7}{c}{\textbf{LongVale}}\\
+\textbf{Variant}  & \textbf{FD$_\textrm{PANNs}$ $\downarrow$} & \textbf{FD$_\textrm{PASST}$ $\downarrow$}  & \textbf{ISC$_\textrm{PANNs}$ $\uparrow$} & \textbf{ISC$_\textrm{PASST}$ $\uparrow$} & \textbf{IB-Score $\uparrow$} & \textbf{DeSync $\downarrow$} \\
+\hline
+Non-Hierarchical  & 11.76   & 442.12  & 2.59  & 2.29 & 26.34 &0.669 \\
+ \rowcolor{aliceblue} Hierarchical  & \textbf{10.10}   &\textbf{323.39} &\textbf{3.68} &\textbf{3.50}  &\textbf{30.62} &\textbf{0.438} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-0.1cm}
+\caption{Hierarchical vs. non-hierarchical method comparison.}
+\vspace{-0.5cm}
+\label{tab:hierarchical_vs_non}
+\end{table}
+\end{document}

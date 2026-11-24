@@ -1,0 +1,43 @@
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\definecolor{lightgray}{gray}{0.96}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\definecolor{lightblue}{RGB}{200, 220, 255}
+\definecolor{midblue}{RGB}{140, 180, 250}
+\definecolor{darkblue}{RGB}{90, 130, 230}
+\definecolor{darkred}{RGB}{220,20,60}
+\begin{document}
+\renewcommand{\arraystretch}{1}
+\begin{table*}[t]
+\centering
+\caption{\textbf{Quantitative comparisons with SOTA methods.} Using the “noun-only'' prompts on the test subset. The best performance is marked in \textbf{bold}, and the second-best is \underline{underlined}.}
+\vspace{-0.3cm}
+\adjustbox{max width=\linewidth}{
+\begin{tabular}{lcccc}
+\hline
+\textbf{Method} & \textbf{CultureVQA $\uparrow$} & \textbf{CLIPScore $\uparrow$} & \textbf{ImageReward $\uparrow$} & \textbf{LPIPS $\downarrow$} \\
+\hline
+StableDiffusion XL~\cite{podell2023sdxl} & 9.36 & 0.211 & -1.82 & 0.756 \\
+FLUX.1-dev~\cite{labs2025flux1kontextflowmatching} & 14.83 & 0.224 & -0.88 & 0.692 \\
+Show-o2~\cite{xie2025show} & 16.43 & 0.234 & -0.91 & 0.691 \\
+PEA-Diffusion~\cite{ma2024pea} & 21.65 & 0.253 & -0.65 & 0.673 \\
+AltDiffusion~\cite{ye2024altdiffusion} & 23.05 & 0.282 & -0.11 & 0.688 \\
+StableDiffusion 3.5~\cite{esser2024scaling} & 25.13 & 0.242 & -1.01 & 0.715 \\
+\hline
+\rowcolor{lightgray} \textbf{Ours (Zero-Training)} & \underline{33.91} \color{darkred}{\scriptsize{(+12.32)}} & \textbf{0.291} \color{darkred}{\scriptsize{}(+0.038)} & \textbf{0.33} \color{darkred}{\scriptsize{}(+0.98)} & \textbf{0.654} \color{ForestGreen}{\scriptsize{}(-0.019)} \\
+\rowcolor{lightgray} \textbf{Ours (Fine-Tuned)} & \textbf{36.63} \color{darkred}{\scriptsize{}(+14.98)} & \underline{0.290} \color{darkred}{\scriptsize{}(+0.037)} & \underline{0.31} \color{darkred}{\scriptsize{}(+0.42)} & \underline{0.661} \color{ForestGreen}{\scriptsize{}(-0.012)} \\
+\hline
+\end{tabular}
+\label{tab:quantitative}
+}
+\end{table*}
+\end{document}

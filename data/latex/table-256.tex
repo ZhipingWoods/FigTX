@@ -1,0 +1,209 @@
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{pifont}
+\usepackage{caption}
+\usepackage{ragged2e}
+\usepackage{xspace}
+\usepackage[table, svgnames, dvipsnames]{xcolor}
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\usepackage{xspace}
+\usepackage{marginnote}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{xurl}
+\usepackage{tikz}
+\newcommand{\coloredcircle}[2]{%
+    \tikz[baseline=(char.base)]{
+        \node[shape=circle,draw=#1,fill=#1!20,inner sep=1pt] (char) {\textcolor{black}{#2}};}%
+}
+\usepackage{makecell}
+\usepackage{adjustbox}
+\usepackage{tcolorbox}
+\newcommand{\ours}{{THEMIS}\xspace}
+\definecolor{my_green}{RGB}{40,154,121}
+\definecolor{my_yellow}{RGB}{255,165,0}
+\definecolor{my_red}{RGB}{176,46,46}
+\newcommand{\correctmark}{\textcolor{my_green}{\ding{52}}}
+\newcommand{\errormark}{\textcolor{my_red}{\ding{56}}}
+\definecolor{wkgreen}{RGB}{198,222,173}
+\definecolor{wkyellow}{RGB}{250,228,159}
+\definecolor{markblue}{RGB}{74, 98,132}
+\definecolor{markyellow}{RGB}{208,139, 54}
+\definecolor{boxred}{rgb}{1, 0, 0}
+\definecolor{boxblue}{rgb}{0, 0, 1}
+\definecolor{boxgreen}{rgb}{0, 1, 0}
+\definecolor{boxyellow}{rgb}{0.98, 0.85, 0.05}
+\definecolor{circlepurple}{RGB}{146,125,241}
+\definecolor{circlered}{RGB}{239,146,118}
+\definecolor{circleblue}{RGB}{121,179,229}
+\definecolor{circleyellow}{RGB}{244,219, 91}
+\definecolor{circlegreen}{RGB}{181,213,151}
+\definecolor{purple}{RGB}{124,84,227}
+\newcommand{\houseemoji}{%
+  \raisebox{-0.15\height}{%
+    \includegraphics[height=1.2em]{figures/Themis.png}%
+  }\xspace
+}
+\newcommand{\githubemoji}{%
+  \raisebox{-0.15\height}{%
+    \includegraphics[height=1.2em]{figures/github-logo.pdf}%
+  }\xspace
+}
+\newcommand{\hfemoji}{%
+  \raisebox{-0.15\height}{%
+    \includegraphics[height=1.2em]{figures/hf-logo.pdf}%
+  }\xspace
+}
+\newcommand{\best}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{3pt}% 控制上下左右的空白
+  \colorbox{wkyellow}{\textbf{#1}}%
+  \endgroup
+}
+\newcommand{\second}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{3pt}%
+  \colorbox{wkgreen}{\underline{#1}}%
+  \endgroup
+}
+%%%%%%%
+\begin{document}
+\setlength{\tabcolsep}{3pt}
+\begin{table*}[htbp]
+    \centering
+    \caption{
+        \textbf{Comparison of \ours and other related benchmarks.}
+        \textbf{Mod.}: Modality; \textbf{Manip.}: Manipulation Operations; \textbf{Real}: Contains real fraud cases; \textbf{I}: Image; \textbf{T-I}: Cross Text--Image; \textbf{Task}: \textbf{BC}: Binary Classification; \textbf{IP-L}: Image Partial Localization. \textbf{SMF}, \textbf{CMO}, and \textbf{CMI} denote Single-Mode Forgery, Composite Manipulation Operations, and Cross-Modal Inconsistency, respectively, with suffixes \textbf{-I} and \textbf{-L} indicating Identification and Localization (\textbf{-IL} for both). \textbf{Fraud Type}: \protect\coloredcircle{circlepurple}{1} Splicing, \protect\coloredcircle{circleblue}{2} Copy-Move, \protect\coloredcircle{circlered}{3} AI-Generated, \protect\coloredcircle{circleyellow}{4} Duplication, and \protect\coloredcircle{circlegreen}{5} Text--Image Inconsistency.}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{ l | c | c | c | c | c | c}
+        \toprule
+        \textbf{Benchmark} &
+        \textbf{Mod.} &
+        \textbf{Fraud Type} &
+        \textbf{\# Manip.} &
+        \textbf{Real}&
+        \textbf{\# QA Pairs} &
+        \textbf{Task} \\
+
+        \midrule
+        FakeBench  &
+        I &
+        \coloredcircle{circlered}{3} &
+        1 &
+        \errormark &
+        54K &
+        BC\\
+
+        DiffuSyn Bench &
+        I &
+        \coloredcircle{circlered}{3} &
+        7 &
+        \errormark &
+        848 &
+        BC\\
+        SHIELD &
+        I &
+        \coloredcircle{circlepurple}{1}\coloredcircle{circlered}{3} &
+        12 &
+        \correctmark &
+        1.5K &
+        BC/CMO-I\\
+        MFC-Bench  &
+        T-I &
+        \coloredcircle{circlepurple}{1}\coloredcircle{circlered}{3}\coloredcircle{circlegreen}{5} &
+        7 &
+        \correctmark &
+        35K &
+        BC/CMI-I\\
+        MMFakeBench  &
+        T-I &
+        \coloredcircle{circlepurple}{1}\coloredcircle{circlered}{3}\coloredcircle{circlegreen}{5} &
+        12 &
+        \correctmark &
+        11K &
+        BC/CMI-I\\
+
+        Forensics-Bench  &
+        I/T-I &
+        \coloredcircle{circlepurple}{1}\coloredcircle{circleblue}{2}\coloredcircle{circlered}{3}\coloredcircle{circleyellow}{4}\coloredcircle{circlegreen}{5} &
+        15 &
+        \errormark &
+        63K &
+        BC/IP-L/CMI-IL \\
+
+    \midrule
+
+        \textbf{THEMIS (ours)}  &
+        \textbf{I/T-I} &
+        \textbf{\coloredcircle{circlepurple}{1}\coloredcircle{circleblue}{2}\coloredcircle{circlered}{3}\coloredcircle{circleyellow}{4}\coloredcircle{circlegreen}{5}} &
+        \textbf{16} &
+        \correctmark &
+        \textbf{4K} &
+        \textbf{SMF-IL/CMO-I/CMI-IL}\\
+
+        \bottomrule
+      \end{tabular}
+      }
+  \label{tab:contrast}
+\end{table*}
+\begin{table*}[!htbp]
+\centering
+\footnotesize
+\caption{\textbf{Model performance across tasks on \ours synthetic data.} We report the \textbf{Id Score} (Identification Score) and \textbf{Loc Score} (Localization Score) for 5 fraud methods: \textbf{SPL} (Splicing), \textbf{CM} (Copy-Move), \textbf{AIG} (AI-Generated), \textbf{DUP} (Duplication), and \textbf{TII} (Text--Image Inconsistency), with \textbf{BRI} (Balanced Robustness Index). The \best{best} and \second{second-best} scores are highlighted.}
+\renewcommand\tabcolsep{2.5pt}
+\renewcommand\arraystretch{1.00}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{l | cccc| cccc | c | cc | c}
+\toprule
+\multirow{3}{*}{\textbf{Model}}  &
+\multicolumn{4}{c}{\textbf{\makecell{Single-Mode Forgery\\Identification\\(Id Score)}}} \vline &
+\multicolumn{4}{c}{\textbf{\makecell{Single-Mode Forgery\\Localization\\(Loc Score)}}} \vline &
+\textbf{\makecell{Composite \\Manipulation \\ Operations \\Identification\\(Id Score)}}  &
+\multicolumn{2}{c}{\textbf{\makecell{Cross-Modal\\ Inconsistency\\ Identification \&\\ Localization}}} \vline &
+\multirow{3}{*}{\textbf{BRI}} \\
+\cmidrule(lr){2-5} \cmidrule(lr){6-9} \cmidrule(lr){10-10} \cmidrule(lr){11-12}
+ & \textbf{SPL} & \textbf{CM} & \textbf{AIG} &  \multirow {2}{*}{\textbf{Avg.}} &
+\textbf{SPL} & \textbf{CM} & \textbf{AIG} & \multirow {2}{*}{\textbf{Avg.}} &
+\textbf{DUP}  &
+\multicolumn{2}{c}{\textbf{TII} (300)} \vline\\
+ &(807)& (242) & (897)&&(807)&(242)&(897)&&(2,079)& \textbf{Id Score} & \textbf{Loc Score}\\
+\midrule
+\rowcolor{gray!10}
+\multicolumn{13}{c}{\textbf{\emph{Proprietary MLLMs}}} \\
+\midrule
+GPT-5                   & \second{43.51} & 72.73 & 44.26 & 53.50 & 16.67 & 36.41 & 19.33 & 24.14 & \second{33.32} & 60.67 & 27.44 & \best{56.15} \\
+OpenAI o4-mini-high      & 41.49 & 77.89 & 35.67 & 51.68 & 10.44 & 29.78 & 19.79 & 20.00 & 30.34 & \best{66.33} & \second{32.22} & \second{52.34} \\
+Qwen-VL-Max              & 30.37 & \best{87.40} & 35.43 & 51.07 & 40.07 & \second{48.34} & 35.85 & 41.42 & 23.33 & 56.00 & 15.36 & 49.83 \\
+Gemini 2.5 Flash         & \best{63.39} & 67.56 & 35.45 & \best{55.47} & \best{56.72} & 46.98   & \second{38.87} & \best{47.52} & 24.96 & 36.33 & 28.24 & 44.70 \\
+Doubao-Seed-1.6-thinking & 35.67 & 74.17 & 36.57 & 48.80 & 12.09 & 13.58 & 15.19 & 13.62 & 20.22 & 60.00 & 31.71 & 37.14 \\
+Doubao-Seed-1.6-vision   & 20.84 & 61.78 & 27.54 & 36.72 & 31.42 & 26.97 & 29.90 & 29.43 & \best{45.13} & 37.00 & 30.43 & 33.47 \\
+Gemini 2.5 Pro           & 30.60 & 47.46 & 14.90 & 30.99 & 46.65 & 46.61 & \best{47.20} & 46.82 & 21.49 & 44.67 & \best{37.31} & 31.97 \\
+GLM-4.5V                 & 29.23 & 58.43 & 54.51 & 47.39 & 8.54  & 22.23 & 10.63 & 13.80 & 21.84 & 53.67 & 22.69 & 31.57 \\
+Claude Sonnet 4.5        & 29.71 & 75.66 & 30.43 & 45.27 & 14.95 & 44.12 & 20.98 & 26.68 & 21.86 & 35.67 & 27.42 & 29.96 \\
+\midrule
+\rowcolor{gray!10}
+\multicolumn{13}{c}{\textbf{\emph{Open-Source MLLMs}}} \\
+\midrule
+Qwen2.5-VL-72B          & 36.40 & 77.27 & 51.06 & \second{54.91} & \second{51.66} & \best{55.16} & 35.57 & \second{47.46} & 16.75 & \second{61.33} & 12.32 & 47.16 \\
+InternVL3.5-8B         & 30.97 & 58.42 & \best{67.00} & 52.13 & 43.38 & 40.24 & 33.19 & 38.94 & 33.28 & 55.00 & 4.78  & 38.73 \\
+Llama 4 Maverick        & 23.37 & 51.24 & \second{58.19} & 44.27 & 17.97 & 28.50 & 19.71 & 22.06 & 19.01 & 54.00 & 16.08 & 34.78 \\
+LLaVA-Interleave-7B     & 41.80 & 47.55 & 46.93 & 45.43 & 35.97 & 25.22 & 32.06 & 31.08 & 8.01  & 50.00 & 12.57 & 23.59 \\
+LLaVA-NeXT-34B          & 32.00 & \second{84.00} & 34.00 & 50.00 & 50.70 & 45.25 & 34.01 & 43.32 & 10.73 & 41.33 & 4.28  & 18.40 \\
+Qwen2.5-VL-32B          & 30.31 & 57.48 & 39.24 & 42.34 & 5.91 & 18.93 & 7.45 & 10.76 & 15.26 & 58.33 & 17.94 & 18.22 \\
+Gemma 3 27B              & 25.39 & 28.87 & 34.23 & 29.50 & 27.78 & 32.80 & 26.44 & 29.01 & 12.20 & 31.67 & 21.41 & 9.59 \\
+\bottomrule
+\end{tabular}
+\label{tab:main_result}
+}
+\end{table*}
+\end{document}

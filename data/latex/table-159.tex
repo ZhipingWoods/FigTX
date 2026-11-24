@@ -1,0 +1,162 @@
+begin{document}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table*}[]
+\centering
+\caption{Quantitative comparisons of VarAD with alternative methods on public datasets. Results are presented as image-level AUROC\%/max-F1\%/AP\%. Best scores are highlighted in \textbf{bold}, while the second-best scores are also \underline{underlined}.}
+\label{tab:main_image}
+\resizebox{1.\linewidth}{!}{
+% \setlength\tabcolsep{10.0pt}
+{
+\begin{tabular}{ccccccccc>{\columncolor{blue!8}}c}
+\toprule[1.2pt]
+Dataset &
+\begin{tabular}[c]{@{}c@{}}PFM~\cite{PFM}\\      TII'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}RD4AD~\cite{RD4AD}\\      CVPR'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PatchCore~\cite{Patchcore}\\      CVPR'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}CDO~\cite{CDO}\\      TII'2023\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PyramidFlow~\cite{PyramidFlow}\\      CVPR'2023\end{tabular} &
+\begin{tabular}[c]
+{@{}c@{}}MSFlow~\cite{MSFlow}\\      TNNLS'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}AMI-Net~\cite{AMI-Net}\\      TASE'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PNPT~\cite{PNPT}\\      TII'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}\textbf{VarAD}\\      \textbf{Proposed}\end{tabular} \\ \midrule
+MVTec AD~\cite{MVTec-AD} &
+  53.8/84.2/75.9 &
+  68.3/87.7/81.4 &
+  93.1/92.7/96.6 &
+  \underline{96.2}/\underline{95.5}/\underline{98.4} &
+  80.2/89.0/90.6 &
+  \textbf{97.2}/\textbf{95.8}/\textbf{98.6} &
+  91.0/92.5/96.0 &
+  85.7/90.7/93.1 &
+  91.3/92.6/95.8 \\
+VisA~\cite{VisA} &
+  50.8/72.7/60.5 &
+  70.8/83.0/66.8 &
+  \underline{96.9}/\underline{93.4}/\underline{97.4} &
+  \textbf{97.4}/\textbf{94.2}/\textbf{97.7} &
+  82.1/82.2/82.8 &
+  93.2/89.1/94.4 &
+  88.2/86.9/88.4 &
+  92.7/89.2/93.6 &
+  90.3/86.1/91.0 \\
+BTAD~\cite{BTAD} &
+  87.2/88.4/92.6 &
+  91.7/90.6/91.1 &
+  94.3/91.7/94.8 &
+  \underline{94.9}/91.7/\underline{95.1} &
+  86.3/81.0/83.2 &
+  91.4/\underline{91.8}/94.8 &
+  93.8/91.7/94.8 &
+  94.7/91.6/94.3 &
+  \textbf{95.1}/\textbf{92.0}/\textbf{95.7} \\
+DTD-Synthetic~\cite{DTD} &
+  59.8/85.5/81.4 &
+  66.4/88.7/83.2 &
+  92.4/93.0/97.0 &
+  \underline{95.9}/95.7/\underline{98.1} &
+  94.3/95.4/97.5 &
+  95.7/\underline{95.9}/\underline{98.1} &
+  90.5/91.4/94.8 &
+  82.8/88.7/92.3 &
+  \textbf{96.3}/\textbf{96.3}/\textbf{98.5} \\ \bottomrule[1.2pt]
+\end{tabular}
+}
+}
+\end{table*}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage[table,xcdraw]{xcolor}
+% Beamer presentation requires \usepackage{colortbl} instead of \usepackage[table,xcdraw]{xcolor}
+\begin{table*}[t]
+\centering
+\caption{Quantitative comparisons of VarAD with alternative methods on public datasets. Results are presented as (AUROC\%, max-F1\%, AP\%). Best scores are highlighted in \textbf{bold}, while the second-best scores are also \underline{underlined}.}
+\label{tab:main_performance}
+\resizebox{1.\linewidth}{!}{
+\setlength\tabcolsep{10.0pt}
+\begin{tabular}{@{}ccccccccc @{}}
+\toprule[1.5pt]
+Dataset &
+  \begin{tabular}[c]{@{}c@{}}PFM~\cite{PFM}\\      TII'2022\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}RD4AD~\cite{RD4AD}\\      CVPR'2022\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}PatchCore~\cite{Patchcore}\\      CVPR'2022\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}CDO~\cite{CDO}\\      TII'2023\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}PyramidFlow~\cite{PyramidFlow}\\      CVPR'2023\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}AMI-Net~\cite{AMI-Net}\\      TASE'2024\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}PNPT~\cite{PNPT}\\      TII'2024\end{tabular} &
+  \begin{tabular}[c]{@{}c@{}}VarAD\\      Proposed\end{tabular} \\ \midrule
+MVTec AD~\cite{MVTec-AD} & (91.3, 36.6,   27.9) & (93.4, 49.6, 42.5) & (95.8, 60.1, 60.5) & (\underline{96.4}, \underline{62.8}, \underline{62.9}) & (94.2, 48.9, 43.4) &(94.9, 53.2, 49.9)& (94.8, 52.3, 50.8)& (\textbf{97.7}, \textbf{63.8}, \textbf{63.0})   \\
+VisA~\cite{VisA}  & (94.6, 14.2, 06.7)   & (92.9, 39.0, 26.8) & (95.1, \underline{46.6}, {38.9}) & (\underline{97.6}, {46.5}, {37.7}) & (90.8, 32.4, 24.2) &(96.9, 38.6, 34.0)& (96.7, 45.0, \underline{40.3}) & (\textbf{98.5}, \textbf{47.5},   \textbf{40.7}) \\
+BTAD~\cite{BTAD}  & (97.5, 54.7, 50.6)   & (97.6, 51.1, 50.0) & (97.0, 50.1, 47.5) & (\underline{97.7}, \underline{57.1}, \underline{56.5}) & (88.7, 37.8, 32.2) &(96.0, 50.2, 39.4) & (97.5, 54.4, 51.5) &  (\textbf{97.8}, \textbf{63.6}, \textbf{64.5})   \\
+DTD-Synthetic~\cite{DTD}   & (91.8, 37.6, 29.2)   & (95.3, 45.1, 33.1) & (96.0, 70.6, 70.8) & (\underline{97.4}, \underline{72.3}, \underline{75.5}) & (96.6, 52.1, 43.3) & (94.4, 61.1, 60.9) & (93.7, 61.1, 59.3) & (\textbf{98.8}, \textbf{77.3}, \textbf{80.9})   \\ \bottomrule[1.5pt]
+\end{tabular}
+}
+\end{table*}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table*}[t]
+\centering
+\caption{Quantitative comparisons of VarAD with alternative methods on public datasets. Results are presented as pixel-level AUROC\%/max-F1\%/AP\%. Best scores are highlighted in \textbf{bold}, while the second-best scores are also \underline{underlined}.}
+\label{tab:main_pixel}
+\resizebox{1.\linewidth}{!}{
+% \setlength\tabcolsep{10.0pt}
+{
+\begin{tabular}{ccccccccc>{\columncolor{blue!8}}c}
+\toprule[1.2pt]
+Dataset &
+\begin{tabular}[c]{@{}c@{}}PFM~\cite{PFM}\\      TII'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}RD4AD~\cite{RD4AD}\\      CVPR'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PatchCore~\cite{Patchcore}\\      CVPR'2022\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}CDO~\cite{CDO}\\      TII'2023\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PyramidFlow~\cite{PyramidFlow}\\      CVPR'2023\end{tabular} &
+\begin{tabular}[c]
+{@{}c@{}}MSFlow~\cite{MSFlow}\\      TNNLS'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}AMI-Net~\cite{AMI-Net}\\      TASE'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}PNPT~\cite{PNPT}\\      TII'2024\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}\textbf{VarAD}\\      \textbf{Proposed}\end{tabular} \\ \midrule
+MVTec AD~\cite{MVTec-AD} &
+  91.3/36.6/27.9 &
+  93.4/49.6/42.5 &
+  95.8/60.1/60.5 &
+  96.4/\underline{62.8}/\underline{62.9} &
+  94.2/48.9/43.4 &
+  \underline{97.2}/62.4/62.7 &
+  94.9/53.2/49.9 &
+  94.8/52.3/50.8 &
+  \textbf{97.7}\textbf{/63.8}/\textbf{63.0} \\
+VisA~\cite{VisA} &
+  94.6/14.2/6.7 &
+  92.9/39.0/26.8 &
+  95.1/\underline{46.6}/38.9 &
+  \underline{97.6}/46.5/37.7 &
+  90.8/32.4/24.2 &
+  96.9/43.9/37.4 &
+  96.9/38.6/34.0 &
+  96.7/45.0/\underline{40.3} &
+  \textbf{98.5}/\textbf{47.5}/\textbf{40.7} \\
+BTAD~\cite{BTAD} &
+  97.5/54.7/50.6 &
+  97.6/51.1/50.0 &
+  97.0/50.1/47.5 &
+  \underline{97.7}/\underline{57.1}/\underline{56.5} &
+  88.7/37.8/32.2 &
+  97.5/48.1/46.4 &
+  96.0/50.2/39.4 &
+  97.5/54.4/51.5 &
+  \textbf{97.8}/\textbf{63.6}/\textbf{64.5} \\
+DTD-Synthetic~\cite{DTD} &
+  91.8/37.6/29.2 &
+  95.3/45.1/33.1 &
+  96.0/70.6/70.8 &
+  97.4/\underline{72.3}/75.5 &
+  96.6/52.1/43.3 &
+  \underline{98.1}/71.0/\underline{76.8} &
+  94.4/61.1/60.9 &
+  93.7/61.1/59.3 &
+  \textbf{98.8}/\textbf{77.3}/\textbf{80.9} \\ \bottomrule[1.2pt]
+\end{tabular}
+}
+}
+\end{table*}
+\end{document}

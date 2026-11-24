@@ -1,0 +1,93 @@
+\begin{document}
+\begin{table}[t]
+  \centering
+  \scalebox{0.7}{
+\begin{tabular}{p{4.1em}<{\centering}||p{2.4em}<{\centering}p{2.4em}<{\centering}p{2.4em}<{\centering}p{2.4em}<{\centering}p{2.4em}<{\centering}||p{3.1em}<{\centering}||p{3.1em}<{\centering}}
+    \toprule
+    \toprule
+    \rowcolor[rgb]{ .8,  .8,  .8} \textbf{Model} & \textbf{PLC} & \textbf{LRL} & \textbf{SRL} & $\mathcal{L}_{sc}$ & $\mathcal{L}_{bce}$ & \textbf{mIoU} &\textbf{mGSR} \\
+    \midrule
+          \textbf{Model-1}& \ding{55}     &    &  && & 65.4\%  & 50.0\% \\
+          \textbf{Model-2}&    & \ding{55}    & &&   & 71.3\%    & 72.5\% \\
+          \textbf{Model-3}&    &     & \ding{55}   &&  &  68.5\% & 57.5\% \\
+          \textbf{Model-4}&    &   &   & \ding{55}& & 64.9\%    & 50.2\% \\
+          \textbf{Model-5}&    &   &   &  & \ding{55} & 68.7\%    & 70.4\% \\
+    \midrule
+      \rowcolor[rgb]{ .8,  .93,  1}  \textbf{Model-6} & {\ding{52}}& {\ding{52}}& {\ding{52}}   & \ding{52}  &\ding{52}  & \textbf{82.6\%}    & \textbf{88.3\%} \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+  }
+    \vspace{-0.25cm}
+    \caption{Ablation study of different components (Lum: 0-40).}
+  \vspace{-0.7cm}
+    \label{tab:3}
+\end{table}%
+\begin{table*}[t]
+  \centering
+  \vspace{-0.1cm}
+ \scalebox{0.695}{
+    \begin{tabular}{p{3.4em}||p{2.6em}<{\centering}p{2.4em}<{\centering}p{2.5em}<{\centering}p{4em}<{\centering}||p{2.6em}<{\centering}p{2.4em}<{\centering}p{2.5em}<{\centering}p{4em}<{\centering}||p{2.6em}<{\centering}p{2.4em}<{\centering}p{2.5em}<{\centering}p{4em}<{\centering}||p{2.6em}<{\centering}p{2.4em}<{\centering}p{2.5em}<{\centering}p{4em}<{\centering}}
+    \toprule
+    \toprule
+   \rowcolor[rgb]{ .8,  .8,  .8}\multicolumn{1}{l||}{\textbf{Class}} &\multicolumn{4}{c||}{\textbf{Luminance: 90 -- 120}} & \multicolumn{4}{c||}{\textbf{\textbf{Luminance: 60 -- 90}}} & \multicolumn{4}{c||}{\textbf{\textbf{Luminance: 30 -- 60}}} & \multicolumn{4}{c}{\textbf{\textbf{Luminance: 0 -- 30}}}  \\
+    \midrule
+        \rule{0pt}{14pt}\raisebox{0.8ex}{
+      ------ } & \raisebox{0.8ex}{SegMiF} & \raisebox{0.8ex}{MRFS} & \raisebox{0.8ex}{AMDA} & \raisebox{0.8ex}{\textbf{Ours}} &
+      \raisebox{0.8ex}{SegMiF} & \raisebox{0.8ex}{MRFS} & \raisebox{0.8ex}{AMDA} & \raisebox{0.8ex}{\textbf{Ours}}  &
+      \raisebox{0.8ex}{SegMiF} & \raisebox{0.8ex}{MRFS} & \raisebox{0.8ex}{AMDA} & \raisebox{0.8ex}{\textbf{Ours}}  &
+      \raisebox{0.8ex}{SegMiF} & \raisebox{0.8ex}{MRFS} & \raisebox{0.8ex}{AMDA} & \raisebox{0.8ex}{\textbf{Ours}}
+       \\
+     \cdashline{1-17}
+\rowcolor[rgb]{ .9,  .9,  .9}\textbf{Glove}& 74.9\% & 77.9\% & 76.6\% & \textbf{84.4\%} & 70.1\% & 71.1\% & 75.5\% & \textbf{84.2\%} & 61.9\% & 62.5\% & 70.7\% & \textbf{83.1\%} & 62.3\% & 61.8\% & 68.5\% & \textbf{81.7\%} \\
+\textbf{Hat}& 82.8\% & 80.1\% & 81.5\% & \textbf{86.4\%} & 74.6\% & 78.7\% & 80.3\% & \textbf{85.8\%} & 71.8\% & 70.6\% & 75.9\% & \textbf{85.5\%} & 65.4\% & 68.2\% & 71.3\% & \textbf{84.7\%} \\
+\rowcolor[rgb]{ .9,  .9,  .9}\textbf{Scarf}& 76.0\% & 82.2\% & 79.1\% & \textbf{85.7\%} & 73.3\% & 75.1\% & 77.0\% & \textbf{86.3\%} & 65.4\% & 65.7\% & 73.1\% & \textbf{85.7\%} & 66.3\% & 63.5\% & 68.6\% & \textbf{85.6\%} \\
+\textbf{Sock}& 70.9\% & 67.2\% & 72.8\% & \textbf{83.5\%} & 66.2\% & 65.7\% & 68.0\% & \textbf{82.2\%} & 62.3\% & 58.9\% & 65.5\% & \textbf{80.3\%} & 56.9\% & 61.8\% & 59.3\% & \textbf{79.2\%} \\
+\rowcolor[rgb]{ .9,  .9,  .9}\textbf{Tie} & 72.5\% & 80.3\% & 79.9\% & \textbf{84.7\%} & 70.7\% & 73.9\% & 74.4\% & \textbf{84.1\%} & 64.1\% & 66.2\% & 71.1\% & \textbf{82.1\%} & 60.8\% & 65.3\% & 66.9\% & \textbf{81.4\%} \\
+\textbf{Top}& 73.5\% & 70.1\% & 75.9\% & \textbf{86.2\%} & 71.6\% & 73.2\% & 72.8\% & \textbf{85.8\%} & 74.4\% & 73.4\% & 72.4\% & \textbf{85.2\%} & 71.4\% & 70.4\% & 72.5\% & \textbf{84.4\%}\\
+\rowcolor[rgb]{ .9,  .9,  .9}\textbf{Trousers}& 68.8\% & 73.9\% & 74.1\% & \textbf{84.3\%} & 65.4\% & 69.6\% & 70.4\% & \textbf{82.9\%} & 61.1\% & 63.9\% & 67.5\% & \textbf{82.7\%} & 60.4\% & 61.7\% & 65.0\% & \textbf{81.5\%} \\
+\textbf{Brief}& 78.2\% & 78.4\% & 79.1\% & \textbf{83.5\%} & 72.2\% & 73.0\% & 75.9\% & \textbf{83.3\%} & 67.2\% & 67.7\% & 76.5\% & \textbf{82.1\%} & 57.1\% & 62.5\% & 65.7\% & \textbf{80.2\%} \\
+\midrule
+\rowcolor[rgb]{ .8,  .93,  1} \textbf{mIoU}& 74.7\% & 76.2\% & 77.3\% & \textbf{84.8\%\textcolor{red}{\scriptsize~+14\%}} & 70.5\% & 72.6\% & 74.4\% & \textbf{84.3\%\textcolor{red}{\scriptsize~+14\%}} & 66.0\% & 66.3\% & 71.5\% & \textbf{83.4\%\textcolor{red}{\scriptsize~+17\%}} & 62.5\% & 64.2\% & 67.3\% & \textbf{82.8\%\textcolor{red}{\scriptsize~+20\%}} \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    }
+    \vspace{-0.3cm}
+    \caption{Quantitative comparison of semantic mask generation accuracy between our GraspALL and other baseline methods under different luminance levels. The best results are highlighted in \textbf{bold}, and performance improvements are shown in \textcolor{red}{\textbf{red}}.}
+    \vspace{-0.2cm}
+  \label{t:1}%
+\end{table*}%
+\begin{table*}[t]
+  \centering
+  \vspace{-0.1cm}
+ \scalebox{0.711}{
+    \begin{tabular}{p{3.5em}||p{2.9em}<{\centering}p{3em}<{\centering}p{2.5em}<{\centering}p{2.7em}<{\centering}p{4.1em}<{\centering}||p{2.9em}<{\centering}p{3em}<{\centering}p{2.5em}<{\centering}p{2.7em}<{\centering}p{4.1em}<{\centering}||p{2.9em}<{\centering}p{3em}<{\centering}p{2.5em}<{\centering}p{2.7em}<{\centering}p{4.1em}<{\centering}}
+    \toprule
+    \toprule
+   \rowcolor[rgb]{ .8,  .8,  .8}\multicolumn{1}{l||}{\textbf{Class}} &\multicolumn{5}{c||}{\textbf{Luminance: 80 -- 120}} & \multicolumn{5}{c||}{\textbf{\textbf{Luminance: 40 -- 80}}} & \multicolumn{5}{c}{\textbf{\textbf{Luminance: 0 -- 40}}}  \\
+    \midrule
+    \rule{0pt}{14pt}
+         \raisebox{0.8ex}{------}& \raisebox{0.8ex}{BiFCNet}& \raisebox{0.8ex}{SAM-M} & \raisebox{0.8ex}{ReKep} & \raisebox{0.8ex}{DarkSeg} & \raisebox{0.8ex}{\textbf{Ours}} &\raisebox{0.8ex}{BiFCNet}& \raisebox{0.8ex}{SAM-M} & \raisebox{0.8ex}{ReKep} & \raisebox{0.8ex}{DarkSeg} & \raisebox{0.8ex}{\textbf{Ours}} &\raisebox{0.8ex}{BiFCNet}& \raisebox{0.8ex}{SAM-M} & \raisebox{0.8ex}{ReKep} & \raisebox{0.8ex}{DarkSeg} & \raisebox{0.8ex}{\textbf{Ours}}\\
+    \cdashline{1-16}
+        \rowcolor[rgb]{ .9,  .9,  .9}\textbf{Glove} & 9/15 & 10/15 & 8/15 & 11/15 & \textbf{14/15} & 8/15 &  9/15  & 8/15  & 10/15 &\textbf{14/15} & 5/15  & 5/15 & 6/15 & 7/15 & \textbf{12/15} \\
+          \textbf{Hat}& 11/15 & 10/15 & 9/15 & 13/15 & \textbf{15/15} & 9/15 &  8/15  & 8/15  & 9/15 & \textbf{13/15} & 6/15  & 7/15 & 6/15 & 8/15 & \textbf{13/15}  \\
+          \rowcolor[rgb]{ .9,  .9,  .9}\textbf{Scarf}& 10/15 & 9/15 & 10/15 & 12/15 &
+          \textbf{14/15} & 8/15 &  8/15  & 7/15  & 8/15 & \textbf{13/15} & 6/15  & 6/15 & 5/15 & 7/15 &\textbf{13/15}\\
+      \textbf{Sock}& 9/15 & 7/15 & 10/15 & 11/15 & \textbf{13/15} & 7/15 &  7/15  & 7/15  & 9/15 & \textbf{13/15} & 5/15  & 5/15 & 6/15 & 7/15 & \textbf{11/15}  \\
+              \rowcolor[rgb]{ .9,  .9,  .9}\textbf{Tie} & 9/15 & 10/15 & 8/15 & 10/15 & \textbf{13/15} & 6/15 &  5/15  & 6/15  & 7/15 & \textbf{11/15} & 3/15  & 5/15 & 5/15 & 6/15 & \textbf{10/15} \\
+          \textbf{Top}&  10/15 & 8/15 & 11/15 & 13/15 &\textbf{15/15} & 8/15 &  9/15  & 9/15  & 11/15 & \textbf{14/15} & 8/15  & 8/15 & 9/15 & 10/15 & \textbf{14/15}  \\
+          \rowcolor[rgb]{ .9,  .9,  .9}\textbf{Trousers}&  9/15 & 11/15 & 11/15 & 13/15 & \textbf{14/15} & 10/15 &  10/15  & 10/15  & 12/15 & \textbf{14/15} & 9/15  & 10/15 & 8/15 & 12/15 &  \textbf{14/15}  \\
+      \textbf{Brief}& 7/15 & 9/15 & 9/15 & 11/15 & \textbf{14/15} & 7/15 &  6/15  & 8/15  & 10/15 & \textbf{14/15} & 6/15  & 6/15 & 6/15 & 7/15 &  \textbf{13/15}  \\
+      \midrule
+       \rowcolor[rgb]{ .8,  .93,  1} \textbf{mGSR}& 61.6\% & 59.2\% & 63.4\% & 78.3\% & \textbf{93.3\%\textcolor{red}{\scriptsize~+32\%}} & 52.4\% & 51.6\% & 52.4\% & 63.3\% & \textbf{88.3\%\textcolor{red}{\scriptsize~+36\%}} & 39.9\% & 43.3\% & 42.4\% & 53.3\% & \textbf{84.2\%\textcolor{red}{\scriptsize~+44\%}} \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    }
+    \vspace{-0.27cm}
+    \caption{Comparison of garment grasping accuracy between our GraspALL and other baseline methods under different luminance levels.}
+    \vspace{-0.6cm}
+  \label{t:2}%
+\end{table*}%
+\end{document}

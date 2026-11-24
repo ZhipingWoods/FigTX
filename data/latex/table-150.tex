@@ -1,0 +1,144 @@
+\begin{document}
+\begin{table*}[ht]
+    \tabcolsep=0.28cm
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \caption{Experiments on AI-TODV2. All models are trained on the \textit{trainval} split and evaluated on the \textit{test} split with 800 $\times$ 800 input resolution. $\dagger$ notes a re-implementation of the results. * denotes re-implementation with 4 feature map layers for fair comparison. $^{\star}$ denotes an average value across all data in the split.}
+    \begin{tabular}{lcccccccccc}
+        \toprule
+        \textbf{Method} & \textbf{\#Params.} & \textbf{GFLOPs} & \textbf{AP} & \textbf{AP$_{50}$} & \textbf{AP$_{75}$} & \textbf{AP$_{vt}$} & \textbf{AP$_{t}$} & \textbf{AP$_{s}$} & \textbf{AP$_{m}$} \\
+        \midrule
+        \arrayrulecolor{black} \specialrule{0.5pt}{0pt}{0pt} % 添加黑色上边框
+        \rowcolor[HTML]{F2ECDE} \multicolumn{10}{l}{\textit{Non-end-to-end Object Detectors}} \\
+        Cascade R-CNN \scriptsize \textcolor{gray}{[CVPR 2018]} \normalsize \cite{cai2018cascade} & 68.9M & 88.7    & 15.1  & 34.2  & 11.2  & 0.1  & 11.5  & 26.7  & 38.5  \\
+        DetectoRS \scriptsize \textcolor{gray}{[Arxiv 2020]} \normalsize \cite{qiao2021detectors} & 134.8M    & $\approx160$ & 16.1  & 35.5  & 12.5  & 0.1  & 12.6  & 28.3  & 40.0  \\
+        DetectoRS w/ NWD \scriptsize \textcolor{gray}{[ISPRS 2022]} \normalsize \cite{wang2021normalized}& -- & --    & 20.8  & 49.3  & 14.3  & 6.4  & 19.7  & 29.6  & 38.3  \\
+        DetectoRS w/ RFLA \scriptsize \textcolor{gray}{[ECCV 2022]} \normalsize \cite{xu2022rfla} & --   & --    & 24.8  & 55.2  & 18.5  & 9.3  & 24.8  & 30.3  & 38.2  \\
+        DNTR \scriptsize \textcolor{gray}{[TGRS 2024]} \normalsize \cite{liu2024denoising} & 128.4M & 298.1 & 26.2  & 56.7  & 20.2  & 12.8  & 26.4  & 31.0  & 37.0  \\
+        \midrule
+        \arrayrulecolor{black} \specialrule{0.5pt}{0pt}{0pt} % 添加黑色上边框
+        \rowcolor[HTML]{F2ECDE} \multicolumn{10}{l}{\textit{End-to-end Object Detectors}} \\
+        DETR-DC5 \scriptsize \textcolor{gray}{[ECCV 2020]} \normalsize \cite{carion2020end}& 41M   & 113.1    & 10.4  & 32.5  & 3.9   & 3.6   & 9.3   & 13.2  & 24.6  \\
+        YOLOv12-S$\dagger$ \scriptsize \textcolor{gray}{[Arxiv 2025]} \normalsize \cite{tian2025yolov12}& 9.1M  & 19.6  & 11.5  & 25.4  & 9.0  & 2.7  & 11.8  & 18.0  & 23.7  \\
+        YOLOv12-M$\dagger$ \scriptsize \textcolor{gray}{[Arxiv 2025]} \normalsize \cite{tian2025yolov12}& 19.6M & 60.1  & 14.0  & 30.7  & 11.1  & 3.6  & 14.6  & 20.0  & 26.3  \\
+        YOLOv12-L$\dagger$ \scriptsize \textcolor{gray}{[Arxiv 2025]} \normalsize \cite{tian2025yolov12}& 26.5M & 83.0  & 14.6  & 31.0  & 12.0  & 4.1  & 15.3  & 20.3  & 27.6  \\
+        YOLOv12-X$\dagger$ \scriptsize \textcolor{gray}{[Arxiv 2025]} \normalsize \cite{tian2025yolov12}& 59.3M & 185.4 & 16.1  & 33.5  & 13.4  & 5.4  & 17.0  & 21.4  & 28.5  \\
+        Deformable-DETR* \scriptsize \textcolor{gray}{[ICLR 2021]} \normalsize \cite{zhu2020deformable}& 40M & 232.5    & 18.2  & 59.7  & 10.2  & 5.8   & 16.8  & 25.2  & 34.0  \\
+        DINO-DETR* \scriptsize \textcolor{gray}{[ICLR 2023]} \normalsize \cite{zhang2022dino}& 47M  & 338.6    & 25.6  & 61.3  & 17.4  & 12.7  & 25.3  & 31.7  & 39.4  \\
+        DQ-DETR* \scriptsize \textcolor{gray}{[ECCV 2024]} \normalsize \cite{huang2024dq}& 58.7M & $1805.4^{\star}$ & 30.2  & 68.6  & 22.3  & 15.3  & 30.5  & 36.5  & 44.6  \\
+        D-FINE-S* \scriptsize \textcolor{gray}{[ICLR 2024]} \normalsize \cite{peng2024d}& 11.6M & 112.4 & 30.1  & 64.1  & 25.5  & 14.0  & 30.4  & 36.0  & 45.4  \\
+        D-FINE-M* \scriptsize \textcolor{gray}{[ICLR 2024]} \normalsize \cite{peng2024d}& 22.3M & 211.4 & 30.8  & 65.4  & 25.3  & 14.3  & 30.1  & 37.6  & 46.8  \\
+        D-FINE-L* \scriptsize \textcolor{gray}{[ICLR 2024]} \normalsize \cite{peng2024d}& 34M   & 327.5 & 31.3    & 66.7    & 24.9    & 15.3    & 31.0    & 38.4    & 46.6    \\
+        \rowcolor[HTML]{F5F5F5} \textbf{Dome-DETR-S} (Ours) & 13.2M & $154.2^{\star}$    & 33.3 \color{purple}(+3.2)    & 67.5    & 28.9    & 17.8    & 33.0    & 38.4    & 46.4    \\
+        \rowcolor[HTML]{EBEBEB} \textbf{Dome-DETR-M} (Ours) & 23.9M & $252.6^{\star}$    & 34.0 \color{purple}(+3.2) & 68.4  & 29.9  & 18.4  & 34.3  & 39.0  & 46.9  \\
+        \rowcolor[HTML]{E1E1E1} \textbf{Dome-DETR-L} (Ours) & 36.0M & $358.7^{\star}$ & \textbf{34.6} \color{purple}\textbf{(+3.3)} & \textbf{69.2}  & \textbf{32.0}  & \textbf{19.0}  & \textbf{35.6}  & \textbf{39.8}  & \textbf{47.3}  \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:main}
+\end{table*}
+\begin{table}[t]
+    \centering
+    \tabcolsep=0.205cm
+    \renewcommand{\arraystretch}{1.2}
+    \caption{Overall ablation for our proposed Dome-DETR on AI-TOD-V2 \textit{test} split.}
+    \small
+    \begin{tabular}{ccc|cccccc}
+        \toprule
+        \textbf{DeFE} & \textbf{MS-WAS} & \textbf{PAQI} & \textbf{AP} & \textbf{AP$_{vt}$} & \textbf{AP$_{t}$} & \textbf{AP$_{s}$} & \textbf{AP$_{m}$} \\
+        \midrule
+        \ding{55} & \ding{55} & \ding{55} & 30.1 & 14.0 & 30.4 & 36.0 & 45.4 \\
+        \ding{51} & \ding{51} & \ding{55} & 31.2 & 17.4 & 31.9 & 36.6 & 45.4 \\
+        \ding{51} & \ding{55} & \ding{51} & 32.1 & 16.9 & 32.5 & 37.6 & 45.9 \\
+        \rowcolor[HTML]{F5F5F5} \ding{51} & \ding{51} & \ding{51} & \textbf{33.3} & \textbf{17.8} & \textbf{33.0} & \textbf{38.4} & \textbf{46.4} \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:main_ablation}
+\end{table}
+\begin{table}[t]
+    \caption{Hyperparameter ablation studies of Dome-DETR-S on AI-TOD-V2 \textit{test} split.}
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \small
+    \tabcolsep=0.402cm
+    % ====== 上面两个并排的表格作为一组 ======
+    \begin{minipage}[t]{\linewidth}
+        \centering
+        \hspace*{-0.385cm}
+        \begin{minipage}{0.7\linewidth}
+            \centering
+            \begin{tabular}{cc|cc}
+                \toprule
+                \textbf{IoU$_{N}$} & \textbf{IoU$_{M}$} & \textbf{AP}  & \textbf{AR}  \\
+                \midrule
+                \rowcolor[HTML]{F5F5F5}\textbf{0.4} & \textbf{0.9} & \textbf{33.3} & \textbf{48.6} \\
+                0.4 & 0.7 & 32.5 & 47.2 \\
+                0.6 & 0.9 & 32.7 & 48.6 \\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}%
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \begin{tabular}{c|c}
+                \toprule
+                \textbf{T$_{init}$} & \textbf{AP} \\
+                \midrule
+                0.1 & 32.9 \\
+                \rowcolor[HTML]{F5F5F5} \textbf{0.05} & \textbf{33.3} \\
+                0.03 & 32.3 \\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}
+    \end{minipage}
+    % ====== 中间加垂直空隙 ======
+    \vspace{0.15cm}
+    % ====== 最下方表格单独放在新一行 ======
+    \begin{minipage}{\linewidth}
+        \centering
+        \tabcolsep=0.43cm
+        \begin{tabular}{l|ccccc}
+            \toprule
+            \textbf{H/W} & \textbf{AP} & \textbf{AP$_{vt}$} & \textbf{AP$_{t}$} & \textbf{AP$_{s}$} & \textbf{AP$_{m}$} \\
+            \midrule
+            5 & 31.8 & \textbf{17.9} & 33.0 & 36.2 & 44.7 \\
+            \rowcolor[HTML]{F5F5F5} \textbf{10} & \textbf{33.3} & 17.8 & \textbf{33.0} & \textbf{38.4} & 46.4 \\
+            20 & 32.4 & 17.3 & 32.7 & 38.4 & \textbf{46.8} \\
+            \bottomrule
+        \end{tabular}
+    \end{minipage}
+    \label{tab:ablation_hyperparameter}
+\end{table}
+\begin{table}[t]
+    \tabcolsep=0.09cm
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \caption{Experiments on VisDrone. All models are trained on the \textit{train} split and evaluated on the \textit{val} split with 800 $\times$ 800 input resolution. $\dagger$ notes a re-implementation of the results. $^{\star}$ denotes an average value across all data in the split.}
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Method} & \textbf{\#Params.} & \textbf{GFLOPs} & \textbf{AP} & \textbf{AP$_{50}$} & \textbf{AP$_{75}$} \\
+        \midrule
+        \arrayrulecolor{black} \specialrule{0.5pt}{0pt}{0pt}
+        \rowcolor[HTML]{F2ECDE} \multicolumn{6}{l}{\textit{Non-end-to-end Object Detectors}} \\
+        Cascade R-CNN \cite{cai2018cascade}& 68.9M & 236.4 & 22.6 & 38.8 & 23.2 \\
+        DetectoRS w/RFLA \cite{xu2022rfla}& 134.8M & 160.0 & 27.4 & 45.3 & 23.9 \\
+        CEASC$\dagger$ \cite{du2023adaptive}& $\approx90$M & $150.2^{\star}$ & 28.7 & 50.7 & 24.7 \\
+        DNTR \cite{liu2024denoising}& 128.37M & 373.4 & 33.1 & 53.8 & 34.8 \\
+        \midrule
+        \arrayrulecolor{black} \specialrule{0.5pt}{0pt}{0pt}
+        \rowcolor[HTML]{F2ECDE} \multicolumn{6}{l}{\textit{End-to-end Object Detectors}} \\
+        YOLOv12-L$\dagger$ \cite{tian2025yolov12}& 26.5M & 82.4 & 25.9 & 39.1 & 28.1 \\
+        YOLOv12-X$\dagger$ \cite{tian2025yolov12}& 59.3M & 184.6 & 27.7 & 42.1 & 29.9 \\
+        UAV-DETR$\dagger$ \cite{zhang2025uav}& 45.5M & 247.1 & 32.4 & 51.9 & 33.6 \\
+        DQ-DETR$\dagger$ \cite{huang2024dq}& 58.7M & $1782.4^{\star}$ & 35.2 & 54.9 & 35.6 \\
+        D-FINE-S$\dagger$ \cite{peng2024d}& 11.6M & 112.4 & 31.2 & 53.8 & 36.1 \\
+        D-FINE-M$\dagger$ \cite{peng2024d}& 22.3M & 211.4 & 33.6 & 56.9 & 37.6 \\
+        D-FINE-L$\dagger$ \cite{peng2024d}& 34.4M & 327.5 & 36.5 & 58.0 & 38.2 \\
+        \rowcolor[HTML]{F5F5F5} \textbf{Dome-DETR-S} (Ours)& 13.2M & $176.5^{\star}$ & 33.5 \color{purple}(+2.3)& 56.6 & 37.8 \\
+        \rowcolor[HTML]{EBEBEB} \textbf{Dome-DETR-M} (Ours)& 23.9M & $284.6^{\star}$ & 36.1 \color{purple}(+2.5) & 59.8 & 39.4 \\
+        \rowcolor[HTML]{E1E1E1} \textbf{Dome-DETR-L} (Ours)& 36.0M & $376.4^{\star}$ & \textbf{39.0} \color{purple}\textbf{(+2.5)} & \textbf{61.1} & \textbf{40.8} \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:main_vis}
+\end{table}
+\end{document}

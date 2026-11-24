@@ -1,0 +1,109 @@
+\definecolor{darkgrey}{rgb}{0.53,0.53,0.53}
+\definecolor{mygrey}{rgb}{0.9,0.9,0.9}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+    \centering
+    \begin{adjustbox}{width=1.05\textwidth, center}
+    \begin{small}
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{lcc|cccccc>{\columncolor{red!7}}c|cccccc>{\columncolor{red!7}}c}
+        \toprule
+        \multirow{2}{*}{\textbf{Model}} & \multirow{2}{*}{\shortstack{\textbf{Wiki.} \\ ppl$\downarrow$}} & \multirow{2}{*}{\shortstack{\textbf{LMB.} \\ ppl$\downarrow$}} & \textbf{ARC$_e$} & \textbf{ARC$_c$} & \textbf{PIQA} & \textbf{Hella.} & \textbf{LMB.} & \textbf{Wino.} & \textbf{Avg.} & \textbf{FDA} & \textbf{SWDE} & \textbf{TQA} & \textbf{NQ} & \textbf{SQD} & \textbf{Drop} & \textbf{Avg.} \\
+        & & & acc & $\mathrm{acc_n}$ & acc & $\mathrm{acc_n}$ & acc & acc & acc & acc & acc & acc & acc & acc & acc & acc \\
+        \midrule
+        \rowcolor{gray!15}\multicolumn{17}{l}{\textbf{\textit{340M Params 15B Tokens}}} \\
+        Trans++  & 26.88 & 42.15 & 44.91 & \textbf{25.94} & 64.31 & 34.95 & 32.84 & 51.07 & 42.34 & 46.14 & 25.87 & 45.97 & 18.94 & 33.22 & 20.03 & 31.70 \\
+        \midrule
+        GLA      & 28.78 & 39.00 & 44.53 & 22.27 & 63.93 & 34.84 & 32.27 & 51.38 & 41.54 & 11.26 & 16.78 & 43.90 & 12.77 & 27.85 & 17.68 & 21.71 \\
+        GSA      & 28.17 & 42.57 & 45.50 & 24.23 & 64.85 & 35.00 & 30.78 & 50.43 & 41.80 &  6.36 & 16.87 & 42.18 & 14.60 & 21.90 & 16.72 & 19.77 \\
+        GDN      & 26.47 & \textbf{31.69} & 46.04 & 23.55 & \textbf{66.05} & 35.18 & 34.35 & 50.83 & 42.67 & 20.53 & 23.24 & 44.91 & 14.98 & 28.55 & 16.48 & 24.78 \\
+        \midrule
+        Mamba2-H & 25.81 & 43.35 & \textbf{48.23} & 24.49 & 65.23 & \textbf{36.31} & 30.86 & 48.62 & 42.29 & 55.68 & 39.55 & 45.50 & 18.34 & 27.98 & 17.63 & 34.11 \\
+        GLA-H    & 27.94 & 40.12 & 45.20 & 24.32 & 63.93 & 34.42 & 31.83 & 49.96 & 41.61 & 58.86 & 39.36 & 44.14 & 17.01 & 31.37 & 18.21 & 34.83 \\
+        GSA-H    & 26.19 & 46.05 & 45.54 & 23.72 & 65.23 & 35.19 & 30.91 & 50.99 & 41.93 & \textbf{62.13} & 45.36 & 43.78 & \textbf{20.62} & 31.17 & 18.78 & 36.97 \\
+        GDN-H    & \textbf{25.67} & 51.79 & 45.75 & 23.21 & 65.56 & 35.80 & 29.30 & 51.38 & 41.83 & 52.32 & 38.80 & 39.40 & 15.24 & 29.83 & 17.92 & 32.25 \\
+        NHA      & 25.97 & 38.38 & 47.69 & 24.32 & 65.67 & 36.03 & 32.72 & \textbf{52.09} & \textbf{43.09} & 53.86 & \textbf{48.55} & \textbf{46.56} & 20.56 & \textbf{38.60} & \textbf{23.48} & \textbf{38.60} \\
+        \midrule
+        \rowcolor{gray!15}\multicolumn{17}{l}{\textbf{\textit{1.3B Params 100B Tokens}}} \\
+        Trans++  & 17.61 & 15.86 & 55.01 & 28.07 & 70.08 & 49.21 & 45.60 & 56.27 & 50.71 & 44.32 & 32.43 & 58.47 & 24.49 & 42.59 & 21.56 & 37.31 \\
+        \midrule
+        GLA      & 17.61 & 15.38 & 55.18 & 27.56 & 69.86 & 48.89 & 46.05 & 53.91 & 50.24 & 27.61 & 30.93 & 56.28 & 22.27 & 35.04 & 19.45 & 31.93 \\
+        GSA      & 16.69 & 12.62 & 58.33 & 28.33 & 72.25 & 50.98 & 47.43 & 53.43 & 51.79 & 23.25 & 32.80 & 57.05 & 22.96 & 35.57 & 20.65 & 32.05 \\
+        GDN      & 17.14 & \textbf{11.35} & 56.82 & 27.39 & 71.76 & 49.77 & 49.10 & 51.78 & 51.10 & 30.25 & 27.65 & 58.23 & 23.22 & 34.06 & 20.36 & 32.30 \\
+        \midrule
+        Mamba2-H & \textbf{16.00} & 12.77 & 57.74 & 28.24 & 71.93 & \textbf{52.73} & 48.46 & 55.49 & 52.43 & 65.30 & 50.89 & 55.92 & 28.54 & 41.99 & 22.46 & 44.18 \\
+        GLA-H    & 17.58 & 15.72 & 56.73 & 27.56 & 70.40 & 48.71 & 46.71 & 54.46 & 50.76 & \textbf{69.48} & 46.77 & 57.05 & 27.15 & 40.28 & 21.47 & 43.70 \\
+        GSA-H    & 16.22 & 23.09 & 57.79 & 28.07 & 71.71 & 51.70 & 41.92 & 53.35 & 50.76 & 68.30 & 51.83 & 58.59 & 26.42 & 42.36 & 22.42 & 44.99 \\
+        GDN-H    & 16.02 & 11.68 & 58.12 & 27.99 & 70.57 & 52.52 & \textbf{49.78} & 56.27 & 52.54 & 66.76 & 49.02 & 59.06 & \textbf{29.30} & 41.15 & 24.01 & 44.88 \\
+        NHA      & 16.16 & 12.58 & \textbf{58.71} & \textbf{28.50} & \textbf{72.03} & 52.08 & 49.19 & \textbf{56.83} & \textbf{52.89} & 68.30 & \textbf{52.48} & \textbf{59.60} & 27.18 & \textbf{45.58} & \textbf{25.44} & \textbf{46.43} \\
+        \bottomrule
+    \end{tabular}
+    \end{small}
+    \end{adjustbox}
+    \caption{\textbf{Results on Common-Sense Reasoning Tasks and Recall-Intensive Tasks.} GDN denotes Gated DeltaNet; “-H” denotes hybrid with Transformer layers.}
+    \label{table:combined_results}
+\end{table*}
+\begin{table*}[h!]
+    \centering
+    \begin{adjustbox}{width=1.05\textwidth, center}
+    \begin{small}
+    \renewcommand{\arraystretch}{1.3}
+    \renewcommand{\multirowsetup}{\centering}
+    \setlength{\tabcolsep}{2.5pt}
+    \begin{tabular}{lc|ccccccc>{\columncolor{red!7}}c|cccccc>{\columncolor{red!7}}c}
+        \toprule
+         \multirow{2}{*}{Model \& Scale} & \multirow{2}{*}{\textbf{\shortstack{Training \\ Tokens (B)}}} & ARC$_e$ & ARC$_c$ & Hella. & LMB. & PIQA & Wino. & MMLU & \multirow{1}{*}{Avg.} & FDA & SWDE & SQD. & NQ & TQA.  & Drop  & \multirow{1}{*}{Avg.}\\
+         & & acc & acc\rlap{$_{\text{n}}$} & acc\rlap{$_{\text{n}}$} & acc & acc & acc & acc & acc & acc & acc & acc & acc & acc & acc & acc\\
+        \midrule
+        \rowcolor{gray!15}\multicolumn{17}{l}{\textbf{\textit{Transformer}}} \\
+        Mistral-7B & 8000 & 80.85 & 54.01 & 81.08 & 69.49 & 80.90 & 73.64 & 62.50 & 71.78 & 75.30 & 65.32 & 54.01 & 42.76 & 73.16 & 27.55 & 56.35 \\
+        Qwen3-8B & 36000 & 83.42 & 56.74 & 74.90 & 61.11 & 76.61 & 68.11 & 74.93 & 70.83 & 73.48 & 76.85 & 59.89 & 45.01 & 72.63 & 36.61 & 60.75 \\
+        \rowcolor{blue!7} Qwen2.5-7B & 18000 & 80.43 & 51.45 & 78.93 & 64.70 & 78.78 & 73.09 & 74.18 & 71.65 & 82.38 & 75.45 & 54.28 & 48.43 & 77.49 & 38.28 & 62.72 \\
+        \rowcolor{yellow!7} Llama-3-8B & 15000 & 80.30 & 53.07 & 79.14 & 68.89 & 79.60 & 72.77 & 65.34 & 71.30 & 82.92 & 72.07 & 54.22 & 43.24 & 74.17 & 33.88 & 60.08 \\
+        % \rowcolor{blue!10} Comba-$\operatorname{splr}$  &  {39.91} &  \textbf{24.15} &  \textbf{48.56}   &  {24.32}  &  {38.18}  &  {30.98}   &   \textbf{66.73}  &  {51.41}   &   \textbf{43.36} & {38.51} & 27.61 & 30.07 & 16.38 & 48.60 & \textbf{21.22} & {30.40}\\
+        \midrule
+        \rowcolor{gray!15}\multicolumn{17}{l}{\textbf{\textit{Linear/Subquadratic}}} \\
+        Mamba-7B & 1200 & 77.61 & 46.84 & 77.93 & 65.53 & 79.87 & 71.74 & 33.19 & 64.67 & 37.06 & 43.30 & 46.93 & 33.39 & 71.56 & 25.30 & 42.92 \\
+        FalconMamba-7B & 5500 & 83.33 & 58.45 & 80.22 & 61.60 & 80.20 & 75.53 & 60.27 & 71.37 & 48.32 & 59.51 & 49.31 & 37.85 & 75.06 & 30.09 & 50.02 \\
+        RWKV-6-World-7B & 1420 & 73.61 & 43.86 & 75.17 & 69.26 & 78.35 & 67.72 & 43.39 & 64.48 & 56.86 & 51.55 & 46.62 & 37.03 & 69.85 & 28.70 & 48.44 \\
+        Griffin-7B & 300 & 75.40 & 47.90 & 78.60 & - & 81.00 & 72.60 & 39.30 & - & - & - & - & - & - & - & - \\
+        \midrule
+        \rowcolor{gray!15}\multicolumn{17}{l}{\textbf{\textit{Hybrid}}} \\
+        StripedHyena-7B$_{\text{(16)}}$ & - & 78.62 & 53.75 & 79.11 & 60.78 & 80.03 & 70.32 & 54.07 & 68.10 & 75.30 & 69.82 & 53.81 & 42.41 & 71.86 & 32.34 & 57.59 \\
+        Zamba-7B$_{\text{(13)}}$ & 1000 & 71.72 & 45.56 & 80.81 & 64.84 & 80.41 & 72.14 & 57.68 & 67.59 & 76.02 & 71.70 & 50.69 & 42.10 & 70.56 & 25.78 & 56.14 \\
+        Zamba2-7B$_{\text{(9)}}$ & 2100 & 80.13 & 56.23 & 81.52 & 59.09 & 79.05 & 77.19 & 67.27 & 71.50 & 71.48 & 64.48 & 50.15 & 40.13 & 71.86 & 29.23 & 54.56 \\
+        \midrule
+        \rowcolor{blue!7} NHA-Qwen2.5-7B$_{\text{(4)}}$ & 10 & 82.74 & 55.97 & 76.49 & 64.54 & 78.73 & 71.03 & 68.80 & 71.19 & 62.58 & 44.61 & 47.26 & 37.47 & 71.98 & 37.47 & 50.23 \\
+        \rowcolor{yellow!7} NHA-Llama-3-8B$_{\text{(4)}}$ & 10 & 80.76 & 52.47 & 78.93 & 67.26 & 79.71 & 72.85 & 60.21 & 70.31 & 73.84 & 67.67 & 55.16 & 42.10 & 73.05 & 34.02 & 57.64 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:main_results}
+    \end{small}
+    \end{adjustbox}
+    \vspace{-0.5em}
+    \caption{\textbf{Comparison of Pretrained LLMs and Their NHA Hybrids.} Performance of original Transformer, linear/subquadratic, and hybrid baselines versus our NHA-hybridized Llama-3-8B and Qwen2.5-7B. Hybrid models show the number of full-attention layers in subscript parentheses.}
+    \label{table:finetune}
+\end{table*}
+\begin{table*}[h!]
+    \begin{adjustbox}{width=1.05\textwidth, center}
+    \begin{small}
+    \renewcommand{\arraystretch}{1.3}
+    \renewcommand{\multirowsetup}{\centering}
+    \setlength{\tabcolsep}{2.5pt}
+    \begin{tabular}{l|cccccc>{\columncolor{red!7}}c|ccccc>{\columncolor{red!7}}c}
+    \toprule
+        \textbf{Model} & \textbf{ARC$_e$} & \textbf{ARC$_c$} & \textbf{Hella.} & \textbf{LMB.} & \textbf{PIQA} & \textbf{Wino.} & Avg. & \textbf{GPQA} & \textbf{IFVL.} & \textbf{HEval.} & \textbf{MaQA.} & \textbf{MMLU} & Avg. \\
+    \midrule
+        Qwen3-30BA3B & 78.87 & \textbf{56.57} & 77.63 & 63.05 & 79.49 & 69.61 & 70.87 & 40.62 & 30.58 & 15.85 & 58.09 & \textbf{77.84} & 44.60 \\
+        NHA-Qwen3-30BA3B & \textbf{82.24} & 56.40 & \textbf{79.10} & \textbf{68.85} & \textbf{80.96} & \textbf{73.80} & \textbf{73.56} & \textbf{41.96} & \textbf{30.94} & \textbf{26.22} & \textbf{61.64} & 75.51 & \textbf{47.25} \\
+    \bottomrule
+    \end{tabular}
+    \end{small}
+    \end{adjustbox}
+    \caption{\textbf{Performance Comparison.} Qwen3-30B-A3B versus NHA-Qwen3-30B-A3B on standard benchmarks.}
+    \label{tab:qwen}
+    \vspace{-1em}
+\end{table*}
+\end{document}

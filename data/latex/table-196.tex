@@ -1,0 +1,231 @@
+\definecolor{refcolor}{gray}{0.9}
+\definecolor{white}{gray}{1.0}
+\newcommand{\cmark}{\textcolor{black}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{white!60!black}{\ding{55}}}
+\usepackage{adjustbox}
+\definecolor{lightpurblue}{RGB}{243, 249, 255}
+\definecolor{midpurblue}{RGB}{205, 227, 255}
+\definecolor{lightgreen}{RGB}{235, 255, 240}
+\definecolor{midgreen}{RGB}{233, 253, 237}
+\definecolor{lightred}{RGB}{254, 240, 236}
+\newcommand{\best}[1]{\cellcolor{midpurblue}{#1}}
+\newcommand{\secondbest}[1]{\cellcolor{lightpurblue}{#1}}
+\newcommand{\secondbestdepth}[1]{\cellcolor{lightpurblue}{#1}}
+\newcommand{\secondbesttrack}[1]{\cellcolor{lightpurblue}{#1}}
+\newcommand{\name}{\textsc{D4RT}\xspace}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\small
+\tabcolsep=0.5em
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}cl ccc ccc ccc cc cc}
+\toprule
+\multirow{4}[4]{*}{\shortstack{\textbf{w/ GT} \\ \textbf{intrin.}}} & \multirow{4}[4]{*}{\textbf{Method}} & \multicolumn{13}{c}{\textbf{TAPVid-3D}} \\
+\cmidrule(lr){3-15}
+ & & \multicolumn{9}{c}{\textbf{Camera Coordinate 3D tracking} } & \multicolumn{4}{c}{\textbf{World Coordinate 3D tracking} }\\
+\cmidrule(lr){3-11} \cmidrule(lr){12-15}
+ & & \multicolumn{3}{c}{\textbf{DriveTrack}} & \multicolumn{3}{c}{\textbf{ADT}} & \multicolumn{3}{c}{\textbf{PStudio}} & \multicolumn{2}{c}{\textbf{DriveTrack}} & \multicolumn{2}{c}{\textbf{ADT}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}\cmidrule(lr){12-13} \cmidrule(lr){14-15}
+ & & AJ~$\uparrow$  & $\text{APD}_{3D}$~$\uparrow$  & OA~$\uparrow$
+  & AJ~$\uparrow$  & $\text{APD}_{3D}$~$\uparrow$  & OA~$\uparrow$
+  & AJ~$\uparrow$  & $\text{APD}_{3D}$~$\uparrow$  & OA~$\uparrow$  & $\text{APD}_{3D}$~$\uparrow$  & L1~$\downarrow$ & $\text{APD}_{3D}$~$\uparrow$  & L1~$\downarrow$\\
+\midrule
+\multirow{4}[6]{*}{\ding{55}} & St4RTrack~\cite{feng2025st4rtrack}
+& - & - & -
+& - & - & -
+& - & - & -
+& 0.020 & 0.499 & 0.062 & 0.839 \\
+& CoTracker3~\cite{karaev2025cotracker3} + UniDepthV2~\cite{unidepthv2}
+& 0.038 & 0.062 & 0.856
+& 0.102 & 0.146 & \best{0.937}
+& \secondbesttrack{0.119} & \secondbesttrack{0.176} & \secondbesttrack{0.862}
+& - & - & - & -\\
+& CoTracker3~\cite{karaev2025cotracker3} + VGGT~\cite{wang2025vggt}
+& \secondbesttrack{0.129} & \secondbesttrack{0.189} & 0.856
+& 0.132 & 0.190 & \best{0.937}
+& 0.045 & 0.070 & \secondbesttrack{0.862}
+& \secondbesttrack{0.205} & 0.170 & 0.192 & 0.736\\
+ & SpatialTrackerV2~\cite{xiao2025spatialtrackerv2}
+& 0.064 & 0.100 & \secondbesttrack{0.865}
+& \best{0.260} & \best{0.342} & 0.936
+& 0.097 & 0.152 & 0.805
+& 0.101 & \secondbesttrack{0.139} & \best{0.336} & \secondbesttrack{0.238}\\
+\cmidrule(l){2-15}
+ & \textbf{\name (Ours)}
+& \best{0.257} & \best{0.345} & \best{0.875}
+& \secondbesttrack{0.240} & \secondbesttrack{0.319} & {0.926}
+& \best{0.138} & \best{0.186} & \best{0.897}
+& \best{0.373} & \best{0.020} & \secondbesttrack{0.319} & \best{0.096} \\
+\midrule\midrule
+\multirow{4}[6]{*}{\ding{51}} & CoTracker3~\cite{karaev2025cotracker3} + UniDepthV2~\cite{unidepthv2}
+& 0.147 & 0.225 & 0.856
+& 0.173 & 0.254 & \best{0.937}
+& {0.205} & 0.311 & \secondbesttrack{0.862}
+& - & - & - & -\\
+ & CoTracker3~\cite{karaev2025cotracker3} + VGGT~\cite{wang2025vggt}
+& \secondbesttrack{0.245} & \secondbesttrack{0.342} & 0.856
+& 0.175 & 0.250 & \best{0.937}
+& \secondbesttrack{0.215} & \secondbesttrack{0.318} & \secondbesttrack{0.862}
+& \secondbesttrack{0.292} & \secondbesttrack{0.160} & 0.234 & 0.755\\
+& DELTA~\cite{ngo2024delta}
+& 0.170  & 0.238  & \secondbesttrack{0.874}
+& 0.199  & 0.258 & 0.879
+& 0.175  & 0.261  & 0.760
+& - & - & - & -\\
+ & SpatialTrackerV2~\cite{xiao2025spatialtrackerv2}
+& 0.195 & 0.275 & {0.865}
+& \secondbesttrack{0.303} & \secondbesttrack{0.404} & 0.936
+& 0.175 & 0.270 & 0.805
+& 0.201 & 0.117 & \secondbesttrack{0.378} & \secondbesttrack{0.263} \\
+\cmidrule(l){2-15}
+ & \textbf{\name (Ours)}
+& \best{0.304} & \best{0.410} & \best{0.875}
+& \best{0.307} & \best{0.408} & {0.926}
+& \best{0.372} & \best{0.498} & \best{0.897}
+& \best{0.470} & \best{0.017} & \best{0.398} & \best{0.093} \\
+\bottomrule
+\end{tabular}
+}
+\caption{
+    \textbf{4D reconstruction and tracking} --
+    We evaluate 3D tracking capability on dynamic videos, with tracks predicted in both local camera coordinates (left) and world coordinates (right). Our model achieves superior performance compared to the prior state-of-the-art.
+}
+\label{tab:3d_track}
+\end{table*}
+\begin{table}[t]
+\centering
+\small
+\tabcolsep=0.3em
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}l ccc ccc c}
+\toprule
+\multirow{2}[2]*{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Sintel}} & \multicolumn{3}{c}{\textbf{ScanNet}} & \textbf{Re10K} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7} \cmidrule(lr){8-8}
+  & ATE~$\downarrow$& RPE-T~$\downarrow$& RPE-R~$\downarrow$& ATE~$\downarrow$& RPE-T~$\downarrow$& RPE-R~$\downarrow$ &Pose AUC~$\uparrow$ \\
+\midrule
+MegaSaM~\cite{li2025megasam} & \secondbest{0.074} & \secondbest{0.030} & \best{0.126} & 0.029 & 0.016 & 0.839 & 71.0  \\
+VGGT~\cite{wang2025vggt} & 0.168 & 0.056 & 0.428 & 0.016 & 0.012  & 0.316 & 70.2 \\
+MapAnything~\cite{keetha2025mapanything} & 0.202 & 0.089 & 2.383 & 0.023 & 0.016 & 0.438 & 68.7  \\
+SpatialTrackerV2~\cite{xiao2025spatialtrackerv2} & 0.126 & 0.053 & 1.052 & 0.018 & 0.012 & {0.324} & 75.7 \\
+$\pi^3$~\cite{wang2025pi} & 0.086 & 0.039 & 0.248 & \secondbest{0.015} & \best{0.010} & \best{0.291} & \secondbest{78.7}  \\
+\midrule
+\textbf{\name (Ours)} & \best{0.065} & \best{0.024} & \best{0.126} & \best{0.014} & \best{0.010} & \secondbest{0.302} & \best{83.5} \\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{Camera pose estimation} -- We evaluate D4RT against state-of-the-art methods on static indoor scenes (ScanNet, Re10K) and dynamic outdoor scenes (Sintel).}
+\label{tab:camera}
+\end{table}
+\begin{table}[t]
+\centering
+\small
+\tabcolsep=0.2em
+\renewcommand{\arraystretch}{1.1}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}l cc cccc}
+\toprule
+\multirow{2}[6]{*}{\textbf{Model}} & \multicolumn{2}{c}{\textbf{Task}} & \multicolumn{2}{c}{\textbf{Functionality}}   & \multicolumn{2}{c}{\textbf{Architecture}}\\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}  \cmidrule(lr){6-7}
+ & {\scriptsize 3D Recon-} & {\scriptsize Dynamic Cor-} & {\scriptsize Flexible} & {\scriptsize Sparse} & {\scriptsize Global} & {\scriptsize Single} \\ [-0.6em]
+ & {\scriptsize struction} & {\scriptsize respondence} & {\scriptsize Ref. Frames} & {\scriptsize Decoding} & {\scriptsize Context} & {\scriptsize Decoder} \\
+\midrule
+MegaSaM~\cite{li2025megasam} & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+DUSt3R\cite{wang2024dust3r} & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+VGGT~\cite{wang2025vggt} & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark \\
+$\pi^3$~\cite{wang2025pi}& \cmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
+St4RTrack~\cite{feng2025st4rtrack} & \cmark &  \cmark & \xmark & \xmark & \xmark &  \xmark \\
+STv2~\cite{xiao2025spatialtrackerv2} & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark \\
+\midrule
+\textbf{\name (Ours)} & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{Model capabilities} --
+We highlight both the tasks our model executes but also its comprehensive functionality and simple model architecture.
+}
+\label{tab:capabilities}
+\end{table}
+\begin{table*}[tb!]
+\centering
+\small
+\tabcolsep=0.5em
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}l cc cc cc cc cc}
+\toprule
+ \multirow{3}[3]{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{Point Cloud}} & \multicolumn{8}{c}{\textbf{Video Depth}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-11}
+ & {\;\;\;\textbf{Sintel}\;\;\;} & {\textbf{Scannet}} & \multicolumn{2}{c}{\textbf{Sintel}} & \multicolumn{2}{c}{\textbf{ScanNet}}  & \multicolumn{2}{c}{\textbf{KITTI}} & \multicolumn{2}{c}{\textbf{Bonn}} \\
+\cmidrule(lr){2-2}\cmidrule(lr){3-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+ & L1~$\downarrow$ & L1~$\downarrow$ & AbsRel (S)~$\downarrow$ & AbsRel (SS)~$\downarrow$ & AbsRel (S)~$\downarrow$ & AbsRel (SS)~$\downarrow$ &  AbsRel (S)~$\downarrow$ & AbsRel (SS)~$\downarrow$   & AbsRel (S)~$\downarrow$ & AbsRel (SS)~$\downarrow$ \\
+\midrule
+MegaSaM~\cite{li2025megasam} &  1.531 & 0.072 &  0.342 & 0.249 & 0.050 & 0.047 & 0.109 &  0.101 & 0.056 & 0.056    \\
+VGGT~\cite{wang2025vggt} & 1.582 &  0.063 & 0.318 & 0.247 & 0.044 & 0.040 & 0.094 & 0.067  & 0.055 & 0.051 \\
+MapAnything~\cite{keetha2025mapanything} &  1.718  & 0.064 & 0.397 & 0.306  & 0.043 & 0.035 & 0.096 &   0.090 & 0.076 & 0.049 \\
+SpatialTrackerV2~\cite{xiao2025spatialtrackerv2} & 1.375 & 0.036 & \secondbestdepth{0.209} & {0.175} & 0.027 & 0.025  & 0.075 & 0.064 & {0.042} & {0.978} \\
+$\pi^3$~\cite{wang2025pi} & \secondbestdepth{1.139} & \secondbestdepth{0.030} & 0.241 & \secondbestdepth{0.163} & \secondbest{0.021} & \secondbest{0.019} & \best{0.055} & \secondbestdepth{0.053} & \best{0.033} & \best{0.032}   \\
+\midrule
+\textbf{\name (Ours)} & \best{0.768} & \best{0.028} & \best{0.171} & \best{0.148}  & \best{0.020} & \best{0.018}  & \best{0.055} & \best{0.051}  & \secondbestdepth{0.036} & \secondbestdepth{0.036}    \\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{Video depth and point map estimation} -- Quantitative results for both video depth and point map estimation across four benchmarks. D4RT achieves top-tier performance on the depth estimation task under both scale-only (S) and scale-and-shift (SS) alignments.}
+\label{tab:depth}
+\end{table*}
+\begin{table}[tbh!]
+\centering
+\small
+\tabcolsep=0.8em
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\begin{tabular}{@{}cccccccccc@{}}
+\toprule
+\multirow{2}[2]{*}{{\textbf{Config.}}} & \multirow{2}[2]{*}{\shortstack{\textbf{Encoder} \\ \textbf{Resolution}}} & \multirow{2}[2]{*}{\shortstack{\textbf{RGB} \\ \textbf{Patch}}} & \multirow{2}[2]{*}{\shortstack{\textbf{Output} \\ \textbf{Resolution}}} & \multirow{2}[2]{*}{\shortstack{\textbf{RGB patch} \\ \textbf{Resolution}}} & \multicolumn{2}{c}{\textbf{Scale}} & \multicolumn{2}{c}{\textbf{Scale and Shift}} \\
+\cmidrule(lr){6-7} \cmidrule(lr){8-9}
+ & & & & & AbsRel~$\downarrow$ & $\epsilon^{\text{acc}}_{\text{PDBE}}$~$\downarrow$  & AbsRel~$\downarrow$  & $\epsilon^{\text{acc}}_{\text{PDBE}}$~$\downarrow$ \\
+\midrule
+\textbf{\raisebox{0.75pt}{\textcircled{\scriptsize 1}}} & $256{\times}256$ & \xmark & $256{\times}256$ & $256{\times}256$ & 0.254 & 3.323 & 0.219 & 3.307 \\
+\textbf{\raisebox{0.75pt}{\textcircled{\scriptsize 2}}} & $256{\times}256$ & \cmark & $256{\times}256$ & $256{\times}256$ & 0.218 & 2.254 & 0.179 & 2.243\\
+\textbf{\raisebox{0.75pt}{\textcircled{\scriptsize 3}}} & $256{\times}256$ & \cmark & \emph{Original} & $256{\times}256$ & \best{0.217} & 2.266 & {0.178} & 2.258 \\
+\textbf{\raisebox{0.75pt}{\textcircled{\scriptsize 4}}} & $256{\times}256$ & \cmark & \emph{Original} & \emph{Original} & 0.220 & \best{2.193}  & \best{0.176} & \best{2.185}  \\
+\bottomrule
+\end{tabular}
+\caption{
+\textbf{Quantitative impact of query density and patch fidelity} --
+Feeding RGB patches from the high-resolution video into the decoder (Config \raisebox{0.75pt}{\textcircled{\scriptsize 4}}) yields significantly sharper edges in depth maps as measured by $\epsilon^{\text{acc}}_{\text{PDBE}}$.
+}
+\label{tab:ablation_resolution}
+\end{table}
+\begin{table}[t]
+\centering
+\small
+\tabcolsep=0.5em
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{}l cc ccc}
+\toprule
+\multirow{2}[2]{*}{\textbf{Losses}}& \multicolumn{2}{c}{\textbf{Video Depth}} & \multicolumn{3}{c}{\textbf{Camera Pose}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}
+&AbsRel(S)~$\downarrow$&AbsRel(SS)~$\downarrow$&ATE~$\downarrow$&RPE-T~$\downarrow$&RPE-R~$\downarrow$\\
+\midrule
+\name&0.302&0.257&0.091&0.028&0.245\\
+\midrule
+w/o 2D position&\cellcolor[rgb]{1.000,0.500,0.500}{+0.071}&\cellcolor[rgb]{1.000,0.500,0.500}{+0.063}&\cellcolor[rgb]{1.000,0.937,0.937}{+0.002}&\cellcolor[rgb]{1.000,0.909,0.909}{+0.002}&\cellcolor[rgb]{0.878,1.000,0.878}{-0.028}
+\\
+w/o normal&\cellcolor[rgb]{1.000,0.611,0.611}{+0.043}&\cellcolor[rgb]{1.000,0.679,0.679}{+0.026}&\cellcolor[rgb]{1.000,0.923,0.923}{+0.003}&\cellcolor[rgb]{1.000,0.889,0.889}{+0.003}&\cellcolor[rgb]{0.904,1.000,0.904}{-0.022}
+\\
+w/o displacement&\cellcolor[rgb]{1.000,0.803,0.803}{+0.011}&\cellcolor[rgb]{1.000,0.833,0.833}{+0.007}&\cellcolor[rgb]{1.000,0.852,0.852}{+0.011}&\cellcolor[rgb]{1.000,0.889,0.889}{+0.003}&\cellcolor[rgb]{1.000,0.877,0.877}{+0.007}
+\\
+w/o visibility&\cellcolor[rgb]{0.979,1.000,0.979}{-0.003}&\cellcolor[rgb]{0.802,1.000,0.802}{-0.025}&\cellcolor[rgb]{1.000,0.846,0.846}{+0.012}&\cellcolor[rgb]{1.000,0.788,0.788}{+0.011}&\cellcolor[rgb]{1.000,0.781,0.781}{+0.022}
+\\
+w/o confidence&\cellcolor[rgb]{1.000,0.916,0.916}{+0.002}&\cellcolor[rgb]{0.802,1.000,0.802}{-0.025}&\cellcolor[rgb]{1.000,0.500,0.500}{+0.126}&\cellcolor[rgb]{1.000,0.500,0.500}{+0.061}&\cellcolor[rgb]{1.000,0.500,0.500}{+0.115}
+\\
+\bottomrule
+\end{tabular}
+}
+\caption{\textbf{Auxiliary losses} --
+We remove auxiliary losses individually to evaluate their impact on model performance.
+A slight trade-off between depth and camera estimation pose is observed, though we find that all auxiliary losses improve overall performance.
+}
+\label{tab:ablation_loss}
+\end{table}
+\end{document}

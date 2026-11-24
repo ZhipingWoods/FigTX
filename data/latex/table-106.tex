@@ -1,0 +1,93 @@
+\begin{document}
+\begin{table*}[t] \small
+    \centering
+    \caption{
+    Quantitative comparison on four challenging datasets: Taichi-HD \cite{siarohin2019first}, Sky-Timelapse \cite{xiong2018learning}, FaceForensics \cite{faceforensics}, and UCF-101 \cite{ucf101}.
+    }
+    \vspace{-3mm}
+    \label{tab:quantitative_comparison}
+    \scalebox{0.8}{
+        \begin{tabularx}{1.2\linewidth}{
+            p{0.2\linewidth} |
+            X<{\centering} | X<{\centering} |
+            X<{\centering} | X<{\centering} |
+            X<{\centering} | X<{\centering} |
+            X<{\centering} | X<{\centering}}
+        \toprule
+            & \multicolumn{2}{c|}{Taichi-HD \cite{siarohin2019first}}
+            & \multicolumn{2}{c|}{Sky-Timelapse \cite{xiong2018learning}}
+            & \multicolumn{2}{c|}{FaceForensics \cite{faceforensics}}
+            & \multicolumn{2}{c}{UCF-101 \cite{ucf101}} \\
+        \midrule
+        & FVD$_{16}$ & FVD$_{128}$ & FVD$_{16}$ & FVD$_{128}$ & FVD$_{16}$ & FVD$_{128}$ & FVD$_{16}$ & FVD$_{128}$ \\
+        \midrule
+        \rowcolor{yellow!10} \multicolumn{9}{c}{Generative Adversarial Models}      \\
+        MoCoGAN \cite{mocogan}          &-      &-      &206.6  &575.9  &124.7  &257.3  &2886.9 &3679.0  \\ %from stylega-v
+        + StyleGAN2 backbone            &-      &-      & 85.9  &272.8  &55.6   &309.3  &1821.4 &2311.3  \\%from stylega-v
+        MoCoGAN-HD \cite{mocogan-hd}    &-      &-      &164.1  &878.1  &111.8  &653.0  &1729.6 &2606.5  \\%from stylega-v
+        DIGAN \cite{digan}              &128.1  &748.0  &83.11  &196.7  &62.5   &1824.7 &1630.2 &2293.7  \\%from stylega-v, taichi from VIDM
+        StyleGAN-V
+        \cite{skorokhodov2022stylegan}  &143.5  &691.1  &79.5   &197.0  &47.4   &89.3   &1431.0 &1773.4  \\%from stylega-v, taichi from VIDM
+        MoStGAN-V \cite{mostgan-v}      &-      &-      &65.3   &162.4  &39.7   & \textbf{72.6}  &-      &-       \\ %from MoStGAN-v
+        \midrule
+        \rowcolor{green!10} \multicolumn{9}{c}{Auto-regressive Generative Models}      \\
+        VideoGPT \cite{videogpt}        &-      &-      &222.7  &-      &185.9  &-      &2880.6 &-       \\%from stylega-v
+        TATS \cite{tats}                &94.6   &-      &132.6  &-      &-      &-      &420    &-       \\% from tats
+        \midrule
+        \rowcolor{blue!10} \multicolumn{9}{c}{Synchronous Diffusion Generative Models}      \\
+        Latte \cite{latte}              &159.6  &-      &59.8   &-      &\textbf{34.0}   & -     &478.0  &-       \\
+        PVDM \cite{pvdm}                &540.2  &-      &55.4   &\textbf{125.2}  &355.9  & -     &343.6  &648.4 \\ %UCF+Sky from pvdm, others from Latte
+        LVDM \cite{lvdm}                &99.0   &-      &95.2   &-      &-      &-      &372.9  &-      \\ % from Latte
+        VIDM \cite{vidm}                &121.9  &563.6  &57.4   &140.9  &-      &-      &294.7  &1531.9 \\ % from VIDM
+        \midrule
+        \rowcolor{orange!10} \multicolumn{9}{c}{Asynchronous Diffusion Generative Models}      \\
+        FVDM \cite{fvdm}                &194.6  &-      &106.1  &-      &55.0   &-      &468.2  &-         \\
+        Diffusion Forcing
+        \cite{diffusion_forcing}        &202.0  &738.5  &251.9  &895.3  &99.5   &555.2  &274.5  &836.3   \\
+        AR-Diffusion (ours)             &\textbf{66.3}   & \textbf{376.3} &\textbf{40.8}   &175.5  &71.9   &265.7  &\textbf{186.6}  & \textbf{572.3}       \\
+        \bottomrule
+        \end{tabularx}
+    }
+\end{table*}
+\begin{table*}[t] \small
+    \centering
+    \caption{
+    Quantitative results with different values of timestep $s$.
+    We utilize a DDIM sampler with 50 sampling steps in total.
+    % Notably, $s=0$ corresponds to synchronous diffusion generation and $s=50$ corresponds to auto-regressive generation.
+    }
+    \vspace{-3mm}
+    \label{tab:difference_timesteps}
+    \scalebox{0.8}{
+        \begin{tabularx}{1.2\linewidth}{
+            p{0.05\linewidth}<{\centering} |
+            p{0.07\linewidth}<{\centering} p{0.07\linewidth}<{\centering} X<{\centering} |
+            p{0.07\linewidth}<{\centering} p{0.07\linewidth}<{\centering} X<{\centering} |
+            p{0.07\linewidth}<{\centering} p{0.07\linewidth}<{\centering} X<{\centering} |
+            p{0.07\linewidth}<{\centering} p{0.07\linewidth}<{\centering} X<{\centering} |
+            p{0.08\linewidth}<{\centering} }
+        \toprule
+            \multirow{2}{*}{$s$} & \multicolumn{3}{c|}{FaceForensics \cite{faceforensics}} & \multicolumn{3}{c|}{Sky-Timelapse \cite{xiong2018learning}}
+            & \multicolumn{3}{c|}{Taichi-HD \cite{siarohin2019first}} & \multicolumn{3}{c|}{UCF-101 \cite{ucf101}}
+            & \multirow{2}{*}{\makecell{Inference \\ Time (s)}} \\
+        % \midrule
+        \cline{2-13}
+            &FID-img&FID-vid&FVD &FID-img&FID-vid&FVD &FID-img&FID-vid&FVD &FID-img&FID-vid&FVD & \\
+        \midrule
+        \rowcolor{gray!30} \multicolumn{14}{c}{16-frame Video Generation}      \\
+        0   & 14.0  & 6.9   & \textbf{71.9}  & 10.0  & \textbf{9.2}   & \textbf{40.8}  & 13.8  & 9.2   & 80.9  & 30.3  & 17.6  & 194.4 & 2.4  \\
+        5   & 14.0  & 6.2   & 78.1  & 11.1  & 11.6  & 55.2  & 13.0  & 5.9   & \textbf{66.3}  & 30.0  & 17.7  & 194.0 & 5.2 \\
+        10  & \textbf{13.6}  & \textbf{6.1}   & 84.4  & 10.3  & 11.2  & 57.6  & 12.4  & \textbf{5.8}   & 70.9  & 30.1  & 18.8  & 212.2 & 7.9 \\
+        15  & 14.3  & 6.6   & 83.5  & 9.4   & 11.4  & 55.6  & \textbf{12.2}  & \textbf{5.8}   & 69.4  & 30.0  & \textbf{16.3}  & \textbf{186.6} & 10.8 \\
+        20  & 14.8  & 6.3   & 83.3  & \textbf{9.2}   & 10.9  & 56.3  & 12.7  & 6.0   & 67.0  & 31.0  & 17.4  & 201.1 & 13.6 \\
+        25  & 14.1  & \textbf{6.1}   & 79.0  & 9.7   & 10.5  & 48.4  & 12.9  & 6.5   & 75.1  & 29.6  & 17.3  & 191.6 & 16.4 \\
+        50  & 14.2  & \textbf{6.1}   & 82.8  & 10.1  & 10.7  & 50.6  & 13.1  & 5.9   & 71.7  & \textbf{29.5}  & 17.1  & 192.6 & 30.5  \\
+        \rowcolor{gray!30} \multicolumn{14}{c}{128-frame Video Generation}      \\
+        5   & \textbf{14.7}  & 9.5   & \textbf{265.7} & 12.2  & 25.2  & 185.1 & 8.9   & \textbf{10.8}  & \textbf{376.3} & 32.5  & 24.4  & 592.7 & 42.1  \\
+        10  & 15.2  &\textbf{ 8.9}   & 278.1 & \textbf{12.1}  & 23.9  & 182.6 & \textbf{8.8}   & 12.2  & 401.9 & \textbf{31.5}  & 24.9  & 605.3 & 78.0 \\
+        25  & 15.4  & 9.3   & 348.6 & 12.2  & \textbf{22.8}  & \textbf{175.5} & \textbf{8.8}   & 12.3  & 402.5 & 31.8  & \textbf{23.3}  & \textbf{572.3} & 184.8 \\
+        \bottomrule
+        \end{tabularx}
+    }
+\end{table*}
+\end{document}

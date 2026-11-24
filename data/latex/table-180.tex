@@ -1,0 +1,43 @@
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+\centering
+\caption{
+Membership inference performance across different diffusion-based image generation models.
+We consider balanced and imbalanced (1:10) proportion of member to non-member, and report the AUC and the true positive rate under a false positive rate of $\leq5\%$.
+}
+\label{Tab:main}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|cc|cc|cc|cc}
+\toprule
+\multirow{2}{*}{Methods} & \multicolumn{2}{c|}{Stable-diffusion-v1-2 (balanced)} & \multicolumn{2}{c|}{Stable-diffusion-v1-4 (balanced)} & \multicolumn{2}{c|}{Stable-diffusion-v1-5 (balanced)}  & \multicolumn{2}{c}{Stable-diffusion-v3-5 (balanced)} \\
+                         & AUC          & TPR@5\% FPR         & AUC          & TPR@5\% FPR        & AUC          & TPR@5\% FPR         & AUC          & TPR@5\% FPR         \\ \midrule
+Loss                     &  51.59 $\pm$ 1.94 & 4.73 $\pm$ 1.24 & 52.91 $\pm$ 1.38 & 6.53 $\pm$ 1.94 & 53.75 $\pm$ 3.85 & 6.53 $\pm$ 1.59 & 42.10 $\pm$ 1.30 & 1.20 $\pm$ 0.62 \\
+SecMIA &
+51.66 $\pm$ 1.89 & 5.87 $\pm$ 1.81 & 55.49 $\pm$ 1.39 & 5.13 $\pm$ 1.67 & 52.10 $\pm$ 2.77 & 5.53 $\pm$ 1.65 & 34.68 $\pm$ 2.18 & 2.07 $\pm$ 1.00 \\
+PIA & 52.66 $\pm$ 2.43 & 7.20 $\pm$ 2.22 & 49.52 $\pm$ 2.87 & 6.47 $\pm$ 1.05 & 48.16 $\pm$ 2.49 & 7.00 $\pm$ 1.91 & 50.62 $\pm$ 1.53 & 2.40 $\pm$ 1.04  \\
+CLiD & 49.26 $\pm$ 2.18 & 5.33 $\pm$ 1.92 & 53.71 $\pm$ 1.75 & 5.60 $\pm$ 3.23 & 51.88 $\pm$ 1.52 & 6.60 $\pm$ 1.72 & 58.15 $\pm$ 1.88 & 4.33 $\pm$ 1.01 \\
+DRC & 54.66 $\pm$ 1.40 & 11.27 $\pm$ 2.24 & 55.83 $\pm$ 1.24 & 9.13 $\pm$ 3.36 & 54.61 $\pm$ 1.46 & 9.40 $\pm$ 1.51 & 60.44 $\pm$ 1.11 & 12.47 $\pm$ 1.42 \\ \midrule
+REDIFFUSE  & 49.42 $\pm$ 1.29 & 4.53 $\pm$ 1.00 & 51.27 $\pm$ 3.45 & 5.67 $\pm$ 2.49 & 50.01 $\pm$ 2.05 & 4.93 $\pm$ 1.72 & 45.29 $\pm$ 1.94 & 3.00 $\pm$ 1.38 \\
+Reconstruction  &
+59.66 $\pm$ 1.57 & 12.13 $\pm$ 1.44 & 60.99 $\pm$ 2.98 & 14.40 $\pm$ 4.06 & 60.30 $\pm$ 2.47 & 11.73 $\pm$ 3.70 & 46.74 $\pm$ 1.63 & 1.47 $\pm$ 0.45 \\
+SD-MIA  & \cellcolor{gray!30} \textbf{66.28} $\pm$ 1.47 & \cellcolor{gray!30} \textbf{16.73} $\pm$ 2.98 & \cellcolor{gray!30} \textbf{66.23} $\pm$ 1.76 & \cellcolor{gray!30} \textbf{15.80} $\pm$ 3.98 & \cellcolor{gray!30} \textbf{65.92} $\pm$ 1.29 & \cellcolor{gray!30} \textbf{13.67} $\pm$ 3.37 & \cellcolor{gray!30} \textbf{66.93} $\pm$ 0.53 & \cellcolor{gray!30} \textbf{18.33} $\pm$ 1.19
+\\ \midrule  \midrule
+\multirow{2}{*}{Methods} & \multicolumn{2}{c|}{Stable-diffusion-v1-2 (imbalanced)} & \multicolumn{2}{c|}{Stable-diffusion-v1-4 (imbalanced)} & \multicolumn{2}{c|}{Stable-diffusion-v1-5 (imbalanced)}  & \multicolumn{2}{c}{Stable-diffusion-v3-5 (imbalanced)} \\
+                         & AUC          & TPR@5\% FPR         & AUC          & TPR@5\% FPR         & AUC          & TPR@5\% FPR         & AUC          & TPR@5\% FPR        \\ \midrule
+Loss & 52.98 $\pm$ 3.70 & 6.40 $\pm$ 2.33 & 52.88 $\pm$ 4.63 & 6.80 $\pm$ 2.99 & 53.05 $\pm$ 4.04 & 4.40 $\pm$ 1.50 & 41.04 $\pm$ 1.84 & 1.20 $\pm$ 1.60 \\
+SecMIA & 51.78 $\pm$ 4.07 & 5.20 $\pm$ 2.04 & 55.75 $\pm$ 3.24 & 4.80 $\pm$ 2.04 & 54.03 $\pm$ 3.37 & 7.60 $\pm$ 1.96 & 33.26 $\pm$ 1.18 & 1.60 $\pm$ 1.50 \\
+PIA & 51.14 $\pm$ 2.03 & 5.60 $\pm$ 1.50 & 45.84 $\pm$ 1.46 & 7.20 $\pm$ 0.98 & 48.94 $\pm$ 3.43 & 6.40 $\pm$ 2.65 & 49.06 $\pm$ 3.61 & 3.20 $\pm$ 2.04 \\
+CLiD & 53.05 $\pm$ 2.06 & 5.20 $\pm$ 2.99 & 51.74 $\pm$ 1.39 & 5.20 $\pm$ 1.60 & 50.99 $\pm$ 2.04 & 5.20 $\pm$ 2.04 & 55.81 $\pm$ 1.69 & 4.80 $\pm$ 2.99 \\
+DRC & 53.98 $\pm$ 2.25 & 10.40 $\pm$ 5.28 & 56.79 $\pm$ 2.90 & 12.80 $\pm$ 5.88 & 56.10 $\pm$ 3.92 & 8.40 $\pm$ 3.88 & 61.24 $\pm$ 7.91 & 18.40 $\pm$ 6.62 \\ \midrule
+REDIFFUSE & 52.08 $\pm$ 1.70 & 6.40 $\pm$ 0.80 & 47.80 $\pm$ 3.42 & 3.60 $\pm$ 2.94 & 45.50 $\pm$ 4.40 & 4.00 $\pm$ 2.19 & 45.36 $\pm$ 3.10 & 3.48 $\pm$ 2.95 \\
+Reconstruction  & 57.61 $\pm$ 5.26 & 17.20 $\pm$ 5.74 & 60.85 $\pm$ 3.56 & 16.00 $\pm$ 4.56 & 59.72 $\pm$ 3.50 & 10.80 $\pm$ 1.60 & 52.89 $\pm$ 2.96 & 4.40 $\pm$ 1.50 \\
+SD-MIA  & \cellcolor{gray!30} \textbf{65.98} $\pm$ 3.46 & \cellcolor{gray!30} \textbf{13.62} $\pm$ 2.89 & \cellcolor{gray!30} \textbf{66.12} $\pm$ 2.78 & \cellcolor{gray!30} \textbf{17.02} $\pm$ 5.55 & \cellcolor{gray!30} \textbf{66.22} $\pm$ 5.79 & \cellcolor{gray!30} \textbf{14.04} $\pm$ 5.31 & \cellcolor{gray!30}  \textbf{65.04} $\pm$ 3.44 & \cellcolor{gray!30} \textbf{18.40} $\pm$ 6.12 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

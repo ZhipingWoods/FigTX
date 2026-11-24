@@ -1,0 +1,292 @@
+\usepackage[table]{xcolor}
+\definecolor{first}{RGB}{191, 225, 201} % 第一种绿色
+\definecolor{second}{RGB}{227, 237, 185} % 第二种黄色绿色
+\definecolor{third}{RGB}{254, 250, 194} % 第三种浅黄色
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\centering
+\caption{Quantitative comparison of MIND with eight state-of-the-art methods on Harvard. Best results are highlighted as \colorbox{first}{\textbf{first}}, \colorbox{second}{second} and \colorbox{third}{third}.}
+\vspace{-10pt}
+\label{tab:harvard_quant}
+% 紧凑排版，缩小字体与列间距
+\footnotesize
+\setlength{\tabcolsep}{3pt}  % 缩小列间距适配宽度
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lllcccccccc}
+\toprule
+\textbf{Dataset} & \textbf{Method} & \textbf{Source} & \textbf{EN} & \textbf{AG} & \textbf{MI} & \textbf{VIF} & \textbf{SF} & \textbf{SD} & \textbf{Qabf} & \textbf{MS\_SSIM} \\
+\midrule
+% CT-MRI 部分
+\multirow{9}{*}{\textbf{CT-MRI}}
+    & DDFM \cite{Zhao_2023_ICCV}           & ICCV$_{23}$
+    & 4.195±0.196
+    & 5.461±0.855
+    & 2.675±0.292
+    & 0.402±0.039
+    & 22.165±3.019
+    & 62.305±4.101
+    & 0.442±0.041
+    & \cellcolor{third}{0.543±0.041} \\
+    & Text-DiFuse \cite{NEURIPS2024_zhang} & NeurIPS$_{24}$
+    & \cellcolor{second}{5.577±0.255}
+    & 8.433±1.244
+    & \cellcolor{second}{3.247±0.292}
+    & 0.484±0.041
+    & 34.606±3.839
+    & \cellcolor{third}{87.012±3.490}
+    & 0.570±0.024
+    & 0.401±0.075 \\
+    & FILM \cite{ZHAO2024icml}              & ICML$_{24}$
+    & 3.907±0.241
+    & \cellcolor{second}{9.593±1.504}
+    & \cellcolor{third}{2.986±0.202}
+    & 0.403±0.036
+    & \cellcolor{first}{\textbf{42.957±6.171}}
+    & 83.367±4.030
+    & \cellcolor{second}{0.644±0.032}
+    & 0.368±0.013 \\
+    & MACTFusion \cite{Xie2025MACTFusion}  & JBHI$_{25}$
+    & 4.543±0.241
+    & 8.066±1.316
+    & 2.854±0.155
+    & \cellcolor{third}{0.501±0.048}
+    & 34.442±4.526
+    & 86.456±5.119
+    & \cellcolor{third}{0.612±0.041}
+    & \cellcolor{second}{0.550±0.048} \\
+    & BSAFusion \cite{Li_Su_Cai_Zhang_2025}& AAAI$_{25}$
+    & 4.638±0.255
+    & 7.276±1.220
+    & 2.829±0.263
+    & 0.392±0.067
+    & 27.964±3.453
+    & 80.277±5.046
+    & 0.427±0.056
+    & 0.469±0.086 \\
+    & TextFusion \cite{CHENG2025102790}    & INFFUS$_{25}$
+    & \cellcolor{third}{4.775±0.248}
+    & 5.020±0.960
+    & 2.944±0.197
+    & 0.436±0.038
+    & 22.424±2.936
+    & 81.132±6.260
+    & 0.380±0.032
+    & 0.500±0.037 \\
+    & DiTFuse \cite{Li2025DiTFuse}         & TPAMI$_{25}$
+    & 3.884±0.284
+    & 8.979±1.353
+    & 2.319±0.309
+    & 0.412±0.864
+    & 32.050±4.044
+    & \cellcolor{second}{87.438±13.169}
+    & 0.471±0.061
+    & 0.348±0.102 \\
+    & SAFusion \cite{Li2026JBHI}            & JBHI$_{26}$
+    & 4.533±0.236
+    & \cellcolor{third}{9.119±1.443}
+    & 2.832±0.230
+    & \cellcolor{first}{\textbf{0.581±0.0095}}
+    & \cellcolor{third}{38.610±5.084}
+    & 82.766±4.991
+    & 0.348±0.043
+    & \cellcolor{first}{\textbf{0.573±0.0122}} \\
+    & \textbf{MIND}                        & \textbf{Ours}
+    & \cellcolor{first}{\textbf{5.802±0.149}}
+    & \cellcolor{first}{\textbf{10.111±2.243}}
+    & \cellcolor{first}{\textbf{3.274±0.201}}
+    & \cellcolor{second}{0.569±0.06}
+    & \cellcolor{second}{41.250±7.704}
+    & \cellcolor{first}{\textbf{92.291±6.454}}
+    & \cellcolor{first}{\textbf{0.672±0.0176}}
+    & 0.488±0.092 \\
+\midrule
+% PET-MRI 部分
+\multirow{9}{*}{\textbf{PET-MRI}}
+    & DDFM \cite{Zhao_2023_ICCV}           & ICCV$_{23}$
+    & 4.922±0.600
+    & 7.411±0.930
+    & 2.455±0.416
+    & 0.614±0.05
+    & 23.376±2.120
+    & 78.061±4.970
+    & 0.571±0.032
+    & 0.621±0.021 \\
+    & FILM \cite{ZHAO2024icml}              & ICML$_{24}$
+    & 3.437±0.835
+    & 8.121±3.050
+    & \cellcolor{second}{3.746±0.305}
+    & \cellcolor{first}{\textbf{0.793±0.074}}
+    & 31.297±8.839
+    & 72.937±10.140
+    & \cellcolor{first}{\textbf{0.784±0.025}}
+    & 0.618±0.085 \\
+    & Text-DiFuse \cite{NEURIPS2024_zhang} & NeurIPS$_{24}$
+    & \cellcolor{second}{6.224±0.534}
+    & 10.889±1.373
+    & 3.127±0.202
+    & 0.526±0.045
+    & 35.672±3.362
+    & \cellcolor{second}{97.248±3.095}
+    & 0.613±0.039
+    & \cellcolor{first}{\textbf{0.698±0.028}} \\
+    & MACTFusion \cite{Xie2025MACTFusion}  & JBHI$_{25}$
+    & 5.430±0.646
+    & 10.306±1.192
+    & \cellcolor{third}{3.498±0.274}
+    & \cellcolor{second}{0.779±0.068}
+    & 35.705±3.668
+    & 91.352±3.304
+    & \cellcolor{third}{0.756±0.036}
+    & \cellcolor{third}{0.637±0.016} \\
+    & BSAFusion \cite{Li_Su_Cai_Zhang_2025}& AAAI$_{25}$
+    & 5.196±0.659
+    & 11.551±1.591
+    & \cellcolor{third}{3.498±0.304}
+    & 0.663±0.052
+    & \cellcolor{second}{37.399±4.049}
+    & 90.080±2.526
+    & 0.699±0.0364
+    & 0.626±0.022 \\
+    & TextFusion  \cite{CHENG2025102790}   & INFFUS$_{25}$
+    & \cellcolor{third}{5.770±0.641}
+    & 9.983±1.345
+    & 3.345±0.244
+    & 0.633±0.023
+    & 32.018±3.335
+    & 83.078±3.279
+    & 0.696±0.029
+    & 0.603±0.016 \\
+    & DiTFuse \cite{Li2025DiTFuse}         & TPAMI$_{25}$
+    & 4.868±0.669
+    & \cellcolor{first}{\textbf{12.423±1.838}}
+    & 2.752±0.248
+    & 0.557±0.239
+    & 33.819±2.929
+    & \cellcolor{third}{94.810±8.598}
+    & 0.640±0.052
+    & 0.557±0.033 \\
+    & SAFusion \cite{Li2026JBHI}            & JBHI$_{26}$
+    & 5.298±0.605
+    & \cellcolor{third}{11.719±1.482}
+    & 2.495±0.132
+    & 0.661±0.041
+    & \cellcolor{third}{35.907±5.084}
+    & 87.109±2.727
+    & \cellcolor{second}{0.759±0.037}
+    & 0.619±0.018 \\
+    & \textbf{MIND}                        & \textbf{Ours}
+    & \cellcolor{first}{\textbf{6.238±0.526}}
+    & \cellcolor{second}{11.893±1.539}
+    & \cellcolor{first}{\textbf{4.063±0.359}}
+    & \cellcolor{third}{0.749±0.118}
+    & \cellcolor{first}{\textbf{42.302±6.473}}
+    & \cellcolor{first}{\textbf{97.716±2.907}}
+    & 0.750±0.096
+    & \cellcolor{second}{0.642±0.028} \\
+\midrule
+% SPECT-MRI 部分
+\multirow{9}{*}{\textbf{SPECT-MRI}}
+    & DDFM \cite{Zhao_2023_ICCV}           & ICCV$_{23}$
+    & 4.392±0.473
+    & 5.198±1.014
+    & \cellcolor{third}{3.262±0.217}
+    & 0.477±0.04
+    & 17.399±2.378
+    & 64.194±5.449
+    & 0.569±0.044
+    & 0.589±0.090 \\
+    & FILM \cite{ZHAO2024icml}              & ICML$_{24}$
+    & 3.776±0.493
+    & 5.728±1.227
+    & 2.807±0.289
+    & \cellcolor{third}{0.754±0.124}
+    & 22.687±4.865
+    & \cellcolor{third}{66.038±10.784}
+    & 0.671±0.036
+    & \cellcolor{second}{0.648±0.105} \\
+    & TextFusion \cite{CHENG2025102790}    & INFFUS$_{25}$
+    & \cellcolor{third}{5.032±0.631}
+    & 6.103±1.167
+    & \cellcolor{second}{3.444±0.280}
+    & 0.672±0.050
+    & 20.240±2.626
+    & 60.185±5.237
+    & 0.677±0.044
+    & 0.585±0.074 \\
+    & MACTFusion \cite{Xie2025MACTFusion}  & JBHI$_{25}$
+    & 4.994±0.707
+    & 6.969±1.248
+    & 3.129±0.273
+    & 0.690±0.045
+    & 22.018±2.927
+    & 60.287±5.380
+    & \cellcolor{third}{0.730±0.035}
+    & \cellcolor{third}{0.621±0.050} \\
+    & BSAFusion \cite{Li_Su_Cai_Zhang_2025}& AAAI$_{25}$
+    & 4.643±0.539
+    & 6.927±1.402
+    & 3.169±0.255
+    & 0.625±0.046
+    & \cellcolor{third}{23.623±3.393}
+    & 64.067±5.367
+    & 0.678±0.050
+    & 0.609±0.065 \\
+    & Text-DiFuse \cite{NEURIPS2024_zhang} & NeurIPS$_{24}$
+    & \cellcolor{second}{5.895±0.390}
+    & \cellcolor{first}{\textbf{7.196±1.583}}
+    & 3.074±0.161
+    & 0.547±0.033
+    & \cellcolor{first}{\textbf{26.081±4.273}}
+    & \cellcolor{second}{77.622±5.043}
+    & 0.584±0.046
+    & 0.486±0.030 \\
+    & DiTFuse \cite{Li2025DiTFuse}         & TPAMI$_{25}$
+    & 4.275±0.470
+    & 6.947±1.252
+    & 2.616±0.202
+    & 0.570±0.049
+    & \cellcolor{second}{24.304±2.754}
+    & 63.123±7.982
+    & 0.553±0.045
+    & 0.515±0.083 \\
+    & SAFusion \cite{Li2026JBHI}            & JBHI$_{26}$
+    & 4.815±0.614
+    & \cellcolor{second}{7.145±1.231}
+    & 2.986±0.144
+    & \cellcolor{second}{0.835±0.082}
+    & 22.576±2.825
+    & 61.754±4.600
+    & \cellcolor{second}{0.756±0.037}
+    & 0.614±0.063 \\
+    & \textbf{MIND}                        & \textbf{Ours}
+    & \cellcolor{first}{\textbf{6.236±0.419}}
+    & \cellcolor{third}{6.974±1.333}
+    & \cellcolor{first}{\textbf{4.142±0.587}}
+    & \cellcolor{first}{\textbf{0.877±0.035}}
+    & 23.316±3.029
+    & \cellcolor{first}{\textbf{79.905±4.388}}
+    & \cellcolor{first}{\textbf{0.792±0.052}}
+    & \cellcolor{first}{\textbf{0.659±0.026}} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\begin{table}[!t]
+\centering
+\caption{Diffusion-based Model Efficiency Comparison on Harvard. Best results are highlighted as \colorbox{first}{\textbf{first}}, \colorbox{second}{second} and \colorbox{third}{third}. $\star$: using LoRA. Time: inference time per image. FLOPs: single-step flops.}
+\vspace{-10pt}
+\label{tab:efficiency_compare}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Methods} & \textbf{Params (M, $\downarrow$)} & \textbf{Time (s, $\downarrow$)} & \textbf{FLOPs (G, $\downarrow$)} \\
+\midrule
+DDFM \cite{Zhao_2023_ICCV}            & 552.814 & \cellcolor{third}{11.818} & \cellcolor{first}{\textbf{2293.76}} \\
+Text-DiFuse \cite{NEURIPS2024_zhang}  & \cellcolor{third}{119.460} & \cellcolor{first}{\textbf{2.135}} & 18180.07 \\
+DiTFuse$\star$ \cite{Li2025DiTFuse}   & \cellcolor{first}{\textbf{37.750}} & 13.370 & \cellcolor{second}{6469.60} \\
+\textbf{MIND$\star$}                  & \cellcolor{second}{39.930} & \cellcolor{second}{7.851} & \cellcolor{third}{6860.69} \\
+\bottomrule
+\end{tabular}
+\vspace{-10pt}
+\end{table}
+\end{document}

@@ -1,0 +1,146 @@
+\newcommand{\inlineColorbox}[2]{\begingroup\setlength{\fboxsep}{1pt}\colorbox{#1}{\hspace*{2pt}\vphantom{Ay}#2\hspace*{2pt}}\endgroup}
+\definecolor{lightpink}{RGB}{251, 220, 235}
+\definecolor{lightblue}{RGB}{203, 220, 235}
+\definecolor{lightgreen}{RGB}{219,234,210}
+\definecolor{lightred}{RGB}{255, 107, 107}
+\definecolor{lightgray}{RGB}{211, 211, 211}
+\definecolor{darkspringgreen}{rgb}{0.09, 0.45, 0.27}
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{mypink}{rgb}{0.858, 0.188, 0.478}
+\newcommand{\wrong}{W}
+\newcommand{\abstain}{A}
+\newcommand{\generic}{G}
+\newcommand{\lessspecific}{S^-}
+\newcommand{\specific}{S}
+\newcommand{\morespecific}{S^+}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+%%
+%% Inline annotations; for predefined colors, refer to "dvipsnames" in the xcolor package:
+%% https://tinyurl.com/overleaf-colors
+%%
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\yiming}[1]{{\color{magenta}#1}}
+\newcommand{\dav}[1]{{\color{orange} {[Davide] #1}}}
+\newcommand{\eli}[1]{{\color{blue} {[Elisa] #1}}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+\definecolor{ultraviolet}{HTML}{8365BA}
+\newcommand{\ale}[1]{\textcolor{ultraviolet}{[\textbf{A: #1]}}}
+%%\newcommand{\sam}[1]{\textcolor{darkspringgreen}{[sam]: #1}}
+\newcommand{\sam}[1]{{\color{ao(english)}#1}}
+\newcommand{\old}[1]{{\color{mypink}#1}}
+\newcommand{\lab}[1]{\textit{#1}} % For examples of predicted/gt labels
+%\newcommand{\class}[1]{\textit{"#1"}}
+\newcommand{\ourmethod}{SpeciaRL\xspace}
+\newcommand{\predictionclass}{LLM-based prediction categorization\xspace}
+\newcommand{\ourmetric}{granularity-informed scores\xspace}
+\newcommand{\spe}{spec.\xspace}
+\newcommand{\cor}{corr.\xspace}
+%%% Math-related
+\newcommand{\prompt}{\mathtt{P}}
+\newcommand{\netlmm}{\Phi_\mathtt{LMM}^{\theta}}
+\newcommand{\netllm}{\Psi_\mathtt{LLM}}
+\newcommand{\image}{I}
+\newcommand{\gtlabel}{y}
+\newcommand{\pred}{p}
+\newcommand{\predset}{\mathcal{C}}
+\newcommand{\predcls}{c}
+\newcommand{\visualspace}{\mathcal{V}}
+\newcommand{\textspace}{\mathcal{L}}
+\newcommand{\semanticspace}{\mathcal{S}}
+\newcommand{\reward}{r}
+\newcommand{\ourreward}{r^*}
+\newcommand{\specscore}[1]{\alpha_{\tiny #1}}
+\newcommand{\BoN}{\operatorname{BoN}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+\caption{Open-world image classification results of \inlineColorbox{lightblue}{zero-shot} methods and models \inlineColorbox{lightgreen}{fine-tuned out-of-domain}.
+We report the ratio of the predictions within categories assigned by the LLM verifier, our measures of specificity and correctness and the harmonic mean of these two (HM). Results are averaged over all datasets within the \textbf{fine-grained} and \textbf{very fine-grained} sets. For reference, we report the performance of \inlineColorbox{gray!15}{inference out of 64 runs (BoN-64)}. Best in \textbf{bold}; second best \underline{underlined}.}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc|ccc||cccccc|ccc}
+\toprule
+& \multicolumn{9}{c||}{\cellcolor{gray!15}\textbf{Fine-grained}} & \multicolumn{9}{c}{\cellcolor{gray!15}\textbf{Very fine-grained}} \\
+\cmidrule(lr){2-10} \cmidrule(lr){11-19}
+& \multicolumn{6}{c|}{Prediction categorization} & \multicolumn{3}{c||}{Metrics} & \multicolumn{6}{c|}{Prediction categorization} & \multicolumn{3}{c}{Metrics} \\
+\cmidrule(lr){2-7} \cmidrule(lr){8-10} \cmidrule(lr){11-16} \cmidrule(lr){17-19}
+Model & $\morespecific$ & $\specific$ & $\lessspecific$ & $\generic$ & $\abstain$ & $\wrong$ & \spe~$\uparrow$ & \cor~$\uparrow$ & HM~$\uparrow$ & $\morespecific$ & $\specific$ & $\lessspecific$ & $\generic$ & $\abstain$ & $\wrong$ & \spe~$\uparrow$ & \cor~$\uparrow$ & HM~$\uparrow$ \\
+\midrule
+\cellcolor{lightblue}CaSED~\cite{conti2023vocabulary} & 0.0\% & 43.7\% & 10.6\% & 24.2\% & 0.0\% & 21.5\% & 0.812 & 0.785 & 0.797 & 0.0\% & 0.9\% & 13.8\% & 56.0\% & 0.0\% & 29.3\% & 0.56 & 0.707 & 0.612 \\
+\cellcolor{lightblue}InternVL2.5-4B~\cite{chen2024expanding} & 0.0\% & 11.4\% & 1.5\% & 54.4\% & 8.4\% & 24.1\% & 0.554 & 0.759 & 0.639 & 0.0\% & 0.1\% & 1.2\% & 62.7\% & 5.5\% & 30.5\% & 0.486 & 0.695 & 0.571\\
+\cellcolor{lightblue}InternVL2.5-8B~\cite{chen2024expanding} & 0.7\% & 16.7\% & 3.3\% & 30.6\% & 20.7\% & 27.9\% & 0.575 & 0.721 & 0.624 & 0.0\% & 1.2\% & 5.7\% & 54.5\% & 15.6\% & 22.9\% & 0.476 & 0.771 & 0.589\\
+\cellcolor{lightblue}Qwen2.5VL-3B~\cite{bai2025qwen25} & 0.8\% & 17.3\% & 2.7\% & 53.4\% & 4.2\% & 21.5\% & 0.608 & 0.785 & 0.685 & 0.1\% & 1.1\% & 3.9\% & 75.1\% & 2.4\% & 17.4\% & 0.511 & 0.826 & 0.631 \\
+\cellcolor{lightblue}Qwen2.5VL-7B~\cite{bai2025qwen25} & 1.4\% & 38.1\% & 4.3\% & 39.4\% & 1.4\% & 15.4\% & 0.742 & \underline{0.846} & 0.790 & 0.1\% & 3.9\% & 12.8\% & 74.5\% & 0.6\% & 8.1\% & 0.555 & \textbf{0.919} & 0.692 \\
+\cellcolor{lightblue}Qwen2.5VL-7B (``Be specific'') & 2.1\% & 49.1\% & 6.2\% & 22.4\% & 3.4\% & 16.8\% & 0.816 & 0.832 & 0.822 & 0.3\% & 12.5\% & 29.3\% & 45.6\% & 1.3\% & 11.0\% & 0.652 & \underline{0.89} & 0.751 \\
+\midrule
+\midrule
+\cellcolor{lightgreen}Qwen2.5VL-7B (\textit{sft}) & 2.4\% & 64.4\% & 7.6\% & 6.0\% & 0.3\% & 19.3\% & \textbf{0.935} & 0.807 & \underline{0.866} & 0.5\% & 22.5\% & 50.8\% & 11.8\% & 0.1\% & 14.3\% & 0.789 & 0.857 & 0.814 \\
+\cellcolor{lightgreen}Qwen2.5VL-7B (\textit{rft}) & 4.6\% & 52.2\% & 5.0\% & 16.2\% & 0.0\% & 21.5\% & 0.875 & 0.785 & 0.825 & 1.2\% & 24.7\% & 53.9\% & 3.5\% & 0.0\% & 16.7\% & \textbf{0.825} & 0.833 & \underline{0.821} \\
+\midrule
+\cellcolor{lightgreen}\textbf{\ourmethod-7B} & 5.6\% & 63.4\% & 5.1\% & 10.7\% & 0.0\% & 15.2\% & \underline{0.920} & \textbf{0.848} & \textbf{0.883} & 1.0\% & 25.2\% & 54.2\% & 5.1\% & 0.0\% & 14.5\% & \underline{0.818} & 0.855 & \textbf{0.830} \\
+\midrule
+\rowcolor{gray!10}\textit{Qwen2.5VL-7B (BoN-64)} & \textit{10.8\%} & \textit{63.4\%} & \textit{5.0\%} & \textit{18.7\%} & \textit{0.6\%} & \textit{1.6\%} & \textit{0.889} & \textit{0.984} & \textit{0.933} & \textit{1.9\%} & \textit{30.6\%} & \textit{42.6\%} & \textit{24.6\%} & \textit{0.1\%} & \textit{0.2\%} & \textit{0.77} & \textit{0.998} & \textit{0.868} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5pt}
+\label{tab:complete_mean_comparison}
+\end{table*}
+\begin{table}[t!]
+\caption{Comparison against state-of-the-art methods following the evaluation protocol of~\cite{conti2025large}. Key: TI:Text Inclusion; LI: Language Inclusion; SS: Semantic Similarity; CS: Concept Similarity. Best in \textbf{bold}; second best \underline{underlined}.
+}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc||cccc}
+\toprule
+& \multicolumn{4}{c||}{\cellcolor{gray!15}\textbf{Fine-grained}} & \multicolumn{4}{c}{\cellcolor{gray!15}\textbf{Very fine-grained}} \\
+\cmidrule(lr){2-5} \cmidrule(lr){6-9}
+\textbf{Model} & \textbf{TI}$\uparrow$ & \textbf{LI}$\uparrow$ & \textbf{SS}$\uparrow$ & \textbf{CS}$\uparrow$ & \textbf{TI}$\uparrow$ & \textbf{LI}$\uparrow$ & \textbf{SS}$\uparrow$ & \textbf{CS}$\uparrow$ \\
+\midrule
+\rowcolor{lightblue}\multicolumn{9}{l}{\textit{Retrieval-based baselines}} \\
+CASED & 27.4 & 46.6 & 60.7 & 61.7 & 0.7 & 47.1 & 38.5 & 38.5 \\
+CLIP retrieval & 32.4 & 45.4 & 42.9 & 65.4 & 7.0 & 18.1 & 39.7 & 56.1 \\
+\midrule
+\rowcolor{lightblue}\multicolumn{9}{l}{\textit{Non-reasoning LMMs}} \\
+IDEFICS2 8B & 3.0 & 49.9 & 38.0 & 41.7 & 0.0 & 67.0 & 29.6 & 33.6 \\
+INSTRUCTBLIP Vic 7B & 10.4 & 48.8 & 35.6 & 47.2 & 0.0 & 61.0 & 30.0 & 34.3 \\
+INTERNVL2 2B & 14.9 & 47.0 & 31.6 & 50.7 & 0.7 & 32.9 & 33.1 & 43.9 \\
+INTERNVL2 4B & 16.2 & 44.4 & 32.0 & 52.0 & 1.7 & 36.8 & 33.8 & 44.2 \\
+INTERNVL2 8B & 22.3 & 46.7 & 34.8 & 56.7 & 2.3 & 32.5 & 36.0 & 49.4 \\
+LLAVA-1.5 7B & 8.4 & 46.5 & 28.2 & 44.8 & 0.0 & 41.0 & 28.6 & 37.6 \\
+LLAVA-NEXT Mist 7B & 26.8 & 43.7 & 35.3 & 60.1 & 1.4 & 47.2 & 34.2 & 46.9 \\
+LLAVA-NEXT Vic 7B & 16.9 & 44.5 & 32.2 & 53.2 & 1.3 & 42.2 & 34.5 & 46.1 \\
+LLAVA-OV Qwen2 0.5B & 6.0 & 42.7 & 38.5 & 43.3 & 0.6 & 65.6 & 30.5 & 37.1 \\
+LLAVA-OV Qwen2 7B & 6.4 & 40.4 & 39.0 & 43.8 & 0.0 & 76.7 & 31.9 & 32.4 \\
+PHI-3-VISION & 13.4 & 49.1 & 31.8 & 47.2 & 0.2 & 45.0 & 28.9 & 36.0 \\
+QWEN2VL 2B & 35.7 & 62.5 & 40.7 & 63.4 & 12.9 & 60.7 & 45.1 & 62.3 \\
+QWEN2VL 7B & 34.6 & 64.0 & 39.2 & 62.9 & 0.8 & 63.0 & 34.5 & 43.4 \\
+\midrule
+\rowcolor{lightblue}\multicolumn{9}{l}{\textit{Reasoning LMMs}} \\
+INTERNVL2.5 2B & 12.2 & 38.6 & 27.5 & 47.0 & 0.8 & 52.4 & 31.6 & 41.5 \\
+INTERNVL2.5 4B & 17.2 & 48.2 & 32.8 & 52.3 & 0.5 & 55.6 & 31.4 & 39.7 \\
+INTERNVL2.5 8B & 17.9 & 50.9 & 32.8 & 53.5 & 1.6 & 59.9 & 32.1 & 40.4 \\
+QWEN2.5VL 3B & 44.3 & 63.9 & 41.6 & 69.3 & 9.4 & 58.9 & 39.9 & 58.5 \\
+QWEN2.5VL 7B & 58.7 & 74.2 & 47.0 & 78.9 & 16.4 & 70.4 & 45.8 & 68.4 \\
+\midrule
+\rowcolor{lightgreen}\multicolumn{9}{l}{\textit{Reasoning LMMs - fine-tuned out-of-distribution}} \\
+Qwen2.5VL-7B (\textit{sft}) & 60.0 & 73.8 & 47.8 & 80.1 & 17.1 & \textbf{71.1} & 47.3 & 71.1 \\
+Qwen2.5VL-7B (\textit{rft}) & \underline{62.0} & \textbf{74.8} & \underline{48.4} & \underline{80.6} & \underline{21.9} & \underline{68.2} & \underline{49.5} & \underline{74.0} \\
+\midrule
+\textbf{\ourmethod-7B} & \textbf{62.7} & \underline{74.4} & \textbf{49.2} & \textbf{81.1} & \textbf{24.9} & 63.8 & \textbf{50.5} & \textbf{75.4} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-5pt}
+\label{tab:lmm_category_results_split}
+\end{table}
+\end{document}

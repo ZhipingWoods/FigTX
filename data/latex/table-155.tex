@@ -1,0 +1,113 @@
+\definecolor{ourscolor}{HTML}{E3EFDB}
+\definecolor{basegray}{HTML}{F5F5F5}  %
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        \textbf{Model} &
+        \makecell{\textbf{Train} \\ \textbf{time/epoch (ms)}} &
+        \makecell{\textbf{Model} \\ \textbf{parameters (M)}} &
+        \makecell{\textbf{Inference} \\ \textbf{time (ms)}} &
+        \makecell{\textbf{Retrieval} \\ \textbf{time (ms)}} &
+        \textbf{SumR} \\
+        \midrule
+        GMMFormer & 26887 & 12.85 & 2876 & 3238 & 72.9 \\
+        HLFormer & 31463 & 28.43  & 3816 & 3655 & 78.7 \\
+        GMMFormerV2 & 38004 & 30.79  & 3843 & 3688 & 78.2 \\
+         & 33609 & 36.14  & 4001 & 3686 & 80.0 \\
+        \bottomrule
+        \end{tabular}
+    }
+    \vspace{-.5em}
+    \caption{\textbf{Training and Inference Efficiency.}  Inference time denotes feature extraction for 1334 videos in the evaluation sets, while retrieval time accounts for the total time of query encoding, similarity computation and ranking.  Dataset: Charades-STA.}
+    \label{tab:efficiency}
+\end{table}
+\begin{table*}[t]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cl ccccc c ccccc c  ccccc}
+\toprule
+\multirow{2}{*}{ID}&\multirow{2}{*}{\textbf{Model}}& \multicolumn{5}{c}{\textbf{ActivityNet Captions}} &  & \multicolumn{5}{c}{\textbf{Charades-STA}}&& \multicolumn{5}{c}{\textbf{TVR}} \\
+\cmidrule{3-7} \cmidrule{9-13} \cmidrule{15-19}
+&& \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} && \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} & & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} \\
+\midrule
+\midrule
+\rowcolor{ourscolor}
+(0)& \textbf{ (full)} & \textbf{8.7} & \textbf{27.5} & \textbf{40.3} & \textbf{79.5} & \textbf{156.1} &&\textbf{2.6} & \textbf{8.7} & \textbf{14.5} & \textbf{54.2} & \textbf{80.0} &&   \textbf{17.4} & \textbf{39.0} & \textbf{50.4} & \textbf{86.2} & \textbf{193.1}      \\
+\midrule
+\rowcolor{basegray}
+\multicolumn{19}{l}{\scalebox{1.1}{\textit{Efficacy of Register Generation Strategy}}}\\
+(1)& $w/o$ registers & 8.5& 26.6 & 39.5 & 78.8 & 153.4&&2.4 & 7.9 & 13.6 & 52.9  & 76.8 &&  15.7& 36.6 & 48.7&86.0 & 187.0 \\
+(2)& $w/$ AP & 8.5& 26.2 & 39.3 & 77.9 & 151.9&&2.6 & 8.6 & 14.4 & 52.6 & 78.1 &&  17.0& 38.3 & 49.6&86.4 & 191.4 \\
+(3)& $w/o$ DRE & 8.2& 25.7 & 38.7 & 78.0 & 150.6&&2.4 & 8.5 & 14.8 & 52.6  & 78.3 &&  16.8& 38.2 & 49.6&86.3 & 190.8 \\
+(4)& $w/o$ PVS & 8.4& 27.3 & 40.2 & 78.9 & 154.9&&2.0 & 8.3 & 13.9 & 53.4  & 77.6 &&  16.5& 38.5 & 49.4&86.4 & 190.9 \\
+\midrule
+\rowcolor{basegray}
+\multicolumn{19}{l}{\scalebox{1.1}{\textit{Efficacy of Different Loss Terms}}}\\
+(5) & $L_{\text{sim}}$ Only & 8.1 & 25.4 & 38.3 & 78.7 & 150.5 &&2.4 & 7.8 & 13.3 & 53.1 & 76.6 & & 15.9 & 36.7& 48.3 & 86.1  & 187.0\\
+(6) &$w/o$ $ L_{\text{pvs}}$&  8.6 & 27.3 & 40.1 & 79.1 & 155.1  &&2.3 & 8.5 & 14.0 & 53.7  & 78.5 &&16.9 & 38.4 & 49.7 & 86.7  & 191.6\\
+(7) &$w/o$ $ L_{\text{dre}}$&  8.5 & 26.6 & 39.2 & 78.9 & 153.2  &&2.0 & 8.7 & 14.3 & 53.4  & 78.5 &&16.5 & 38.2 & 49.7 & 86.5  & 190.9\\
+(8) & $w/o$ $L_{\text{tssl}}$  &  8.2 & 25.7 & 38.6 & 78.8 & 151.3 &&1.7 & 8.1 & 13.6 & 53.4 & 76.9 && 16.9 & 38.1 & 49.6 & 86.6  & 191.1\\
+\hline
+\bottomrule
+\end{tabular}
+}
+\vspace{-.5em}
+ \caption{Ablation Study of .  The best scores are marked in \textbf{bold}.}
+ \label{tab:ablation}
+\end{table*}
+\begin{table*}[t]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l ccccc c ccccc c  ccccc}
+\toprule
+\multirow{2}{*}{\textbf{Model}}& \multicolumn{5}{c}{\textbf{ActivityNet Captions}} &  & \multicolumn{5}{c}{\textbf{Charades-STA}}&& \multicolumn{5}{c}{\textbf{TVR}} \\
+\cmidrule{2-6} \cmidrule{8-12} \cmidrule{14-18}
+& \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} && \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} & & \textbf{R@1} & \textbf{R@5} & \textbf{R@10} & \textbf{R@100} & \textbf{SumR} \\
+\midrule
+\midrule
+\rowcolor{basegray}
+\multicolumn{18}{l}{\scalebox{1.15}{\textit{Text-to-Video Retrieval (T2VR) Models}}}\\
+RIVRL \cite{dong2022reading} & 5.2 & 18.0 & 28.2 & 66.4 & 117.8 &&1.6 & 5.6 & 9.4 & 37.7  & 54.3 && 9.4 & 23.4 & 32.2 & 70.6 & 135.6  \\
+ DE++ \cite{dong2021dual}  & 5.3 & 18.4 & 29.2 & 68.0 & 121.0  && 1.7 & 5.6 & 9.6 & 37.1& 54.1 && 8.8 & 21.9 & 30.2 & 67.4 & 128.3\\
+CLIP4Clip \cite{luo2022clip4clip} & 5.9 & 19.3 & 30.4 & 71.6 & 127.3 &&1.8 & 6.5 & 10.9 & 44.2 & 63.4 &&  9.9 & 24.3 & 34.3 & 72.5 & 141.0\\
+Cap4Video  \cite{wu2023cap4video} & 6.3 & 20.4 & 30.9 & 72.6 & 130.2 &&1.9 & 6.7 & 11.3 & 45.0 & 65.0 &&  10.3 & 26.4 & 36.8 & 74.0 & 147.5\\
+\midrule
+\rowcolor{basegray}
+\multicolumn{18}{l}{\scalebox{1.15}{ \textit{Video Corpus Moment Retrieval (VCMR) Models w/o Moment localization}}}\\
+ReLoCLNet \cite{zhang2021video} & 5.7 & 18.9 & 30.0 & 72.0 & 126.6 &&1.2 & 5.4 & 10.0 & 45.6 & 62.3 & & 10.0 & 26.5 & 37.3 & 81.3  & 155.1 \\
+XML  \cite{lei2020tvr} &  5.3 & 19.4 & 30.6 & 73.1 & 128.4 &&1.6 & 6.0 & 10.1 & 46.9 & 64.6 && 10.7 & 28.1 & 38.1 & 80.3  & 157.1 \\
+CONQUER \cite{hou2021conquer}&  6.5 & 20.4 & 31.8 & 74.3  & 133.1 &&1.8 & 6.3 & 10.3 & 47.5  & 66.0 &&11.0 & 28.9 & 39.6 & 81.3  & 160.8 \\
+JSG \cite{jsg}&  6.8 & 22.7 & 34.8 & 76.1  & 140.5 &&2.4 & 7.7 & 12.8 & 49.8  & 72.7 &&- & - & - & -  & -\\
+\midrule
+\rowcolor{basegray}
+\multicolumn{18}{l}{\scalebox{1.15}{\textit{Partially Relevant Video Retrieval (PRVR) Models}}}\\
+MS-SL \cite{ms-sl}& 7.1 & 22.5 & 34.7 & 75.8 & 140.1 &&1.8 & 7.1 & 11.8 & 47.7 & 68.4& & 13.5 & 32.1 & 43.4 & 83.4 & 172.4       \\
+MS-SL++ \cite{MS-SL++}& 7.0 & 23.1 & 35.2 & 75.8 & 141.1 && 1.8 & 7.6 & 12.0 & 48.4 & 69.7 && 13.6 & 33.1 & 44.2 & 83.5 & 174.5\\
+ PEAN \cite{PEAN}&7.4 & 23.0 & 35.5 & 75.9 & 141.8 &&  2.7 & 8.1 & 13.5 & 50.3 & 74.7 && 13.5 & 32.8 & 44.1 & 83.9 & 174.2 \\
+  LH \cite{lh}& 7.4 & 23.5 & 35.8 & 75.8 & 142.4 &&2.1 & 7.5 & 12.9 & 50.1 & 72.7& & 13.2 & 33.2 & 44.4 & 85.5 & 176.3 \\
+ BGM-Net \cite{bgmnet}& 7.2 & 23.8 & 36.0 & 76.9 & 143.9 &&1.9 & 7.4 & 12.2 & 50.1 & 71.6 && 14.1 & 34.7 & 45.9 & 85.2 & 179.9 \\
+ GMMFormer \cite{GMMFORMER}&8.3 & 24.9 & 36.7 & 76.1 & 146.0 && 2.1 & 7.8 & 12.5 & 50.6 & 72.9 &&13.9 & 33.3 & 44.5 & 84.9 & 176.6 \\
+ ProtoPRVR \cite{ProtoPRVR} & 7.9 & 24.9 & 37.2 & 77.3 & 147.4 && - & - & - & - & - && 15.4 & 35.9 & 47.5 & 86.4 & 185.1\\
+ DL-DKD \cite{DL-DKD}& 8.0 & 25.0 & 37.5 & 77.1 & 147.6 &&- & - & - & - & - && 14.4 & 34.9 & 45.8 & 84.9 & 179.9  \\
+ARL \cite{ARL}& 8.3 & 24.6 & 37.4 & 78.0 & 148.3 && - & - & - & - & - && 15.6 & 36.3 & 47.7 & 86.3 & 185.9\\
+MGAKD \cite{MGAKD}& 7.9 & 25.7 & 38.3 & 77.8 & 149.6 && - & - & - & - & - && 16.0 & 37.8 & 49.2 & 87.5 & 190.5\\
+GMMFormerV2 \cite{GMMFormerV2}& \textbf{8.9} & 27.1 & 40.2 & 78.7 & 154.9 && 2.5 & 8.6 & 13.9 & 53.2 & 78.2 && 16.2 & 37.6 & 48.8 & 86.4 & 189.1\\
+HLFormer \cite{HLFormer}& 8.7 & 27.1 & 40.1 & 79.0 & 154.9 && 2.6 & 8.5 & 13.7 & 54.0 & 78.7 && 15.7 & 37.1 & 48.5 & 86.4 & 187.7\\
+% \rowcolor{purple!20}
+\rowcolor{ourscolor}
+ \textbf{ (ours)} & 8.7 & \textbf{27.5} & \textbf{40.3} & \textbf{79.5} & \textbf{156.1} &&2.6 & \textbf{8.7} & \textbf{14.5} & \textbf{54.2} & \textbf{80.0} &&   \textbf{17.4} & \textbf{39.0} & \textbf{50.4} & \textbf{86.2} & \textbf{193.1}     \\
+\hline
+\bottomrule
+\end{tabular}
+}
+\vspace{-.8em}
+\caption{\textbf{Retrieval performance comparison across three standard benchmarks.} Models are ranked in ascending order of SumR scores on ActivityNet Captions.
+State-of-the-art performance is highlighted in \textbf{bold}, while “-” denotes unavailable results.}
+\vspace{-1.5em}
+\label{tab:main}
+\end{table*}
+\end{document}

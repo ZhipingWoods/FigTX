@@ -1,0 +1,75 @@
+\begin{document}
+\definecolor{lightblue}{rgb}{0.9, 0.95, 1}
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccccccc}
+\toprule
+\multirow{3}{*}{Model} & \multirow{3}{*}{RL Algo}  & \multicolumn{2}{c}{GAIA} & \multicolumn{2}{c}{BrowseComp} & \multicolumn{2}{c}{BrowseComp-ZH} & \multicolumn{2}{c}{Xbench} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+& & Pass@1 & Pass@3 & Pass@1 & Pass@3 & Pass@1 & Pass@3 & Pass@1 & Pass@3 \\
+\midrule
+\multicolumn{9}{l}{\textit{Advanced Models}} \\
+OpenAI-o3$^\dagger$ & - & \underline{70.5} & - & \underline{50.9} & - & \underline{58.1} & - & 66.7 & - \\
+Claude-4-Sonnet$^\dagger$ & - & 68.3 & - & 12.2 & -& 29.1 & - & 64.6 & -  \\
+Kimi-K2$^\dagger$ & - & 57.7 & - & 14.1 & - & 28.8 & - & 50.0 & - \\
+DeepSeek-V3.1$^\dagger$ & - & 63.1 & - & 30.0 & -  & 49.2 & - & \underline{71.0} & -\\
+\midrule
+\multicolumn{9}{l}{\textit{Open-source Agents $\leq$ 32B}} \\
+R1-Searcher-7B & - & 20.4 & - & 0.4 & - & 0.6 & - & 4.0 & - \\
+WebThinker-RL & - & 48.5& - & 2.8 & - & 7.3 & - & 24.0 & - \\
+WebDancer-QwQ & - & 51.5 & - & 3.8 & - & 18.0 & - & 39.0 & - \\
+WebSailor-7B & - & 37.9 & - & 6.7 & - & 14.2 & - & 34.3 & - \\
+WebSailor-32B & - & \underline{53.2} & -  & \underline{10.5} & - & \underline{25.5} & - & \underline{53.3} & - \\
+\midrule
+\multirow{3}{*}{\textbf{WebAnchor-3B}}
+% & Base-SFT & 25.6 & 42.7 & 3.3 & 5.6 & 8.2 & 17.0 & 27.7 & 51.0 \\
+& GRPO & 27.2 & \underline{43.6} & 5.1 & 8.7 & 12.3 & 19.2 & 31.6 & 55.0 \\
+& First-step GRPO & \textbf{30.1} & \textbf{44.6} & \underline{6.9} & \underline{10.2} & \underline{12.9} & \underline{21.5} & \underline{34.7} & \underline{55.0} \\
+% & First-step GRPO & 48.5 & 65.1 & 12.9 & 21.0 & 26.4 & 41.2 \\
+\rowcolor{lightblue} &   \textbf{Anchor-GRPO}  & \underline{28.3} & 43.5 & \textbf{7.1} & \textbf{11.5} & \textbf{13.1} & \textbf{25.0} & \textbf{37.7} & \textbf{56.0}  \\
+\midrule
+\multirow{3}{*}{\textbf{WebAnchor-7B}}
+% & Base-SFT & 31.7 & 44.7 & 5.7 & 10.5 & 13.2 & 25.6 & 34.3 & 55.0 \\
+& GRPO & 33.0 & 44.7 & 6.3 & 11.7 & \underline{17.5} & \underline{31.5} & \underline{40.7} & \underline{56.0} \\
+& First-step GRPO & \textbf{38.5} & \textbf{55.1} & \underline{9.3} & \underline{16.3} & 16.4 & 31.2 & 37.7 & 52.0\\
+\rowcolor{lightblue} &  \textbf{Anchor-GRPO} & \underline{37.8} & \underline{51.5} & \textbf{11.6} & \textbf{20.7} & \textbf{23.8} & \textbf{36.7} &  \textbf{45.0} & \textbf{66.0} \\
+\midrule
+\multirow{3}{*}{\textbf{WebAnchor-30B}}
+% & Base-SFT & 65.5 & 75.4 & 39.7 & 55.5 & 40.7 & 57.4 & 67.7 & 81.0 \\
+& GRPO & \underline{75.8} & \textbf{87.6} & \underline{44.0} & \underline{65.0} & 46.2 &61.4 &71.0 & 84.0 \\
+& First-step GRPO & 74.8 & \underline{87.4} & 43.3 & 66.0 & \underline{47.9} & \underline{63.2}  & \underline{72.0} & \textbf{88.0} \\
+\rowcolor{lightblue} &  \textbf{Anchor-GRPO} & \textbf{76.4} & 86.4 & \textbf{46.0} & \textbf{67.5} & \textbf{48.8} & \textbf{65.1} & \textbf{75.1} & \underline{85.0} \\
+\bottomrule
+\end{tabular}
+\caption{Performance comparison of the proposed Anchor-GRPO method across different model sizes and RL algorithms, evaluated on multiple benchmarks (GAIA, BrowseComp, BrowseComp-ZH, Xbench).}
+\label{tab:anchor_grpo_main}
+\end{table*}
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt} % 稍微缩小列间距以容纳更多列
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Ablation Settings} & \textbf{Pass@1} & \textbf{Pass@3} & \textbf{Coverage} & \textbf{Alignment} & \textbf{Efficiency} & \textbf{Avg. Tool Calls} \\
+\midrule
+\multicolumn{7}{l}{\textit{Two-Stage Training Strategy}} \\
+\quad Full GRPO (baseline)         & \underline{44.0} & \underline{65.0} & 36.0 & 61.2 & 53.8 & 15.5 \\
+\quad Only Planner Updated (Stage-1) & 42.0 & 57.0 & \underline{48.2} & \textbf{67.2} & \textbf{65.4} & 14.9 \\
+\rowcolor{lightblue} \quad  \textbf{Two-Stage (Planner + Executor)} & \textbf{46.0} & \textbf{67.5} & \textbf{50.2}& \underline{67.0} & \underline{63.4}  & 17.3 \\
+\midrule
+\multicolumn{7}{l}{\textit{First-Step vs. Other-Step Update}} \\
+\quad Random Step GRPO             & 33.0 & 38.5 & \underline{39.0} & \underline{43.6} & \underline{46.6} & 16.2 \\
+\quad Last Step GRPO               & \underline{36.1} & \underline{40.8} & 33.4 & 41.4 & 42.8 & 13.0 \\
+\rowcolor{lightblue} \quad  \textbf{First-Step GRPO} & \textbf{43.3} & \textbf{66.0} & \textbf{44.4} & \textbf{58.2} & \textbf{56.6} & 14.6 \\
+\midrule
+\multicolumn{7}{l}{\textit{Reward Design}} \\
+\quad 0-1 Terminal Reward          & 43.3 & \underline{66.0} & 39.8 & 43.4 & 47.8 & 15.7 \\
+\quad Naive Plan Reward            & \underline{44.2} & 63.4 & \underline{44.6} & \underline{52.2} & \underline{51.4} & 19.2 \\
+\rowcolor{lightblue} \quad  \textbf{Planner Dense Reward} & \textbf{46.0} & \textbf{67.5} & \textbf{50.2}& \textbf{67.0} & \textbf{63.4} & 17.3 \\
+\bottomrule
+\end{tabular}
+\caption{Ablation studies on Browsecomp\_en across three design dimensions. We compare how different settings affect performance, plan quality and tool call efficiency.}
+\end{table*}
+\end{document}

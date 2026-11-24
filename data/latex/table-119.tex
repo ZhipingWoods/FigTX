@@ -1,0 +1,116 @@
+definecolor{lightgrayblue}{HTML}{ECEFF1}
+\definecolor{lightblue}{HTML}{E3F2FD}
+\definecolor{lightpeach}{HTML}{FFF3E0}
+\definecolor{closedBg}{HTML}{F5F5F5}
+\definecolor{qwen15Bg}{HTML}{E8F4FC}
+\definecolor{qwen15Highlight}{HTML}{D4EBFA}
+\definecolor{qwen15Text}{HTML}{2E5F8C}
+\definecolor{qwen7Bg}{HTML}{FFF7FB}
+\definecolor{qwen7Highlight}{HTML}{FFEDF5}
+\definecolor{qwen7Text}{HTML}{B87090}
+\definecolor{keyColBg}{HTML}{FFF9E6}
+\definecolor{deepgreen}{RGB}{70, 180, 100}
+\definecolor{deeppurple}{RGB}{180, 120, 200}
+\definecolor{deepblue}{RGB}{100, 150, 220}
+\definecolor{deepbrown}{RGB}{200, 150, 100}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\definecolor{lightgrayblue}{HTML}{ECEFF1}
+\definecolor{lightblue}{HTML}{E3F2FD}
+\definecolor{lightpeach}{HTML}{FFF3E0}
+\newcommand{\gain}[2]{%
+    \pgfmathsetmacro{\delta}{(#1-#2)/#2*100}%
+    \pgfmathprintnumber[fixed, precision=1, showpos]{\delta}\%%
+}
+\newcommand{\cellwithgain}[2]{%
+    \makecell{\textcolor{teal}{\textbf{#1}} \\ \textcolor{teal}{\scriptsize(#2)}}%
+}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\small
+\centering
+{
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.05}
+\vspace{-1em}
+\caption{Comparison of benchmark results on unseen test instances (averaged over 3 random seeds) across Qwen2.5-1.5B-Instruct and Qwen2.5-7B-Instruct. Best results are \textbf{bold}, second-best are \underline{underlined}. \textit{$\Delta$ vs GRPO} denotes relative improvement (\%) over GRPO. Key metrics (All, Succ.) are highlighted.}
+\vspace{-0.3em}
+\begin{tabular}{lcccccc|c|c|c}
+\toprule
+\multirow{2}{*}[-3pt]{\textbf{Method}} & \multicolumn{7}{c}{\textbf{ALFWorld}} & \multicolumn{2}{c}{\textbf{WebShop}} \\
+\cmidrule(lr){2-8} \cmidrule(lr){9-10}
+& Pick & Look & Clean & Heat & Cool & Pick2 & \textbf{All} & Score & \textbf{Succ.} \\
+\midrule
+\multicolumn{10}{>{\columncolor{closedBg}}c}{\textit{\textbf{Closed-Source LLMs}}} \\
+\midrule
+GPT-4o & 75.3 & 60.8 & 31.2 & 56.7 & 21.6 & 49.8 & 48.0 & 31.8 & 23.7 \\
+Gemini-2.5-Pro & 92.8 & 63.3 & 62.1 & 69.0 & 26.6 & 58.7 & 60.3 & 42.5 & 35.9 \\
+\midrule
+\multicolumn{10}{>{\columncolor{qwen15Bg}}c}{\textit{\textbf{Qwen2.5-1.5B-Instruct}}} \\
+\midrule
+Base & 5.9 & 5.5 & 3.3 & 9.7 & 4.2 & 0.0 & 4.1 & 25.1 & 6.3 \\
+ReAct & 17.4 & 20.5 & 15.7 & 6.2 & 7.7 & 2.0 & 12.8 & 42.1 & 14.3 \\
+Reflexion & 37.8 & 24.0 & 23.3 & 14.5 & 20.7 & 3.9 & 23.5 & 58.6 & 23.5 \\
+GRPO & 80.0 & 50.0 & 75.0 & 88.9 & 63.2 & 50.0 & 70.3 & 73.1 & 52.2 \\
+GiGPO & \textbf{95.3} & 80.2 & \textbf{92.9} & \textbf{92.7} & \underline{70.6} & \underline{78.5} & \underline{85.2} & \underline{81.7} & \underline{62.3} \\
+\rowcolor{qwen15Highlight}
+\textbf{ProxMO (Ours)} &
+\textcolor{qwen15Text}{\underline{94.3}} &
+\textcolor{qwen15Text}{\textbf{92.9}} &
+\textcolor{qwen15Text}{\underline{89.3}} &
+\textcolor{qwen15Text}{\underline{92.2}} &
+\textcolor{qwen15Text}{\textbf{89.5}} &
+\textcolor{qwen15Text}{\textbf{87.0}} &
+\textcolor{qwen15Text}{\textbf{90.6}} &
+\textcolor{qwen15Text}{\textbf{85.3}} &
+\textcolor{qwen15Text}{\textbf{67.1}} \\
+\rowcolor{qwen15Bg!40}
+\textit{$\Delta$ vs GRPO} &
+\textcolor{qwen15Text}{\scriptsize\gain{94.3}{80.0}} &
+\textcolor{qwen15Text}{\scriptsize\gain{92.9}{50.0}} &
+\textcolor{qwen15Text}{\scriptsize\gain{89.3}{75.0}} &
+\textcolor{qwen15Text}{\scriptsize\gain{92.2}{88.9}} &
+\textcolor{qwen15Text}{\scriptsize\gain{89.5}{63.2}} &
+\textcolor{qwen15Text}{\scriptsize\gain{87.0}{50.0}} &
+\textcolor{qwen15Text}{\scriptsize\textbf{\gain{90.6}{70.3}}} &
+\textcolor{qwen15Text}{\scriptsize\textbf{\gain{85.3}{73.1}}} &
+\textcolor{qwen15Text}{\scriptsize\textbf{\gain{67.1}{52.2}}}
+\\
+\midrule
+\multicolumn{10}{>{\columncolor{qwen7Bg}}c}{\textit{\textbf{Qwen2.5-7B-Instruct}}} \\
+\midrule
+Base & 34.8 & 22.9 & 18.1 & 7.3 & 2.5 & 3.6 & 16.2 & 25.1 & 8.4 \\
+ReAct & 50.1 & 33.8 & 35.7 & 12.5 & 17.3 & 18.9 & 29.8 & 47.8 & 21.0 \\
+Reflexion & 63.4 & 40.2 & 46.5 & 29.7 & 37.9 & 22.6 & 44.1 & 56.3 & 30.2 \\
+GRPO & 90.7 & 66.2 & \underline{94.1} & \underline{91.2} & 78.9 & 70.5 & 79.8 & 79.2 & 67.2 \\
+GiGPO & \underline{97.5} & \underline{81.3} & 88.5 & 85.7 & \underline{90.0} & \underline{83.5} & \underline{89.5} & \underline{85.5} & \underline{74.8} \\
+\rowcolor{qwen7Highlight}
+\textbf{ProxMO (Ours)} &
+\textcolor{qwen7Text}{\textbf{98.4}} &
+\textcolor{qwen7Text}{\textbf{88.6}} &
+\textcolor{qwen7Text}{\textbf{95.7}} &
+\textcolor{qwen7Text}{\textbf{93.8}} &
+\textcolor{qwen7Text}{\textbf{91.3}} &
+\textcolor{qwen7Text}{\textbf{89.8}} &
+\textcolor{qwen7Text}{\textbf{94.5}} &
+\textcolor{qwen7Text}{\textbf{87.2}} &
+\textcolor{qwen7Text}{\textbf{76.5}} \\
+\rowcolor{qwen7Bg!40}
+\textit{$\Delta$ vs GRPO} &
+\textcolor{qwen7Text}{\scriptsize\gain{98.4}{90.7}} &
+\textcolor{qwen7Text}{\scriptsize\gain{88.6}{66.2}} &
+\textcolor{qwen7Text}{\scriptsize\gain{95.7}{94.1}} &
+\textcolor{qwen7Text}{\scriptsize\gain{93.8}{91.2}} &
+\textcolor{qwen7Text}{\scriptsize\gain{91.3}{78.9}} &
+\textcolor{qwen7Text}{\scriptsize\gain{89.8}{70.5}} &
+\textcolor{qwen7Text}{\scriptsize\textbf{\gain{94.5}{79.8}}} &
+\textcolor{qwen7Text}{\scriptsize\gain{87.2}{79.2}} &
+\textcolor{qwen7Text}{\scriptsize\gain{76.5}{67.2}} \\
+\bottomrule
+\end{tabular}
+\label{tab:main_results}
+\vspace{-0.5em}
+}
+\end{table*}
+\end{document}

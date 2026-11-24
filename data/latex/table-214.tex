@@ -1,0 +1,86 @@
+\definecolor{RLHFcolor}{HTML}{709DE5}
+\definecolor{RLVFcolor}{HTML}{CD3E37}
+\definecolor{RLSFcolor}{HTML}{EC802D}
+\definecolor{RLDFcolor}{HTML}{53AFA8}
+\definecolor{Best}{HTML}{F5B7BF}
+\definecolor{Secondbest}{HTML}{D5DEFF}
+\definecolor{CVPR}{HTML}{8080FF}
+%%%%%%%
+\begin{document}
+\begin{table}[!t]
+\small
+  \centering
+  \caption{Quantitative comparison of with different loss components. The best values are shown in \textbf{bold}.}
+  \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{l|ccccc}
+    \hline
+    Method & {EN} & {SD} & {AG} & {MUS} & {CNN} \\
+    \hline
+     \rowcolor{CVPR!8}
+    \multicolumn{6}{l}{\textcolor{CVPR}{\textit{PALDM denoise loss variants}}} \\
+    w/ $\mathcal{L}_\text{ST}$ & 7.647  & 58.215  & 5.163  & 55.515  & 0.649  \\
+    w/ $\mathcal{L}_\text{ET}$ & 7.470  & 53.612  & 3.782  & 53.848  & 0.608  \\
+    %     \multicolumn{6}{l}{\textcolor{olive}
+    % {\textit{Joint conditional loss}}}\\
+                  \cdashline{1-6}
+        \rowcolor{gray!10}
+    \textbf{w/ $\mathcal{L}_c$} & \textbf{7.680}  & \textbf{60.806}  &\textbf{ 5.343 } & \textbf{56.154}  & \textbf{0.659}  \\
+    \hline
+     \rowcolor{CVPR!8}
+    \multicolumn{6}{l}{\textcolor{CVPR}{\textit{PCLDM preference loss variants}}} \\
+    w/ $\mathcal{L}_\text{DPO}$ &   7.600    & 57.089      &  \textbf{14.215}     &   53.850    &  0.652\\
+    w/ $\mathcal{L}_\text{contrast}$ &  7.352     &     51.077  &  8.232     &   55.303    & \textbf{0.694} \\
+
+    % \multicolumn{6}{l}{\textcolor{olive}
+    % {\textit{Combining the two modules}}} \\
+                  \cdashline{1-6}
+    \rowcolor{gray!10}
+   \textbf{w/ $\mathcal{L}_\text{IDPO}$} & \textbf{7.725} & \textbf{61.911} & 5.977 & \textbf{57.295} & 0.655 \\
+    \hline
+    \hline
+    Method & &\multicolumn{2}{l}{mIoU} & \multicolumn{2}{l}{mAcc}  \\
+      \hline
+      \rowcolor{CVPR!8}
+          \multicolumn{6}{l}{\textcolor{CVPR}{\textit{Segmentation task}}} \\
+    w/o $\mathcal{L}_\text{IDPO}$ & &\multicolumn{2}{l}{55.21} & \multicolumn{2}{l}{63.52}  \\
+    w/ $\mathcal{L}_\text{DPO}$ & &\multicolumn{2}{l}{55.20} & \multicolumn{2}{l}{62.52}  \\
+                  \cdashline{1-6}
+    \rowcolor{gray!10}
+    \textbf{w/ $\mathcal{L}_\text{IDPO}$} & &\multicolumn{2}{l}{\textbf{55.96}} & \multicolumn{2}{l}{\textbf{64.26}}  \\
+      \hline
+    \end{tabular}%
+    \vspace{-3mm}
+  \label{tab:abstudy}%
+\end{table}%
+\begin{table*}[htbp]
+\footnotesize
+  \centering
+  \caption{Quantitative comparison of our methods against state-of-the-art fusion methods on the LLVIP, MSRS, and RoadScene datasets. The best values are in \textbf{bold}, and the second-best values are \underline{underlined}.}
+  \renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{1.1mm}{
+       \begin{tabular}{ccccccccccccccccc}
+    \hline
+    \multicolumn{1}{c}{\multirow{2}[1]{*}{Methods}} & \multicolumn{1}{c}{\multirow{2}[1]{*}{Reference}} & \multicolumn{5}{c}{\textbf{LLVIP Dataset}}    & \multicolumn{5}{c}{\textbf{MSRS Dataset}}     & \multicolumn{5}{c}{\textbf{RoadScene Dataset}} \\
+    \cmidrule(lr){3-7} \cmidrule(lr){8-12} \cmidrule(lr){13-17}
+          &       & EN & SD & AG & MUS & CNN & EN & SD & AG & MUS & CNN & EN & SD & AG & MUS & CNN \\
+          \hline
+    U2Fusion & TPAMI$^{22}$ & 7.441  & 50.961  & 4.473  & 56.384  & 0.649  & 5.042  & 20.342  & 2.264  & 32.795  & 0.379  & 6.998  & 35.743  & 5.125  & 42.170  & 0.444  \\
+    DDFM  & ICCV$^{23}$ & 7.001  & 38.018  & 4.351  & 40.997  & 0.619  & 6.125  & 28.479  & 2.955  & 29.457  & 0.395  & 7.225  & 41.676  & 5.098  & 33.274  & 0.469  \\
+    SHIP  & CVPR$^{24}$ & 7.386  & 49.104  & 5.044  & 56.331  & 0.648  & 6.429  & 41.152  & 3.936  & 36.570  & 0.442  & 7.148  & 42.969  & 5.963  & \cellcolor{Best}\textbf{46.976} & \cellcolor{Secondbest}\underline{0.556} \\
+    EMMA  & CVPR$^{24}$ & 7.429  & 50.199  & 4.564  & 56.683  & 0.640  & 6.723  & 44.591  & 3.788  & 35.977  & 0.374  & \cellcolor{Secondbest}\underline{7.499} & \cellcolor{Best}\textbf{56.300} & 6.163  & 39.655  & 0.425  \\
+    Text-IF & CVPR$^{24}$ & 6.726  & 36.521  & 3.619  & 49.664  & 0.555  & 7.040  & 44.289  & 3.784  & 35.843  & 0.398  & 7.273  & 45.749  & 6.333  & 45.557  & 0.530  \\
+    DCEvo & CVPR$^{25}$ & 6.938  & 44.423  & 5.345  & 51.853  & 0.636  & 6.626  & 42.942  & 3.728  & 36.602  & 0.439  & 7.167  & 44.128  & 5.318  & 43.498  & 0.538  \\
+    GIFNet & CVPR$^{25}$ & 7.355  & 49.478  & 3.901  & 55.277  & 0.644  & 5.944  & 32.971  & 3.375  & 38.902  & \cellcolor{Secondbest}\underline{0.538} & 7.342  & 48.020  & \cellcolor{Secondbest}\underline{6.413} & 45.511  & \cellcolor{Best}\textbf{0.605}\\
+    LUT-Fuse & ICCV$^{25}$ & 6.894  & 51.270  & 3.960  & 49.352  & 0.630  & 6.671  & 42.781  & 3.770  & 38.200  & 0.424  & 6.959  & 42.569  & 4.454  & \cellcolor{Secondbest}\underline{45.820}& 0.475  \\
+    SAGE & CVPR$^{25}$ & 7.355  & 50.836  & 4.550  & 53.370  & 0.634  & 6.004  & 36.338  & 3.168  & 37.418  & 0.398  & 7.007  & 42.213  & 3.888  & 37.124  & 0.435  \\
+    \cdashline{1-17}
+    \rowcolor{gray!10}
+    \textbf{RLVF} & Ours  & \cellcolor{Secondbest}\underline{7.554} & \cellcolor{Secondbest}\underline{53.299} & \cellcolor{Secondbest}\underline{5.439} & \cellcolor{Secondbest}\underline{57.280} & \cellcolor{Best}\textbf{0.660} & \cellcolor{Best}\textbf{7.203} & \cellcolor{Best}\textbf{56.614} & \cellcolor{Best}\textbf{5.782} & \cellcolor{Best}\textbf{39.684} & 0.524  & \cellcolor{Best}\textbf{7.574} & \cellcolor{Secondbest}\underline{53.323} & \cellcolor{Best}\textbf{8.622} & 41.431  & 0.472  \\
+ \rowcolor{gray!10}
+    \textbf{RLHF} & Ours  & \cellcolor{Best}\textbf{7.725} & \cellcolor{Best}\textbf{61.911} & \cellcolor{Best}\textbf{5.977} & \cellcolor{Best}\textbf{57.295} & \cellcolor{Secondbest}\underline{0.655} & \cellcolor{Secondbest}\underline{7.138} & \cellcolor{Secondbest}\underline{53.385} & \cellcolor{Secondbest}\underline{5.601} & \cellcolor{Secondbest}\underline{39.140} & \cellcolor{Best}\textbf{0.545} & 7.210  & 40.535  & 5.957  & 43.785  & 0.539  \\
+    \hline
+    \end{tabular}}
+  \label{tab:three}%
+  \vspace{-5mm}
+\end{table*}%
+\end{document}

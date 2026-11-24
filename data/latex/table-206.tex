@@ -1,0 +1,77 @@
+\definecolor{pinkcolor}{RGB}{230, 0, 115}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{
+Quantitative comparison of UnityVideo on \colorbox{gray!15}{controllable generation}, \colorbox{cyan!15}{text-to-video generation}, and \colorbox{yellow!15}{video estimation} tasks. Best results are in \textbf{bold}, and second-best results are \underline{underlined}. Compared to state-of-the-art methods and commercial models, UnityVideo achieves superior or competitive performance across all metrics.
+}
+\vspace{-2mm}
+{
+\scriptsize
+\label{tab_comprehensive_comparison}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ll|cccc|cc|cc}
+\toprule
+\multicolumn{2}{c|}{} & \multicolumn{4}{c|}{\textbf{Video Generation - VBench \& UniBench Dataset}} & \multicolumn{4}{c}{\textbf{Video Estimation - UniBench Dataset}} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-10}
+\multicolumn{2}{c|}{} & \multicolumn{4}{c|}{\textbf{VBench}} & \multicolumn{2}{c|}{\textbf{Segmentation}} & \multicolumn{2}{c}{\textbf{Depth}} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+\textbf{Tasks} & \textbf{Models} & \textbf{Background} & \textbf{Aesthetic} & \textbf{Overall} & \textbf{Dynamic} & \textbf{mIoU}  $\uparrow$ & \textbf{mAP}  $\uparrow$ & \textbf{Abs Rel} $\downarrow$ & $\boldsymbol{\delta < 1.25}$ $\uparrow$ \\
+& & \textbf{Consistency} & \textbf{Quality} & \textbf{Consistency} & \textbf{Degree} & & & & \\
+\midrule
+\multirow{5}{*}{Text2Video}
+& Kling1.6 & 95.33 & 60.48 & 21.76 & \underline{47.05} & - & - & - & - \\
+& OpenSora2 & 96.51 & 61.51 & {19.87} & 34.48 & - & - & - & - \\
+& HunyuanVideo-13B & 96.28 & 53.45 & \underline{22.61} & 41.18 & - & - & - & - \\
+& Wan2.1-14B & \underline{96.78} & \underline{63.66} & 21.53 & 34.31 & - & - & - & - \\
+& Aether & 95.28 & 48.25 & 20.26 & 37.32 & - & - & \underline{0.025} & \underline{97.95} \\
+\midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Controllable\\Generation\end{tabular}}
+& full-dit & \underline{95.58} & \textbf{54.82} & \underline{20.12} & 49.50 & - & - & - & - \\
+& VACE & {93.61} & 51.24 & 17.52 & \underline{61.32} & - & - & - & - \\
+\midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Depth Video\\Reconstruction\end{tabular}}
+& depth-crafter & - & - & - & - & - & - & 0.065 & 96.94 \\
+& Geo4D & - & - & - & - & - & - & 0.053 & {97.94} \\
+\midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Video\\Segmentation\end{tabular}}
+& SAMWISE & - & - & - & - & 62.21 & 20.12 & - & - \\
+& SeC & - & - & - & - & \underline{65.52} & \underline{22.23} & - & - \\
+\midrule
+\rowcolor{gray!15}
+Unified ControGen, & UnityVideo & \textbf{96.04} & \underline{54.63} & \textbf{21.86} & \textbf{64.42} & \cellcolor{yellow!15} & \cellcolor{yellow!15} & \cellcolor{yellow!15} & \cellcolor{yellow!15} \\
+\rowcolor{cyan!15}
+T2V, and Estimation & UnityVideo & \textbf{97.44} & \textbf{64.12} & \textbf{23.57} & \textbf{47.76} & \cellcolor{yellow!15}\textbf{68.82} & \cellcolor{yellow!15}\textbf{23.25} & \cellcolor{yellow!15}\textbf{0.022} & \cellcolor{yellow!15}\textbf{98.98} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-2mm}
+}
+\end{table*}
+\begin{table}[t]
+\centering
+{\scriptsize
+\caption{
+Ablation study comparing single-modality and multimodal training. \textit{Only}: single modality; \textit{Ours}: multiple modalities.
+}
+\vspace{-2mm}
+\label{tab_comparison_modalities}
+\resizebox{1\linewidth}{!}{
+\begin{tabular}{l|cccc}
+\toprule
+& \textbf{Subject} & \textbf{Background} & \textbf{Imaging} & \textbf{Overall} \\
+& \textbf{Consistency} & \textbf{Consistency} & \textbf{Quality} & \textbf{Consistency} \\
+\midrule
+Baseline & 96.51 & 96.06 & 64.99 & 23.17 \\
+Only Flow & 97.82 & {97.14} & 67.34 & 23.70 \\
+Only Depth & \textbf{98.13} & \textbf{97.29} & 69.09 & 23.48 \\
+\rowcolor{gray!15} \textbf{Ours}-Flow & 97.97 (+1.46) & {97.19} (+1.13) & \textbf{69.36} (+4.37) & \underline{23.74} (+0.57) \\
+\rowcolor{gray!15} \textbf{Ours}-Depth & \underline{98.01} (+1.50) & \underline{97.24} (+1.18) & \underline{69.18} (+4.19) & \textbf{23.75} (+0.58) \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-1mm}
+}
+\end{table}
+\end{document}

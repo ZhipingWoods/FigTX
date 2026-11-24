@@ -1,0 +1,186 @@
+\begin{table*}[t]\small
+\centering
+\scriptsize{
+\resizebox{\linewidth}{!}{
+\setlength\tabcolsep{3.pt}
+\renewcommand\arraystretch{1.1}
+\begin{tabular}{r||cccc|cc|cIcccc|cc|c}
+\hline\thickhline
+\rowcolor{gray!20}
+ &
+\multicolumn{7}{cI}{\bm{\iconqa{}}} &
+\multicolumn{7}{c}{\bm{{\coco{}}}}
+\\
+\cline{2-15}
+\rowcolor{gray!20}
+\multirow{-2}{*}{Methods\quad}
+& \okvqa{} & \ocrvqa{} & \gqa{} & \textvqa{} & \textit{Source} & \textit{Target}  & \textit{Avg}
+& \okvqa{} & \ocrvqa{} & \gqa{} & \textvqa{} & \textit{Source} & \textit{Target}  & \textit{Avg}
+\\
+\hline\hline
+\zeroshot{}
+& 57.99 & 66.20 & 61.93 & 58.23 & 61.09 & 23.18  & 42.13
+& 57.99 & 66.20 & 61.93 & 58.23 & 61.09 & 40.40  & 50.74
+\\
+\hline\hline
+\multicolumn{14}{l}{\textcolor{gray!80}{\textit{LoRA Rank=16}}}
+\\
+\rowcolor{gray!10} \lora{}
+& 51.10 & 54.90 & 55.56 & 49.48 & 52.76 & 84.14  & 68.45
+& 47.34 & 60.55 & 56.91 & 45.61 & 52.60 & 112.22  & 82.41
+\\
+\dora{}
+& 49.94 & 54.40 & 55.39 & 47.26 & 51.75 & 84.48 & 68.11
+& 45.38 & 59.75 & 55.40 & 41.38 & 50.48 & 112.60 & 81.54
+\\
+\rowcolor{gray!10} \ltworeg{}
+& 49.96 & 51.40 & 55.15 & 47.47 & 51.00 & \underline{84.66} & 67.83
+& 46.05 & 61.50 & 56.60 & 43.54 & 51.92 & 111.83 & 81.88
+\\
+\orthreg{}
+& 53.12 & 56.10 & 57.43 & 51.00 & \underline{54.41} & 84.52 & \underline{69.47}
+& 48.11 & 59.85 & 56.83 & 46.69 & 52.87 & 111.87 & 82.37
+\\
+\rowcolor{gray!10} \tailor{}
+& 52.68 & 56.55 & 56.26 & 51.41 & 54.23 & 83.26 & 68.74
+& 51.83 & 59.75 & 58.73 & 51.43 & \textbf{55.44} & \underline{118.84} & \underline{87.14}
+\\
+\dare{}
+& 51.10 & 54.30 & 55.55 & 49.20 & 52.54 & 84.20 & 68.37
+& 46.64 & 59.45 & 56.01 & 44.46 & 51.64 & 112.21 & 81.93
+\\
+\hline
+\rowcolor[HTML]{D7F6FF}
+\ourmethod{}{}
+& 54.07 & 57.00 & 57.66 & 52.24 & \textbf{55.24} & \textbf{85.02} & \quad\textbf{70.13}\redup{0.66}\quad
+& 50.86 & 59.10 & 57.64 & 51.10 & \underline{54.68} & \textbf{121.26} & \quad\textbf{87.97}\redup{0.83}\quad
+\\
+\hline\hline
+\multicolumn{14}{l}{\textcolor{gray!80}{\textit{LoRA Rank=32}}}
+\\
+\rowcolor{gray!10} \lora{}
+& 45.06 & 48.40 & 49.22 & 36.47 & 44.79 & 82.52 & 63.65
+& 44.92 & 59.90 & 54.88 & 39.75 & 49.86 & 110.27 & 80.07
+\\
+\dora{}
+& 46.35 & 48.50 & 40.80 & 33.01 & 42.17 & \underline{84.82} & 63.49
+& 44.10 & 60.05 & 54.69 & 40.17 & 49.75 & 109.25 & 79.50
+\\
+\rowcolor{gray!10} \ltworeg{}
+& 30.16 & 26.65 & 16.62 & 17.16 & 22.65 & 82.36 & 52.50
+& 43.60 & 60.00 & 54.09 & 36.53 & 48.56 & 109.39 & 78.97
+\\
+\orthreg{}
+& 41.51 & 40.45 & 53.58 & 30.92 & 41.62 & 83.14 & 62.38
+& 43.77 & 60.70 & 53.74 & 38.61 & 49.21 & 110.44 & 79.82
+\\
+\rowcolor{gray!10} \tailor{}
+& 50.07 & 53.85 & 53.04 & 46.92 & \underline{50.97} & 81.76 & \underline{66.37}
+& 50.99 & 60.60 & 58.54 & 49.65 & \textbf{54.95} & \underline{117.64} & \underline{86.29}
+\\
+\dare{}
+& 44.39 & 46.85 & 48.75 & 34.84 & 43.71 & 82.28 & 62.99
+& 42.98 & 58.65 & 53.92 & 38.61 & 48.54 & 108.57 & 78.56
+\\
+\hline
+\rowcolor[HTML]{D7F6FF}
+\ourmethod{}{}
+& 53.52 & 59.50 & 57.63 & 53.76 & \textbf{56.10} & \textbf{85.26} & \quad\textbf{70.68}\redup{4.31}\quad
+& 49.99 & 58.65 & 57.63 & 50.73 & \underline{54.25} & \textbf{120.35} & \quad\textbf{87.30}\redup{1.01}\quad
+\\
+\hline\hline
+\multicolumn{14}{l}{\textcolor{gray!80}{\textit{LoRA Rank=64}}}
+\\
+\rowcolor{gray!10} \lora{}
+& 0.04 & 0.00 & 20.22 & 0.28 & 5.14 & 37.24 & 21.19
+& 31.51 & 54.80 & 42.35 & 28.13 & 39.20 & 107.90 & 73.55
+\\
+\dora{}
+& 0.03 & 0.00 & 0.00 & 0.12 & 0.04 & 36.86 & 18.45
+& 34.63 & 57.85 & 44.37 & 29.06 & 41.48 & 106.49 & 73.98
+\\
+\rowcolor{gray!10} \ltworeg{}
+& 27.46 & 31.75 & 17.98 & 9.66 & 21.71 & \underline{81.79} & 51.75
+& 40.95 & 59.05 & 52.83 & 36.00 & 47.21 & 106.41 & 76.81
+\\
+\orthreg{}
+& 39.04 & 35.90 & 25.59 & 21.21 & 30.44 & 81.71 & 56.07
+& 45.78 & 60.70 & 55.69 & 43.58 & 51.44 & 108.16 & 79.80
+\\
+\rowcolor{gray!10} \tailor{}
+& 47.67 & 51.50 & 52.61 & 35.43 & \underline{46.80} & 77.28 & \underline{62.04}
+& 46.70 & 59.20 & 56.75 & 44.42 & \underline{51.77} & \underline{116.68} & \underline{84.22}
+\\
+\dare{}
+& 34.42 & 39.65 & 21.90 & 14.59 & 27.64 & 78.58 & 53.11
+& 29.67 & 50.70 & 37.54 & 23.34 & 35.31 & 105.55 & 70.43
+\\
+\hline
+\rowcolor[HTML]{D7F6FF}
+\ourmethod{}{}
+& 53.71 & 57.90 & 57.60 & 52.14 & \textbf{55.34} & \textbf{84.74} & \quad\textbf{70.04}\redup{8.00}\quad
+& 50.15 & 59.85 & 57.91 & 51.44 & \textbf{54.84} & \textbf{120.39} & \quad\textbf{87.61}\redup{3.45}\quad
+\\
+\hline
+\end{tabular}}}
+\vspace{-5pt}
+\captionsetup{font=small}
+\caption{{
+\textbf{Comparison with State-of-the-Art Fine-Tuning Solutions for Multimodal Large Language Models (MLLMs)} on visual question answering task \iconqa{} and image captioning task \coco{}.
+The optimal and sub-optimal results are denoted by boldface and underlining. {\color{RedOrange}$\uparrow$} means improved accuracy compared with the sub-optimal results. Please refer to \cref{sec:comparison_to_sota} for detailed explanations.
+}}
+\label{tab:compare_sota_image_capation}
+\vspace{-10pt}
+\end{table*}
+\begin{table}[t]\small
+\centering
+{
+\resizebox{\columnwidth}{!}{
+\setlength\tabcolsep{5pt}
+\renewcommand\arraystretch{1.1}
+\begin{tabular}{cc||cccc|ccc}
+\thickhline
+\rowcolor{lightgray} &
+& \multicolumn{7}{c}{\textbf{Fine-Tune on} \bm{\iconqa{}}} \\
+\cline{3-9}
+\rowcolor{lightgray}
+\multirow{-2}{*}{LLM} & \multirow{-2}{*}{Conn}
+& \okvqa{} & \ocrvqa{} & \gqa{} & \textvqa{} & \textit{Source} & \textit{Target}  & \textit{Avg} \\
+\hline\hline
+\multicolumn{2}{c||}{\zeroshot{}}
+& 57.99 & 66.20 & 61.93 & 58.23
+& 61.09 & 23.18 & 42.13
+\\
+\hdashline
+\lora{} & FFT
+& 0.04 & 0.00 & 20.22 & 0.28
+& 5.14 & 37.24 & 21.19
+\\
+\lora{} & \lora{}
+& 0.76 & 2.45 & 0.01 & 2.48
+& 1.43 & 81.60 & 41.51
+\\
+\lora{} & Freeze
+& 51.10 & 52.15 & 54.17 & 45.91
+& 50.83 & 84.61 & 67.72
+\\
+\rowcolor{gray!10}
+\textbf{Ours} & \textbf{FFT}
+& 53.71 & 57.90 & 57.60 & 52.14
+& 55.34 & 84.74 & 70.04
+\\
+\rowcolor[HTML]{D7F6FF}
+\textbf{Ours} & \textbf{Ours}
+& 56.91 & 64.15 & 60.93 & 56.22
+& \textbf{59.55} & \textbf{85.34} & \textbf{72.45}
+\\
+\hline
+\end{tabular}}}
+\vspace{-5pt}
+\captionsetup{font=small}
+\caption{
+\textbf{Method Adaptation in MLLM Connector} shows significant catastrophic forgetting within the MLLM connector. Please refer to \cref{sec:cf_connector} for more details.
+}
+\label{tab:adapt_connector}
+\vspace{-5pt}
+\end{table}

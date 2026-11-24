@@ -1,0 +1,318 @@
+\usepackage{xcolor,colortbl}
+\usepackage[dvipsnames]{xcolor}
+\newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
+\usepackage{soul}
+\definecolor{lightblue}{RGB}{239,247,250}
+\definecolor{blue}{RGB}{224,230,255}
+\definecolor{lighpurple}{RGB}{226, 218, 246}
+\definecolor{purple}{RGB}{193, 175, 236}
+\definecolor{deepred}{RGB}{183,26,26}
+\definecolor{deepgreen}{RGB}{4,98,10}
+\definecolor{lightred}{RGB}{242,207, 194}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+    \centering
+    \setlength{\extrarowheight}{3pt}
+    \renewcommand*{\arraystretch}{1}
+    \footnotesize
+
+    \begin{tabular}{c@{\hspace{1em}}c}
+    % 左侧子表格 - Direct
+    \begin{subtable}[c]{0.48\textwidth}
+      \centering
+      \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ccccc|ccc}
+        \toprule[1.5pt]
+         \multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{\scriptsize{Model}}}} & \textbf{Lang-} & \multicolumn{3}{c|}{\textbf{XNLI}} & \multicolumn{3}{c}{\textbf{SIB200}}\\
+
+          & \textbf{uage} & LFR $\uparrow$ & PPL $\downarrow$ & TS $\uparrow$ & LFR $\uparrow$ & PPL $\downarrow$ & TS $\uparrow$\\
+
+          \midrule
+        \multirow{6}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Qwen2.5-7B}}}}
+          & \cellcolor[HTML]{d8d8d8}\textsf{en} & \cellcolor[HTML]{d8d8d8}45.42\% & \cellcolor[HTML]{d8d8d8}36.68 & \cellcolor[HTML]{d8d8d8}\underline{0.8818} & \cellcolor[HTML]{d8d8d8}\textbf{92.16\%} & \cellcolor[HTML]{d8d8d8}46.30 & \cellcolor[HTML]{d8d8d8}0.8483\\
+
+          & \cellcolor[HTML]{E5CCFF}\textsf{ar} & \cellcolor[HTML]{E5CCFF}44.10\% & \cellcolor[HTML]{E5CCFF}\underline{36.75} & \cellcolor[HTML]{E5CCFF}0.8853& \cellcolor[HTML]{E5CCFF}89.22\% & \cellcolor[HTML]{E5CCFF}\underline{124.37} & \cellcolor[HTML]{E5CCFF}\underline{0.6941}\\
+
+          & \cellcolor[HTML]{E0E6FF}\textsf{de} & \cellcolor[HTML]{E0E6FF}46.63\% & \cellcolor[HTML]{E0E6FF}32.85 & \cellcolor[HTML]{E0E6FF}0.8891 & \cellcolor[HTML]{E0E6FF}77.45\% & \cellcolor[HTML]{E0E6FF}34.42 & \cellcolor[HTML]{E0E6FF}0.8157\\
+
+
+          & \cellcolor[HTML]{FFF1D5}\textsf{es} & \cellcolor[HTML]{FFF1D5}\textbf{49.44\%} & \cellcolor[HTML]{FFF1D5}30.36 & \cellcolor[HTML]{FFF1D5}0.8900 & \cellcolor[HTML]{FFF1D5}\underline{72.55\%} & \cellcolor[HTML]{FFF1D5}26.97 & \cellcolor[HTML]{FFF1D5}0.8152\\
+
+
+          & \cellcolor[HTML]{F2CFC2}\textsf{hi} & \cellcolor[HTML]{F2CFC2}39.92\% & \cellcolor[HTML]{F2CFC2}\textbf{8.12} & \cellcolor[HTML]{F2CFC2}0.8874 & \cellcolor[HTML]{F2CFC2}89.71\% & \cellcolor[HTML]{F2CFC2}\textbf{4.84} & \cellcolor[HTML]{F2CFC2}0.8315\\
+
+
+          & \cellcolor[HTML]{DDF6D2}\textsf{sw} & \cellcolor[HTML]{DDF6D2}\underline{38.31\%} & \cellcolor[HTML]{DDF6D2}24.04 & \cellcolor[HTML]{DDF6D2}\textbf{0.9141} & \cellcolor[HTML]{DDF6D2}84.80\% & \cellcolor[HTML]{DDF6D2}22.57 & \cellcolor[HTML]{DDF6D2}\textbf{0.8816}\\
+
+            \midrule
+
+          \multirow{6}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Gemma3-27B}}}}
+          & \cellcolor[HTML]{d8d8d8}\textsf{en} & \cellcolor[HTML]{d8d8d8}\textbf{43.37\%} & \cellcolor[HTML]{d8d8d8}\underline{38.26} & \cellcolor[HTML]{d8d8d8}0.8542 & \cellcolor[HTML]{d8d8d8}\textbf{87.75\%} & \cellcolor[HTML]{d8d8d8}53.66 & \cellcolor[HTML]{d8d8d8}0.6275\\
+
+          & \cellcolor[HTML]{E5CCFF}\textsf{ar} & \cellcolor[HTML]{E5CCFF}37.59\% & \cellcolor[HTML]{E5CCFF}36.32 & \cellcolor[HTML]{E5CCFF}\underline{0.8415}& \cellcolor[HTML]{E5CCFF}87.75\% & \cellcolor[HTML]{E5CCFF}\underline{81.96} & \cellcolor[HTML]{E5CCFF}\underline{0.4967} \\
+
+          & \cellcolor[HTML]{E0E6FF}\textsf{de} & \cellcolor[HTML]{E0E6FF}38.19\% & \cellcolor[HTML]{E0E6FF}33.69 & \cellcolor[HTML]{E0E6FF}0.8633 & \cellcolor[HTML]{E0E6FF}\underline{79.41\%} & \cellcolor[HTML]{E0E6FF}34.94 & \cellcolor[HTML]{E0E6FF}0.6658\\
+
+
+          & \cellcolor[HTML]{FFF1D5}\textsf{es} & \cellcolor[HTML]{FFF1D5}39.92\% & \cellcolor[HTML]{FFF1D5}31.18 & \cellcolor[HTML]{FFF1D5}0.8596 & \cellcolor[HTML]{FFF1D5}80.88\% & \cellcolor[HTML]{FFF1D5}30.73 & \cellcolor[HTML]{FFF1D5}0.6626\\
+
+
+          & \cellcolor[HTML]{F2CFC2}\textsf{hi} & \cellcolor[HTML]{F2CFC2}36.43\% & \cellcolor[HTML]{F2CFC2}\textbf{11.30} & \cellcolor[HTML]{F2CFC2}0.8451& \cellcolor[HTML]{F2CFC2}81.37\% & \cellcolor[HTML]{F2CFC2}\textbf{4.35} & \cellcolor[HTML]{F2CFC2}0.6154\\
+
+          & \cellcolor[HTML]{DDF6D2}\textsf{sw} & \cellcolor[HTML]{DDF6D2}\underline{33.90\%} & \cellcolor[HTML]{DDF6D2}23.30 & \cellcolor[HTML]{DDF6D2}\textbf{0.8731} & \cellcolor[HTML]{DDF6D2}87.25\% & \cellcolor[HTML]{DDF6D2}16.70 & \cellcolor[HTML]{DDF6D2}\textbf{0.7178}\\
+
+
+
+            \midrule
+
+          \multirow{6}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Llama3.3-70B}}}}
+          & \cellcolor[HTML]{d8d8d8}\textsf{en} & \cellcolor[HTML]{d8d8d8}\textbf{50.88\%} & \cellcolor[HTML]{d8d8d8}\underline{39.47} & \cellcolor[HTML]{d8d8d8}\underline{0.8429}& \cellcolor[HTML]{d8d8d8}87.25\% & \cellcolor[HTML]{d8d8d8}52.84 & \cellcolor[HTML]{d8d8d8}0.6186\\
+
+          & \cellcolor[HTML]{E5CCFF}\textsf{ar} & \cellcolor[HTML]{E5CCFF}36.91\% & \cellcolor[HTML]{E5CCFF}37.85 & \cellcolor[HTML]{E5CCFF}0.8626& \cellcolor[HTML]{E5CCFF}88.73\% & \cellcolor[HTML]{E5CCFF}\underline{77.32} & \cellcolor[HTML]{E5CCFF}\underline{0.4980}\\
+
+
+          & \cellcolor[HTML]{E0E6FF}\textsf{de} & \cellcolor[HTML]{E0E6FF}42.25\% & \cellcolor[HTML]{E0E6FF}33.59 & \cellcolor[HTML]{E0E6FF}0.8689& \cellcolor[HTML]{E0E6FF}\underline{78.43\%} & \cellcolor[HTML]{E0E6FF}31.58 & \cellcolor[HTML]{E0E6FF}0.6385\\
+
+
+          & \cellcolor[HTML]{FFF1D5}\textsf{es} &  \cellcolor[HTML]{FFF1D5}44.70\% &  \cellcolor[HTML]{FFF1D5}31.20 &  \cellcolor[HTML]{FFF1D5}0.8645&  \cellcolor[HTML]{FFF1D5}83.33\% &  \cellcolor[HTML]{FFF1D5}29.41 &  \cellcolor[HTML]{FFF1D5}0.6567\\
+
+
+          & \cellcolor[HTML]{F2CFC2}\textsf{hi} & \cellcolor[HTML]{F2CFC2}41.33\% & \cellcolor[HTML]{F2CFC2}\textbf{10.46} & \cellcolor[HTML]{F2CFC2}0.8476& \cellcolor[HTML]{F2CFC2}85.29\% & \cellcolor[HTML]{F2CFC2}\textbf{4.39} & \cellcolor[HTML]{F2CFC2}0.6182\\
+
+          & \cellcolor[HTML]{DDF6D2}\textsf{sw} & \cellcolor[HTML]{DDF6D2}\underline{34.42\%} & \cellcolor[HTML]{DDF6D2}22.67 & \cellcolor[HTML]{DDF6D2}\textbf{0.8929}& \cellcolor[HTML]{DDF6D2}\textbf{91.18\%} & \cellcolor[HTML]{DDF6D2}14.43 & \cellcolor[HTML]{DDF6D2}\textbf{0.7792}\\
+
+
+        \toprule[1.5pt]
+        \end{tabular}
+        }
+        \caption{Directly generated counterfactuals $\tilde{x}_{\ell}$.}
+        \label{subtab:direct}
+  \end{subtable}
+
+    &
+
+    % 右侧子表格 - Translation
+    \begin{subtable}[c]{0.48\textwidth}
+      \centering
+      \resizebox{\textwidth}{!}{%
+        \begin{tabular}{ccccc|ccc}
+        \toprule[1.5pt]
+         \multirow{2}{*}{\rotatebox[origin=c]{90}{\textbf{\scriptsize{Model}}}} & \textbf{Lang-} & \multicolumn{3}{c|}{\textbf{XNLI}} & \multicolumn{3}{c}{\textbf{SIB200}}\\
+
+          & \textbf{uage} & LFR $\uparrow$ & PPL $\downarrow$ & TS $\uparrow$ & LFR $\uparrow$ & PPL $\downarrow$ & TS $\uparrow$\\
+
+          \midrule
+            \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Qwen2.5-7B}}}}
+          & \cellcolor[HTML]{E5CCFF}\textsf{en}-\textsf{ar} & \cellcolor[HTML]{E5CCFF}43.49\% & \cellcolor[HTML]{E5CCFF}\underline{110.76} & \cellcolor[HTML]{E5CCFF}0.6897 & \cellcolor[HTML]{E5CCFF}90.20\% & \cellcolor[HTML]{E5CCFF}\underline{45.11} & \cellcolor[HTML]{E5CCFF}0.6669 \\
+
+          & \cellcolor[HTML]{E0E6FF}\textsf{en}-\textsf{de} & \cellcolor[HTML]{E0E6FF}44.54\% & \cellcolor[HTML]{E0E6FF}73.59 & \cellcolor[HTML]{E0E6FF}\textbf{0.7838} & \cellcolor[HTML]{E0E6FF}\textbf{93.63\%} & \cellcolor[HTML]{E0E6FF}39.90 & \cellcolor[HTML]{E0E6FF}0.7491\\
+          & \cellcolor[HTML]{FFF1D5}\textsf{en}-\textsf{es} & \cellcolor[HTML]{FFF1D5}\textbf{45.98\%} & \cellcolor[HTML]{FFF1D5}52.24 & \cellcolor[HTML]{FFF1D5}0.7826 & \cellcolor[HTML]{FFF1D5}92.16\% & \cellcolor[HTML]{FFF1D5}28.26 & \cellcolor[HTML]{FFF1D5}\textbf{0.7633} \\
+
+          & \cellcolor[HTML]{F2CFC2}\textsf{en}-\textsf{hi} & \cellcolor[HTML]{F2CFC2}\underline{41.45\%} & \cellcolor[HTML]{F2CFC2}\textbf{9.40} & \cellcolor[HTML]{F2CFC2}0.6435 & \cellcolor[HTML]{F2CFC2}\underline{90.20\%} & \cellcolor[HTML]{F2CFC2}\textbf{9.19} & \cellcolor[HTML]{F2CFC2}0.6203 \\
+
+          & \cellcolor[HTML]{DDF6D2}\textsf{en}-\textsf{sw} & \cellcolor[HTML]{DDF6D2}43.73\% & \cellcolor[HTML]{DDF6D2}57.39 & \cellcolor[HTML]{DDF6D2}\underline{0.2810} & \cellcolor[HTML]{DDF6D2}92.65\% & \cellcolor[HTML]{DDF6D2}46.35 & \cellcolor[HTML]{DDF6D2}\underline{0.2528}\\
+
+            \midrule
+
+          \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Gemma3-27B}}}}
+          & \cellcolor[HTML]{E5CCFF}\textsf{en}-\textsf{ar} & \cellcolor[HTML]{E5CCFF}42.49\% & \cellcolor[HTML]{E5CCFF}48.27 & \cellcolor[HTML]{E5CCFF}0.6961 & \cellcolor[HTML]{E5CCFF}88.73\% & \cellcolor[HTML]{E5CCFF}\underline{27.09} & \cellcolor[HTML]{E5CCFF}0.5429 \\
+          & \cellcolor[HTML]{E0E6FF}\textsf{en}-\textsf{de} & \cellcolor[HTML]{E0E6FF}42.49\% & \cellcolor[HTML]{E0E6FF}52.77 & \cellcolor[HTML]{E0E6FF}0.7629 & \cellcolor[HTML]{E0E6FF}\textbf{90.20\%} & \cellcolor[HTML]{E0E6FF}27.01 & \cellcolor[HTML]{E0E6FF}0.5753  \\
+          & \cellcolor[HTML]{FFF1D5}\textsf{en}-\textsf{es} & \cellcolor[HTML]{FFF1D5}42.69\% & \cellcolor[HTML]{FFF1D5}\underline{50.43} & \cellcolor[HTML]{FFF1D5}\textbf{0.7692} & \cellcolor[HTML]{FFF1D5}89.22\% & \cellcolor[HTML]{FFF1D5}24.31 & \cellcolor[HTML]{FFF1D5}\textbf{0.5824}\\
+
+          & \cellcolor[HTML]{F2CFC2}\textsf{en}-\textsf{hi} & \cellcolor[HTML]{F2CFC2}\underline{42.41\%} & \cellcolor[HTML]{F2CFC2}\textbf{5.73} & \cellcolor[HTML]{F2CFC2}0.7112 & \cellcolor[HTML]{F2CFC2}89.22\% & \cellcolor[HTML]{F2CFC2}\textbf{4.10} & \cellcolor[HTML]{F2CFC2}0.5451\\
+
+          & \cellcolor[HTML]{DDF6D2}\textsf{en}-\textsf{sw} & \cellcolor[HTML]{DDF6D2}\textbf{43.01\%} & \cellcolor[HTML]{DDF6D2}28.28 &  \cellcolor[HTML]{DDF6D2}\underline{0.3569} & \cellcolor[HTML]{DDF6D2}\underline{85.78\%} & \cellcolor[HTML]{DDF6D2}13.66 & \cellcolor[HTML]{DDF6D2}\underline{0.2624}\\
+
+
+
+            \midrule
+
+          \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Llama3.3-70B}}}}
+          & \cellcolor[HTML]{E5CCFF}\textsf{en}-\textsf{ar} & \cellcolor[HTML]{E5CCFF}45.14\% & \cellcolor[HTML]{E5CCFF}\underline{169.00} & \cellcolor[HTML]{E5CCFF}0.6981 & \cellcolor[HTML]{E5CCFF}86.27\% & \cellcolor[HTML]{E5CCFF}\underline{34.47} & \cellcolor[HTML]{E5CCFF}\underline{0.5334} \\
+
+          & \cellcolor[HTML]{E0E6FF}\textsf{en}-\textsf{de} & \cellcolor[HTML]{E0E6FF}47.58\% & \cellcolor[HTML]{E0E6FF}60.86 & \cellcolor[HTML]{E0E6FF}0.7627 & \cellcolor[HTML]{E0E6FF}\textbf{86.27\%} & \cellcolor[HTML]{E0E6FF}31.00 & \cellcolor[HTML]{E0E6FF}0.5854\\
+          & \cellcolor[HTML]{FFF1D5}\textsf{en}-\textsf{es} & \cellcolor[HTML]{FFF1D5}\textbf{50.04\%} & \cellcolor[HTML]{FFF1D5}54.28 & \cellcolor[HTML]{FFF1D5}\textbf{0.7719} & \cellcolor[HTML]{FFF1D5}\underline{73.53\%} & \cellcolor[HTML]{FFF1D5}28.80 & \cellcolor[HTML]{FFF1D5}\textbf{0.5874} \\
+          & \cellcolor[HTML]{F2CFC2}\textsf{en}-\textsf{hi} & \cellcolor[HTML]{F2CFC2}\underline{44.66\%} & \cellcolor[HTML]{F2CFC2}\textbf{5.51} & \cellcolor[HTML]{F2CFC2}0.7113 & \cellcolor[HTML]{F2CFC2}83.82\% & \cellcolor[HTML]{F2CFC2}\textbf{4.02} & \cellcolor[HTML]{F2CFC2}0.5441\\
+          & \cellcolor[HTML]{DDF6D2}\textsf{en}-\textsf{sw} & \cellcolor[HTML]{DDF6D2}44.78\% & \cellcolor[HTML]{DDF6D2}38.65 & \cellcolor[HTML]{DDF6D2}\underline{0.3354} & \cellcolor[HTML]{DDF6D2}85.29\% & \cellcolor[HTML]{DDF6D2}13.53 & \cellcolor[HTML]{DDF6D2}\underline{0.2578}\\
+
+
+        \toprule[1.5pt]
+        \end{tabular}
+        }
+        \caption{Translation-based counterfactuals $\tilde{x}_{\textsf{en}\text{-}\ell}$.}
+        \label{subtab:translation}
+  \end{subtable}
+
+    \end{tabular}
+
+    \vspace{0.5em}
+    \caption{Automatic evaluation results of counterfactuals based on label flip rate (LFR), perplexity (PPL), and textual similarity (TS) on \data{XNLI} and \data{SIB200} across \textit{English} (\colorbox[HTML]{d8d8d8}{\textsf{en}}), \textit{Arabic} (\colorbox[HTML]{E5CCFF}{\textsf{ar}}), \textit{German} (\colorbox[HTML]{E0E6FF}{\textsf{de}}), \textit{Spanish} (\colorbox[HTML]{FFF1D5}{\textsf{es}}), \textit{Hindi} (\colorbox[HTML]{F2CFC2}{\textsf{hi}}), and \textit{Swahili} (\colorbox[HTML]{DDF6D2}{\textsf{sw}}). \textbf{Bold}-faced languages indicate the best performance on a given metric, while \underline{underlined} languages denote the worst.
+    }
+    \label{tab:automatic_evaluation}
+\end{table*}
+\begin{table}[t!]
+    \centering
+    \renewcommand*{\arraystretch}{1}
+
+    \footnotesize
+    \resizebox{\columnwidth}{!}{%
+ \begin{tabular}{ccccc|ccc}
+        \toprule[1.5pt]
+         \multirow{2}{*}{\textbf{Model}} & \textbf{Lang-} & \multicolumn{3}{c|}{\textbf{\data{XNLI}}} & \multicolumn{3}{c}{\textbf{\data{SIB200}}}\\
+
+
+          & \textbf{uage} & \textbf{BLEU}   & \textbf{chrF}  & \textbf{\textls[-70]{XCOMET}}  & \textbf{BLEU}   & \textbf{chrF}  & \textbf{\textls[-70]{XCOMET}} \\
+
+          \midrule
+          \centering \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Qwen2.5-7B}}}}
+          & \textsf{en-ar} & 0.16 & 41.56 & 0.57 & 0.19 & \textbf{91.18} & 0.56\\
+          & \textsf{en-de} & 0.25 & 54.37 & 0.69 & 0.30 & 90.20 & 0.70\\
+          & \textsf{en-es} & \textbf{0.30} & \textbf{58.91} & \textbf{0.73} & \textbf{0.37} & \underline{87.75} & \textbf{0.76}\\
+          & \textsf{en-hi} & 0.11 & 39.49 & 0.47 & 0.13 & 90.20 & 0.47\\
+          & \textsf{en-sw} & \underline{0.04} & \underline{27.33} & \underline{0.43} & \underline{0.04} & 89.22 & \underline{0.42}\\
+            \midrule
+
+          \centering \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Gemma3-27B}}}}
+          & \textsf{en-ar} & \underline{0.21} & 49.47 & 0.58 & \underline{0.19} & \underline{79.41} & 0.58\\
+          & \textsf{en-de} & 0.25 & 52.13 & 0.71 & 0.22 & 79.90 & 0.72\\
+          & \textsf{en-es} & \textbf{0.30} & \textbf{55.72} & \textbf{0.74} & \textbf{0.25} & 82.35 & \textbf{0.75} \\
+          & \textsf{en-hi} & 0.23 & 50.17 & \underline{0.56} & 0.21 & 81.37 & \underline{0.55}\\
+          & \textsf{en-sw} & 0.22 & \underline{48.41} & 0.60 & 0.19 & \textbf{83.82} & 0.59\\
+
+
+            \midrule
+
+          \centering \multirow{5}{*}{\rotatebox[origin=c]{90}{\scriptsize{\lm{Llama3.3-70B}}}}
+          & \textsf{en-ar} & 0.24 & \underline{44.86} & 0.62 & 0.18 & 86.27 & \underline{0.60}\\
+          & \textsf{en-de} & 0.29 & 57.37 & 0.71 & 0.22 & 87.25 & 0.71\\
+          & \textsf{en-es} & \textbf{0.35} & \textbf{60.68} & \textbf{0.75} & \textbf{0.25} & \underline{84.31} & \textbf{0.76}\\
+          & \textsf{en-hi} & 0.22 & 45.88 & \underline{0.60} & 0.16 & 87.75 & 0.60\\
+          & \textsf{en-sw} & \underline{0.21} & 45.88 & 0.64 & \underline{0.15} & \textbf{91.67} & 0.63\\
+
+        \toprule[1.5pt]
+        \end{tabular}
+    }
+    \caption{Machine translation evaluation of translation-based counterfactuals $\tilde{x}_{\textsf{en}\text{-}\ell}$ using BLUE, chrF, and XCOMET on \data{XNLI} and \data{SIB200}.
+    }
+    \label{tab:automatic_evaluation_translation}
+\end{table}
+\begin{table}[ht!]
+    \centering
+    % \setlength{\extrarowheight}{3pt}
+    \renewcommand*{\arraystretch}{1}
+
+    \footnotesize
+    \resizebox{\columnwidth}{!}{%
+ \begin{tabular}{ccccc|cc}
+        \toprule[1.5pt]
+         \multirow{2}{*}{\textbf{Model}} & \textbf{Counter} & \textbf{Lang} & \multicolumn{2}{c|}{\textbf{Cross-lingual}} & \multicolumn{2}{c}{\textbf{Multilingual}} \\
+        % \cmidrule(lr){4-5}
+        % \cmidrule(lr){6-7}
+        % (\cellcolor[HTML]{d8d8d8}{\textsf{en}}), \textit{Arabic} (\cellcolor[HTML]{E5CCFF}{\textsf{ar}}), \textit{German} (\cellcolor[HTML]{E0E6FF}{\textsf{de}}), \textit{Spanish} (\cellcolor[HTML]{FFF1D5}{\textsf{es}}), \textit{Hindi} (\cellcolor[HTML]{F2CFC2}{\cellcolor[HTML]{F2CFC2}{\textsf{hi}}}), and \textit{Swahili} (\cellcolor[HTML]{DDF6D2}
+
+
+         & \textbf{-factual} & \textbf{-uage} & \textbf{XNLI} & \textbf{SIB200} & \textbf{XNLI} & \textbf{SIB200}\\
+          \midrule
+         \multirow{6}{*}{\rotatebox[origin=c]{90}{\large $\mathcal{M}_{base}$}} & - & \cellcolor[HTML]{d8d8d8}{\textsf{en}} & 68.70 & 83.80 & 72.22 & 82.83 \\
+          & - & \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 60.12 & 25.30 & 63.21 & 54.55 \\
+          & - & \cellcolor[HTML]{E0E6FF}{\textsf{de}} & 63.33 & 88.90 & 67.60 & 87.88 \\
+          & - & \cellcolor[HTML]{FFF1D5}{\textsf{es}} & 66.05 & 87.90 & 68.72 & 87.88 \\
+          & - & \cellcolor[HTML]{F2CFC2}{\textsf{hi}} & 56.09 & 74.70 & 62.04 & 80.81 \\
+          & - & \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 48.66 & 64.60 & 59.00 & 78.79 \\
+
+
+
+        \midrule
+         \multirow{18}{*}{\rotatebox[origin=c]{90}{\large $\mathcal{M}_c$/$\mathcal{M}_m$}} & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Qwen2.5-7B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} & 69.86$_{\textcolor{deepgreen}{\text{+1.16}}}$ & 82.80$_{\textcolor{deepred}{\text{-1.00}}}$ & 73.45$_{\textcolor{deepgreen}{\text{+1.23}}}$ & 85.86$_{\textcolor{deepgreen}{\text{+3.03}}}$ \\
+          && \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 58.10$_{\textcolor{deepred}{\text{-2.02}}}$ & 26.30$_{\textcolor{deepgreen}{\text{+1.00}}}$ & 64.89$_{\textcolor{deepgreen}{\text{+1.68}}}$ & 53.54$_{\textcolor{deepred}{\text{-1.01}}}$ \\
+          && \cellcolor[HTML]{E0E6FF}{\textsf{de}} & 63.49$_{\textcolor{deepgreen}{\text{+0.16}}}$ & 84.80$_{\textcolor{deepred}{\text{-4.10}}}$ & 68.42$_{\textcolor{deepgreen}{\text{+0.82}}}$ & 84.85$_{\textcolor{deepred}{\text{-3.03}}}$ \\
+          && \cellcolor[HTML]{FFF1D5}{\textsf{es}} & 65.43$_{\textcolor{deepred}{\text{-0.62}}}$ & 84.80$_{\textcolor{deepred}{\text{-3.10}}}$ & 69.94$_{\textcolor{deepgreen}{\text{+1.22}}}$ & 88.89$_{\textcolor{deepgreen}{\text{+1.01}}}$ \\
+          && \cellcolor[HTML]{F2CFC2}{\textsf{hi}} & 55.33$_{\textcolor{deepred}{\text{-0.76}}}$ & 75.80$_{\textcolor{deepgreen}{\text{+1.10}}}$ & 62.32$_{\textcolor{deepgreen}{\text{+0.28}}}$ & 75.76$_{\textcolor{deepred}{\text{-5.05}}}$ \\
+          && \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 48.92$_{\textcolor{deepgreen}{\text{+0.26}}}$ & 63.60$_{\textcolor{deepred}{\text{-1.00}}}$ & 57.74$_{\textcolor{deepred}{\text{-1.26}}}$ & 76.77$_{\textcolor{deepred}{\text{-2.02}}}$ \\
+        \cmidrule(lr){2-7}
+
+         & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Gemma3-27B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} & 71.66$_{\textcolor{deepgreen}{\text{+2.96}}}$ & 85.90$_{\textcolor{deepgreen}{\text{+2.10}}}$ & 74.61$_{\textcolor{deepgreen}{\text{+2.39}}}$ & 86.87$_{\textcolor{deepgreen}{\text{+4.04}}}$ \\
+          && \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 56.01$_{\textcolor{deepred}{\text{-4.11}}}$ & 23.20$_{\textcolor{deepred}{\text{-2.10}}}$ & 65.11$_{\textcolor{deepgreen}{\text{+1.90}}}$ & 49.49$_{\textcolor{deepred}{\text{-5.06}}}$ \\
+          && \cellcolor[HTML]{E0E6FF}{\textsf{de}} & 62.53$_{\textcolor{deepred}{\text{-0.80}}}$ & 87.90$_{\textcolor{deepred}{\text{-1.00}}}$ & 68.66$_{\textcolor{deepgreen}{\text{+1.06}}}$ & 86.87$_{\textcolor{deepred}{\text{-1.01}}}$ \\
+          && \cellcolor[HTML]{FFF1D5}{\textsf{es}} & 64.35$_{\textcolor{deepred}{\text{-1.70}}}$ & 86.90$_{\textcolor{deepred}{\text{-1.00}}}$ & 70.98$_{\textcolor{deepgreen}{\text{+2.26}}}$ & 89.90$_{\textcolor{deepgreen}{\text{+2.02}}}$ \\
+          && \cellcolor[HTML]{F2CFC2}{\textsf{hi}} & 52.38$_{\textcolor{deepred}{\text{-3.71}}}$ & 73.70$_{\textcolor{deepred}{\text{-1.00}}}$ & 61.10$_{\textcolor{deepred}{\text{-0.94}}}$ & 83.84$_{\textcolor{deepgreen}{\text{+3.03}}}$ \\
+          && \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 46.81$_{\textcolor{deepred}{\text{-1.85}}}$ & 64.60$_{\text{ 0.00}}$ & 55.57$_{\textcolor{deepred}{\text{-3.43}}}$ & 70.71$_{\textcolor{deepred}{\text{-8.08}}}$ \\
+
+
+        \cmidrule(lr){2-7}
+
+           & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Llama3.3-70B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} & 70.86$_{\textcolor{deepgreen}{\text{+2.16}}}$ & 83.80$_{\text{ 0.00}}$ & 74.61$_{\textcolor{deepgreen}{\text{+2.39}}}$ & 83.84$_{\textcolor{deepgreen}{\text{+1.01}}}$ \\
+          && \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 55.01$_{\textcolor{deepred}{\text{-5.11}}}$ & 25.30$_{\text{ 0.00}}$ & 64.77$_{\textcolor{deepgreen}{\text{+1.56}}}$ & 56.57$_{\textcolor{deepgreen}{\text{+2.02}}}$ \\
+          && \cellcolor[HTML]{E0E6FF}{\textsf{de}} & 61.58$_{\textcolor{deepred}{\text{-1.75}}}$ & 83.80$_{\textcolor{deepred}{\text{-5.10}}}$ & 68.26$_{\textcolor{deepgreen}{\text{+0.66}}}$ & 87.88$_{\text{ 0.00}}$ \\
+          && \cellcolor[HTML]{FFF1D5}{\textsf{es}} & 63.51$_{\textcolor{deepred}{\text{-2.54}}}$ & 84.80$_{\textcolor{deepred}{\text{-3.10}}}$ & 71.32$_{\textcolor{deepgreen}{\text{+2.60}}}$ & 88.89$_{\textcolor{deepgreen}{\text{+1.01}}}$ \\
+          && \cellcolor[HTML]{F2CFC2}{\textsf{hi}} & 51.28$_{\textcolor{deepred}{\text{-4.81}}}$ & 73.70$_{\textcolor{deepred}{\text{-1.00}}}$ & 62.46$_{\textcolor{deepgreen}{\text{+0.42}}}$ & 79.80$_{\textcolor{deepred}{\text{-1.01}}}$ \\
+          && \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 46.89$_{\textcolor{deepred}{\text{-1.77}}}$ & 59.60$_{\textcolor{deepred}{\text{-5.00}}}$ & 55.21$_{\textcolor{deepred}{\text{-3.79}}}$ & 73.74$_{\textcolor{deepred}{\text{-5.05}}}$ \\
+        \toprule[1.5pt]
+        \end{tabular}
+    }
+    \caption{Cross-lingual and multilingual CDA results (\textit{accuracy} in \%) for the base model $\mathcal{M}_{base}$ and the counterfactually augmented models $\mathcal{M}_c$ and $\mathcal{M}_m$.
+    }
+    \label{tab:cda}
+\end{table}
+\begin{table}[t!]
+    \centering
+    % \setlength{\extrarowheight}{3pt}
+    \renewcommand*{\arraystretch}{1}
+
+    \footnotesize
+    \resizebox{\columnwidth}{!}{%
+ \begin{tabular}{ccccc|cc}
+        \toprule[1.5pt]
+         \multirow{2}{*}{\textbf{Model}} & \textbf{Counter} & \textbf{Lang} & \multicolumn{2}{c|}{\textbf{Cross-lingual}} & \multicolumn{2}{c}{\textbf{Multilingual}} \\
+
+
+         & \textbf{-factual} & \textbf{-age} & \textbf{XNLI} & \textbf{SIB200} & \textbf{XNLI} & \textbf{SIB200}\\
+          \midrule
+         \multirow{6}{*}{$\mathcal{M}_{base}$} & - & \cellcolor[HTML]{d8d8d8}{\textsf{en}} & 38 & 68 & 38 & 78\\
+          & - & \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 42 & 76 & 40 & 86\\
+          & - & \cellcolor[HTML]{E0E6FF}{\textsf{de}}  & 44 & 72 & 40 & 78\\
+          & - & \cellcolor[HTML]{FFF1D5}{\textsf{es}}  & 40 & 72 & 38 & 76\\
+          & - & \cellcolor[HTML]{F2CFC2}{\textsf{hi}}  & 30 & 82 & 30 & 82\\
+          & - & \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 42 & 48 & 38 & 62\\
+
+
+
+        \midrule
+         \multirow{18}{*}{$\mathcal{M}_c$/$\mathcal{M}_m$} & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Qwen2.5-7B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} &   26$_{\textcolor{deepred}{\text{-12}}}$ & 82$_{\textcolor{deepgreen}{\text{+14}}}$ & 36$_{\textcolor{deepred}{\text{-2}}}$ & 80$_{\textcolor{deepgreen}{\text{+2}}}$ \\
+          &  & \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 36$_{\textcolor{deepred}{\text{-7}}}$ & 78$_{\textcolor{deepgreen}{\text{+2}}}$ & 48$_{\textcolor{deepgreen}{\text{+8}}}$ & 86$_{\textcolor{black}{\text{0}}}$ \\
+          &  & \cellcolor[HTML]{E0E6FF}{\textsf{de}}  & 34$_{\textcolor{deepred}{\text{-10}}}$ & 74$_{\textcolor{deepgreen}{\text{+2}}}$ & 40$_{\textcolor{black}{\text{0}}}$ & 82$_{\textcolor{deepgreen}{\text{+4}}}$ \\
+          &  & \cellcolor[HTML]{FFF1D5}{\textsf{es}}  & 36$_{\textcolor{deepred}{\text{-4}}}$ & 82$_{\textcolor{deepgreen}{\text{+10}}}$ & 42$_{\textcolor{deepgreen}{\text{+4}}}$ & 80$_{\textcolor{deepgreen}{\text{+4}}}$\\
+          &  & \cellcolor[HTML]{F2CFC2}{\textsf{hi}}  & 26$_{\textcolor{deepred}{\text{-4}}}$ & 80$_{\textcolor{deepred}{\text{-2}}}$ & 30$_{\textcolor{black}{\text{0}}}$ & 86$_{\textcolor{deepgreen}{\text{+4}}}$\\
+          &  & \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 38$_{\textcolor{deepred}{\text{-4}}}$ & 52$_{\textcolor{deepgreen}{\text{+4}}}$ & 48$_{\textcolor{deepgreen}{\text{+10}}}$ & 60$_{\textcolor{deepred}{\text{-2}}}$\\
+        \cmidrule(lr){2-7}
+
+         & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Gemma3-27B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} &   34$_{\textcolor{deepred}{\text{-4}}}$ & 86$_{\textcolor{deepgreen}{\text{+18}}}$ & 38$_{\textcolor{black}{\text{0}}}$ & 84$_{\textcolor{deepgreen}{\text{+6}}}$\\
+          &  & \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 40$_{\textcolor{deepred}{\text{-2}}}$ & 78$_{\textcolor{deepgreen}{\text{+2}}}$ & 44$_{\textcolor{deepgreen}{\text{+4}}}$ & 88$_{\textcolor{deepgreen}{\text{+2}}}$ \\
+          &  & \cellcolor[HTML]{E0E6FF}{\textsf{de}}  & 36$_{\textcolor{deepred}{\text{-8}}}$ & 80$_{\textcolor{deepgreen}{\text{+8}}}$ & 38$_{\textcolor{deepred}{\text{-2}}}$ & 84$_{\textcolor{deepgreen}{\text{+6}}}$\\
+          &  & \cellcolor[HTML]{FFF1D5}{\textsf{es}}  & 38$_{\textcolor{deepred}{\text{-2}}}$ & 84$_{\textcolor{deepgreen}{\text{+12}}}$ & 36$_{\textcolor{deepred}{\text{-2}}}$ & 82$_{\textcolor{deepgreen}{\text{+6}}}$\\
+          &  & \cellcolor[HTML]{F2CFC2}{\textsf{hi}} &  32$_{\textcolor{deepgreen}{\text{+2}}}$ & 80$_{\textcolor{deepred}{\text{-2}}}$ & 24$_{\textcolor{deepred}{\text{-6}}}$ & 82$_{\textcolor{black}{\text{0}}}$\\
+          &  & \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 36$_{\textcolor{deepred}{\text{-6}}}$ & 52$_{\textcolor{deepgreen}{\text{+4}}}$ & 38$_{\textcolor{black}{\text{0}}}$ & 60$_{\textcolor{deepred}{\text{-2}}}$\\
+
+
+        \cmidrule(lr){2-7}
+
+           & \centering \multirow{6}{*}{\rotatebox[origin=c]{90}{\lm{Llama3.3-70B}}}
+          & \cellcolor[HTML]{d8d8d8}{\textsf{en}} &   34$_{\textcolor{deepred}{\text{-4}}}$ & 82$_{\textcolor{deepgreen}{\text{+14}}}$ & 30$_{\textcolor{deepred}{\text{-8}}}$ & 82$_{\textcolor{deepgreen}{\text{+4}}}$\\
+          &  & \cellcolor[HTML]{E5CCFF}{\textsf{ar}} & 42$_{\textcolor{black}{\text{0}}}$ & 80$_{\textcolor{deepgreen}{\text{+4}}}$ & 46$_{\textcolor{deepgreen}{\text{+6}}}$ & 86$_{\textcolor{black}{\text{0}}}$\\
+          &  & \cellcolor[HTML]{E0E6FF}{\textsf{de}}  & 46$_{\textcolor{deepgreen}{\text{+2}}}$ & 80$_{\textcolor{deepgreen}{\text{+8}}}$ & 32$_{\textcolor{deepred}{\text{-8}}}$ & 80$_{\textcolor{deepgreen}{\text{+2}}}$\\
+          &  & \cellcolor[HTML]{FFF1D5}{\textsf{es}}  & 40$_{\textcolor{black}{\text{0}}}$ & 78$_{\textcolor{deepgreen}{\text{+6}}}$ & 34$_{\textcolor{deepred}{\text{-4}}}$ & 78$_{\textcolor{deepgreen}{\text{+2}}}$\\
+          &  & \cellcolor[HTML]{F2CFC2}{\textsf{hi}}  & 36$_{\textcolor{deepgreen}{\text{+6}}}$ & 80$_{\textcolor{deepred}{\text{-2}}}$ & 38$_{\textcolor{deepgreen}{\text{+8}}}$ & 88$_{\textcolor{deepgreen}{\text{+6}}}$\\
+          &  & \cellcolor[HTML]{DDF6D2}{\textsf{sw}} & 44$_{\textcolor{deepgreen}{\text{+2}}}$ & 46$_{\textcolor{deepred}{\text{-2}}}$ & 42$_{\textcolor{deepgreen}{\text{+4}}}$ & 52$_{\textcolor{deepred}{\text{-10}}}$\\
+        \toprule[1.5pt]
+        \end{tabular}
+    }
+    \caption{Cross-lingual and multilingual CDA results (in \%) for the base model $\mathcal{M}_{base}$ and the counterfactually augmented models $\mathcal{M}_c$ and $\mathcal{M}_m$ using directly generated counterfactuals $\tilde{x}_\ell$ on \data{XNLI} and \data{SIB200}.
+    }
+    \label{tab:cda_human}
+\end{table}

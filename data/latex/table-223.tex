@@ -1,0 +1,71 @@
+\begin{document}
+\begin{table*}[t]
+\small
+\centering
+\setlength{\tabcolsep}{0.18cm}
+\begin{tabular}{cccccccc}
+\toprule
+\multirow{2.5}{*}{\shortstack{Diffusion \\ Model}}  & \multirow{2.5}{*}{Autoencoder}  & \multirow{2.5}{*}{\shortstack{Warm-up \\ in Frequency}}  & \multirow{2.5}{*}{\shortstack{Params \\ (B)}}  & \multicolumn{2}{c}{gFID $\downarrow$} & \multicolumn{2}{c}{IS $\uparrow$} \\
+\cmidrule(lr){5-6} \cmidrule(lr){7-8}
+& & & & w/o CFG & w/ CFG & w/o CFG & w/ CFG  \\
+\midrule
+\multirow{7}{*}{DiT-XL \cite{peebles2023scalable}} & \cellcolor[HTML]{FFFFFF} Flux-VAE-f8c16 \cite{labs2025flux1kontextflowmatching} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.67 & \cellcolor[HTML]{FFFFFF} 27.35 & \cellcolor[HTML]{FFFFFF} 8.72 & \cellcolor[HTML]{FFFFFF} 53.09 & \cellcolor[HTML]{FFFFFF} - \\
+& \cellcolor[HTML]{FFFFFF} Asym-VAE-f8 \cite{zhu2023designing}  & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.67 & \cellcolor[HTML]{FFFFFF} 11.39 & \cellcolor[HTML]{FFFFFF} 2.97 & \cellcolor[HTML]{FFFFFF} - & \cellcolor[HTML]{FFFFFF} - \\
+& \cellcolor[HTML]{FFFFFF} SD-VAE-f8c4 \cite{rombach2022high} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.67 & \cellcolor[HTML]{FFFFFF} 12.03 & \cellcolor[HTML]{FFFFFF} 3.04 & \cellcolor[HTML]{FFFFFF} 105.25 & \cellcolor[HTML]{FFFFFF} - \\
+\cdashline{2-8}
+& \cellcolor[HTML]{FFFFFF} DC-AE-f32c128$^\dagger$ \cite{chen2025deep} & \cellcolor[HTML]{FFFFFF} None  & \cellcolor[HTML]{FFFFFF} 0.67 & \cellcolor[HTML]{FFFFFF} 15.81 & \cellcolor[HTML]{FFFFFF} 3.11 & \cellcolor[HTML]{FFFFFF} 84.41 & \cellcolor[HTML]{FFFFFF} 227.69 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f32c128$^\dagger$ \cite{chen2025deep}  & \cellcolor[HTML]{FAEBD7} w/ FreqWarm  & \cellcolor[HTML]{FAEBD7} 0.67 & \cellcolor[HTML]{FAEBD7} \textbf{11.02}\diff{-4.79} & \cellcolor[HTML]{FAEBD7} \textbf{2.87}\diff{-0.24} & \cellcolor[HTML]{FAEBD7} \textbf{108.65}\diff{+24.24} & \cellcolor[HTML]{FAEBD7} \textbf{240.05}\diff{+12.36} \\
+& \cellcolor[HTML]{FFFFFF} DC-AE-f64c128 \cite{chen2025deep}  & \cellcolor[HTML]{FFFFFF} None  & \cellcolor[HTML]{FFFFFF} 0.67 & \cellcolor[HTML]{FFFFFF} 20.68 & \cellcolor[HTML]{FFFFFF} 5.91 & \cellcolor[HTML]{FFFFFF} 67.69 & \cellcolor[HTML]{FFFFFF} 160.70 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm  & \cellcolor[HTML]{FAEBD7} 0.67 & \cellcolor[HTML]{FAEBD7} 16.63\diff{-4.05} & \cellcolor[HTML]{FAEBD7} 3.74\diff{-2.17} & \cellcolor[HTML]{FAEBD7} 83.71\diff{+16.02} & \cellcolor[HTML]{FAEBD7} 223.05\diff{+62.35} \\
+\hline
+\multirow{3}{*}{UViT-H \cite{bao2023all}} & \cellcolor[HTML]{FFFFFF} Flux-VAE-f8c16 \cite{labs2025flux1kontextflowmatching} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 30.91 & \cellcolor[HTML]{FFFFFF} 12.61 & \cellcolor[HTML]{FFFFFF} - & \cellcolor[HTML]{FFFFFF} - \\
+\cdashline{2-8}
+& \cellcolor[HTML]{FFFFFF} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 17.34 & \cellcolor[HTML]{FFFFFF} 3.23 & \cellcolor[HTML]{FFFFFF} 84.49 & \cellcolor[HTML]{FFFFFF} 219.30 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} \textbf{12.36}\diff{-4.98} & \cellcolor[HTML]{FAEBD7} \textbf{2.76}\diff{-0.47} & \cellcolor[HTML]{FAEBD7} \textbf{108.80}\diff{+24.31} & \cellcolor[HTML]{FAEBD7} \textbf{246.89}\diff{+27.59} \\
+\hline
+\multirow{10}{*}{USiT-H \cite{ma2024sit}} & \cellcolor[HTML]{FFFFFF} Wan2.2-AE-f16c48 \cite{wan2025wan} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 43.67 & \cellcolor[HTML]{FFFFFF} 15.13 & \cellcolor[HTML]{FFFFFF} 33.48 & \cellcolor[HTML]{FFFFFF} 88.73 \\
+& \cellcolor[HTML]{FAEBD7} Wan2.2-AE-f16c48 \cite{wan2025wan} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} 29.56\diff{-14.11} & \cellcolor[HTML]{FAEBD7} 10.90\diff{-4.23} & \cellcolor[HTML]{FAEBD7} 46.16\diff{+12.68} & \cellcolor[HTML]{FAEBD7} 109.57\diff{+20.84} \\
+& \cellcolor[HTML]{FFFFFF} LTX-AE-f32c128 \cite{hacohen2024ltx}  & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 24.18 & \cellcolor[HTML]{FFFFFF} 6.24 & \cellcolor[HTML]{FFFFFF} 61.60 & \cellcolor[HTML]{FFFFFF} 161.22 \\
+& \cellcolor[HTML]{FAEBD7} LTX-AE-f32c128 \cite{hacohen2024ltx}  & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} 18.05\diff{-6.13} & \cellcolor[HTML]{FAEBD7} 4.11\diff{-2.13} & \cellcolor[HTML]{FAEBD7} 76.06\diff{+14.46} & \cellcolor[HTML]{FAEBD7} 194.51\diff{+33.29} \\
+\cdashline{2-8}
+& \cellcolor[HTML]{FFFFFF} DC-AE-f32c128$^\dagger$ \cite{chen2025deep}  & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 13.84 & \cellcolor[HTML]{FFFFFF} 3.96 & \cellcolor[HTML]{FFFFFF} 85.40 & \cellcolor[HTML]{FFFFFF} 200.70 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f32c128$^\dagger$ \cite{chen2025deep}  & \cellcolor[HTML]{FAEBD7} w/ FreqWarm  & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} 9.42\diff{-4.42} & \cellcolor[HTML]{FAEBD7} 3.20\diff{-0.76} & \cellcolor[HTML]{FAEBD7} 108.80\diff{+23.40} & \cellcolor[HTML]{FAEBD7} 244.21\diff{+43.51} \\
+& \cellcolor[HTML]{FFFFFF} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 9.85 & \cellcolor[HTML]{FFFFFF} 3.13 & \cellcolor[HTML]{FFFFFF} 113.99 & \cellcolor[HTML]{FFFFFF} 207.66 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} \textbf{8.31}\diff{-1.54} & \cellcolor[HTML]{FAEBD7} \textbf{2.64}\diff{-0.49} & \cellcolor[HTML]{FAEBD7} \textbf{130.10}\diff{+16.11} & \cellcolor[HTML]{FAEBD7} \textbf{276.28}\diff{+68.62} \\
+& \cellcolor[HTML]{FFFFFF} DC-AE-f128c256 \cite{chen2025deep} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 0.50 & \cellcolor[HTML]{FFFFFF} 36.71 & \cellcolor[HTML]{FFFFFF} 13.14 & \cellcolor[HTML]{FFFFFF} 49.63 & \cellcolor[HTML]{FFFFFF} 125.33 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f128c256 \cite{chen2025deep} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 0.50 & \cellcolor[HTML]{FAEBD7} 33.44\diff{-3.27} & \cellcolor[HTML]{FAEBD7} 11.27\diff{-1.87} & \cellcolor[HTML]{FAEBD7} 56.03\diff{+6.40} & \cellcolor[HTML]{FAEBD7} 143.22\diff{+17.89} \\
+\hline
+\multirow{2.3}{*}{USiT-2B \cite{ma2024sit}} & \cellcolor[HTML]{FFFFFF} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FFFFFF} None & \cellcolor[HTML]{FFFFFF} 1.58 & \cellcolor[HTML]{FFFFFF} 5.67 & \cellcolor[HTML]{FFFFFF} 3.55 & \cellcolor[HTML]{FFFFFF} 143.73 & \cellcolor[HTML]{FFFFFF} 292.98 \\
+& \cellcolor[HTML]{FAEBD7} DC-AE-f64c128 \cite{chen2025deep} & \cellcolor[HTML]{FAEBD7} w/ FreqWarm & \cellcolor[HTML]{FAEBD7} 1.58 & \cellcolor[HTML]{FAEBD7} \textbf{4.77}\diff{-0.90} & \cellcolor[HTML]{FAEBD7} \textbf{3.18}\diff{-0.37} & \cellcolor[HTML]{FAEBD7} \textbf{166.57}\diff{+22.84} & \cellcolor[HTML]{FAEBD7} \textbf{311.79}\diff{+18.81} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item $\dagger$ denotes that this autoencoder is reproduced by ourselves using the released codebase.
+\end{tablenotes}
+\vspace{-0.2cm}
+\caption{Results of our method implemented to the latest autoencoders on ImageNet with 512$\times$512 resolution. CFG is short for classifier-free guidance. We set the scale of guidance as 1.5 for all experiments with CFG. The \textcolor{orange}{orange} rows refer to the models trained with the proposed FreqWarm method. The numbers in \textcolor{ForestGreen}{green} are the improvement of our method compared with the baselines without frequency warm-up. Our method outperforms all the counterparts in different combinations of diffusion models and autoencoders.}
+\label{tab:sota_cmp}
+\vspace{-0.5cm}
+\end{table*}
+\begin{table}[t]
+\small
+\centering
+\begin{tabular}{cccc}
+\toprule
+Model & Freq. Warm-up  & gFID $\downarrow$  & IS $\uparrow$ \\
+\midrule
+DiT \cite{peebles2023scalable} & None & 26.30 & 50.36 \\
+\rowcolor[HTML]{FAEBD7} DiT \cite{peebles2023scalable} & w/ FreqWarm & \textbf{17.89}\diff{-8.41} & \textbf{72.99}\diff{+22.63} \\
+\hline
+UViT \cite{bao2023all} & None & 17.99 & 78.15 \\
+\rowcolor[HTML]{FAEBD7}UViT \cite{bao2023all}  & w/ FreqWarm & \textbf{12.91}\diff{-5.08} & \textbf{93.50}\diff{+15.35} \\
+\hline
+USiT \cite{ma2024sit} & None & 15.41 & 81.03 \\
+\rowcolor[HTML]{FAEBD7}USiT \cite{ma2024sit} & w/ FreqWarm & \textbf{12.84}\diff{-2.57} & \textbf{94.59}\diff{+13.56} \\
+\bottomrule
+\end{tabular}
+\caption{Experiments on ImageNet with resolution 256$\times$256. All experiments are implemented on top of DC-AE-f32c128 (reproduced by us). The \textcolor{orange}{orange} rows indicate the models trained with our method. The numbers in \textcolor{ForestGreen}{green} are the gains of our method.}
+\label{tab:exp_r256}
+\vspace{-0.5cm}
+\end{table}
+\end{document}

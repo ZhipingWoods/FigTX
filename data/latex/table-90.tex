@@ -1,0 +1,69 @@
+\definecolor{iccvblue}{rgb}{0.21,0.49,0.74}
+\definecolor{lightred}{RGB}{255, 230, 230} % 淡红色
+\definecolor{lightgreen}{RGB}{230, 255, 230} % 淡绿色
+\definecolor{mediumred}{RGB}{255, 204, 204} % Slightly darker red
+\definecolor{mediumgreen}{RGB}{204, 255, 204} % Slightly darker green
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{deepyellow}{RGB}{184,134,11}
+\definecolor{BrickRed}{RGB}{203,65,84}
+%%%%%%%
+\begin{document}
+\begin{table*}[htb]
+  \centering
+  \caption{Escaping DOV on CIFAR-10 and Tiny ImageNet. {\color{mediumred}Red} indicates detection by DOV, while  {\color{mediumgreen}green} indicates successful evasion.}
+  \resizebox{\linewidth}{!}{
+    \begin{tabular}{c|cccc|cccc}
+      \toprule[1.5pt]
+      \multirow{2}[0]{*}{\textbf{DOV}} & \multicolumn{4}{c|}{\textbf{CIFAR-10}} & \multicolumn{4}{c}{\textbf{Tiny-Imagenet}} \\
+     \cmidrule(r){2-5} \cmidrule(l){6-9}
+      & \multicolumn{2}{c}{Vanilla} & \multicolumn{2}{c|}{Evasion} & \multicolumn{2}{c}{Vanilla} & \multicolumn{2}{c}{Evasion} \\
+      \midrule
+      % \cmidrule(lr){1-1} \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+      \rowcolor[rgb]{.906, .902, .902} \textbf{Poisoning DOV}& ACC & VSR & ACC(↑) & VSR(↓) & ACC & VSR & ACC(↑) & VSR(↓) \\
+      \midrule
+      \textbf{Badnets} & 94.44 ± 0.74 & \cellcolor{lightred} 100.00 ± 0.00 & 93.46 ± 0.20 &\cellcolor{lightgreen} 1.36 ± 0.07 & 69.05 ± 0.25 & \cellcolor{lightred} 98.98 ± 0.11 & 66.48 ± 0.14 &\cellcolor{lightgreen} 1.48 ± 0.11 \\
+       \textbf{UBW} & 93.98 ± 0.25 & \cellcolor{lightred} 95.54 ± 0.84 & 93.41 ± 0.19 &\cellcolor{lightgreen} 1.74 ± 0.06 & 66.37 ± 0.12 &\cellcolor{lightred} 75.56 ± 0.50 & 65.34 ± 0.08 &\cellcolor{lightgreen} 4.60 ± 0.11 \\
+      \textbf{Label-Consistent} & 94.74 ± 0.54 &\cellcolor{lightred} 96.18 ± 2.70 & 93.19 ± 0.14 &\cellcolor{lightgreen} 3.74 ± 0.40 & 69.07 ± 0.24 &\cellcolor{lightred} 34.99 ± 1.53 & 66.46 ± 0.10 &\cellcolor{lightgreen} 3.51 ± 0.22 \\
+       \textbf{Narcissus} & 94.76 ± 0.54 &\cellcolor{lightred} 87.34 ± 1.82 & 94.37 ± 0.18 &\cellcolor{lightgreen} 4.59 ± 0.64 & 68.99 ± 0.14 &\cellcolor{lightred} 57.49 ± 0.78 & 66.39 ± 0.18 &\cellcolor{lightgreen} 12.33 ± 6.45 \\
+      \midrule
+      % \cmidrule(lr){1-1} \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+    \rowcolor[rgb]{.906, .902, .902} \textbf{Non-Poisoning DOV} & ACC  & p-value & ACC(↑) & p-value(↑) & ACC   & p-value & ACC(↑) & p-value(↑) \\
+    \midrule
+    \textbf{Radioactive Data} & 94.96 ± 0.47 & \cellcolor{lightred} 3.03e-03 & 94.07 ± 0.18 & \cellcolor{lightgreen} 9.45e-01 & 68.84 ± 0.30 & \cellcolor{lightred} 5.33e-03 & 66.64 ± 0.24 &\cellcolor{lightgreen} 4.94e-01 \\
+     \textbf{ANW} & 94.66 ± 0.31 & \cellcolor{lightred} 1.37e-09 & 93.91 ± 0.28 &\cellcolor{lightgreen} 1.00e+00 & 68.75 ± 0.30 & \cellcolor{lightred} 5.57e-28 & 66.44 ± 0.13 &\cellcolor{lightgreen} 1.00e+00 \\
+    \textbf{Domain Watermark} & 94.38 ± 0.53 &\cellcolor{lightred} 1.67e-22 & 93.90 ± 0.13 &\cellcolor{lightgreen} 1.00e+00 & 68.55 ± 0.39 &\cellcolor{lightred} 3.91e-16 & 66.38 ± 0.16 &\cellcolor{lightgreen} 1.00e+00 \\
+     \textbf{Isotope} & 94.75 ± 0.28 &\cellcolor{lightred} 2.87e-03 & 93.99 ± 0.49 &\cellcolor{lightgreen} 2.84e-01 & 68.97 ± 0.37 &\cellcolor{lightred} 1.63e-03 & 66.76 ± 0.22 &\cellcolor{lightgreen} 1.66e-01 \\
+     \textbf{ML Auditor}& 94.22 ± 0.17& \cellcolor{lightred}7.47e-05&93.45 ±  0.21&\cellcolor{lightgreen}7.83e-01&68.41 ± 0.28&\cellcolor{lightred}1.55e-06&65.35 ± 0.16&\cellcolor{lightgreen}1.00e+00\\
+    \textbf{Dataset Inference} & 94.83 ± 0.47 &\cellcolor{lightred} 1.87e-03 & 93.97 ± 0.49 &\cellcolor{lightgreen} 4.76e-01 & 69.15 ± 0.34 &\cellcolor{lightred} 9.27e-14 & 66.06 ± 0.18 &\cellcolor{lightgreen} 4.47e-01 \\
+     \textbf{MeFA} & 94.83 ± 0.47 &\cellcolor{lightred} 2.62e-14 & 93.93 ± 0.55 &\cellcolor{lightgreen} 1.00e+00 & 69.15 ± 0.34 &\cellcolor{lightred} 6.17e-27 & 66.22 ± 0.20 &\cellcolor{lightgreen} 9.99e-01 \\
+    \bottomrule[1.5pt]
+    \end{tabular}
+  }
+  \label{tab:escaping_advanced}
+\end{table*}
+\begin{table*}[htb]
+  \centering
+  \caption{Comparison of Escaping DOV with Evasion Attacks. {\color{mediumred}Red} indicates detection by DOV, {\color{mediumgreen}green} indicates successful evasion.}
+  \resizebox{\linewidth}{!}{
+    \begin{tabular}{c|cccccccc}
+    \toprule[1.5pt]
+       \multirow{2}[0]{*}{\textbf{Method}}  & \multicolumn{2}{c}{\textbf{Badnets}} & \multicolumn{2}{c}{\textbf{Narcissus}} & \multicolumn{2}{c}{\textbf{Isotope}} & \multicolumn{2}{c}{\textbf{Dataset Inference}}   \\
+       \cmidrule(r){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(l){8-9}
+          & \cellcolor[rgb]{.906, .902, .902}ACC(↑) &\cellcolor[rgb]{.906, .902, .902} VSR(↓) &\cellcolor[rgb]{.906, .902, .902} ACC(↑) &\cellcolor[rgb]{.906, .902, .902} VSR(↓) &\cellcolor[rgb]{.906, .902, .902} ACC(↑) &\cellcolor[rgb]{.906, .902, .902} p-value(↑) &\cellcolor[rgb]{.906, .902, .902} ACC(↑) &\cellcolor[rgb]{.906, .902, .902} p-value(↑) \\
+    \midrule
+    \textbf{Fine-pruning} & 86.21 ± 0.16 & \cellcolor{lightred} 99.37 ± 0.27 & 86.58 ± 0.15 & \cellcolor{lightred} 43.75 ± 14.41 & 86.78 ± 0.12 & \cellcolor{lightgreen}0.0532  & 86.88 ± 0.48 &\cellcolor{lightred} 0.0095  \\
+     \textbf{Meta-Sift} & 88.68 ± 0.45 & \cellcolor{lightred} 99.70 ± 0.32 & 88.64 ± 0.62 &\cellcolor{lightred} 49.40 ± 8.26 & 88.56 ± 0.47 &\cellcolor{lightgreen} 0.0264  & 88.07 ± 0.21 &\cellcolor{lightgreen} 0.0963  \\
+    \textbf{Differential Privacy} & 90.49 ± 1.20 &\cellcolor{lightred} 76.70 ± 4.62 & 87.70 ± 0.68 &\cellcolor{lightred} 72.77 ± 3.91 & 88.69 ± 2.61 & \cellcolor{lightgreen}0.0678  & 89.64 ± 4.86 &\cellcolor{lightgreen} 0.0440  \\
+     \textbf{I-BAU} & 89.09 ± 0.25 &\cellcolor{lightgreen} 14.80 ± 0.46 & 88.76 ± 1.94 &\cellcolor{lightred} 72.74 ± 2.17 & 87.07 ± 2.59 &\cellcolor{lightgreen} 0.1552  & 89.93 ± 0.68 &\cellcolor{lightgreen} 0.0355  \\
+    \textbf{ZIP} & 82.44 ± 0.10 &\cellcolor{lightred} 79.88 ± 0.39 & 83.51 ± 0.37 &\cellcolor{lightred} 53.21 ± 4.47 & 82.97 ± 0.42 &\cellcolor{lightred} 0.0098  & 83.21 ± 0.90 &\cellcolor{lightgreen} 0.1050  \\
+    \textbf{NAD} & 89.86 ± 0.37 &\cellcolor{lightgreen} 3.11 ± 0.51  & 91.04 ± 0.36 &\cellcolor{lightred} 75.41 ± 5.12 & 91.77 ± 0.45 & \cellcolor{lightgreen} 0.0961 &  92.12 ± 0.34 &\cellcolor{lightred} 0.0014 \\
+     \textbf{BCU} & 92.75 ± 0.05 &\cellcolor{lightgreen} 1.56 ± 0.25 & 92.33 ± 0.11 &\cellcolor{lightred} 61.72 ± 6.43 & 92.77 ± 0.36 &\cellcolor{lightgreen} 0.1622  & 93.09 ± 0.18 &\cellcolor{lightgreen} 0.0773  \\
+    \textbf{ABD} & 84.94 ± 3.04 &\cellcolor{lightgreen} 7.07 ± 3.15 & 85.42 ± 2.10 &\cellcolor{lightgreen} 22.10 ± 1.15 & 86.29 ± 3.46 &\cellcolor{lightred} 0.0066  & 84.87 ± 3.02 &\cellcolor{lightgreen} 0.3696  \\
+     \textbf{IPRemoval} & 83.96 ± 0.23 &\cellcolor{lightgreen} 8.09 ± 0.50 & 85.06 ± 0.11 &\cellcolor{lightred} 55.97 ± 2.14 & 84.64 ± 0.06 &\cellcolor{lightgreen} 0.1916  & 85.28 ± 0.05 & \cellcolor{lightgreen} 0.1322  \\
+    \textbf{Escaping DOV (Ours)} & \textbf{93.46 ± 0.20} &\cellcolor{lightgreen} \textbf{1.36 ± 0.07} & \textbf{94.37 ± 0.18} & \cellcolor{lightgreen} \textbf{4.59 ± 0.64} & \textbf{93.99 ± 0.49} &\cellcolor{lightgreen} \textbf{0.2845} & \textbf{93.97 ± 0.49} & \cellcolor{lightgreen} \textbf{0.4759} \\
+    \bottomrule[1.5pt]
+    \end{tabular}%
+    }
+  \label{tab:comparison}
+\end{table*}%
+\end{document}

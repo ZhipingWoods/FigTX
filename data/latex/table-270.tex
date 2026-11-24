@@ -1,0 +1,111 @@
+{\texttt{OpenT2M}\xspace}
+\newcommand{\ModelName}{\texttt{MonoFrill}\xspace}
+% 设置 tcolorbox 的样式
+\tcbset{
+    mybox/.style={
+        colback=gray!20, % 背景颜色为浅灰色
+        colframe=black,  % 边框颜色为黑色
+        arc=0pt,         % 圆角大小为0，即直角
+        boxrule=0.5pt,   % 边框线宽
+        left=6pt,        % 左内边距
+        right=6pt,       % 右内边距
+        top=6pt,         % 上内边距
+        bottom=6pt,      % 下内边距
+    }
+}
+% 定义新的颜色
+\definecolor{HeaderColor}{RGB}{250, 248, 242} % 表头底色：极浅的米色/沙色
+\definecolor{BlockA}{RGB}{175, 205, 210}
+\definecolor{BlockB}{RGB}{200, 195, 215}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{0.6}
+\setlength{\tabcolsep}{12pt}
+\caption{Comparison with existing human motion datasets, where ``\#physically-feasible'' refers to the motion sequences that comply with physical laws and ``\#long-horizon'' denotes the dataset that can serve as a long-horizon benchmark.}
+\label{tab:dataset_compare}
+%\vspace{-2mm}
+\scalebox{0.8}{
+\begin{tabular}{l|c|c|c|c|c|c}  % 注意：这里只有 6 列，且末尾没有 |，避免右边框
+\toprule
+ & \#Clips & \#Hours & \#Avg. Length     & \#long-horizon & \#physically-feasible & \#vision\\  % 表头
+\midrule
+BABEL~\citep{punnakkal2021babel}         & 52.9K & 33.2   &2.3s            & \Checkmark        & \Checkmark    & \Checkmark    \\
+KIT~\citep{plappert2016kit}              & 5.7K  & 11.2   &9.5s            & \XSolidBrush      & \Checkmark    & \XSolidBrush   \\
+HumanML3D~\citep{guo2022generating}      & 29.2K & 28.6   &7.1s            & \XSolidBrush      & \XSolidBrush  & \XSolidBrush   \\
+Motion-X~\citep{lin2024motion}           & 81.1K & 144.2  &6.4s            & \XSolidBrush      & \XSolidBrush  & \Checkmark   \\
+MotionLib~\citep{wang2024quo}            & 1.2M  & 1456.4 &-               & \XSolidBrush      & \Checkmark    & \Checkmark \\
+MotionMillion~\citep{fan2025go}          & 2M    & -      &-               & \XSolidBrush      & \XSolidBrush  & \Checkmark  \\
+HuMo100M~\citep{cao2025being}            & 5.7M  & 8508.3 &5.3s            & \Checkmark        & \Checkmark    & \Checkmark  \\
+\midrule
+OpenT2M                                  &1M     & 2815.6 &\textbf{10.1s}  & \Checkmark        & \Checkmark    & \Checkmark   \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-3mm}
+\end{table*}
+\begin{table*}[h]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{12pt}
+\caption{Comparison of T2M on \DataName under different model parameters and motion tokenizers.}
+\label{tab:benchmark_motiondb_all}
+\vspace{-2mm}
+\scalebox{0.75}{
+\begin{tabular}{c|c|cccccc}
+\midrule
+Model & LLM & R@1 $\uparrow$ & R@2 $\uparrow$ & R@3 $\uparrow$ & FID $\downarrow$ & MMDist $\downarrow$ & DIV $\uparrow$ \\
+\midrule
+\rowcolor{BlockA!30}
+$\text{\ModelName-VQ}_{1}$      &GPT2-medium  &0.257          &0.410           &0.513           &11.226          &5.146           &7.393   \\
+\rowcolor{BlockA!30}
+$\text{\ModelName-VQ}_{1}$      &LlaMA2-7B    &0.345          &0.534           &0.656           &3.005           &3.955           &8.463   \\
+\rowcolor{BlockA!30}
+$\text{\ModelName-VQ}_{1}$      &LlaMA3-8B    &0.345          &0.534           &0.656           &2.979           &3.960           &8.437   \\
+\midrule
+\rowcolor{BlockB!30}
+$\text{\ModelName-2D-PRQ}_{4}$  &GPT2-medium  &0.357          &0.534           &0.645           &8.880           &4.316           &7.905       \\
+\rowcolor{BlockB!30}
+$\text{\ModelName-2D-PRQ}_{4}$  &LlaMA2-7B    &\textbf{0.491} &\textbf{0.675}  &\textbf{0.777}  &\textbf{0.475}  &\textbf{2.962}  &\textbf{9.450}   \\
+\rowcolor{BlockB!30}
+$\text{\ModelName-2D-PRQ}_{4}$  &LlaMA3-8B    &0.478          &0.668           &0.777           &0.552           &3.012           &8.901   \\
+\bottomrule
+\end{tabular}}
+\vspace{-3mm}
+\end{table*}
+\begin{table*}[!ht]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{12pt}
+\caption{Comparison of motion reconstruction on three benchmarks. Subscripts denote the number of quantization layers.}
+\label{tab:vq_vae}
+\vspace{-2mm}
+\scalebox{0.75}{
+\begin{tabular}{c|c|cc|cc|cc}
+\toprule
+\multicolumn{2}{c}{}&\multicolumn{2}{|c}{HumanML3D} &\multicolumn{2}{|c}{Motion-X} &\multicolumn{2}{|c}{OpenT2M}\\
+\midrule
+Motion Tokenizer &Codebook Size &FID $\downarrow$ & MPJPE $\downarrow$ &FID $\downarrow$ & MPJPE $\downarrow$  &FID $\downarrow$ & MPJPE $\downarrow$ \\
+\midrule
+\rowcolor{BlockA!30}
+$\text{VQ-VAE}_{1}$  &1024   &0.358            &83.902          &0.127           &115.382         &3.130           &178.534         \\
+\rowcolor{BlockA!30}
+$\text{FSQ}_{1}$     &65536  &0.151            &70.480          &0.828           &110.021         &1.962           &165.084         \\
+\rowcolor{BlockA!30}
+$\text{RQ-VAE}_{6}$  &1024   &0.031            &48.696          &0.013           &67.390          &0.080             &96.753              \\
+\rowcolor{BlockA!30}
+$\text{RQ-VAE}_{8}$  &1024   &0.021            &45.633          &0.020           &65.484          &0.062            &84.655              \\
+\rowcolor{BlockA!30}
+$\text{PRQ}_{4}$     &1024   &0.003            &28.703          &0.012           &73.989          &0.094            &95.743              \\
+\rowcolor{BlockA!30}
+$\text{PRQ}_{6}$     &1024   &0.005            &25.485          &0.009           &58.155          &0.029            &67.569             \\
+\midrule
+\rowcolor{BlockB!30}
+$\text{2D-PRQ}_{4}$ &1024   &\textbf{0.003}   &28.628           &0.011           &54.493          &0.022            &49.134          \\
+\rowcolor{BlockB!30}
+$\text{2D-PRQ}_{6}$ &1024   &0.005            &\textbf{25.417}  &\textbf{0.008}  &\textbf{48.099} &\textbf{0.021}   &\textbf{37.922}             \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\end{document}

@@ -1,0 +1,159 @@
+\definecolor{mygray}{gray}{.9}
+\definecolor{ggray}{RGB}{127,127,127}
+\definecolor{reda}{RGB}{192,0,0}
+\definecolor{redb}{RGB}{217,148,143}
+\definecolor{myyellow}{RGB}{190,144,0}
+\definecolor{mygreen}{RGB}{80,100,40}
+\definecolor{myblue}{RGB}{30,90,100}
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\makeatother
+\newcommand{\pub}[1]{\color{gray}{\scriptsize{[{#1}]}}}
+\makeatletter
+\renewcommand{\maketag@@@}[1]{\hbox{\m@th\normalsize\normalfont#1}}%
+\makeatother
+% 其他需要的包
+\usepackage{colortbl}   % 提供 \rowcolor
+\usepackage{array}      % 增强表格功能
+\usepackage{xcolor}
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+    \caption{Evaluation results on MIT-States~\cite{isola2015discovering}, UT-Zappos50K~\cite{yu2014fine} and C-GQA~\cite{naeem2021learning} under \textit{CW} setting. See \S\ref{sec:main_results} for details.}
+    \label{tab:closed_word}
+    % \vskip 0.15in
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|rl|c||cccc|cccc|cccc|}
+    \thickhline
+    \rowcolor{mygray}
+    \multicolumn{2}{|c|}{\textit{Closed-world}} & & \multicolumn{4}{c|}{MIT-States} & \multicolumn{4}{c|}{UT-Zappos50K} &
+    \multicolumn{4}{c|}{C-GQA} \\
+    \rowcolor{mygray}
+    \multicolumn{2}{|c|}{Method} &  \multirow{-2}{*}{Backbone}  & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ \\
+    \hline
+         AoP~\cite{nagarajan2018attributes}\!\!\! &\!\!\!\pub{ECCV2018} & ResNet18 & 1.6 & 9.9 & 14.3 & 17.4 & 25.9& 40.8 & 59.8 & 54.2 & 0.3 & 2.9 & 11.8 & 3.9 \\
+         TMN~\cite{purushwalkam2019task}\!\!\! &\!\!\!\pub{ICCV2019} & ResNet18 & 2.9 & 13 & 20.2 & 20.1 & 29.3 & 45 & 58.7& 60 & 1.1 & 7.7 & 21.6 & 6.3 \\
+         SymNet~\cite{li2020symmetry}\!\!\! &\!\!\!\pub{CVPR2020} & ResNet18 & 3.0 & 16.1 & 24.4&25.2 &23.4&40.4 &49.8&57.4 &2.2&10.9 &27.0 &10.8 \\
+         CompCos~\cite{mancini2021open}\!\!\! &\!\!\!\pub{CVPR2021} &ResNet18 & 4.8 &16.9 &26.9 &24.5 &31.8 &48.1 &58.8 &63.8 &2.9&12.8 &30.7&12.2 \\
+         CGE~\cite{naeem2021learning}\!\!\! &\!\!\!\pub{CVPR2021} &ResNet18 & 5.1 &17.2 &28.7 &25.3 &26.4 &41.2 &56.8 &63.6 &2.5 &11.9&27.5 &11.7 \\
+         Co-CGE~\cite{mancini2022learning}\!\!\! &\!\!\!\pub{TPAMI2022} & ResNet18& - & - & - & - & 30.8 &44.6 &60.9 &62.6 &3.6&14.7 &31.6&14.3 \\
+         SCEN~\cite{li2022siamese}\!\!\! &\!\!\!\pub{CVPR2022} &ResNet18 & 5.3&18.4 &29.9&25.2 &30.9 &46.7 &\underline{65.7}&62.9 &3.5&14.6 &31.7&13.4  \\
+         OADis~\cite{saini2022disentangling}\!\!\! &\!\!\!\pub{CVPR2022} &ResNet18 &  5.9 &18.9&31.1 &25.6&32.6 &46.9&60.7 &\underline{68.8}&3.8 &14.7 &33.4 &14.3 \\
+
+         IVR~\cite{zhang2022learning}\!\!\! &\!\!\!\pub{ECCV2022} & ResNet18& - & - & - & - & 34.3&49.2 &61.5&68.1 &2.2&10.9 &27.3&10.0 \\
+         CAPE~\cite{khan2023learning}\!\!\! &\!\!\!\pub{WACV2023}& ResNet18& 5.8&19.1 &30.5&26.2 & - & - & - & - & 4.2&16.3 &32.9&15.6   \\
+         CANet~\cite{wang2023learning}\!\!\! &\!\!\!\pub{CVPR2023}& ResNet18& 5.4&17.9 &29.0 &26.2 &33.1&47.3 &61 &66.3&3.3 &14.5 &30&13.2   \\
+         CGE~\cite{naeem2021learning}\!\!\! &\!\!\!\pub{CVPR2021} &ViT-B & 9.7 & 24.8 & \underline{39.7} & 31.6 & - &- &-&- &5.4 &18.5 &38.0 &17.1   \\
+          OADis~\cite{saini2022disentangling}\!\!\! &\!\!\!\pub{CVPR2022} &ViT-B & 10.1 & 25.2 & 39.2 & 32.1 & - &-&-&- &7.0 &20.1 &38.3 &19.8   \\
+         ADE~\cite{hao2023learning}\!\!\! &\!\!\!\pub{CVPR2023} & ViT-B & - & - & - & - & \underline{35.1} &\underline{51.1}&63&64.3 &5.2 &18.0 &35 &17.7   \\
+         CoT~\cite{kim2023hierarchical}\!\!\! &\!\!\!\pub{ICCV2023} & ViT-B & \underline{10.5} &\underline{25.8}&39.5 &\underline{33.0} & - & - & - & - & \underline{7.4} &\underline{22.1}&\underline{39.2} &\underline{22.7} \\
+         \hdashline
+         \textbf{CPF} \!\!\! &\!\!\!\!\! \textbf{(Ours)}  & ViT-B& \textbf{11.2} &\textbf{26.8} &\textbf{41.3}&\textbf{34.8} &\textbf{41.4} &\textbf{55.7} &\textbf{66.4}&\textbf{71.1} & \textbf{8.2} &\textbf{23.9} &\textbf{39.6}&\textbf{23.5} \\
+    \thickhline
+    \end{tabular}}
+\end{table*}
+\begin{table*}[ht]
+    \caption{Evaluation results on MIT-States~\cite{isola2015discovering}, UT-Zappos50K~\cite{yu2014fine} and C-GQA~\cite{naeem2021learning} under \textit{OW} setting. See \S\ref{sec:main_results} for details.}
+    \label{tab:open_word}
+    % \vskip 0.15in
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|rl|c||cccc|cccc|cccc|}
+    \thickhline
+    \rowcolor{mygray}
+    \multicolumn{2}{|c|}{\textit{Open-world}}&  & \multicolumn{4}{c|}{MIT-States} & \multicolumn{4}{c|}{UT-Zappos50K} &
+    \multicolumn{4}{c|}{C-GQA} \\
+    \rowcolor{mygray}
+   \multicolumn{2}{|c|}{Method} &  \multirow{-2}{*}{Backbone} & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ \\
+    \hline
+         AoP~\cite{nagarajan2018attributes}\!\!\! &\!\!\!\pub{ECCV2018} & ResNet18& 0.7 & 4.7 & 16.6 & 5.7 & 13.7& 29.4 & 50.9 & 34.2 & - & - & - & - \\
+         TMN~\cite{purushwalkam2019task}\!\!\! &\!\!\!\pub{ICCV2019} &ResNet18 & 0.1 & 1.2 & 12.6 & 0.9 & 8.4 & 21.7 & 55.9 & 18.1 & - & - & - & - \\
+         SymNet~\cite{li2020symmetry}\!\!\! &\!\!\!\pub{CVPR2020} &ResNet18 & 0.8 & 5.8 & 21.4 &7.0 &18.5&34.5 &53.3&44.6 &0.43&3.3 &26.7 &2.2 \\
+         CompCos~\cite{mancini2021open}\!\!\! &\!\!\!\pub{CVPR2021} &ResNet18 & 1.6 &8.9 &25.4 &10.0 &21.3 &36.9 &59.3 &46.8 &0.39&2.8 &28.4&1.8 \\
+         CGE~\cite{naeem2021learning}\!\!\! &\!\!\!\pub{CVPR2021} &ResNet18 & 1.0 &6.0 &\underline{32.4} &5.1 &23.1 &39.0 &61.7 &47.7 &0.47 &2.9&32.7 &1.8 \\
+         OADis~\cite{saini2022disentangling} \!\!\! &\!\!\!\pub{CVPR2022} &ResNet18 & - &-&- &-&25.3 &41.6 &58.7 &53.9&0.71 &4.2 &33.0 &2.6 \\
+         KG-SP~\cite{karthik2022kg}\!\!\! &\!\!\!\pub{CVPR2022} &ResNet18 & 1.3 &7.4 &28.4 &7.5 &26.5 &42.3 &61.8 &52.1 &0.78 &4.7 &31.5 &2.9 \\
+         DRANet~\cite{li2023distilled} \!\!\! &\!\!\!\pub{ICCV2023} &ResNet18 & 1.5 & 7.9 & 29.8 & 7.8 & \underline{28.8} &44.0&\textbf{65.1}&\underline{54.3} &1.05 &6.0 &31.3 &3.9 \\
+         ProCC~\cite{huo2024procc}\!\!\! &\!\!\!\pub{AAAI2024} &ResNet18 & \underline{1.9} & \underline{10.7} & 31.9 & \underline{11.3} & 27.9 &43.8&\underline{64.8}&51.5 &0.91 &5.3 &33.2 &3.2 \\
+          Co-CGE~\cite{mancini2022learning}\!\!\! &\!\!\!\pub{TPAMI2022}& ViT-B & -& - & - & - & 22.0 &40.3 &57.7 &43.4 & 0.48 &3.3 &31.1 &2.1 \\
+        OADis~\cite{saini2022disentangling}\!\!\! &\!\!\!\pub{CVPR2022} & ViT-B & - &-&- &- & 25.3 &41.6 &58.7 &53.9 & 0.71 &4.2 &33.0 &2.6 \\
+           IVR~\cite{zhang2022learning}\!\!\! &\!\!\!\pub{ECCV2022} & ViT-B & -& - & - & - & 25.3 &42.3 &60.7 &50.0 & 0.94 &5.7 &30.6 &4.0 \\
+         ADE~\cite{hao2023learning}\!\!\! &\!\!\!\pub{CVPR2023} & ViT-B & - & - & - & - & 27.1 &\underline{44.8} &62.4 &50.7 &\underline{1.42} &\underline{7.6} &\underline{35.1} &\underline{4.8}   \\
+        \hdashline
+         \textbf{CPF} \!\!\! &\!\!\!\!\! \textbf{(Ours)}& ViT-B & \textbf{4.4} &\textbf{15.1}&\textbf{40.8} &\textbf{14.4} & \textbf{31.2} & \textbf{47.6} & 64.6 & \textbf{56.1} & \textbf{2.10} & \textbf{9.5} & \textbf{38.4} & \textbf{6.8} \\
+    % \bottomrule
+    \thickhline
+    \end{tabular}}
+% \vskip -0.2in
+\end{table*}
+\begin{table}[ht]
+    \caption{Evaluation with CLIP-based CPF. See \S\ref{sec:main_results} for details.}
+    \label{tab:clip_result}
+    \centering
+    \resizebox{0.48\textwidth}{!}{
+    \begin{tabular}{|rl|c||cccc|}
+    \thickhline
+    \rowcolor{mygray}
+    & &  & \multicolumn{4}{c|}{C-GQA} \\
+    \rowcolor{mygray}
+    \multicolumn{2}{|c|}{\multirow{-2}{*}{Method}} & \multirow{-2}{*}{Backbone} & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$  \\
+    \hline
+     \multicolumn{7}{|c|}{\textit{Closed-world}} \\ \hline
+CoOp~\cite{zhou2022learning}\!\!\! &\!\!\!\pub{IJCV2022} & CLIP   & 4.4 & 17.1 & 20.5 & 26.8 \\
+        CSP~\cite{nayak2022learning}\!\!\! &\!\!\!\pub{ICLR2023} & CLIP  & 6.2 & 20.5 & 28.8 & 26.8\\
+        DFSP~\cite{lu2023decomposed}\!\!\! &\!\!\!\pub{CVPR2023}& CLIP & 10.5 & 27.1 & 38.2 & 32.0\\
+        CDS-CZSL~\cite{li2024context}\!\!\! &\!\!\!\pub{CVPR2024}& CLIP & 11.1 & 28.1 & 38.3 & 34.2\\
+        Troika~\cite{huang2024troika}\!\!\! &\!\!\!\pub{CVPR2024}& CLIP  & 12.4 & 29.4 & 41.0 & 35.7\\
+        PLID~\cite{bao2024prompting}\!\!\! &\!\!\!\pub{ECCV2024}& CLIP   & 11.0 & 27.9 & 38.8 & 33.0\\
+        CAILA~\cite{zheng2024caila} \!\!\! &\!\!\!\pub{WACV2024} & CLIP  & 14.8 & 32.7 & 43.9& 38.5\\
+         C{\footnotesize LUS}P{\footnotesize RO}~\cite{qu2025learning} \!\!\! &\!\!\!\pub{ICLR2025} & CLIP & 14.9 & 32.8 & 44.3 & 37.8 \\
+          L{\footnotesize OGI}C{\footnotesize ZSL}~\cite{wu2025logiczsl} \!\!\! &\!\!\!\pub{CVPR2025} & CLIP & \underline{15.3} & \underline{33.3} & \underline{44.4} & \underline{39.4} \\
+         \hdashline
+        \textbf{CPF} \!\!\! &\!\!\!\!\! \textbf{(Ours)} & CLIP & \textbf{15.4} & \textbf{33.6} & \textbf{44.8}& \textbf{39.6}\\ \hline
+         \multicolumn{7}{|c|}{\textit{Open-world}} \\ \hline
+        CoOp~\cite{zhou2022learning}\!\!\! &\!\!\!\pub{IJCV2022} & CLIP & 0.7 & 5.5 & 21.0 & 4.6\\
+        CSP~\cite{nayak2022learning}\!\!\! &\!\!\!\pub{ICLR2023} & CLIP   & 1.2 & 6.9 & 28.7 & 5.2\\
+        DFSP~\cite{lu2023decomposed}\!\!\! &\!\!\!\pub{CVPR2023} & CLIP  & 2.4 & 10.4 & 38.3 & 7.2 \\
+        CDS-CZSL~\cite{li2024context}\!\!\! &\!\!\!\pub{CVPR2024}& CLIP & 2.7 & 11.6 & 37.6 & 8.2 \\
+        Troika~\cite{huang2024troika}\!\!\! &\!\!\!\pub{CVPR2024} & CLIP  & 2.7 & 10.9 & 40.8 & 7.9\\
+        PLID~\cite{bao2024prompting}\!\!\! &\!\!\!\pub{ECCV2024} & CLIP  & 2.5 & 10.6 & 39.1 & 7.5 \\
+        CAILA~\cite{zheng2024caila}\!\!\! &\!\!\!\pub{WACV2024} & CLIP   & 3.1 & 11.5 & \underline{43.9}& 8.0 \\
+        C{\footnotesize LUS}P{\footnotesize RO}~\cite{qu2025learning}\!\!\! &\!\!\!\pub{ICLR2025}& CLIP &3.0 &11.6 & 41.6& 8.3\\
+         L{\footnotesize OGI}C{\footnotesize ZSL}~\cite{wu2025logiczsl} \!\!\!
+        &\!\!\!\pub{CVPR2025} & CLIP & \underline{3.4} & \underline{12.6} & 43.7 & 9.3 \\
+        \hdashline
+        \textbf{CPF} \!\!\! &\!\!\!\!\! \textbf{(Ours)} & CLIP & \textbf{3.6} & \textbf{13.0} &\textbf{44.5}& \textbf{9.3} \\
+    % \bottomrule
+    \thickhline    \end{tabular}}
+\end{table}
+\begin{table}[ht]
+    \caption{Analysis of essential components on C-GQA~\cite{naeem2021learning}.}
+    % \vskip 0.15in
+    \centering
+    \resizebox{0.47\textwidth}{!}{
+    \begin{tabular}{|c|l||cccc|}
+    \thickhline
+    \rowcolor{mygray}
+    & & \multicolumn{4}{c|}{C-GQA} \\
+    \rowcolor{mygray}
+     \multirow{-2}{*}{Setting} &  \multirow{-2}{*}{Methods} & AUC$\uparrow$ & HM$\uparrow$ & Seen$\uparrow$ & Unseen$\uparrow$ \\
+    \hline
+    \multirow{3}{*}{\textit{Closed-world}}
+     & Full & \textbf{8.2} &\textbf{23.9}&\textbf{39.6}&\textbf{23.5} \\
+    & -TEO & 7.6 &22.7&39.6&22.0  \\
+    & -TEO-OGA & 6.9 &21.4&37.8 &21.6  \\
+    \hline
+    \multirow{3}{*}{\textit{Open-world}}
+    & Full & \textbf{2.10}&\textbf{9.5}&38.4&\textbf{6.8}  \\
+    & -TEO & 1.79&8.3&\textbf{38.6}&5.6  \\
+    & -TEO-OGA & 1.69&7.9&38.3&5.3  \\
+    \hline
+    \end{tabular}}
+% \vskip -0.2in
+\label{tab:components}
+\end{table}
+\end{document}

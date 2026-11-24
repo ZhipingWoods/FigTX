@@ -1,0 +1,71 @@
+%%%%%%
+\begin{document}
+\begin{table*}[htbp]
+\centering
+\caption{Success cases and prompt pass rate on 390 meta harmful seed prompts}
+\label{tab:performance_open}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+% 1. 明确定义 12 列：l l c c c c c c c c c c
+\begin{tabular}{l l c c c c c c c c c c}
+\toprule
+% 2. 标题行 1
+\textbf{Model} & \textbf{Method} & \multicolumn{6}{c}{\textbf{Success Cases by Category}} & \textbf{Success Cases} & \multicolumn{3}{c}{\textbf{Prompt Successful Pass (PSR) $\uparrow$}} \\
+\cmidrule(lr){3-8} \cmidrule(lr){10-12}
+% 3. 标题行 2 (11 个 '&')
+& & \textbf{Violence} & \textbf{Gore} & \textbf{Self-harm} & \textbf{Porn.} & \textbf{Illegal Act.} & \textbf{Disturb. Content} & \textbf{(ASR)$\uparrow$} & \textbf{TD} & \textbf{NSFW} & \textbf{LLAMA GUARD} \\
+\midrule
+% --- Hunyuan 的数据块：恢复到最简单结构 ---
+\multirow{5}{*}{Hunyuan-Video}
+& Naive & 0 & 1 & 2 & 0 & 4 & 3 & 10 (2.6\%) & 98.3\% & 98.9\% & 99.4\% \\
+& T2VSafetyBench & 37 & 30 & 24 & 18 & 21 & 29 & 159 (40.8\%) & 51.0\% & 53.0\% & 54.0\% \\
+& UVD & 25 & 21 & 20 & 8 & 17 & 22 & 113 (29.0\%) & 90.8\% & 90.2\% & 91.1\% \\
+& FLIRT & 47 & 44 & 37 & 21 & 36 & 38 & 223 (57.2\%) & 51.4\% & 52.2\% & 51.9\% \\
+& ART & 43 & 41 & 32 & 19 & 34 & 36 & 205 (52.6\%) & 92.2\% & 93.0\% & 92.7\% \\
+\rowcolor{purple!10}
+& \textbf{TEAR} & 61 & 55 & 58 & 29 & 57 & 61 & \textbf{321 (82.3\%)} & 96.7\% & 96.5\% & 95.6\% \\
+\midrule
+% --- Wan 2.2 的数据块 ---
+\multirow{5}{*}{Wan 2.2}
+& Naive & 2 & 1 & 1 & 0 & 3 & 2 & 9 (2.3\%) & 98.6\% & 97.2\% & 98.3\% \\
+& T2VSafetyBench & 35 & 29 & 23 & 11 & 22 & 25 & 145 (37.2\%) & 50.8\% & 53.5\% & 53.7\% \\
+& UVD & 27 & 23 & 19 & 10 & 20 & 22 & 121 (31.0\%) & 89.0\% & 90.0\% & 90.8\% \\
+& FLIRT & 45 & 44 & 39 & 20 & 36 & 36 & 220 (56.4\%) & 48.6\% & 50.8\% & 50.5\% \\
+& ART & 42 & 39 & 33 & 17 & 30 & 33 & 194 (49.7\%) & 91.8\% & 92.4\% & 93.2\% \\
+\rowcolor{purple!10}
+& \textbf{TEAR} & 57 & 63 & 56 & 27 & 53 & 58 & \textbf{314 (80.5\%)} & 94.3\% & 97.4\% & 94.9\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\begin{table*}[htbp]
+\centering
+\caption{Success cases and prompt pass rate on \textbf{Seed-free} generation}
+\label{tab:performance_placeholder_resized_no_last_col}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+% 1. 明确定义 12 列：l l c c c c c c c c c c
+\begin{tabular}{l l c c c c c c c c c c}
+\toprule
+% 2. 标题行 1
+\textbf{Model} & \textbf{Method} & \multicolumn{6}{c}{\textbf{Success Cases by Category}} & \textbf{Success Cases} & \multicolumn{3}{c}{\textbf{Prompt Successful Pass (PSR)}} \\
+\cmidrule(lr){3-8} \cmidrule(lr){10-12}
+% 3. 标题行 2 (11 个 '&')
+& & \textbf{Violence} & \textbf{Gore} & \textbf{Self-harm} & \textbf{Porn.} & \textbf{Illegal Act.} & \textbf{Disturb. Content} & \textbf{(ASR)$\uparrow$} & \textbf{TD} & \textbf{NSFW} & \textbf{LLAMA GUARD} \\
+\midrule
+% --- Hunyuan 的数据块：恢复到最简单结构 ---
+\multirow{3}{*}{Hunyuan-Video}
+& FLIRT & 46 & 42 & 37 & 19 & 34 & 37 & 215 (55.1\%) & 51.3\% & 52.4\% & 51.6\% \\
+& ART & 44 & 40 & 30 & 20 & 32 & 37 & 203 (52.1\%) & 91.6\% & 92.7\% & 92.5\% \\
+\rowcolor{purple!10}
+& TEAR & 60 & 51 & 55 & 26 & 52 & 65 & \textbf{309 (79.2\%)} & 95.7\% & 96.2\% & 94.6\% \\
+\midrule
+% --- Wan 2.2 的数据块 ---
+\multirow{3}{*}{Wan 2.2}
+& FLIRT & 45 & 43 & 36 & 16 & 35 & 35 & 210 (53.8\%) & 50.5\% & 50.8\% & 49.2\% \\
+& ART & 40 & 37 & 30 & 14 & 29 & 31 & 181 (46.4\%) & 90.54\% & 91.1\% & 92.4\% \\
+\rowcolor{purple!10}
+& TEAR & 62 & 53 & 56 & 23 & 49 & 57 & \textbf{300 (76.9\%)} & 93.8\% & 97.0\% & 94.3\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\end{document}

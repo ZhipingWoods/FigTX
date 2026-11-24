@@ -1,0 +1,172 @@
+\newcommand{\greencheck}{\textcolor{deepgreen}{\ding{51}}}
+\newcommand{\rederror}{\textcolor{red}{\ding{55}}}
+\definecolor{lightred}{HTML}{f6c6ad}
+\definecolor{lightgreen}{HTML}{b4e5a2}
+\definecolor{lightblue}{HTML}{a6caec}
+\definecolor{deepgreen}{RGB}{0,100,45}
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{darkred}{rgb}{0.7, 0.0, 0.0}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{
+    \small \textbf{Evaluation results of 4 conditional VGMs on PAI-Bench-C.}
+    For each model, the control signal settings consist of either a single video or a combination of multiple signal videos.
+    \colorbox{lightgreen!25}{Green} means the best across control signal settings for each model.
+}
+\vspace{-6pt}
+\resizebox{0.97\textwidth}{!}{%
+\begin{tabular}{l|c|cccccc}
+\toprule
+Model & Condition & Blur SSIM $\uparrow$ & Edge F1 $\uparrow$ & Depth si-RMSE $\downarrow$ & Mask mIoU $\uparrow$ & Quality Score $\uparrow$ & Diversity $\uparrow$ \\
+\midrule
+\multirow{5}{*}{Cosmos-Transfer1-7B~\cite{transfer1}}
+ & Blur  & \cellcolor{lightgreen!25}0.89 & 0.20 & \cellcolor{lightgreen!25}0.66 & 0.73 & 6.56 & 0.19 \\
+ & Edge & 0.77 & \cellcolor{lightgreen!25}0.38 & 0.85 & 0.73 & 6.76 & 0.28 \\
+ & Depth & 0.67 & 0.15 & 0.76 & 0.71 & 6.89 & 0.39 \\
+ & Seg & 0.62 & 0.11 & 1.13 & 0.70 & 6.02 & \cellcolor{lightgreen!25}0.42 \\
+ & All & 0.82 & 0.26 & 0.70 & \cellcolor{lightgreen!25}0.74 & \cellcolor{lightgreen!25}9.24 & 0.22 \\
+\midrule
+\multirow{5}{*}{Cosmos-Transfer2.5-2B~\cite{liu2025world}}
+ & Blur & \cellcolor{lightgreen!25}0.91 & 0.26 & \cellcolor{lightgreen!25}0.54 & 0.75 & 8.77 & 0.18 \\
+ & Edge & 0.76 & 0.39 & 0.74 & 0.74 & 8.05 & 0.36 \\
+ & Depth & 0.70 & 0.17 & 0.83 & 0.72 & 7.30 & 0.41 \\
+ & Seg & 0.66 & 0.13 & 1.07 & 0.71 & 7.87 & \cellcolor{lightgreen!25}0.44 \\
+ & All & 0.90 & \cellcolor{lightgreen!25}0.45 & 0.59 & \cellcolor{lightgreen!25}0.77 & \cellcolor{lightgreen!25}9.24 & 0.13 \\
+\midrule
+\multirow{2}{*}{Wan2.2-Fun-5B-Control~\cite{wan22fun}}
+ & Edge  & \cellcolor{lightgreen!25}0.61 & \cellcolor{lightgreen!25}0.27 & \cellcolor{lightgreen!25}1.01 & \cellcolor{lightgreen!25}0.71 & 8.79 & 0.40 \\
+ & Depth & 0.56 & 0.11 & 1.82 & 0.62 & \cellcolor{lightgreen!25}9.32 & \cellcolor{lightgreen!25}0.48 \\
+\midrule
+\multirow{4}{*}{Wan2.2-Fun-A14B-Control~\cite{wan22fun}}
+ & Blur  & 0.57 & 0.09 & 2.11 & 0.50 & 8.81 & \cellcolor{lightgreen!25}0.53 \\
+ & Edge  & \cellcolor{lightgreen!25}0.68 & \cellcolor{lightgreen!25}0.37 & \cellcolor{lightgreen!25}0.84 & \cellcolor{lightgreen!25}0.74 & 9.00 & 0.38 \\
+ & Depth & 0.56 & 0.11 & 2.10 & 0.58 & \cellcolor{lightgreen!25}9.22 & 0.52 \\
+ & Seg   & 0.47 & 0.10 & 1.60 & 0.66 & 7.79 & 0.36 \\
+\bottomrule
+\end{tabular}}
+\vspace{-6pt}
+\label{tab:transfer_results}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{\small \textbf{Comparison with existing benchmarks.} Our PAI-Bench is designed with comprehensive domains in Physical AI. Specifically, we focus on scenarios involving practical applications, such as autonomous vehicles~(AV), industry, embodied AI, and ego-centric views.}
+\vspace{-6pt}
+\resizebox{0.98\textwidth}{!}{%
+\begin{tabular}{l|c|ccc|ccccc}
+\toprule
+Benchmarks & \# Examples & \makecell{Video \\ Generation} & \makecell{Conditional Video \\ Generation} & \makecell{Video \\ Understanding}  & \makecell{Embodied \\ AI}  & AV & Industry & \makecell{Egocentric \\ Views} & \makecell{Physical \\ Common Sense}\\
+\midrule
+EvalCrafter~\cite{liu2023evalcrafter} & 700 &\greencheck & \rederror & \rederror & \rederror & \rederror &\rederror &\rederror &\rederror  \\
+VBench~\cite{huang2023vbench} & 800 & \greencheck & \rederror & \rederror & \rederror & \rederror & \rederror  & \rederror &\rederror\\
+Physics-IQ~\cite{motamed2025generative} & 198 & \greencheck & \rederror & \rederror & \rederror & \rederror & \rederror & \rederror & \greencheck \\
+EgoSchema~\cite{mangalam2023egoschema} & 5000 &  \rederror & \rederror &\greencheck & \rederror & \rederror & \rederror & \greencheck &\rederror\\
+VideoMME~\cite{fu2024video} & 2700 & \rederror & \rederror & \greencheck & \rederror & \rederror &  \rederror &\greencheck & \rederror\\
+MVP Bench~\cite{krojer2025shortcutawarevideoqabenchmarkphysical} & ~54800 &  \rederror & \rederror & \greencheck & \greencheck & \rederror & \rederror & \greencheck & \greencheck  \\
+CausalVQA~\cite{foss2025causalvqaphysicallygroundedcausal} & 793 & \rederror & \rederror & \greencheck & \rederror & \rederror & \rederror & \greencheck & \rederror \\
+PhyGenBench~\cite{meng2024worldsimulatorcraftingphysical} & 160 & \greencheck & \rederror & \rederror & \rederror & \rederror & \rederror & \rederror & \greencheck \\
+IntPhys2~\cite{bordes2025intphys2benchmarkingintuitive} & 1070 & \greencheck  & \rederror & \greencheck & \greencheck & \rederror &  \rederror & \rederror & \greencheck \\
+\midrule
+PAI-Bench~(Ours) & 2808 & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck &\greencheck & \greencheck \\
+\bottomrule
+\end{tabular}
+}
+\vspace{-6pt}
+\label{tab:comparison}
+\end{table*}
+\begin{table*}[t]
+  \centering
+  \caption{
+    \small \textbf{Evaluation results of 15 VGMs on PAI-Bench-G.}
+    Metrics in Domain Score: Common Sense~(CS), Autonomous Vehicle~(AV), Robot~(RO), Industry~(IN), Human~(HU), Physics~(PH);
+    and Quality Score: Subject Consistency~(SC), Background Consistency~(BC), Motion Smoothness~(MS), Aesthetic Quality~(AQ), Imaging Quality~(IQ), Overall Consistency~(OC), I2V Subject~(IS), I2V Background~(IB).
+    \colorbox{lightblue!25}{Blue} means the best across open-source models.
+  }
+  \vspace{-4pt}
+  % \setlength{\tabcolsep}{4pt}
+  \resizebox{\textwidth}{!}{%
+  \small
+  \begin{tabular}{@{}l|c|ccccccc|ccccccccc@{}}
+  \toprule
+  \multirow{2}{*}{\; Models} &
+  \multirow{2}{*}{Overall} &
+  \multicolumn{7}{c|}{Domain Score} &
+  \multicolumn{9}{c}{Quality Score} \\
+  \cmidrule(lr){3-9} \cmidrule(lr){10-18}
+  & & CS & AV & RO & IN & HU & PH & Avg. & SC & BC & MS & AQ & IQ & OC & IS & IB & Avg. \\
+  \midrule
+\; Source Videos & 83.9 & 96.6 & 78.7 & 91.8 & 89.0 & 86.6 & 93.1 & 89.8 & 93.3 & 94.2 & 99.1 & 51.7 & 68.4 & 21.5 & 97.8 & 98.2 & 78.0 \\
+  \midrule
+  \multicolumn{18}{l}{\cellcolor{gray!10}\textit{Proprietary Models}} \\
+\; Veo3~\cite{deepmind2025veo} & 82.2 & 93.0 & 72.1 & 88.8 & 89.0 & 84.4 & 89.7 & 86.8 & 91.4 & 93.1 & 99.2 & 51.9 & 69.8 & 21.7 & 97.0 & 96.9 & 77.6 \\
+  \midrule
+  \multicolumn{18}{l}{\cellcolor{gray!10}\textit{Open-source Models}} \\
+\; DynamicCrafter~\cite{xing2023dynamicrafter} & 68.3 & 73.9 & 43.9 & 48.9 & 70.9 & 60.7 & 80.8 & 63.0 & 91.1 & 92.5 & 94.9 & 51.5 & 68.0 & 21.2 & 84.5 & 86.2 & 73.7 \\
+\; LTX-Video-2B~\cite{HaCohen2024LTXVideo} & 77.5 & 88.1 & 60.5 & 69.4 & 82.6 & 77.1 & 86.2 & 78.0 & 89.2 & 92.7 & 98.7 & 53.2 & \cellcolor{lightblue!25}71.3 & 21.1 & 95.0 & 95.9 & 77.1 \\
+\; MAGI-1-4.5B~\cite{ai2025magi1autoregressivevideogeneration} & 77.5 & 88.3 & 63.4 & 71.3 & 82.5 & 77.3 & 86.3 & 78.7 & 92.1 & 93.3 & 99.0 & 50.4 & 61.8 & \cellcolor{lightblue!25}21.6 & 94.5 & \cellcolor{lightblue!25}98.1 & 76.3 \\
+\; HunyuanVideo-I2V~\cite{kong2024hunyuanvideo} & 77.6 & 86.7 & 60.3 & 68.9 & 82.4 & 75.8 & 85.8 & 77.1 & \cellcolor{lightblue!25}94.3 & \cellcolor{lightblue!25}95.3 & \cellcolor{lightblue!25}99.5 & 52.1 & 65.2 & 21.5 & \cellcolor{lightblue!25}98.6 & 97.6 & \cellcolor{lightblue!25}78.0 \\
+\; CogVideoX1.5~\cite{yang2025cogvideoxtexttovideodiffusionmodels} & 78.4 & 88.7 & 64.4 & 73.6 & 84.6 & 79.1 & 88.7 & 80.3 & 91.6 & 93.9 & 98.5 & 50.0 & 66.5 & 21.2 & 95.0 & 96.1 & 76.6 \\
+\; LTX-Video-13B~\cite{HaCohen2024LTXVideo} & 78.4 & 88.6 & 60.0 & 71.8 & 84.6 & 79.1 & 88.8 & 79.5 & 90.6 & 93.5 & 99.0 & \cellcolor{lightblue!25}53.5 & 69.5 & 21.4 & 95.7 & 96.0 & 77.4 \\
+\; CogVideoX~\cite{yang2025cogvideoxtexttovideodiffusionmodels} & 78.6 & 88.4 & 62.7 & 75.3 & 85.0 & 81.0 & 88.5 & 80.9 & 91.4 & 93.4 & 98.0 & 51.2 & 64.6 & 21.3 & 94.1 & 95.9 & 76.3 \\
+\; MAGI-1-24B~\cite{ai2025magi1autoregressivevideogeneration} & 79.4 & 91.4 & 68.0 & 76.5 & 85.4 & 81.5 & 87.0 & 82.4 & 90.0 & 92.4 & 99.0 & 50.2 & 64.2 & 21.4 & 96.8 & 97.9 & 76.5 \\
+\; Cosmos-Predict2-2B~\cite{liu2025world} & 79.7 & 91.2 & 70.7 & 81.9 & 86.4 & 83.1 & 88.1 & 84.2 & 88.7 & 92.1 & 97.6 & 49.3 & 65.9 & \cellcolor{lightblue!25}21.6 & 91.9 & 94.6 & 75.2 \\
+\; Cosmos-Predict2-14B~\cite{liu2025world} & 80.0 & 92.5 & 69.8 & 81.3 & 86.6 & 82.4 & 89.2 & 84.3 & 89.6 & 92.8 & 98.0 & 49.8 & 67.5 & 21.5 & 92.2 & 94.9 & 75.8 \\
+\; Wan2.1-I2V-14B~\cite{wan2025} & 80.8 & 92.5 & 69.4 & 79.6 & 87.2 & 83.4 & 89.5 & 84.3 & 90.4 & 93.0 & 98.0 & 51.7 & 70.0 & 21.4 & 96.5 & 97.2 & 77.3 \\
+\; Wan2.2-TI2V-5B~\cite{wan2025} & 81.3 & 92.2 & 69.1 & 82.9 & 86.4 & 83.3 & 90.3 & 84.7 & 92.0 & 93.9 & 98.8 & 52.3 & 69.6 & 21.4 & 97.4 & 98.0 & 77.9 \\
+\; Cosmos-Predict2.5-2B~\cite{liu2025world} & 81.4 & 91.5 & 70.4 & 82.7 & 86.8 & 83.5 & 91.7 & 84.9 & 92.3 & 94.2 & 99.1 & 52.8 & 70.7 & 21.2 & 96.2 & 97.2 & \cellcolor{lightblue!25}78.0 \\
+\; Wan2.2-I2V-A14B~\cite{wan2025} & \cellcolor{lightblue!25}82.3 & \cellcolor{lightblue!25}94.1 & \cellcolor{lightblue!25}73.0 & \cellcolor{lightblue!25}86.8 & \cellcolor{lightblue!25}88.6 & \cellcolor{lightblue!25}84.5 & \cellcolor{lightblue!25}92.7 & \cellcolor{lightblue!25}87.1 & 91.2 & 93.2 & 98.3 & 51.8 & 69.2 & 21.5 & 97.2 & 97.8 & 77.5 \\
+  \bottomrule
+  \end{tabular} %
+  }
+  \label{tab:predict_results}
+  \vspace{-3pt}
+\end{table*}
+\begin{table*}[t]
+\caption{\small \textbf{Evaluation of 16 MLLMs on PAI-Bench-U}. Embodied reasoning domains: BridgeData~(BD), RoboVQA~(RV), RoboFail~(RF), Agibot~(AB), HoloAssist~(HA), Autonomous Vehicle~(AV). \colorbox{lightred!40}{Red} denotes the best result across either proprietary or open-source models.}
+\vspace{-6pt}
+\centering
+\small
+% \renewcommand{\arraystretch}{0.9}
+\setlength{\tabcolsep}{8pt}
+\resizebox{1.0\textwidth}{!}{%
+\begin{tabular}{@{}l|c|cccc|*{7}{c}@{}}
+\toprule
+\multirow{2}{*}{\; Models} & \multirow{2}{*}{Overall} &
+\multicolumn{4}{c|}{\makecell{Common Sense}} & \multicolumn{7}{c}{\makecell{Embodied Reasoning}} \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-13}
+& & Space & Time & Physics & Avg. & BD & RV & RF & AB & HA & AV & Avg. \\
+\midrule
+  \; Human Performance & 93.2 & 92.1 & 94.3 & 95.0 & 93.6 & 94.0 & 95.5 & 97.0 & 90.0 & 89.0 & 100.0 & 88.9 \\
+  \; Random Guess & 37.0 & 41.5 & 38.8 & 38.3 & 38.9 & 25.0 & 50.0 & 50.0 & 26.9 & 25.0 & 32.5 & 35.2 \\
+  % \; GPT-5 \emph{w/o} VG & 37.4 & 38.2 & 36.6 & 28.8 & 40.9 & 38.1 & 34.0 & 50.9 & 45.0 & 31.0 & 31.0 & 26.0 \\
+  % \; Qwen3-VL-235B-A22B \emph{w/o} VG & 39.6 & 45.4 & 33.9 & 37.5 & 46.3 & 46.9 & 29.0 & 55.5 & 41.0 & 29.0 & 23.0 & 24.0 \\
+\midrule
+\multicolumn{13}{l}{\cellcolor{gray!10}\textit{Proprietary Models}} \\
+  \; Claude-3.5-Sonnet~\cite{claude35sonnet} & 46.0 & 55.0 & 46.6 & 46.9 & 47.8 & 29.0 & 74.5 & 58.0 & 28.0 & 38.0 & 34.0 & 44.1 \\
+  \; GPT-4o~\cite{openai2024gpt4ocard} & 56.2 & 61.2 & 57.0 & 59.7 & 58.6 & 44.0 & 68.2 & 71.0 & \cellcolor{lightred!40}45.0 & 55.0 & 38.0 & 53.8 \\
+  \; GPT-5~\cite{openai2025gpt5} & \cellcolor{lightred!40}61.8 & \cellcolor{lightred!40}63.8 & \cellcolor{lightred!40}65.8 & \cellcolor{lightred!40}61.5 & \cellcolor{lightred!40}63.9 & \cellcolor{lightred!40}38.0 & \cellcolor{lightred!40}85.5 & \cellcolor{lightred!40}72.0 & \cellcolor{lightred!40}45.0 & \cellcolor{lightred!40}72.0 & \cellcolor{lightred!40}43.0 & \cellcolor{lightred!40}59.7 \\
+  % \; GPT5~\cite{openai2025gpt5} & \cellcolor{lightred!40}69.8 & \cellcolor{lightred!40}67.5 & \cellcolor{lightred!40}73.2 & \cellcolor{lightred!40}70.4 & \cellcolor{lightred!40}71.4 & \cellcolor{lightred!40}49.0 & \cellcolor{lightred!40}87.3 & \cellcolor{lightred!40}74.0 & \cellcolor{lightred!40}60.0 & \cellcolor{lightred!40}76.0 & \cellcolor{lightred!40}61.0 & \cellcolor{lightred!40}68.2 \\
+\midrule
+\multicolumn{13}{l}{\cellcolor{gray!10}\textit{Open-source Models}} \\
+  \; InternVL3.5-14B~\cite{wang2025internvl3_5} & 48.8 & 50.0 & 51.3 & 47.3 & 49.7 & 23.0 & 80.0 & 67.0 & 27.0 & 56.0 & 31.0 & 47.9 \\
+  \; InternVL3.5-30B-A3B~\cite{wang2025internvl3_5} & 49.4 & 48.8 & 55.7 & 46.0 & 51.2 & 37.0 & 74.5 & 60.0 & 23.0 & 55.0 & 34.0 & 47.7 \\
+  \; InternVL3.5-8B~\cite{wang2025internvl3_5} & 49.7 & 50.0 & 55.0 & 44.7 & 50.5 & 29.0 & 75.5 & 63.0 & 39.0 & 49.0 & 35.0 & 48.9 \\
+  \; Qwen2.5-VL-7B~\cite{bai2025qwen25vltechnicalreport} & 51.0 & 51.2 & 48.7 & 39.8 & 45.7 & 35.0 & 87.3 & 63.0 & \cellcolor{lightred!40}53.0 & 60.0 & 36.0 & 56.2 \\
+  \; Qwen2.5-VL-32B~\cite{bai2025qwen25vltechnicalreport} & 55.3 & 50.0 & 62.1 & 48.7 & 55.5 & 35.0 & \cellcolor{lightred!40}93.6 & 65.0 & 45.0 & 56.0 & 32.0 & 55.1 \\
+  \; Cosmos-Reason1-7B~\cite{reason1} & 55.7 & 63.8 & 55.7 & 46.0 & 53.1 & 41.0 & 91.8 & 66.0 & 41.0 & 59.0 & 47.0 & 58.2 \\
+  \; InternVL3.5-38B~\cite{wang2025internvl3_5} & 55.8 & 58.8 & 59.7 & 49.6 & 55.8 & 36.0 & 82.7 & 66.0 & 44.0 & 69.0 & 34.0 & 55.7 \\
+  \; InternVL3.5-241B-A28B~\cite{wang2025internvl3_5} & 56.3 & 60.0 & 57.4 & 53.5 & 56.3 & 34.0 & 78.2 & 66.0 & 43.0 & 75.0 & 40.0 & 56.4 \\
+  \; Qwen3-VL-8B~\cite{qwen_vl_3} & 56.8 & 53.8 & 58.4 & 50.9 & 55.0 & 35.0 & 89.1 & 61.0 & 49.0 & 75.0 & 40.0 & 58.7 \\
+    % \; Qwen3-VL-8B~\cite{qwen_vl_3} & 57.3 & 58.8 & 61.4 & 50.4 & 57.0 & 36.0 & 87.3 & 61.0 & 48.0 & 71.0 & 40.0 & 57.7 \\
+  \; Qwen3-VL-30B-A3B~\cite{qwen_vl_3} & 59.5 & 52.5 & 60.4 & 58.4 & 58.6 & 38.0 & 90.9 & 69.0 & 41.0 & 73.0 & 47.0 & 60.3 \\
+  \; Qwen2.5-VL-72B~\cite{bai2025qwen25vltechnicalreport} & 60.8 & \cellcolor{lightred!40}65.0 & 57.7 & 57.5 & 58.6 & \cellcolor{lightred!40}50.0 & 91.8 & 68.0 & 52.0 & 70.0 & 43.0 & 63.0 \\
+  \; Qwen3-VL-32B~\cite{qwen_vl_3} & 62.0 & 53.8 & 67.8 & 59.7 & 62.9 & 42.0 & 90.9 & \cellcolor{lightred!40}71.0 & 50.0 & 72.0 & 38.0 & 61.1 \\
+  \; Qwen3-VL-235B-A22B~\cite{qwen_vl_3} & \cellcolor{lightred!40}64.7 & 56.2 & \cellcolor{lightred!40}69.5 & \cellcolor{lightred!40}61.9 & \cellcolor{lightred!40}64.9 & 42.0 & \cellcolor{lightred!40}93.6 & \cellcolor{lightred!40}71.0 & 45.0 & \cellcolor{lightred!40}76.0 & \cellcolor{lightred!40}56.0 & \cellcolor{lightred!40}64.4 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{-6pt}
+\label{tab:reason_results}
+\end{table*}
+\end{document}

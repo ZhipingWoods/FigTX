@@ -1,0 +1,355 @@
+\definecolor{mygray}{rgb}{0.7, 0.7, 1.0}
+\definecolor{mygray2}{gray}{0.9}
+\definecolor{myblue}{rgb}{0.8, 0.8, 1.0}
+\newcommand{\xhl}[1]{{\color{orange}#1}}
+\newcommand{\yanqing}[1]{{\color{blue}#1}}
+\newcommand*{\boldcheckmark}{%
+    \textpdfrender{
+        TextRenderingMode=FillStroke,
+        LineWidth=.5pt, %
+    }{\checkmark}%
+}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+    \centering
+    \caption{Comparison of \textsf{OpenVision} encoders with existing CLIP variants on CLIP benchmarks and multimodal downstream tasks under the LLaVA-1.5 framework. Cls./Retr.: zero-shot classification accuracy on ImageNet or image and text retrieval on MSCOCO. \textsf{OpenVision} outperforms OpenAI-CLIP significantly across multiple settings.}
+    \label{Tab:llava1.5_main1}
+    \vspace{-.6em}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \toprule
+    \multirow{2}{*}{\textbf{Method}} &
+    \multirow{2}{*}{\textbf{Vision Encoder}} &
+    \multirow{2}{*}{\textbf{\# Res.}} &
+    \multicolumn{2}{c|}{\textbf{CLIP-Bench}} &
+    \multirow{2}{*}{\textbf{Text VQA}} &
+    \multirow{2}{*}{\textbf{Chart QA}} &
+    \multirow{2}{*}{\textbf{OCR.}} &
+    \multirow{2}{*}{\textbf{MME}} &
+    \multirow{2}{*}{\textbf{SEED}} &
+    \multirow{2}{*}{\textbf{MMVet}} &
+    \multirow{2}{*}{\textbf{SQA}} &
+    \multirow{2}{*}{\textbf{GQA}}  &
+    \multirow{2}{*}{\textbf{POPE}} \\
+    \cline{4-5}
+    & & & \textbf{Cls.} & \textbf{Retr.} & & & & & & & & & \\
+    \midrule
+     OpenAI-CLIP~\citep{radford2021clip} & B/16 &224
+    &68.3
+    &33.1/52.4
+    &53.1
+    &11.9
+    &153
+    &1444/325
+    &63.7
+    &28.3
+    &72.5
+    &59.9
+    &83.4\\
+    SigLIP~\citep{zhai2023sigmoid} &B/16 &224
+    &76.0
+    &47.8/65.7
+    &53.3
+    &12.2
+    &238
+    &1421/318
+    &65.5
+    &31.3
+    &73.8
+    &60.3
+    &84.2\\
+    \rowcolor{cyan!10}\textsf{OpenVision} & \cellcolor{cyan!10}B/16 & \cellcolor{cyan!10}224
+    &\cellcolor{cyan!10}73.9
+    &\cellcolor{cyan!10}51.1/71.6
+    &54.1
+    &11.8
+    &262
+    &1496/293
+    &68.2
+    &30.9
+    &74.4
+    &61.6
+    &86.6\\
+    \midrule
+    SigLIP~\citep{zhai2023sigmoid} &B/16 &384
+    &78.5
+    &49.9/67.7
+    &57.3
+    &13.9
+    &285
+    &1411/266
+    &67.7
+    &33.6
+    &73.2
+    &62.0
+    &86.0\\
+    \rowcolor{cyan!10}\textsf{OpenVision} & \cellcolor{cyan!10}B/16 & \cellcolor{cyan!10}384
+    &\cellcolor{cyan!10}74.5
+    &\cellcolor{cyan!10}52.0/72.3
+    &57.9
+    &14.5
+    &293
+    &1432/333
+    &69.8
+    &33.2
+    &73.5
+    &62.8
+    &87.8\\
+    \midrule
+    OpenAI-CLIP~\citep{radford2021clip} & L/14 & 224
+    &75.5  &36.5/56.3
+    &56.1
+    &13.2
+    &177
+    &1443/306
+    &66.0
+    &32.8
+    &73.4
+    &60.8
+    &85.0\\
+    LAION-2B-CLIP~\citep{openclip} & L/14 & 224  &75.3 &46.5/63.4
+    &54.2
+    &12.8
+    &165
+    &1434/298
+    &65.5
+    &31.4
+    &76.0
+    &59.0
+    &84.5\\
+    DataComp-1B-CLIP~\citep{gadre2023datacomp} & L/14 & 224  &79.2&45.7/63.3
+    &53.0
+    &12.3
+    &131
+    &1382/312
+    &62.4
+    &28.9
+    &74.2
+    &57.8
+    &83.0\\
+    DFN-2B-CLIP~\citep{dfn} & L/14 & 224&81.4 &48.6/65.6
+    &53.2
+    &12.4
+    &246
+    &1447/306
+    &65.6
+    &29.4
+    &76.3
+    &59.1
+    &85.0\\
+    MetaCLIP-5B~\citep{metaclip} & L/14 & 224&79.2 &47.1/64.4
+    &55.6
+    &12.8
+    &313
+    &1552/315
+    &67.4
+    &34.6
+    &78.0
+    &61.3
+    &85.4\\
+    \rowcolor{cyan!10} \textsf{OpenVision} & \cellcolor{cyan!10}L/14 & \cellcolor{cyan!10}224 &\cellcolor{cyan!10}78.4  & \cellcolor{cyan!10}55.3/75.2
+    &57.7
+    &13.9
+    &315
+    &1487/317
+    &69.5
+    &35.2
+    &73.6
+    &62.9
+    &86.4\\
+    \midrule
+     OpenAI-CLIP~\citep{radford2021clip} & L/14 &336
+     &76.6 &37.1/57.9
+     &59.1
+    &13.8
+    &201
+    &1475/288
+    &67.5
+    &35.2
+    &73.1
+    &61.1
+    &85.7
+    \\
+    \rowcolor{cyan!10} \textsf{OpenVision} & \cellcolor{cyan!10}L/14 & \cellcolor{cyan!10}336 &78.8 &55.9/75.2 &61.2
+    &15.7
+    &339
+    &1525/315
+    &70.5
+    &36.2
+    &75.1
+    &63.7
+    &87.2
+\\
+     \midrule
+     SigLIP~\citep{zhai2023sigmoid} &SoViT-400M/14 &384
+     &83.2 &52.0/70.2
+     &62.6
+&14.5
+&338
+&1481/347
+&69.4
+&35.1
+&76.7
+&63.3
+&87.0 \\
+   \rowcolor{cyan!10} \textsf{OpenVision} & SoViT-400M/14 &384 & 79.9  & 57.6/77.5
+    &62.4
+&16.1
+&357
+&1493/320
+&70.4
+&35.3
+&72.4
+&63.8
+&88.0\\
+    \bottomrule
+    \end{tabular}}
+    \vspace{-.5em}
+\end{table*}
+\begin{table*}[t!]
+    \centering
+    \caption{Comparison of \textsf{OpenVision} encoders with existing CLIP variants on CLIP benchmarks and multimodal downstream tasks under the Open-LLaVA-Next framework. Cls./Retr.: zero-shot classification accuracy on ImageNet or image and text retrieval on MSCOCO. \textsf{OpenVision} achieves comparable or even better performance than existing models.}
+    \label{Tab:llava-next_main1}
+    \vspace{-.6em}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \toprule
+    \multirow{2}{*}{\textbf{Method}} &
+    \multirow{2}{*}{\textbf{vision Encoder}} &
+    \multirow{2}{*}{\textbf{\# Res.}} &
+    \multicolumn{2}{c|}{\textbf{CLIP-Bench}} &
+    \multirow{2}{*}{\textbf{Text VQA}} &
+    \multirow{2}{*}{\textbf{Chart QA}} &
+    \multirow{2}{*}{\textbf{OCR.}} &
+    \multirow{2}{*}{\textbf{MME}} &
+    \multirow{2}{*}{\textbf{SEED}} &
+    \multirow{2}{*}{\textbf{MMVet}} &
+    \multirow{2}{*}{\textbf{SQA}} &
+    \multirow{2}{*}{\textbf{GQA}}  &
+    \multirow{2}{*}{\textbf{POPE}} \\
+    \cline{4-5}
+    & & & \textbf{Cls.} & \textbf{Retr.} & & & & & & & & & \\
+    \midrule
+     OpenAI-CLIP~\citep{radford2021clip} & B/16 &224
+    &68.3
+    &33.1/52.4
+    &58.7
+    &57.5
+    &379
+    &1497/321
+    &70.0
+    &38.6
+    &74.0
+    &62.7
+    &86.6\\
+    SigLIP~\citep{zhai2023sigmoid} &B/16 &224
+    &76.0
+    &47.8/65.7
+    &58.4
+    &53.6
+    &377
+    &1430/332
+    &69.5
+    &33.6
+    &75.9
+    &62.4
+    &85.8\\
+    \rowcolor{cyan!10}\textsf{OpenVision} & \cellcolor{cyan!10}B/16 & \cellcolor{cyan!10}224
+    &\cellcolor{cyan!10}73.9
+    &\cellcolor{cyan!10}51.1/71.6
+    &\cellcolor{cyan!10}{60.7}
+    &\cellcolor{cyan!10}{59.2}
+    &\cellcolor{cyan!10}{405}
+    &\cellcolor{cyan!10}{1520/336}
+    &\cellcolor{cyan!10}71.8
+    &\cellcolor{cyan!10}{38.8}
+    &\cellcolor{cyan!10}{73.1}
+    &\cellcolor{cyan!10}{63.1}
+    &\cellcolor{cyan!10}86.4 \\
+    \midrule
+    SigLIP~\citep{zhai2023sigmoid} &B/16 &384
+    &78.5
+    &49.9/67.7
+    &64.2
+    &63.3
+    &476
+    &1540/326
+    &71.3
+    &38.7
+    &69.0
+    &62.6
+    &87.6\\
+    \rowcolor{cyan!10}\textsf{OpenVision} & \cellcolor{cyan!10}B/16 & \cellcolor{cyan!10}384
+    &\cellcolor{cyan!10}74.5
+    &\cellcolor{cyan!10}52.0/72.3
+    &\cellcolor{cyan!10}{66.3}
+    &\cellcolor{cyan!10}{67.4}
+    &\cellcolor{cyan!10}{499}
+    &\cellcolor{cyan!10}1501/330
+    &\cellcolor{cyan!10}{72.9}
+    &\cellcolor{cyan!10}{40.6}
+    &\cellcolor{cyan!10}{69.8}
+    &\cellcolor{cyan!10}{64.0}
+    &\cellcolor{cyan!10}{87.7}\\
+    \midrule
+    OpenAI-CLIP~\citep{radford2021clip} & L/14 & 224  &75.5  &36.5/56.3  & 62.8 & 60.7 & 459 & 1600/334 & 70.6 & 41.5 & 75.0 & 62.8  & 86.9 \\
+    LAION-2B-CLIP~\citep{openclip} & L/14 & 224  &75.3 &46.5/63.4  &59.4 &50.8 &396 &1533/323 &70.0 &36.2 &72.9 &62.7  &86.4 \\
+    DataComp-1B-CLIP ~\citep{gadre2023datacomp} & L/14 & 224  &79.2&45.7/63.3  &58.1 &48.5 &373 &1524/348 &70.2 &37.2 &75.6 &62.3  &86.2\\
+    DFN-2B-CLIP~\citep{dfn} & L/14 & 224&81.4 &48.6/65.6 &57.0 &42.7 &303 &1486/328 &68.3 &34.5 &70.6 &61.7 &86.0 \\
+    MetaCLIP-5B~\citep{metaclip} & L/14 & 224& 79.2&47.1/64.4 & 63.0 & 62.9 & 493& 1590/335& 72.3& 41.8& 77.1& 64.0& 86.8\\
+    \rowcolor{cyan!10} \textsf{OpenVision} & \cellcolor{cyan!10}L/14 & \cellcolor{cyan!10}224
+    &\cellcolor{cyan!10}78.4  & \cellcolor{cyan!10}55.3/75.2  &\cellcolor{cyan!10}{65.7} & \cellcolor{cyan!10}{61.5}  & \cellcolor{cyan!10} {503}  & \cellcolor{cyan!10}1567/332  &\cellcolor{cyan!10}{73.1} &\cellcolor{cyan!10}{41.4}
+    &\cellcolor{cyan!10}{73.1}
+    &\cellcolor{cyan!10}{64.7}
+    &\cellcolor{cyan!10}{87.8}  \\
+    \midrule
+     OpenAI-CLIP~\citep{radford2021clip} & L/14 &336
+    &76.6 &37.1/57.9
+     &69.4
+    &70.0
+    &535
+    &1591/351
+    &73.3
+    &40.8
+    &76.9
+    &64.5
+    &87.6\\
+    \rowcolor{cyan!10} \textsf{OpenVision} & \cellcolor{cyan!10}L/14 & \cellcolor{cyan!10}336
+   &\cellcolor{cyan!10}78.8 &\cellcolor{cyan!10}55.9/75.2
+    &68.3
+    &68.0
+    &547
+    &1520/310
+    &73.3
+    &45.3
+    &75.4
+    &64.4
+    &88.1
+\\
+SigLIP~\citep{zhai2023sigmoid} &SoViT-400M/14 &384 &83.2 &52.0/70.2 &68.2
+&61.3
+&494
+&1539/325
+&72.9
+&40.5
+&74.7
+&62.9
+&86.8
+ \\
+  \rowcolor{cyan!10}\textsf{OpenVision} & SoViT-400M/14 & 384 & 79.9  & 57.6/77.5
+&67.4
+&63.1
+&540
+&1500/353
+&72.2
+&43.7
+&73.5
+&63.4
+&87.8
+\\
+    \bottomrule
+    \end{tabular}}
+    \vspace{-.7em}
+\end{table*}
+\end{document}

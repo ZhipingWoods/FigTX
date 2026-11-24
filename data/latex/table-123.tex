@@ -1,0 +1,68 @@
+\usepackage{colortbl} % 推荐：用于给Average列上色
+\definecolor{gr}{gray}{0.95} % 定义极淡的灰色
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\small
+\caption{Performance comparison across five benchmarks. The \textbf{best} and \underline{second-best} results are marked.}
+\label{tab:main_results}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}l|l|@{\hspace{6pt}}ccccc@{\hspace{6pt}}|c@{}}
+\toprule
+\textbf{LLM Backbone} & \textbf{Method} & \textbf{ALFWorld} & \textbf{SciWorld} & \textbf{PDDL} & \textbf{BabyAI} & \textbf{HotpotQA} & \textbf{Average} \\
+\midrule
+\multirow{7}{*}{\textbf{Qwen2.5-7B-Instruct}}
+& No-Memory & 27.16 & 13.80 & 10.15 & 50.80 & 38.36 & 28.05 \\
+& LangMem & \underline{38.27} & 28.29 & 15.85 & 51.34 & 37.43 & 34.23 \\
+& A-Mem & 34.68 & 28.06 & \textbf{18.39} & 58.82 & 43.95 & 36.78 \\
+& Mem0 & 37.49 & 26.99 & 13.96 & \underline{60.58} & \underline{46.66} & \underline{37.14} \\
+& Mem0$^{g}$ & 35.34 & \underline{30.50} & 14.86 & 58.78 & 42.06 & 36.31 \\
+% \cmidrule(lr){2-8}
+& \cellcolor{gray!15}AgeMem-noRL & \cellcolor{gray!15}37.90 & \cellcolor{gray!15}28.67 & \cellcolor{gray!15}8.87 & \cellcolor{gray!15}46.34 & \cellcolor{gray!15}45.36 & \cellcolor{gray!15}33.43 \\
+& \cellcolor{gray!15}AgeMem (Ours) & \cellcolor{gray!15}\textbf{41.07} & \cellcolor{gray!15}\textbf{35.55} & \cellcolor{gray!15}\underline{17.31} & \cellcolor{gray!15}\textbf{61.42} & \cellcolor{gray!15}\textbf{54.44} & \cellcolor{gray!15}\textbf{41.96} \\
+\midrule
+\multirow{7}{*}{\textbf{Qwen3-4B-Instruct}}
+& No-Memory & 38.51 & 47.89 & 30.14 & 55.83 & 47.48 & 43.97 \\
+& LangMem & 40.89 & 50.42 & 28.42 & 53.80 & 42.70 & 43.25 \\
+& A-Mem & 34.31 & 50.14 & \underline{34.41} & \underline{61.35} & 48.48 & \underline{45.74} \\
+& Mem0 & \underline{41.17} & \underline{51.38} & 31.72 & 60.05 & 39.16 & 44.70\\
+& Mem0$^{g}$ & 36.69 & 47.76 & 29.61 & 57.59 & 38.12 & 41.95 \\
+% \cmidrule(lr){2-8}
+& \cellcolor{gray!15}AgeMem-noRL & \cellcolor{gray!15}38.02 & \cellcolor{gray!15}50.42 & \cellcolor{gray!15}27.52 & \cellcolor{gray!15}57.48 & \cellcolor{gray!15}\underline{54.49} & \cellcolor{gray!15}45.59 \\
+& \cellcolor{gray!15}AgeMem (Ours) & \cellcolor{gray!15}\textbf{48.97} & \cellcolor{gray!15}\textbf{59.48} & \cellcolor{gray!15}\textbf{35.07} & \cellcolor{gray!15}\textbf{72.56} & \cellcolor{gray!15}\textbf{55.49} & \cellcolor{gray!15}\textbf{54.31} \\
+\bottomrule
+\end{tabular}
+\vspace{-0.3cm}
+\end{table*}
+\begin{table}[t]
+\centering
+\small
+\caption{Tool usage statistics on HotpotQA. Numbers show average calls per episode.}
+\label{tab:tool_usage}
+% \resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}l|cc|cc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Tool Category}} & \multicolumn{2}{c|}{\textbf{Qwen2.5-7B}} & \multicolumn{2}{c}{\textbf{Qwen3-4B}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & noRL & GRPO & noRL & GRPO \\
+\midrule
+\multicolumn{5}{c}{\textbf{\emph{LTM Tool Statistics}}} \\
+\midrule
+\textsc{Add} Memory & 0.92 & 1.64 & 2.49 & 2.64 \\
+\textsc{Update} Memory & 0.00 & 0.13 & 0.13 & 0.34 \\
+\textsc{Delete} Memory & 0.00 & 0.08 & 0.00 & 0.22 \\
+\midrule
+\multicolumn{5}{c}{\textbf{\emph{STM Tool Statistics}}} \\
+\midrule
+\textsc{Retrieve} Memory & 2.31 & 1.95 & 4.62 & 4.35 \\
+\textsc{Summary} Context & 1.08 & 0.82 & 0.11 & 0.96 \\
+\textsc{Filter} Context & 0.02 & 0.31 & 0.15 & 0.16 \\
+\midrule
+\textbf{Total Calls} & 4.33 & 4.92 & 7.50 & 8.67 \\
+\bottomrule
+\end{tabular}%
+% }
+\vspace{-0.3cm}
+\end{table}
+\end{document}

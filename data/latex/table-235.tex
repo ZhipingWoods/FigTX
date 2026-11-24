@@ -1,0 +1,93 @@
+\usepackage{xcolor}
+\newcommand\NickName{\textcolor[RGB]{255,192,0}{Nav}\textcolor[RGB]{226,102,102}{3}\xspace}
+\newcommand\website{\gradientRGB{https://NavigationA3.github.io/}{255, 192, 0}{226, 102, 102}}
+\definecolor{myred}{RGB}{226, 102, 102}
+\definecolor{lightorangered1}{RGB}{255,140,105}
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+\renewcommand{\arraystretch}{1.3}
+\centering
+\caption{\textbf{Ablation Study on Annotation Components.}}
+\label{tab:ablation_annotation}
+\resizebox{0.47\textwidth}{!}{%
+\begin{tabular}{l|cc|cc|c}
+\hline
+\multirow{2}{*}{\textbf{Annotation Variants}} & \multicolumn{2}{c|}{\textbf{Tea Room}} & \multicolumn{2}{c|}{\textbf{Workstation}} & \multirow{2}{*}{\textbf{Avg. SR$\uparrow$}} \\
+\cline{2-5}
+& \textbf{NE$\downarrow$} & \textbf{SR$\uparrow$} & \textbf{NE$\downarrow$} & \textbf{SR$\uparrow$} & \\
+\hline
+\NickName w/o Map & 4.13 & 32.0\% & 5.88 & 40.0\% & 36.0\% \\
+\NickName w/o Annotation & 3.32 & 36.0\% & 2.78 & 44.0\% & 40.0\% \\
+\NickName w/o Room-level Annotation & 3.21 & 36.0\% & 3.01 & 40.0\% & 38.0\% \\
+\hline
+\rowcolor{yellow!8}\textbf{\NickName w/ Full Annotation (Ours)} & \textbf{1.89} & \textbf{60.0\%} & \textbf{1.56} & \textbf{76.0\%} & \textbf{68.0\%} \\
+\hline
+\end{tabular}%
+}
+\vspace{-1em}
+\end{table}
+\begin{table}[t]
+\renewcommand{\arraystretch}{1.3}
+\centering
+\caption{\textbf{Ablation Study on Different Pointing-VLMs.}}
+\label{tab:ablation_pointvlm}
+\resizebox{0.48\textwidth}{!}{%
+\begin{tabular}{l|c|cc|c|c}
+\hline
+\textbf{Pointing-VLMs} & \textbf{Params} & \textbf{Obj. Aff.$\uparrow$} & \textbf{Spa. Aff.$\uparrow$} & \textbf{Avg. Acc$\uparrow$} & \textbf{Nav. SR$\uparrow$} \\
+\hline
+\multicolumn{6}{c}{\textit{Closed-source}} \\
+\hline
+\NickName w/ GPT-4o~\cite{hurst2024gpt} & - & 21.3\% & 25.1\% & 23.2\% & 32.0\% \\
+\NickName w/ Claude-3.5-Sonnet~\cite{anthropic2024claude} & - & 20.1\% & 22.8\% & 21.5\% & 28.0\% \\
+\NickName w/ Qwen-VL-Max~\cite{bai2025qwen2} & - & 18.8\% & 21.5\% & 20.2\% & 20.0\% \\
+\hline
+\multicolumn{6}{c}{\textit{Open-source}} \\
+\hline
+\NickName w/ Qwen2.5-VL~\cite{bai2025qwen2} & 72B & 15.2\% & 18.7\% & 17.0\% & 16.0\% \\
+\NickName w/ Qwen2.5-VL~\cite{bai2025qwen2} & 7B & 6.2\% & 15.3\% & 10.8\% & 12.0\% \\
+\NickName w/ Janus-Pro~\cite{chen2025janus} & 7B & 2.8\% & 3.1\% & 2.95\% & 6.0\% \\
+\NickName w/ LLaVA-NeXT~\cite{liu2024llavanext} & 7B & 3.1\% & 0.8\% & 2.0\% & 4.0\% \\
+\hline
+\multicolumn{6}{c}{\textit{Specific}} \\
+\hline
+\NickName w/ RoboPoint~\cite{yuan2024robopoint} & 13B & 55.9\% & 44.5\% & 50.2\% & 57.5\% \\
+\rowcolor{red!8}\textbf{\NickName w/ NaviAfford (Ours)} & \textbf{7B} & \textbf{70.8\%} & \textbf{55.6\%} & \textbf{63.2\%} & \textbf{68.0\%} \\
+\hline
+\end{tabular}%
+}
+\vspace{-1.5em}
+\end{table}
+\begin{table*}[!ht]
+\renewcommand{\arraystretch}{1.5}
+\centering
+\caption{\textbf{Navigation Performance Comparison with SOTA methods.} $^*$ denotes that we modify the method to allow it to complete our task. Our \textbf{\textit{\NickName}} outperforms all the SOTA methods on the navigation performance.}
+\label{tab:navigation_results}
+\resizebox{0.93\textwidth}{!}{%
+\begin{tabular}{l|l|cc|cc|cc|cc|cc|c}
+\hline
+\multirow{2}{*}{\textbf{Category}} & \multirow{2}{*}{\textbf{Methods}} & \multicolumn{2}{c|}{\textbf{Meeting Room A}} & \multicolumn{2}{c|}{\textbf{Meeting Room B}} & \multicolumn{2}{c|}{\textbf{Tea Room}} & \multicolumn{2}{c|}{\textbf{Workstation}} & \multicolumn{2}{c|}{\textbf{Balcony}} & \multirow{2}{*}{\textbf{Avg. SR$\uparrow$}} \\
+%\cline{3-12}
+\hhline{~~----------}
+& & \cellcolor{gray!6}\textbf{NE$\downarrow$} & \cellcolor{gray!6}\textbf{SR$\uparrow$} & \cellcolor{gray!6}\textbf{NE$\downarrow$} & \cellcolor{gray!6}\textbf{SR$\uparrow$} & \cellcolor{gray!6}\textbf{NE$\downarrow$} & \cellcolor{gray!6}\textbf{SR$\uparrow$} & \cellcolor{gray!6}\textbf{NE$\downarrow$} & \cellcolor{gray!6}\textbf{SR$\uparrow$} & \cellcolor{gray!6}\textbf{NE$\downarrow$} & \cellcolor{gray!6}\textbf{SR$\uparrow$} & \\
+\hline
+\multirow{3}{*}{\parbox{0.7cm}{Closed-source}} & \cellcolor{red!6}GPT-4o~\cite{hurst2024gpt} & \cellcolor{red!6}12.45 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}13.78 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}14.12 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}11.89 & \cellcolor{red!6}4.0\% & \cellcolor{red!6}10.45 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}2.0\% \\
+& \cellcolor{red!6}Claude-3.5-Sonnet~\cite{anthropic2024claude} & \cellcolor{red!6}11.18 & \cellcolor{red!6}6.0\% & \cellcolor{red!6}12.56 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}13.94 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}10.67 & \cellcolor{red!6}4.0\% & \cellcolor{red!6}11.31 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}2.8\% \\
+& \cellcolor{red!6}Qwen-VL-Max~\cite{bai2025qwen2} & \cellcolor{red!6}13.67 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}15.01 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}16.45 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}14.12 & \cellcolor{red!6}2.0\% & \cellcolor{red!6}12.89 & \cellcolor{red!6}0.0\% & \cellcolor{red!6}0.4\% \\
+\hline
+\multirow{3}{*}{\parbox{0.7cm}{Open-source}}& \cellcolor{yellow!6}Janus-Pro-7B~\cite{chen2025janus} & \cellcolor{yellow!6}16.42 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}17.89 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}18.23 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}15.98 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}16.54 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}0.0\% \\
+& \cellcolor{yellow!6}Qwen2.5-VL-7B~\cite{bai2025qwen2} & \cellcolor{yellow!6}18.98 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}19.34 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}20.78 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}17.45 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}18.12 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}0.0\% \\
+& \cellcolor{yellow!6}LLaVA-Next-7B~\cite{liu2024llavanext} & \cellcolor{yellow!6}17.98 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}18.34 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}19.78 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}16.45 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}17.12 & \cellcolor{yellow!6}0.0\% & \cellcolor{yellow!6}0.0\% \\
+\hline
+\multirow{4}{*}{\parbox{1.5cm}{Navigation-specific}} & \cellcolor{green!6}NaVid$^*$~\cite{zhang2024navid} & \cellcolor{green!6}8.14 & \cellcolor{green!6}18.0\% & \cellcolor{green!6}9.31 & \cellcolor{green!6}12.0\% & \cellcolor{green!6}10.52 & \cellcolor{green!6}10.0\% & \cellcolor{green!6}7.89 & \cellcolor{green!6}16.0\% & \cellcolor{green!6}8.76 & \cellcolor{green!6}18.0\% & \cellcolor{green!6}14.8\% \\
+& \cellcolor{green!6}NaVILA$^*$~\cite{cheng2024navila} & \cellcolor{green!6}7.93 & \cellcolor{green!6}20.0\% & \cellcolor{green!6}8.67 & \cellcolor{green!6}16.0\% & \cellcolor{green!6}9.84 & \cellcolor{green!6}12.0\% & \cellcolor{green!6}7.45 & \cellcolor{green!6}18.0\% & \cellcolor{green!6}8.22 & \cellcolor{green!6}16.0\% & \cellcolor{green!6}16.4\% \\
+& \cellcolor{green!6}MapNav$^*$~\cite{zhang2025mapnav} & \cellcolor{green!6}7.21 & \cellcolor{green!6}26.0\% & \cellcolor{green!6}7.94 & \cellcolor{green!6}24.0\% & \cellcolor{green!6}9.12 & \cellcolor{green!6}26.0\% & \cellcolor{green!6}6.78 & \cellcolor{green!6}28.0\% & \cellcolor{green!6}7.45 & \cellcolor{green!6}22.0\% & \cellcolor{green!6}25.2\% \\
+\hhline{~------------}
+& \cellcolor{blue!6}\textbf{\NickName (Ours)} & \cellcolor{blue!6}\textbf{1.23} & \cellcolor{blue!6}\textbf{72.0\%} & \cellcolor{blue!6}\textbf{1.45} & \cellcolor{blue!6}\textbf{64.0\%} & \cellcolor{blue!6}\textbf{1.89} & \cellcolor{blue!6}\textbf{60.0\%} & \cellcolor{blue!6}\textbf{1.56} & \cellcolor{blue!6}\textbf{76.0\%} & \cellcolor{blue!6}\textbf{1.34} & \cellcolor{blue!6}\textbf{60.0\%} & \cellcolor{blue!6}\textbf{66.4\%} \\
+\hline
+\end{tabular}%
+}
+\vspace{-1.5em}
+\end{table*}
+\end{document}

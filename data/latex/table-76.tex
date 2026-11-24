@@ -1,0 +1,42 @@
+\newcommand{\thevae}{VA-VAE}
+\newcommand{\thedit}{{LightningDiT}}
+\newcommand{\checkplease}{\textcolor{blue}{(Finish init version.)}}
+\newcommand{\waitplease}{\textcolor{green}{(Wait for init version.)}}
+\newcommand{\alan}[1]{{\color{blue} #1}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|cc|ccccccc|ccccc}
+\toprule
+\multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c|}{\textbf{Reconstruction}} & \multirow{2}{*}{\makecell{\textbf{Training} \\ \textbf{Epoches}}} & \multirow{2}{*}{\textbf{\#params}} & \multicolumn{5}{c|}{\textbf{Generation w/o CFG}} & \multicolumn{5}{c}{\textbf{Generation w/ CFG}} \\
+\cmidrule(lr){6-10} \cmidrule(lr){11-15}
+ & \textbf{Tokenizer} & \textbf{rFID} & & & \textbf{gFID} & \textbf{sFID} & \textbf{IS} & \textbf{Pre.} & \textbf{Rec.} & \textbf{gFID} & \textbf{sFID} & \textbf{IS} & \textbf{Pre.} & \textbf{Rec.} \\
+\midrule
+& \multicolumn{11}{c}{\textit{\textbf{AutoRegressive (AR)}}} \\
+\midrule
+MaskGIT~\cite{maskgit} & MaskGiT & 2.28 & 555 & 227M & 6.18 & - & 182.1 & 0.80 & 0.51 & -  & - & -  & - & - \\
+LlamaGen~\cite{llamagen}  & VQGAN\textsuperscript{\textcolor{purple}{†}} & 0.59 & 300 & 3.1B & 9.38 & 8.24 & 112.9 & 0.69& 0.67 & 2.18 & 5.97 & 263.3 & 0.81 & 0.58 \\
+VAR~\cite{var} & - & - & 350 & 2.0B & - & - & - & - & - & 1.80 & - & 365.4 & 0.83 & 0.57 \\
+MagViT-v2~\cite{magvitv2} & - & - & 1080 & 307M & 3.65 & - & 200.5 & - & - & 1.78 & - & 319.4 & - & - \\
+MAR~\cite{mar} & LDM\textsuperscript{\textcolor{purple}{†}} & 0.53 & 800 & 945M & 2.35 & - & 227.8 & 0.79 & 0.62 & 1.55 & - & 303.7 & 0.81 & 0.62 \\
+\midrule
+& \multicolumn{11}{c}{\textit{\textbf{Latent Diffusion Models}}} \\
+\midrule
+MaskDiT~\cite{maskdit} & \multirow{6}{*}{SD-VAE~\cite{ldm}} & \multirow{6}{*}{0.61} & 1600 & 675M & 5.69 & 10.34 & 177.9 & 0.74 & 0.60 & 2.28 & 5.67 & 276.6 & 0.80 & 0.61 \\
+DiT~\cite{dit} & & & 1400 & 675M & 9.62 & 6.85 & 121.5 & 0.67 & 0.67 & 2.27 & 4.60 & 278.2 & \textbf{0.83} & 0.57 \\
+SiT~\cite{sit} & & & 1400 & 675M& 8.61 & 6.32 & 131.7 & 0.68 & 0.67 & 2.06 & 4.50 & 270.3 & 0.82 & 0.59 \\
+FasterDiT~\cite{fasterdit} & & & 400 & 675M & 7.91 & 5.45 & 131.3 & 0.67 & \textbf{0.69} & 2.03 & 4.63 & 264.0 & 0.81 & 0.60 \\
+MDT~\cite{mdt} & & & 1300 & 675M & 6.23 & 5.23 & 143.0 & 0.71 & 0.65 & 1.79 & 4.57 & 283.0 & 0.81 & 0.61 \\
+MDTv2~\cite{mdtv2} & & & 1080 & 675M & - & - & - & - & - &1.58 & 4.52 & \textbf{314.7} & 0.79 & 0.65 \\
+REPA~\cite{repa} & & & 800 & 675M & 5.90 & - & - & - & - & 1.42 & 4.70 & 305.7 & 0.80 & 0.65 \\
+\midrule
+\multirow{2}{*}{\textbf{\thedit}} & \multirow{2}{*}{\textbf{\thevae}} & \multirow{2}{*}{\textbf{0.28}} & \cellcolor{blue!20}\textcolor{gray}{\textbf{64}} & \cellcolor{blue!20}\textcolor{gray}{675M} & \cellcolor{blue!20}\textcolor{gray}{5.14} & \cellcolor{blue!20}\textcolor{gray}{\textbf{4.22}} & \cellcolor{blue!20}\textcolor{gray}{130.2} & \cellcolor{blue!20}\textcolor{gray}{0.76}  & \cellcolor{blue!20}\textcolor{gray}{0.62} & \cellcolor{blue!20}\textcolor{gray}{2.11} & \cellcolor{blue!20}\textcolor{gray}{4.16} & \cellcolor{blue!20}\textcolor{gray}{252.3} & \cellcolor{blue!20}\textcolor{gray}{0.81} & \cellcolor{blue!20}\textcolor{gray}{0.58} \\
+ &  & & \cellcolor{blue!20}800 & \cellcolor{blue!20}675M & \cellcolor{blue!20}\textbf{2.17} & \cellcolor{blue!20}4.36 & \cellcolor{blue!20}\textbf{205.6} & \cellcolor{blue!20}\textbf{0.77} & \cellcolor{blue!20}0.65 & \cellcolor{blue!20}\textbf{1.35} & \cellcolor{blue!20}\textbf{4.15}  & \cellcolor{blue!20}295.3 & \cellcolor{blue!20}0.79 & \cellcolor{blue!20}\textbf{0.65} \\
+\bottomrule
+\end{tabular}}
+\caption{\textbf{System-Level Performance on ImageNet 256$\times$256.} Our latent diffusion system achieves \textbf{\textit{state-of-the-art}} performance with rFID=0.28 and FID=1.35. Besides, our LightningDiT together with VA-VAE surpasses DiT~\cite{dit} and SiT~\cite{sit} in FID within only 64 training epochs, demonstrating a \textbf{\textit{21.8 $\times$ faster convergence.}}}
+\label{tab:method_comparison}
+\end{table*}
+\end{document}

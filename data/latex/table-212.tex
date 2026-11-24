@@ -1,0 +1,45 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{l|ll|c|c c c c c c} % <--- 这里的改动：添加了一个 'c' 用于 Visual Tokens 列
+        \toprule
+        \textbf{Model Type} & \textbf{Methods} & \textbf{Parameters} & \textbf{Vision Tokens} & \textbf{Overall$\uparrow$} & \textbf{Text\textsuperscript{Edit}$\downarrow$} & \textbf{Formula\textsuperscript{CDM}$\uparrow$} & \textbf{Table\textsuperscript{TEDS}$\uparrow$} & \textbf{Table\textsuperscript{TEDS-S}$\uparrow$} & \textbf{Reading Order\textsuperscript{Edit}$\downarrow$} \\    \midrule
+        \multirow{3}{*}{\textbf{Pipeline Tools}} & Marker-1.8.2~\cite{vik2024marker} & - & - & 71.30 & 0.206 & 76.66 & 57.88 & 71.17 & 0.250 \\
+        & Mineru2-pipeline~\cite{MinerU2} & - & - & 75.51 & 0.209 & 76.55 & 70.90 & 79.11 & 0.225 \\
+        & PP-StructureV3~\cite{cui2025paddleocr} & - & - & 86.73 & 0.073 & 85.79 & 81.68 & 89.48 & 0.073 \\
+        \midrule
+        \multirow{5}{*}{\textbf{General VLMs}} & GPT-4o~\cite{achiam2023gpt} & - & - & 75.02 & 0.217 & 79.70 & 67.07 & 76.09 & 0.148 \\
+        & InternVL3-76B~\cite{zhu2025internvl3} & 76B & 7277 & 80.33 & 0.131 & 83.42 & 70.64 & 77.74 & 0.113 \\
+        & InternVL3.5-241B~\cite{wang2025internvl35} & 241B & 7277 & 82.67 & 0.142 & 87.23 & 75.00 & 81.28 & 0.125 \\
+        & Qwen2.5-VL-72B~\cite{bai2025qwen2} & 72B & 5626 & 87.02 & 0.094 & 88.27 & 82.15 & 86.22 & 0.102 \\
+        & Gemini-2.5 Pro~\cite{gemini25} & - & - & 88.03 & 0.075 & 85.82 & 85.71 & 90.29 & 0.097 \\
+        \midrule
+        \multirow{16}{*}{\textbf{Specialized VLMs}} & Dolphin~\cite{feng2025dolphin} & 322M & - & 74.67 & 0.125 & 67.85 & 68.70 & 77.77 & 0.124 \\
+        & OCRFlux-3B~\cite{OCRFlux2025} & 3B & 5626 & 74.82 & 0.193 & 68.03 & 75.75 & 80.23 & 0.202 \\
+        & Mistral OCR~\cite{mistral} & - & - & 78.83 & 0.164 & 82.84 & 70.03 & 78.04 & 0.144 \\
+        & POINTS-Reader~\cite{liu2025points} & 3B & 5626 & 80.98 & 0.134 & 79.20 & 77.13 & 81.66 & 0.145 \\
+        & olmOCR-7B~\cite{poznanski2025olmocr} & 7B & 5626 & 81.79 & 0.096 & 86.04 & 68.92 & 74.77 & 0.121 \\
+        & MinerU2-VLM~\cite{MinerU2} & 0.9B & 7277 & 85.56 & 0.078 & 80.95 & 83.54 & 87.66 & 0.086 \\
+        & Nanonets-OCR-s~\cite{Nanonets-OCR-S} & 3B & 5626 & 85.59 & 0.093 & 85.90 & 80.14 & 85.57 & 0.108 \\
+        & DeepSeek-OCR-Gundam-M & 3B & 1854 & 86.46 & 0.081 & 89.45 & 78.02 & 81.55 & 0.093 \\
+        & MonkeyOCR-pro-1.2B~\cite{li2025monkeyocr} & 1.9B & 3962 & 86.96 & 0.084 & 85.02 & 84.24 & 89.02 & 0.130 \\
+        & MonkeyOCR-3B~\cite{li2025monkeyocr} & 3.7B & 3962 & 87.13 & 0.075 & 87.45 & 81.39 & 85.92 & 0.129 \\
+        & dots.ocr~\cite{dotsocr} & 3B & 5513 & 88.41 & 0.048 & 83.22 & 86.78 & 90.62 & 0.053 \\
+        & MonkeyOCR-pro-3B~\cite{li2025monkeyocr} & 3.7B & 3962 & 88.85 & 0.075 & 87.25 & 86.78 & 90.63 & 0.128 \\
+        & MinerU2.5~\cite{niu2025mineru2} & 1.2B & 3256 & 90.67 & \cellcolor{cyan!15}\underline{0.047} & 88.46 & 88.22 & 92.38 & \cellcolor{cyan!15}\underline{0.044} \\
+        & \textbf{PaddleOCR-VL-S} & 0.9B & 1898 & 91.55 & \cellcolor{red!15}\textbf{0.035} & \cellcolor{cyan!15}\underline{90.30} &
+        87.89 &
+        92.31 &
+        \cellcolor{cyan!15}\underline{0.044} \\
+        & \textbf{PaddleOCR-VL-M} & 0.9B & 2259 & \cellcolor{cyan!15}\underline{92.17} & \cellcolor{red!15}\textbf{0.035} & 90.22 & \cellcolor{cyan!15}\underline{89.75} & \cellcolor{cyan!15}\underline{93.72} & \cellcolor{red!15}\textbf{0.043} \\
+        & \textbf{PaddleOCR-VL-L} & 0.9B & 2561 & \cellcolor{red!15}\textbf{92.62} & \cellcolor{red!15}\textbf{0.035} & \cellcolor{red!15}\textbf{90.90} & \cellcolor{red!15}\textbf{90.48} & \cellcolor{red!15}\textbf{94.19} & \cellcolor{red!15}\textbf{0.043} \\
+        \bottomrule
+    \end{tabular}%
+    }
+   \caption{Comprehensive evaluation of document parsing on OmniDocBench v1.5. Results are reported by OmniDocBench~\cite{ouyang2025omnidocbench} unless Ours. In PaddleOCR-VL, S, M, and L refer to the same PaddleOCR-VL weights using different vsion tokens.}
+   \label{tab:omni15_performance}
+\end{table*}
+\end{document}

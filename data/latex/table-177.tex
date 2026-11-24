@@ -1,0 +1,83 @@
+\definecolor{ConcreteBlue}{RGB}{218,232,252}
+\definecolor{AbstractRed}{RGB}{248,206,204}
+\definecolor{MethodGreen}{RGB}{213,232,212}
+%%%%%%%
+\begin{document}
+\begin{table}[t!]
+\footnotesize
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{l ccc ccc ccc}
+        \toprule
+        \textbf{Model} & \textbf{R@1} & \textbf{R@5} &\textbf{R@10} & \textbf{H@1} & \textbf{H@5} &\textbf{H@10} \\
+        \midrule
+        \multicolumn{7}{c}{\cellcolor{Gray!16}\textbf{Zero-Shot}}\\
+
+      \cellcolor{ConcreteBlue}SigLIP         & .062 & .228 & .322 & .311 & .536 & .639 \\
+      \cellcolor{ConcreteBlue}CLIP           & .019 & .061 & .091 & .092 & .201 & .278 \\
+      \cellcolor{ConcreteBlue}O-CLIP         & .061 & .204 & .291 & .298 & .527 & .637 \\
+      \cellcolor{ConcreteBlue}EVA-CLIP       & .045 & .151 & .218 & .225 & .412 & .517 \\
+      \cellcolor{ConcreteBlue}F-CLIP         & .060 & .205 & .292 & .297 & .512 & .618 \\
+      \cellcolor{ConcreteBlue}OF-CLIP        & .054 & .181 & .260 & .268 & .491 & .606 \\
+      \midrule
+      \multicolumn{7}{c}{\cellcolor{Gray!16}\textbf{Same-Dataset (DeepFashion $\rightarrow$ DeepFashion)}}\\
+      \cellcolor{AbstractRed}SigLIP-ft-df       & \underline{.083} & \textbf{.307} & \textbf{.421} & \underline{.417} & \underline{.659} & \underline{.753} \\
+      \cellcolor{AbstractRed}CLIP-ft-df        & .029 & .095 & .142 & .140 & .299 & .393 \\
+       \cellcolor{AbstractRed}O-CLIP-ft-df      & .080 & .272 & .378 & .398 & .640 & .740 \\
+       \cellcolor{AbstractRed}EVA-CLIP-ft-df    & .063 & .219 & .316 & .317 & .539 & .654 \\
+       \cellcolor{AbstractRed}F-CLIP-ft-df    & .074 & .254 & .350 & .363 & .603 & .705 \\
+       \cellcolor{AbstractRed}OF-CLIP-ft-df    & .072 & .245 & .344 & .358 & .607 & .712 \\
+      \cellcolor{MethodGreen}\textbf{\methodshort-df (Ours)}   & \textbf{.089} & \underline{.303} & \underline{.409} & \textbf{.437} & \textbf{.665} & \textbf{.756} \\
+    \midrule
+    \multicolumn{7}{c}{\cellcolor{Gray!16}\textbf{Cross-Dataset (FACAD $\rightarrow$ DeepFashion)}}\\
+\cellcolor{AbstractRed}SigLIP-ft-facad      & \underline{.070} & \underline{.259} & \underline{.364} & \underline{.352} & \underline{.568} & \underline{.681} \\
+        \cellcolor{AbstractRed}CLIP-ft-facad        & .023 & .079 & .122 & .114 & .265 & .358 \\
+       \cellcolor{AbstractRed}O-CLIP-ft-facad      & .065 & .230 & .324 & .324 & .562 & .667 \\
+       \cellcolor{AbstractRed}EVA-CLIP-ft-facad    & .049 & .169 & .249 & .246 & .457 & .561 \\
+       \cellcolor{AbstractRed}F-CLIP-ft-facad    & .060 & .206 & .295 & .295 & .526 & .631 \\
+       \cellcolor{AbstractRed}OF-CLIP-ft-facad    & 059 & .209 & .298 & .298 & .542 & .649 \\
+        \cellcolor{MethodGreen}\textbf{\methodshort-facad (Ours)}   & \textbf{.087} & \textbf{.302} & \textbf{.407} & \textbf{.428} & \textbf{.661} & \textbf{.754} \\
+\bottomrule
+    \end{tabular}
+    }
+    \caption{
+       Results on Deepfashion. In \textbf{bold} the best results, while \underline{underlined} are the second best. \inlineColorbox{MethodGreen}{\methodshort} proves to be the best (or second best) method \textit{w.r.t.} ~\inlineColorbox{ConcreteBlue}{zero-shot} and \inlineColorbox{AbstractRed}{fine-tuned} models in both the same-dataset and cross-dataset settings.} \label{tab:results-deepfashion}
+\end{table}
+\begin{table}[t]
+    \centering
+\resizebox{\linewidth}{!}{
+    \begin{tabular}{l c ccc ccc}
+        \toprule
+        \textbf{Model} & \textbf{Backbone} & \textbf{R@1} & \textbf{R@5} &\textbf{R@10} & \textbf{H@1} & \textbf{H@5} &\textbf{H@10} \\
+        \midrule
+\cellcolor{ConcreteBlue}SigLIP & ViT-B-16 & .062 & .228 & .322 & .310 & .536 & .639 \\
+\cellcolor{MethodGreen}\textbf{SigLIP-\methodshort} & ViT-B-16 & \textbf{.089} & \textbf{.303} & \textbf{.409} & \textbf{.437} & \textbf{.665} & \textbf{.756} \\
+\hdashline
+\cellcolor{ConcreteBlue}SigLIP & ViT-L-16-384 & .094 & .348 & .473 & .458 & .679 & .775 \\
+\cellcolor{MethodGreen}\textbf{SigLIP-\methodshort} & ViT-L-16-384 & \textbf{.108} & \textbf{.385} & \textbf{.513} & \textbf{.527} & \textbf{.736} & \textbf{.823} \\
+\midrule
+\cellcolor{ConcreteBlue}O-CLIP & ViT-B-32 & .061 & .204 & .290 & .298 & .527 & .637 \\
+\cellcolor{MethodGreen}\textbf{O-CLIP-\methodshort}& ViT-B-32 & \textbf{.062} & \textbf{.210} & \textbf{.298} & \textbf{.312} & \textbf{.537} & \textbf{.655} \\
+\hdashline
+\cellcolor{ConcreteBlue}O-CLIP & ViT-L-14 & .085 & .301 & .411 & .412 & .660 & .755 \\
+\cellcolor{MethodGreen}\textbf{O-CLIP-\methodshort} & ViT-L-14 & \textbf{.091} & \textbf{.313} & \textbf{.422} & \textbf{.447} & \textbf{.676} & \textbf{.771} \\
+\hdashline
+\cellcolor{ConcreteBlue}O-CLIP & ViT-H-14 & .091 & .319 & .432 & .447 & .673 & .772 \\
+\cellcolor{MethodGreen}\textbf{O-CLIP-\methodshort} & ViT-H-14 & \textbf{.098} & \textbf{.336} & \textbf{.449} & \textbf{.483} & \textbf{.696} & \textbf{.789} \\
+\midrule
+\cellcolor{ConcreteBlue}EVA-CLIP & EVA02-B-16 & .045 & .151 & .218 & .225 & .412 & .516 \\
+\cellcolor{MethodGreen}\textbf{EVA-CLIP-\methodshort} &EVA02-B-16 & \textbf{.052} & \textbf{.175} & \textbf{.249} & \textbf{.258} & \textbf{.463} & \textbf{.564} \\
+\hdashline
+\cellcolor{ConcreteBlue}EVA-CLIP & EVA02-L-14 & .063 & .217 & .307 & .308 & .521 & .618 \\
+\cellcolor{MethodGreen}\textbf{EVA-CLIP-\methodshort}& EVA02-L-14  & \textbf{.072} & \textbf{.252} & \textbf{.345} & \textbf{.352} & \textbf{.574} & \textbf{.676} \\
+\hdashline
+\cellcolor{ConcreteBlue}EVA-CLIP & EVA02-E-14 & .090 & .312 & .423 & .440 & .667 & .762 \\
+\cellcolor{MethodGreen}\textbf{EVA-CLIP-\methodshort} & EVA02-E-14 & \textbf{.096} & \textbf{.334} & \textbf{.451} & \textbf{.471} & \textbf{.689} & \textbf{.787} \\
+        \bottomrule
+    \end{tabular}
+}
+\caption{
+       Retrieval performance of ~\inlineColorbox{MethodGreen}{\methodshort} on DeepFashion when integrated on different ~\inlineColorbox{ConcreteBlue}{zero-shot} models. %of different families and scales.
+       Shifting towards concrete representations consistently provides a performance boost.\label{tab:exp-scaling}}
+\end{table}
+\end{document}

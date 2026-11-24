@@ -1,0 +1,84 @@
+\begin{document}
+\begin{table*}[!t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccccccccccccc}
+    \hline
+    \multirow{2}{*}{\textbf{Model}} &
+    \multicolumn{2}{c}{\textbf{MuSiQue}} &
+    \multicolumn{2}{c}{\textbf{2WikiMQA}} &
+    \multicolumn{2}{c}{\textbf{MFQA-En}} &
+    \multicolumn{2}{c}{\textbf{NarrativeQA}} &
+    \multicolumn{2}{c}{\textbf{En.QA}} &
+    \multicolumn{2}{c}{\textbf{Avg.}} \\
+    ~ & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1   \\\hline
+    \rowcolor{gray!10}\multicolumn{13}{c}{\textit{Llama-3.1-8B-Instruct}} \\
+    \hline
+    Vanilla LLM & 33.50 & 36.56 & 69.50 & 65.45 & 18.66 & 44.34 & 18.00 & 26.61 & 26.49 & 32.19 & 33.23 & 41.03  \\
+    LongAlpaca & 34.00 & 38.36 & 69.50 & 63.64 & 16.66 & 40.67 & 16.50 & 26.88 & \underline{27.35} & 30.58 & 32.80 & 40.03 \\
+    LongAlign & 36.50 & 37.62 & 69.00 & 59.35 & \underline{22.00} & \underline{48.49} & \underline{18.50} & 26.38 & 23.93 & 24.85 & 33.99 & 39.34 \\
+    LongMab-SFT & 35.00 & 39.60 & 69.00 & 65.45 & 21.33 & 45.03 & 15.50 & 24.98 & 23.93 & 27.33 & 32.95 & 40.48 \\
+    LongReward-PO & 40.50 & 41.41 & 68.50 & 63.23 & 20.00 & 44.70 & 16.50 &25.92 &26.21 &24.20 &34.34 & 39.89 \\
+    SeaLong-PO & 37.50 & 40.52 & 68.00 & 67.07 & 19.33 & 44.12 & 16.00 & 26.45 & 27.06 & 32.06 & 33.58 & 42.04 \\
+    Logo-PO & 43.50 & 46.58 & 63.00 & 61.74 & 19.00 & 44.39 & \underline{18.50} & \underline{28.05} & 26.67 & \underline{32.69} & 34.13 & 42.69 \\
+    LongFaith-PO & \underline{44.00} & \underline{49.23} & \underline{75.50} & \textbf{72.80} & 20.66 & 48.10 & 9.50 & 23.26 & 24.30 & 22.35 & \underline{34.79} & \underline{43.15} \\
+    LongMab & \textbf{50.00} & \textbf{52.15} & \textbf{76.00} & \underline{68.60} & \textbf{26.00} & \textbf{51.26} & \textbf{20.00} & \textbf{28.61} & \textbf{32.76} & \textbf{36.55} & \textbf{40.95} & \textbf{47.43} \\
+    \hline
+    \rowcolor{gray!10}\multicolumn{13}{c}{\textit{Qwen-2.5-7B-Instruct}} \\\hline
+    Vanilla LLM & 33.50 & 30.52 & 58.00 & 50.14 & \underline{28.00} & 45.12 & 15.00 & 18.29 & 25.64 & 22.38 & 32.03 & 33.29 \\
+    LongAlpaca & 32.50 & 33.90 & 55.50 & 50.75 & 24.66 & 45.88 & \underline{17.50} & 19.72 & \underline{29.34} & 23.82 & 31.90 & 34.81 \\
+    LongAlign & 28.50 & 31.09 & 52.00 & 52.02 & 23.33 & \textbf{49.76} & 15.50 & 21.98 & 25.07 & 25.61 & 28.88 & 36.09 \\
+    LongMab-SFT & 36.50 & 39.32 & 59.50 & \underline{58.34} & 21.33 & 44.06 & 15.50 & \underline{22.17} & 26.29 & 28.01 & 31.82 & \underline{38.38} \\
+    LongReward-PO & 37.50 & 33.37 & 62.00 & 50.75 & \textbf{29.33} & 44.89 & 15.50 & 17.67 & 28.20 & 21.77 & 34.51 & 33.69 \\
+    SeaLong-PO & 43.00 & 22.09 & \underline{67.00} & 36.39 & 27.33 & 41.08 & \textbf{18.00} & 16.27 & 28.20 & 16.95 & \underline{36.71} & 26.56 \\
+    Logo-PO & 41.00 & 36.48 & 63.00 & 57.20 & 24.67 & \underline{49.18} & 15.50 & 18.28 & 28.00 & \underline{28.47} & 34.43 & 37.92 \\
+    LongFaith-PO & \textbf{48.50} & \textbf{43.38} & 66.00 & 53.93 & 24.67 & 38.08 & 12.00 & 17.03 & 23.07 & 18.55 & 34.85 & 34.19 \\
+    LongMab & \underline{44.00} & \underline{43.25} & \textbf{67.50} & \textbf{62.97} & 25.33 & 48.07 & \textbf{18.00} & \textbf{25.14} & \textbf{30.48} & \textbf{31.88} & \textbf{37.06} & \textbf{42.26} \\
+    \hline
+    \end{tabular}
+}
+\caption{Overall performance of Llama-3.1-8B-Instruct and Qwen-2.5-7B-Instruct on different long-context understanding tasks. The \textbf{best} and \underline{second best} results are highlighted.}
+% \vspace{-1em}
+\label{tab:overall}
+\end{table*}
+\begin{table*}[!t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccccccccccccc}
+    \hline
+    \multirow{2}{*}{\textbf{Model}} &
+    \multicolumn{2}{c}{\textbf{MuSiQue}} &
+    \multicolumn{2}{c}{\textbf{2WikiMQA}} &
+    \multicolumn{2}{c}{\textbf{MFQA-En}} &
+    \multicolumn{2}{c}{\textbf{NarrativeQA}} &
+    \multicolumn{2}{c}{\textbf{En.QA}} &
+    \multicolumn{2}{c}{\textbf{Avg.}} \\
+    ~ & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1 & SubEM & F1   \\\hline
+    \rowcolor{gray!10}\multicolumn{13}{c}{\textit{Llama-3.1-8B-Instruct}} \\\hline
+    LongMab & \textbf{50.00} & \textbf{52.15} & \textbf{76.00} & \underline{68.60} & \textbf{26.00} & \textbf{51.26} & \underline{20.00} & 28.61 & \textbf{32.76} & 36.55 & \textbf{40.95} & \textbf{47.43} \\
+    LongMab (w/o Init.) & 43.50 & 49.59 & 71.50 & \textbf{68.66} & 23.33 & 46.28 & 17.00 & 29.39 & 29.71 & 33.46 & 37.01 & 45.48 \\
+    LongMab (w/o UCB) & 42.00 & 47.62 & 69.00 & 65.28 & 20.67 & 47.00 & 19.50 & 27.95 & 27.71 & 33.11 & 35.78 & 44.19 \\
+    Rejected w/o UCB & 43.50 & 45.16 & \underline{73.50} & 63.63 & \underline{24.67} & \underline{48.05} & 18.50 & 26.66 & 29.14 & 31.15 & \underline{37.86} & 42.93 \\
+    Chosen w/o UCB & 42.50 & 48.84 & 66.00 & 66.07 & 16.67 & 44.32 & \textbf{21.00} & \textbf{32.57} & 28.57 & \underline{36.84} & 34.95 & \underline{45.73} \\
+    \hdashline
+    Direct-PO & \underline{46.50} & \underline{50.82} & 62.00 & 58.74 & 21.33 & 47.12 & 19.50 & \underline{31.45} & \underline{30.19} & \textbf{37.31} & 35.90 & 45.09 \\
+    \hline
+    \rowcolor{gray!10}\multicolumn{13}{c}{\textit{Qwen-2.5-7B-Instruct}} \\\hline
+    % Vanilla LLM & 33.50 & 30.52 & 58.00 & 50.14 & 28.00 & 45.12 & 15.00 & 18.29 & 25.64 & 22.38 & 32.03 & 33.29 \\
+    LongMab & \underline{44.00} & 43.25 & \textbf{67.50} & \textbf{62.97} & \textbf{25.33} & \textbf{48.07} & 18.00 & \underline{25.14} & \underline{30.48} & \textbf{31.88} & \textbf{37.06} & \textbf{42.26} \\
+    LongMab (w/o Init.) & \textbf{44.50} & \underline{44.06} & \underline{65.00} & 56.57 & \underline{25.00} & \underline{47.88} & \underline{18.50} & 21.53 & \textbf{31.05} & 29.70 & \underline{36.81} & 39.95 \\
+    LongMab (w/o UCB)  & 41.00 & 41.29 & 62.50 & 54.53 & \textbf{25.33} & 47.01 & 16.00 & 21.69 & 28.86 & 29.30 & 34.74 & 38.76 \\
+    Rejected w/o UCB & 42.50 & \textbf{45.33} & 60.00 & 56.50 & 24.00 & 45.93 & \underline{18.50} & 24.10 & 27.43 & 29.47 & 34.49 & \underline{40.27} \\
+    Chosen w/o UCB & 41.50 & 43.39 & 62.50 & \underline{57.05} & 21.33 & 43.45 & 17.50 & 21.65 & 29.43 & 30.12 & 34.45 & 39.13 \\
+    \hdashline
+    Direct-PO & 38.50 & 41.17 & 59.00 & 55.46 & 21.33 & 45.24 & \textbf{19.00} & \textbf{25.21} & 27.43 & \underline{30.25} & 33.05 & 39.47 \\
+    \hline
+    \end{tabular}
+}
+\caption{Ablation study results on various long-context understanding tasks. The results demonstrate the effectivess of UCB-guided sampling strategy and probe-based probability initialization.}
+% \vspace{-1em}
+\label{tab:ablation}
+\end{table*}
+\end{document}

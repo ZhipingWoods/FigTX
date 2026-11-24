@@ -1,0 +1,94 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[h]
+\centering
+\scriptsize
+\begin{tabular}{l|c|c|c|c|c|c|c}
+\toprule
+\textbf{} & \textbf{Elements} & \textbf{\# Molecules} & $\mathbf{\overline{N}_{\text{atoms}}}$ & $\mathbf{\overline{N}_{\text{edges}}}$ & \textbf{\# $\mathbf{H_{ii}}$} & \textbf{\# $\mathbf{H_{ij}}$} & \textbf{E} \\
+\midrule
+OMol\_CSH\_58k   & all 58                    & 56,657 & 59   & 4,258    & 3,362,755      & 241,227,574        & $\checkmark$  \\
+OMol\_common\_1k  & H, C, N, O, F, S, Cl, Br & 1,006  & 98    & 9,086  & 98,399 & 9,140,166 & $\checkmark$ \\
+OMol\_all\_5k     & all 58                    & 4,937  &  75  & 7,396  & 370,924  & 36,514,364   & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\caption{Summary of the OMol\_CSH\_58k train and test datasets, including the number of molecules, average number of atoms ($\overline{N}_{\text{atoms}}$) and edges ($\overline{N}_{\text{edges}}$) per molecule, and the total number of intra-atomic ($H_{ii}$) and inter-atomic ($H_{ij}$) orbital interaction matrices over all molecules in the datasets. The last column indicates the presence of total energy values per molecule.}
+\label{tab:omol_datasets}
+\end{table*}
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tblr}{
+    colspec = {l l l *{3}{X[c,m]}},
+    rowsep=1.25pt, colsep=6pt, vline{0,3-4}, width=0.8\linewidth,
+    cell{3}{4}={bg=\funColor{rgb}{0.881,0.904,0.982}},
+    cell{3}{5}={bg=\funColor{rgb}{0.924,0.938,0.989}},
+    cell{3}{6}={bg=\funColor{rgb}{0.874,0.898,0.981}},
+    cell{4}{4}={bg=\funColor{rgb}{1.000,0.852,0.846}},
+    cell{4}{5}={bg=\funColor{rgb}{0.962,0.969,0.994}},
+    cell{4}{6}={bg=\funColor{rgb}{0.941,0.952,0.991}},
+    cell{5}{4}={bg=\funColor{rgb}{0.932,0.945,0.990}},
+    cell{5}{5}={bg=\funColor{rgb}{0.941,0.952,0.991}},
+    cell{5}{6}={bg=\funColor{rgb}{0.888,0.909,0.983}},
+    cell{6}{4}={bg=\funColor{rgb}{1.000,0.934,0.932}},
+    cell{6}{5}={bg=\funColor{rgb}{0.954,0.963,0.993}},
+    cell{6}{6}={bg=\funColor{rgb}{0.917,0.933,0.988}},
+    cell{7}{4}={bg=\funColor{rgb}{0.948,0.958,0.992}},
+    cell{7}{5}={bg=\funColor{rgb}{0.930,0.943,0.989}},
+    cell{7}{6}={bg=\funColor{rgb}{0.909,0.927,0.986}},
+    cell{8}{4}={bg=\funColor{rgb}{1.000,0.970,0.968}},
+    cell{8}{5}={bg=\funColor{rgb}{0.941,0.952,0.991}},
+    cell{8}{6}={bg=\funColor{rgb}{0.917,0.933,0.987}},
+}
+\toprule
+\textbf{Split} & & \textbf{\# Molecules} &  & $E^{err}$ (meV) & \\
+ & & & Direct & Pretrained-frozen & Finetuned \\
+\midrule
+\textbf{2k} & Train & 8,097 & 97.16 $\pm$ 4.12 & 217.58 $\pm$ 5.17 & 76.30 $\pm$ 1.56 \\
+\textbf{} & Test  & 2{,}774 & 791.02 $\pm$ 40.68  & 324.64 $\pm$ 27.41 & 266.23 $\pm$ 24.34 \\
+\midrule
+\textbf{5k} & Train & 18,908 & 240.631 $\pm$ 6.20 & 264.91 $\pm$ 4.79 & 116.52 $\pm$ 1.35 \\
+\textbf{} & Test  & 5{,}634 & 592.54 $\pm$ 15.69 & 303.92 $\pm$ 7.92 & 199.50 $\pm$ 6.15\\
+\midrule
+\textbf{10k} & Train & 33,150 & 285.39 $\pm$ 4.23 & 234.91 $\pm$ 2.77 & 176.75 $\pm$ 1.37 \\
+\textbf{} & Test  & 9{,}532 & 506.80 $\pm$ 12.06 & 265.91 $\pm$ 7.86  & 198.40 $\pm$ 5.76 \\
+\bottomrule
+\end{tblr}
+\caption{Energy performance metrics (MAE) for the direct, pretrained-frozen, and finetuned HELM models on the different conformers splits of $\nabla^2$DFT, along with 95\% confidence intervals.}
+\label{tab:nabla_energy_evals}
+\end{table}
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tblr}{
+  colspec = {l|l|l|c|c|c},
+  rowsep=1.25pt, colsep=6pt, width=\linewidth,
+  cell{2}{4}={bg=\funColor{rgb}{1,1,1}},
+  cell{2}{5}={bg=\funColor{rgb}{1,1,1}},
+  cell{2}{6}={bg=\funColor{rgb}{1,1,1}},
+  cell{3}{4}={bg=\funColor{rgb}{0.878,0.901,0.982}},
+  cell{3}{5}={bg=\funColor{rgb}{1.000,0.973,0.972}},
+  cell{3}{6}={bg=\funColor{rgb}{1.000,0.852,0.846}},
+  cell{4}{4}={bg=\funColor{rgb}{0.879,0.902,0.982}},
+  cell{4}{5}={bg=\funColor{rgb}{0.956,0.965,0.993}},
+  cell{4}{6}={bg=\funColor{rgb}{1.000,0.993,0.992}},
+  cell{5}{4}={bg=\funColor{rgb}{0.874,0.898,0.981}},
+  cell{5}{5}={bg=\funColor{rgb}{0.974,0.979,0.996}},
+  cell{5}{6}={bg=\funColor{rgb}{1.000,0.958,0.956}},
+}
+\toprule
+\textbf{HELM composition} & \textbf{Metric} & \textbf{Training method} & \textbf{OMol\_CSH\_58k} & \textbf{OMol\_common\_1k} & \textbf{OMol\_all\_5k} \\
+\midrule
+\textbf{$\mathbf{H} =f^{\theta}_{\mathbf{H}} \circ f^{\theta}_{[\mathbf{z}_i,\,\mathbf{z}_{ij}]}$} & $H^{err}$ ($\mu E_h$) & - & - & 961.64 & 2195.33 \\
+\midrule
+$E = f^{\theta}_E \circ f^{\theta}_{[\mathbf{z}_i]}$ & $E^{err}$ (meV) & Direct            & 353.15 $\pm$ 15.17 & 3631.69 $\pm$ 227.36 & 5976.40 $\pm$ 209.33 \\
+& $E^{err}$ (meV) & Pretrained-frozen & 361.98 $\pm$ 6.10    & 2119.76 $\pm$ 178.64 & 3255.69 $\pm$ 154.70 \\
+& $E^{err}$ (meV) & Finetuned         & 254.44 $\pm$ 9.68   & 2533.22 $\pm$ 172.14      & 3926.12 $\pm$ 155.21 \\
+\bottomrule
+\end{tblr}
+\vspace{0.3em}
+\caption{Performance metrics for Energy for HELM trained on OMol\_CSH\_58k. Energy errors are reported with 95\% confidence intervals.}
+\label{tab:hamiltonian_energy_metrics}
+\end{table}
+\end{document}

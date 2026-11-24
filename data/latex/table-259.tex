@@ -1,0 +1,80 @@
+\begin{document}
+\definecolor{closegreen}{HTML}{E6F5E6}  % Light Green
+\definecolor{openbeige}{HTML}{FEF9E7}  % Light Beige/Yellow
+\definecolor{ourblue}{HTML}{E0F2F7}    % Light Blue
+\definecolor{deltared}{HTML}{FDEBEA}    % Light Red/Pink
+\begin{table*}[ht]
+    \centering
+    \caption{Performance on Video-Holmes. The table breaks down the overall accuracy into seven sub-tasks: Social Reasoning (SR), Intention \& Motive Chaining (IMC), Temporal Causal Inference (TCI), Timeline Analysis (TA), Multimodal Hint Reasoning (MHR), Physical Anomaly Reasoning (PAR), and Core Theme Inference (CTI). *denotes model trained on Video-Holmes.
+    % Our model achieves a new state-of-the-art while using significantly fewer frames on average.
+    }
+    \label{tbl:video_holmes_detailed}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{l c rrrrrrrr}
+        \toprule
+        \textbf{Model} & \textbf{Frames} & \textbf{SR} & \textbf{IMC} & \textbf{TCI} & \textbf{TA} & \textbf{MHR} & \textbf{PAR} & \textbf{CTI} & \textbf{Overall} \\
+        \midrule
+        \rowcolor{closegreen}\multicolumn{10}{c}{\textit{Closed Source Models}} \\
+        \midrule
+        GPT-4o~\citep{gpt4o} & 32 & 50.0 & 49.6 & 38.8 & 30.0 & 44.0 & 39.2 & 37.0 & 42.0 \\
+        % OpenAI o4-mini & 32 & 36.3 & 31.2 & 20.5 & 34.0 & 30.1 & 30.9 & 27.4 & 29.9 \\
+        % Claude 3.5 Sonnet & 20 & 48.6 & 43.5 & 30.8 & 41.0 & 39.8 & 36.6 & 33.7 & 39.3 \\
+        % Claude 3.7 Sonnet & 20 & 45.9 & 48.2 & 33.7 & 39.5 & 40.7 & 39.7 & 38.1 & 41.0 \\
+        Gemini-1.5-Pro~\citep{gemini1.5} & - & 52.1 & 48.2 & 34.4 & 26.0 & 39.2 & 46.4 & 38.9 & 41.2 \\
+        Gemini-2.5-Pro~\citep{Gemini2.5} & - & 46.6 & 49.3 & 46.9 & 53.0 & 40.1 & 44.3 & 37.4 & 45.0 \\
+        % Gemini-2.0-Flash & - & 41.8 & 33.7 & 23.1 & 20.5 & 30.1 & 26.8 & 33.7 & 30.6 \\
+        % Gemini-2.0-Flash-Thinking & - & 43.4 & 46.9 & 43.1 & 51.0 & 37.9 & 43.6 & 39.3 & 43.1 \\
+        \midrule
+        \rowcolor{openbeige}\multicolumn{10}{c}{\textit{Open Source Models}} \\
+        \midrule
+        % InternVL2.5-8B & 32 & 28.0 & 32.2 & 21.5 & 7.7 & 25.7 & 23.8 & 22.6 & 23.8 \\
+        % InternVL3-8B~\citep{internvl3} & 32 & 29.5 & 40.7 & 37.9 & 35.1 & 24.6 & 38.9 & 24.1 & 32.3 \\
+        % Qwen2.5-Omni-7B & 32 & 27.1 & 19.9 & 13.9 & 7.5 & 14.8 & 14.9 & 13.7 & 16.4 \\
+        % Qwen2.5-VL-32B & 32 & 43.2 & 44.2 & 31.5 & 51.0 & 36.4 & 31.4 & 32.2 & 38.4 \\
+        GRPO-CARE~\citep{chen2025grpo} & - & 42.8 &35.1 & 25.6 & 40.5 & 29.2 & 29.9 & 32.6 & 33.5 \\
+        GRPO-CARE*~\citep{chen2025grpo} &- & 46.2&44.9&31.5&49.5&39.2&37.1&37.4&40.7 \\        Video-R1~\citep{feng2025videor1} & 32 & 48.6 & 41.7 & 28.9 & 34.5 & 31.0 & 33.5 & 35.9 & 36.5 \\
+        VideoChat-R1~\citep{li2025videochatr1} & 32 & 42.1 & 38.8 & 24.5 & 39.5 & 29.5 & 27.8 & 29.3 & 33.0 \\
+            Qwen2.5-VL-7B~\citep{QwenVL} & 32 & 38.4 & 34.8 & 17.6 & 30.0 & 27.1 & 18.6 & 25.2 & 27.8 \\
+        \midrule
+        \rowcolor{ourblue}\textbf{FrameThinker (Ours)} & \textbf{10.2} & \textbf{58.9} & \textbf{58.7} & \textbf{49.1} & \textbf{60.0} & \textbf{56.0} & \textbf{53.6} & \textbf{49.1} & \textbf{56.1} \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table*}
+\begin{table*}[t]
+    \centering
+    \caption{Performance on long-video benchmarks. \textdagger indicates results evaluated by us.}
+    \label{tbl:combined_benchmarks_all}
+    % Resize the table to fit the text width
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccccccc}
+            \toprule
+            \textbf{Model} & \multicolumn{2}{c}{\textbf{LongVideoBench}} & \multicolumn{2}{c}{\textbf{MLVU}} & \multicolumn{2}{c}{\textbf{VideoMME-Long}} & \multicolumn{2}{c}{\textbf{LVBench}} \\
+            \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+            & \textbf{Frame} & \textbf{Acc} & \textbf{Frame} & \textbf{Acc} & \textbf{Frame} & \textbf{Acc} & \textbf{Frame} & \textbf{Acc} \\
+            \midrule
+            \rowcolor{closegreen}\multicolumn{9}{c}{\textit{Closed Source Models}} \\
+            \midrule
+            GPT-4o~\citep{gpt4o} & 32 & 58.5 & 0.5fps & 64.6 & 384 & 65.3 & 60 & 48.9 \\
+            Gemini-1.5-Pro~\citep{gemini1.5} & 32 & 55.2 & - & - & 0.5fps & 67.4 & 3600 & 33.1 \\
+            \midrule
+            \rowcolor{openbeige}\multicolumn{9}{c}{\textit{Open Source Models}} \\
+            \midrule
+            PLLaVA~\citep{xu2024pllava} & 16 & 40.2 & - & - & - & - & 16 & 26.1 \\
+            ShareGPT4Video~\citep{chen2024sharegpt4v} & 16 & 39.7 & 16 & 46.4 & 16 & 35.0 & - & - \\
+            % VideoLLaMA2~\citep{cheng2024videollama} & - & - & 16 & 48.5 & - & - & - & - \\
+            % MA-LMM~\citep{he2024ma} & - & - & 1000 & 36.4 & - & - & - & - \\
+            LongVA~\citep{zhang2024long} & - & - & 256 & 56.3 & 128 & 46.2 & - & - \\
+            VITA-1.5-7B~\citep{fu2025vita} & - & - & - & - & 128 & 46.2 & - & - \\
+            Video-R1~\citep{feng2025videor1} & 32 & 52.7$^{\dagger}$ & 32 & 60.2$^{\dagger}$ & 32 & 48.2$^{\dagger}$ & 32 & 35.3$^{\dagger}$ \\
+            VideoChat-R1~\citep{li2025videochatr1} & 32 & 49.1$^{\dagger}$ & 32 & 54.3$^{\dagger}$ & 32 & 46.2$^{\dagger}$ & 32 & 34.3$^{\dagger}$ \\
+                        \midrule
+            Qwen2.5-VL-7B~\citep{QwenVL} & 32 & 43.2$^{\dagger}$ & 32 & 48.4$^{\dagger}$ & 32 & 41.9$^{\dagger}$ & 32 & 31.6$^{\dagger}$ \\
+            % \midrule
+            \rowcolor{ourblue}\textbf{FrameThinker (Ours)} & 21.1 & 52.9 & 23.2 & 59.1 & 24.1 & 47.6 & 23.9 & 36.6 \\
+                        $\Delta$ & \textcolor{red}{-34\%} & \textcolor{red}{+9.7} & \textcolor{red}{-28\%} & \textcolor{red}{+10.7} & \textcolor{red}{-25\%} & \textcolor{red}{+5.7} & \textcolor{red}{-25\%} & \textcolor{red}{+5.0} \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table*}
+\end{document}

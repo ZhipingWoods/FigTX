@@ -1,0 +1,171 @@
+\newcommand{\ours}{Chorus\xspace}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\todo}[1]{{\color{red}#1}}
+\newcommand{\TODO}[1]{\textbf{\color{red}[TODO: #1]}}
+\def\eg{\emph{e.g.}\xspace} \def\Eg{\emph{E.g.}\xspace}
+\def\ie{\emph{i.e.}\xspace} \def\Ie{\emph{I.e.}\xspace}
+\def\etc{\emph{etc.}\xspace}
+\def\wrt{\emph{w.r.t.}\xspace}
+\def\etal{\emph{et al.}\xspace}
+\def\sota{state-of-the-art\xspace}
+\def\scan{ScanNet\xspace}
+\def\scannet{ScanNet\xspace}
+\def\ppv2{ScanNet++\xspace}
+\def\scannetpp{ScanNet++\xspace}
+\def\matt{Matterport3D\xspace}
+\def\interior{InteriorGS\xspace}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X} %
+\newcolumntype{C}{>{\centering\arraybackslash}X} %
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} %
+\newcolumntype{M}[1]{>{\centering\arraybackslash}p{#1}} %
+\newcommand{\boldparagraph}[1]{\vspace{0.1em}\noindent{\bf #1}}
+\definecolor{darkblue}{HTML}{35394B}
+\definecolor{orange}{HTML}{cc7700}
+\definecolor{darkgreen}{HTML}{228B22}
+\definecolor{darkgray}{HTML}{808080}
+\definecolor{lightpurple}{HTML}{a56dba}
+\definecolor{scratch}{HTML}{001219}
+\definecolor{pretrain}{HTML}{27B9F2}
+\definecolor{ours}{HTML}{E4F6FF}  %
+\definecolor{c2}{HTML}{ECF8F1}
+\definecolor{c1}{HTML}{DEF3E6}
+\newcommand{\cellfirst}[1]{\cellcolor{c1}\textbf{#1}}
+\newcommand{\cellsecond}[1]{\cellcolor{c2}{#1}}
+\newcommand{\pts}{\textcolor{darkgreen}{\,$\bullet$\,}}
+\newcommand{\gs}{\textcolor{pretrain}{\ding{94}\,}}
+\newcommand{\plus}{\textcolor{darkblue}{\raisebox{0.3ex}{\tiny +\,}}}
+%%%%%%%
+\begin{document}
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\columnwidth}{l *{6}{C}}
+\toprule
+\multirow{2}{*}[-0.7ex]{Methods}
+& \multicolumn{2}{c}{ScanNet Val}
+& \multicolumn{2}{c}{ScanNet200 Val}
+& \multicolumn{2}{c}{ScanNet++ Val} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& $\text{mAP}_{25}$ & $\text{mAP}_{50}$
+& $\text{mAP}_{25}$ & $\text{mAP}_{50}$
+& $\text{mAP}_{25}$ & $\text{mAP}_{50}$ \\
+\midrule
+MSC~\cite{wu2023msc} (lin.)
+& 13.3 & 5.3
+& 2.3 & 1.0
+& 4.8 & 2.6 \\
+Sonata~\cite{wu2025sonata} (lin.)
+& \cellfirst{72.6} & \cellfirst{53.9}
+& \cellsecond{30.0} & \cellsecond{20.9}
+& \cellsecond{33.5} & \cellsecond{24.5} \\
+\cellcolor{ours}\pts \ours (lin.)
+& \cellsecond{66.6} & \cellsecond{46.9}
+& \cellfirst{31.6} & \cellfirst{21.9}
+& \cellfirst{37.0} & \cellfirst{27.9} \\
+\cmidrule(lr){1-7}
+Sonata~\cite{wu2025sonata} (dec.)
+& \cellfirst{77.3} & \cellfirst{62.1}
+& \cellsecond{36.2} & \cellsecond{29.3}
+& \cellsecond{39.4} & \cellsecond{33.5} \\
+\cellcolor{ours}\pts \ours (dec.)
+& \cellsecond{76.9} & \cellsecond{60.5}
+& \cellfirst{38.8} & \cellfirst{31.8}
+& \cellfirst{41.9} & \cellfirst{33.8} \\
+\cmidrule(lr){1-7}
+PTv3~\cite{wu2024ptv3} (sup.)
+& \textcolor{darkgray}{74.6} & \textcolor{darkgray}{57.9}
+& \textcolor{darkgray}{40.1} & \textcolor{darkgray}{32.3}
+& \textcolor{darkgray}{41.4} & \textcolor{darkgray}{32.5} \\
+Sonata~\cite{wu2025sonata} (f.t.)
+& \cellsecond{77.6} & \cellsecond{63.1}
+& \cellsecond{38.3} & \cellsecond{31.5}
+& \cellsecond{41.0} & \cellsecond{35.3} \\
+\cellcolor{ours}\pts \ours (f.t.)
+& \cellfirst{78.4} & \cellfirst{63.4}
+& \cellfirst{39.3} & \cellfirst{33.7}
+& \cellfirst{42.9} & \cellfirst{37.2} \\
+\bottomrule
+\end{tabularx}
+\begingroup
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\begin{tabularx}{\textwidth}{l *{5}{CCC}}
+\toprule
+Probing Exp.
+& \multicolumn{3}{c}{ ScanNet Val}
+& \multicolumn{3}{c}{ ScanNet200 Val}
+& \multicolumn{3}{c}{ ScanNet++ Val}
+& \multicolumn{3}{c}{ Matterport3D (160)}
+& \multicolumn{3}{c}{\gs InteriorGS} \\
+\cmidrule(lr){1-1}
+\cmidrule(lr){2-4}
+\cmidrule(lr){5-7}
+\cmidrule(lr){8-10}
+\cmidrule(lr){11-13}
+\cmidrule(lr){14-16}
+Methods
+& mIoU & mAcc & allAcc
+& mIoU & mAcc & allAcc
+& mIoU & mAcc & allAcc
+& mIoU & mAcc & allAcc
+& mIoU & mAcc & allAcc \\
+\midrule
+MSC~\cite{wu2023msc} (lin.)
+& 21.8 & 32.2 & 65.5
+& 3.3  & 5.5  & 57.5
+& 8.1  & 11.9 & 64.7
+& -- & -- & --
+& -- & -- & -- \\
+Sonata~\cite{wu2025sonata} (lin.)
+& 73.7 & 84.4 & 90.3
+& 28.8 & 38.8 & 81.8
+& 40.7 & 55.3 & 84.8
+& 18.5 & \cellfirst{25.8} & 78.8
+& 24.3 & 35.4 & 61.4 \\
+\cellcolor{ours}\gs/\pts \ours (lin.)
+& \cellfirst{75.2} & \cellfirst{84.8} & \cellfirst{90.5}
+& \cellfirst{36.0} & \cellfirst{47.2} & \cellfirst{82.8}
+& \cellfirst{48.8} & \cellfirst{63.2} & \cellfirst{86.4}
+& \cellfirst{20.0} & 25.7 & \cellfirst{79.4}
+& \cellfirst{27.0} & \cellfirst{37.2} & \cellfirst{62.6} \\
+\cmidrule(lr){1-16}
+Sonata~\cite{wu2025sonata} (dec.)
+& \cellfirst{77.3} & \cellfirst{85.9} & \cellfirst{92.0}
+& 30.1 & 39.4 & \cellfirst{83.0}
+& 46.6 & 58.9 & \cellfirst{86.8}
+& 19.0 & 26.2 & 79.4
+& 27.2 & 38.6 & 65.3 \\
+\cellcolor{ours}\gs/\pts \ours (dec.)
+& 75.0 & 83.1 & 90.6
+& \cellfirst{32.5} & \cellfirst{43.0} & 82.2
+& \cellfirst{48.4} & \cellfirst{62.3} & 86.7
+& \cellfirst{19.6} & \cellfirst{26.4} & \cellfirst{79.6}
+& \cellfirst{29.3} & \cellfirst{41.6} & \cellfirst{66.8} \\
+\midrule
+\textcolor{darkgray}{PTv3 (sup)}~\cite{wu2024ptv3}
+& \textcolor{darkgray}{77.4} & \textcolor{darkgray}{84.8} & \textcolor{darkgray}{92.0}
+& \textcolor{darkgray}{34.7} & \textcolor{darkgray}{45.4} & \textcolor{darkgray}{83.5}
+& \textcolor{darkgray}{48.2} & \textcolor{darkgray}{61.6} & \textcolor{darkgray}{87.0}
+& \textcolor{darkgray}{17.5} & \textcolor{darkgray}{23.3} & \textcolor{darkgray}{78.9}
+& \textcolor{darkgray}{31.1} & \textcolor{darkgray}{44.0} & \textcolor{darkgray}{67.4} \\
+MSC (f.t.)~\cite{wu2023msc}
+& 78.2 & 85.3 & 92.2
+& 33.4 & 43.7 & 83.4
+& 48.7 & 61.9 & 87.2
+& -- & -- & --
+& -- & -- & -- \\
+Sonata (f.t.)~\cite{wu2025sonata}
+& 78.6 & 86.6 & 92.3
+& 34.4 & 44.0 & 84.0
+& 49.9 & 60.7 & \cellfirst{87.4}
+& 21.3 & 27.6 & 80.2
+& 30.7 & 41.8 & 66.2 \\
+\cellcolor{ours}\gs/\pts \ours (f.t.)
+& \cellfirst{79.4} & \cellfirst{87.7} & \cellfirst{92.4}
+& \cellfirst{40.9} & \cellfirst{52.3} & \cellfirst{84.1}
+& \cellfirst{52.9} & \cellfirst{66.2} & 87.1
+& \cellfirst{23.6} & \cellfirst{31.0} & \cellfirst{80.5}
+& \cellfirst{31.8} & \cellfirst{43.3} & \cellfirst{68.9} \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\end{document}

@@ -1,0 +1,85 @@
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\centering
+\footnotesize
+\resizebox{\linewidth}{!}{%
+\fontsize{6.5}{7.5}\selectfont
+\begin{tabular}{c|c|cccc|ccc}
+\toprule
+\multirow{2}{*}{Group} & \multirow{2}{*}{Method} & \multicolumn{4}{c|}{COMFORT\#} & \multicolumn{3}{c}{3DSRBench} \\
+\cline{3-9}
+& & left/right & closer & visibility & facing & left/right & visibility & facing \\
+\midrule
+\multirow{1}{*}{\shortstack{Random}}
+& Random                 & 48.75 & 48.67 & 47.27 & 52.33 & 50.72 & 50.00 & 47.69 \\
+\midrule
+\multirow{7}{*}{General Purpose}
+& LLaVA-NeXT~\cite{vlm_llavanext}                   & 47.33 & 51.58 & 51.80 & 52.42 & 37.39 & 51.89 & 58.53 \\
+& LLaVA-OneVision~\cite{vlm_llavaonevision}         & 47.92 & 57.83 & 51.88 & 50.42 & 36.82 & 47.53 & 61.42 \\
+& Molmo~\cite{vlm_molmo}                            & 46.58 & 46.17 & 53.36 & \underline{53.58} & 39.97 & 50.29 & 59.39 \\
+& Qwen2.5-VL~\cite{vlm_qwen2.5-vl}                  & 48.17 & 72.33 & 51.17 & 51.33 & 36.25 & 48.40 & 65.03 \\
+& Cambrian-1~\cite{vlm_cambrian}                    & 41.17 & 80.42 & 50.70 & 41.33 & 40.83 & 53.63 & 67.05 \\
+& GPT-5~\cite{vlm_gpt5}                             & 49.83 & \underline{84.25} & \underline{54.22} & 49.83 & 37.82 & 63.37 & 64.45 \\
+& Gemini-2.5-Flash~\cite{vlm_gemini2.5}             & 38.33 & 77.83 & 52.34 & 51.58 & 38.40 & 64.10 & \textbf{72.25} \\
+\midrule
+\multirow{3}{*}{\shortstack{General\\ Reasoning Aids}}
+& Qwen2.5-VL + CoT~\cite{par_cot}                   & 43.25 & 70.75 & 50.39 & 44.67 & 33.52 & 51.74 & 63.44 \\
+& Qwen2.5-VL + SoM~\cite{vip_som}                   & 46.58 & 67.25 & 51.88 & 46.42 & 37.54 & 45.64 & 65.61 \\
+& Qwen2.5-VL + SCAFFOLD~\cite{vip_scaffold}         & \underline{52.17} & 71.17 & 50.39 & 47.42 & 34.81 & 51.16 & 62.72 \\
+\midrule
+\multirow{4}{*}{\shortstack{Egocentric\\Spatial Reasoning}}
+& SpatialVLM~\cite{sr_spatialvlm}                   & 46.83 & 63.67 & 50.78 & 49.58 & 39.54 & 52.76 & 59.39 \\
+& SpatialRGPT~\cite{sr_spatialrgpt}                 & 43.08 & 70.25 & 53.75 & 47.75 & 36.53 & 49.56 & 62.57 \\
+& SpatialBot~\cite{sr_spatialbot}                   & 46.33 & 58.83 & 50.08 & 53.08 & 39.54 & 47.09 & 47.69 \\
+& SD-VLM~\cite{sr_sdvlm}                            & 45.83 & 45.17 & 48.91 & 52.25 & 49.71 & 46.95 & 48.84 \\
+\midrule
+\multirow{3}{*}{\shortstack{Allocentric\\ Spatial Reasoning}}
+& SAT~\cite{par_sat}                                & 35.00 & 48.75 & 34.92 & 39.50 & 44.56 & 34.45    & 25.43 \\
+& APC-Num~\cite{par_apc}                            & 47.83 & 52.50 & 34.14 & 36.92 & \underline{77.94} & 56.10 & 58.24 \\
+& APC-Vis~\cite{par_apc}                            & 43.75 & 54.08 & 49.77 & 30.92 & 61.75 & \underline{71.37} & 64.60 \\
+\midrule
+\rowcolor{cvprblue!20}\multirow{1}{*}{Ours}
+&  SymPL & \textbf{69.00} & \textbf{97.33} & \textbf{91.41} & \textbf{91.50} & \textbf{79.94} & \textbf{75.00} & \underline{70.95} \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Quantitative results on allocentric questions. \textbf{Bold} indicates the best, while \underline{underline} represents the second best results.}
+\label{tab:main_res}
+\vspace{-4mm}
+\end{table*}
+\begin{table}[t!]
+\centering
+\resizebox{0.8\columnwidth}{!}{%
+%\scalebox{0.8}[0.8]{%
+\begin{tabular}{c|ccc}
+\toprule
+\multirow{2}{*}{Method} & \multicolumn{2}{c}{COCOSPATIAL}                     \\ \cline{2-3}
+                        & left/right     & above/below    \\ \midrule
+Random                  & 50.25          & 50.00          \\ \midrule
+LLaVa-NeXT              & \underline{88.67}          & 76.00          \\
+LLaVa-OneVision         & 87.67          & 82.67          \\
+Molmo                   & 81.17          & 72.17          \\
+Qwen2.5-VL              & 86.33          & 78.75          \\
+Cambrian-1              & 67.00          & 67.50          \\
+GPT-5                    & 80.17          & 84.25          \\
+Gemini-2.5-Flash        & 88.58          & \underline{92.42}          \\ \midrule
+Qwen2.5-VL + CoT        & 71.33          & 69.50          \\
+Qwen2.5-VL + SoM        & 79.58          & 74.17          \\
+Qwen2.5-VL + SCAFFOLD   & 84.33          & 81.92          \\ \midrule
+SpatialVLM              & 78.92          & 71.00          \\
+SpatialRGPT             & 84.00          & 85.25          \\
+SpatialBot              & 84.50          & 83.50          \\
+SD-VLM                  & 71.25          & 51.33          \\ \midrule
+SAT                     & 39.00          & 38.58          \\
+APC-Num                 & 49.00          & 27.00          \\
+APC-Vis                 & 49.92          & 54.17          \\ \midrule
+\rowcolor{cvprblue!20} SymPL (Ours)   & \textbf{89.83}          & \textbf{94.33}   \\ \bottomrule
+\end{tabular}
+}
+\caption{Quantitative results on egocentric questions. \textbf{Bold} indicates the best, while \underline{underline} represents the second best results.}
+\label{tab:sr_res}
+\vspace{-5mm}
+\end{table}
+\end{document}

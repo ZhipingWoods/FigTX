@@ -1,0 +1,81 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[]
+\renewcommand{\arraystretch}{1.2}
+\vspace{-0.5cm}
+\centering
+\begin{tabular}{c|c|ccccc}
+\hline
+\rowcolor[HTML]{DAE8FC}
+Method                                     & Encoder & 1/16(92)                     & 1/8(183)                     & 1/4(366)                     & 1/2(732)                     & Full(1464)                   \\ \hline
+Label-only                     & SegFormer-B5     & 50.65                        & 63.62                        & 70.76                        & 75.44                        & 77.01                        \\ \hline
+CutMix-Seg \cite{French2019SemisupervisedSS}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{BMVC'20}]} & ResNet-101     & 55.58               & 63.20                 & 68.36               & 69.84          & 76.54       \\
+CPS \cite{chen2021semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'21}]} &ResNet-101     & 64.07              & 67.42                 & 71.71                                      & 75.88            & -            \\
+U$^2$PL \cite{wang2022semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'22}]} &ResNet-101     & 67.98                   & 69.15            & 73.66           & 76.16                     & 79.49                  \\
+GTA-Seg \cite{jin2022semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'22}]} &ResNet-101     & 70.02              & 73.16               & 75.57              & 78.37                  & 80.47                     \\
+DAW \cite{sun2024daw}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'23}]} &ResNet-101     & 74.8            & 77.4                  & 79.5                 & 80.6                   & 81.5                        \\
+ESL \cite{ma2023enhanced}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{ICCV'23}]} &ResNet-101    & 70.97                     & 74.06                    & 78.14                 & 79.53                   & 81.77          \\
+LogicDiag \cite{liang2023logic}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{ICCV'23}]} &ResNet-101     & 73.25               & 76.66            & 77.93              & 79.39                   & -                 \\
+AugSeg \cite{zhao2023augmentation}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]} &ResNet-101     & 71.09                 & 75.45              & 78.8                & 80.33         & 81.36                \\
+UniMatch \cite{yang2023revisiting}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]} &ResNet-101    & 75.2                & 77.2                    & 78.8             & 79.9              & -                       \\
+CorrMatch \cite{sun2024corrmatch}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]} &ResNet-101     & 76.4                  & 78.5                  & 79.4                    & 80.6                    & 81.8                  \\
+DDFP \cite{wang2024towards}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]} &ResNet-101     & 74.95                & 78.01             & 79.51              & 81.21             & 81.96                \\
+RankMatch \cite{mai2024rankmatch}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]} &ResNet-101     & 75.5                  & 77.6                & 79.8                & 80.7                      & 82.2                    \\
+AllSpark \cite{wang2024allspark}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]} & SegFormer-B5     & 76.07                 & 78.41                 & 79.77                & 80.75              & 82.12              \\ \hline
+\textbf{ConformalSAM(AllSpark)(Ours)}      & SegFormer-B5      & {\color[HTML]{00B0F0} 80.69} & {\color[HTML]{00B0F0} 81.29} & {\color[HTML]{00B0F0} 81.33} & {\color[HTML]{00B0F0} 82.69} & {\color[HTML]{00B0F0} 83.44} \\
+\textbf{ConformalSAM(Ours)}               & SegFormer-B5      & {\color[HTML]{FE0000} 81.21} & {\color[HTML]{FE0000} 82.22} & {\color[HTML]{FE0000} 81.84} & {\color[HTML]{FE0000} 83.52} & {\color[HTML]{FE0000} 83.85} \\ \hline
+\end{tabular}
+\vspace{-0.3cm}
+\caption{Comparison with state-of-the-art methods on PASCAL VOC validation set with mIoU results. Methods in \textbf{bold} are proposed in this work. All methods are trained on original VOC train set, which consists of 1,464 images. The best and second-best results are colored \textcolor{red}{red} and {\color[HTML]{00B0F0} blue}, respectively}
+\label{table1}
+\end{table*}
+\begin{table*}[t]
+\renewcommand{\arraystretch}{1.2}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{c|cccccc|cccc}
+\cline{1-5} \cline{7-11}
+\cellcolor[HTML]{DAE8FC}Method                            & \cellcolor[HTML]{DAE8FC}1/16(662)                    & \cellcolor[HTML]{DAE8FC}1/8(1323)                    & \cellcolor[HTML]{DAE8FC}1/4(2646)                    & \cellcolor[HTML]{DAE8FC}1/2(5291)                    &  & \cellcolor[HTML]{DAE8FC}Method & \cellcolor[HTML]{DAE8FC}1/16(662) & \cellcolor[HTML]{DAE8FC}1/8(1323) & \cellcolor[HTML]{DAE8FC}1/4(2646) & \cellcolor[HTML]{DAE8FC}1/2(5291) \\ \cline{1-5} \cline{7-11}
+{\color[HTML]{000000} Lable-only} & {\color[HTML]{000000} 72.01} & {\color[HTML]{000000} 73.20} & {\color[HTML]{000000} 76.62} & {\color[HTML]{000000} 77.61} &  & U$^2$PL\textsuperscript{\textdagger}\cite{wang2022semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'22}]} & 77.21                             & 79.01                             & 79.30                             & 80.50                             \\ \cline{1-5}
+CutMix-Seg \cite{French2019SemisupervisedSS}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{BMVC'20}]}                       & 72.56  & 72.69  & 74.25  & 75.89  &  & PCR\textsuperscript{\textdagger} \cite{xu2022semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'22}]}  & 78.60  & 80.71  & 80.78  & 80.91  \\
+CPS \cite{chen2021semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'21}]} & 72.18  & 75.83  & 77.55  & 78.64  &  & GTA-Seg\textsuperscript{\textdagger} \cite{jin2022semi}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'22}]}  & 77.82  & 80.47  & 80.57  & 81.01  \\
+ESL \cite{ma2023enhanced}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{ICCV'23}]}  & 76.36  & 78.57  & 79.02  & 79.98  &  & LogicDiag\textsuperscript{\textdagger} \cite{liang2023logic}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{ICCV'23}]}  & 79.65  & 80.24  & 80.62  & 81.00  \\
+DGCL \cite{wang2023hunting}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 76.61  & 78.37  & 79.31  & 80.96        &  & DAW\textsuperscript{\textdagger} \cite{sun2024daw}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'23}]}  & 78.82   & 81.19  & 81.03     & 80.62      \\
+AugSeg \cite{zhao2023augmentation}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 77.01  & 78.20  & 78.82  & -    &  & SemiCVT\textsuperscript{\textdagger} \cite{huang2023semicvt}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}   & 78.20    & 79.95       & 80.20   & 80.92       \\
+UniMatch \cite{yang2023revisiting}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 78.1   & 78.4   & 79.2   & -    &  & CCVC\textsuperscript{\textdagger} \cite{wang2023conflict}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 76.8     & 79.4        & 79.6    & -           \\
+CorrMatch \cite{sun2024corrmatch}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 78.4    & 79.3   & 79.6   & -    &  & AugSeg\textsuperscript{\textdagger} \cite{zhao2023augmentation}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 79.29 & 81.46 & 80.50  & -   \\
+DDFP \cite{wang2024towards}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}    & 78.32   & 78.88   & 79.83   & 80.90  &  & UniMatch\textsuperscript{\textdagger} \cite{yang2023revisiting}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]} & 80.94  & 81.92  & 80.41  & -  \\
+RankMatch \cite{mai2024rankmatch}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 78.9  & 79.2  & 80.0  & -   &  & CorrMatch\textsuperscript{\textdagger} \cite{sun2024corrmatch}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 81.3  & 81.9  & 80.9  & -          \\
+AllSpark \cite{wang2024allspark}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 78.32  & 79.98  & {\color[HTML]{00B0F0} 80.42}  & {\color[HTML]{00B0F0} 81.14}                                                                      &  & AllSpark\textsuperscript{\textdagger} \cite{wang2024allspark}\ \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 81.56  & 82.04  & 80.92  & {\color[HTML]{00B0F0} 81.13}   \\ \cline{1-5} \cline{7-11}
+\textbf{ConformalSAM(AllSpark)}                                    & {\color[HTML]{FE0000} 80.24}                         & {\color[HTML]{00B0F0} 80.41}                         & 80.04                                                & 79.98                                                &  & \textbf{ConformalSAM(AllSpark)}\textsuperscript{\textdagger}          & {\color[HTML]{00B0F0} 82.34}      & {\color[HTML]{00B0F0} 83.31}      & {\color[HTML]{00B0F0} 81.36}      & 80.57                             \\
+\textbf{ConformalSAM}                                              & {\color[HTML]{00B0F0} 80.09}                         & {\color[HTML]{FE0000} 80.93}                         & {\color[HTML]{FE0000} 81.04}                         & {\color[HTML]{FE0000} 81.43}                         &  & \textbf{ConformalSAM}\textsuperscript{\textdagger}                   & {\color[HTML]{FE0000} 83.40}      & {\color[HTML]{FE0000} 83.75}      & {\color[HTML]{FE0000} 82.14}      & {\color[HTML]{FE0000} 81.98}      \\ \cline{1-5} \cline{7-11}
+\end{tabular}
+}
+\vspace{-0.2cm}
+\caption{\textnormal{Comparison with state-of-the-art methods on PASCAL VOC 2012 with augmented training set \cite{hariharan2011semantic}. Methods in \textbf{bold} are proposed in this work. All methods are trained on augmented VOC train set, which consists of 10,582 images. \textsuperscript{\textdagger} means using U\textsuperscript{2}PL’s splits. The best and second-best results are colored \textcolor{red}{red} and {\color[HTML]{00B0F0} blue}, respectively.} \textbf{Left:} Results using the standard splits. \textbf{Right:} Results using U\textsuperscript{2}PL’s splits.}
+\vspace{-0.3cm}
+\label{table2}
+\end{table*}
+\noindent{\textbf{Baselines.} We propose two ViT-based baseline models built on SegFormer-B5 \cite{xie2021segformer}. One is a supervised model trained only on labeled data, called \textbf{label-only}. One is the pseudo-label-based approach we mentioned in Section \ref{decay} as our semi-supervised baseline, called \textbf{Semi-Baseline}.}
+\begin{table}[]
+\renewcommand{\arraystretch}{1.2}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{c|ccccc}
+\hline
+\rowcolor[HTML]{DAE8FC}
+Method                                     & \begin{tabular}[c]{@{}c@{}}1/128\\ (158)\end{tabular} & \begin{tabular}[c]{@{}c@{}}1/64\\ (316)\end{tabular} & \begin{tabular}[c]{@{}c@{}}1/32\\ (632)\end{tabular} & \begin{tabular}[c]{@{}c@{}}1/16\\ (1263)\end{tabular} & \begin{tabular}[c]{@{}c@{}}1/8\\ (2526)\end{tabular} \\ \hline
+Label-only                         & 13.77                                                 & 18.83                                                 & 24.77                                                 & 28.76                                                 & 32.67                                                \\
+\hline
+CutMix-Seg \cite{French2019SemisupervisedSS} \textcolor[HTML]{9B9B9B}{\scriptsize[{BMVC'20}]} & -                                                     & -                                                     & 26.2                                                  & 29.8                                                  & 35.6                                                 \\
+AEL \cite{hu2021semi} \textcolor[HTML]{9B9B9B}{\scriptsize[{NeurIPS'21}]}  & -                                                     & -                                                     & 28.4                                                  & {\color[HTML]{00B0F0} 33.2}                           & {\color[HTML]{FE0000} 38.0}                          \\
+UniMatch \cite{yang2023revisiting} \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'23}]}  & 15.6                                                  & 21.6                                                  & 28.1                                                  & 31.5                                                  & 34.6                                                 \\
+AllSpark \cite{wang2024allspark} \textcolor[HTML]{9B9B9B}{\scriptsize[{CVPR'24}]}  & 16.17                                                 & 23.03                                                 & 26.42                                                 & 28.40                                                 & 32.10                                                \\ \hline
+\textbf{ConformalSAM(AllSpark)}      & {\color[HTML]{00B0F0} 24.10}                          & {\color[HTML]{00B0F0} 27.26}                          & {\color[HTML]{00B0F0} 31.40}                          &  32.12                                                & 32.67       \\
+\textbf{ConformalSAM}               & {\color[HTML]{FE0000} 26.21}                          & {\color[HTML]{FE0000} 30.02}                          & {\color[HTML]{FE0000} 33.33}                          & {\color[HTML]{FE0000} 34.64}                          & {\color[HTML]{00B0F0} 36.25}                         \\ \hline
+\end{tabular}
+}
+\vspace{-0.3cm}
+\caption{\textnormal{Comparison with state-of-the-art methods on ADE20K with mIoU results. Methods in \textbf{bold} are proposed in this work. The best and second-best results are colored \textcolor{red}{red} and {\color[HTML]{00B0F0} blue}, respectively.}}
+\vspace{-0.6cm}
+\label{table3}
+\end{table}
+\end{document}

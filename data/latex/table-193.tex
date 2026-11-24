@@ -1,0 +1,69 @@
+\definecolor{colorTrd}{rgb}{0.95, 0.95, 0.75}
+\definecolor{colorSnd}{rgb}{1, 0.85, 0.7}
+\definecolor{colorFst}{rgb}{1, 0.7, 0.7}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\caption{Quantitative results of different methods on novel view synthesis (\textit{left}) and surface normal reconstruction (\textit{right}). Best results are highlighted as \colorbox{colorFst}{1st}, \colorbox{colorSnd}{2nd}, and \colorbox{colorTrd}{3rd}. This visualization applies to all following quantitative assessments.}
+\vspace{-9pt}
+\footnotesize
+\label{tab:main_compare}
+\centering
+\renewcommand{\arraystretch}{1.3} % 调整表格的行距
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l||cc|cc|ccc|cc|cc|ccc|cc}
+\hline\hline
+             & \multicolumn{9}{c|}{PSNR (dB) $\uparrow$}                    & \multicolumn{7}{c}{Cosine Distance (CD) $\downarrow$}                                                               \\
+\hline
+             & \multicolumn{2}{c|}{PANDORA}                              & \multicolumn{2}{c|}{RMVP} & \multicolumn{3}{c|}{SMVP} & \multicolumn{2}{c|}{Mitsuba3} & \multicolumn{2}{c|}{RMVP} & \multicolumn{3}{c|}{SMVP} & \multicolumn{2}{c}{Mitsuba3}  \\
+             & owl & vase    & frog & dog                & squirrel & snail & david  & matpre. & teapot           & frog & dog                & squirrel & snail & david  & matpre. & teapot           \\
+\hline
+R3DG         & 24.49 & 25.35               & 26.56 & 17.77            & 19.71    & 26.97 & 22.93 & \cellcolor{colorSnd}25.41      & 28.30           & 0.0679 & 0.1376          & 0.0916   & 0.0473 & 0.1054 & 0.0795     & 0.0326           \\
+GS-IR        & 23.76 & 24.40               & 31.07 & 33.33            & 18.59    & 27.92 & 20.47 & 16.43      & 21.77           & 0.0954 & 0.1523          & 0.0931   & 0.0909 & 0.1005 & 0.1130     & 0.0847           \\
+GIR          & 23.81 & 23.37               & 28.26 &  \cellcolor{colorFst}41.10            & \cellcolor{colorTrd}20.88    & 23.67 & 22.78 & \cellcolor{colorTrd}24.41      & 27.10           & 0.0603 & 0.1674          & 0.0536   & 0.0491 & 0.1307 & \cellcolor{colorTrd}0.0616     & \cellcolor{colorTrd}0.0213           \\
+3DGS-DR      & 24.20 & \cellcolor{colorTrd}26.94               &  \cellcolor{colorFst}34.68 & \cellcolor{colorSnd}39.59            & 20.63    & \cellcolor{colorSnd}28.46 & 24.72 & 24.33      & \cellcolor{colorTrd}29.07           & 0.0933 & 0.1420          & 0.0484   & 0.0462 & 0.1353 & 0.1069     & 0.0325 \\
+Ref-Gaussian & 22.39 & 26.19               & \cellcolor{colorSnd}34.13 & \cellcolor{colorTrd}37.94            & 17.90    & 27.08 & 23.00 & 23.69      & \cellcolor{colorSnd}29.67           & \cellcolor{colorTrd}0.0501 & 0.1565          & 0.1122   & \cellcolor{colorTrd}0.0207 & 0.1067 & \cellcolor{colorSnd}0.0362     & \cellcolor{colorSnd}0.0093           \\
+\hline
+PolGS      & \cellcolor{colorTrd}24.99 & 24.85               & 28.25 & 28.15            & 20.92    & 26.23 & \cellcolor{colorTrd}27.20  &  -          &     -            & \cellcolor{colorSnd}0.0491 & \cellcolor{colorTrd}0.1085          & \cellcolor{colorTrd}0.0343   & 0.0297 & \cellcolor{colorTrd}0.0658 &   -         &    -              \\
+PANDORA\footnotemark[1]      & \cellcolor{colorSnd!60}27.43 &  \cellcolor{colorFst!60}30.05               & 28.42 & 26.29            &  \cellcolor{colorFst!60}27.97    &  \cellcolor{colorFst!60}31.56 &  \cellcolor{colorFst!60}30.54 &      -      &         -        & 0.0533 & \cellcolor{colorSnd!60}0.0863          &  \cellcolor{colorFst!60}0.0154   & \cellcolor{colorSnd!60}0.0177 & 0.0663 &    -        &     -             \\
+NeRSP \footnotemark[1]       &   -    &    -                 &  -     &   -               & \cellcolor{colorSnd!60}23.97    &  \cellcolor{colorFst!60}31.56 & \cellcolor{colorSnd!60}30.19 &     -       &   -              &   -     &   -              & \cellcolor{colorSnd!60}0.0243   &  \cellcolor{colorFst!60}0.0128 &  \cellcolor{colorFst!60}0.0545 &    -        &    -              \\
+\hline
+\textbf{Ours}     & \cellcolor{colorFst}28.14 & \cellcolor{colorSnd}27.39               & \cellcolor{colorTrd}32.92 & 37.82            & 20.01    & \cellcolor{colorTrd}28.18 & 24.62 &  \cellcolor{colorFst}26.56      &  \cellcolor{colorFst}29.69           &  \cellcolor{colorFst}0.0467 &  \cellcolor{colorFst}0.0910          & 0.0482   & 0.0261 & \cellcolor{colorSnd}0.0597 &  \cellcolor{colorFst}0.0334     &  \cellcolor{colorFst}0.0079    \\
+% PolGS        &     &                                                     &      &                    &          &       &        &            &                  &      &                    &          &       &        &            &                  \\
+% \textbf{Ours (w/o po)} &22.94 &22.90   &28.20   &33.24  &16.35  &22.55 &19.25 & 21.60 &24.92   &0.0454 & 0.0926 & 0.0346 &  0.0347     & 0.0746       & 0.0478  & 0.0091                 \\
+% \textbf{Ours} &23.37     &22.61   &28.15      &33.05  &15.24 & 23.40      & 19.85       & 21.79  &24.91 & 0.0467     & 0.0910  & 0.0482 &  0.0261     & 0.0597  &    0.0334        &    0.0079              \\
+\hline\hline
+\end{tabular}
+}
+\vspace{-6pt}
+\end{table*}
+\begin{table}
+\centering
+\caption{Quantitative evaluation of environment map reconstruction and relighting. \textit{Left}: PSNR of optimized envmaps for different methods on the \emph{Mitsuba-rendered} dataset. \textit{Right}: Polarimetric evaluation of \textit{david} relighted with the \textit{sunset} envmap. Ablation results are also included. ``No PDR'' is realized by setting $\lambda_1 = 0$.}
+\vspace{-6pt}
+%\footnotesize
+\scalebox{0.67}{%
+\begin{tabular}{l||ccc|ccc}
+\hline\hline
+\multirow{2}{*}{Method}    & \multicolumn{3}{c|}{Envmap (PSNR $\uparrow$)} & \multicolumn{3}{c}{Relighting}  \\
+\cline{2-7}
+                  & Teapot  & Matpre.   & David     & PSNR$\uparrow$  & SSIM$\uparrow$   & LPIPS$\downarrow$          \\
+\hline
+R3DG              & -     & -      & -          & 11.42 & 0.916 & 0.0754         \\
+GS-IR             & 6.70 &6.70&6.72 & 16.90 & 0.957 & 0.0359         \\
+GIR               & 10.30&10.73&10.01
+    & \cellcolor{colorSnd}18.02 & \cellcolor{colorTrd}0.960 & \cellcolor{colorTrd}0.0327         \\
+3DGS-DR           &6.71&8.26&6.71     & -     & -      & -              \\
+Ref-Gaussian      & 7.51&9.86&8.28 & -     & -      & -              \\
+\textbf{Ours} (no PDR \& GM)      & 9.97&9.78&10.69
+     &15.56  &0.955  & 0.0369               \\
+\textbf{Ours}  (no GM) & \textbf{12.17}&15.82&\textbf{13.00} & \cellcolor{colorTrd}17.81 & \cellcolor{colorSnd}0.967 & \cellcolor{colorSnd}0.0321         \\
+\textbf{Ours}               & 11.50&\textbf{17.46} &12.39
+     & \cellcolor{colorFst}19.18 & \cellcolor{colorFst}0.973 & \cellcolor{colorFst}0.0255         \\
+\hline\hline
+\end{tabular}
+}
+\vspace{-0.25cm}
+\label{tab:relight_and_env}
+\end{table}
+\end{document}

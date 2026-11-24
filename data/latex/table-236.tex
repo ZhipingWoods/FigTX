@@ -1,0 +1,109 @@
+\definecolor{darkgreen}{rgb}{0.0, 0.8, 0.0}
+\definecolor{backred}{RGB}{255, 190, 190}
+\definecolor{backblue}{RGB}{210, 230, 250}
+\definecolor{backgreen}{RGB}{137, 215, 188}
+\definecolor{backyellow}{RGB}{251, 218, 195}
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+\small
+\centering
+\caption{\textbf{Mathematical Evaluation on Six Problem Versions in FlowVerse}.
+DI, EI, RP, OQ refer to the {textual} or {visual} Descriptive Information, Reasoned Property, Essential Information, Only Question, respectively.
+The Text Plus Version does not involve image input.
+``CoT-E'' or ``Acc'' denotes whether to employ the FlowVerse-CoT-E strategy or not.
+The highest accuracy for each group of MLLMs is marked in \textbf{bold}.
+\textit{The full table is provided in Appendix~\S\ref{More_Detailed_Experiment_Results}.}}
+\vspace{-1em}
+\begin{adjustbox}{width=\linewidth}
+\begin{tabular}{l|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}}
+\toprule
+\multirow{4}*{\makecell*[l]{\large \textbf{Model}}}
+& \multicolumn{2}{c|}{\textbf{All}}
+& \multicolumn{2}{c|}{\textbf{Text Centric}}
+& \multicolumn{2}{c|}{\textbf{Text Limited}}
+& \multicolumn{2}{c|}{\textbf{Text Plus}}
+& \multicolumn{2}{c|}{\textbf{Vision Dense}}
+& \multicolumn{2}{c|}{\textbf{Vision Centric}}
+& \multicolumn{2}{c}{\textbf{Vision Primary}} \\
+~ & \multicolumn{2}{c|}{~}
+& \multicolumn{2}{c|}{DI+RP+EI+OQ}
+& \multicolumn{2}{c|}{RP+EI+OQ}
+& \multicolumn{2}{c|}{DI+RP+EI+OQ}
+& \multicolumn{2}{c|}{EI+OQ}
+& \multicolumn{2}{c|}{RP+EI+OQ}
+& \multicolumn{2}{c}{RP+EI+OQ} \\
+\cmidrule{2-15}
+~ & CoT-E & Acc & CoT-E & Acc & CoT-E & Acc & CoT-E & Acc & CoT-E & Acc & CoT-E & Acc & CoT-E & Acc \\
+\midrule
+\multicolumn{15}{c}{\textit{Open-source MLLMs}}\\
+\midrule
+InfiMM-Math-7B &36.5&28.8&43.8&38.1&40.6&36.7&46.1&40.1&28.8&15.4&39.6&30.3&26.1&23.2\\
+InternVL2.5-8B &44.7&41.0&49.2&41.3&40.5&38.4&49.6&42.7&38.4&20.2&41.0&35.9&35.8&33.9\\
+Qwen2.5-VL-7B  &53.8&42.2&60.1&52.8&58.9&51.3&62.0&55.0&45.0&31.0&50.8&46.3&48.1&45.3\\
+VLM-R1-7B$^{\dagger}$ &50.7&41.2&59.0&54.2&57.9&49.8&65.5&58.9&36.2&24.5&46.1&37.8&30.6&26.1\\
+Qwen2-VL-72B   &52.3&48.6&59.4&47.3&54.3&45.7&63.7&50.0&40.8&25.3&50.9&42.1&47.6&37.0\\
+InternVL2.5-78B&54.7&50.1&66.1&62.7&64.1&60.3&67.8&64.7&48.7&34.3&63.0&58.8&59.6&57.7\\
+\rowcolor{backblue!75}
+MathFlow$^{\star}_{\text{Qwen2.5\!-\!VL\!-\!7B}}$
+&57.0&46.0&62.0&53.8&60.8&52.2&64.2&56.0&49.0&39.1&54.5&51.6&52.0&51.5\\
+\midrule
+\multicolumn{15}{c}{\textit{Math-specialized MLLMs}}\\
+\midrule
+Math\!-\!LLaVA\!-\!13B &38.0&29.9&45.1&39.3&44.4&37.4&--&--&36.2&18.6&41.7&35.9&37.0&34.2\\
+MultiMath-7B &44.0&34.2&50.6&44.8&49.9&42.9&--&--&41.7&22.1&47.2&40.4&39.7&38.8\\
+SVE-Math-Qwen2.5-7B &46.0&39.4&53.1&47.3&53.4&45.8&--&--&44.2&28.6&48.9&44.2&45.8&42.0\\
+\midrule
+\multicolumn{15}{c}{\textit{Closed-source MLLMs}}\\
+\midrule
+Qwen-VL-Max &43.0&36.3&49.8&42.1&46.7&38.3&53.9&51.0&38.6&15.2&42.7&33.2&29.6&27.8\\
+GPT-4o-mini  &51.3&44.5&58.7&54.8&58.2&53.2&59.6&55.2&41.1&26.0&57.4&50.1&49.7&47.6\\
+Claude-3.5-Sonnet &56.9&49.6&60.8&52.6&58.7&50.3&64.0&58.3&45.0&25.4&56.5&48.0&48.1&45.2\\
+GPT-4o       &55.1&47.8&61.0&56.8&58.7&54.4&62.2&58.2&45.2&30.0&58.6&52.6&54.1&51.0\\
+GPT-4V       &56.2&53.4&69.1&57.1&65.0&55.0&72.0&61.4&48.1&30.3&61.8&46.3&42.0&36.7\\
+Gemini-2.5-pro&62.0&55.3&68.3&61.9&66.1&60.8&68.9&64.1&52.1&37.1&65.7&57.9&57.0&54.6\\
+GPT-5        &  {65.8}&  {60.1}&  {74.3}&  {68.1}&  {73.5}&  {66.7}&  {77.0}&  {69.2}&  {53.8}&  {44.7}&  {67.1}&61.7&60.3&  {57.5}\\
+\rowcolor{backblue!75}
+MathFlow$^{\star}_{\text{GPT\!-\!5}}$
+&\textbf{66.5}&\textbf{61.8}&\textbf{74.6}&\textbf{68.5}&\textbf{73.8}&\textbf{67.2}&\textbf{77.0}&\textbf{69.3}&\textbf{58.2}&\textbf{54.1}&\textbf{70.2}&\textbf{66.7}&\textbf{69.4}&\textbf{66.2}\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\label{tab:flowverse_benchmark}
+\vspace{-0.5em}
+\end{table*}
+\begin{table*}[t]
+    \small
+    \centering
+    \caption{\textbf{Mathematical Evaluation on Six Problem Versions in
+    MathVerse's \textit{testmini} Set.} The ``All" score is calculated without
+    including the average of the Text Only version. ``CoT-E" or ``Acc" indicates
+    the use of the proposed CoT evaluation strategy or not. $^{\star}$ denotes
+    that MathFlow-P-7B functions as the perception model.
+    The highest accuracy for closed-source and open-source MLLMs is marked in
+    \textbf{blod} and \ul{uline} respectively.}
+   \vspace{-1em}
+    \begin{adjustbox}
+        {width=\linewidth}
+        \begin{tabular}{l|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}|C{0.9cm}C{0.9cm}}
+            \toprule \multirow{3}*{\makecell*[l]{\large \textbf{Model}}} & \multicolumn{2}{c|}{\makecell*[c]{\textbf{All}}} & \multicolumn{2}{c|}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\textbf{Text}\\\vspace*{0.2pt}\\\textbf{Dominant}}}} & \multicolumn{2}{c|}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\textbf{Text}\\\vspace*{0.2pt}\\\textbf{Lite}}}} & \multicolumn{2}{c|}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\textbf{Text}\\\vspace*{0.2pt}\\\textbf{Only}}}} & \multicolumn{2}{c|}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\ \textbf{Vision}\ \ \\\vspace*{0.2pt}\\\textbf{Intensive}}}} & \multicolumn{2}{c|}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\ \textbf{Vision}\ \ \\\vspace*{0.2pt}\\\textbf{Dominant}}}} & \multicolumn{2}{c}{\makecell*[c]{\shortstack{\vspace*{0.1pt}\\\ \textbf{Vision}\ \ \\\vspace*{0.2pt}\\\textbf{Only}}}} \\
+            % \midrule
+            \cmidrule{2-15} ~                                   & CoT-E                                   & \ Acc\                                                                                            & CoT-E                                                                                         & Acc                                                                                           & CoT-E                                                                                                      & Acc                                                                                                       & CoT-E                                                                                               & Acc                          & CoT-E                        & Acc                          & CoT-E                        & Acc                          & CoT-E                        & Acc                          \\
+            \midrule Qwen-VL-Plus              & 21.3                                    & 11.8                                                                                              & 26.0                                                                                          & 15.7                                                                                          & 21.2                                                                                                       & 11.1                                                                                                      & 25.2                                                                                                & 14.5                         & 18.5                         & 9.0                          & 19.1                         & 13.0                         & 21.8                         & 10.0                         \\
+            Gemini-Pro                            & 35.3                                    & 23.5                                                                                              & 39.8                                                                                          & 26.3                                                                                          & 34.7                                                                                                       & 23.5                                                                                                      & 44.5                                                                                                & 27.3                         & 32.0                         & 23.0                         & 36.8                         & 22.3                         & 33.3                         & 22.2                         \\
+            Qwen-VL-Max                          & 37.2                                    & 25.3                                                                                              & 42.8                                                                                          & 30.7                                                                                          & 37.7                                                                                                       & 26.1                                                                                                      & 47.9                                                                                                & 28.9                         & 33.6                         & 24.1                         & 35.9                         & 24.1                         & 35.9                         & 21.4                         \\
+            GPT-4V                                & 54.4                                    & 39.4                                                                                              & 63.1                                                                                          & 54.7                                                                                          & 56.6                                                                                                       & 41.4                                                                                                      & 60.3                                                                                                & 48.7                         & 51.4                         & 34.9                         & 50.8                         & 34.4                         & 50.3                         & 31.6                         \\ \rowcolor{backblue!75}
+            MathFlow$^{\star}$$_{\text{GPT-4V}}$              & \textbf{56.7}             & \textbf{43.8}                                                                       & \textbf{65.2}                                                                   & \textbf{51.1}                                                                   & \textbf{58.9}                                                                                & \textbf{46.4}                                                                               & \textbf{62.1}                                                                         & \textbf{48.5}  & \textbf{53.7}  & \textbf{40.3}  & \textbf{52.1 } & \textbf{37.4}  & \textbf{52.5}  & \textbf{39.0}  \\
+            \cmidrule{1-15} SPHINX-MoE            & 25.8                                    & {15.6}                                                                                            & 33.3                                                                                          & {22.2}                                                                                        & 21.9                                                                                                       & 16.4                                                                                                      & 40.7                                                                                                & {18.3}                       & 21.1                         & 14.8                         & 19.6                         & 12.6                         & 18.3                         & 9.1                          \\
+            InternLM-XC2                        & 25.9                                    & 16.5                                                                                              & 36.9                                                                                          & 22.3                                                                                          & 28.3                                                                                                       & 17.0                                                                                                      & 42.5                                                                                                & 16.5                         & 20.1                         & 15.7                         & 24.4                         & 16.4                         & 19.8                         & 11.0                         \\
+            MAVIS-7B                              & 27.5                                    & -                                                                                                 & 41.4                                                                                          & -                                                                                             & 29.1                                                                                                       & -                                                                                                         & 42.5                                                                                                & -                            & 27.4                         & -                            & 24.9                         & -                            & 14.6                         & -                            \\
+            InfiMM-Math                           & 34.5                                    & -                                                                                                 & 46.7                                                                                          & -                                                                                             & 32.4                                                                                                       & -                                                                                                         & -                                                                                                   & -                            & {38.1}                       & -                            & 32.4                         & -                            & 15.8                         & -                            \\
+            Qwen2-VL-72B                        & 38.9                                    & 28.5                                                                                              & 49.2                                                                                          & 35.4                                                                                          & 35.6                                                                                                       & 27.8                                                                                                      & 52.1                                                                                                & 39.6                         & 38.7                         & 26.4                         & 35.1                         & 28.5                         & 22.5                         & 13.2                         \\ \rowcolor{backblue!75}
+            MathFlow$^{\star}$$_{\text{Qwen2-VL-72B}}$        & \ul{40.5}            & \ul{31.7}                                                                      & \ul{52.3}                                                                  & \ul{39.3}                                                                  & \ul{37.7}                                                                               & \ul{31.7}                                                                              & \ul{55.2}                                                                        & \ul{45.5} & \ul{40.5} & \ul{30.3} & \ul{37.2} & \ul{32.4} & \ul{24.6} & \ul{17.1} \\
+            \bottomrule
+        \end{tabular}
+    \end{adjustbox}
+    \label{tab:tab2}
+   \vspace{-0.5em}
+\end{table*}
+\end{document}

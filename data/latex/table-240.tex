@@ -1,0 +1,192 @@
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{
+Results on MVTecAD where \ul{underline highlights the best noisy AD baseline performance} and \textbf{bold emphasizes the better performance between baseline and \ours.}
+}
+\label{table:sota_mvtec}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{rcccc|cccc|cccc|cccc}
+\toprule
+~& \multicolumn{16}{c}{MVTecAD} \\
+\cmidrule{2-17}
+Metric & \multicolumn{4}{c}{\textbf{I-AUROC ($\uparrow$)}}  & \multicolumn{4}{c}{\textbf{I-AP ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AUPRO ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AP ($\uparrow$)}} \\
+\cmidrule{2-17}
+Noise Ratio & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 \\
+\midrule
+SoftPatch  &
+\ul{98.80} & \ul{98.10} & \ul{96.89} & 93.58 &
+\ul{99.60} & \ul{99.30} & \ul{98.87} & 97.66 &
+\ul{92.80} & \ul{86.40} & 77.75 & 69.33 &
+\ul{66.30} & 57.70 & 49.38 & 35.25 \\
+InReach  &
+92.00 & 87.41 & 78.80 & 73.57 &
+97.06 & 95.14 & 91.78 & 89.34 &
+86.14 & 81.81 & 75.28 & 72.06 &
+52.87 & 49.65 & 45.04 & 39.67 \\
+FUN-AD  &
+81.89 & 95.49 & 96.06 & \ul{97.70} &
+89.18 & 97.73 & 98.04 & \ul{98.90} &
+61.49 & 78.39 & \ul{78.21} & \ul{73.91} &
+42.94 & \ul{58.52} & \ul{58.86} & \ul{61.38} \\
+\midrule
+HVQ &
+\textbf{96.71} & 91.08 & 91.49 & 92.14 &
+\textbf{98.83} & 96.53 & 96.69 & 96.69 &
+\textbf{91.31} & 87.76 & 88.41 & 88.69 &
+\textbf{47.71} & 42.47 & 42.67 & 41.88 \\
+\rowcolor{blue!10}
+HVQ + \ourso &
+95.89 & \textbf{94.95} & \textbf{94.76} & \textbf{94.26} &
+98.53 & \textbf{98.09} & \textbf{98.01} & \textbf{97.80} &
+91.18 & \textbf{90.40} & \textbf{90.19} & \textbf{90.13} &
+47.42 & \textbf{46.13} & \textbf{44.65} & \textbf{44.82} \\
+\midrule
+Dinomaly &
+\textbf{99.64} & 95.19 & 92.16 & 87.38 &
+\textbf{99.80} & 97.34 & 95.50 & 93.28 &
+94.62 & 91.04 & 90.21 & 89.26 &
+68.19 & 58.22 & 54.60 & 53.00 \\
+\rowcolor{blue!10}
+Dinomaly + \ourso &
+99.37 & \textbf{99.49} & \textbf{99.31} & \textbf{99.16} &
+99.72 & \textbf{99.76} & \textbf{99.71} & \textbf{99.63} &
+\textbf{94.74} & \textbf{94.69} & \textbf{94.59} & \textbf{94.54} &
+\textbf{68.35} & \textbf{68.96} & \textbf{68.63} & \textbf{68.05} \\
+\midrule
+INP-Former &
+\textbf{99.66} & 95.13 & 91.21 & 85.85 &
+\textbf{99.88} & 97.34 & 94.31 & 91.14 &
+94.88 & 91.06 & 89.64 & 88.85 &
+\textbf{70.55} & 59.88 & 54.39 & 51.26 \\
+\rowcolor{blue!10}
+INP-Former + \ourso &
+99.45 & \textbf{99.39} & \textbf{99.41} & \textbf{99.17} &
+99.78 & \textbf{99.79} & \textbf{99.78} & \textbf{99.68} &
+\textbf{95.13} & \textbf{95.25} & \textbf{95.22} & \textbf{95.21} &
+67.15 & \textbf{67.79} & \textbf{67.51} & \textbf{67.39} \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{
+Results on Real-IAD where \textbf{bold highlights best performance}
+}
+\label{table:sota_realiad}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{rcccc|cccc|cccc|cccc}
+\toprule
+~& \multicolumn{16}{c}{Real-IAD} \\
+\cmidrule{2-17}
+Metric & \multicolumn{4}{c}{\textbf{I-AUROC ($\uparrow$)}}  & \multicolumn{4}{c}{\textbf{I-AP ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AUPRO ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AP ($\uparrow$)}} \\
+\cmidrule{2-17}
+Noise Ratio & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 & 0 & 10 & 20 & 40 \\
+\midrule
+PatchCore &
+91.30 & 90.40 & 89.50 & 88.10 &
+- & - & - & - &
+92.60 & 93.20 & 93.00 & 92.40 &
+- & - & - & - \\
+RD &
+88.10 & 88.10 & 87.30 & 84.50 &
+- & - & - & - &
+95.10 & 95.10 & 94.90 & 94.70 &
+- & - & - & - \\
+UniAD &
+85.40 & 84.20 & 82.80 & 80.10 &
+- & - & - & - &
+87.60 & 87.70 & 87.30 & 86.60 &
+- & - & - & - \\
+SoftPatch &
+91.68 & 91.03 & \ul{90.33} & \ul{88.43} &
+\textbf{86.21} & \textbf{85.92} & \ul{84.61} & \ul{82.52} &
+91.30 & 91.72 & 91.68 & 90.96 &
+35.78 & 33.39 & 31.33 & 28.16 \\
+\midrule
+Dinomaly &
+\textbf{92.39} & \ul{91.38} & 89.97 & 87.78 &
+83.14 & 84.69 & 82.22 & 78.67 &
+\textbf{95.97} & \textbf{96.16} & \textbf{95.88} & \ul{95.47} &
+\ul{40.04} & \textbf{40.58} & \ul{38.67} & \ul{35.41} \\
+\rowcolor{blue!10}
+Dinomaly + \ourso &
+\ul{92.34} & \textbf{92.36} & \textbf{92.08} & \textbf{90.99} &
+\ul{84.76} & \ul{84.89} & \textbf{85.11} & \textbf{83.98} &
+\ul{95.53} & \ul{95.60} & \ul{95.54} & \textbf{95.67} &
+\textbf{40.41} & \ul{40.43} & \textbf{41.15} & \textbf{41.22} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{
+Results on VisA where \ul{underline highlights the best noisy AD baseline performance} and \textbf{bold emphasizes the better performance between baseline and \ours.}
+}
+\label{table:sota_visa}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{rcccc|cccc|cccc|cccc}
+\toprule
+~& \multicolumn{16}{c}{VisA} \\
+\cmidrule{2-17}
+Metric & \multicolumn{4}{c}{\textbf{I-AUROC ($\uparrow$)}}  & \multicolumn{4}{c}{\textbf{I-AP ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AUPRO ($\uparrow$)}} & \multicolumn{4}{c}{\textbf{P-AP ($\uparrow$)}} \\
+\cmidrule{2-17}
+Noise Ratio & 0 & 2 & 5 & 10 & 0 & 2 & 5 & 10 & 0 & 2 & 5 & 10 & 0 & 2 & 5 & 10 \\
+\midrule
+SoftPatch &
+\ul{93.85} & \ul{93.37} & \ul{92.47} & 89.91 &
+\ul{94.88} & \ul{94.74} & \ul{94.12} & 92.86 &
+\ul{88.39} & \ul{86.77} & \ul{82.88} & \ul{75.09} &
+\ul{47.50} & \ul{45.56} & 44.73 & 37.03 \\
+InReach &
+83.99 & 79.34 & 73.40 & 64.15 &
+86.82 & 84.09 & 80.64 & 74.06 &
+78.80 & 73.78 & 65.45 & 51.30 &
+31.37 & 29.54 & 27.76 & 24.15 \\
+FUN-AD &
+82.57 & 90.69 & 92.27 & \ul{94.79} &
+82.71 & 90.31 & 92.40 & \ul{95.50} &
+51.22 & 60.93 & 64.59 & 66.48 &
+29.36 & 37.04 & \ul{45.41} & \ul{46.55} \\
+\midrule
+HVQ &
+\textbf{88.88} & 87.92 & 87.12 & 86.10 &
+\textbf{91.02} & 90.02 & 89.34 & 88.33 &
+\textbf{84.33} & \textbf{83.83} & \textbf{84.51} & \textbf{84.00} &
+\textbf{34.17} & \textbf{31.81} & \textbf{31.58} & \textbf{33.24} \\
+\rowcolor{blue!10}
+HVQ + \ourso &
+88.36 & \textbf{88.26} & \textbf{87.32} & \textbf{87.19} &
+90.25 & \textbf{90.31} & \textbf{89.63} & \textbf{89.74} &
+83.19 & 83.29 & 83.27 & 83.40 &
+30.26 & 31.00 & 31.38 & 31.99 \\
+\midrule
+Dinomaly &
+\textbf{98.47} & \textbf{97.35} & 96.06 & 93.56 &
+\textbf{98.63} & \textbf{97.67} & 96.65 & 94.06 &
+94.38 & 93.93 & 93.63 & 92.59 &
+\textbf{52.80} & 49.81 & 46.94 & 46.70 \\
+\rowcolor{blue!10}
+Dinomaly + \ourso &
+97.53 & 97.27 & \textbf{97.51} & \textbf{97.43} &
+96.99 & 96.87 & \textbf{97.12} & \textbf{97.01} &
+\textbf{94.39} & \textbf{94.06} & \textbf{94.10} & \textbf{94.39} &
+51.38 & \textbf{50.93} & \textbf{51.27} & \textbf{51.46} \\
+\midrule
+INP-Former &
+\textbf{98.15} & 96.78 & 95.30 & 94.45 &
+\textbf{98.37} & \textbf{96.96} & 95.58 & 94.52 &
+\textbf{94.70} & 93.96 & 93.24 & 93.20 &
+47.60 & 42.58 & 39.89 & 42.21 \\
+\rowcolor{blue!10}
+INP-Former + \ourso &
+98.02 & \textbf{97.03} & \textbf{97.04} & \textbf{96.54} &
+96.66 & 96.78 & \textbf{96.53} & \textbf{96.30} &
+94.19 & \textbf{94.26} & \textbf{94.24} & \textbf{93.96} &
+\textbf{49.58} & \textbf{43.12} & \textbf{43.51} & \textbf{42.70} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

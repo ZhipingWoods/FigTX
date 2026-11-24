@@ -1,0 +1,42 @@
+\begin{table}[th]\tiny
+\vspace{-5pt}
+\centering
+% \caption{Performance comparison of different methods on \textit{LongBenchV2} and \textit{Open LLM Leaderboard}. \textbf{1.} LongBenchV2 and Open LLM Leaderboard evaluate models' generalization capability on longer-context tasks and maintenance ability on short-context tasks, respectively. \textbf{2.} \ours demonstrates superior performance on both longer and harder long-context tasks while maintaining short-context capabilities. \textbf{3.} \textbf{Bold} and \underline{underlined} values indicate the best and the second performance, respectively; \textcolor{red}{red} values indicate performance degradation compared to the Instruct model.}
+\caption{Performance comparison of different models on \textit{LongBenchV2} and \textit{Open LLM Leaderboard}. \textcolor{red}{Red} values indicate performance degradation on short-context tasks compared to the Instruct model.}
+\begin{tabular}{lcccccccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Model}}&\multicolumn{6}{c}{\textbf{LongBenchV2}}&\multicolumn{6}{c}{\textbf{Open LLM Leaderboard}}\\
+\cmidrule(lr){2-7} \cmidrule(lr){8-12}
+& \textbf{Overall} & \textbf{Easy} & \textbf{Hard} & \textbf{$<$32k} & \textbf{32k-128k} & \textbf{$>$128k}&\textbf{MMLU-Pro}&\textbf{IFEval}&\textbf{BBH}&\textbf{MATH}&\textbf{GPQA}&\textbf{Avg.}\\
+\midrule
+\multicolumn{13}{c}{\textbf{Qwen2.5-7B-Instruct}}\\
+\midrule
+Instruct&29.3$({\pm0.7})$&30.9&28.3&36.9&24.6&26.1& 44.63 & 74.22 & 55.25 & 36.86 & 31.88 & 48.56
+\\
+$M^{\scalebox{\scriptscalefactor}{SFT}}_{\scalebox{\scriptscalefactor}{short}}$&\underline{30.8}$({\pm}0.9)$&{33.6}&\underline{29.1}&\underline{39.2}&25.7&27.2& 44.81 & \textcolor{red}{72.18} & \textcolor{red}{55.15} & \textcolor{red}{36.71} & 32.12 & \textcolor{red}{48.19} \\
+$M^{\scalebox{\scriptscalefactor}{SFT}}_{\scalebox{\scriptscalefactor}{long}}$& 30.0$({\pm1.4})$&32.0&28.8&35.7&\underline{25.9}&\underline{28.7}&44.74 & \textcolor{red}{71.46} & 55.35 & \textcolor{red}{36.55} & \textcolor{red}{31.45} & \textcolor{red}{47.90} \\
+$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{short}}$&{29.3}$({\pm1.1})$&\underline{34.4}&{26.2}&{35.0}&25.3&27.8& 44.78 & 74.70 & 55.26 & 38.21 & \textcolor{red}{30.95}& 48.78 \\
+$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{long}}$&{26.6}$({\pm1.2})$&{30.1}&{24.5}&{33.8}&{22.3}&{23.3}& 44.64 & \textcolor{red}{73.61} & 55.37 & 37.16 & 32.12 & 48.58 \\
+\rowcolor{Gray}$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{SoLo}}$&\textbf{33.2}$({\pm1.0})$&\textbf{36.3}&\textbf{31.2}&\textbf{39.7}&\textbf{28.8}&\textbf{30.9}& 44.83 & 75.18 & \textcolor{red}{55.23} & 37.16 & \textcolor{red}{31.46 } & 48.77 \\
+\hdashline
+$M^{\scalebox{\scriptscalefactor}{DPO}}_{\scalebox{\scriptscalefactor}{short}}$&{25.5}$(\pm1.0)$&{27.2}&{24.5}&{29.7}&{23.5}&{22.8}&44.91&75.06&\textcolor{red}{54.99}&39.12&\textcolor{red}{31.21}&49.06\\
+$M^{\scalebox{\scriptscalefactor}{DPO}}_{\scalebox{\scriptscalefactor}{long}}$&29.7$(\pm0.7)$&34.3&{26.9}&{35.9}&25.6&27.6&44.91&75.30&\textcolor{red}{55.06}&37.99&\textcolor{red}{31.8}&49.01\\
+\rowcolor{Gray}$M^{\scalebox{\scriptscalefactor}{DPO}}_{\scalebox{\scriptscalefactor}{SoLo}}$&\textbf{35.2}$(\pm1.2)$&\textbf{37.5}&\textbf{33.8}&\textbf{39.3}&\textbf{31.8}&\textbf{35.0}&44.66&\textcolor{red}{73.98}&\textcolor{red}{54.78}&\textcolor{red}{35.57}&\textcolor{red}{31.63}&\textcolor{red}{48.12}\\
+\hdashline
+$M^{\scalebox{\scriptscalefactor}{SimPO}}_{\scalebox{\scriptscalefactor}{short}}$&{24.6}$(\pm1.5)$&{27.1}&{23.1}&{29.5}&{21.2}&{23.1}&44.97&\textcolor{red}{73.50}&\textcolor{red}{54.94}&\textcolor{red}{38.6}&\textcolor{red}{31.46}&48.69\\
+$M^{\scalebox{\scriptscalefactor}{SimPO}}_{\scalebox{\scriptscalefactor}{long}}$&{25.4}$(\pm0.3)$&{25.4}&{25.4}&{33.0}&{20.2}&{23.3}&44.74&\textcolor{red}{73.50}&55.29&37.61&32.05&48.64\\
+\rowcolor{Gray}$M^{\scalebox{\scriptscalefactor}{SimPO}}_{\scalebox{\scriptscalefactor}{SoLo}}$&\textbf{31.0}$(\pm1.3)$&\textbf{34.1}&\textbf{29.1}&\textbf{37.5}&\textbf{25.7}&\textbf{30.6}&44.78&75.90&\textcolor{red}{54.89}&37.76&\textcolor{red}{31.54}&48.97\\
+\midrule
+\multicolumn{13}{c}{\textbf{Llama3.1-8B-Instruct}}\\
+\midrule
+Instruct&32.5$(\pm1.0)$&35.5&\underline{30.7}&\underline{40.7}&27.7&28.5&37.79 & 62.23 & 50.98 & 15.25 & 31.71 & 39.59 \\
+$M^{\scalebox{\scriptscalefactor}{SFT}}_{\scalebox{\scriptscalefactor}{short}}$&31.8$(\pm1.7)$&34.5&30.0&38.3&28.6&27.0&\textcolor{red}{36.37} & \textcolor{red}{60.31} & \textcolor{red}{50.23} & 17.90 & 31.79 & \textcolor{red}{39.32 } \\
+$M^{\scalebox{\scriptscalefactor}{SFT}}_{\scalebox{\scriptscalefactor}{long}}$& 30.9$(\pm1.3)$&\underline{36.8}&27.3&36.0&29.6&24.8& \textcolor{red}{37.04} & \textcolor{red}{60.67} & \textcolor{red}{49.64} & 16.16 & 32.38 & \textcolor{red}{39.17} \\
+$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{short}}$&\underline{33.7}$(\pm0.3)$&\underline{36.8}&31.8&\textbf{41.2}&\underline{29.8}&\underline{28.7}& \textcolor{red}{37.26} & \textcolor{red}{61.15} & \textcolor{red}{50.95} & \textcolor{red}{14.88} & 32.13 & \textcolor{red}{39.27} \\
+$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{long}}$ &32.1$(\pm1.1)$&34.5&30.6&39.7&27.8&28.0 & \textcolor{red}{37.43} & \textcolor{red}{60.43} & \textcolor{red}{50.86 } & 15.86 & \textcolor{red}{31.63} & \textcolor{red}{39.24}\\
+\rowcolor{Gray}$M^{\scalebox{\scriptscalefactor}{ORPO}}_{\scalebox{\scriptscalefactor}{SoLo}}$&\textbf{34.7}$(\pm0.9)$&\textbf{37.5}&\textbf{33.0}&40.0&\textbf{32.1}&\textbf{31.2}& \textcolor{red}{37.60 }& 63.43 & \textcolor{red}{50.18 }& 15.63 & \textcolor{red}{31.38} & 39.64 \\
+\bottomrule
+\end{tabular}
+\label{tab:lbV2_short_ben_results}
+\vspace{-10pt}
+\end{table}

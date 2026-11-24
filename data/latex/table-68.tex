@@ -1,0 +1,43 @@
+\definecolor{my_green}{RGB}{51,102,0}
+\definecolor{my_red}{RGB}{204, 0, 0}
+\renewcommand{\checkmark}{\textcolor{my_green}{\ding{51}}} % ✔
+\newcommand{\crossmark}{\textcolor{my_red}{\ding{55}}} % ✘
+\definecolor{ModelGreen}{RGB}{213,232,212}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]\small
+\centering
+\vspace{-4mm}
+\addtolength\tabcolsep{-2.4pt}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{lc|cc|cc|cc|c|c|c|c|c}
+\toprule
+\multicolumn{1}{c}{\multirow{2}{*}{Model}} & \multicolumn{1}{c|}{\multirow{2}{*}{Size}} & \multicolumn{2}{c|}{MLVU Dev}  & \multicolumn{2}{c|}{MLVU Test}& \multicolumn{2}{c|}{VideoMME}& \multicolumn{1}{c|}{\multirow{2}{*}{VNBench}}  & \multicolumn{1}{c|}{\multirow{2}{*}{VideoVista}} & \multicolumn{1}{c|}{\multirow{2}{*}{LongVideo.}}& \multicolumn{1}{c|}{\multirow{2}{*}{VideoChat.}}& \multicolumn{1}{c}{\multirow{2}{*}{MVBench}}\\
+\multicolumn{1}{c}{} & \multicolumn{1}{c|}{}  & M-avg & G-avg & M-avg & G-avg & W/o sub    & W sub & \multicolumn{1}{|c|}{}      & \multicolumn{1}{|c|}{}  & \multicolumn{1}{|c|}{} & \multicolumn{1}{|c|}{} & \multicolumn{1}{c}{} \\ \midrule
+\rowcolor{gray!15}\multicolumn{13}{c}{\textbf{Proprietary Models}} \\
+GPT-4V~\cite{openai2023gpt4}   & - & 49.2 & 5.35 &43.3 &4.67  &59.5& 63.3 & 48.9 & -   & 59.1 & \textbf{4.06} &\textbf{43.5}   \\
+GPT-4o~\cite{gpt4o}  & - & \textbf{64.6} & \textbf{5.80} & \textbf{54.9}&\textbf{5.87}   &71.9& 71.2 & 64.4 &\textbf{78.3}   & \textbf{66.7} & - &- \\
+Gemini-1.5-Pro~\cite{reid2024gemini} & - & - & -&- &  -  &\textbf{75.0}& \textbf{81.3} &  \textbf{66.7} &-   & 64.0  & - &- \\
+\midrule
+\rowcolor{gray!15}\multicolumn{13}{c}{\textbf{Open-source MLLMs}} \\
+VideoChat2~\cite{li2024mvbench} & 7B & 47.9 & 3.99 &35.1 &\underline{3.99}  &39.5& 43.8 &12.4 & 61.6 & 39.3 &2.98 &\underline{62.3}   \\
+LLaMA-VID~\cite{llamavid} & 7B & 33.2 & 4.22   &17.2 &3.43  &-& - & 10.8   & 56.9 & - &2.89 &41.4 \\
+VideoLLaVA~\cite{videollava} & 7B & 47.3 & 3.84 &30.7 &3.68  & 39.9 & 41.6   &12.4  &56.6 &39.1 &2.84 &43.0 \\
+ST-LLM~\cite{stllm} & 7B & - & - &- &-  &37.9& 42.3 & 22.7  &49.3 & -  &3.15 &54.9 \\
+Shargpt4Video~\cite{chen2024sharegpt4video} & 7B & 46.4 & 3.77 &33.8 &3.63  & 39.9& 43.6 & -  &53.6 & 39.7 &- &51.2  \\
+LLaVA-Next-Video~\cite{zhang2024llavanextvideo} & 34B & - & - &- &-  & 52.0& \underline{54.9} & 20.1 &56.7 & \underline{50.5} &\textbf{3.26} &-   \\
+PLLaVA~\cite{xu2024pllava} & 7B & - & - & - & -  & -&-    & - &60.4 &40.2 &3.12 &46.6   \\
+LongVA\dag~\cite{longva} & 7B & 56.3 & \underline{4.33} &41.1 &3.91  &\underline{52.6} & 54.3 &41.5&67.4 & 47.8  &- &- \\
+VideoLLaMA2\dag~\cite{cheng2024videollama2}& 8x7B & - & - &- &-  &47.9 & 49.7& 24.9 &60.5 & 36.0  &\textbf{3.26} &53.9  \\
+Video-CCAM\dag~\cite{fei2024videoccam}& 9B & \underline{58.5} & 3.98 & \textbf{42.9}&3.57   &50.3 &52.4 &35.6&\underline{69.0} &43.1 & - &\textbf{64.6} \\
+Long-LLaVA~\cite{wang2024longllava}& 13B & - & - &- &- &  51.9 &-  & \underline{52.1}  &- &- &- &- \\
+\midrule
+\rowcolor{ModelGreen}\textbf{Video-XL} & 7B & \textbf{64.9} & \textbf{4.50} & \textbf{45.5} &\textbf{4.21}    &\textbf{55.5} &\textbf{61.0}  &\textbf{61.6}    & \textbf{70.6}  &\textbf{50.7}  &   \underline{3.17} &55.3 \\
+\bottomrule
+\end{tabular}}
+\vspace{-2mm}
+\caption{Experimental results on mainstream video benchmarks}
+\vspace{-2mm}
+\label{tab:mlvu}
+\end{table*}
+\end{document}

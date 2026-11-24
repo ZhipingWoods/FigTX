@@ -1,0 +1,114 @@
+% ── Model icons ──
+\definecolor{clrClaude}{HTML}{D97706}
+\newcommand{\modelicon}[2]{%
+  \IfFileExists{figures/icons/#2}{%
+    \raisebox{-0.2\height}{\includegraphics[height=#1]{figures/icons/#2}}\,%
+  }{}%
+}
+\definecolor{takeaway}{RGB}{165, 209, 216}
+\definecolor{takeawayTitle}{RGB}{57, 89, 163}
+% ── Stylized Agent-World (ByteDance blue gradient) ──
+\definecolor{bdDeep}{HTML}{315AB4}
+\definecolor{bdBright}{HTML}{4ABFB5}
+\newcommand{\elegantAgentWorld}{%
+\textcolor{bdDeep}{A}%
+\textcolor{bdDeep!90!bdBright}{g}%
+\textcolor{bdDeep!80!bdBright}{e}%
+\textcolor{bdDeep!70!bdBright}{n}%
+\textcolor{bdDeep!60!bdBright}{t}%
+\textcolor{bdDeep!50!bdBright}{-}%
+\textcolor{bdDeep!40!bdBright}{W}%
+\textcolor{bdDeep!30!bdBright}{o}%
+\textcolor{bdDeep!20!bdBright}{r}%
+\textcolor{bdDeep!10!bdBright}{l}%
+\textcolor{bdBright}{d}%
+}
+%%%%%%%
+\begin{document}
+\begin{table*}[!t]
+  \centering
+  \caption{
+      \textbf{Main results on agentic tool-use benchmarks.}
+      We report accuracy (\%) across three benchmark suites: MCP-Mark, BFCL V4, and $\tau^2$-Bench.
+      In the \textit{Open-Source Environment Scaling Methods} block, the best result in each column is marked in \textbf{bold} and the second best is \underline{underlined}.
+  }
+  \label{tab:main_results}
+  \setlength\tabcolsep{3pt}
+  \fontsize{10pt}{15.5pt}\selectfont
+  \renewcommand{\arraystretch}{1.2}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{>{\raggedright\arraybackslash}p{3.9cm} cccccc cccccccc cccc}
+  \toprule
+  \multirow{2}[2]{*}{\textbf{Method}} &
+  \multicolumn{6}{c}{\textbf{MCP-Mark}} &
+  \multicolumn{8}{c}{\textbf{BFCL V4}} &
+  \multicolumn{4}{c}{\textbf{$\tau^2$-Bench}} \\
+  \cmidrule(lr){2-7} \cmidrule(lr){8-15} \cmidrule(lr){16-19}
+   & \mcpicon{filesystem}File. & \mcpicon{github}Github & \mcpicon{notion}Notion & \mcpicon{playwright}Play. & \mcpicon{postgres}Post. & \textbf{Avg.}
+    & WebSearch& Memory & Multi-T. & No live & Live & Relev. & Irrelev. & \textbf{Avg.}
+    & Retail & Telecom & Airline & \textbf{Avg.}
+    \\
+  \midrule
+  \rowcolor[HTML]{f0f0f0}
+  \multicolumn{19}{c}{\textbf{\textit{Frontier Proprietary Models}}} \\
+  \modelicon{1.1em}{openai.pdf}GPT-5.2 High
+    & 60.0 & 47.8 & 42.9 & 40.0 & 66.7 & 53.1 & 75.5 & 45.8 & 48.5 & 81.9 & 70.4 & 75.0 & 88.7 & 62.9 & 81.6 & 95.8 & 62.5 & 80.2 \\
+  {\scriptsize\textcolor{clrClaude}{\faCircle}}\,Claude Sonnet-4.5
+    & 32.5 & 29.4 & 25.0 & 27.0 & 50.0 & 33.3 & 81.0 & 65.0 & 61.4 & 88.7 & 81.1 & 68.8 & 86.6 & 73.2 & 86.2 & 98.0 & 70.1 & 84.7 \\
+  \modelicon{1.1em}{gemini.pdf}Gemini-3 Pro
+    & 56.7 & 45.7 & 43.8 & 40.0 & 70.2 & 50.8 & 80.0 & 61.7 & 60.8 & 90.7 & 83.1 & 68.8 & 85.6 & 72.5 & 85.3 & 98.0 & 72.7 & 85.4 \\
+  \modelicon{1.1em}{seed.jpg}Seed 2.0
+    & 60.0 & 39.1 & 53.6 & 40.0 & 81.0 & 54.7 & 92.0 & 57.8 & 62.3 & 89.0 & 82.2 & 76.6 & 75.0 & 73.4 & 90.4 & 94.2 & 64.4 & 83.0 \\
+  \rowcolor[HTML]{f0f0f0}
+  \midrule
+  \multicolumn{19}{c}{\textbf{\textit{Open-Source  Foundation Models (8B–685B)}}} \\
+
+  \modelicon{1.1em}{deepseek.jpg}DeepSeek-V3.2-685B
+    & 36.7 & 20.7 & 45.5 & 17.0 & 66.6 & 36.7 & 69.5 & 54.2 & 37.4 & 34.9 & 53.7 & 37.5 & 93.2 & 54.1 & -- & -- & -- & 80.3 \\
+  \modelicon{1.1em}{openai.pdf}GPT-OSS-120B
+    & 5.8 & 4.4 & 3.6 & 3.0 & 7.1 & 4.7 & -- & -- & -- & -- & -- & -- & -- & -- & 67.8 & 49.2 & 48.0 & 55.0 \\
+
+    \modelicon{1.0em}{qwen.pdf}Qwen3-8B
+    & 3.3 & 0.0 & 0.0 & \textbf{4.0} & 4.8 & 2.4 & 7.0 & 17.6 & 35.4 & \textbf{90.2} & 80.9 & \underline{81.3} & 77.2 & 40.4 & 34.0 & 18.0 & 26.5 & 26.2 \\
+  \modelicon{1.0em}{qwen.pdf}Qwen3-14B
+    & 3.3 & \textbf{4.4} & 0.0 & 0.0 & 9.5 & 3.4 & 4.0 & 19.8 & 36.9 & \underline{90.0} & \textbf{82.4} & \underline{81.3} & 79.4 & 41.0 & 55.3 & 14.9 & 27.0 & 32.4 \\
+  \modelicon{1.1em}{qwen.pdf}Qwen3-32B
+    & 10.0 & 0 & 3.6 & 0 & 23.8 & 7.5 & 26.0 & 15.7 & 43.3 & 90.3 & 82.0 & 81.3 & 82.4 & 46.7 & 59.5 & 27.2 & 48.0 & 44.9 \\
+  \modelicon{1.1em}{qwen.pdf}Qwen3-235B-A22B
+    & 13.3 & 0 & 10.7 & 0 & 4.8 & 5.8 & 54.0 & 23.9 & 45.4 & 37.4 & 68.9 & 87.5 & 81.7 & 47.9 & 71.9 & 58.0 & 45.6 & 58.5 \\
+
+  \midrule
+  \rowcolor[HTML]{f0f0f0}
+  \multicolumn{19}{c}{\textbf{\textit{Open-Source Environment Scaling Methods (7B-14B)}}} \\
+
+  \modelicon{1.0em}{Microsoft_simulation.png}Simulator-8B
+    & 3.3 & 0.0 & 0.0 & \textbf{4.0} & 4.8 & 2.4 & 17.5 & 6.0 & 4.1 & 47.6 & 44.6 & 31.3 & \textbf{87.3} & 23.9 & 32.2 & 29.2 & 34.0 & 31.8 \\
+  \modelicon{1.0em}{simulation_uw.png}TOUCAN-7B
+    & 0.0 & 0.0 & 0.0 & 0.0 & 4.8 & 1.0 & 21.0 & 18.5 & 17.8 & 81.0 & 73.9 & \underline{81.3} & 78.6 & 36.6 & 22.8 & 10.5 & 20.0 & 17.7 \\
+
+  \modelicon{1.0em}{ruc.png}EnvScaler-8B
+    & 10.0 & \underline{4.4} & 0.0 & \textbf{4.0} & 9.5 & 5.6 & 23.0 & \underline{21.9} & \underline{47.1} & \underline{88.5} & \textbf{82.2} & \textbf{93.8} & 74.6 & 47.6 & 49.6 & 32.7 & 31.5 & 37.9 \\
+  \modelicon{1.0em}{AWM.png}AWM-8B
+    & 3.3 & 0.0 & 0.0 & \textbf{4.0} & 4.8 & 2.4 & 9.5 & 15.7 & 34.9 & \textbf{90.2} & 80.5 & \textbf{93.8} & 73.9 & 40.0 & 41.2 & 38.5 & 23.5 & 34.4 \\
+  \modelicon{1.0em}{AWM.png}AWM-14B
+    & 3.3 & \textbf{8.7} & 0.0 & \textbf{4.0} & 9.5 & 5.1 & 10.0  &19.8  &37.6  &\textbf{90.2} &81.5  & 75.0 & 79.4 &42.4  & 63.6 &17.8 & 31.5 & 39.0 \\
+
+
+  \modelicon{1.0em}{longcat.pdf}ScaleEnv-8B
+    & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & 50.9 & 27.2 & \underline{37.5} & 38.5 \\
+  \hdashline
+  \rowcolor[HTML]{e8f0fe}
+  \modelicon{1.0em}{aw_logo.png}\textbf{Agent-World-8B}
+    & \underline{13.3} & \underline{4.4} & \textbf{3.6} & \textbf{4.0} & \underline{19.1} & \underline{8.9} & \underline{47.0} & 21.7 & 44.5 & 83.3 & 79.6 & \textbf{93.8} & 80.2 & \underline{51.4} & \underline{72.8} & \underline{50.9} & \underline{40.0} & \underline{61.8} \\
+
+  \rowcolor[HTML]{e8f0fe}
+  \modelicon{1.0em}{aw_logo.png}\textbf{Agent-World-14B}
+    & \textbf{16.6} & \underline{4.4} & \textbf{3.6} & \textbf{4.0} & \textbf{38.1} & \textbf{13.3} & \textbf{53.0} & \textbf{23.9} & \textbf{53.9} & 82.3 & 79.3 & \textbf{93.8} & \underline{81.0} & \textbf{55.8} & \textbf{74.5} & \textbf{56.1} & \textbf{52.0} & \textbf{65.4} \\
+  % \rowcolor[HTML]{d4e4fc}
+  % \modelicon{1.0em}{mcptars_logo1.png}\textbf{Agent-World-32B}
+  %   & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  \bottomrule
+  \end{tabular}
+  }
+  \end{table*}
+\end{document}

@@ -1,0 +1,82 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[!ht]
+\caption{Main results of performance comparison (\%) between \textsc{XSkill} and baselines. We report the Average@4 and Pass@4 over 4 independent rollouts. \textbf{Bold} indicates the best performance.}
+\label{tab:main_id}
+\vskip 0.15in
+\begin{center}
+\begin{scriptsize}
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{llcccccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Model}} & \multirow{2}{*}{\textbf{Methods}} & \multicolumn{2}{c}{\textbf{VisualToolBench}} & \multicolumn{2}{c}{\textbf{TIR-Bench}} & \multicolumn{2}{c}{\textbf{MMSearch-Plus}} & \multicolumn{2}{c}{\textbf{AgentVista}} & \multicolumn{2}{c}{\textbf{Avg}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10} \cmidrule(lr){11-12}
+& & Average@4 & Pass@4 & Average@4 & Pass@4 & Average@4 & Pass@4 & Average@4 & Pass@4 & Average@4 & Pass@4 \\
+\midrule
+\multirow{6}{*}{\textbf{Gemini-2.5-Pro}}
+& No Tools & 20.91 & 28.97 & 21.37 & 40.00 & 10.43 & 19.43 & 17.89 & 28.44 & 17.65 & 29.21 \\
+& w/ Tools & 25.35 & 40.65 & 28.38 & 54.00 & 21.56 & 35.55 & 20.18 & 33.94 & 23.87 & 41.04 \\
+& AWM & 25.93 & 39.25 & 29.75 & 53.50 & 20.85 & 36.97 & 19.72 & 32.11 & 24.06 & 40.46 \\
+& DC & 24.77 & 37.38 & 27.62 & 51.00 & 24.64 & 40.76 & 21.79 & \textbf{35.78} & 24.71 & 41.23 \\
+& Agent-KB & 26.75 & 41.12 & 29.13 & 52.50 & 23.22 & 37.91 & 20.87 & 33.94 & 24.99 & 41.37 \\
+& \cellcolor{gray!20}\textbf{XSkill} & \cellcolor{gray!20}\textbf{30.49} & \cellcolor{gray!20}\textbf{46.73} & \cellcolor{gray!20}\textbf{33.12} & \cellcolor{gray!20}\textbf{58.00} & \cellcolor{gray!20}\textbf{27.96} & \cellcolor{gray!20}\textbf{44.08} & \cellcolor{gray!20}\textbf{22.94} & \cellcolor{gray!20}{34.86} & \cellcolor{gray!20}\textbf{28.63} & \cellcolor{gray!20}\textbf{45.92} \\
+\midrule
+\multirow{6}{*}{\textbf{Gemini-3-Flash}}
+& No Tools & 25.12 & 36.92 & 28.50 & 54.00 & 16.47 & 24.64 & 18.35 & 29.36 & 22.11 & 36.23 \\
+& w/ Tools & 41.94 & 60.75 & 32.37 & 58.50 & 39.57 & 53.55 & 20.64 & 39.45 & 33.63 & 53.06 \\
+& AWM & 41.94 & 59.35 & 34.25 & 62.50 & 43.36 & 54.98 & 19.50 & 37.61 & 34.76 & 53.61 \\
+& DC & 41.70 & 59.81 & 33.75 & 59.00 & 40.28 & 55.45 & 20.18 & 36.70 & 33.98 & 52.74 \\
+& Agent-KB & 41.75 & 61.21 & 36.62 & 62.00 & 39.81 & 53.08 & 21.33 & 38.53 & 34.88 & 53.71 \\
+& \cellcolor{gray!20}\textbf{XSkill} & \cellcolor{gray!20}\textbf{46.50} & \cellcolor{gray!20}\textbf{64.02} & \cellcolor{gray!20}\textbf{47.75} & \cellcolor{gray!20}\textbf{75.00} & \cellcolor{gray!20}\textbf{43.72} & \cellcolor{gray!20}\textbf{56.40} & \cellcolor{gray!20}\textbf{23.39} & \cellcolor{gray!20}\textbf{40.37} & \cellcolor{gray!20}\textbf{40.34} & \cellcolor{gray!20}\textbf{58.95} \\
+\midrule
+\multirow{6}{*}{\textbf{GPT-5-mini}}
+& No Tools & 13.90 & 22.90 & 20.00 & 46.50 & 3.08 & 6.64 & 18.58 & 28.44 & 13.89 & 26.12 \\
+& w/ Tools & 24.30 & 37.85 & 23.50 & 50.50 & 14.22 & 20.38 & 20.41 & 35.78 & 20.61 & 36.13 \\
+& AWM & 23.25 & 34.58 & 24.25 & 53.00 & 14.81 & 20.85 & 19.04 & 34.86 & 20.34 & 35.82 \\
+& DC & 23.83 & 35.05 & 24.50 & 53.50 & 13.74 & 18.48 & 21.10 & 36.70 & 20.79 & 35.93 \\
+& Agent-KB & \textbf{24.77} & \textbf{38.32} & 25.13 & 53.00 & 13.63 & 19.91 & 19.95 & 34.86 & 20.87 & 36.52 \\
+& \cellcolor{gray!20}\textbf{XSkill} & \cellcolor{gray!20}24.53 & \cellcolor{gray!20}37.85 & \cellcolor{gray!20}\textbf{28.25} & \cellcolor{gray!20}\textbf{56.00} & \cellcolor{gray!20}\textbf{16.11} & \cellcolor{gray!20}\textbf{23.22} & \cellcolor{gray!20}\textbf{23.85} & \cellcolor{gray!20}\textbf{38.53} & \cellcolor{gray!20}\textbf{23.19} & \cellcolor{gray!20}\textbf{38.90} \\
+\midrule
+\multirow{6}{*}{\textbf{o4-mini}}
+& No Tools & 14.72 & 27.57 & 20.13 & 45.00 & 5.92 & 12.32 & 19.04 & 25.69 & 14.95 & 27.65 \\
+& w/ Tools & 19.63 & 34.11 & 24.62 & 49.50 & 15.88 & 21.80 & 18.12 & 29.36 & 19.56 & 33.69 \\
+& AWM & 21.14 & 36.92 & 25.25 & 51.00 & 16.94 & 22.75 & 19.95 & 29.36 & 20.82 & 35.01 \\
+& DC & 20.44 & 33.64 & 25.50 & 52.00 & 14.57 & 22.27 & 18.81 & 28.44 & 19.83 & 34.09 \\
+& Agent-KB & 22.78 & 36.92 & 24.75 & 52.50 & 15.17 & 20.38 & 19.50 & 31.19 & 20.55 & 35.25 \\
+& \cellcolor{gray!20}\textbf{XSkill} & \cellcolor{gray!20}\textbf{25.00} & \cellcolor{gray!20}\textbf{41.12} & \cellcolor{gray!20}\textbf{30.25} & \cellcolor{gray!20}\textbf{57.50} & \cellcolor{gray!20}\textbf{17.30} & \cellcolor{gray!20}\textbf{23.70} & \cellcolor{gray!20}\textbf{22.32} & \cellcolor{gray!20}\textbf{33.94} & \cellcolor{gray!20}\textbf{23.72} & \cellcolor{gray!20}\textbf{39.07} \\
+\bottomrule
+\end{tabular}}
+\end{scriptsize}
+\end{center}
+\vskip -0.1in
+\end{table*}
+\begin{table}[!t]
+\centering
+\footnotesize
+\caption{Tool usage distribution (\%) on VisualToolBench and MMSearch-Plus using Gemini-2.5-Pro. Experiences shift tool selection towards more targeted strategies.}
+\label{tab:tool_distribution}
+\vskip 0.15in
+\resizebox{0.95\columnwidth}{!}{%
+\setlength{\tabcolsep}{6.5pt}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Setting} & \textbf{Code} & \textbf{Search-W} & \textbf{Search-I} & \textbf{Visit} \\
+\midrule
+\multicolumn{5}{l}{\cellcolor{gray!10}\textit{VisualToolBench}} \\
+\quad w/ Tools & 66.63 & 31.70 & -- & 1.66 \\
+\quad Skill Only & 65.96 & 31.10 & -- & 2.82 \\
+\quad \cellcolor{blue!8}Exp Only & \cellcolor{blue!8}\textbf{74.49} ($\uparrow$) & \cellcolor{blue!8}\textbf{22.03} ($\downarrow$) & \cellcolor{blue!8}-- & \cellcolor{blue!8}2.56 \\
+\quad \cellcolor{blue!15}\textbf{Skill \& Exp} & \cellcolor{blue!15}\textbf{76.97} ($\uparrow$) & \cellcolor{blue!15}\textbf{21.12} ($\downarrow$) & \cellcolor{blue!15}-- & \cellcolor{blue!15}1.58 \\
+\midrule
+\multicolumn{5}{l}{\cellcolor{gray!10}\textit{MMSearch-Plus}} \\
+\quad w/ Tools & 6.18 & 71.07 & 15.43 & 7.32 \\
+\quad Skill Only & 7.94 & 67.07 & 17.87 & 7.12 \\
+\quad \cellcolor{blue!8}Exp Only & \cellcolor{blue!8}\textbf{13.21} ($\uparrow$) & \cellcolor{blue!8}\textbf{56.12} ($\downarrow$) & \cellcolor{blue!8}\textbf{24.63} ($\uparrow$) & \cellcolor{blue!8}6.04 \\
+\quad \cellcolor{blue!15}\textbf{Skill \& Exp} & \cellcolor{blue!15}\textbf{14.37} ($\uparrow$) & \cellcolor{blue!15}\textbf{55.08} ($\downarrow$) & \cellcolor{blue!15}\textbf{23.89} ($\uparrow$) & \cellcolor{blue!15}5.66 \\
+\bottomrule
+\end{tabular}%
+}
+\vskip -0.1in
+\end{table}
+\end{document}

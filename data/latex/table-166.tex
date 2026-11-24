@@ -1,0 +1,60 @@
+\def\MethodName{\textsc{MMGuard}}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Protection transferability under the black-box scenario. Each cell reports clean-test accuracy with the drop in parentheses.}
+\label{tab:blackbox-transfer}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\definecolor{drpos}{HTML}{66272E}
+\definecolor{drneg}{HTML}{1E3A5F}
+\newcommand{\bbdrop}[1]{%
+  \ifdim #1pt>0pt
+    {\color{drpos}\tiny\,(+#1)}%
+  \else\ifdim #1pt<0pt
+    {\color{drneg}\tiny\,(#1)}%
+  \else
+    {\color{black!50}\tiny\,(0.0)}%
+  \fi\fi}
+\newcommand{\dshead}[1]{\multicolumn{5}{c}{\textbf{#1}}}
+\newcommand{\baseline}[1]{\textit{#1}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l @{\hskip 8pt} *{5}{r} @{\hskip 6pt}!{\color{black!25}\vrule}@{\hskip 6pt} *{5}{r} @{\hskip 6pt}!{\color{black!25}\vrule}@{\hskip 6pt} *{5}{r}@{}}
+\toprule
+ & \dshead{RealWorldQA} & \dshead{ScienceQA} & \dshead{TextVQA} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}\cmidrule(lr){12-16}
+\textbf{Method} & Llama & LLaVA & InternVL & Gemma & GLM & Llama & LLaVA & InternVL & Gemma & GLM & Llama & LLaVA & InternVL & Gemma & GLM \\
+\midrule
+\baseline{Zero-Shot (Clean)} & 49.7\bbdrop{6.9} & 53.6\bbdrop{3.9} & 54.9\bbdrop{5.9} & 36.6\bbdrop{19.6} & 27.5\bbdrop{39.8} & 84.5\bbdrop{11.0} & 63.0\bbdrop{16.5} & 97.5\bbdrop{1.5} & 76.5\bbdrop{8.0} & 88.5\bbdrop{9.5} & 14.5\bbdrop{67.5} & 51.5\bbdrop{4.0} & 75.0\bbdrop{1.5} & 54.5\bbdrop{28.5} & 0.0\bbdrop{85.0} \\
+\baseline{Fine-Tuning (Clean)}  & 56.6\bbdrop{0.0} & 57.5\bbdrop{0.0} & 60.8\bbdrop{0.0} & 56.2\bbdrop{0.0} & 67.3\bbdrop{0.0} & 95.5\bbdrop{0.0} & 79.5\bbdrop{0.0} & 99.0\bbdrop{0.0} & 84.5\bbdrop{0.0} & 98.0\bbdrop{0.0} & 82.0\bbdrop{0.0} & 55.5\bbdrop{0.0} & 76.5\bbdrop{0.0} & 83.0\bbdrop{0.0} & 85.0\bbdrop{0.0} \\
+\midrule
+Image      & 61.4\bbdrop{-4.8} & 55.6\bbdrop{1.9}  & 60.8\bbdrop{0.0} & 51.6\bbdrop{4.6} & 62.7\bbdrop{4.6} & 93.5\bbdrop{2.0} & 77.5\bbdrop{2.0} & 98.5\bbdrop{0.5} & 82.0\bbdrop{2.5} & 99.0\bbdrop{-1.0} & 77.5\bbdrop{4.5}  & 52.0\bbdrop{3.5}  & 76.0\bbdrop{0.5} & 79.0\bbdrop{4.0} & 83.5\bbdrop{1.5} \\
+Text       & 57.5\bbdrop{-0.9} & 55.6\bbdrop{1.9}  & 60.1\bbdrop{0.7} & 52.9\bbdrop{3.3} & 60.1\bbdrop{7.2} & 95.0\bbdrop{0.5} & 76.5\bbdrop{3.0} & 99.0\bbdrop{0.0} & 80.5\bbdrop{4.0} & 98.5\bbdrop{-0.5} & 80.5\bbdrop{1.5} & 53.0\bbdrop{2.5}  & 74.5\bbdrop{2.0}  & 81.5\bbdrop{1.5} & 83.5\bbdrop{1.5} \\
+Multimodal & 56.9\bbdrop{-0.3} & 56.2\bbdrop{1.3} & 58.8\bbdrop{2.0} & 51.6\bbdrop{4.6} & 62.1\bbdrop{5.2} & 93.5\bbdrop{2.0} & 75.5\bbdrop{4.0} & 98.0\bbdrop{1.0} & 82.0\bbdrop{2.5} & 97.5\bbdrop{0.5}  & 79.5\bbdrop{2.5} & 52.0\bbdrop{3.5}  & 76.5\bbdrop{0.0} & 80.0\bbdrop{3.0}  & 82.5\bbdrop{2.5} \\
+\addlinespace[2pt]
+\MethodName{}-BPH     & 52.9\bbdrop{3.7} & 55.6\bbdrop{1.9} & 54.9\bbdrop{5.9} & 50.3\bbdrop{5.9} & 60.8\bbdrop{6.5} & 90.0\bbdrop{5.5} & 73.5\bbdrop{6.0} & 97.5\bbdrop{1.5} & 78.5\bbdrop{6.0} & 95.0\bbdrop{3.0}  & 76.0\bbdrop{6.0}  & 51.0\bbdrop{4.5}  & 74.0\bbdrop{2.5} & 75.5\bbdrop{7.5} & 82.0\bbdrop{3.0} \\
+\MethodName{}-CRS     & 51.7\bbdrop{4.9} & 54.4\bbdrop{3.1}  & 56.2\bbdrop{4.6} & 51.0\bbdrop{5.2} & 61.4\bbdrop{5.9} & 92.0\bbdrop{3.5} & 74.5\bbdrop{5.0} & 97.5\bbdrop{1.5} & 79.5\bbdrop{5.0} & 93.5\bbdrop{4.5}  & 78.0\bbdrop{4.0} & 50.5\bbdrop{5.0} & 74.5\bbdrop{2.0} & 77.0\bbdrop{6.0} & 82.0\bbdrop{3.0} \\
+\MethodName{}-BPH-Max & 54.4\bbdrop{2.2} & 56.0\bbdrop{1.5} & 55.4\bbdrop{5.4} & 49.5\bbdrop{6.7} & 62.6\bbdrop{4.7} & 92.0\bbdrop{3.5} & 72.0\bbdrop{7.5} & 96.5\bbdrop{2.5} & 79.5\bbdrop{5.0} & 96.5\bbdrop{1.5}  & 77.0\bbdrop{5.0} & 49.5\bbdrop{6.0}  & 74.0\bbdrop{2.5} & 76.5\bbdrop{6.5} & 81.0\bbdrop{4.0} \\
+\MethodName{}-CRS-Max & 53.6\bbdrop{3.0} & 53.4\bbdrop{4.1}  & 57.3\bbdrop{3.5} & 51.4\bbdrop{4.8} & 63.2\bbdrop{4.1} & 91.5\bbdrop{4.0} & 76.0\bbdrop{3.5} & 96.5\bbdrop{2.5} & 78.5\bbdrop{6.0} & 95.0\bbdrop{3.0} & 78.5\bbdrop{3.5} & 50.0\bbdrop{5.5}  & 73.0\bbdrop{3.5}  & 78.5\bbdrop{4.5} & 80.5\bbdrop{4.5} \\
+\midrule[\heavyrulewidth]
+ & \dshead{MMStar} & \dshead{VQA-RAD} & \dshead{DocVQA} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}\cmidrule(lr){12-16}
+\textbf{Method} & Llama & LLaVA & InternVL & Gemma & GLM & Llama & LLaVA & InternVL & Gemma & GLM & Llama & LLaVA & InternVL & Gemma & GLM \\
+\midrule
+\baseline{Zero-Shot (Clean)} & 49.7\bbdrop{11.0} & 34.3\bbdrop{9.2}  & 63.0\bbdrop{5.0}  & 43.3\bbdrop{8.4} & 48.3\bbdrop{22.7} & 0.0\bbdrop{58.8}  & 37.5\bbdrop{14.6} & 53.9\bbdrop{5.3} & 7.3\bbdrop{44.7} & 0.0\bbdrop{58.9} & 2.5\bbdrop{66.5} & 11.0\bbdrop{9.5} & 36.5\bbdrop{8.5}  & 51.0\bbdrop{16.0} & 0.0\bbdrop{76.5} \\
+\baseline{Fine-Tuning (Clean)}  & 60.7\bbdrop{0.0}  & 43.5\bbdrop{0.0}  & 68.0\bbdrop{0.0}  & 51.7\bbdrop{0.0} & 71.0\bbdrop{0.0}  & 58.8\bbdrop{0.0}  & 52.1\bbdrop{0.0}  & 59.2\bbdrop{0.0} & 52.0\bbdrop{0.0} & 58.9\bbdrop{0.0} & 69.0\bbdrop{0.0} & 20.5\bbdrop{0.0} & 45.0\bbdrop{0.0}  & 67.0\bbdrop{0.0}  & 76.5\bbdrop{0.0} \\
+\midrule
+Image      & 60.3\bbdrop{0.4}  & 43.3\bbdrop{0.2} & 67.7\bbdrop{0.3} & 48.7\bbdrop{3.0} & 67.7\bbdrop{3.3} & 55.0\bbdrop{3.8} & 49.5\bbdrop{2.6}  & 57.4\bbdrop{1.8} & 50.6\bbdrop{1.4} & 52.3\bbdrop{6.6}  & 65.5\bbdrop{3.5} & 16.0\bbdrop{4.5} & 41.5\bbdrop{3.5} & 63.0\bbdrop{4.0} & 71.0\bbdrop{5.5}  \\
+Text       & 59.7\bbdrop{1.0}  & 41.7\bbdrop{1.8}  & 66.3\bbdrop{1.7}  & 51.3\bbdrop{0.4} & 68.7\bbdrop{2.3} & 53.9\bbdrop{4.9}  & 49.7\bbdrop{2.4}  & 56.8\bbdrop{2.4} & 49.2\bbdrop{2.8} & 53.7\bbdrop{5.2}  & 66.0\bbdrop{3.0} & 16.5\bbdrop{4.0} & 41.5\bbdrop{3.5} & 60.5\bbdrop{6.5}  & 71.0\bbdrop{5.5}  \\
+Multimodal & 58.0\bbdrop{2.7}  & 41.0\bbdrop{2.5}  & 67.7\bbdrop{0.3} & 50.3\bbdrop{1.4} & 67.7\bbdrop{3.3} & 55.4\bbdrop{3.4} & 48.8\bbdrop{3.3}  & 55.9\bbdrop{3.3}  & 50.1\bbdrop{1.9} & 52.3\bbdrop{6.6}  & 66.0\bbdrop{3.0} & 16.0\bbdrop{4.5} & 40.5\bbdrop{4.5}  & 62.0\bbdrop{5.0}  & 73.5\bbdrop{3.0} \\
+\addlinespace[2pt]
+\MethodName{}-BPH     & 56.3\bbdrop{4.4}  & 39.0\bbdrop{4.5} & 65.0\bbdrop{3.0} & 45.7\bbdrop{6.0} & 65.7\bbdrop{5.3} & 52.1\bbdrop{6.7}  & 46.2\bbdrop{5.9}  & 55.4\bbdrop{3.8} & 47.5\bbdrop{4.5} & 52.1\bbdrop{6.8}  & 63.5\bbdrop{5.5}  & 13.5\bbdrop{7.0} & 41.0\bbdrop{4.0}  & 60.5\bbdrop{6.5} & 68.5\bbdrop{8.0} \\
+\MethodName{}-CRS     & 54.0\bbdrop{6.7}  & 38.7\bbdrop{4.8} & 65.3\bbdrop{2.7} & 45.3\bbdrop{6.4} & 66.3\bbdrop{4.7} & 51.2\bbdrop{7.6} & 45.8\bbdrop{6.3}  & 56.1\bbdrop{3.1} & 47.0\bbdrop{5.0} & 52.1\bbdrop{6.8} & 63.0\bbdrop{6.0} & 14.5\bbdrop{6.0} & 40.5\bbdrop{4.5}  & 61.0\bbdrop{6.0} & 68.0\bbdrop{8.5} \\
+\MethodName{}-BPH-Max & 57.2\bbdrop{3.5}  & 39.2\bbdrop{4.3}  & 64.5\bbdrop{3.5}  & 47.5\bbdrop{4.2} & 65.8\bbdrop{5.2} & 53.2\bbdrop{5.6} & 47.2\bbdrop{4.9}  & 55.0\bbdrop{4.2} & 47.5\bbdrop{4.5} & 51.3\bbdrop{7.6}  & 64.0\bbdrop{5.0} & 13.0\bbdrop{7.5} & 41.0\bbdrop{4.0} & 59.5\bbdrop{7.5}  & 68.0\bbdrop{8.5}  \\
+\MethodName{}-CRS-Max & 56.2\bbdrop{4.5}  & 39.2\bbdrop{4.3}  & 65.2\bbdrop{2.8}  & 48.8\bbdrop{2.9} & 65.5\bbdrop{5.5} & 52.3\bbdrop{6.5} & 46.7\bbdrop{5.4} & 54.6\bbdrop{4.6} & 49.9\bbdrop{2.1} & 50.8\bbdrop{8.1} & 64.5\bbdrop{4.5} & 14.0\bbdrop{6.5} & 40.0\bbdrop{5.0} & 59.5\bbdrop{7.5}  & 70.5\bbdrop{6.0} \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+\end{document}

@@ -1,0 +1,68 @@
+\begin{document}
+%-------------------------------------------------------------------------
+\newcommand{\subline}{ \cmidrule(lr){1-2} \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}}
+\newcommand{\errormetrics}{ RTE [cm] \; $\downarrow$ & RRE [$^\circ$] \; $\downarrow$ & Succ. [\%] \; $\uparrow$ }
+\definecolor{myemerald}{rgb}{0.753, 0.898, 0.804}
+\definecolor{mylightgreen}{rgb}{0.894, 0.933, 0.745}
+\definecolor{myyellow}{rgb}{0.996, 0.972, 0.780}
+\newcommand{\cg}{\cellcolor{gray!15}} % Cell color gray
+\newcommand{\firstc}{\cellcolor{myemerald!100}}
+\newcommand{\secondc}{\cellcolor{mylightgreen!100}}
+\newcommand{\thirdc}{\cellcolor{myyellow!100}}
+\newcommand{\ssp}{+ \subsampling}
+\newcommand{\ora}{+ \oracle}
+\newcommand{\osa}{+ {\oracle} + {\scalealign}}
+\begingroup
+\begin{table*}[t!]
+        \setlength{\tabcolsep}{2pt}
+        \centering
+{\scriptsize
+\begin{tabular}{l|l|cccccccccccc}
+\toprule \midrule
+& Env. & \multicolumn{5}{c}{Indoor} & \multicolumn{6}{c}{Outdoor} & \multirow{2}{*}{\begin{tabular}{@{}c@{}}Average \\ rank\end{tabular}} \\  \cmidrule(lr){3-7} \cmidrule(lr){8-13}
+& Dataset & ThreeDMatch & ThreeDLoMatch & ScanNetppi & ScanNetppF & TIERS & KITTI & WOD & KAIST &  MIT & ETH & Oxford \\ \midrule
+            % NOTE(hlim) Will be fixed!
+            \parbox[t]{5mm}{\multirow{3}{*}
+            {\rotatebox[origin=c]{90}{\begin{tabular}{@{}c@{}}Conven- \\tional \end{tabular}}}}
+       & FPFH~\cite{Rusu09icra-fast3Dkeypoints} + FGR~\cite{Zhou16eccv-FastGlobalRegistration} \ora & 62.53 & 15.42 & 77.68 & 92.31 & 80.60 & 98.74 & \firstc \textbf{100.00} & 89.80 & 74.78 & 91.87 & 99.00  & 9.55 \\
+       & FPFH~\cite{Rusu09icra-fast3Dkeypoints} + Quatro~\cite{Lim22icra-Quatro} \ora & 8.22 & 1.74 & 9.88 & 97.27 & 86.57 & 99.10 & \firstc \textbf{100.00} & 91.46 & 79.57 & 51.05 & 91.03 & 10.73\\
+       & FPFH~\cite{Rusu09icra-fast3Dkeypoints} + TEASER++~\cite{Yang20tro-teaser}  \ora & 52.00 & 13.25 & 66.15 & 97.22 & 73.13 & 98.92 & \firstc \textbf{100.00} & 89.20 & 71.30 & 93.69 & \secondc 99.34 & 10.00 \\ \midrule
+       %& KISS-Matcher~\cite{Lim25icra-KISSMatcher} \ora & & & & & & 99.46 & 100.00 & 76.90 & TBU & 89.62 & 96.01 & \\  \midrule
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\parbox[t]{2mm}{\multirow{17}{*}{\rotatebox[origin=c]{90}{Deep learning-based}}}
+       & FCGF~\cite{Choi19iccv-FCGF} & \cg 88.18 & \cg 40.09 & 72.90 &  88.69 & 55.96 & 0.00 & 0.00 & 0.00 & 0.00 & 54.98 & 0.00 & 15.00 \\
+       % & \ssp & \cg 88.18 & \cg 40.09 & 72.90 & 88.69 & 55.96 & 0.00 & 0.00 & 0.00 & 0.00 & 54.98 &0.00 \\
+       & \ora & \cg 88.18 & \cg 40.09 & 85.87 & 88.69 & 78.62 & 90.27 & 97.69 & 92.91 & 92.61 & 54.98 & 93.68 & 10.18 \\
+       & \osa & \cg 88.18 & \cg 40.09 & 85.87 & 88.69 & 80.11 & 94.41 & 97.69 & 93.55 & 93.04 & 55.53 & 95.68 & 9.55 \\
+       & Predator~\cite{Huang21cvpr-PREDATORRegistration} & \cg 90.60 & \cg 62.40 & 75.94 & N/A & N/A & N/A & N/A & N/A & N/A &N/A & N/A & 15.73 \\
+       % &  \ssp & \cg 90.60 & \cg 62.40 & 75.94 & 0.55 & 56.44 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00  \\
+       &  \ora & \cg 90.60 & \cg 62.40 & 75.94 & 29.81 & 56.44 & 0.00 & 0.00 & 0.95 & 0.00 & 0.14 & 0.33 & 14.55 \\
+       &  \osa & \cg 90.60 & \cg 62.40 & 75.94 & 86.01 & 75.74 & 77.29 & 86.92 & 87.09 & 79.56 & 54.42 & 93.68 & 11.82 \\
+       & GeoTransformer~\cite{Qin23tpami-GeoTransformer} & \cg 92.00 & \cg 75.00 & 91.18 & N/A & N/A & N/A & N/A & N/A & N/A & N/A & N/A & 14.00 \\
+       % &  \ssp & \cg 92.00 & \cg 75.00 & \kanghee \\
+       &  \ora & \cg 92.00 & \cg 75.00 & 91.18 & 7.54 & 5.06 & 0.36 & 0.77 & 0.25 & 0.87 & 0.00 & 0.33 & 13.09 \\
+       &  \osa & \cg 92.00 & \cg 75.00 & 92.72  & \thirdc 97.02 & \secondc 92.99 & 92.43 & 89.23 & 91.86 & \secondc 95.65 & 71.53 & 97.01 & 6.27 \\
+       & BUFFER~\cite{Ao23CVPR-BUFFER} & \cg 92.90 & \cg 71.80 & 92.72 & 93.75 & 62.30 & 0.00 & 1.54 & 0.50 & 6.96 & 97.62 & 0.66 & 10.45 \\
+&  \ora & \cg 92.90 & \cg 71.80 & \thirdc 93.01 & 94.69 & 88.96 & \thirdc 99.46 & \firstc \textbf{100.00} & \thirdc 97.24 & \secondc 95.65 & \secondc 99.30 & 99.00  & \thirdc 3.82  \\
+       &  \osa & \cg 92.90 & \cg 71.80 & \thirdc 93.01 & 94.69 & 88.96 & \thirdc  99.46 & \firstc \textbf{100.00} & \thirdc 97.24 & \secondc 95.65 & \secondc 99.30 & 99.00 & \thirdc 3.82 \\
+& PARENet~\cite{Yao24iccv-PARENet} & \cg 95.00 & \cg \textbf{80.50} & 90.84 & N/A & N/A & N/A & N/A & N/A & N/A & N/A & N/A & 13.27 \\
+      & \ora & \cg 95.00 & \cg \textbf{80.50} & 90.84 & 43.75 & 6.21 & 0.18 & 0.77 & 0.75 & 1.30 & 1.40 & 1.66 & 11.55 \\
+      & \osa & \cg 95.00 & \cg \textbf{80.50} & 90.84 & 87.95 & 75.06  & 84.86 & 92.31 & 86.44 & 84.78 & 69.42 & 93.36 & 8.82 \\ \cmidrule(lr){2-14}
+        % & Ours with only $r_l$ & \cg 84.06 & \cg 56.90 & 80.28 &  99.80 & 82.18 & 93.15 & 100.00 & 94.93 & 76.52 & 95.79 & 97.01 \\
+    & Ours with only $r_m$ & \cg 93.38 & \cg 71.69 & \secondc 93.10 &\secondc 99.60 & \thirdc 90.80 & \firstc \textbf{99.82} & \firstc \textbf{100.00} & \secondc 99.05 & \secondc 95.65 & \secondc 99.30 & \secondc 99.34 & \secondc 3.00 \\
+    & Ours & \cg \textbf{95.58} & \cg 74.18 & \firstc \firstc \textbf{94.99} & \firstc \textbf{99.90} & \firstc \textbf{93.45} & \firstc \textbf{99.82} & \firstc \textbf{100.00} & \firstc \textbf{99.15} & \firstc \textbf{97.39} & \firstc \textbf{99.72} & \firstc \textbf{99.67} & \firstc \textbf{1.55} \\ \midrule \bottomrule
+\end{tabular}
+}
+  \captionsetup{font=small}
+  \vspace{-2mm}
+  \caption{Quantitative comparison of generalization performance in terms of success rate (\%).
+  Deep learning-based models were trained only on {\ThreeDMatch}~\cite{Zeng17cvpr-3dmatch} and RANSAC was used with a maximum iteration of 50K.
+The icons represent oracle tuning~(\oracle) for voxel size and radius, and scale alignment~(\scalealign) to normalize dataset scales to be similar to that of {\ThreeDMatch} data~(\eg the scale of {\KITTI}, which typically uses a voxel size of 0.3\,m, is adjusted to match the scale of {\ThreeDMatch}, where 0.025\,m is commonly used, by dividing by $\frac{0.3}{0.025}$).}
+\label{table:success_rates}
+  % \vspace{-0.3cm}
+  \vspace{-4mm}
+\end{table*}
+\endgroup
+
+%-------------------------------------------------------------------------
+\end{document}

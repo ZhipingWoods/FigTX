@@ -1,0 +1,67 @@
+\setlength{\fboxsep}{1pt}
+\definecolor{mlb}{RGB}{173,216,230}  % 浅蓝色
+\definecolor{mlo}{RGB}{255,223,186}  % 浅橙色
+%%%%%%%
+\begin{document}
+\begin{table*}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccccccc|cccccc}
+ \Xhline{1.0pt}
+ \rowcolor{gray!20}
+ ~ & ~ & \multicolumn{6}{c}{\textbf{\texttt{zh}$\Rightarrow$\texttt{en}}} & \multicolumn{6}{c}{\textbf{\texttt{zh}$\Rightarrow$\texttt{th}}}\\
+ \cline{3-14}
+ \rowcolor{gray!20}
+ \multirow{-2}{*}{\textbf{Method}} & \multirow{-2}{*}{\textbf{Train}} & \textbf{S>T Rate} & \textbf{S>T Dur} & \textbf{T>S Rate} & \textbf{T>S Dur} & \textbf{CR} & $\mathcal{P}$ & \textbf{S>T Rate} & \textbf{S>T Dur} & \textbf{T>S Rate} & \textbf{T>S Dur} & \textbf{CR} & $\mathcal{P}$\\
+ \hline
+ Gold Reference & - & \textit{18.0\%} & \textit{0.344} & \textit{64.1\%} & \textit{0.464} & \textit{17.9\%} & \textit{0.501} & \textit{19.4\%} & \textit{0.369} & \textit{60.2\%} & \textit{0.460} & \textit{20.3\%} & \textit{0.489} \\
+ \hdashline
+ AutoDubbing & SFT & 22.6\% & 0.355 & 56.4\% & 0.400 & 21.0\% & 0.388 & 20.5\% & 0.300 & 51.7\% & 0.388 & 27.8\% & 0.334 \\
+ VideoDubber & SFT & 26.5\% & 0.363 & 51.3\% & 0.371 & 22.2\% & 0.344 & 23.3\% & 0.305 & 47.8\% & 0.369 & 29.0\% & 0.314 \\
+ \hdashline
+ GPT-3.5-Turbo & PE & \colorbox{mlb}{\textbf{9.2\%}} & \colorbox{mlb}{\textbf{0.267}} & 73.1\% & 0.465 & 17.7\% & 0.526 & \colorbox{mlb}{\textbf{14.2\%}} & 0.302 & 65.2\% & 0.487 & 20.7\% & 0.567 \\
+ GPT-4o & PE & 14.7\% & 0.295 & 66.1\% & 0.407 & 19.2\% & 0.417 & 18.2\% & 0.299 & 54.9\% & 0.353 & 27.0\% & 0.318 \\
+ Claude 3.5 Sonnet & PE & \colorbox{mlo}{\textbf{11.4\%}} & \colorbox{mlb}{\textbf{0.267}} & 69.3\% & 0.401 & 19.3\% & 0.410 & \colorbox{mlo}{\textbf{14.8\%}} & \colorbox{mlb}{\textbf{0.274}} & 57.7\% & 0.342 & 27.5\% & 0.313 \\
+ \hdashline
+ \multirow{2}{*}{Llama3.1-8B-CN-Chat} & SFT & 22.7\% & 0.352 & 56.6\% & 0.398 & 20.7\% & 0.389 & 17.2\% & 0.287 & 56.4\% & 0.410 & 26.4\% & 0.370 \\
+ ~ & \textbf{SSPO} & 31.7\% & 0.341 & \colorbox{mlo}{\textbf{42.4\%}} & \colorbox{mlb}{\textbf{0.309}} & \colorbox{mlb}{\textbf{25.9\%}} & \colorbox{mlb}{\textbf{0.263}} & 30.7\% & \colorbox{mlo}{\textbf{0.285}} & \colorbox{mlo}{\textbf{32.9\%}} & \colorbox{mlb}{\textbf{0.279}} & \colorbox{mlb}{\textbf{36.4\%}} & \colorbox{mlo}{\textbf{0.206}} \\
+ \hdashline
+ \multirow{2}{*}{GLM-4-9B-Chat} & SFT & 19.5\% & 0.342 & 60.5\% & 0.427 & 20.0\% & 0.428 & 18.1\% & 0.291 & 55.0\% & 0.391 & 27.0\% & 0.360 \\
+ ~ & \textbf{SSPO} & 29.6\% & 0.350 & 45.9\% & \colorbox{mlo}{\textbf{0.323}} & 24.5\% & 0.283 & 25.9\% & 0.291 & 42.0\% & 0.318 & 32.1\% & 0.254 \\
+ \hdashline
+ \multirow{2}{*}{Qwen2.5-14B-Instruct} & SFT & 20.0\% & 0.341 & 59.8\% & 0.439 & 20.2\% & 0.423 & 18.2\% & 0.294 & 55.4\% & 0.397 & 26.4\% & 0.362 \\
+ ~ & \textbf{SSPO} & 34.4\% & 0.366 & \colorbox{mlb}{\textbf{40.6\%}} & 0.324 & \colorbox{mlo}{\textbf{24.9\%}} & \colorbox{mlo}{\textbf{0.272}} & 38.6\% & 0.290 & \colorbox{mlb}{\textbf{25.3\%}} & \colorbox{mlb}{\textbf{0.279}} & \colorbox{mlo}{\textbf{36.1\%}} & \colorbox{mlb}{\textbf{0.198}} \\
+ \hdashline
+ Alignment Bound & - & \textit{16.4\%} & \textit{0.278} & \textit{39.3\%} & \textit{0.331} & \textit{44.3\%} & \textit{0.220} & \textit{9.2\%} & \textit{0.232} & \textit{40.4\%} & \textit{0.313} & \textit{50.4\%} & \textit{0.203} \\
+ \Xhline{1.0pt}
+\end{tabular}}
+\caption{\texttt{zh}$\Rightarrow$\texttt{en} and \texttt{zh}$\Rightarrow$\texttt{th} results on test set. The best and second best results are denoted as \colorbox{mlb}{\textbf{blue}} and \colorbox{mlo}{\textbf{orange}}.}
+\label{tab:exp-main}
+\end{table*}
+\begin{table*}[!h]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{clcccc|cccc}
+\Xhline{1.0pt}
+\rowcolor{gray!20}
+~ & ~ & \multicolumn{4}{c}{\texttt{zh}$\Rightarrow$\texttt{en}} & \multicolumn{4}{c}{\texttt{es}$\Rightarrow$\texttt{zh}} \\
+\cline{3-10}
+\rowcolor{gray!20}
+\multirow{-2}{*}{\textbf{Challenger}} & \multirow{-2}{*}{\textbf{Competitors}} & \textbf{Accuracy} & \textbf{Naturalness} & \textbf{Vividness} & \textbf{Comprehensive} & \textbf{Accuracy} & \textbf{Naturalness} & \textbf{Vividness} & \textbf{Comprehensive} \\
+\hline
+\multirow{4}{*}{\makecell{SSPO\\(GLM-4-9B)}} & Gold Reference & \colorbox{mlb}{27:50:23} & \colorbox{mlo}{16:67:17} & \colorbox{mlo}{23:51:26} & \colorbox{mlo}{24:45:31} & \colorbox{mlo}{19:61:20} & \colorbox{mlb}{23:55:22} & \colorbox{mlo}{24:45:31} & \colorbox{mlo}{24:48:28} \\
+~ & Vanilla GLM-4-9B  & \colorbox{mlb}{26:50:24} & \colorbox{mlb}{21:60:19} & \colorbox{mlb}{24:55:21} & \colorbox{mlb}{27:50:23} & \colorbox{mlb}{28:51:21} & \colorbox{mlb}{26:52:22} & \colorbox{mlb}{27:51:22} & \colorbox{mlb}{28:53:19}\\
+~ & GPT-4o & \colorbox{mlo}{23:50:27} & \colorbox{mlo}{19:57:24} & \colorbox{mlo}{23:51:26} & \colorbox{mlo}{20:52:28} & \colorbox{mlb}{23:55:22} & \colorbox{mlo}{19:58:23} & \colorbox{mlo}{20:56:24} & \colorbox{mlo}{22:52:26}\\
+~ & SFT & \colorbox{mlo}{23:52:25} & \colorbox{mlo}{18:60:22} & \colorbox{mlo}{24:49:27} & \colorbox{mlo}{29:40:31} & \colorbox{mlb}{23:57:20} & \colorbox{mlb}{23:56:22} & \colorbox{mlo}{27:45:28} & \colorbox{mlb}{27:51:22} \\
+\hline
+\multirow{4}{*}{\makecell{SSPO\\(Qwen2.5-14B)}} & Gold Reference & \colorbox{mlb}{21:63:16} & \colorbox{mlb}{24:55:21} & \colorbox{mlo}{23:51:26} & \colorbox{mlo}{24:50:26} & \colorbox{mlb}{21:59:20} & \colorbox{mlb}{24:55:21} & \colorbox{mlo}{25:48:27} & \colorbox{mlb}{27:49:24} \\
+~ & Vanilla Qwen2.5-14B & \colorbox{mlo}{24:51:25} & \colorbox{mlb}{26:50:24} & \colorbox{mlb}{26:53:21} & \colorbox{mlb}{32:41:27} & \colorbox{mlb}{31:45:24} & \colorbox{mlb}{26:51:23} & \colorbox{mlb}{27:48:25} & \colorbox{mlb}{30:43:27} \\
+~ & GPT-4o & \colorbox{mlb}{25:51:24} & \colorbox{mlo}{19:58:22} & \colorbox{mlo}{23:48:29} & \colorbox{mlo}{23:49:28} & \colorbox{mlb}{25:53:22} & \colorbox{mlb}{27:51:22} & \colorbox{mlo}{24:50:26} & \colorbox{mlb}{31:43:26}\\
+~ & SFT & \colorbox{mlo}{23:48:29} & \colorbox{mlo}{21:54:25} & \colorbox{mlo}{24:49:27} & \colorbox{mlo}{24:50:26} & \colorbox{mlb}{27:49:24} & \colorbox{mlb}{33:38:28} & \colorbox{mlb}{25:51:24} & \colorbox{mlb}{30:46:24} \\
+\Xhline{1.0pt}
+\end{tabular}
+}
+\caption{Human translation quality evaluation, reporting win rate (win:tie:loss). The winning and losing contrasts are marked in \colorbox{mlb}{blue} and \colorbox{mlo}{orange}, respectively.}
+\label{tab:humaneval}
+\end{table*}
+\end{document}

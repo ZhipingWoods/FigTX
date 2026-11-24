@@ -1,0 +1,62 @@
+\begin{document}
+\begin{table*}[t]
+    \small
+    \newcommand{\best}[1]{\bf{#1}}
+    \caption{
+        \small \textbf{Performance comparison of visual tokenizers across modalities.}
+    We evaluate on ImageNet for image reconstruction and zero-shot classification,
+    TokenBench for video reconstruction with MSR-VTT for zero-shot retrieval, and Toys4k for 3D
+    reconstruction and classification. Methods are grouped by capability: reconstruction-only,
+    understanding-only, and unified approaches. Discrete tokenizers are indicated
+    with gray shading. $^\dagger$ OmniTokenizer does not work well on high-resolution videos where tiling is needed.
+    }
+    \label{tab:main_results}
+    \centering
+    \setlength\tabcolsep{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l ccc ccc ccc ccc}
+        \toprule
+        & \multirow[b]{2}{*}{\bf\renewcommand{\arraystretch}{1.0}\begin{tabular}{c}Comp.\\Ratio\end{tabular}} & \multirow[b]{2}{*}{\bf\renewcommand{\arraystretch}{1.0}\begin{tabular}{c}Latent\\Channels\end{tabular}} &
+        \multirow[b]{2}{*}{\bf\renewcommand{\arraystretch}{1.0}\begin{tabular}{c}Token\\Type\end{tabular}} &
+        \multicolumn{3}{c}{\bf Image} & \multicolumn{3}{c}{\bf Video} & \multicolumn{3}{c}{\bf 3D}  \\
+        \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+        {\bf Method} & & & & {\bf PSNR$\uparrow$} & {\bf rFID$\downarrow$} & {\bf Acc.$\uparrow$} & {\bf PSNR$\uparrow$} & {\bf rFVD$\downarrow$} & {\bf R@1$\uparrow$} & {\bf PSNR$\uparrow$} & {\bf LPIPS$\downarrow$} & {\bf Acc.$\uparrow$}\\
+        \midrule
+        \multicolumn{13}{l}{\textit{\textbf{Reconstruction Only}}} \\
+        \quad SD-VAE         & (1,~~~8,~~~8)   & 4  & VAE & 26.26          & 0.61         & -      & -     & -     & -      & -     & -     & - \\
+        \quad FLUX.1 [dev]         & (1,~~~8,~~~8)   & 16  & VAE & 32.86          & \textbf{0.18}         & -      & -     & -     & -      & -     & -     & - \\
+        % \quad VQ-GAN         & (1, 8, 8)   & 4  & VAE &          &         & -      & -     & -     & -      & -     & -     & - \\
+        \quad Cosmos-0.1-CI8$\times$8  & (1,~~~8,~~~8)   & 16 & AE  & 32.25          & 1.03         & -      & -     & -     & -      & -     & -     & - \\
+        \quad Qwen-Image & (1,~~~8,~~~8) & 16 & VAE & 32.18 & 1.46 & -      & -     & -     & -      & -     & -     & - \\
+        \quad VA-VAE         & (1, 16, 16) & 32 & VAE & 27.70          & 0.28         & -      & -     & -     & -      & -     & -     & - \\
+        \rowcolor{gray!15} \quad GigaTok-XL-XXL & (1, 16, 16) & 8 & VQ & 22.42 & 0.80 & -      & -     & -     & -      & -     & -     & - \\
+        \quad Cosmos-0.1-CV8$\times$8  & (4,~~~8,~~~8) & 16 & AE  & 30.11             & 7.55             & -      & 34.33 & 8.34 & -      & -     & -     & - \\
+        \quad OmniTokenizer$^\dagger$      & (4,~~~8,~~~8)   & 8 & VAE  & 26.74          & 1.02         & -      & 19.39  & 173.48  & -      & -     & -     & - \\
+        \quad Hunyuan         & (4,~~~8,~~~8)   & 16 & VAE & \textbf{33.32}          & 0.67  & -      & 36.37 & 3.78 & -      & -     & -     & - \\
+        \quad Wan2.1            & (4,~~~8,~~~8)   & 16 & VAE & 31.34          & 0.94         & -      & 36.11  & 3.21  & -      & -     & -     & - \\
+        \quad Wan2.2          & (4, 16, 16)   & 48 & VAE & 31.25    & 0.75       & - & \textbf{36.39} & 3.19 & -      & -     & -     & - \\
+        \rowcolor{gray!15} \quad OmniTokenizer$^\dagger$      & (4,~~~8,~~~8)   & 8 & VQ  & 24.69          & 1.41         & -      & 19.89    & 202.46     & -      & -     & -     & - \\
+        \rowcolor{gray!15} \quad Cosmos-0.1-DV8$\times$8  & (4,~~~8,~~~8) & 6 & FSQ  & 26.34             & 7.86             & -      & 31.42 & 25.94 & -      & -     & -     & - \\
+        \quad Trellis-SLAT   & -           & 8  & VAE & -             & -             & -      & -     & -     & -      & 26.97 & \textbf{0.054} & - \\
+
+        \midrule
+        \multicolumn{13}{l}{\textit{\textbf{Understanding Only}}} \\
+        % \quad CLIP & (1, 14, 14) & - & - & -  & -  \\
+        \quad VideoPrism-g & (1, 18, 18) & - & - & - & - & - & - & - & \textbf{52.7} & - & - & - \\
+        \quad SigLIP2-So/16  & (1, 16, 16) & -  & -   & -             & -             & {83.4}   & -     & -     & 41.9      & -     & -     & - \\
+        \quad PE$_\texttt{core}$L & (1, 14, 14) & - & - &  - & - & \textbf{83.5} & - & - & 50.3 & - & - & - \\
+        \midrule
+        \multicolumn{13}{l}{\textit{\textbf{Reconstruction \& Understanding}}} \\
+        % \quad TokenFlow & (1, 16, 16) & -  & -   & -          & 1.37             & -      & -     & -     & -      & -     & -     & - \\
+        \quad SeTok & - & 4096 & AE & - & 2.07 & 75.4 & - & - & - & - & - & -\\
+        \rowcolor{gray!15} \quad VILA-U    & (1, 16, 16) & 16 & RQ  & 22.24          & 4.23             & 78.0   & -     & -     & -      & -     & -     & - \\
+        \rowcolor{gray!15}  \quad UniTok    & (1, 16, 16) & 64 & MCQ & 25.34          & \textbf{0.36}             & 78.6   & -     & -     & -      & -     & -     & - \\
+        \arrayrulecolor{gray!60}\cmidrule(r){1-13}
+        \rowcolor{gray!15}  \quad \atokensod & (4, 16, 16) & 48 & FSQ & \textbf{27.00} & 0.38      &  82.2  & \textbf{33.12}   & \textbf{22.16}   &  40.3     &  \textbf{28.17} &  \textbf{0.063}  & \textbf{91.3} \\
+        \quad \atokensoc & (4, 16, 16) & 48 & VAE & 29.72   & {0.21}         & 82.2   & 36.07     & \textbf{3.01}    & 40.2 & {28.28} & 0.062 & 90.9 \\
+        \arrayrulecolor{black}\bottomrule
+    \end{tabular}}
+    \vspace{-3mm}
+\end{table*}
+\end{document}

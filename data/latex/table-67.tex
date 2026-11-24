@@ -1,0 +1,33 @@
+\begin{table*}[!h]
+\centering
+\resizebox{0.9\linewidth}{!}{
+\begin{tabular}{lcccccc}
+\Xhline{1.0pt}
+\multirow{2}[0]{*}{\textbf{Evaluation Models}} & \multicolumn{2}{c}{\textbf{Rationale Evaluation}} & \multicolumn{4}{c}{\textbf{Score Evaluation}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-7}
+& \textbf{BERTScore} & \textbf{BARTScore} & \textbf{Spearman} & \textbf{Pearson} & \textbf{Accuracy$_{\rm 2\text{-}tuple}$} & \textbf{Accuracy$_{\rm triple}$} \\  \hline
+\rowcolor{gray!25}\multicolumn{7}{l}{\textit{Closed-sourced models}} \\
+text-davinci-003 & 88.47$^{*}$ & -2.7589$^{*}$ & 0.3267$^{*}$ & 0.5459$^{*}$ & 47.92$^{*}$ & 17.11$^{*}$ \\
+ChatGPT (gpt-3.5-turbo-0125) & 94.58$^{*}$ & -1.7301$^{\dagger}$ & 0.4856$^{*}$ & 0.5216$^{*}$ & 64.38$^{*}$ & 32.12$^{*}$ \\
+GPT-4 (gpt-4-turbo-2024-04-09) & N/A & N/A & 0.5128$^{*}$ & 0.5689$^{*}$ & 67.98$^{*}$ & 35.42$^{*}$ \\
+Gemini (gemini-2.0-flash) & 93.67$^{*}$ & -2.0143$^{*}$ & 0.5674$^{*}$ & 0.6082$^{*}$ & 71.68$^{*}$ & 42.63$^{*}$ \\  \hline
+\rowcolor{gray!25}\multicolumn{7}{l}{\textit{Open-sourced models}} \\
+Vicuna-7B & 86.94$^{*}$ & -2.7438$^{*}$ & 0.2669$^{*}$ & 0.2474$^{*}$ & 56.48$^{*}$ & 30.17$^{*}$ \\
+Vicuna-13B & 87.86$^{*}$ & -2.7609$^{*}$ & 0.4766$^{*}$ & 0.4908$^{*}$ & 67.64$^{*}$ & 41.87$^{*}$ \\
+DeepSeek-R1-Distill-Llama-8B & 94.02$^{*}$ & -1.9054$^{*}$ & 0.5527$^{*}$ & 0.6148$^{*}$ & 71.06$^{*}$ & 41.52$^{*}$ \\
+MedLLaMA & 85.84$^{*}$ & -2.7528$^{*}$ & 0.3223$^{*}$ & 0.4848$^{*}$ & 55.18$^{*}$ & 26.23$^{*}$ \\
+PandaLM& N/A & N/A & 0.4311$^{*}$ & 0.4196$^{*}$ & 67.27$^{*}$ & 36.62$^{*}$\\
+Ours (AutoMedEval) & \textbf{94.72} & -1.7136 & \textbf{0.6314}$^{*}$ & \textbf{0.6854}$^{*}$ & \textbf{74.61} & \textbf{48.65} \\
+\hline
+\rowcolor{gray!25}\multicolumn{7}{l}{\textit{Ablation Study}} \\
+w/o Knowledge Completion Chain & 93.98$^{*}$ & -1.7139 & 0.4998$^{*}$ & 0.5510$^{*}$ & 63.76$^{*}$ & 27.38$^{*}$ \\
+w/o Curriculum Instruction Tuning & 94.69$^{\dagger}$ & -1.7159 & 0.5375$^{*}$ & 0.6026$^{*}$ & 67.61$^{*}$ & 38.88$^{*}$ \\
+w/o Iterative Knowledge Introspection & 94.62$^{*}$ & -1.6758$^{*}$ & 0.5864$^{*}$ & 0.6461$^{*}$ & 70.62$^{*}$ & 44.61$^{*}$ \\
+\hline
+\rowcolor{gray!25}\multicolumn{7}{l}{\textit{Vanilla Instruction Tuning}} \\
+5,000 GPT-4 instructions  w/ MedLLaMA & 94.13$^{*}$ & -1.7208$^{\S}$ & 0.5614$^{*}$ & 0.6251$^{*}$ & 66.02$^{*}$ & 31.88$^{*}$ \\
+9,000 GPT-4 instructions  w/ MedLLaMA & 94.67$^{*}$ & \textbf{-1.6299}$^{*}$ & 0.5152$^{*}$ & 0.5832$^{*}$ & 67.96$^{*}$ & 35.13$^{*}$ \\ \hline
+\end{tabular} }
+\caption{Comparison of results on different models.}
+\vspace{-5mm}
+\end{table*}

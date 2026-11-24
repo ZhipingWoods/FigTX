@@ -1,0 +1,238 @@
+\usepackage[table]{xcolor}
+\usepackage{mathrsfs}
+% \usepackage{amssymb}         % for \blacksquare
+\definecolor{hdrR}{HTML}{AD1457}   % rose    – Realism
+\definecolor{hdrC}{HTML}{1565C0}   % blue    – Control
+\definecolor{hdrI}{HTML}{00695C}   % teal    – Interaction
+\definecolor{hdrT}{HTML}{E65100}   % orange  – Text–Motion
+\definecolor{bestG}{HTML}{C8E6C9}  % mint    – best cell
+\definecolor{oursR}{HTML}{E3F2FD}  % ice-blue – Ours row
+\definecolor{rowA}{HTML}{F5F5F5}   % gray    – alternating
+\definecolor{pinklink}{RGB}{255,105,180}
+\newcommand{\best}[1]{\cellcolor{bestG}\textbf{#1}}
+\newcommand{\OurModel}{\emph{Sketch2Colab}\xspace}
+\newcommand{\ourmodel}{\emph{Sketch2Colab}\xspace}
+\newcommand{\maskij}[1]{\xi_{#1}}
+\newcommand{\circled}[1]{%
+  \textcircled{\scriptsize #1}%
+}
+%%%%%%%
+\begin{document}
+\begin{table}[t]
+\centering
+\vspace{1mm}
+\caption{\textbf{Storyboard HOH on CORE4D~\cite{zhang2024core4d} under sketch-only conditioning.}
+$\downarrow$\,=\,lower is better.
+\colorbox{bestG}{\textbf{best}} per panel.
+Noise \(60\%\) corresponds to Fig.~\ref{fig:qual-main}A.
+\textcolor{hdrR}{\rule{0.7ex}{0.7ex}}\,Realism,
+\textcolor{hdrC}{\rule{0.7ex}{0.7ex}}\,Control~\cite{s2a},
+\textcolor{hdrI}{\rule{0.7ex}{0.7ex}}\,Interaction.}
+\label{tab:main_one_table1}
+\vspace{-3mm}
+\resizebox{\columnwidth}{!}{%
+\setlength{\tabcolsep}{1.5pt}%
+\renewcommand{\arraystretch}{0.65}%
+\setlength{\aboverulesep}{0.01ex}%
+\setlength{\belowrulesep}{0.01ex}%
+\begin{tabular}{@{}l|cc|cccc|cc@{}}
+\toprule
+& \multicolumn{2}{c|}{\cellcolor{hdrR}\textcolor{white}{\scriptsize\textbf{Realism}}}
+& \multicolumn{4}{c|}{\cellcolor{hdrC}\textcolor{white}{\scriptsize\textbf{Control Accuracy}}}
+& \multicolumn{2}{c}{\cellcolor{hdrI}\textcolor{white}{\scriptsize\textbf{Interaction}}} \\
+& {\scriptsize FID}{\tiny$\downarrow$}
+& {\scriptsize Ft}{\tiny$\downarrow$}
+& {\scriptsize K2D}{\tiny$\downarrow$}
+& {\scriptsize K3D}{\tiny$\downarrow$}
+& {\scriptsize T2D}{\tiny$\downarrow$}
+& {\scriptsize T3D}{\tiny$\downarrow$}
+& {\scriptsize Anc}{\tiny$\downarrow$}
+& {\scriptsize Pen}{\tiny$\downarrow$} \\
+\midrule
+\multicolumn{9}{@{}l}{\scriptsize\textit{(a) Method Comparison \& Ablations}} \\
+\rowcolor{rowA}
+{\scriptsize RetrievAdapt}
+  & {\scriptsize .588} & \best{\scriptsize .075}
+  & {\scriptsize .074} & {\scriptsize .097} & {\scriptsize .376} & {\scriptsize .525}
+  & {\scriptsize .172} & \best{\scriptsize .020} \\
+{\scriptsize Sketch2Anim-INT~\cite{s2a}}
+  & {\scriptsize .986} & {\scriptsize .148}
+  & {\scriptsize .067} & {\scriptsize .084} & {\scriptsize .185} & {\scriptsize .279}
+  & {\scriptsize .114} & {\scriptsize .054} \\
+\rowcolor{rowA}
+{\scriptsize COLLAGE Teacher~\cite{collage}}
+  & {\scriptsize .703} & {\scriptsize .143}
+  & {\scriptsize .066} & {\scriptsize .082} & {\scriptsize .181} & {\scriptsize .249}
+  & {\scriptsize .093} & {\scriptsize .037} \\
+\rowcolor{oursR}
+{\scriptsize\textbf{\ourmodel}}
+  & \best{\scriptsize .487} & {\scriptsize .094}
+  & \best{\scriptsize .036} & \best{\scriptsize .050} & \best{\scriptsize .090} & \best{\scriptsize .133}
+  & \best{\scriptsize .044} & {\scriptsize .024} \\
+\rowcolor{rowA}
+{\scriptsize \quad w/o CTMC}
+  & {\scriptsize .524} & {\scriptsize .110}
+  & {\scriptsize .038} & {\scriptsize .054} & {\scriptsize .100} & {\scriptsize .151}
+  & {\scriptsize .059} & {\scriptsize .030} \\
+{\scriptsize \quad w/o Energy}
+  & {\scriptsize .571} & {\scriptsize .114}
+  & {\scriptsize .040} & {\scriptsize .056} & {\scriptsize .114} & {\scriptsize .174}
+  & {\scriptsize .090} & {\scriptsize .030} \\
+\midrule
+\multicolumn{9}{@{}l}{\scriptsize\textit{(b) Sketch-only Noise Robustness}} \\
+\rowcolor{oursR}
+{\scriptsize\textbf{\ourmodel}}
+  & \best{\scriptsize .487} & {\scriptsize .094}
+  & \best{\scriptsize .036} & \best{\scriptsize .050} & \best{\scriptsize .090} & \best{\scriptsize .133}
+  & \best{\scriptsize .044} & {\scriptsize .024} \\
+\rowcolor{rowA}
+{\scriptsize \quad Noise 20\%}
+  & {\scriptsize .527} & {\scriptsize .115}
+  & {\scriptsize .042} & {\scriptsize .059} & {\scriptsize .113} & {\scriptsize .170}
+  & {\scriptsize .064} & {\scriptsize .033} \\
+{\scriptsize \quad Noise 40\%}
+  & {\scriptsize .572} & {\scriptsize .121}
+  & {\scriptsize .047} & {\scriptsize .066} & {\scriptsize .133} & {\scriptsize .205}
+  & {\scriptsize .087} & {\scriptsize .040} \\
+\rowcolor{rowA}
+{\scriptsize \quad Noise 60\%}
+  & {\scriptsize .698} & {\scriptsize .145}
+  & {\scriptsize .060} & {\scriptsize .085} & {\scriptsize .172} & {\scriptsize .275}
+  & {\scriptsize .129} & {\scriptsize .050} \\
+{\scriptsize \quad Noise 80\%}
+  & {\scriptsize .856} & {\scriptsize .166}
+  & {\scriptsize .075} & {\scriptsize .110} & {\scriptsize .230} & {\scriptsize .365}
+  & {\scriptsize .178} & {\scriptsize .069} \\
+\bottomrule
+\end{tabular}}
+\vspace{-7mm}
+\end{table}
+\begin{table}[t]
+\centering
+\caption{\textbf{Quantitative results on CORE4D~\cite{zhang2024core4d} (Average protocol, sketch+text unless noted).}
+$\downarrow$\,=\,lower, $\uparrow$\,=\,higher is better.
+\colorbox{bestG}{\textbf{best}} per panel.
+Baselines and ablations in (a), sketch+text noise robustness in (b).
+\textcolor{hdrR}{\rule{0.7ex}{0.7ex}}\,Realism,
+\textcolor{hdrC}{\rule{0.7ex}{0.7ex}}\,Control~\cite{s2a},
+\textcolor{hdrI}{\rule{0.7ex}{0.7ex}}\,Interaction,
+\textcolor{hdrT}{\rule{0.7ex}{0.7ex}}\,Text--Motion.
+Cross-protocol and InterHuman~\cite{liang2023intergen} results in Supp.\,S.5.}
+\label{tab:main_one_table}
+\vspace{-3mm}
+\resizebox{\columnwidth}{!}{%
+\setlength{\tabcolsep}{1pt}%
+\renewcommand{\arraystretch}{0.7}%
+\setlength{\aboverulesep}{0.15ex}%
+\setlength{\belowrulesep}{0ex}%
+\begin{tabular}{@{}l|cc|cccc|ccc|cc@{}}
+\toprule
+& \multicolumn{2}{c|}{\cellcolor{hdrR}\textcolor{white}{\scriptsize\textbf{Realism}}}
+& \multicolumn{4}{c|}{\cellcolor{hdrC}\textcolor{white}{\scriptsize\textbf{Control Accuracy}}}
+& \multicolumn{3}{c|}{\cellcolor{hdrI}\textcolor{white}{\scriptsize\textbf{Interaction}}}
+& \multicolumn{2}{c}{\cellcolor{hdrT}\textcolor{white}{\scriptsize\textbf{Text--Mot.}}} \\
+& {\scriptsize FID}{\tiny$\downarrow$}
+& {\scriptsize Ft}{\tiny$\downarrow$}
+& {\scriptsize K2D}{\tiny$\downarrow$}
+& {\scriptsize K3D}{\tiny$\downarrow$}
+& {\scriptsize T2D}{\tiny$\downarrow$}
+& {\scriptsize T3D}{\tiny$\downarrow$}
+& {\scriptsize Obj}{\tiny$\downarrow$}
+& {\scriptsize Anc}{\tiny$\downarrow$}
+& {\scriptsize Pen}{\tiny$\downarrow$}
+& {\scriptsize MM Dist}{\tiny$\downarrow$}
+& {\scriptsize RP3}{\tiny$\uparrow$} \\
+\midrule
+\multicolumn{12}{@{}l}{\scriptsize\textit{(a) Baselines \& Ablations}} \\
+\rowcolor{rowA}
+{\scriptsize RetrievAdapt}
+  & {\scriptsize .469} & \best{\scriptsize .071}
+  & {\scriptsize .054} & {\scriptsize .068} & {\scriptsize .255} & {\scriptsize .356}
+  & {\scriptsize .081} & {\scriptsize .121} & \best{\scriptsize .019}
+  & {\scriptsize 6.41} & {\scriptsize .463} \\
+{\scriptsize Sketch2Anim-INT~\cite{s2a}}
+  & {\scriptsize .728} & {\scriptsize .118}
+  & {\scriptsize .053} & {\scriptsize .066} & {\scriptsize .145} & {\scriptsize .222}
+  & {\scriptsize .063} & {\scriptsize .091} & {\scriptsize .043}
+  & {\scriptsize 6.23} & {\scriptsize .477} \\
+\rowcolor{rowA}
+{\scriptsize COLLAGE Teacher~\cite{collage}}
+  & {\scriptsize .511} & {\scriptsize .111}
+  & {\scriptsize .051} & {\scriptsize .063} & {\scriptsize .140} & {\scriptsize .194}
+  & {\scriptsize .062} & {\scriptsize .077} & {\scriptsize .028}
+  & {\scriptsize 6.08} & {\scriptsize .500} \\
+\rowcolor{oursR}
+{\scriptsize\textbf{\ourmodel}}
+  & \best{\scriptsize .399} & {\scriptsize .084}
+  & \best{\scriptsize .032} & \best{\scriptsize .043} & \best{\scriptsize .078} & \best{\scriptsize .116}
+  & \best{\scriptsize .034} & \best{\scriptsize .038} & {\scriptsize .022}
+  & \best{\scriptsize 5.50} & \best{\scriptsize .522} \\
+\midrule
+\rowcolor{rowA}
+{\scriptsize \quad w/o Energy}
+  & {\scriptsize .471} & {\scriptsize .098}
+  & {\scriptsize .035} & {\scriptsize .048} & {\scriptsize .099} & {\scriptsize .149}
+  & {\scriptsize .042} & {\scriptsize .075} & {\scriptsize .026}
+  & {\scriptsize 5.59} & {\scriptsize .514} \\
+{\scriptsize \quad w/o CTMC}
+  & {\scriptsize .432} & {\scriptsize .099}
+  & {\scriptsize .034} & {\scriptsize .046} & {\scriptsize .086} & {\scriptsize .132}
+  & {\scriptsize .039} & {\scriptsize .050} & {\scriptsize .027}
+  & {\scriptsize 5.54} & {\scriptsize .518} \\
+\rowcolor{rowA}
+{\scriptsize \quad w/o Coll.\ grounding}
+  & {\scriptsize .420} & {\scriptsize .088}
+  & {\scriptsize .033} & {\scriptsize .044} & {\scriptsize .080} & {\scriptsize .125}
+  & {\scriptsize .042} & {\scriptsize .047} & {\scriptsize .025}
+  & {\scriptsize 5.53} & {\scriptsize .521} \\
+{\scriptsize \quad w/o Temporal bias}
+  & {\scriptsize .415} & {\scriptsize .088}
+  & {\scriptsize .033} & {\scriptsize .044} & {\scriptsize .082} & {\scriptsize .122}
+  & {\scriptsize .036} & {\scriptsize .043} & {\scriptsize .022}
+  & {\scriptsize 5.51} & {\scriptsize .520} \\
+\rowcolor{rowA}
+{\scriptsize \quad Parallel ControlNets}
+  & {\scriptsize .440} & {\scriptsize .092}
+  & {\scriptsize .034} & {\scriptsize .045} & {\scriptsize .090} & {\scriptsize .128}
+  & {\scriptsize .040} & {\scriptsize .048} & {\scriptsize .023}
+  & {\scriptsize 5.56} & {\scriptsize .519} \\
+{\scriptsize \quad Trajectory-only}
+  & {\scriptsize .484} & {\scriptsize .097}
+  & {\scriptsize .037} & {\scriptsize .049} & {\scriptsize .104} & {\scriptsize .149}
+  & {\scriptsize .044} & {\scriptsize .061} & {\scriptsize .024}
+  & {\scriptsize 5.61} & {\scriptsize .514} \\
+\midrule
+\multicolumn{12}{@{}l}{\scriptsize\textit{(b) Sketch+Text Noise Robustness}} \\
+\rowcolor{oursR}
+{\scriptsize\textbf{\ourmodel}}
+  & \best{\scriptsize .399} & {\scriptsize .084}
+  & \best{\scriptsize .032} & \best{\scriptsize .043} & \best{\scriptsize .078} & \best{\scriptsize .116}
+  & \best{\scriptsize .034} & \best{\scriptsize .038} & {\scriptsize .022}
+  & \best{\scriptsize 5.50} & \best{\scriptsize .522} \\
+\rowcolor{rowA}
+{\scriptsize \quad Noise 20\%}
+  & {\scriptsize .414} & {\scriptsize .090}
+  & {\scriptsize .035} & {\scriptsize .047} & {\scriptsize .088} & {\scriptsize .132}
+  & {\scriptsize .038} & {\scriptsize .046} & {\scriptsize .023}
+  & {\scriptsize 5.55} & {\scriptsize .518} \\
+{\scriptsize \quad Noise 40\%}
+  & {\scriptsize .451} & {\scriptsize .098}
+  & {\scriptsize .038} & {\scriptsize .052} & {\scriptsize .106} & {\scriptsize .163}
+  & {\scriptsize .044} & {\scriptsize .064} & {\scriptsize .029}
+  & {\scriptsize 5.64} & {\scriptsize .510} \\
+\rowcolor{rowA}
+{\scriptsize \quad Noise 60\%}
+  & {\scriptsize .546} & {\scriptsize .117}
+  & {\scriptsize .045} & {\scriptsize .065} & {\scriptsize .137} & {\scriptsize .214}
+  & {\scriptsize .055} & {\scriptsize .095} & {\scriptsize .034}
+  & {\scriptsize 5.82} & {\scriptsize .497} \\
+{\scriptsize \quad Noise 80\%}
+  & {\scriptsize .650} & {\scriptsize .127}
+  & {\scriptsize .056} & {\scriptsize .081} & {\scriptsize .175} & {\scriptsize .279}
+  & {\scriptsize .070} & {\scriptsize .126} & {\scriptsize .050}
+  & {\scriptsize 6.05} & {\scriptsize .479} \\
+\bottomrule
+\end{tabular}}
+\vspace{-7mm}
+\end{table}
+\end{document}

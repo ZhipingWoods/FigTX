@@ -1,0 +1,503 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[ht]
+    \caption{\textbf{Comparison of the Commonsense and General Reasoning Tasks}.
+    Comparison of STILL with baseline methods under Llama 3 8B and Llama 3.1 8B teacher models. STILL consistently demonstrates strong performance across benchmarks.
+    % ARC-e, ARC-c, Hella., and Wino. denote ARC-Easy, ARC-Challenge, HellaSwag, and WinoGrande, respectively.
+    }
+    % \small
+    \label{tab:commonsense-reasoning}
+    \begin{center}
+        % \begin{sc}
+            \resizebox{1\linewidth}{!}{
+                \begin{tabular}{l|c|ccccc|c|cc}
+                    \toprule
+                    % \multicolumn{1}{c|}{Model}
+                    \multirow{2}{*}{\textbf{\textsc{Model}}}
+                    & \textbf{\textsc{Training}}
+                    & \textbf{\textsc{PIQA}}
+                    & \textbf{\textsc{ARC-e}}
+                    & \textbf{\textsc{ARC-c}}
+                    & \textbf{\textsc{Hella.}}
+                    & \textbf{\textsc{Wino.}}
+                    & \textbf{\textsc{MMLU}}
+                    & \textbf{\textsc{Avg.}}
+                    & \textbf{\textsc{Avg.}}
+                    \\
+                    & \textbf{\textsc{Tokens}} (B)
+                    & acc $\uparrow$
+                    & acc $\uparrow$
+                    & acc$_n$ $\uparrow$
+                    & acc$_n$ $\uparrow$
+                    & acc $\uparrow$
+                    & (5-shot)  $\uparrow$
+                    & (w. MMLU)
+                    & (wo. MMLU)
+                    \\
+                    \midrule
+                    \rowcolor[HTML]{F1E9E7}
+                    \multicolumn{10}{l}{\textbf{\textit{Transformer}}}
+                    \\
+                    Llama 3 8B~\citep{llama}
+                    & 15000$+$
+                    & 79.5
+                    & 80.0
+                    & 53.3
+                    & 79.1
+                    & 73.1
+                    & 65.3
+                    & 71.8
+                    & 73.0
+                    \\
+                    Llama 3.1 8B~\citep{llama}
+                    & 15000$+$
+                    & 81.1
+                    & 81.7
+                    & 55.1
+                    & 79.3
+                    & 73.9
+                    & 68.0
+                    & 74.2
+                    & 73.2
+                    \\
+                    % Mistral 7B
+                    % & 8000
+                    % & 82.1
+                    % & 80.9
+                    % & 53.8
+                    % & 81.0
+                    % & 74.0
+                    % & 62.4
+                    % & 72.4
+                    % & 74.4
+                    % \\
+                    \midrule
+                    \rowcolor[HTML]{F1E9E7}
+                    \multicolumn{10}{l}{\textbf{\textit{Subquadratic}}}
+                    \\
+                    % Mamba 7B~\citep{mamba}
+                    % & 1200
+                    % & 81.0
+                    % & 77.5
+                    % & 46.7
+                    % & 77.9
+                    % & 71.8
+                    % & 33.3
+                    % & 64.7
+                    % & 71.0
+                    % \\
+                    Mamba 8B~\citep{mamba}
+                    & 1100
+                    & 78.9
+                    & 75.4
+                    & 42.2
+                    & 75.6
+                    & 68.3
+                    & 28.0
+                    & 61.4
+                    & 68.1
+                    \\
+                    Mamba2 8B~\citep{mamba2}
+                    & 3500
+                    & 79.8
+                    & 75.9
+                    & 48.1
+                    & 77.1
+                    & 71.6
+                    & 48.7
+                    & 67.0
+                    & 70.6
+                    \\
+                    RWKV-6 7B~\citep{rwkv}
+                    % RWKV-6 World v2.1 7B~\citep{peng2024rwkv}
+                    & 1420
+                    & 78.7
+                    & 76.8
+                    & 46.3
+                    & 75.1
+                    & 70.0
+                    & -
+                    & 69.4
+                    & 69.4
+                    \\
+                    TransNormerLLM 7B~\citep{transnormerllm}
+                    & 1400
+                    & 80.1
+                    & 75.4
+                    & 44.4
+                    & 75.2
+                    & 66.1
+                    & 43.1
+                    & 64.1
+                    & 68.2
+                    \\
+                    Hawk 7B~\citep{griffin}
+                    & 300
+                    & 80.0
+                    & 74.4
+                    & 45.9
+                    & 77.6
+                    & 69.9
+                    & 35.0
+                    & 63.8
+                    & 69.6
+                    \\
+                    Griffin 7B~\citep{griffin}
+                    & 300
+                    & 81.0
+                    & 75.4
+                    & 47.9
+                    & 78.6
+                    & 72.6
+                    & 39.3
+                    & 65.8
+                    & 71.1
+                    \\
+                    Falcon3-Mamba 7B~\citep{falcon}
+                    & 7300
+                    & 80.6
+                    & 78.9
+                    & 57.1
+                    & 80.1
+                    & 73.7
+                    & 55.1
+                    & 70.9
+                    & 74.1
+                    \\
+                    \midrule
+                    \rowcolor[HTML]{F1E9E7}
+                    \multicolumn{10}{l}{\textbf{\textit{Hybird}}}
+                    \\
+                    StripedHyena-Nous 7B~\citep{stripedhyena}
+                    & -
+                    & 78.8
+                    & 77.2
+                    & 40.0
+                    & 76.4
+                    & 66.4
+                    & 26.0
+                    & 60.8
+                    & 67.8
+                    \\
+                    Zamba 7B~\citep{zamba}
+                    & 1000
+                    & 81.4
+                    & 74.5
+                    & 46.6
+                    & 80.2
+                    & 76.4
+                    & 57.7
+                    & 69.5
+                    & 71.8
+                    \\
+                    RecurrentGemma 9B~\citep{recurrentgemma}
+                    & 2000
+                    & 80.6
+                    & 78.9
+                    & 57.1
+                    & 80.1
+                    & 73.7
+                    & 55.1
+                    & 70.9
+                    & 74.1
+                    \\
+                    \midrule
+                    \rowcolor[HTML]{F1E9E7}
+                    \multicolumn{10}{l}{\textbf{\textit{Linearized from Llama 3 8B}}}
+                    \\
+                    % Mistral 7B SUPRA
+                    % & 20
+                    % & 80.1
+                    % & 74.6
+                    % & 42.3
+                    % & 74.8
+                    % & 67.4
+                    % & 28.0
+                    % & 61.2
+                    % & 67.8
+                    % \\
+                    % Mistral 7B SUPRA
+                    % & 100
+                    % & 80.4
+                    % & 75.9
+                    % & 45.8
+                    % & 77.1
+                    % & 70.3
+                    % & 34.2
+                    % & 64.0
+                    % & 69.9
+                    % \\
+                    T2R-LoLCATs~\citep{t2r}
+                    & 0.04
+                    & 62.0
+                    & 42.1
+                    & 24.7
+                    & 32.7
+                    & 48.3
+                    & 23.2
+                    & 38.8
+                    & 42.0
+                    \\
+                    Hedgehog-LoLCATs~\citep{hedgehog}
+                    & 0.04
+                    & 77.4
+                    & 71.1
+                    & 40.6
+                    & 50.7
+                    & 54.3
+                    & 24.2
+                    & 53.1
+                    & 58.8
+                    \\
+                    SUPRA~\citep{supra}
+                    & 20
+                    & 78.9
+                    & 75.1
+                    & 46.5
+                    & 71.7
+                    & 65.8
+                    & 40.9
+                    & 63.2
+                    & 67.6
+                    \\
+                    % Mistral 7B Hedgehog
+                    % & 0.04
+                    % & 79.3
+                    % & 76.4
+                    % & 45.1
+                    % & 73.1
+                    % & 57.5
+                    % & 28.2
+                    % & 59.9
+                    % & 66.3
+                    % \\
+                    % Mistral 7B LoLCATs
+                    % & \textbf{0.04}
+                    % & 81.1
+                    % & 81.1
+                    % & 52.9
+                    % & 80.5
+                    % & 73.2
+                    % & 52.2
+                    % & 70.2
+                    % & 73.8
+                    % \\
+                    LoLCATs~\citep{lolcats}
+                    & 0.04
+                    & 80.0
+                    & 78.8
+                    & 52.2
+                    & 75.6
+                    & \textbf{73.3}
+                    & \underline{43.9}
+                    & 67.3
+                    & 72.0
+                    \\
+                    Liger-GLA~\citep{liger}
+                    & 0.02
+                    & \underline{80.3}
+                    & \underline{81.1}
+                    & \underline{52.5}
+                    & \underline{76.3}
+                    & 72.0
+                    & 43.4
+                    & \underline{67.6}
+                    & \underline{72.4}
+                    \\
+                    \rowcolor[HTML]{E2ECF9}
+                    STILL~(Ours)
+                    & 0.04
+                    & \textbf{81.3}
+                    & \textbf{81.7}
+                    & \textbf{54.8}
+                    & \textbf{78.1}
+                    & \underline{73.2}
+                    & \textbf{59.7}
+                    & \textbf{71.5}
+                    & \textbf{73.8}
+                    \\
+                    \midrule
+                    \rowcolor[HTML]{F1E9E7}
+                    \multicolumn{10}{l}{\textbf{\textit{Linearized from Llama 3.1 8B}}}
+                    \\
+                    Llamba~\citep{llamba}
+                    & 12
+                    & \underline{80.9}
+                    & 82.5
+                    & 54.6
+                    & \underline{77.6}
+                    & 73.3
+                    & \underline{60.0}
+                    & \underline{71.5}
+                    & \underline{73.8}
+                    \\
+                    % LoLCATs~\citep{lolcats}
+                    % & 0.04
+                    % & 80.5
+                    % & 81.9
+                    % & 55.4
+                    % & 76.6
+                    % & \textbf{73.6}
+                    % & 46.3
+                    % & 69.1
+                    % & 73.6
+                    LoLCATs~\citep{lolcats}
+                    & 0.04
+                    & \underline{80.9}
+                    & \underline{82.6}
+                    & 54.7
+                    & 76.6
+                    & \textbf{73.6}
+                    & 50.8
+                    & 69.9
+                    & 73.7
+                    \\
+                    Liger-GLA~\citep{liger}
+                    & 0.02
+                    & 80.5
+                    & 81.8
+                    & \underline{55.6}
+                    & 75.4
+                    & 69.5
+                    & 46.9
+                    & 68.3
+                    & 72.6
+                    \\
+                    \rowcolor[HTML]{E2ECF9}
+                    STILL~(Ours)
+                    & 0.04
+                    & \textbf{81.3}
+                    & \textbf{83.0}
+                    & \textbf{56.7}
+                    & \textbf{79.0}
+                    & \underline{73.4}
+                    & \textbf{61.3}
+                    & \textbf{72.5}
+                    & \textbf{74.7}
+                    \\
+                    \bottomrule
+            \end{tabular}
+        }
+        % \end{sc}
+    \end{center}
+\end{table*}
+\begin{table*}[ht]
+    \centering
+    %\begin{small}
+    \caption{\textbf{Comparison of the Single Needle-in-a-Haystack (S-NIAH) Tasks}. Accuracy on S-NIAH tasks from the RULER benchmark across context lengths of 0.5K, 1K, 2K, and 4K. Methods are compared under different cache budgets, with our approach evaluated under matched or smaller cache constraints.}
+    \setlength{\tabcolsep}{10pt}
+    \label{tab:niah}
+    \resizebox{1\linewidth}{!}{
+        \begin{tabular}{l|c|cccc|cccc|cccc}
+            \toprule
+            \multirow{2}{*}{\textbf{\textsc{Model}}}
+            % & \multirow{2}{*}{\textbf{\textsc{Cache Tokens}}}
+            & \textbf{\textsc{Cache}}
+            & \multicolumn{4}{c|}{\textbf{\textsc{S-NIAH-1}}}
+            & \multicolumn{4}{c|}{\textbf{\textsc{S-NIAH-2}}}
+            & \multicolumn{4}{c}{\textbf{\textsc{S-NIAH-3}}}
+            \\
+
+            & \textbf{\textsc{Tokens}}
+            & .5K
+            & 1K
+            & 2K
+            & 4K
+            & .5K
+            & 1K
+            & 2K
+            & 4K
+            & .5K
+            & 1K
+            & 2K
+            & 4K
+            \\
+            \midrule
+            % \rowcolor[HTML]{EFEFEF}
+            % \multicolumn{12}{l}{\textbf{Transformer}}\\
+            % Llama 3.1 8BLoLCATs & 64 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+            % \midrule
+            % \rowcolor[HTML]{EFEFEF}
+            % \multicolumn{12}{l}{\textbf{Base Subquadratic Model}}\\
+            Sliding-Window Attention & 128 & 0 & 0 & 0 & 0 & 100 & 0 & 0 & 0 & 98.4 & 0 & 0 & 0\\
+            LoLCATs~\citep{lolcats} & 128 & 29.4 & 9.6 & 3.0 & 0 & 100 & 17.4 & \textbf{7.2} & \textbf{4.2} & 98.2 & \textbf{14.6} & 3.2 & 1.6 \\
+            Liger-GLA~\citep{liger} & 128 &  28.4 & 0.2 & 0.2 & 0.2 & 100 & 1.6 & 0.6 & 1.0 & 97.6 & 2.0 & 1.2 & 0.8 \\
+            \rowcolor[HTML]{E2ECF9}
+            STILL~(Ours) & 64$\sim$128 & \textbf{63.2} & \textbf{22.0} & \textbf{5.8} & \textbf{1.4} & \textbf{100} & \textbf{33.6} & 3.4 & 2.8 & \textbf{98.2} & 9.8 & \textbf{3.2} & \textbf{3.4} \\
+            \midrule
+            Sliding-Window Attention & 256 & 66.4 & 4.2 & 0.2 & 0 & 100 & 0 & 0.2 & 0 & 99.8 & 0 & 0 & 0  \\
+            LoLCATs~\citep{lolcats} & 256 & 84.8 & 26.2 & 10.2 & 2.2 & 100 & 37.0 & 12.2 & 8.2 & 100 & \textbf{30.6} & 6.0 & 2.2 \\
+            Liger-GLA~\citep{liger} & 256 & 83.8 & 0.0 &  0.0 & 2.8 & 100 & 1.0 & 4.6 & 0.8 & 97.6 & 1.0 & 3.8 & 0.6 \\
+            \rowcolor[HTML]{E2ECF9}
+            STILL~(Ours) & 128$\sim$256 & \textbf{94.0} & \textbf{86.6} & \textbf{31.0} & \textbf{10.6} & \textbf{100} & \textbf{63.0} & \textbf{27.2} & \textbf{9.4} & \textbf{100} & 30.4 & \textbf{12.0} & \textbf{3.4} \\
+            \midrule
+            Sliding-Window Attention & 512 & 100 & 25.2 & 14.6 & 5.8 & 100 & 44.6 & 0.2 & 0 & 100 & 6.8 & 0 & 0 \\
+            LoLCATs~\citep{lolcats} & 512 & 100 & 65.6 & 24.6 & 8.8 & 100 & 71.8 & 17.4 & 16.6 & 100 & 51.0 & 10.6 & 5.8 \\
+            Liger-GLA~\citep{liger} & 512 & 73.4 & 1.0 & 0.0 & 0.0 & 100 & 2.6 & 4.0 & 0.0 & 97.6 & 1.2 & 1.2 & 0.0 \\
+            \rowcolor[HTML]{E2ECF9}
+            STILL~(Ours) & 256$\sim$512 & \textbf{100} & \textbf{99.6} & \textbf{89.0} & \textbf{86.2} & \textbf{100} & \textbf{92.6} & \textbf{73.8} & \textbf{37.4} & \textbf{100} & \textbf{67.6} & \textbf{21.6} & \textbf{12.2} \\
+            \midrule
+            Full Attention & $\infty$ & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 99.6\\
+            \rowcolor[HTML]{E2ECF9}
+            STILL~(Ours) & 512$\sim$1024 & 100 & 100 & 96.6 & 89.0 & 100 & 100 & 80.4 & 69.8 & 100 & 100 & 64.8 & 19.4 \\
+            \bottomrule
+        %\end{small}
+        \end{tabular}
+    }
+\end{table*}
+% \begin{table*}[h]
+%     \centering
+%     %\begin{small}
+%     \caption{\textbf{Needle-in-a-Haystack (NIAH) Tasks Results}. Measuring long context recall with Needle-in-a-Haystack (NIAH) tasks from the RULER benchmark. We report recall accuracy for each method across different context lengths (512, 1024, etc.) for each task.}
+%     \label{tab:niah}
+%     \resizebox{1\linewidth}{!}{
+%         \begin{tabular}{l|c|cccc|cccc|cccc}
+%             \toprule
+%             \multirow{2}{*}{\textbf{Model}}
+%             & \multirow{2}{*}{\textbf{Cache Tokens}}
+%             & \multicolumn{4}{c}{S-NIAH-1}
+%             & \multicolumn{4}{c}{S-NIAH-2}
+%             & \multicolumn{4}{c}{S-NIAH-3}
+%             \\
+
+%             &
+%             & .5K
+%             & 1K
+%             & 2K
+%             & 4K
+%             & .5K
+%             & 1K
+%             & 2K
+%             & 4K
+%             & .5K
+%             & 1K
+%             & 2K
+%             & 4K
+%             \\
+%             \midrule
+%             % \rowcolor[HTML]{EFEFEF}
+%             % \multicolumn{12}{l}{\textbf{Transformer}}\\
+%             % Llama 3.1 8BLoLCATs & 64 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             % \midrule
+%             % \rowcolor[HTML]{EFEFEF}
+%             % \multicolumn{12}{l}{\textbf{Base Subquadratic Model}}\\
+%             Llama 3.1 8B SWA & 128 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B LoLCATs & 128 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B Ours & 64$\sim$128 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             \midrule
+%             Llama 3.1 8B SWA & 256 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B LoLCATs & 256 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B Ours & 128$\sim$256 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             \midrule
+%             Llama 3.1 8B SWA & 512 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B LoLCATs & 512 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             Llama 3.1 8B Ours & 256$\sim$512 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             \midrule
+%             Llama 3.1 8B & $\infty$ & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100 & 100\\
+%             Llama 3.1 8B Ours & 512$\sim$1024 & 9.0 & 3.2 & 1.4 & 0.6 & 100 & 7.6 & 2.0 & 97.4 & 1.6 & 0.6\\
+%             \bottomrule
+%         %\end{small}
+%         \end{tabular}
+%     }
+% \end{table*}
+\end{document}

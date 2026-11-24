@@ -1,0 +1,73 @@
+\definecolor{gold}{RGB}{212,175,55}
+\definecolor{silver}{RGB}{160,160,160}
+\definecolor{bronze}{RGB}{205,127,50}
+\definecolor{bestred}{RGB}{255,59,48}
+\definecolor{secondblue}{RGB}{0,122,255}
+\newcommand{\best}[1]{\textcolor{bestred}{\textbf{#1}}}
+\newcommand{\second}[1]{\textcolor{secondblue}{\textbf{#1}}}
+%%%%%%%
+\begin{document}
+\begin{table*}[!htbp]
+  \centering
+  \caption{Expanded class-wise comparison on MVTec-3D across 3D, RGB, and 3D+RGB settings. Each cell reports I-AUROC/P-AUPRO.}
+  \label{tab:classwise-comparison}
+  \small
+  \setlength{\tabcolsep}{2pt}
+  \renewcommand{\arraystretch}{1.02}
+  \begin{tabular}{@{}llccccccccccc@{}}
+    \toprule
+    Setting & Method & Bagel & C.Gland & Carrot & Cookie & Dowel & Foam & Peach & Potato & Rope & Tire & Mean \\
+    \midrule
+    \multirow{5}{*}{3D}
+    & Shape-G.'23~\cite{chu2023shapeguided} & .983/\best{.974} & .682/.871 & \best{.978}/\second{.981} & \best{.998}/\second{.924} & \best{.960}/.898 & .737/\second{.773} & \best{.993}/\second{.978} & \best{.979}/\second{.983} & .966/.955 & .871/\second{.969} & .916/.931 \\
+    & 3DSR'24~\cite{zavrtanik2024cheating} & .945/.922 & \second{.835}/.872 & .969/\best{.984} & .857/.859 & \second{.955}/\second{.940} & \second{.880}/.714 & .963/.970 & .934/.978 & \best{.998}/\best{.977} & .888/.858 & \second{.922}/.907 \\
+    & LSFA'24~\cite{tu2024lsfa} & \best{.986}/\best{.974} & .669/\second{.887} & .973/\second{.981} & .990/.921 & .950/.901 & .802/\second{.773} & .961/\best{.982} & \second{.964}/\second{.983} & \second{.967}/.959 & \best{.944}/\best{.981} & .921/\second{.934} \\
+    & MTSJM'25~\cite{liu2025multimodal} & \second{.985}/.929 & .728/.855 & .961/.971 & \second{.991}/.887 & .876/.878 & .773/.764 & .906/.940 & .935/.971 & .932/.937 & .856/.951 & .894/.908 \\
+    & TC-MAF (Ours) & .972/\second{.963} & \best{.913}/\best{.942} & \second{.974}/.975 & .881/\best{.936} & .934/\best{.984} & \best{.907}/\best{.887} & \second{.983}/.972 & .949/\best{.985} & \second{.967}/\second{.969} & \second{.898}/.903 & \best{.938}/\best{.952} \\
+    \midrule
+    \multirow{5}{*}{RGB}
+    & Shape-G.'23~\cite{chu2023shapeguided} & .911/.946 & \second{.936}/.972 & .883/.960 & .662/\best{.914} & \second{.974}/\second{.958} & .772/.776 & .785/.937 & .641/.949 & .884/.956 & .706/.957 & .815/.933 \\
+    & 3DSR'24~\cite{zavrtanik2024cheating} & .844/.923 & .930/.970 & \second{.964}/\second{.979} & \second{.794}/.859 & \best{.998}/\best{.979} & \best{.904}/\second{.894} & .938/.943 & \second{.730}/.951 & \best{.978}/.964 & \best{.900}/\best{.980} & \second{.898}/.944 \\
+    & LSFA'24~\cite{tu2024lsfa} & .951/.957 & .920/\second{.976} & .911/.970 & .762/.912 & .961/.934 & .770/.851 & .930/.960 & .675/.957 & \second{.938}/\second{.970} & .787/.961 & .861/.945 \\
+    & MTSJM'25~\cite{liu2025multimodal} & \second{.971}/\second{.976} & .908/.969 & .942/.975 & .731/\best{.914} & .967/.949 & .795/.869 & \best{.984}/\second{.975} & .608/\second{.963} & .838/\second{.970} & .823/\second{.966} & .858/\second{.953} \\
+    & TC-MAF (Ours) & \best{.973}/\best{.982} & \best{.967}/\best{.977} & \best{.979}/\best{.987} & \best{.861}/\second{.913} & .972/.943 & \second{.851}/\best{.901} & \second{.962}/\best{.980} & \best{.934}/\best{.976} & .936/\best{.981} & \second{.895}/.946 & \best{.933}/\best{.959} \\
+    \midrule
+    \multirow{7}{*}{3D+RGB}
+    & Shape-G.'23~\cite{chu2023shapeguided} &
+    .986/.981 & .894/.973 & .983/.982 & .991/.971 & .976/.962 & .857/\second{.978} & \second{.990}/.981 & .965/.983 & .960/.974 & .869/.975 & .947/.976 \\
+    & 3DSR'24~\cite{zavrtanik2024cheating} &
+    .981/.964 & .867/.966 & \best{.996}/.981 & .981/.942 & \best{1.000}/\second{.980} & \best{.994}/.973 & .986/.981 & .978/.977 & \best{1.000}/\best{.979} & \best{.995}/.979 & \second{.978}/.972 \\
+    & CFM'24~\cite{costanzino2024cfmad} &
+    .988/.980 & .875/.966 & .984/.982 & \second{.992}/.947 & \second{.997}/.959 & .924/.967 & .964/.982 & .949/.983 & .979/.976 & .950/.982 & .960/.972 \\
+    & LSFA'24~\cite{tu2024lsfa} &
+    \best{1.000}/\second{.986} & \second{.939}/.974 & .982/.981 & .989/.946 & .961/.925 & .951/.941 & .983/\second{.983} & .962/.983 & \second{.989}/.974 & .951/\second{.983} & .971/.968 \\
+    & G2SF'25~\cite{tao2025g2sf} &
+    \second{.997}/.982 & .923/.977 & \second{.993}/.982 & .967/\second{.979} & .966/.971 & \second{.991}/.976 & \best{.994}/.982 & \best{.988}/.983 & .966/\second{.978} & .922/.981 & .971/\second{.979} \\
+    & MTSJM'25~\cite{liu2025multimodal} &
+    \best{1.000}/.984 & .931/\second{.981} & .985/\second{.983} & \best{.994}/.968 & .968/.939 & .899/.951 & .986/.977 & .947/\second{.985} & .962/.974 & .897/.973 & .957/.972 \\
+    \midrule
+    & TC-MAF (Ours) &
+    .992/\best{.993} & \best{.998}/\best{.997} & .992/\best{.997} & .953/\best{.989} & .992/\best{.991} & .952/\best{.979} & .988/\best{.998} & \second{.979}/\best{.998} & .984/.963 & \second{.958}/\best{.992} & \best{.979}/\best{.990} \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+\begin{table}[t]
+  \centering
+  \caption{Comparison with selected 3D+RGB multimodal methods on MVTec-3D.}
+  \label{tab:main-comparison}
+  \begin{tabular}{lcc}
+    \toprule
+    Method & I-AUROC & P-AUPRO \\
+    \midrule
+    Shape-Guided'23~\cite{chu2023shapeguided} & 0.947 & 0.976 \\
+    3DSR'24~\cite{zavrtanik2024cheating} & \second{0.978} & 0.972 \\
+    CFM'24~\cite{costanzino2024cfmad} & 0.960 & 0.972 \\
+    LSFA'24~\cite{tu2024lsfa} & 0.971 & 0.968 \\
+    G2SF'25~\cite{tao2025g2sf} & 0.971 & \second{0.979} \\
+    MTSJM'25~\cite{liu2025multimodal} & 0.957 & 0.972 \\
+    \midrule
+    TC-MAF (Ours) & \best{0.979} & \best{0.990} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{document}

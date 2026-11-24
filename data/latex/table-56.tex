@@ -1,0 +1,24 @@
+\definecolor{OliveGreen}{HTML}{3C8031}
+\definecolor{PineGreen}{HTML}{008B72}
+%%%%%%%
+\begin{document}
+\begin{table*}
+  \centering
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{l|cc|cc|cc|cc|cc}
+    \toprule
+    Model & Chat & $\Delta$ & Chat Hard & $\Delta$ & Safety & $\Delta$ & Reasoning & $\Delta$ & Score & $\Delta$ \\ \midrule
+    \texttt{Llama-3.1-8B} & 93.9 & \cellcolor{gray!10}- & 53.7 & \cellcolor{gray!10}- & 64.7 & \cellcolor{gray!10}- & 79.1 & \cellcolor{gray!10}- & 72.9 & \cellcolor{gray!10}- \\ \midrule
+    \texttt{Llama-3.1-8B-Instruct} & 95.3 & \cellcolor{PineGreen!10}1.5\% & 68.2 & \cellcolor{PineGreen!35}27.0\% & 84.6 & \cellcolor{PineGreen!39}30.8\% & 84.7 & \cellcolor{PineGreen!15}7.1\% & 83.2 & \cellcolor{PineGreen!22}14.1\% \\ \midrule
+    \texttt{Hermes-3-Llama-3.1-8B} & 95.5 &  \cellcolor{PineGreen!10}1.7\% & 71.3 & \cellcolor{PineGreen!41}32.8\% & 83.8 & \cellcolor{PineGreen!38}29.5\% & 74.0 & \cellcolor{red!14}-6.4\% & 81.1 & \cellcolor{PineGreen!19}11.2\% \\ \midrule
+    \texttt{Llama-3.1-Tulu-3-8B-SFT} & 95.3 & \cellcolor{PineGreen!10}1.5\% & 70.8 & \cellcolor{PineGreen!40}31.8\% & 84.9 & \cellcolor{PineGreen!39}31.2\% & 85.8 & \cellcolor{PineGreen!17}8.5\% & 84.2 & \cellcolor{PineGreen!24}15.5\% \\
+    \texttt{Llama-3.1-Tulu-3-8B-DPO} & 94.7 & \cellcolor{PineGreen!9}0.9\% & 69.1 & \cellcolor{PineGreen!37}28.7\% & 82.3 & \cellcolor{PineGreen!35}27.2\% & 80.1 & \cellcolor{PineGreen!9}1.3\% & 81.6 & \cellcolor{PineGreen!19}11.9\% \\
+    \texttt{Llama-3.1-Tulu-3-8B} & 93.3 & \cellcolor{red!9}-0.6\% & 65.6 & \cellcolor{PineGreen!30}22.2\% & 83.5 & \cellcolor{PineGreen!37}29.1\% & 78.5 & \cellcolor{red!9}-0.8\% & 80.2 & \cellcolor{PineGreen!19}10.0\% \\
+
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{\textbf{Post-training Performances.} The $\Delta$ columns showcase the relative change to the base model's performance for each category.}
+  \label{tab:post}
+\end{table*}
+\end{document}

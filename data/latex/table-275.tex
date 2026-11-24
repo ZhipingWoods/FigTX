@@ -1,0 +1,93 @@
+\newcommand{\methodname}{AgentOCR}
+\definecolor{HeaderGray}{RGB}{245,245,245}
+\definecolor{BlockGray}{RGB}{250,250,250}
+\definecolor{OursBlue}{RGB}{234,244,255}
+\definecolor{TokenOrange}{RGB}{255,245,235}
+\definecolor{DeepRed}{RGB}{165,42,42}
+\definecolor{DeepPurple}{RGB}{63,0,95}
+\definecolor{DeepGreen}{RGB}{0,160,80}
+\definecolor{DeepBlue}{RGB}{30,60,180}
+\definecolor{brown}{RGB}{139,69,19}
+\definecolor{DeepOrange}{RGB}{204,85,0}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{tabular}{lccccccc cc}
+\toprule
+\rowcolor{HeaderGray}
+\cellcolor{HeaderGray} &
+\multicolumn{7}{c}{\textbf{ALFWorld}} &
+\multicolumn{2}{c}{\cellcolor{TokenOrange}\textbf{Tokens/Step}} \\
+\rowcolor{HeaderGray}
+\textbf{Method}
+& \textbf{Pick \& Place} & \textbf{\phantom{0}Look\phantom{0}} & \textbf{\phantom{0}Clean\phantom{0}} & \textbf{\phantom{0}Heat\phantom{0}} & \textbf{\phantom{0}Cool\phantom{0}}
+& \textbf{Pick2 \& Place} & \textbf{Avg.}
+& \cellcolor{TokenOrange}\textbf{Avg.} & \cellcolor{TokenOrange}\textbf{Max.} \\
+\midrule
+\rowcolor{BlockGray}
+\multicolumn{10}{c}{\textit{Qwen2.5-(VL)-3B-Instruct}} \\
+    Text (w/o RL)   & 34.7 & 18.4 & 12.7 & 7.3 & 14.5 & 10.4 & 16.3 & \cellcolor{TokenOrange}1.09k & \cellcolor{TokenOrange}3.04k \\
+OCR (w/o RL)   & 42.8 & 21.8 & 10.1 & 6.2 & 6.2 & 9.9 & 16.2 & \cellcolor{TokenOrange}0.49k & \cellcolor{TokenOrange}1.63k \\
+Text + GRPO    & 92.6 & 85.7 & 70.6 & 86.6 & 79.3 & 65.0 & 79.9 & \cellcolor{TokenOrange}1.02k & \cellcolor{TokenOrange}3.13k \\
+\rowcolor{OursBlue}
+\textbf{\methodname{}}   & 91.9 & 81.8 & 76.0 & 73.3 & 76.1 & 70.0 & 78.2 & \cellcolor{TokenOrange}0.38k\textsubscript{\textcolor{DeepGreen}{(61.7\%$\downarrow$)}} & \cellcolor{TokenOrange}1.14k\textsubscript{\textcolor{DeepGreen}{(63.6\%$\downarrow$)}} \\
+\midrule
+\rowcolor{BlockGray}
+\multicolumn{10}{c}{\textit{Qwen2.5-(VL)-7B-Instruct}} \\
+Text (w/o RL)   & 67.6 & 35.4 & 19.3 & 31.3 & 30.1 & 4.4 & 31.3 & \cellcolor{TokenOrange}1.08k & \cellcolor{TokenOrange}3.36k \\
+OCR (w/o RL)    & 61.0 & 33.2 & 17.2 & 11.6 & 12.5 & 16.5 & 25.3 & \cellcolor{TokenOrange}0.47k & \cellcolor{TokenOrange}1.36k \\
+Text + GRPO            & 92.6 & 93.8 & 85.2 & 80.0 & 82.7 & 56.5 & 81.8 & \cellcolor{TokenOrange}0.95k & \cellcolor{TokenOrange}2.81k \\
+\rowcolor{OursBlue}
+\textbf{\methodname{}}      & 95.6 & 96.2 & 78.1 & 73.2 & 72.4 & 72.0 & 81.2 & \cellcolor{TokenOrange}0.43k\textsubscript{\textcolor{DeepGreen}{(54.7\%$\downarrow$)}} & \cellcolor{TokenOrange}1.22k\textsubscript{\textcolor{DeepGreen}{(56.6\%$\downarrow$)}} \\
+\bottomrule
+\end{tabular}
+}
+\caption{
+Performance on ALFWorld tasks. We report the success rate (\%) and the average and peak memory context token cost per step.
+}
+\label{tab:main_results_alfworld}
+\end{table*}
+\begin{table*}[t]
+\centering
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccc}
+\toprule
+\rowcolor{HeaderGray}
+\cellcolor{HeaderGray} &
+\multicolumn{3}{c}{\textbf{Single-Hop}} &
+\multicolumn{5}{c}{\textbf{Multi-Hop}}  &
+\multicolumn{2}{c}{\cellcolor{TokenOrange}\textbf{Tokens/Step}} \\
+\rowcolor{HeaderGray}
+\textbf{Method} &
+\textbf{NQ$^\dagger$} & \textbf{TriviaQA$^\star$} & \textbf{PopQA$^\star$} &
+\textbf{HotpotQA$^\dagger$} & \textbf{2Wiki$^\star$} & \textbf{MuSiQue$^\star$} & \textbf{Bamboogle$^\star$} & \textbf{Avg.} &
+\cellcolor{TokenOrange}\textbf{Avg.} & \cellcolor{TokenOrange}\textbf{Max.} \\
+\midrule
+\rowcolor{BlockGray}
+\multicolumn{11}{c}{\textit{Qwen2.5-(VL)-3B-Instruct}}\\
+Text (w/o RL)     & 9.4 & 31.3 & 19.8 & 15.0 & 14.8 & 4.7 & 16.8 & 15.9 & \cellcolor{TokenOrange}0.48k & \cellcolor{TokenOrange}7.34k \\
+OCR (w/o RL)      & 10.2 & 27.7 & 10.9 & 9.1 & 12.2 & 3.7 & 15.2 & 12.7  & \cellcolor{TokenOrange}0.15k & \cellcolor{TokenOrange}1.33k \\
+Text + GRPO              & 39.3 & 60.6 & 41.1 & 37.4 & 34.6 & 15.4 & 26.4 & 36.4  & \cellcolor{TokenOrange}0.61k & \cellcolor{TokenOrange}9.55k \\
+\rowcolor{OursBlue}
+\textbf{\methodname{}}        & 38.6 & 56.5 & 41.7 & 33.6 & 30.7 & 14.6 & 24.0 & 34.2  & \cellcolor{TokenOrange}0.26k\textsubscript{\textcolor{DeepGreen}{(57.4\%$\downarrow$)}} & \cellcolor{TokenOrange}2.50k\textsubscript{\textcolor{DeepGreen}{(73.8\%$\downarrow$)}} \\
+\midrule
+\rowcolor{BlockGray}
+\multicolumn{11}{c}{\textit{Qwen2.5-(VL)-7B-Instruct}}\\
+Text (w/o RL)     & 10.4 & 32.4 & 22.3 & 15.8 & 15.4 & 7.2 & 19.2 & 17.5  & \cellcolor{TokenOrange}0.70k & \cellcolor{TokenOrange}10.96k \\
+OCR (w/o RL)      & 6.9 & 30.4 & 12.0 & 10.5 & 9.1 & 5.5 & 24.0 & 14.0  & \cellcolor{TokenOrange}0.26k & \cellcolor{TokenOrange}2.21k \\
+Text + GRPO   & 45.1 & 63.7 & 44.0 & 43.6 & 43.2 & 16.8 & 37.6 & 41.9  & \cellcolor{TokenOrange}0.73k & \cellcolor{TokenOrange}13.84k \\
+\rowcolor{OursBlue}
+\textbf{\methodname{}}        & 43.1 & 61.0 & 45.4 & 40.8 & 38.3 & 15.7 & 36.8 & 40.1  & \cellcolor{TokenOrange}0.36k\textsubscript{\textcolor{DeepGreen}{(50.7\%$\downarrow$)}} & \cellcolor{TokenOrange}2.65k\textsubscript{\textcolor{DeepGreen}{(80.9\%$\downarrow$)}} \\
+\bottomrule
+\end{tabular}%
+}
+\caption{
+Performance on search-based QA tasks. We report the exact matching score (\%) and the average and peak memory context token cost per step. $^\dagger$ and $^\star$ denote in-domain and out-of-domain respectively.
+}
+\label{tab:main_results_qa}
+\end{table*}
+\end{document}

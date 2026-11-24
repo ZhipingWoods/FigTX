@@ -1,0 +1,75 @@
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{0.4}
+\setlength{\tabcolsep}{3.5pt}
+% === 修正后的命令定义 ===
+% 1. 下降更多（更差）：红色箭头 + 红色数值
+\newcommand{\resBad}[2]{#1 \textcolor{red!70!black}{\scriptsize $\downarrow$#2}}
+% 2. 下降更少（更好）：灰色箭头 + 灰色数值
+\newcommand{\resGood}[2]{#1 \textcolor{gray}{\scriptsize $\downarrow$#2}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l c c ccc ccc}
+\toprule
+\multirow{2.5}{*}{\textbf{NCB Group}} &
+\multirow{2.5}{*}{\textbf{N}} &
+\textbf{Base} &
+\multicolumn{3}{c}{\textbf{Quantity-Stressing}} &
+\multicolumn{3}{c}{\textbf{Source-Stressing}} \\
+\cmidrule(lr){4-6} \cmidrule(lr){7-9}
+& & \textbf{ACC} & \textbf{Standard} & \textbf{COT} & \textbf{Refle.} & \textbf{Standard} & \textbf{COT} & \textbf{Refle.} \\
+\midrule
+\multicolumn{9}{c}{\cellcolor{gray!15}\textbf{Qwen-2.5-32B-Instruct}} \\
+\midrule
+Low NCB-5\% & 35 & 100.0 & \resBad{64.6}{35.4} & \resBad{62.7}{37.3} & \resBad{75.1}{24.9} & \resBad{75.4}{24.6} & \resBad{75.1}{24.9} & \resBad{78.3}{21.7} \\
+High NCB-5\% & 35 & 100.0 & \resGood{79.8}{20.2} & \resGood{74.6}{25.4} & \resGood{81.8}{18.2} & \resGood{85.0}{15.0} & \resGood{80.6}{19.4} & \resGood{82.9}{17.1} \\
+\addlinespace[3pt]
+Low NCB-20\% & 141 & 99.3 & \resBad{69.3}{30.2} & \resBad{64.1}{35.5} & \resBad{75.1}{24.4} & \resBad{76.6}{22.9} & \resBad{71.5}{28.0} & \resBad{79.1}{20.4} \\
+High NCB-20\% & 141 & 100.0 & \resGood{84.4}{15.6} & \resGood{80.5}{19.5} & \resGood{85.3}{14.7} & \resGood{88.0}{12.0} & \resGood{83.7}{16.3} & \resGood{85.4}{14.6} \\
+\addlinespace[3pt]
+Low NCB-35\% & 233 & 99.6 & \resBad{74.0}{25.7} & \resBad{68.1}{31.6} & \resBad{76.7}{23.0} & \resBad{79.2}{20.5} & \resBad{73.8}{25.9} & \resBad{78.7}{20.9} \\
+High NCB-35\% & 233 & 100.0 & \resGood{84.0}{16.0} & \resGood{79.6}{20.4} & \resGood{85.0}{15.0} & \resGood{87.2}{12.8} & \resGood{83.7}{16.3} & \resGood{84.5}{15.5} \\
+\midrule
+\multicolumn{9}{c}{\cellcolor{gray!15}\textbf{Qwen3-30B-A3B-Instruct-2507}} \\
+\midrule
+Low NCB-5\% & 36 & 100.0 & \resBad{49.0}{51.0} & \resBad{64.2}{35.8} & \resBad{77.4}{22.6} & \resBad{69.2}{30.8} & \resBad{51.7}{48.3} & \resBad{79.2}{20.8} \\
+High NCB-5\% & 36 & 100.0 & \resGood{87.7}{12.3} & \resGood{85.0}{15.0} & \resGood{92.9}{7.1} & \resGood{90.7}{9.3} & \resGood{73.9}{26.1} & \resGood{93.7}{6.3} \\
+\addlinespace[3pt]
+Low NCB-20\% & 148 & 99.0 & \resBad{65.8}{33.5} & \resBad{67.4}{31.9} & \resBad{80.0}{19.2} & \resBad{71.1}{28.2} & \resBad{56.4}{43.0} & \resBad{80.5}{18.7} \\
+High NCB-20\% & 148 & 100.0 & \resGood{83.8}{16.2} & \resGood{83.2}{16.8} & \resGood{90.8}{9.2} & \resGood{87.2}{12.8} & \resGood{68.5}{31.5} & \resGood{90.7}{9.3} \\
+\addlinespace[3pt]
+Low NCB-35\% & 250 & 99.4 & \resBad{70.8}{28.8} & \resBad{71.9}{27.7} & \resBad{83.5}{16.0} & \resBad{75.2}{24.3} & \resBad{59.3}{40.4} & \resBad{84.1}{15.4} \\
+High NCB-35\% & 250 & 100.0 & \resGood{82.4}{17.6} & \resGood{80.9}{19.1} & \resGood{90.4}{9.6} & \resGood{85.4}{14.6} & \resGood{66.1}{33.9} & \resGood{90.2}{9.8} \\
+\midrule
+\multicolumn{9}{c}{\cellcolor{gray!15}\textbf{Qwen3-30B-A3B-Thinking-2507}} \\
+\midrule
+Low NCB-5\% & 27 & 100.0 & \resBad{83.0}{17.0} & -- & \resBad{87.8}{12.2} & \resBad{85.2}{14.8} & -- & \resBad{89.3}{10.7} \\
+High NCB-5\% & 27 & 100.0 & \resGood{86.9}{13.1} & -- & \resGood{92.0}{8.0} & \resGood{89.3}{10.7} & -- & \resGood{94.3}{5.7} \\
+\addlinespace[3pt]
+Low NCB-20\% & 92 & 100.0 & \resBad{78.4}{21.6} & -- & \resBad{85.9}{14.1} & \resBad{78.7}{21.3} & -- & \resBad{85.7}{14.3} \\
+High NCB-20\% & 92 & 99.3 & \resGood{88.7}{10.7} & -- & \resGood{93.1}{6.2} & \resGood{85.9}{13.4} & -- & \resGood{93.2}{6.1} \\
+\addlinespace[3pt]
+Low NCB-35\% & 161 & 99.9 & \resBad{77.3}{22.6} & -- & \resBad{84.6}{15.4} & \resBad{77.8}{22.1} & -- & \resBad{84.7}{15.3} \\
+High NCB-35\% & 161 & 99.4 & \resGood{88.1}{11.3} & -- & \resGood{93.2}{6.2} & \resGood{87.1}{12.3} & -- & \resGood{93.7}{5.8} \\
+\midrule
+\multicolumn{9}{c}{\cellcolor{gray!15}\textbf{OLMo-2-0325-32B-Instruct}} \\
+\midrule
+Low NCB-5\% & 31 & 100.0 & \resBad{68.9}{31.1} & \resBad{64.5}{35.5} & \resBad{85.6}{14.4} & \resBad{87.7}{12.3} & \resBad{79.0}{21.0} & \resGood{94.5}{5.5} \\
+High NCB-5\% & 31 & 100.0 & \resGood{84.8}{15.2} & \resGood{78.7}{21.3} & \resGood{88.2}{11.8} & \resGood{91.1}{8.9} & \resGood{81.2}{18.8} & \resBad{91.1}{8.9} \\
+\addlinespace[3pt]
+Low NCB-20\% & 124 & 100.0 & \resBad{70.4}{29.6} & \resBad{65.8}{34.2} & \resBad{82.4}{17.6} & \resBad{80.6}{19.4} & \resBad{76.7}{23.3} & \resBad{86.2}{13.8} \\
+High NCB-20\% & 124 & 100.0 & \resGood{80.8}{19.2} & \resGood{76.5}{23.5} & \resGood{87.2}{12.8} & \resGood{86.5}{13.5} & \resGood{77.2}{22.8} & \resGood{87.7}{12.3} \\
+\addlinespace[3pt]
+Low NCB-35\% & 215 & 99.5 & \resBad{71.4}{28.3} & \resBad{66.7}{33.0} & \resBad{81.8}{17.9} & \resBad{80.3}{19.3} & \resBad{77.0}{22.6} & \resBad{85.1}{14.5} \\
+High NCB-35\% & 215 & 100.0 & \resGood{81.3}{18.7} & \resGood{76.4}{23.6} & \resGood{87.6}{12.4} & \resGood{88.2}{11.8} & \resGood{78.1}{21.9} & \resGood{89.8}{10.2} \\
+\bottomrule
+\end{tabular*}
+\caption{Main results across NCB groups.
+Evaluation settings include \textbf{Standard} (Direct answer to the query), \textbf{COT} (Answer after thinking), and \textbf{Refle.} (Multi-turn answer after reflection).
+Data format: \textbf{Accuracy}{\scriptsize$\downarrow$Drop Rate}.
+\textcolor{red!70!black}{Red} indicates a higher drop rate (worse), while \textcolor{gray}{gray} indicates a lower drop rate (better). The percentages (5\%, 20\%, 35\%) denote the top and bottom percentile subsets of samples ranked by their NCB scores.}
+\vspace{-4ex}
+\label{tab:main_results}
+\end{table*}
+\end{document}

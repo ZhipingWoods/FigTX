@@ -1,0 +1,151 @@
+\definecolor{codeblue}{RGB}{0, 82, 147}
+\definecolor{codegreen}{RGB}{0, 128, 0}
+\definecolor{codegray}{RGB}{100, 100, 100}
+\definecolor{codeorange}{RGB}{230, 145, 56}
+\definecolor{darkerblue}{rgb}{0,0.08,0.45} % icml
+\definecolor{royalblue}{RGB}{65,105,225}
+\definecolor{lightblue}{RGB}{221,235,247}
+\definecolor{fig3blue}{RGB}{47, 122, 232}
+\definecolor{fig3red}{RGB}{213, 32, 52}
+\definecolor{fig3green}{RGB}{0, 137, 72}
+\definecolor{fig3yellow}{RGB}{217, 161, 5}
+\definecolor{gray94}{gray}{.94}
+\definecolor{gray90}{gray}{.90}
+\newcommand{\pp}[1]{\textcolor{cyan}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{royalblue}{#1}}
+\definecolor{darkgreen}{RGB}{34,139,34}
+\newcommand{\green}[1]{\textcolor{darkgreen}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+\newcommand{\gbf}[1]{\green{\bf{#1}}}
+\newcommand{\rbf}[1]{\red{\bf{#1}}}
+% \newcommand{\stext}{\fontsize{9.5pt}{11pt}\selectfont}
+\newcolumntype{g}{>{\columncolor{gray94}}c} % column as gray
+\newcolumntype{b}{>{\columncolor{lightblue}}c} % column as blue
+\newcommand{\grow}[1]{\rowcolor{gray94}{#1}} % row as gray
+\newcommand{\brow}[1]{\rowcolor{lightblue}{#1}} % row as blue
+\newcommand{\gcell}[1]{\cellcolor{gray94}{#1}} % cell as gray
+\newcommand{\bcell}[1]{\cellcolor{lightblue}{#1}} % cell as blue
+\newcommand{\wcell}[1]{\cellcolor{white}{#1}} % cell as white
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+    \centering
+    \vspace{-0.5em}
+    \caption{\textbf{Full Comparison Results of LLaMA Pre-training on C4} using full-rank and memory-efficient training with the model sizes ranging from 60M to 1B. The validation perplexity (PPL$\downarrow$: lower is better) and GPU memory (Mem.)$\downarrow$ are reported, where only the weights and optimization states are considered. \textbf{Bold} and \gbf{green} types denote the best results and performance gains$\downarrow$ of SGG (\sethlcolor{lightblue}\hl{blue background}) over related baselines (\sethlcolor{gray90}\hl{gray background}).
+    Note that $\dagger$ denotes results borrowed from previous papers, while others were reproduced by us.
+    }
+    \vspace{-0.70em}
+    % \setlength{\tabcolsep}{1.0mm}
+\resizebox{0.87\linewidth}{!}{
+    \begin{tabular}{lc|cccccccc}
+    \toprule
+%
+\textbf{Method}              & \textbf{Venue}      & \multicolumn{2}{c}{\textbf{60M}} & \multicolumn{2}{c}{\textbf{130M}} & \multicolumn{2}{c}{\textbf{350M}} & \multicolumn{2}{c}{\textbf{1B}} \\
+                             &                     & PPL            & Mem.            & PPL             & Mem.            & PPL             & Mem.            & PPL            & Mem.           \\ \hline
+\grow Adam$^\dag$            & ICLR'15~            & 34.06          & 0.36G           & 25.08           & 0.76G           & 18.80           & 2.06G           & 15.56          & 7.80G          \\
+NAdam                        & ICLR'18~            & 35.86          & 0.36G           & 28.88           & 0.76G           & 19.24           & 2.06G           & 15.78          & 7.80G          \\
+RAdam                        & ICLR'20~            & 30.43          & 0.36G           & 25.17           & 0.76G           & 19.13           & 2.06G           & 15.65          & 7.80G          \\
+LAMB                         & ICLR'20~            & 33.04          & 0.36G           & 24.37           & 0.77G           & 18.26           & 2.07G           & 15.84          & 7.81G          \\
+Adan                         & TPAMI'23~           & 32.01          & 0.36G           & 23.14           & 0.77G           & 17.32           & 2.31G           & 14.70          & 15.78G         \\
+Muon                         & arXiv'24~           & \bf{28.93}     & 0.36G           & \bf{22.34}      & 0.76G           & \bf{17.09}      & 2.06G           & \bf{14.52}     & 7.80G          \\
+% \brow Adam+\bf{SGG}          & \bf{Ours}           & \bf{30.34}     & 0.36G           & \bf{23.32}      & 0.76G           & \bf{17.34}      & 2.06G           & \bf{14.56}     & 7.80G          \\
+\brow Adam+\bf{SGG}          & \bf{Ours}           & 30.31          & 0.36G           & 22.18           & 0.76G           & 17.28           & 2.06G           & 14.30          & 7.80G          \\
+\multicolumn{2}{l|}{\gray{$\Delta$ \textit{Gain}}} & \gbf{-3.75}    & \gray{+0.00}    & \gbf{-2.90}     & \gray{+0.00}    & \gbf{-1.52}     & \gray{+0.00}    & \gbf{-1.26}    & \gray{+0.00}   \\ \hline
+Adafactor$^\dag$             & ICML'18~            & 32.57          & 0.24G           & 23.98           & 0.61G           & 17.74           & 1.53G           & 15.19          & 6.65G          \\
+LION                         & arXiv'23~           & 50.89          & 0.34G           & 30.67           & 0.73G           & 21.28           & 1.98G           & 15.72          & 5.51G          \\
+Low-Rank$^\dag$              & arXiv'22~           & 78.18          & 0.26G           & 45.51           & 0.54G           & 37.41           & 1.08G           & 34.53          & 3.57G          \\
+Adam-mini$^\dag$             & ICLR'25~            & 34.10          & 0.23G           & 24.85           & 0.48G           & 19.05           & 1.32G           & 16.07          & 4.75G          \\
+\grow CAME                   & ACL'23~             & 31.37          & 0.25G           & 23.38           & 0.62G           & 17.45           & 1.55G           & 14.68          & 6.70G          \\
+\brow CAME+\bf{SGG}          & \bf{Ours}           & \bf{30.15}     & 0.25G           & 22.91           & 0.62G           & 17.09           & 1.55G           & 14.35          & 6.70G          \\
+\multicolumn{2}{l|}{\gray{$\Delta$ \textit{Gain}}} & \gbf{-1.22}    & \gray{+0.00}    & \gbf{-0.46}     & \gray{+0.00}    & \gbf{-0.36}     & \gray{+0.00}    & \gbf{-0.33}    & \gray{+0.00}   \\
+\grow APOLLO$^\dag$          & MLSys'25            & 31.55          & 0.24G           & 22.94           & 0.52G           & 16.85           & 1.22G           & 14.20          & 4.38G          \\
+\brow APOLLO+\bf{SGG}        & \bf{Ours}           & 30.18          & 0.24G           & \bf{22.52}      & 0.52G           & \bf{16.54}      & 1.22G           & \bf{13.95}     & 4.38G          \\
+\multicolumn{2}{l|}{\gray{$\Delta$ \textit{Gain}}} & \gbf{-1.37}    & \gray{+0.00}    & \gbf{-0.42}     & \gray{+0.00}    & \gbf{-0.31}     & \gray{+0.00}    & \gbf{-0.25}    & \gray{+0.00}   \\ \hline
+\grow LoRA$^\dag$            & ICLR'22             & 34.99          & 0.36G           & 33.92           & 0.80G           & 25.58           & 1.76G           & 19.21          & 6.17G          \\
+ReLoRA$^\dag$                & ICLR'23             & 37.04          & 0.36G           & 29.37           & 0.80G           & 29.08           & 1.76G           & 18.33          & 6.17G          \\
+GaLore$^\dag$                & ICML'24             & 34.88          & 0.24G           & 25.36           & 0.52G           & 18.95           & 1.22G           & 15.64          & 4.38G          \\
+GaLore+SPAM$^\dag$           & ICLR'25             & 32.39          & 0.24G           & 23.98           & 0.52G           & 18.28           & 1.22G           & \bf{14.73}     & 6.17G          \\
+\brow LoRA+\bf{SGG}          & \bf{Ours}           & \bf{30.62}     & 0.36G           & \bf{23.62}      & 0.80G           & \bf{17.86}      & 1.76G           & \bf{14.73}     & 6.17G          \\
+\multicolumn{2}{l|}{\gray{$\Delta$ \textit{Gain}}} & \gbf{-4.37}    & \gray{+0.00}    & \gbf{-10.30}    & \gray{+0.00}    & \gbf{-7.72}     & \gray{+0.00}    & \gbf{-4.48}    & \gray{+0.00}   \\ \hline
+\multicolumn{2}{l|}{Training Tokens}               & \multicolumn{2}{c}{1.1B}         & \multicolumn{2}{c}{2.2B}          & \multicolumn{2}{c}{6.4B}          & \multicolumn{2}{c}{13.1B}       \\
+%
+    \bottomrule
+    \end{tabular}
+    }
+    \label{tab:comp_c4_pt_full}
+    % \vspace{-0.5em}
+\end{table*}
+\begin{table*}[t]
+    \centering
+    \vspace{-0.5em}
+    % \renewcommand{\arraystretch}{1.2}
+    \caption{\textbf{GLUE Benchmark Results with RoBERTa-base.} Top-1 accuracy (\%$\uparrow$: higher is better) is reported. Comparison across both full-rank and low-rank (LoRA $r=4$, $r=8$) settings. \textbf{Bold} and \gbf{green} types denote the best results and  performance gains$\uparrow$ of SGG (\sethlcolor{lightblue}\hl{blue background}) compared to related baselines (\sethlcolor{gray90}\hl{gray background}).
+    }
+    \vspace{-0.70em}
+    \setlength\tabcolsep{0.25em}
+    \resizebox{1.0\linewidth}{!}{
+        \begin{tabular}{lc|rlrlrlrlrlrlrlrl|rl}
+        \toprule
+%
+\bf{Optimizer}                 & \bf{Rank}         & \multicolumn{2}{c}{\bf{CoLA}} & \multicolumn{2}{c}{\bf{STS-B}} & \multicolumn{2}{c}{\bf{MRPC}} & \multicolumn{2}{c}{\bf{RTE}} & \multicolumn{2}{c}{\bf{SST2}} & \multicolumn{2}{c}{\bf{MNLI}} & \multicolumn{2}{c}{\bf{QNLI}} & \multicolumn{2}{c|}{\bf{QQP}} & \multicolumn{2}{c}{\bf{Average}} \\ \hline
+\multicolumn{2}{l}{\gray{\textit{Full-Rank SFT}}} &  &  &  &&   &                  & &&  &    &     &           &      &     &     &      &        &      \\
+SGD  & Full   &~62.12      &    & 90.73 & & 87.74      &     & 79.06     &  & 94.26  &   & 87.53  &  & 92.29  & & 92.22      &  & 85.74        &    \\
+\grow AdamW                    & Full              &~62.24      &                  & 90.92      &                   & 91.30      &                  & 79.42     &                  & 94.57      &                  & 87.18      &                  & 92.33      &                  & 92.28      &                  & 86.24        &                   \\
+\grow LAMB                     & Full              &~62.09      &                  & 90.59      &                   & 88.72      &                  & 75.45     &                  & 94.72      &                  & 87.71      &                  & 92.42      &                  & 91.46      &                  & 85.40        &                   \\
+CAME                           & Full            &~62.16     &                 & 90.43     &                  & 89.02     &                 & 75.94    &                 & 94.61     &                 & 87.13     &                 & 92.31     &                 & 91.54     &                 & 85.39        &                 \\
+APOLLO                         & Full            &~62.45     &                 & 90.70     &                  & 90.36     &                 & 77.53    &                 & 94.58     &                 & 87.57     &                 & 92.40     &                 & 92.12     &                 & 85.96        &                 \\
+% \brow{SGD}+\bf{SGG}           & Full             &~\bf{63.70}   & \gbf{+1.58}~   & 90.92         & \gbf{+0.19}~   & 88.50        & \gbf{+0.76}~   & 79.42        & \gbf{+0.36}~  & 94.61        & \gbf{+0.35}~   & 87.97        & \gbf{+0.44}~   & 92.62        & \gbf{+0.33}~   & 92.67        & \gbf{+0.45}~   & 86.30          & \gbf{+0.56}     \\
+\brow{AdamW}+\bf{SGG}         & Full             &~63.36        & \gbf{+1.12}~   & \bf{91.22}    & \gbf{+0.30}~   & \bf{92.65}   & \gbf{+1.35}~   & \bf{80.87}   & \gbf{+1.45}~  & \bf{95.58}   & \gbf{+1.01}~   & \bf{88.32}   & \gbf{+1.14}~   & 92.88        & \gbf{+0.55}~   & \bf{93.32}   & \gbf{+1.04}~   & \bf{87.28}     & \gbf{+1.00}     \\
+\brow{LAMB}+\bf{SGG}          & Full             &~62.47        & \gbf{+0.38}~   & 90.90         & \gbf{+0.31}~   & 89.46        & \gbf{+0.74}~   & 76.53        & \gbf{+1.08}~  & 94.95        & \gbf{+0.23}~   & 87.81        & \gbf{+0.10}~   & \bf{92.89}   & \gbf{+0.47}~   & 91.78        & \gbf{+0.32}~   & 85.85          & \gbf{+0.45}     \\
+\hline
+\multicolumn{2}{l}{\gray{\textit{Low-Rank SFT (rank 4)}}}  &            &                  &            &                   &            &                  &           &                  &            &                  &            &                  &            &                  &            &                  &              &                   \\
+SGD (LoRA)                     & 4                 & 60.32      &                  & 90.31      &                   & 87.75      &                  & 79.06     &                  & 94.27      &                  & 87.39      &                  & 92.16      &                  & 91.89      &                  & 85.39        &                   \\
+\grow AdamW (LoRA)             & 4                 & 61.38      &                  & 90.57      &                   & 91.07      &                  & 78.70     &                  & 92.89      &                  & 86.82      &                  & 92.18      &                  & 91.29      &                  & 85.61        &                   \\
+\grow LAMB (LoRA)              & 4                 & 61.51      &                  & 90.33      &                   & 89.46      &                  & 74.73     &                  & 94.27      &                  & 87.51      &                  & 92.48      &                  & 91.57      &                  & 85.23        &                   \\
+DoRA                           & 4                 & 60.38      &                  & 90.50      &                   & 88.24      &                  & 74.73     &                  & 93.69      &                  & $-$        &                  & 92.59      &                  & $-$        &                  & $-$          &                   \\
+GaLore (LoRA)                  & 4                 & 60.35      &                  & 90.73      &                   & 92.25      &                  & 79.42     &                  & 94.04      &                  & 87.00      &                  & 92.24      &                  & 91.06      &                  & 85.89        &                   \\
+% \brow{SGD}+\bf{SGG}           & 4                & 61.57        & \gbf{+1.25}~   & 90.50         & \gbf{+0.19}~   & 88.50        & \gbf{+0.75}~   & 80.14        & \gbf{+1.08}~  & 94.61        & \gbf{+0.37}~   & 87.65        & \gbf{+0.26}~   & 92.37        & \gbf{+0.21}~   & 92.24        & \gbf{+0.35}~   & 85.95          & \gbf{+0.56}     \\
+\brow{AdamW}+\bf{SGG}         & 4                & 62.36        & \gbf{+0.98}~   & \bf{91.10}    & \gbf{+0.53}~   & \bf{92.12}        & \gbf{+1.05}~   & \bf{80.51}   & \gbf{+1.81}~  & \bf{95.06}   & \gbf{+2.17}~   & \bf{88.18}   & \gbf{+1.36}~   & 92.62        & \gbf{+0.44}~   & \bf{93.06}   & \gbf{+1.77}~   & \bf{86.88}     & \gbf{+1.27}     \\
+\brow{LAMB}+\bf{SGG}          & 4                & \bf{62.47}   & \gbf{+0.96}~   & 90.90         & \gbf{+0.57}~   & 89.46        & \gbf{+0.30}~   & 75.53        & \gbf{+0.80}~  & 94.95        & \gbf{+0.34}~   & 87.73        & \gbf{+0.12}~   & \bf{92.92}   & \gbf{+0.41}~   & 91.78        & \gbf{+0.36}~   & 85.72          & \gbf{+0.49}     \\
+\hline
+\multicolumn{2}{l}{\gray{\textit{Low-Rank SFT (rank 8)}}}  &            &                  &            &                   &            &                  &           &                  &            &                  &            &                  &            &                  &            &                  &              &                   \\
+SGD (LoRA)                     & 8                 & 60.57      &                  & 90.29      &                   & 88.48      &                  & 79.42     &                  & 94.32      &                  & 87.44      &                  & 92.23      &                  & 92.10      &                  & 85.61        &                   \\
+\grow AdamW (LoRA)             & 8                 & 61.83      &                  & 90.80      &                   & 91.90      &                  & 79.06     &                  & 93.46      &                  & 86.94      &                  & 92.25      &                  & 91.22      &                  & 85.93        &                   \\
+\grow LAMB (LoRA)              & 8                 & 61.89      &                  & 90.78      &                   & 89.21      &                  & 79.42     &                  & 94.61      &                  & 87.61      &                  & 92.51      &                  & 91.42      &                  & 85.35        &                   \\
+DoRA                           & 8                 & 58.36      &                  & 90.63      &                   & 88.97      &                  & 75.09     &                  & 93.81      &                  & $-$        &                  & 92.68      &                  & $-$        &                  & $-$          &                   \\
+GaLore (LoRA)                  & 8                 & 60.06      &                  & 90.82      &                   & 92.01      &                  & 79.78     &                  & 94.38      &                  & 87.17      &                  & 92.20      &                  & 91.11      &                  & 85.94        &                   \\
+% \brow{SGD}+\bf{SGG}           & 8                & 61.61        & \gbf{+1.04}~   & 90.63         & \gbf{+0.34}~   & 89.46        & \gbf{+0.98}~   & \bf{80.87}   & \gbf{+1.45}~  & 94.61        & \gbf{+0.29}~   & 87.93        & \gbf{+0.49}~   & 92.53        & \gbf{+0.30}~   & 92.48        & \gbf{+0.38}~   & 86.27          & \gbf{+0.66}     \\
+\brow{AdamW}+\bf{SGG}         & 8                & 62.36        & \gbf{+0.53}~   & \bf{91.10}    & \gbf{+0.30}~   & \bf{92.12}   & \gbf{+0.22}~   & 80.51        & \gbf{+1.45}~  & \bf{95.06}   & \gbf{+1.60}~   & \bf{88.17}   & \gbf{+1.23}~   & 92.65        & \gbf{+0.40}~   & \bf{92.85}   & \gbf{+1.63}~   & \bf{86.85}     & \gbf{+0.92}     \\
+\brow{LAMB}+\bf{SGG}          & 8                & \bf{62.47}   & \gbf{+0.58}~   & 90.90         & \gbf{+0.12}~   & 89.46        & \gbf{+0.25}~   & 76.53        & \gbf{+1.80}~  & 94.95        & \gbf{+0.34}~   & 87.85        & \gbf{+0.24}~   & \bf{92.87}   & \gbf{+0.36}~   & 91.78        & \gbf{+0.36}~   & 85.85          & \gbf{+0.50}     \\
+%
+        \bottomrule
+    \end{tabular}
+    \label{table:comp_GLUE_full}
+    \vspace{-1.0em}
+}
+\end{table*}
+\begin{table}[htb]
+    \centering
+    \vspace{-0.25em}
+    \caption{\textbf{Ablation studies} of the number of SGG clusters $K$ (task-relevant) across different tasks and models. ERR denotes the mini-batch K-means running errors.
+    }
+    \vspace{-0.60em}
+    \setlength{\tabcolsep}{1.0mm}
+\resizebox{1.0\linewidth}{!}{
+    \begin{tabular}{l|c|cbbc}
+    \toprule
+%
+Task                  & Model        & K=1 (Adam)  & K=2       & K=3       & K=4        \\ \hline
+C4$\downarrow$        & LLaMA-60M    & \gray{34.1} & \bf{30.3} & 30.8      & \gray{ERR} \\
+C4$\downarrow$        & LLaMA-130M   & \gray{25.1} & \bf{23.3} & 23.5      & \gray{ERR} \\
+GLUE (MNLI)$\uparrow$ & RoBERT-Base  & \gray{87.2} & \bf{88.3} & 87.9      & \gray{ERR} \\
+MLLM$\uparrow$        & LLaVA-1.5-7B & \gray{63.6} & 64.2      & \bf{64.5} & 64.3       \\
+%
+    \bottomrule
+    \end{tabular}
+    }
+    \label{tab:ablation}
+    \vspace{-0.5em}
+\end{table}
+\end{document}

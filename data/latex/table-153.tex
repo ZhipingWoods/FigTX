@@ -1,0 +1,104 @@
+\definecolor{LavenderLight}{HTML}{C7C3F5}
+\definecolor{gapred}{HTML}{D4604A}
+\definecolor{gapblue}{HTML}{638ABC}
+\newcommand{\good}[1]{\textbf{\textcolor{gapred}{#1}}}
+\newcommand{\bad}[1]{\textbf{\textcolor{gapblue}{#1}}}
+\newcommand{\makeBlue}[1]{{\color{blue}#1}}
+\newcommand{\name}{MC-Search}
+\newcommand{\method}{Search-Align}
+%%%%%%%
+\begin{document}
+\begin{table*}[t!]
+\renewcommand{\arraystretch}{1.2}
+\centering
+\caption{\small Evaluation of various models on the \textbf{Search-MM} benchmark when performing \textbf{agentic MM-RAG}. We report results across five reasoning graph categories. Best results are in \textbf{bold}, second-best are \underline{underlined}.}
+\label{tab:graph-model-main}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llcccccc}
+\toprule
+\multirow{2}{*}{\textbf{Reasoning Graph}} & \multirow{2}{*}{\textbf{Model}} &
+\multicolumn{3}{c}{\textbf{Answer Accuracy}} &
+\multicolumn{2}{c}{\textbf{Chain Alignment}} &
+\multirow{2}{*}{\textbf{Golden F1 ($\uparrow$)}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-7}
+& & F1 ($\uparrow$) & $\Delta$F1 ($\uparrow$) & LJ ($\uparrow$) & HPS ($\uparrow$) & RD ($\downarrow$) & \\
+\hline
+\rowcolor{green!5}
+  & GPT-4o-Mini  & 30.96 & 30.94 & \underline{2.58} & \textbf{21.94} & 1.13 & \underline{61.90} \\
+\rowcolor{green!5}
+Text-Only Chain  &  Gemini-2.5-Flash   & \underline{34.03} & \underline{33.96} & 2.49 & 20.59 & \textbf{1.04} & \textbf{67.72} \\
+\rowcolor{green!5}
+  & Gemini-2.5-Pro     & \textbf{34.47} & \textbf{34.46} & \textbf{2.66} & \underline{21.59} & \underline{1.07} & 62.42 \\
+\rowcolor{green!5}
+ & Claude-3.7-Sonnet & 27.37 & 26.75 & 2.08 & 29.64 & 3.14 & 66.38 \\
+% \rowcolor{green!5}
+& InternVL3.5-8B & 34.82 & 27.84 & 2.45 & 21.81 & 2.15 &  \multirow{2}{*}{65.72} \\
+&\textbf{\ + \textsc{\method}} & 38.45 & 31.47 & 2.68 & 20.54 & 1.28  & \\
+% \rowcolor{green!5}
+& Qwen2.5-VL-7B & 23.54 & 14.89 & 1.36 & 13.35 & 4.63 & \multirow{2}{*}{61.57} \\
+&\textbf{\ + \textsc{\method}} & 37.54 & 28.89 & 1.99 & 19.04 & 0.98 & \\
+\hline
+\rowcolor{red!5}
+& GPT-4o-Mini        & 36.49 & 34.18 & 2.63 & \underline{27.51} & \underline{1.46} & 68.29 \\
+\rowcolor{red!5}
+Image-Initiated Chain
+& Gemini-2.5-Flash   & \underline{44.10} & \underline{37.38} & \underline{3.01} & \textbf{31.46} & 2.91 & \textbf{72.39} \\
+\rowcolor{red!5}
+& Gemini-2.5-Pro     & \textbf{47.61} & \textbf{42.76} & \textbf{3.18} & 25.90 & \textbf{1.05} & \underline{69.83} \\
+\rowcolor{red!5}
+& Claude-3.7-Sonnet & 37.80 & 33.09 & 2.60 & 27.31 & 1.18 & 72.62 \\
+% \rowcolor{red!5}
+& InternVL3.5-8B & 39.11 & 29.49 & 2.27 & 22.59  & 1.58 & \multirow{2}{*}{63.86} \\
+&\textbf{\ + \textsc{\method}} & 42.27 & 32.65 & 2.53 & 32.49 & 0.94 & \\
+& Qwen2.5-VL-7B & 26.30 & 8.65 & 1.34 & 16.51 & 4.04 & \multirow{2}{*}{60.95} \\
+&\textbf{\ + \textsc{\method}} & 45.70 & 28.05 & 2.23 & 33.59 & 0.70 & \\
+\hline
+\rowcolor{orange!7}
+& GPT-4o-Mini        & 24.00 & 19.16 & 2.13 & \underline{16.04} & 1.94 & \underline{59.46} \\
+\rowcolor{orange!7}
+Multi-Images Fork
+& Gemini-2.5-Flash   & \underline{36.80} & \underline{31.89} & \underline{2.35} & 13.45 & \underline{1.66} & \textbf{64.40} \\
+\rowcolor{orange!7}
+& Gemini-2.5-Pro     & \textbf{40.37} & \textbf{36.58} & \textbf{2.76} & \textbf{18.68} & \textbf{1.40} & 61.29 \\
+\rowcolor{orange!7}
+& Claude-3.7-Sonnet & 29.78 & 27.85 & 2.07 & 19.43 & 1.45 & 62.41 \\
+% \rowcolor{orange!7}
+& InternVL3.5-8B & 33.08 & 20.98 & 2.13 & 16.02 & 2.25 & \multirow{2}{*}{57.65} \\
+&\textbf{\ + \textsc{\method}} & 36.53 & 24.43  & 2.49 & 39.33 & 1.67 & \\
+& Qwen2.5-VL-7B & 26.13 & 7.53 & 1.41 & 12.58 & 3.80 & \multirow{2}{*}{57.04} \\
+&\textbf{\ + \textsc{\method}} & 38.01 & 19.41 & 2.11 & 41.20 & 1.16 & \\
+\hline
+\rowcolor{LavenderLight!20}
+& GPT-4o-Mini        & 21.98 & 21.65 & 2.20 & \underline{15.00} & \underline{1.71} & \underline{53.98} \\
+\rowcolor{LavenderLight!20}
+Parallel Visual-Textual
+& Gemini-2.5-Flash   & \underline{29.92} & \underline{27.94} & \underline{2.58} & 11.43 & 2.70 & \textbf{57.99} \\
+\rowcolor{LavenderLight!20}
+& Gemini-2.5-Pro     & \textbf{34.83} & \textbf{34.19} & \textbf{2.99} & \textbf{16.74} & \textbf{1.29} & 53.46 \\
+\rowcolor{LavenderLight!20}
+& Claude-3.7-Sonnet & 26.43 & 24.65 & 1.95 & 14.32 & 1.37 & 58.51 \\
+% \rowcolor{LavenderLight!20}
+& InternVL3.5-8B & 29.74 & 23.05 & 2.13 & 14.22 & 1.75 & \multirow{2}{*}{58.82} \\
+&\textbf{\ + \textsc{\method}} & 30.72 & 24.03 & 2.29 & 23.55 & 1.45 & \\
+& Qwen2.5-VL-7B & 22.94 & 14.32 & 1.33 & 10.09 & 3.93 & \multirow{2}{*}{55.76} \\
+&\textbf{\ + \textsc{\method}} & 32.73 & 24.11 & 1.78 & 25.07 & 1.05 &  \\
+\hline
+\rowcolor{yellow!10}
+& GPT-4o-Mini        & 30.11 & 18.46 & 2.41 & \textbf{27.18} & 1.76 & 49.47 \\
+\rowcolor{yellow!10}
+Text-Initiated Chain & Gemini-2.5-Flash   & \underline{43.55} & 26.34 & \underline{3.30} & \underline{25.20} & \underline{1.20} & \textbf{66.27} \\
+\rowcolor{yellow!10}
+& Gemini-2.5-Pro     & \textbf{45.30} & \textbf{29.89} & \textbf{3.62} & 19.51 & \textbf{0.95} & \underline{55.94} \\
+\rowcolor{yellow!10}
+& Claude-3.7-Sonnet & 36.10 & 17.36 & 2.63 & 25.09 & 1.12 & 57.13 \\
+% \rowcolor{yellow!10}
+& InternVL3.5-8B & 38.34 & 25.48 & 2.60 & 19.06 & 1.97 & \multirow{2}{*}{38.70} \\
+&\textbf{\ + \textsc{\method}} & 40.87 & 28.01 & 2.59 & 37.82 & 1.44 & \\
+& Qwen2.5-VL-7B & 31.47 & 14.34 & 1.66 & 17.02 & 3.80 & \multirow{2}{*}{39.86} \\
+&\textbf{\ + \textsc{\method}} & 45.07 & 27.94 & 2.42 & 33.59 & 0.87 & \\
+[-0.4ex]\bottomrule
+\end{tabular}%
+}
+\vspace{-0.65cm}
+\end{table*}
+\end{document}

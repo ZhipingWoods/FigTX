@@ -1,0 +1,53 @@
+\usepackage{threeparttable}
+%%%%%%%
+\begin{document}
+\begin{table}[t!]
+    \centering
+    \setlength{\tabcolsep}{2pt}
+    \caption{Parameters and inference time comparison on the HM-TIR dataset. The best and second-best results for each metric are highlighted with \colorbox[HTML]{ffc7ce}{Red} and \colorbox[HTML]{d9e7f4}{Blue} backgrounds, respectively.}
+    \label{tab:efficiency}
+    \footnotesize
+ \begin{threeparttable}
+        \vspace{-2mm}
+        \begin{tabularx}{\linewidth}{l|*{7}{>{\centering\arraybackslash}c}}
+            \toprule
+             Methods& WFAF & LRSID & TSIRE & DiffUIR & DACLIP & PPFN & SEGD\\
+            \midrule
+             Params (M)& -- & -- &\cellcolor[HTML]{d9e7f4}{\strut 2.52} &12.41 &233.14 & 26.60 &\cellcolor[HTML]{ffc7ce}{\strut 2.268} \\
+             Time (S)& 0.26 & 4.58 &\cellcolor[HTML]{ffc7ce}{\strut 0.01} &0.43 &15.32 & 0.65 & \cellcolor[HTML]{d9e7f4}{\strut 0.19}\\
+            \bottomrule
+        \end{tabularx}
+    \end{threeparttable}\vspace{-4mm}
+\end{table}
+\begin{table*}[t]
+    \centering
+    \setlength{\tabcolsep}{2.8pt}
+    \caption{Quantitative comparison on the  HM-TIR and Night-TIR datasets. The best and second-best performances for each metric are highlighted with \colorbox[HTML]{ffc7ce}{Red} and \colorbox[HTML]{d9e7f4}{Blue} backgrounds, respectively.}
+    \small
+    \label{tab:QC_HN}
+    \begin{threeparttable}
+        \vspace{-2mm}
+        % \begin{tabularx}{\linewidth}{l|*{15}{>{\centering\arraybackslash}c|}c}
+        \begin{tabularx}{\linewidth}{l|cc|cc|cc|cc|cc|cc|cc|cc}
+        \toprule
+        Dataset&\multicolumn{8}{c|}{HM-TIR}&\multicolumn{8}{c}{Night-TIR}\\
+        % \multirow{2}{*}{Dataset}
+        % \cmidrule{2-17}
+        \midrule
+         Degradation&\multicolumn{2}{c|}{Single}&\multicolumn{2}{c|}{Double}& \multicolumn{2}{c|}{Triple}&\multicolumn{2}{c|}{Avg.}&
+        \multicolumn{2}{c|}{Single}&\multicolumn{2}{c|}{Double}& \multicolumn{2}{c|}{Triple}&\multicolumn{2}{c}{Avg.}\\
+        \midrule
+         Metric&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM&PSNR&SSIM\\
+        \midrule
+        WFAF~\cite{munch2009stripe} &\footnotesize 22.312& \footnotesize 0.757&\footnotesize 17.849& \footnotesize 0.560&\footnotesize 16.422&\footnotesize 0.372&\footnotesize 18.861&\footnotesize 0.563&\footnotesize 21.960 &\footnotesize 0.766 &\footnotesize 17.294 &\footnotesize 0.529&\footnotesize 16.063 &\footnotesize 0.368 &\footnotesize 18.439 &\footnotesize 0.555\\
+        LRSID~\cite{chang2016remote}&\footnotesize 23.382& \footnotesize 0.787&\footnotesize 18.065& \footnotesize 0.609&\footnotesize 16.561&\footnotesize 0.444&\footnotesize 19.336&\footnotesize 0.613&\footnotesize 22.283 &\footnotesize 0.783 &\footnotesize 17.420 &\footnotesize 0.571&\footnotesize 16.160 &\footnotesize 0.426 &\footnotesize 18.621 &\footnotesize 0.593\\
+        TSIRE~\cite{pang2023infrared}&\footnotesize 19.068& \footnotesize 0.649&\footnotesize 18.550& \footnotesize 0.484&\footnotesize 16.469&\footnotesize 0.201&\footnotesize 18.028&\footnotesize 0.445&\footnotesize 18.185 &\footnotesize 0.661 &\footnotesize 16.997 &\footnotesize 0.447&\footnotesize 15.399 &\footnotesize 0.210 &\footnotesize 16.860 &\footnotesize 0.439\\
+        DiffUIR~\cite{zheng2024selective}&\footnotesize 22.168& \footnotesize 0.756&\footnotesize 17.683& \footnotesize 0.599&\footnotesize 16.149&\footnotesize 0.336&\footnotesize 18.667&\footnotesize 0.564&\footnotesize 21.392 &\footnotesize 0.801 &\footnotesize 17.213 &\footnotesize 0.571&\footnotesize 15.923 &\footnotesize 0.329 &\footnotesize 18.176 &\footnotesize 0.567\\
+        DACLIP~\cite{DACLIP2024}&\footnotesize 22.130& \footnotesize 0.733&\footnotesize 17.819& \footnotesize 0.551&\footnotesize 16.480&\footnotesize 0.399&\footnotesize 18.810&\footnotesize 0.561&\footnotesize 21.279 &\footnotesize  0.735 &\footnotesize 17.520 &\footnotesize 0.541&\footnotesize 16.085 &\footnotesize 0.391 &\footnotesize 18.295 &\footnotesize 0.556\\
+        PPFN~\cite{liu2025enhancing}&\footnotesize \cellcolor[HTML]{d9e7f4}{\strut 31.121}& \footnotesize \cellcolor[HTML]{d9e7f4}{\strut 0.937}&\footnotesize \cellcolor[HTML]{d9e7f4}{\strut 23.761}& \footnotesize \cellcolor[HTML]{d9e7f4}{\strut 0.825}&\footnotesize \cellcolor[HTML]{d9e7f4}{\strut 18.201}&\footnotesize \cellcolor[HTML]{d9e7f4}{\strut 0.724}&\footnotesize \cellcolor[HTML]{d9e7f4}{\strut 24.361}&\footnotesize \cellcolor[HTML]{d9e7f4}{0.829}&\footnotesize \cellcolor[HTML]{ffc7ce}{27.016}& \footnotesize \cellcolor[HTML]{d9e7f4}{0.919}&\footnotesize \cellcolor[HTML]{d9e7f4}{21.010}& \footnotesize \cellcolor[HTML]{d9e7f4}{0.794}&\footnotesize \cellcolor[HTML]{d9e7f4}{17.762}&\footnotesize \cellcolor[HTML]{d9e7f4}{0.704} &\footnotesize \cellcolor[HTML]{d9e7f4}{21.929} &\footnotesize \cellcolor[HTML]{d9e7f4}{0.806}\\
+        SEGD (ours)&\footnotesize \cellcolor[HTML]{ffc7ce}{\strut 31.601}& \footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.951}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 26.342}& \footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.872}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 20.310}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.761}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 26.085}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.862}&\footnotesize  \cellcolor[HTML]{d9e7f4}{\strut 26.789} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.922} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 22.323} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.842}&\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 18.312} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.737} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 22.475} &\footnotesize  \cellcolor[HTML]{ffc7ce}{\strut 0.834}\\
+        \bottomrule
+        \end{tabularx}
+    \end{threeparttable}\vspace{-1mm}
+\end{table*}
+\end{document}

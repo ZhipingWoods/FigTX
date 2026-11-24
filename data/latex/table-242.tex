@@ -1,0 +1,134 @@
+\usepackage{booktabs}  % 用于更好看的表格线
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\definecolor{color21}{RGB}{180, 230, 190}  % 柔和绿色边框
+\definecolor{color22}{RGB}{240, 255, 240}  % 极淡绿色留白
+\definecolor{color11}{RGB}{140, 190, 230}  % 柔和蓝色边框
+\definecolor{color12}{RGB}{230, 240, 255}  % 极淡蓝色留白
+\definecolor{color31}{RGB}{255, 190, 140}   % 柔和橙色边框（较明显但不刺眼）
+\definecolor{color32}{RGB}{255, 225, 210}  % 稍微深一点的橙色背景（柔和但更明显）
+\definecolor{color41}{RGB}{255, 245, 180}  % 更浅柔和的黄色边框
+\definecolor{color42}{RGB}{255, 250, 210}  % 更浅柔和的浅黄色背景
+\definecolor{color43}{RGB}{255, 255, 240}  % 极浅黄色留白，几乎白色
+\definecolor{promptboxblue}{RGB}{59, 130, 246}
+\definecolor{promptboxgray}{RGB}{107, 114, 128}
+\definecolor{promptboxlightgray}{RGB}{243, 244, 246}
+\definecolor{promptboxgreen}{RGB}{34, 197, 94}
+%%%%%%%
+\begin{document}
+\begin{table}[!htp]
+\centering
+\begin{tabular}{cccccccc}
+\toprule
+Model & ACC & TPR & FPR & TNR & FNR & Reasoning & Open-source \\
+\midrule
+\multicolumn{8}{c}{\textbf{\textit{SOTA LLMs}}} \\
+\midrule
+\rowcolor{color12}
+Gemini-2.5-Pro & \boxed{89.2}& \underline{95.6}& \underline{4.4}& \underline{82.8}& \underline{17.2}& \cmark& \xmark \\
+\rowcolor{color12}
+QwQ-32B & \underline{86.4}& 93.6& 6.4& 79.2& 20.8& \cmark& \cmark \\
+\rowcolor{color12}
+Qwen3-32B & 85.6& \textbf{96.0}& \textbf{4.0}& 75.2& 24.8& \cmark& \cmark \\
+\rowcolor{color12}
+Qwen3-235B-A22B & 84.8& 90.4& 9.6& 79.2& 20.8& \cmark& \cmark \\
+\rowcolor{color12}
+DeepSeek-R1 & 84.0& 90.8& 9.2& 77.2& 22.8& \cmark& \cmark \\
+\rowcolor{color12}
+Qwen3-14B & 83.6& 92.4& 7.6& 74.8& 25.2& \cmark& \cmark \\
+\rowcolor{color12}
+Qwen3-8B & 79.8& 94.4& 5.6& 65.2& 34.8& \cmark& \cmark \\
+\rowcolor{color12}
+Doubao-1.5-pro-32k & 78.4& 95.2& 4.8& 61.6& 38.4& \xmark& \xmark \\
+\rowcolor{color12}
+Claude35-Sonnet & 74.2& \boxed{97.2}& \boxed{2.8}& 51.2& 48.8& \xmark& \xmark \\
+\rowcolor{color12}
+Qwen2.5-32B-Instruct & 73.0& 91.6& 8.4& 54.4& 45.6& \xmark& \cmark \\
+\rowcolor{color12}
+Qwen2.5-Coder-32B-Instruct & 71.6& 91.6& 8.4& 51.6& 48.4& \xmark& \cmark \\
+\rowcolor{color12}
+Llama-3.3-70B-Instruct & 68.2& 95.2& 4.8& 41.2& 58.8& \xmark& \cmark \\
+\rowcolor{color12}
+GPT-4o-2024-11-20 & 67.8& 95.6& 4.4& 40.0& 60.0& \xmark& \xmark \\
+\rowcolor{color12}
+Qwen2.5-14B-Instruct & 66.6& 80.4& 19.6& 52.8& 47.2& \xmark& \cmark \\
+\rowcolor{color12}
+Qwen2.5-Coder-7B-Instruct & 65.4& 88.4& 11.6& 42.4& 57.6& \xmark& \cmark \\
+\rowcolor{color12}
+Qwen2.5-7B-Instruct & 60.8& 89.6& 10.4& 32.0& 68.0& \xmark& \cmark \\
+\rowcolor{color12}
+DeepSeek-Prover-V1.5-SFT & 52.4& 78.8& 21.2& 26.0& 74.0& \xmark& \cmark \\
+\rowcolor{color12}
+DeepSeek-Prover-V1.5-RL & 50.0& 76.4& 23.6& 23.6& 76.4& \xmark& \cmark \\
+\midrule
+\multicolumn{8}{c}{\textbf{\textit{CriticLeanGPT \textbf{(Ours)}}}} \\
+\midrule
+\rowcolor{color22}
+Qwen3-8B-RL & 79.8& 90.0& 10.0& 72.0& 28.0& \cmark& \cmark \\
+\rowcolor{color22}
+Qwen3-14B-RL & 84.8& 91.6& 8.4& 78.0& 22.0& \cmark& \cmark \\
+\rowcolor{color22}
+Qwen3-32B-RL & \textbf{87.0}& 88.4& 11.6& \boxed{85.6}& \boxed{14.4}& \cmark& \cmark \\
+\rowcolor{color22}
+Qwen2.5-7B-Instruct-RL & 68.6& 85.6& 14.4& 51.6& 48.4& \xmark& \cmark \\
+\rowcolor{color22}
+Qwen2.5-14B-Instruct-RL & 69.4& 85.2& 14.8& 53.6& 46.4& \xmark& \cmark \\
+\rowcolor{color22}
+Qwen2.5-32B-Instruct-RL & 72.0& 60.4& 39.6& \textbf{83.6}& \textbf{16.4}& \xmark& \cmark \\
+\rowcolor{color31}
+Qwen2.5-7B-Instruct-SFT & 69.8& 94.4& 5.6& 45.2& 54.8& \xmark& \cmark \\
+\rowcolor{color31}
+Qwen2.5-14B-Instruct-SFT & 70.6& 83.6& 16.4& 57.6& 42.4& \xmark& \cmark \\
+\rowcolor{color31}
+Qwen2.5-32B-Instruct-SFT & 76.2& 85.2& 14.8& 67.2& 32.8& \xmark& \cmark \\
+\rowcolor{color32}
+Qwen2.5-7B-Instruct-SFT-RL & 68.2& 90.4& 9.6& 46.0& 54.0& \xmark& \cmark \\
+\rowcolor{color32}
+Qwen2.5-14B-Instruct-SFT-RL & 74.6& 81.6& 18.4& 67.6& 32.4& \xmark& \cmark \\
+\rowcolor{color32}
+Qwen2.5-32B-Instruct-SFT-RL & 78.6& 88.0& 12.0& 69.2& 30.8& \xmark& \cmark \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Performance on CriticLeanBench.}
+The best, the second-best and the third-best scores for each indicator are shown in  \boxed{box}, \textbf{bold} and \underline{underlined}, respectively.}
+\label{tab:main}
+\end{table}
+\begin{table*}[htbp]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+Model & ACC & TPR & FPR & TNR & FNR \\
+\midrule
+\multicolumn{6}{c}{\textbf{\textit{7B Size Models}}} \\
+\midrule
+\rowcolor{color12}
+Qwen2.5-7B-Instruct & 60.8& 89.6& 10.4& 32.0& 68.0 \\
+\rowcolor{color12}
+Qwen2.5-7B-Instruct-SFT(Critic Only) & 64.0& 70.8& 29.2& \boxed{57.2}& \boxed{42.8} \\
+\rowcolor{color12}
+Qwen2.5-7B-Instruct-SFT & \boxed{69.8}& \boxed{94.4}& \boxed{5.6}& 45.2& 54.8 \\
+\midrule
+\multicolumn{6}{c}{\textbf{\textit{14B Size Models}}} \\
+\midrule
+\rowcolor{color22}
+Qwen2.5-14B-Instruct & 66.6& 80.4& 19.6& 52.8& 47.2 \\
+\rowcolor{color22}
+Qwen2.5-14B-Instruct-SFT(Critic Only) & 67.4& 80.8& 19.2& 54.0& 46.0 \\
+\rowcolor{color22}
+Qwen2.5-14B-Instruct-SFT & \boxed{70.6}& \boxed{83.6}& \boxed{16.4}& \boxed{57.6}& \boxed{42.4} \\
+\midrule
+\multicolumn{6}{c}{\textbf{\textit{32B Size Models}}} \\
+\midrule
+\rowcolor{color32}
+Qwen2.5-32B-Instruct & 73.0& \boxed{91.6}& \boxed{8.4}& 54.4& 45.6 \\
+\rowcolor{color32}
+Qwen2.5-32B-Instruct-SFT(Critic Only) & 71.0& 72.0& 28.0& \boxed{70.0}& \boxed{30.0} \\
+\rowcolor{color32}
+Qwen2.5-32B-Instruct-SFT & \boxed{76.2}& 85.2& 14.8& 67.2& 32.8 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Comparison of model performance under different training strategies:} base model, SFT on Critic data only, and SFT on combined Critic, code, and math data. The best score for each indicator is shown in  \boxed{box}.}
+\label{tab:mix}
+\end{table*}
+\end{document}

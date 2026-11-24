@@ -1,0 +1,91 @@
+\newcommand{\inc}[1]{\textcolor{green!60!black}{$\uparrow$\small #1}}
+\newcommand{\dec}[1]{\textcolor{red}{$\downarrow$\small #1}}
+\definecolor{color1}{HTML}{f2f3f5}
+\definecolor{color2}{HTML}{fff5e6}
+\definecolor{color3}{HTML}{e0f7fa}
+\definecolor{color4}{HTML}{f2f2f2}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\caption{Evaluation on Mainstream Tasks.}
+\label{tab:mainstream_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|l|cccccc|c}
+\toprule
+\textbf{Model} & \textbf{Method} & \textbf{GenEval} & \textbf{GenEval2} & \textbf{DPG-Bench} & \textbf{OneIG-EN} & \textbf{OneIG-ZH} & \textbf{WISE} & \textbf{Avg.} \\ \midrule
+% Closed-Source Models
+\rowcolor{color1} \multicolumn{9}{c}{\textbf{Closed-Source Models}} \\ \midrule
+Nano Banana  & -- & 0.75 & 44.6 & 85.23 & 0.550 & 0.405 & -- & -- \\
+GPT-Image 1  & -- & 0.84 & -- & 85.15 & 0.533 & 0.474 & 0.80 & -- \\
+Seedream 4~\cite{seedream4}  & -- & 0.84 & -- & 88.25 & 0.576 & 0.553 & 0.78 & -- \\
+\midrule
+% Open-Source Models
+\rowcolor{color2} \multicolumn{9}{c}{\textbf{Open-Source Models}} \\ \midrule
+Bagel~\cite{bagel}  & -- & 0.82 & 23.1 & 85.10 & 0.361 & 0.370 & 0.70 & 59.35 \\
+Z-Image~\cite{z-image}  & -- & 0.84 & -- & 88.14 & 0.546 & 0.535 & -- & -- \\
+Qwen-Image~\cite{qwen-image}  & -- & 0.87 & 33.8 & 88.32 & 0.539 & 0.548 & 0.62 & 65.09 \\
+\midrule
+% Inference-Time Scaling
+\rowcolor{color3} \multicolumn{9}{c}{\textbf{Inference-Time Scaling}} \\ \midrule
+\multirow{7}{*}{Z-Image-Turbo~\cite{z-image}} & Original & 0.77 \inc{0.00} & 31.0 \inc{0.0} & 85.08 \inc{0.00} & 0.526 \inc{0.000} & 0.501 \inc{0.000} & 0.57 \inc{0.00} & 60.29 \\
+ & Rewrite & 0.77 \inc{0.00} & 39.7 \inc{8.7} & 84.48 \dec{0.60} & 0.520 \dec{0.006} & 0.469 \dec{0.032} & \underline{0.84} \inc{0.27} & 66.93 \\
+ & Promptist~\cite{promptist} & 0.76 \dec{0.01} & 32.3 \inc{1.3} & 65.69 \dec{19.39} & 0.333 \dec{0.193} & 0.327 \dec{0.174} & 0.54 \dec{0.03} & 52.20 \\
+ & Search~\cite{ma2025inference} & 0.81 \inc{0.04} & 43.5 \inc{12.5} & \underline{85.47} \inc{0.39} & 0.530 \inc{0.004} & 0.506 \inc{0.005} & 0.61 \inc{0.04} & 64.55 \\
+ & Maestro~\cite{maestro} & \underline{0.82} \inc{0.05} & 44.6 \inc{13.6} & 85.29 \inc{0.21} & 0.548 \inc{0.022} & 0.519 \inc{0.018} & \textbf{0.85} \inc{0.28} & 70.05 \\
+ & CRAFT~\cite{craft} & 0.80 \inc{0.03} & \underline{62.4} \inc{31.4} & 85.29 \inc{0.21} & \textbf{0.582} \inc{0.056} & \underline{0.542} \inc{0.041} & 0.78 \inc{0.21} & \underline{72.38} \\
+ \rowcolor{color4} \cellcolor{white} & GEMS (Ours)& \textbf{0.86} \inc{0.09} & \textbf{63.5} \inc{32.5} & \textbf{86.01} \inc{0.93} & \underline{0.569} \inc{0.043} & \textbf{0.552} \inc{0.051} & 0.81 \inc{0.24} & \textbf{74.51} \\
+ \midrule
+\multirow{7}{*}{Qwen-Image-2512~\cite{qwen-image}} & Original & 0.66 \inc{0.00} & 29.0 \inc{0.0} & 84.69 \inc{0.00} & 0.487 \inc{0.000} & 0.489 \inc{0.000} & 0.59 \inc{0.00} & 57.50 \\
+ & Rewrite & 0.68 \inc{0.02} & 39.8 \inc{10.8} & 83.49 \dec{1.20} & 0.465 \dec{0.022} & 0.435 \dec{0.054} & \underline{0.81} \inc{0.22} & 63.46 \\
+ & Promptist~\cite{promptist} & 0.66 \inc{0.00} & 27.4 \dec{1.6} & 64.02 \dec{20.67} & 0.288 \dec{0.199} & 0.307 \dec{0.182} & 0.57 \dec{0.02} & 48.83 \\
+ & Search~\cite{ma2025inference} & 0.74 \inc{0.08} & 42.1 \inc{13.1} & \textbf{86.17} \inc{1.48} & 0.502 \inc{0.015} & 0.497 \inc{0.008} & 0.67 \inc{0.08} & 63.84 \\
+ & Maestro~\cite{maestro} & 0.76 \inc{0.10} & 48.0 \inc{19.0} & 84.07 \dec{0.62} & 0.494 \inc{0.007} & 0.489 \inc{0.000} & \textbf{0.84} \inc{0.25} & 68.24 \\
+ & CRAFT~\cite{craft} & \textbf{0.79} \inc{0.13} & \underline{66.3} \inc{37.3} & \underline{85.87} \inc{1.18} & \underline{0.533} \inc{0.046} & \underline{0.518} \inc{0.029} & 0.79 \inc{0.20} & \underline{72.54} \\
+ \rowcolor{color4} \cellcolor{white} & GEMS (Ours) & \textbf{0.79} \inc{0.13} & \textbf{70.4} \inc{41.4} & 85.59 \inc{0.90} & \textbf{0.542} \inc{0.055} & \textbf{0.532} \inc{0.043} & 0.80 \inc{0.21} & \textbf{73.74} \\
+ \bottomrule
+\end{tabular}
+}
+\end{table*}
+\begin{table*}[t]
+\centering
+\caption{Evaluation on Downstream Tasks. For inference-time scaling methods, all results are evaluated by us, with the best and second-best performances highlighted in \textbf{bold} and \underline{underlined}, and relative improvements or decreases compared to the baseline indicated by \inc{} and \dec{}, respectively. Other results are sourced from public data. The ``Avg.'' column represents the mean of normalized scores, with LongText-EN and LongText-ZH pre-averaged as a single metric before final aggregation.}
+\label{tab:downstream_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|l|ccccc|c}
+\toprule
+\textbf{Model} & \textbf{Method} & \textbf{LongText-EN} & \textbf{LongText-ZH} & \textbf{SpatialGenEval} & \textbf{CREA} & \textbf{ArtiMuse} & \textbf{Avg.} \\ \midrule
+% 闭源模型部分
+\rowcolor{color1} \multicolumn{8}{c}{\textbf{Closed-Source Models}} \\ \midrule
+Nano Banana  & -- & -- & -- & 61.7 & -- &-- & --\\
+GPT-Image 1  & -- & 0.956 & 0.619 & 60.5 & -- &-- & --\\
+Seedream 4~\cite{seedream4}  & -- & -- & -- & 62.7 & -- & --& --\\
+\midrule
+% 开源模型部分
+\rowcolor{color2} \multicolumn{8}{c}{\textbf{Open-Source Models}} \\ \midrule
+Bagel~\cite{bagel}  & -- & 0.373 & 0.310 & 57.0 & -- & --& --\\
+Z-Image~\cite{z-image}  & -- & 0.935 & 0.936 & -- & -- &-- & -- \\
+Qwen-Image~\cite{qwen-image}  & -- & 0.943 & 0.946 & 60.6 & -- & --& -- \\
+\midrule
+% 推理时间缩放部分
+\rowcolor{color3} \multicolumn{8}{c}{\textbf{Inference-Time Scaling}} \\ \midrule
+\multirow{7}{*}{Z-Image-Turbo~\cite{z-image}} & Original & 0.912 \inc{0.000} & 0.932 \inc{0.000} & 58.7 \inc{0.0} & 11.84 \inc{0.00} & 43.27 \inc{0.00} & 58.41 \\
+ & Rewrite& 0.571 \dec{0.341} & 0.495 \dec{0.437} & 59.6 \inc{0.9} & \underline{16.75} \inc{4.91} & \underline{57.86} \inc{14.59} & 56.65 \\
+ & Promptist~\cite{promptist} & 0.034 \dec{0.878} & 0.070 \dec{0.862} & 48.3 \dec{10.4} & 14.00 \inc{2.16} & 43.74 \inc{0.47} & 35.98 \\
+ & Search~\cite{ma2025inference} & 0.918 \inc{0.006} & \underline{0.937} \inc{0.005} & 59.3 \inc{0.6} & 12.98 \inc{1.14} & 44.21 \inc{0.94} & 59.88 \\
+ & Maestro~\cite{maestro} & 0.877 \dec{0.035} & 0.807 \dec{0.125} & 60.3 \inc{1.6} & 15.81 \inc{3.97} & 56.86 \inc{13.59} & \underline{63.52} \\
+ & CRAFT~\cite{craft} & \underline{0.951} \inc{0.039} & 0.760 \dec{0.172} & \underline{60.6} \inc{1.9} & 13.63 \inc{1.79} & 54.95 \inc{11.68} & 61.63 \\
+ \rowcolor{color4} \cellcolor{white}&GEMS (Ours)& \textbf{0.952} \inc{0.040} & \textbf{0.940} \inc{0.008} & \textbf{61.4} \inc{2.7} & \textbf{22.55} \inc{10.71} & \textbf{58.58} \inc{15.31} & \textbf{72.44} \\
+ \midrule
+\multirow{7}{*}{Qwen-Image-2512~\cite{qwen-image}} & Original & 0.854 \inc{0.000} & 0.892 \inc{0.000} & 60.0 \inc{0.0} & 17.45 \inc{0.00} & 59.94 \inc{0.00} & 66.35 \\
+ & Rewrite& 0.563 \dec{0.291} & 0.468 \dec{0.424} & 60.3 \inc{0.3} & 18.12 \inc{0.67} & \underline{62.23} \inc{2.29} & 58.62 \\
+ & Promptist~\cite{promptist} & 0.030 \dec{0.824} & 0.058 \dec{0.834} & 48.7 \dec{11.3} & 18.35 \inc{0.90} & 60.65 \inc{0.71} & 43.73 \\
+ & Search~\cite{ma2025inference} & 0.883 \inc{0.029} & \underline{0.907} \inc{0.015} & 60.6 \inc{0.6} & \underline{18.71} \inc{1.26} & 59.96 \inc{0.02} & \underline{68.11} \\
+ & Maestro~\cite{maestro} & 0.833 \dec{0.021} & 0.792 \dec{0.100} & 61.0 \inc{1.0} & 17.78 \inc{0.33} & 61.62 \inc{1.68} & 65.78 \\
+ & CRAFT~\cite{craft} & \underline{0.897} \inc{0.043} & 0.787 \dec{0.105} & \underline{61.6} \inc{1.6} & 15.61 \dec{1.84} & 59.78 \dec{0.16} & 64.40 \\
+ \rowcolor{color4} \cellcolor{white}&GEMS (Ours)& \textbf{0.913} \inc{0.059} & \textbf{0.931} \inc{0.039} & \textbf{62.1} \inc{2.1} & \textbf{24.01} \inc{6.56} & \textbf{62.89} \inc{2.95} & \textbf{74.31} \\
+ \bottomrule
+\end{tabular}
+}
+\end{table*}
+\end{document}

@@ -1,0 +1,59 @@
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\newcommand{\gsub}[1]{\ifmmode_{\color{ForestGreen}{#1}}\else\textsubscript{\textcolor{ForestGreen}{#1}}\fi}
+\newcommand{\rsub}[1]{\ifmmode_{\color{BrickRed}{#1}}\else\textsubscript{\textcolor{BrickRed}{#1}}\fi}
+%%%%%%%
+\begin{document}
+\begin{table*}[t]
+\centering
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{\textbf{Conformal prediction results} with 16-shot calibration across three nonconformity scores and two error levels, $\alpha \in \{0.05, 0.10\}$. Results are averaged over tasks and modalities. ``$\downarrow$'' indicates smaller is better; \textcolor{BrickRed}{red} marks error violations. Subscripted margins denote absolute gains w.r.t.\ the SCP baseline.}
+\vspace{-1mm}
+\resizebox{0.78\textwidth}{!}{
+\begin{tabular}{@{}c l l c ccc ccc@{}}
+\toprule
+& \multirow{2}{*}{\textbf{Group}} & \multirow{2}{*}{\textbf{Method}} & \multirow{2}{*}{\textbf{ACA}$\uparrow$} & \multicolumn{3}{c}{$\boldsymbol{\alpha=0.10}$} & \multicolumn{3}{c}{$\boldsymbol{\alpha=0.05}$} \\
+\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+&  &  &  & \textbf{Cov.} & \textbf{Size}$\downarrow$ & \textbf{CCV}$\downarrow$ & \textbf{Cov.} & \textbf{Size}$\downarrow$ & \textbf{CCV}$\downarrow$ \\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{\textbf{LAC}}}
+& Baseline        & SCP                  & 50.2            & 0.890  & 3.99 & 9.96 & 0.951 & 4.88 & 5.68 \\ \cdashline{2-10}
+& Labeled-Cal.  & Adapt+SCP            & $67.1\gsub{+16.9}$ & \textcolor{BrickRed}{0.842} & $2.40\gsub{-1.59}$ & $11.17\rsub{+1.21}$ & \textcolor{BrickRed}{0.921} & $3.07\gsub{-1.81}$ & $6.87\rsub{+1.19}$ \\
+& Labeled-Cal.  & FCA~\cite{silva2025full}                  & $67.1\gsub{+16.9}$ & 0.896  & $2.91\gsub{-1.08}$ & $8.38\gsub{-1.58}$ & 0.952 & $3.56\gsub{-1.32}$ & $5.02\gsub{-0.66}$ \\\cdashline{2-10}
+& UT            & Conf-OT~\cite{silva2025conformal}        & $53.1\gsub{+2.9}$ & 0.899  & $3.18\gsub{-0.81}$ & $9.07\gsub{-0.89}$ & 0.950 & $3.81\gsub{-1.07}$ & $5.34\gsub{-0.34}$ \\
+& UT            & SCA-T~\cite{silva2025trustworthy}                 & $55.2\gsub{+5.0}$ & 0.898  & $3.30\gsub{-0.69}$ & $7.47\gsub{-2.49}$ & 0.952 & $4.03\gsub{-0.85}$ & $4.03\gsub{-1.65}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LF}} ($\beta{=}0$) & $57.0\gsub{+6.8}$ & 0.900 & $\textbf{3.07}\gsub{-0.92}$ & $6.40\gsub{-3.56}$& 0.952 & $\textbf{3.76}\gsub{-1.12}$ & $3.35\gsub{-2.33}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LI}} ($\beta{=}0.2$) & $\textbf{57.4}\gsub{+7.2}$
+& \textbf{0.910} & $3.15\gsub{-0.84}$ & $\textbf{6.25}\gsub{-3.71}$ & \textbf{0.962} & $3.86\gsub{-1.02}$ & $\textbf{3.40}\gsub{-2.28}$\\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{\textbf{APS}}}
+& Baseline        & SCP                  & 50.2            & 0.900  & 4.05 & 9.59 & 0.952 & 4.88 & 5.54 \\ \cdashline{2-10}
+& Labeled-Cal.  & Adapt+SCP            & $67.1\gsub{+16.9}$ & \textcolor{BrickRed}{0.858} & $2.56\gsub{-1.49}$ & $8.57\gsub{-1.02}$ & \textcolor{BrickRed}{0.924} & $3.19\gsub{-1.69}$ & $6.08\rsub{+0.54}$ \\
+& Labeled-Cal.  & FCA~\cite{silva2025full}                  & $67.1\gsub{+16.9}$ & 0.898  & $3.06\gsub{-0.99}$ & $6.12\gsub{-3.47}$ & 0.949 & $3.67\gsub{-1.21}$ & $4.24\gsub{-1.30}$ \\
+\cdashline{2-10}
+& UT            & Conf-OT~\cite{silva2025conformal}        & $53.1\gsub{+2.9}$ & 0.899  & $3.13\gsub{-0.92}$ & $8.64\gsub{-0.95}$ & 0.950 & $3.63\gsub{-1.25}$ & $5.12\gsub{-0.42}$ \\
+& UT            & SCA-T~\cite{silva2025trustworthy}                & $55.2\gsub{+5.0}$ & 0.900  & $3.35\gsub{-0.70}$ & $7.18\gsub{-2.41}$ & 0.954 & $4.08\gsub{-0.80}$ & $3.97\gsub{-1.57}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LF}} ($\beta{=}0$) & $57.1\gsub{+6.9}$ & 0.900 & $\textbf{2.95}\gsub{-1.10}$ & $6.32\gsub{-3.27}$ & 0.954 & $\textbf{3.78}\gsub{-1.10}$ & $3.55\gsub{-1.99}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LI}} ($\beta{=}0.2$) & $\textbf{57.5}\gsub{+7.3}$ & \textbf{0.910} & $3.03\gsub{-1.02}$ & $\textbf{6.25}\gsub{-3.34}$ & \textbf{0.963} & $3.88\gsub{-1.00}$ & $\textbf{3.45}\gsub{-2.09}$ \\
+\midrule
+\multirow{7}{*}{\rotatebox{90}{\textbf{RAPS}}}
+& Baseline      & SCP                  & 50.2            & 0.901  & 4.16 & 9.55 & 0.952 & 5.12 & 5.57 \\ \cdashline{2-10}
+& Labeled-Cal.  & Adapt+SCP            & $67.1\gsub{+16.9}$ & \textcolor{BrickRed}{0.856} & $2.55\gsub{-1.61}$ & $8.64\gsub{-0.91}$ & \textcolor{BrickRed}{0.923} & $3.17\gsub{-1.95}$ & $6.12\rsub{+0.55}$ \\
+& Labeled-Cal.  & FCA~\cite{silva2025full}                  & $67.1\gsub{+16.9}$ & 0.898  & $3.05\gsub{-1.11}$ & $6.21\gsub{-3.34}$ & 0.951 & $3.66\gsub{-1.46}$ & $4.23\gsub{-1.34}$ \\
+\cdashline{2-10}
+& UT            & Conf-OT~\cite{silva2025conformal}        & $53.1\gsub{+2.9}$ & 0.899  & $3.42\gsub{-0.74}$ & $8.53\gsub{-1.02}$ & 0.950 & $4.09\gsub{-1.03}$ & $5.21\gsub{-0.36}$ \\
+& UT            & SCA-T~\cite{silva2025trustworthy}                & $55.2\gsub{+5.0}$ & 0.903  & $3.40\gsub{-0.76}$ & $7.50\gsub{-2.05}$ & 0.954 & $4.18\gsub{-0.94}$ & $4.57\gsub{-1.0}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LF}} ($\beta{=}0$) & $56.4\gsub{+6.2}$ & 0.903 & $\textbf{3.29}\gsub{-0.87}$ & $6.85\gsub{-2.70}$ & 0.954 & $\textbf{4.02}\gsub{-1.10}$ & $4.25\gsub{-1.32}$ \\
+\rowcolor{cyan!20}
+\cellcolor{white}& UT & \texttt{\textbf{LATA-LI}} ($\beta{=}0.2$) & $\textbf{56.8}\gsub{+6.6}$ & \textbf{0.913} & $3.36\gsub{-0.80}$ & $\textbf{6.75}\gsub{-2.80}$ & \textbf{0.962} & $4.10\gsub{-1.02}$ & $\textbf{4.22}\gsub{-1.35}$ \\
+\bottomrule
+\end{tabular}}
+\vspace{-1mm}
+\label{tab:cp-results}
+\end{table*}
+\end{document}

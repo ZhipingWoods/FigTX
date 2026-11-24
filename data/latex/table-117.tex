@@ -1,0 +1,151 @@
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{siunitx}
+\sisetup{
+  table-number-alignment = center,
+  detect-weight = true,
+  detect-mode = true
+}
+\definecolor{NYCband}{RGB}{248,252,255}
+\definecolor{TKYband}{RGB}{250,248,255}
+\definecolor{CAband}{RGB}{250,255,248}
+\definecolor{FullRow}{RGB}{245,245,245}
+\definecolor{BestCell}{RGB}{255,235,210}
+\newcolumntype{Y}{>{\columncolor{NYCband}}S[table-format=1.4]}
+\newcolumntype{T}{>{\columncolor{TKYband}}S[table-format=1.4]}
+\newcolumntype{C}{>{\columncolor{CAband}}S[table-format=1.4]}
+\newcommand{\bestab}[1]{\multicolumn{1}{>{\columncolor{BestCell}\bfseries}S[table-format=1.4]}{#1}}
+\newcommand{\rmv}{\textcolor{black!55}{\scriptsize($-$)}}
+\definecolor{Top2Gray}{RGB}{90,90,90}
+\definecolor{ImprovNum}{RGB}{220,20,120}
+\newcommand{\best}[1]{{\bfseries\color{black}#1}}
+\newcommand{\second}[1]{{\color{Top2Gray}\underline{#1}}}
+\newcommand{\up}[1]{{\color{ImprovNum}\bfseries\small$\uparrow$\,#1}}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[toc]{appendix}
+\usepackage{subcaption}
+\newcommand{\hNYC}[1]{\multicolumn{1}{>{\columncolor{NYCband}}c}{#1}}
+\newcommand{\hTKY}[1]{\multicolumn{1}{>{\columncolor{TKYband}}c}{#1}}
+\newcommand{\hCA}[1]{\multicolumn{1}{>{\columncolor{CAband}}c}{#1}}
+%%%%%%%
+\begin{document}
+\begin{table}[ht]
+\captionsetup{aboveskip=0pt, belowskip=-3pt}
+\centering
+\caption{Statistics of the evaluated datasets.}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcccccc}
+    \toprule
+    & User & POI & Category & Traj & Check-in & Density \\
+    \midrule
+    \rowcolor{NYCband} NYC & 1,047 & 4,980 & 318 & 13,955 & 101,760 & 0.016 \\
+    \rowcolor{TKYband} TKY & 2,281 & 7,832 & 290 & 65,914 & 403,148 & 0.018 \\
+    \rowcolor{CAband}  CA  & 3,956 & 9,689 & 296 & 42,982 & 221,717 & 0.005 \\
+    \bottomrule
+\end{tabular}%
+\label{tab:data_summary}
+\end{table}
+\begin{table*}[t]
+\captionsetup{aboveskip=0pt, belowskip=-1pt}
+\centering
+\caption{Overall performance comparison with baseline models on three datasets.
+\textbf{Top\mbox{-}1},\; \textcolor{Top2Gray}{\underline{Top\mbox{-}2}}.}
+% --- 调整策略 ---
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+    \begin{tabular}{l *{4}{Y} *{4}{T} *{4}{C}}
+    \toprule
+    \multirow{2.5}{*}{\textbf{Method}} &
+    \multicolumn{4}{c}{\cellcolor{NYCband}\textbf{NYC}} &
+    \multicolumn{4}{c}{\cellcolor{TKYband}\textbf{TKY}} &
+    \multicolumn{4}{c}{\cellcolor{CAband}\textbf{CA}} \\
+    \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}
+    & \hNYC{ND@1} & \hNYC{ND@5} & \hNYC{ND@10} & \hNYC{MRR}
+    & \hTKY{ND@1} & \hTKY{ND@5} & \hTKY{ND@10} & \hTKY{MRR}
+    & \hCA{ND@1}  & \hCA{ND@5}  & \hCA{ND@10}  & \hCA{MRR} \\
+    \midrule
+    LSTM         & 0.1306 & 0.2336 & 0.2585 & 0.2259
+                 & 0.1110 & 0.2233 & 0.2496 & 0.1952
+                 & 0.0864 & 0.1459 & 0.1711 & 0.1554 \\
+    PLSPL        & 0.1601 & 0.3048 & 0.3336 & 0.2849
+                 & 0.1495 & 0.2831 & 0.3143 & 0.2642
+                 & 0.1084 & 0.1759 & 0.2029 & 0.1678 \\
+    HME          & 0.1619 & 0.2806 & 0.3226 & 0.2787
+                 & 0.1535 & 0.2637 & 0.2924 & 0.2366
+                 & 0.1181 & 0.1886 & 0.2232 & 0.1945 \\
+    GETNext      & 0.2244 & 0.3736 & 0.4046 & 0.3472
+                 & 0.1767 & 0.3072 & 0.3297 & 0.2934
+                 & 0.1342 & 0.2188 & 0.2468 & 0.2121 \\
+    AGRAN        & 0.2202 & 0.3638 & 0.3792 & 0.3343
+                 & 0.1755 & 0.2989 & 0.3261 & 0.2879
+                 & 0.1329 & 0.2121 & 0.2331 & 0.2043 \\
+    ROTAN        & 0.2192 & 0.3652 & 0.3944 & 0.3468
+                 & 0.1822 & 0.3165 & 0.3467 & 0.3186
+                 & 0.1345 & 0.2173 & 0.2564 & 0.2256 \\
+    MCLP         & \second{0.2404} & 0.3674 & 0.3973 & 0.3507
+                 & 0.1662 & 0.3110 & 0.3415 & 0.3199
+                 & 0.1324 & 0.1914 & 0.2121 & 0.1895 \\
+    MTNet        & 0.2346 & 0.3689 & 0.4013 & \second{0.3522}
+                 & \second{0.2107} & \second{0.3345} & 0.3612 & 0.3191
+                 & \second{0.1401} & \second{0.2346} & 0.2617 & \second{0.2387} \\
+    GeoMamba     & 0.1988 & 0.3392 & 0.3506 & 0.3246
+                 & 0.1851 & 0.2953 & 0.3205 & 0.2858
+                 & 0.1256 & 0.2029 & 0.2215 & 0.1962 \\
+    HMST         & 0.2138 & \second{0.3747} & \second{0.4063} & 0.3482
+                 & 0.1925 & 0.3325 & \second{0.3690} & \second{0.3257}
+                 & 0.1356 & 0.2325 & \second{0.2680} & 0.2300 \\
+    HVGAE        & 0.2271 & 0.3651 & 0.3982 & 0.3470
+                 & 0.1977 & 0.3167 & 0.3455 & 0.3180
+                 & 0.1391 & 0.2325 & 0.2658 & 0.2367 \\
+    \midrule
+    \cellcolor{black!4}\textbf{Mag-Mamba} &
+    \best{0.2451} & \best{0.3823} & \best{0.4149} & \best{0.3603}
+    & \best{0.2417} & \best{0.3602} & \best{0.3889} & \best{0.3455}
+    & \best{0.1595} & \best{0.2528} & \best{0.2761} & \best{0.2462} \\
+    \rowcolor{black!2}
+    \textit{improv.} &
+    \multicolumn{1}{c}{\up{+1.96\%}} & \multicolumn{1}{c}{\up{+2.03\%}} & \multicolumn{1}{c}{\up{+2.12\%}} & \multicolumn{1}{c}{\up{+2.30\%}}
+    & \multicolumn{1}{c}{\up{+14.71\%}} & \multicolumn{1}{c}{\up{+7.68\%}} & \multicolumn{1}{c}{\up{+5.39\%}} & \multicolumn{1}{c}{\up{+6.08\%}}
+    & \multicolumn{1}{c}{\up{+13.85\%}} & \multicolumn{1}{c}{\up{+7.76\%}} & \multicolumn{1}{c}{\up{+3.02\%}} & \multicolumn{1}{c}{\up{+3.14\%}} \\
+    \bottomrule
+    \end{tabular}
+}
+\label{tab:performance_metrics}
+\end{table*}
+\begin{table}[ht]
+\captionsetup{aboveskip=0pt, belowskip=-3pt}
+\centering
+\caption{Performance comparison of model variants.}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.18}
+\small
+\resizebox{0.48\textwidth}{!}{
+\begin{tabular}{l *{3}{T} *{3}{C}}
+\toprule
+\multirow{2.5}{*}{\textbf{Model}} &
+\multicolumn{3}{c}{\cellcolor{TKYband}\textbf{TKY}} &
+\multicolumn{3}{c}{\cellcolor{CAband}\textbf{CA}} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+& \hTKY{ND@5} & \hTKY{ND@10} & \hTKY{MRR}
+& \hCA{ND@5}  & \hCA{ND@10}  & \hCA{MRR} \\
+\midrule
+w/o Mamba \rmv & 0.3096 & 0.3335 & 0.2862 & 0.2046 & 0.2267 & 0.1998 \\
+w/o Spatial  \rmv & 0.3314 & 0.3560 & 0.3117 & 0.2122 & 0.2348 & 0.2085 \\
+w/o Phase  \rmv & 0.3467 & 0.3728 & 0.3248 & 0.2340 & 0.2588 & 0.2295 \\
+Real-Mamba \rmv & 0.3550 & 0.3834 & 0.3405 & 0.2398 & 0.2631 & 0.2359 \\
+MLP-Eigen \rmv & 0.3491 & 0.3743 & 0.3279 & 0.2233 & 0.2575 & 0.2290 \\
+w/o TC \rmv & 0.3525 & 0.3763 & 0.3372 & 0.2443 & 0.2672 & 0.2396 \\
+\midrule
+\cellcolor{FullRow}\textbf{Full model} &
+\bestab{0.3602} & \bestab{0.3889} & \bestab{0.3455} &
+\bestab{0.2528} & \bestab{0.2761} & \bestab{0.2462} \\
+\bottomrule
+\end{tabular}
+}
+\label{ablation_results}
+\end{table}
+\end{document}
