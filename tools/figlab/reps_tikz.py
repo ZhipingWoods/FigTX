@@ -48,7 +48,7 @@ ARCH_STYLES = r"""
 def fig05() -> str:
     return r"""
 \begin{tikzpicture}[x=1cm, y=0.871cm,
-  box/.style={draw=black!90, line width=1.1pt, rounded corners=4pt, align=center,
+  box/.style={draw=black, line width=1.2pt, rounded corners=4pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
   pnk2/.style={box, fill=fxpnk, draw=black!40},
@@ -233,10 +233,10 @@ def fig05() -> str:
 \draw[arr, line width=1.1pt] (mm1) -- (sc);
 \draw[arr, line width=1.1pt] (sc.north) -- (18.4,11.6);
 
-\node[font=\footnotesize] at (17.2,10.3) {$n\times d$};
-\node[font=\footnotesize] at (19.7,8.6) {$n\times d$};
-\node[font=\footnotesize] at (17.45,7.4) {$d\times n$};
-\node[font=\footnotesize] at (21.3,7.6) {$d\times d$};
+\node[font=\footnotesize, fill=white, inner sep=1pt] at (16.95,10.05) {$n\times d$};
+\node[font=\footnotesize, fill=white, inner sep=1pt] at (20.55,8.45) {$n\times d$};
+\node[font=\footnotesize, fill=white, inner sep=1pt] at (16.75,7.55) {$d\times n$};
+\node[font=\footnotesize, fill=white, inner sep=1pt] at (21.55,7.35) {$d\times d$};
 
 \node[font=\small, anchor=east] at (21.85,2.3) {Cost: $\mathcal{O}(n)$};
 
