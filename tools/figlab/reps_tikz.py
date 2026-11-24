@@ -118,26 +118,26 @@ def fig05() -> str:
 \node[font=\large\bfseries] at (7.40,8.15) {(a). Block-wise autoregressive training pipeline};
 
 % ================= (b) 整体架构 =================
-% 输入：叠层帧
-\begin{scope}[shift={(0.25,3.55)}]
+% 输入：叠层帧（放大到 2.15，起始行与原图对齐）
+\begin{scope}[shift={(0.15,3.15)}]
   \foreach \k in {5,4,3,2,1,0}{
-    \begin{scope}[shift={(\k*0.09,\k*0.09)}]
-      \clip[rounded corners=2pt] (0,0) rectangle (1.70,1.70);
+    \begin{scope}[shift={(\k*0.11,\k*0.11)}]
+      \clip[rounded corners=2pt] (0,0) rectangle (2.15,2.15);
       \node[anchor=south west, inner sep=0pt] at (0,0)
-        {\includegraphics[width=1.70cm,height=1.70cm]{input.png}};
-      \draw[black!60, line width=0.8pt, rounded corners=2pt] (0,0) rectangle (1.70,1.70);
+        {\includegraphics[width=2.15cm,height=2.15cm]{input.png}};
+      \draw[black!60, line width=0.8pt, rounded corners=2pt] (0,0) rectangle (2.15,2.15);
     \end{scope}
   }
 \end{scope}
-\node[font=\small] at (1.15,3.10) {$[1\!+\!T, H, W, 3]$};
+\node[font=\small] at (1.30,2.72) {$[1\!+\!T, H, W, 3]$};
 
-% AutoEncoder：左窄右宽八边形梯形
-\begin{scope}[shift={(4.45,3.30)}]
-  \fill[fxblue2] (0.00,0.50) -- (0.50,0.00) -- (2.85,0.00) -- (2.35,0.50) -- (2.35,1.40) -- (2.85,1.90) -- (0.50,1.90) -- (0.00,1.40) -- cycle;
-  \draw[black!70, line width=1.1pt] (0.00,0.50) -- (0.50,0.00) -- (2.85,0.00) -- (2.35,0.50) -- (2.35,1.40) -- (2.85,1.90) -- (0.50,1.90) -- (0.00,1.40) -- cycle;
-  \node[font=\small] at (1.42,0.95) {AutoEncoder};
+% AutoEncoder：左窄右宽八边形梯形（加高到 2.45、加宽到 3.15）
+\begin{scope}[shift={(4.45,2.95)}]
+  \fill[fxblue2] (0.00,0.64) -- (0.60,0.00) -- (2.85,0.00) -- (2.25,0.64) -- (2.25,1.81) -- (2.85,2.45) -- (0.60,2.45) -- (0.00,1.81) -- cycle;
+  \draw[black!70, line width=1.1pt] (0.00,0.64) -- (0.60,0.00) -- (2.85,0.00) -- (2.25,0.64) -- (2.25,1.81) -- (2.85,2.45) -- (0.60,2.45) -- (0.00,1.81) -- cycle;
+  \node[font=\normalsize] at (1.42,1.22) {AutoEncoder};
 \end{scope}
-\draw[arr, line width=1.2pt] (1.95,4.25) -- (4.45,4.25);
+\draw[arr, line width=1.4pt] (2.55,4.18) -- (4.45,4.18);
 
 % N x 大框：加高、深色描边
 \fill[fxblue, opacity=.62, rounded corners=12pt] (7.55,2.75) rectangle (14.35,6.20);
