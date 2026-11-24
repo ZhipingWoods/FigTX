@@ -140,22 +140,22 @@ def fig05() -> str:
 \draw[arr, line width=1.2pt] (1.95,4.25) -- (4.45,4.25);
 
 % N x 大框：加高、深色描边
-\fill[fxblue, opacity=.62, rounded corners=12pt] (7.55,3.05) rectangle (14.35,5.95);
-\draw[black!75, line width=1.2pt, rounded corners=12pt] (7.55,3.05) rectangle (14.35,5.95);
+\fill[fxblue, opacity=.62, rounded corners=12pt] (7.55,2.75) rectangle (14.35,6.20);
+\draw[black!75, line width=1.2pt, rounded corners=12pt] (7.55,2.75) rectangle (14.35,6.20);
 \node[font=\large\bfseries, text=red!70!black, anchor=south west] at (7.75,2.88) {$\mathbf{N\times}$};
 
 % 三列背景带（更明显）
-\fill[fxpnk, opacity=.85, rounded corners=5pt] (9.95,3.20) rectangle (11.45,5.80);
-\fill[fxgrn, opacity=.70, rounded corners=5pt] (12.15,3.20) rectangle (13.35,5.80);
+\fill[fxpnk, opacity=.85, rounded corners=5pt] (9.95,2.90) rectangle (11.45,6.05);
+\fill[fxgrn, opacity=.70, rounded corners=5pt] (12.15,2.90) rectangle (13.35,6.05);
 
 % 大号竖排标签（原图里这是最醒目的元素）
-\node[font=\large, rotate=90] at (8.85,4.50) {Linear Attn};
-\node[font=\large, rotate=90] at (10.70,4.50) {Cross Attn};
-\node[font=\large, rotate=90] at (12.75,4.50) {Mix FFN};
+\node[font=\Large, rotate=90] at (8.85,4.47) {Linear Attn};
+\node[font=\Large, rotate=90] at (10.70,4.47) {Cross Attn};
+\node[font=\Large, rotate=90] at (12.75,4.47) {Mix FFN};
 
 % 大 ⊕ 在框内右侧
 \node[circle, draw=black!85, line width=1.1pt, fill=white, minimum size=0.52cm,
-      inner sep=0pt, font=\large] (plus) at (13.85,4.50) {$+$};
+      inner sep=0pt, font=\large] (plus) at (13.85,4.47) {$+$};
 
 \draw[arr, line width=1.2pt] (7.55,4.22) -- (8.40,4.22);
 \draw[arr, line width=1.2pt] (9.30,4.22) -- (9.85,4.22);
