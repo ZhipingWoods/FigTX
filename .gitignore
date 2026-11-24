@@ -14,3 +14,6 @@ public/renders/*.pdf
 # 用户提供的参考图（版权原因不入库）
 .refs/
 data/ref-analysis.json
+
+# matplotlib 中间产物（最终只保留 webp）
+public/renders-fig/*.png
