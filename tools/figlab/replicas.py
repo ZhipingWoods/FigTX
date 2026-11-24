@@ -160,7 +160,7 @@ def fig01():
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.64))  # AR≈1.53
+    fig, ax = plt.subplots(figsize=(6.4, 4.70))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
@@ -620,7 +620,7 @@ def fig09():
 
 def fig10():
     rng = np.random.default_rng(3)
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 6.2))
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 6.14))
     n = 1536
     idx = np.arange(n)
 
