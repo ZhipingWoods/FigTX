@@ -162,13 +162,13 @@ def fig01():
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.16))  # AR≈1.53
+    fig, ax = plt.subplots(figsize=(6.4, 4.54))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
     ypos = [3, 2, 1, 0]
     for y, v, c in zip(ypos, vals, cols):
-        ax.barh(y, v, height=0.56, color=c, edgecolor="none")
+        ax.barh(y, v, height=0.78, color=c, edgecolor="none")
         ax.text(v + 26, y, "%.1f" % v, ha="left", va="center", fontsize=8.6, color="#333333")
     ax.set_yticks(ypos, labels)
     ax.set_xlim(0, 1880)
@@ -214,12 +214,12 @@ def fig02():
                  fontsize=10.5, fontweight="bold", pad=10)
 
     # 原图左下角有 Figure 9 的说明文字块
-    fig.text(0.012, 0.008,
+    fig.text(0.012, 0.015,
              "Figure 9.  Breakdown of efficiency gains from different kernel\n"
              "fusion strategies. The combined optimization results in a 2.52$\\times$\n"
              "speedup relative to 16-bit LoRA fine-tuning.",
-             ha="left", va="bottom", fontsize=12, style="italic", linespacing=1.25)
-    fig.subplots_adjust(bottom=0.21)
+             ha="left", va="bottom", fontsize=14, style="italic", linespacing=1.5)
+    fig.subplots_adjust(bottom=0.30)
     return _save(fig, "rep-02-fusion-gain")
 
 
