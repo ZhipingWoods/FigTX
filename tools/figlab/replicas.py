@@ -103,7 +103,7 @@ def fig01():
     # 图例放在短条右侧的空白区（参考图位置）
     handles = [Rectangle((0, 0), 1, 1, fc=c, ec="none") for c in seg_cols]
     ax1.legend(handles, ["Weight", "Forward Act.", "Backward Act.", "Gradient"],
-               loc="center left", bbox_to_anchor=(0.72, 0.47), frameon=False, fontsize=10.5,
+               loc="center left", bbox_to_anchor=(0.70, 0.28), frameon=False, fontsize=10.5,
                handlelength=1.1, handleheight=0.8, borderpad=0.2, labelspacing=0.28)
 
     # 参考虚线 + 2.25x
