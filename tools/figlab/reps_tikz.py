@@ -58,55 +58,55 @@ def fig05() -> str:
 
 % ================= (a) 训练流水线 =================
 % 前三组：叠层彩色帧；第四组：灰色（t=1 已完全去噪）
-\foreach \i/\x in {0/0.10, 1/3.15, 2/6.20}{
+\foreach \i/\x in {0/0.10, 1/3.05, 2/6.00}{
   \begin{scope}[shift={(\x,9.55)}]
-    \foreach \k in {3,2,1,0}{
+    \foreach \k in {5,4,3,2,1,0}{
       \begin{scope}[shift={(\k*0.12,\k*0.12)}]
-        \clip[rounded corners=3pt] (0,0) rectangle (2.00,2.00);
+        \clip[rounded corners=3pt] (0,0) rectangle (2.20,2.20);
         \node[anchor=south west, inner sep=0pt] at (0,0)
-          {\includegraphics[width=2.00cm,height=2.00cm]{frame\i.png}};
+          {\includegraphics[width=2.20cm,height=2.20cm]{frame\i.png}};
       \end{scope}
       \draw[black!50, line width=1.0pt, rounded corners=3pt]
-        (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
+        (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
     }
   \end{scope}
 }
 % 第四组：灰色叠层
-\begin{scope}[shift={(9.05,9.55)}]
-  \foreach \k in {3,2,1,0}{
-    \fill[black!30, rounded corners=3pt] (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
-    \draw[black!50, line width=1.0pt, rounded corners=3pt] (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
+\begin{scope}[shift={(8.75,9.45)}]
+  \foreach \k in {5,4,3,2,1,0}{
+    \fill[black!30, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
+    \draw[black!50, line width=1.0pt, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
   }
 \end{scope}
 
 % 块标签
-\node[font=\small] at (1.25,9.20) {$Block^0_{t=0}$};
-\node[font=\small] at (4.30,9.20) {$Block^1_{t=0.2}$};
-\node[font=\small] at (7.35,9.20) {$Block^2_{t=0.7}$};
-\node[font=\small] at (10.40,9.20) {$Block^3_{t=1}$};
+\node[font=\small] at (1.20,9.15) {$Block^0_{t=0}$};
+\node[font=\small] at (4.15,9.15) {$Block^1_{t=0.2}$};
+\node[font=\small] at (7.10,9.15) {$Block^2_{t=0.7}$};
+\node[font=\small] at (9.90,9.15) {$Block^3_{t=1}$};
 
 % 上方跨块弧线
 \foreach \i/\j/\bend in {0/1/28, 0/2/24, 0/3/20, 1/2/28, 1/3/24, 2/3/28}{
   \draw[arr, draw=teal!70!black, line width=1.2pt]
-    (\i*3.05+2.20, 11.60) to[bend left=\bend] (\j*3.05+2.20, 11.60);
+    (\i*2.95+2.30, 11.72) to[bend left=\bend] (\j*2.95+2.30, 11.72);
 }
 
 % 因果线性注意力小图（放在左半区右侧，x 10.3–13.6）
-\begin{scope}[shift={(12.05,10.55)}]
+\begin{scope}[shift={(12.35,10.60)}]
   \foreach \r in {0,...,3}{
     \foreach \c in {0,...,3}{
       \pgfmathparse{\r>\c ? 0 : 2}
       \ifnum\pgfmathresult=0
-        \fill[black!18] (\c*0.38,-\r*0.38) rectangle ++(0.36,0.36);
+        \fill[black!18] (\c*0.34,-\r*0.34) rectangle ++(0.32,0.32);
       \else
-        \fill[green!72!black] (\c*0.38,-\r*0.38) rectangle ++(0.36,0.36);
+        \fill[green!72!black] (\c*0.34,-\r*0.34) rectangle ++(0.32,0.32);
       \fi
     }
   }
   \draw[black!65, line width=1.2pt] (0,0.38) rectangle (1.54,-1.16);
   \node[font=\footnotesize] at (-0.15,0.50) {$d$};
   \node[font=\footnotesize] at (0.72,0.50) {$d$};
-  \node[font=\tiny, anchor=north west, align=left] at (0.0,-1.24) {$\sum_{i=1}^{k}K_iV_i$\\Cumulative Sum};
+  \node[font=\tiny, anchor=north west, align=left] at (0.0,-1.10) {$\sum_{i=1}^{k}K_iV_i$\\Cumulative Sum};
 
 \end{scope}
 \node[font=\footnotesize, anchor=south] at (12.78,11.80) {Causal Linear Attention};

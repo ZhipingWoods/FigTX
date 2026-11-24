@@ -80,7 +80,7 @@ def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.52):
 
 def fig01():
     # 参考图 AR≈3.98；子图说明放在坐标区下方（不是 title）
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.75),
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.87),
                                    gridspec_kw=dict(width_ratios=[1.34, 1.0], wspace=0.16))
 
     # ---- (a) 显存分解
