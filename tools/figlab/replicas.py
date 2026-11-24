@@ -267,19 +267,21 @@ def fig03():
     st = np.arange(1, 9)
     vals = np.array([5.83, 1.29, 1.19, 1.15, 1.13, 1.11, 1.10, 1.09])
     for ax, ylim in [(axc_top, (5.4, 6.6)), (axc_bot, (1.0, 1.42))]:
-        ax.bar(st, vals, width=0.62, color=GREEN, edgecolor="#5E8C31", linewidth=0.4)
+        ax.bar(st, vals, width=0.72, color=GREEN, edgecolor="black", linewidth=1.1)
         ax.set_xlim(0.4, 8.6)
         ax.set_ylim(*ylim)
     axc_top.spines["bottom"].set_visible(False)
     axc_top.tick_params(axis="x", bottom=False, labelbottom=False)
     axc_bot.spines["top"].set_visible(False)
     axc_top.set_yticks([6.0, 6.6])
+    axc_top.tick_params(labelsize=10.5)
     axc_bot.set_yticks([1.0, 1.1, 1.2, 1.3])
+    axc_bot.tick_params(labelsize=10.5)
     axc_bot.set_xticks(st)
     for xi, v in zip(st, vals):
         ax = axc_top if v > 1.42 else axc_bot
         ax.text(xi, v + (0.06 if v > 1.42 else 0.013), "%.2f" % v,
-                ha="center", va="bottom", fontsize=9.5)
+                ha="center", va="bottom", fontsize=11)
     # 断轴标记：左边缘画一对斜线（上下各一条，错开）
     for ax, y0 in ((axc_top, 0.0), (axc_bot, 1.0)):
         ax.plot([-0.028, -0.004], [y0 - 0.030, y0 + 0.030], transform=ax.transAxes,
@@ -318,47 +320,49 @@ def fig04():
                                 mutation_scale=12, shrinkA=0, shrinkB=0))
     ax.text(300, -0.42, "16×", color=DRED, fontsize=13, ha="center", va="bottom")
     ax.set_title("(b). Generation latency (s) on 720x1280x81\nvideo with default inference settings",
-                 fontsize=10.5, y=-0.36)
+                 fontsize=11.5, y=-0.38)
 
     # (c) VRAM vs 长度
     ax = axes[1]
     L = np.array([1, 10, 30, 60, 65])
     vram_green = np.full_like(L, 7.2, dtype=float)
     vram_gray = np.array([15, 26, 46, 76, 80.0])
-    ax.plot(L, vram_green, "-o", color="#4CAF50", ms=6.5, lw=2.0,
+    ax.plot(L, vram_green, "-o", color="#4CAF50", ms=8.0, lw=2.6,
             label="Block Linear Attention")
-    ax.plot(L, vram_gray, "--D", color="#9E9E9E", ms=6.0, lw=1.9,
+    ax.plot(L, vram_gray, "--D", color="#9E9E9E", ms=7.5, lw=2.5,
             label="Causal Full Attention")
     for xi, yi in zip(L, vram_green):
-        ax.text(xi, yi + 3.0, "%.1f" % yi, ha="center", fontsize=9.5, color="#2E7D32")
+        ax.text(xi, yi + 3.0, "%.1f" % yi, ha="center", fontsize=10.5, color="#1B5E20")
     for xi, yi in zip(L, vram_gray):
-        ax.text(xi, yi + 4.2, "%.0f" % yi, ha="center", fontsize=9.5, color="#555555")
+        ax.text(xi, yi + 4.2, "%.0f" % yi, ha="center", fontsize=10.5, color="#333333")
     ax.text(50, 63, "OOM", color="red", fontsize=9.5, ha="center")
     ax.set_xticks(L)
+    ax.tick_params(labelsize=10.5)
     ax.set_xlabel("")
     ax.text(0.02, 1.02, "(GB)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 90)
-    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=10,
-              ncol=1, handlelength=1.2)
-    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=10.5, y=-0.36)
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=11,
+              ncol=1, handlelength=1.3)
+    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=11.5, y=-0.38)
 
     # (d) 延迟 vs 长度
     ax = axes[2]
     L2 = np.array([5, 10, 30, 50])
     t_green = np.array([0.6, 2.0, 11.0, 20.0])
     t_gray = np.array([1.2, 5.0, 35.0, 93.0])
-    ax.plot(L2, t_green, "-o", color="#4CAF50", ms=6.5, lw=2.0, label="SANA-Video-2B")
-    ax.plot(L2, t_gray, "--D", color="#9E9E9E", ms=6.0, lw=1.9, label="Wan2.1-1.3B")
+    ax.plot(L2, t_green, "-o", color="#4CAF50", ms=8.0, lw=2.6, label="SANA-Video-2B")
+    ax.plot(L2, t_gray, "--D", color="#9E9E9E", ms=7.5, lw=2.5, label="Wan2.1-1.3B")
     for xi, yi in zip(L2, t_green):
-        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=9.5, color="#2E7D32")
+        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=10.5, color="#1B5E20")
     for xi, yi in zip(L2, t_gray):
-        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=9.5, color="#555555")
+        ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=10.5, color="#333333")
     ax.set_xticks(L2)
+    ax.tick_params(labelsize=10.5)
     ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 105)
-    ax.legend(frameon=False, loc="upper left", fontsize=10, handlelength=1.2)
+    ax.legend(frameon=False, loc="upper left", fontsize=11, handlelength=1.3)
     ax.set_title("(d). Generation latency v.s. video\nlength (s) on 480x832 resolution",
-                 fontsize=10.5, y=-0.36)
+                 fontsize=11.5, y=-0.38)
     fig.subplots_adjust(bottom=0.24, top=0.86)
     return _save(fig, "rep-04-latency-scaling")
 
