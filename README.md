@@ -1,179 +1,170 @@
-<div align="center">
+<p align="center"><img src="docs/assets/logo.svg" width="420" alt="FigTX"></p>
 
-# FigTX
+<p align="center"><b>写论文时，把表和图调到「能投」，比想清楚结果还费时间。</b></p>
+<p align="center">FigTX 是一个开源的论文图表样式库：<b>286 个可直接复用的表格与图样式</b>，<br>每个都能看到真实渲染效果、复制走完整代码。</p>
 
-**论文表格与图 · LaTeX / 绘图样式库**
+<p align="center">
+  <b>LaTeX 表格</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>框架图 / 动机图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>实验图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>论文图复刻</b>
+</p>
 
-[![Pages](https://img.shields.io/badge/demo-GitHub%20Pages-b91c1c)](https://zhipingwoods.github.io/FigTX/)
-[![Release](https://img.shields.io/github/v/release/ZhipingWoods/FigTX?color=b91c1c)](https://github.com/ZhipingWoods/FigTX/releases)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+<p align="center">
+  <a href="https://zhipingwoods.github.io/FigTX/"><img height="28" alt="在线浏览" src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E6%B5%8F%E8%A7%88-GitHub%20Pages-b91c1c?style=for-the-badge"></a>
+  <a href="https://github.com/ZhipingWoods/FigTX/releases"><img height="28" alt="下载桌面版" src="https://img.shields.io/badge/%E4%B8%8B%E8%BD%BD-macOS%20%7C%20Windows%20%7C%20Linux-1a1a16?style=for-the-badge"></a>
+  <a href="docs/wiki/"><img height="28" alt="文档" src="https://img.shields.io/badge/%E6%96%87%E6%A1%A3-Wiki-0975ce?style=for-the-badge"></a>
+</p>
 
-macOS · Windows · Linux · Web
+<p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 216」「图 70」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、caption、会议标签和配色色块"></a></p>
 
-</div>
+- **表格 216 个，185 个已用 tectonic 重新编译出真实渲染图。** 不是截图，是把源码跑一遍得到的干净结果。
+- **图 70 个，分四类：框架图 12、动机图 8、实验定量 10、实验定性 8。** 另含 10 张按真实论文逐项复刻的图。
+- **一个桌面 app 走完全程。** macOS / Windows / Linux 原生包，或直接用网页版，全部离线可用。
 
 ---
 
-## 这是什么
+## 它能做什么
 
-写论文时最耗时的不是想清楚结果，而是把表调到"能看"、把图调到"能投"。
-三线表、分组表头、加粗最优值、误差棒、断轴、内嵌放大图……每种都要试半天。
+### 表格：复制走就能用，不用再对像素
 
-**FigTX 把这些一次收集齐，并且严格分成两类：**
+三线表、分组表头、整行底色、最优值高亮、跨行合并、全页宽表——216 个从公开论文里挑出来的 LaTeX 表格。
+每个都带**真实渲染图**（源码跑一遍的结果，不是截图）、**完整源码**、**配色板**和**会议标签**（CVPR 70 / ICLR 26 / ACL 24 …）。
 
-| 分区 | 数量 | 内容 |
+<p align="center"><a href="docs/assets/shot-detail.webp"><img src="docs/assets/shot-detail.webp" width="900" alt="详情面板：左侧是 LaTeX 渲染图，右侧是 caption、会议标签、配色色块和带语法高亮的源码，底部有「复制」「下载 .tex」按钮"></a></p>
+
+### 图：框架图、动机图、实验图，分开找
+
+| 类型 | 数量 | 用来解决什么 |
 |---|---|---|
-| **表格** | 216 | 顶会顶刊论文的 LaTeX 表格源码，用 `tectonic` 重编译出真实渲染图 |
-| **图** | 60 | 框架图 12 · 动机图 6 · 实验定量 10 · 实验定性 8 · 绘图样式 24 |
+| 框架图 | 12 | 画方法总览：单流 Pipeline / 双分支 / 编码-解码 / 模块放大 / MoE / 量化 / 剪枝 / 蒸馏 / 脉动阵列 |
+| 动机图 | 8 | 说清"问题在哪"：差距柱状 / 失败案例 / 精度-代价散点 / 注意力对比 / 频率分布 |
+| 实验·定量 | 10 | 收敛、消融、误差带、雷达、热力图、小提琴、帕累托前沿、断轴 |
+| 实验·定性 | 8 | 检测框网格、分割掩码、注意力热图、检索 Top-K、失败案例 |
+| 绘图样式 | 24 | SciencePlots 16 种期刊配色 + 8 个成图配方 |
 
-每个条目都带：**真实渲染预览 · 完整源码 · 配色板 · 元信息**，一键复制。
+<p align="center"><a href="docs/assets/shot-figs.webp"><img src="docs/assets/shot-figs.webp" width="920" alt="图分区界面：筛选条上有「论文复刻 10」「框架图 12」「实验·定量 10」「实验·定性 8」「动机图 8」等类型标签，下方是各类图表卡片"></a></p>
 
-![FigTX 表格库](docs/assets/gallery.png)
+### 论文图复刻：照着真图逐项对着画
 
-## 两个分区
+选 10 张代表性论文图，一像素一像素地复刻：布局、配色、标注位置、箭头弧度、断轴符号。
+每张都附**完整可运行代码**，改数据就能用。下面每张图**上方是原图，下方是复刻**：
 
-### 表格（LaTeX）
+| 图 | 复刻结果 |
+|---|---|
+| **效率 · 显存分解**<br>破坏性堆叠条 + 虚线倍数标注 | <a href="docs/assets/replicas/01-memory-latency.webp"><img src="docs/assets/replicas/01-memory-latency.webp" width="420"></a> |
+| **效率 · 逐项融合增益**<br>外弧箭头标每步增益 | <a href="docs/assets/replicas/02-fusion-gain.webp"><img src="docs/assets/replicas/02-fusion-gain.webp" width="420"></a> |
+| **权衡 · 精度曲线**<br>6 系列 + 断轴柱状 | <a href="docs/assets/replicas/03-accuracy-tradeoff.webp"><img src="docs/assets/replicas/03-accuracy-tradeoff.webp" width="420"></a> |
+| **架构 · 流程与模块放大**<br>三面板 TikZ | <a href="docs/assets/replicas/05-architecture.webp"><img src="docs/assets/replicas/05-architecture.webp" width="420"></a> |
+| **机制 · 张量结构**<br>矩阵格子对比 | <a href="docs/assets/replicas/06-mechanism.webp"><img src="docs/assets/replicas/06-mechanism.webp" width="420"></a> |
+| **结果 · 分组柱 + 热图**<br>密集参考线 + 三联热图 | <a href="docs/assets/replicas/07-grouped-heatmap.webp"><img src="docs/assets/replicas/07-grouped-heatmap.webp" width="420"></a> |
 
-来自公开论文的表格代码，覆盖三线表、跨列表头、分组底色、最优值高亮、跨行合并、
-整页宽表等常见做法。源码直接可粘，配色用 `\definecolor` 定义好一起带走。
+<details>
+<summary>看全部 10 张复刻</summary>
 
-### 图（框架 / 动机 / 实验 / 样式）
+| # | 图 |
+|---|---|
+| 04 | <a href="docs/assets/replicas/04-latency-scaling.webp"><img src="docs/assets/replicas/04-latency-scaling.webp" width="560"></a> |
+| 08 | <a href="docs/assets/replicas/08-shared-legend.webp"><img src="docs/assets/replicas/08-shared-legend.webp" width="560"></a> |
+| 09 | <a href="docs/assets/replicas/09-activation-heatmap.webp"><img src="docs/assets/replicas/09-activation-heatmap.webp" width="560"></a> |
+| 10 | <a href="docs/assets/replicas/10-frequency-outlier.webp"><img src="docs/assets/replicas/10-frequency-outlier.webp" width="560"></a> |
 
-**样式**（16 种，来自 [SciencePlots](https://github.com/garrettj403/SciencePlots)）：
-`science` / `science+ieee` / `science+nature` / 网格 / Notebook / 散点 / 无衬线 /
-明亮 / 鲜艳 / 低饱和 / 复古 / 高可视 / 浅色 / 深色 / 中文 / matplotlib 默认对照。
+</details>
 
-**配方**（8 例，来自 [paper-plot-skills](https://github.com/Trae1ounG/paper-plot-skills)）：
-**框架图**（12 个 TikZ 模板，原创）：单流 Pipeline / 双分支 / 编码-解码 / 模块放大 Zoom-in /
-多阶段级联 / 图结构 / 自注意力 / MoE 路由 / 量化 / 剪枝 / 蒸馏 / 硬件脉动阵列。
-
-**动机图**（6 个）：差距柱状、失败案例拼图、精度-代价散点、注意力对比、规模收益、分布漂移。
-
-**实验图**（定量 10 + 定性 8）：收敛/消融/误差带/雷达/热力图/帕累托/小提琴/敏感性，
-检测框/分割掩码/注意力热图/检索 Top-K/失败案例/超分/深度/视频帧。
-
-**配方**（8 例，来自 paper-plot-skills）：训练曲线+局部放大、多方法收敛、蒸馏双图、
-分组柱状、雷达、断轴散点、t-SNE 聚类。
-每条都附可直接运行的 Python 脚本。
+---
 
 ## 快速开始
 
-### 桌面版
+### 方式一：桌面版（推荐，离线可用）
 
-到 [Releases](https://github.com/ZhipingWoods/FigTX/releases) 下载：
+到 [Releases](https://github.com/ZhipingWoods/FigTX/releases) 下载对应平台：
 
 | 平台 | 文件 |
 |---|---|
-| macOS (Apple Silicon) | `FigTX-<version>-arm64.dmg` |
-| macOS (Intel) | `FigTX-<version>-x64.dmg` |
+| macOS（Apple Silicon） | `FigTX-<version>-arm64.dmg` |
+| macOS（Intel） | `FigTX-<version>-x64.dmg` |
 | Windows | `FigTX-Setup-<version>-x64.exe` |
 | Linux | `FigTX-<version>-x86_64.AppImage` / `.deb` |
 
-### 网页版
+### 方式二：网页版
 
-**https://zhipingwoods.github.io/FigTX/**
+打开 **https://zhipingwoods.github.io/FigTX/** —— 无需安装，换电脑也能用。
 
-### 本地开发
+### 方式三：本地开发
 
 ```bash
 git clone git@github.com:ZhipingWoods/FigTX.git
 cd FigTX
 npm install
-npm run dev          # http://localhost:5173
-npm run electron:dev # 桌面窗口
+
+npm run dev            # 浏览器 http://localhost:5173
+npm run electron:dev   # 桌面窗口
 ```
 
-## 打包
+打包：
 
 ```bash
-npm run dist:mac     # .dmg + .zip (arm64 & x64)
-npm run dist:win     # NSIS 安装包 + 便携版
-npm run dist:linux   # AppImage + deb
+npm run dist:mac       # .dmg + .zip
+npm run dist:win       # NSIS 安装包
+npm run dist:linux     # AppImage + deb
 ```
 
-产物在 `release/`。CI 三平台自动构建，见 `.github/workflows/release.yml`。
+---
 
-## 数据是怎么来的
+## 更新图表库
 
-```
-表格：论文 LaTeX 片段 ──► docx ──► 抽取 ──► tectonic 编译 ──► 预览图
-图样式：SciencePlots ──► matplotlib 逐样式渲染 ──► 预览图
-图配方：paper-plot-skills ──► 跑脚本出图 ──► 预览图 + 源码
+数据是纯文本 + 图片，改完跑两条命令就生效：
+
+```bash
+# 1. 表格：从 docx 抽 LaTeX
+python3 tools/extract_docx.py --docx-dir <docx目录> --notes <notes.json> --out .
+python3 tools/render_tex.py --items data/raw-items.json --out public/renders
+
+# 2. 图：模板生成 / 论文图复刻
+.venv-fig/bin/python tools/figlab/build.py          # 框架/动机/定量/定性
+.venv-fig/bin/python tools/figlab/build_replicas.py # 论文图复刻
+
+# 3. 汇总
+node tools/build-data.mjs
 ```
 
 | 脚本 | 作用 |
 |---|---|
-| `tools/extract_docx.py` | 从 `.docx` 抽 LaTeX、识别类型、抽配色 |
+| `tools/extract_docx.py` | docx → LaTeX，识别表格/图、抽配色 |
 | `tools/render_tex.py` | tectonic 编译 + 自动修复片段 + 转 WebP |
-| `tools/ingest_figures.py` | 渲染 16 种 SciencePlots 样式示范图 |
-| `tools/ingest_recipes.py` | 跑 paper-plot-skills 脚本出图（不改原脚本） |
-| `tools/figlab/` | 框架图/动机图/定量/定性 模板生成器（TikZ + matplotlib） |
+| `tools/figlab/` | 框架图/动机图/定量/定性 模板（TikZ + matplotlib） |
+| `tools/figlab/replicas.py` | 论文图复刻（照原图逐项对齐） |
 | `tools/build-data.mjs` | 汇总成 `src/data/items.json` |
-| `tools/audit.py` | 逐项质量审计（墨迹占比 / 边界 / 括号配平） |
+| `tools/audit.py` | 质量审计：渲染图墨迹占比、边界、源码配平 |
 
-渲染依赖 [tectonic](https://tectonic-typesetting.github.io/)；图样式需要 Python + matplotlib：
+---
 
-```bash
-python3 -m venv .venv-fig
-.venv-fig/bin/pip install matplotlib numpy scipy SciencePlots
-.venv-fig/bin/python tools/ingest_figures.py
-.venv-fig/bin/python tools/ingest_recipes.py --repo <paper-plot-skills 目录>
-node tools/build-data.mjs
-```
-
-## 扩展
-
-`data/raw-items.json`（表格）与 `data/raw-figures.json` / `data/raw-recipes.json`（图）
-是唯一的数据契约，任何来源转成这个结构就能合并进来。
-
-```json
-{
-  "id": "fig-science-ieee",
-  "category": "figure",
-  "kind": "chart",
-  "title": "Science + IEEE",
-  "caption": "IEEE 双栏：黑色优先 + 线型区分",
-  "code": "import matplotlib.pyplot as plt\nimport scienceplots\n...",
-  "codeLang": "python",
-  "render": "renders-fig/fig-science-ieee.png",
-  "palette": ["#000000", "#ff0000"],
-  "source": { "repo": "garrettj403/SciencePlots", "license": "MIT" }
-}
-```
-
-## 目录结构
+## 项目结构
 
 ```
 FigTX/
-├── src/                     React 前端（Vite）
-│   ├── App.tsx              表格 / 图 两个分区
-│   └── data/items.json      构建产物，勿手改
-├── electron/                桌面端外壳（自定义 app:// 协议）
-├── tools/
-│   ├── extract_docx.py      docx → LaTeX
-│   ├── render_tex.py        LaTeX → 渲染图
-│   ├── ingest_figures.py    绘图样式 → 示范图
-│   ├── ingest_recipes.py    绘图配方 → 成图
-│   ├── build-data.mjs       汇总数据
-│   └── audit.py / audit_html.py  质量审计
-├── data/                    raw-*.json + latex/ 源码
-├── public/renders/          表格渲染图
-├── public/renders-fig/      图样式/配方预览图
-├── docs/wiki/               Wiki 源文件
-└── .github/workflows/       Pages + 三平台 Release
+├── src/                      React 前端（Vite）
+│   ├── App.tsx               表格 / 图 两个分区 + 多层筛选
+│   └── data/items.json       构建产物，勿手改
+├── electron/                 桌面端外壳（自定义 app:// 协议）
+├── tools/                    数据管线
+├── data/                     raw-*.json + LaTeX 源码
+├── public/renders/           表格渲染图
+├── public/renders-fig/       图预览
+├── docs/wiki/                Wiki 源文件
+└── .github/workflows/        Pages + 三平台 Release
 ```
+
+---
 
 ## 数据来源与致谢
 
+FigTX 站在这些项目的肩膀上：
+
+- **[SciencePlots](https://github.com/garrettj403/SciencePlots)**（MIT）：16 种期刊绘图样式
+- **[paper-plot-skills](https://github.com/Trae1ounG/paper-plot-skills)**：8 个成图配方与绘图规范
+- **[tectonic](https://tectonic-typesetting.github.io/)**：把 LaTeX 片段编译成真实渲染图
 - 表格样式来自公开分享的论文 LaTeX 片段，仅做收集、索引与展示
-- 图样式：[SciencePlots](https://github.com/garrettj403/SciencePlots)（MIT）
-- 图配方：[paper-plot-skills](https://github.com/Trae1ounG/paper-plot-skills)
 
-单个样式的版权归属原作者 / 原论文。代码以 [Apache-2.0](LICENSE) 发布。
+单个样式的版权归原作者 / 原论文。代码以 [Apache-2.0](LICENSE) 发布。
 
-## 相关文档
+## License
 
-- [使用手册](docs/wiki/使用手册.md)
-- [图分类体系](docs/wiki/图分类体系.md)
-- [数据管线](docs/wiki/数据管线.md)
-- [贡献指南](docs/wiki/贡献指南.md)
+[Apache-2.0](LICENSE)

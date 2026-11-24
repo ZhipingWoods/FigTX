@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="120" viewBox="0 0 520 120">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b91c1c"/><stop offset="1" stop-color="#7f1d1d"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="26" width="68" height="68" rx="16" fill="url(#g)"/>
+  <text x="42" y="70" font-family="Georgia,serif" font-size="27" font-weight="700"
+        fill="#fff" text-anchor="middle">TeX</text>
+  <text x="94" y="72" font-family="Georgia,serif" font-size="42" font-weight="700"
+        fill="#1a1a18" letter-spacing="-1">FigTX</text>
+  <text x="96" y="96" font-family="-apple-system,Segoe UI,sans-serif" font-size="14.5"
+        fill="#8a8580">论文表格与图 · 样式库</text>
+</svg>

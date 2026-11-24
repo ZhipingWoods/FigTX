@@ -10,3 +10,7 @@ __pycache__/
 
 public/renders/_failures.json
 public/renders/*.pdf
+
+# 用户提供的参考图（版权原因不入库）
+.refs/
+data/ref-analysis.json

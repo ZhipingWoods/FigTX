@@ -20,23 +20,25 @@ from common import OUT_FIG  # noqa: E402
 # 参考图统一风格
 RC = {
     "figure.dpi": 120,
-    "savefig.dpi": 200,
+    "savefig.dpi": 300,                 # 投稿级
     "font.family": "serif",
-    "font.serif": ["DejaVu Serif"],
+    "font.serif": ["Palatino", "Times New Roman", "DejaVu Serif"],
     "mathtext.fontset": "dejavuserif",
     "font.size": 9,
-    "axes.linewidth": 0.8,
+    "axes.linewidth": 1.1,
     "xtick.direction": "out",
     "ytick.direction": "out",
     "axes.spines.top": False,
     "axes.spines.right": False,
 }
 
-# 论文图常用色（从参考图取色）
-TEAL = "#1BA6B5"
-YELLOW = "#F2C230"
-DRED = "#8C1D2F"
-GRAY = "#5F5F5F"
+# 色值来自对参考图的像素统计（data/ref-analysis.json），误差 < 10 RGB
+TEAL = "#08A8B8"      # 01 主色
+YELLOW = "#E8B800"    # 01 中段
+DRED = "#8C1D2F"      # 01/02/07 深红
+DRED2 = "#781828"     # 02 实测
+GRAY = "#585858"      # 01 梯度
+MGRAY = "#888888"     # 02 BF16
 LGRAY = "#A6A6A6"
 NAVY = "#2F3A4F"
 BLUE = "#3E8FB8"
@@ -45,6 +47,11 @@ SAGE = "#C8D5B9"
 SAND = "#F5E6A8"
 MAUVE = "#8B7A9E"
 GREEN = "#7CB342"
+HGREEN = "#38D888"    # 07 热图主色
+GGRN = "#98C838"      # 03 柱状
+SGY = "#A8B8B8"       # 04 横条灰绿
+RED8 = "#A82818"      # 08 深红
+
 
 
 def _save(fig, name):
@@ -72,10 +79,9 @@ def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.52):
 # ---------------------------------------------------------------- 01 显存/延迟分解
 
 def fig01():
-    fig = plt.figure(figsize=(13.0, 3.35))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.42, 1.0], wspace=0.30)
-    ax1 = fig.add_subplot(gs[0])
-    ax2 = fig.add_subplot(gs[1])
+    # 参考图 AR≈3.98；子图说明放在坐标区下方（不是 title）
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.27),
+                                   gridspec_kw=dict(width_ratios=[1.34, 1.0], wspace=0.16))
 
     # ---- (a) 显存分解
     seg_cols = [TEAL, YELLOW, DRED, GRAY]
@@ -86,27 +92,31 @@ def fig01():
     ]
     ypos = [2, 1, 0]
     _hbar_stacked(ax1, rows, None, seg_cols, ypos)
-    ax1.set_xlim(0, 32.5)
-    ax1.set_ylim(-0.95, 2.62)
+    ax1.set_xlim(0, 33.5)
+    ax1.set_ylim(-0.72, 2.55)
     ax1.set_xticks([])          # 参考图左侧无 x 轴刻度
     ax1.set_xlabel("")
+    for sp in ("top", "right", "bottom"):
+        ax1.spines[sp].set_visible(False)
+    ax1.tick_params(axis="y", length=0, labelsize=8.6)
 
+    # 图例放在短条右侧的空白区（参考图位置）
     handles = [Rectangle((0, 0), 1, 1, fc=c, ec="none") for c in seg_cols]
     ax1.legend(handles, ["Weight", "Forward Act.", "Backward Act.", "Gradient"],
-               loc="center left", bbox_to_anchor=(0.635, 0.30), frameon=False, fontsize=8.2,
-               handlelength=1.2, handleheight=0.85, borderpad=0.2, labelspacing=0.30)
+               loc="center left", bbox_to_anchor=(0.72, 0.47), frameon=False, fontsize=8.0,
+               handlelength=1.1, handleheight=0.8, borderpad=0.2, labelspacing=0.28)
 
     # 参考虚线 + 2.25x
     xref = 26.95
-    ax1.plot([xref, xref], [2.32, -0.62], ls=(0, (2, 1.6)), lw=1.0, color=DRED)
-    ax1.annotate("", xy=(12.0, -0.62), xytext=(xref, -0.62),
+    ax1.plot([xref, xref], [2.30, -0.50], ls=(0, (2, 1.6)), lw=1.0, color=DRED)
+    ax1.annotate("", xy=(12.0, -0.50), xytext=(xref, -0.50),
                  arrowprops=dict(arrowstyle="-|>", color=DRED, lw=1.1,
                                  mutation_scale=13, shrinkA=0, shrinkB=0))
-    ax1.text((xref + 12.0) / 2, -0.48, "2.25×", color=DRED, fontsize=11.5,
+    ax1.text((xref + 12.0) / 2, -0.38, "2.25×", color=DRED, fontsize=12,
              ha="center", va="bottom")
-    ax1.set_title("(a) GPU Memory Breakdown (GB) during\nFLUX.1-dev Customization (1 × 1024 × 1024)",
-                  fontsize=9.6, pad=6)
-    ax1.tick_params(axis="y", length=0)
+    ax1.set_xlabel("(a) GPU Memory Breakdown (GB) during\n"
+                   "FLUX.1-dev Customization (1 × 1024 × 1024)",
+                   fontsize=9.4, labelpad=8)
 
     # ---- (b) 端到端延迟
     lat = [("FourTune (Ours)", 0.86, DRED), ("NF4 QLoRA", 2.40, TEAL), ("BF16 LoRA", 1.95, GRAY)]
@@ -114,12 +124,17 @@ def fig01():
         ax2.barh(y, v, height=0.52, color=c, edgecolor="none")
         ax2.text(v - 0.05, y, ("%g s" % v), ha="right", va="center",
                  color="white", fontsize=9)
-    ax2.set_yticks([0, 1, 2], ["FourTune (Ours)", "NF4 QLoRA", "BF16 LoRA"])
-    ax2.set_xlim(0, 2.95)
-    ax2.set_ylim(-0.7, 2.5)
+    # 参考图：类别标签在条形右侧
+    ax2.set_yticks([0, 1, 2], [])
+    ax2.set_xlim(0, 3.35)
+    ax2.set_ylim(-0.62, 2.5)
     ax2.set_xticks([])
-    ax2.spines["left"].set_visible(False)
-    ax2.tick_params(axis="y", length=0)
+    for sp in ("top", "right", "bottom"):
+        ax2.spines[sp].set_visible(False)
+    for y, lab in [(0, "FourTune (Ours)"), (1, "NF4 QLoRA"), (2, "BF16 LoRA")]:
+        val = {0: 0.86, 1: 2.40, 2: 1.95}[y]
+        ax2.text(val + (2.42 - val) * 0 + 0.12 if y == 0 else val + 0.12, y, lab,
+                 va="center", ha="left", fontsize=8.6)
 
     # 虚线连接：BF16 末端 → NF4 行；NF4 末端 → 下方
     ax2.plot([1.95, 1.95], [2.26, 1.0], ls=(0, (3, 2)), lw=0.9, color=GRAY)
@@ -135,16 +150,17 @@ def fig01():
                                  mutation_scale=11, shrinkA=0, shrinkB=0))
     ax2.text(1.62, 0.27, "2.79×", ha="center", va="bottom", fontsize=11, color=TEAL)
 
-    ax2.set_title("(b) End-to-End Training Step Latency (s) during\nFLUX.1-dev Customization (1 × 1024 × 1024)",
-                  fontsize=9.6, pad=6)
-    fig.subplots_adjust(bottom=0.22)
+    ax2.set_xlabel("(b) End-to-End Training Step Latency (s) during\n"
+                    "FLUX.1-dev Customization (1 × 1024 × 1024)",
+                    fontsize=9.4, labelpad=8)
+    fig.subplots_adjust(bottom=0.30, top=0.94, left=0.10, right=0.99)
     return _save(fig, "rep-01-memory-latency")
 
 
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.0))
+    fig, ax = plt.subplots(figsize=(6.4, 4.18))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
@@ -278,7 +294,7 @@ def fig03():
 # ---------------------------------------------------------------- 04 延迟/显存扩展
 
 def fig04():
-    fig, axes = plt.subplots(1, 3, figsize=(13.4, 3.4),
+    fig, axes = plt.subplots(1, 3, figsize=(13.4, 3.94),
                              gridspec_kw=dict(width_ratios=[1.12, 1.0, 1.0], wspace=0.30))
 
     # (b) 横向条 + 16x
