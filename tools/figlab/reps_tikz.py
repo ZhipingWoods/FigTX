@@ -62,37 +62,37 @@ def fig05() -> str:
 
 % ================= (a) 训练流水线 =================
 % 前三组：叠层彩色帧；第四组：灰色（t=1 已完全去噪）
-\foreach \i/\x in {0/-0.35, 1/2.75, 2/5.85}{
+\foreach \i/\x in {0/-0.30, 1/3.00, 2/6.30}{
   \begin{scope}[shift={(\x,9.55)}]
     \foreach \k in {5,4,3,2,1,0}{
       \begin{scope}[shift={(\k*0.12,\k*0.12)}]
-        \clip[rounded corners=3pt] (0,0) rectangle (2.45,2.45);
+        \clip[rounded corners=3pt] (0,0) rectangle (2.20,2.20);
         \node[anchor=south west, inner sep=0pt] at (0,0)
-          {\includegraphics[width=2.45cm,height=2.45cm]{frame\i.png}};
+          {\includegraphics[width=2.20cm,height=2.20cm]{frame\i.png}};
       \end{scope}
       \draw[black!50, line width=1.0pt, rounded corners=3pt]
-        (\k*0.11,\k*0.11) rectangle ++(2.45,2.45);
+        (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
     }
   \end{scope}
 }
 % 第四组：灰色叠层
-\begin{scope}[shift={(8.45,9.45)}]
+\begin{scope}[shift={(8.90,9.45)}]
   \foreach \k in {5,4,3,2,1,0}{
-    \fill[black!30, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.45,2.45);
-    \draw[black!50, line width=1.0pt, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.45,2.45);
+    \fill[black!30, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
+    \draw[black!50, line width=1.0pt, rounded corners=3pt] (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
   }
 \end{scope}
 
 % 块标签
-\node[font=\small] at (0.90,9.15) {$Block^0_{t=0}$};
-\node[font=\small] at (3.95,9.15) {$Block^1_{t=0.2}$};
-\node[font=\small] at (7.05,9.15) {$Block^2_{t=0.7}$};
-\node[font=\small] at (9.65,9.15) {$Block^3_{t=1}$};
+\node[font=\small] at (0.95,9.15) {$Block^0_{t=0}$};
+\node[font=\small] at (4.25,9.15) {$Block^1_{t=0.2}$};
+\node[font=\small] at (7.55,9.15) {$Block^2_{t=0.7}$};
+\node[font=\small] at (10.10,9.15) {$Block^3_{t=1}$};
 
 % 上方跨块弧线
 \foreach \i/\j/\bend in {0/1/28, 0/2/24, 0/3/20, 1/2/28, 1/3/24, 2/3/28}{
   \draw[arr, draw=teal!70!black, line width=1.2pt]
-    (\i*3.10+1.15, 12.00) to[bend left=\bend] (\j*3.10+1.15, 12.00);
+    (\i*3.30+1.10, 11.85) to[bend left=\bend] (\j*3.30+1.10, 11.85);
 }
 
 % 因果线性注意力小图（放在左半区右侧，x 10.3–13.6）
