@@ -116,7 +116,7 @@ def fig01():
              ha="center", va="bottom")
     ax1.set_xlabel("(a) GPU Memory Breakdown (GB) during\n"
                    "FLUX.1-dev Customization (1 × 1024 × 1024)",
-                   fontsize=12.5, labelpad=10)
+                   fontsize=14, labelpad=10)
 
     # ---- (b) 端到端延迟
     lat = [("FourTune (Ours)", 0.86, DRED), ("NF4 QLoRA", 2.40, TEAL), ("BF16 LoRA", 1.95, GRAY)]
@@ -154,7 +154,7 @@ def fig01():
 
     ax2.set_xlabel("(b) End-to-End Training Step Latency (s) during\n"
                     "FLUX.1-dev Customization (1 × 1024 × 1024)",
-                    fontsize=12.5, labelpad=10)
+                    fontsize=14, labelpad=10)
     fig.subplots_adjust(bottom=0.30, top=0.94, left=0.10, right=0.99)
     return _save(fig, "rep-01-memory-latency")
 
@@ -162,7 +162,7 @@ def fig01():
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.70))  # AR≈1.53
+    fig, ax = plt.subplots(figsize=(6.4, 4.24))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
@@ -212,6 +212,14 @@ def fig02():
 
     ax.set_title("DiT Training Per-Step Latency (ms) on Single RTX 5090",
                  fontsize=10.5, fontweight="bold", pad=10)
+
+    # 原图左下角有 Figure 9 的说明文字块
+    fig.text(0.012, 0.008,
+             "Figure 9.  Breakdown of efficiency gains from different kernel\n"
+             "fusion strategies. The combined optimization results in a 2.52$\\times$\n"
+             "speedup relative to 16-bit LoRA fine-tuning.",
+             ha="left", va="bottom", fontsize=12, style="italic", linespacing=1.25)
+    fig.subplots_adjust(bottom=0.21)
     return _save(fig, "rep-02-fusion-gain")
 
 
@@ -328,7 +336,7 @@ def fig04():
                                 mutation_scale=12, shrinkA=0, shrinkB=0))
     ax.text(300, -0.42, "16×", color=DRED, fontsize=13, ha="center", va="bottom")
     ax.set_title("(b). Generation latency (s) on 720x1280x81\nvideo with default inference settings",
-                 fontsize=11.5, y=-0.38)
+                 fontsize=13.5, y=-0.38)
 
     # (c) VRAM vs 长度
     ax = axes[1]
@@ -353,7 +361,7 @@ def fig04():
     ax.set_axisbelow(True)
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=11,
               ncol=1, handlelength=1.3, prop={"weight": "bold", "size": 11})
-    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=11.5, y=-0.38)
+    ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=13.5, y=-0.38)
 
     # (d) 延迟 vs 长度
     ax = axes[2]
@@ -378,7 +386,7 @@ def fig04():
     ax.legend(frameon=False, loc="upper left", handlelength=1.3,
               prop={"weight": "bold", "size": 11})
     ax.set_title("(d). Generation latency v.s. video\nlength (s) on 480x832 resolution",
-                 fontsize=11.5, y=-0.38)
+                 fontsize=13.5, y=-0.38)
     fig.subplots_adjust(bottom=0.24, top=0.86)
     return _save(fig, "rep-04-latency-scaling")
 
@@ -704,8 +712,8 @@ def fig10():
              "tivation frequencies, while the bottom depicts average activation\n"
              "values.  Red crosses mark important channel positions identified\n"
              "by the static global method on the calibration dataset.",
-             ha="center", va="bottom", fontsize=8.2)
-    fig.subplots_adjust(top=0.95, bottom=0.20, left=0.12, right=0.98, hspace=0.34)
+             ha="center", va="bottom", fontsize=13, linespacing=1.4)
+    fig.subplots_adjust(top=0.95, bottom=0.30, left=0.12, right=0.98, hspace=0.48)
     return _save(fig, "rep-10-frequency-outlier")
 
 
