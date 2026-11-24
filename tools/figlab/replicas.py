@@ -487,7 +487,7 @@ def fig07():
 # ---------------------------------------------------------------- 08 共享图例 + 双行归一化柱
 
 def fig08():
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.54), sharex=False)
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.64), sharex=False)
     methods = ["QServe", "vLLM", "DuoAttention", "MInference", "LServe (Ours)"]
     cols = ["#D9D9D9", "#A6A6A6", "#595959", "#000000", "#8C1D2F"]
     rows = [
@@ -504,34 +504,35 @@ def fig08():
           [0.34, 0.36, 0.70, 0.72, 0.48, 0.56, 0.47],
           [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
     ]
-    w = 0.205
+    w = 0.225
     for ax, (ylabel, xt, mat) in zip(axes, rows):
         x = np.arange(len(xt))
         for i, (m, c) in enumerate(zip(methods, cols)):
             off = (i - 2) * w
-            ax.bar(x + off, mat[i], w * 0.96, color=c, edgecolor="black" if c == "#000000" else "none",
-                   linewidth=0.5)
+            ax.bar(x + off, mat[i], w * 0.98, color=c, edgecolor="black" if c == "#000000" else "none",
+                   linewidth=0.9)
             for xi, v in zip(x + off, mat[i]):
                 ax.text(xi, v + 0.022, "%.2f" % v, ha="center", va="bottom",
-                        fontsize=4.9, rotation=90)
-        ax.set_xticks(x, xt, fontsize=8)
+                        fontsize=6.0, rotation=90)
+        ax.set_xticks(x, xt, fontsize=9)
+        ax.tick_params(axis="x", pad=3)
         ax.set_ylim(0, 1.16)
         ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
-        ax.set_ylabel(ylabel, fontsize=8, rotation=0, ha="right", va="center", labelpad=18)
-        ax.tick_params(axis="y", labelsize=7)
+        ax.set_ylabel(ylabel, fontsize=9.5, rotation=0, ha="right", va="center", labelpad=18)
+        ax.tick_params(axis="y", labelsize=8.5, length=4, width=1.2)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
 
     handles = [Rectangle((0, 0), 1, 1, fc=c, ec="black" if c == "#000000" else "none",
                          lw=0.6) for c in cols]
     fig.legend(handles, methods, loc="upper center", bbox_to_anchor=(0.5, 1.03),
-               ncol=5, frameon=False, fontsize=8, handlelength=1.0, columnspacing=1.0)
+               ncol=5, frameon=False, fontsize=9.5, handlelength=1.1, columnspacing=1.1)
     fig.text(0.5, 0.005,
              "Figure 11: Prefilling Speed Evaluation. Performance comparison\n"
              "of long-sequence prefilling across different serving frameworks,\n"
              "normalized to LServe's speed.",
-             ha="center", va="bottom", fontsize=8.0, fontweight="bold")
-    fig.subplots_adjust(top=0.88, bottom=0.19, left=0.145, right=0.995, hspace=0.30)
+             ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    fig.subplots_adjust(top=0.89, bottom=0.21, left=0.145, right=0.995, hspace=0.30)
     return _save(fig, "rep-08-shared-legend")
 
 
