@@ -50,8 +50,19 @@ PREAMBLE = r"""
 \usepackage{xspace}
 \usepackage{pifont}
 \usepackage[active,tightpage]{preview}
-\setlength\PreviewBorder{10pt}
+\setlength\PreviewBorder{18pt}
 \setlength{\parindent}{0pt}
+% 纸张足够大 + 版心足够高：长表格不会跨页被截断；
+% 但 textwidth 保持论文正常值，让 resizebox{textwidth} 的缩放比例贴近真实论文。
+\pdfpagewidth=1600pt
+\pdfpageheight=9000pt
+\paperwidth=1600pt
+\paperheight=9000pt
+\textwidth=468pt
+\textheight=8800pt
+\hoffset=-1in
+\voffset=-1in
+\topskip=0pt
 \pagestyle{empty}
 \begin{document}
 \begin{preview}
@@ -78,6 +89,16 @@ GRAPHICS_FALLBACK = (
 
 
 DEF_RE = re.compile(r"^\s*\\(?:re)?newcommand\*?\s*\{?\\([A-Za-z@]+)\}?")
+
+
+NEWCMD = re.compile(r'\\newcommand\*?')
+
+
+def soften_newcommands(body: str) -> str:
+    """片段里的 newcommand 若与宏包已定义的同名命令冲突会报错；
+    换成 providecommand：已存在则沿用，不存在则定义。
+    """
+    return NEWCMD.sub(lambda _m: '\\providecommand', body)
 
 
 def dedupe_definitions(body: str) -> str:
@@ -110,6 +131,7 @@ def prepare_body(latex: str, use_graphic_fallback: bool) -> str:
     for pat in NOISE:
         body = pat.sub("", body)
     body = dedupe_definitions(body)
+    body = soften_newcommands(body)
     if use_graphic_fallback:
         body = GRAPHICS_FALLBACK + "\n" + body
     return body

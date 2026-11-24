@@ -38,6 +38,24 @@ def docx_paragraphs(path: str) -> list[str]:
     return out
 
 
+def trim_install_notes(latex: str) -> str:
+    """有些 docx 前半是「怎么安装 xx.bst」的说明，后面才是真正要用的代码。
+
+    这类文件行数极多且包含多个 documentclass，只保留最后一个 documentclass 之后的部分。
+    """
+    lines = latex.split(chr(10))
+    if len(lines) < 600:
+        return latex
+    marker = chr(92) + 'documentclass'
+    start = -1
+    for i, ln in enumerate(lines):
+        if ln.lstrip().startswith(marker):
+            start = i
+    if start <= 0:
+        return latex
+    return chr(10).join(lines[start:])
+
+
 def clean_latex(paras: list[str]) -> str:
     lines = [ln.rstrip() for ln in "\n".join(paras).split("\n")]
     # 去掉首尾空行
@@ -188,7 +206,7 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             print("  ! skip %s: %s" % (fn, e), file=sys.stderr)
             continue
-        latex = clean_latex(paras)
+        latex = trim_install_notes(clean_latex(paras))
         if len(latex.strip()) < 20:
             continue
 
