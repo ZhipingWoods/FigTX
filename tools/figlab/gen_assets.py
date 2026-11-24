@@ -37,7 +37,7 @@ def scene(seed: int, size=(240, 240)) -> Image.Image:
     # 深色背景：径向渐变
     cx, cy = rng.uniform(0.35, 0.65, 2)
     r = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
-    base = np.clip(0.50 - 1.1 * r, 0, 1) ** 1.3
+    base = np.clip(0.52 - 1.05 * r, 0, 1) ** 1.35
 
     img = np.zeros((h, w, 3))
     img[..., 0] = base * 0.22
@@ -45,24 +45,24 @@ def scene(seed: int, size=(240, 240)) -> Image.Image:
     img[..., 2] = base * 1.00
 
     # 暖色副光（右下）
-    warm = np.clip(1.25 - 2.4 * np.sqrt((xx - 0.80) ** 2 + (yy - 0.76) ** 2), 0, 1) ** 1.8
+    warm = np.clip(1.30 - 2.2 * np.sqrt((xx - 0.80) ** 2 + (yy - 0.76) ** 2), 0, 1) ** 1.7
     img[..., 0] += warm * 1.00
     img[..., 1] += warm * 0.34
     img[..., 2] += warm * 0.20
     # 洋红高光（左上）
-    mag = np.clip(1.15 - 2.6 * np.sqrt((xx - 0.18) ** 2 + (yy - 0.24) ** 2), 0, 1) ** 1.8
+    mag = np.clip(1.20 - 2.3 * np.sqrt((xx - 0.18) ** 2 + (yy - 0.24) ** 2), 0, 1) ** 1.7
     img[..., 0] += mag * 0.85
     img[..., 1] += mag * 0.08
     img[..., 2] += mag * 0.72
 
     # 高频分形纹理（模拟真实图像的细节）
     tex = _fractal_noise(rng, h, w, 5)
-    img *= (0.45 + 1.10 * tex)[..., None]
+    img *= (0.42 + 1.10 * tex)[..., None]
 
     # 强对比：拉一道 S 曲线
     img = np.clip(img, 0, 1)
-    img = img ** 1.25
-    img = np.clip((img - 0.5) * 1.45 + 0.5, 0, 1)
+    img = img ** 1.30
+    img = np.clip((img - 0.45) * 1.50 + 0.45, 0, 1)
 
     # 主体剪影（不规则块 + 边缘）
     sil = np.zeros((h, w))
@@ -71,11 +71,11 @@ def scene(seed: int, size=(240, 240)) -> Image.Image:
         bw, bh = rng.uniform(0.15, 0.45, 2)
         m = ((np.abs(xx - bx) < bw / 2) & (np.abs(yy - by) < bh / 2)).astype(float)
         sil = np.maximum(sil, m)
-    img[sil > 0] *= 0.22
+    img[sil > 0] *= 0.30
     # 剪影边缘提亮一圈（轮廓光）
     edge = np.abs(Image.fromarray((sil * 255).astype(np.uint8))
                   .filter(ImageFilter.FIND_EDGES)).astype(float) / 255.0
-    img += np.clip(edge, 0, 1)[..., None] * np.array([0.95, 0.55, 0.30]) * 0.55
+    img += np.clip(edge, 0, 1)[..., None] * np.array([0.95, 0.50, 0.26]) * 0.40
 
     # 细颗粒
     img += rng.normal(0, 0.022, img.shape)
