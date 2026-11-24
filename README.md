@@ -28,6 +28,12 @@ macOS · Windows · Linux · Web
 
 打开就能浏览、搜索、筛选，选中样式直接复制进自己的论文。
 
+![FigTX 样式库](docs/assets/gallery.png)
+
+点开任意样式，左边看渲染效果，右边拿源码：
+
+![详情面板](docs/assets/detail.png)
+
 ## 快速开始
 
 ### 桌面版（推荐）
