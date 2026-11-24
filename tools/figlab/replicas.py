@@ -363,8 +363,11 @@ def fig04():
     for xi, yi in zip(L2, t_gray):
         ax.text(xi, yi + 4.0, "%.0f" % yi, ha="center", fontsize=10.5, color="#333333")
     ax.set_xticks(L2)
-    ax.tick_params(labelsize=10.5)
-    ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=9, va="bottom")
+    ax.tick_params(labelsize=10.5, length=5, width=1.4)
+    for sp in ("left", "bottom", "top", "right"):
+        ax.spines[sp].set_visible(True)
+        ax.spines[sp].set_linewidth(1.5)
+    ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=10, va="bottom")
     ax.set_ylim(0, 105)
     ax.legend(frameon=False, loc="upper left", fontsize=11, handlelength=1.3)
     ax.set_title("(d). Generation latency v.s. video\nlength (s) on 480x832 resolution",
