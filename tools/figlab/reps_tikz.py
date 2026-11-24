@@ -69,8 +69,13 @@ def fig05() -> str:
     \foreach \k in {5,4,3,2,1,0}{
       \begin{scope}[shift={(\k*0.12,\k*0.12)}]
         \clip[rounded corners=3pt] (0,0) rectangle (2.20,2.20);
-        \node[anchor=south west, inner sep=0pt] at (0,0)
-          {\includegraphics[width=2.20cm,height=2.20cm]{frame\i.png}};
+        % 纯 TikZ 绘制的"照片感"占位（不依赖外部图片）
+        \fill[black!90] (0,0) rectangle (2.20,2.20);
+        \fill[cyan!45!black, opacity=0.55] (0.10,0.10) rectangle (1.20,1.65);
+        \fill[red!70!black, opacity=0.50] (0.95,0.35) rectangle (2.10,1.20);
+        \fill[magenta!70!black, opacity=0.40] (0.25,0.62) rectangle (0.85,1.95);
+        \fill[orange!85!black, opacity=0.55] (1.45,0.20) rectangle (2.05,0.95);
+        \fill[white, opacity=0.12] (0.15,0.15) rectangle (0.55,0.55);
       \end{scope}
       \draw[black!50, line width=1.0pt, rounded corners=3pt]
         (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
@@ -125,8 +130,11 @@ def fig05() -> str:
   \foreach \k in {5,4,3,2,1,0}{
     \begin{scope}[shift={(\k*0.11,\k*0.11)}]
       \clip[rounded corners=2pt] (0,0) rectangle (2.15,2.15);
-      \node[anchor=south west, inner sep=0pt] at (0,0)
-        {\includegraphics[width=2.15cm,height=2.15cm]{input.png}};
+        % 纯 TikZ 绘制的输入叠层占位
+        \fill[black!88] (0,0) rectangle (2.15,2.15);
+        \fill[cyan!45!black, opacity=0.55] (0.12,0.12) rectangle (1.35,1.55);
+        \fill[red!70!black, opacity=0.50] (1.05,0.40) rectangle (2.02,1.10);
+        \fill[magenta!65!black, opacity=0.38] (0.30,0.70) rectangle (0.90,1.95);
       \draw[black!60, line width=0.8pt, rounded corners=2pt] (0,0) rectangle (2.15,2.15);
     \end{scope}
   }
