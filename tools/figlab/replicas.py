@@ -580,7 +580,7 @@ def fig09():
     act_disp = act_disp ** 0.42
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 62), vmax=np.percentile(act_disp, 90))
+              vmin=np.percentile(act_disp, 66), vmax=np.percentile(act_disp, 82))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
