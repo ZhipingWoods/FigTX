@@ -17,3 +17,4 @@ data/ref-analysis.json
 
 # matplotlib 中间产物（最终只保留 webp）
 public/renders-fig/*.png
+.venv-fig/
