@@ -60,13 +60,12 @@ def fig05() -> str:
 % 四帧
 \foreach \i/\x/\op in {0/0.05/0.45, 1/2.85/0.66, 2/5.65/0.84, 3/8.45/0.98}{
   \begin{scope}[shift={(\x,9.25)}]
-    \fill[cyan!50!black, opacity=\op, rounded corners=3pt] (0,0) rectangle (2.05,2.05);
-    \foreach \k in {0,...,7}{
-      \fill[white, opacity=.09] (\k*0.29,0) rectangle ++(0.20,2.05);
-    }
-    \node[font=\scriptsize, text=red!65!white, opacity=\op] at (0.72,1.28) {SANA};
-    \draw[black!30, line width=.4pt, rounded corners=3pt] (0,0) rectangle (2.05,2.05);
+    \clip[rounded corners=3pt] (0,0) rectangle (2.05,2.05);
+    \node[anchor=south west, inner sep=0pt] at (0,0)
+      {\includegraphics[width=2.05cm,height=2.05cm]{frame\i.png}};
   \end{scope}
+  \draw[black!50, line width=.5pt, rounded corners=3pt] (\x,9.25) rectangle (\x+2.05,11.30);
+  \node[font=\scriptsize, text=red!60!white, opacity=0.9] at (\x+0.78, 10.55) {SANA};
   \node[font=\scriptsize, below=2pt] at (\x+1.02, 9.18)
     {$Block^{\i}_{\theta^{0.\i}}$};
 }
@@ -97,57 +96,62 @@ def fig05() -> str:
 \node[ttl] at (7.5,7.55) {(a). Block-wise autoregressive training pipeline};
 
 % ================= (b) 整体架构 =================
-% 输入
-\begin{scope}[shift={(0.35,3.05)}]
+% 输入（叠层图像）
+\begin{scope}[shift={(0.30,3.00)}]
   \foreach \k in {0,...,3}{
-    \fill[cyan!50!black, opacity=0.75] (\k*0.10, \k*0.10) rectangle ++(0.95,1.05);
+    \begin{scope}[shift={(\k*0.09,\k*0.09)}]
+      \clip (0,0) rectangle (1.10,1.22);
+      \node[anchor=south west, inner sep=0pt] at (0,0)
+        {\includegraphics[width=1.10cm,height=1.22cm]{input.png}};
+    \end{scope}
+    \draw[black!45, line width=.4pt] (\k*0.09,\k*0.09) rectangle ++(1.10,1.22);
   }
-  \draw[black!35] (0,0) rectangle (1.25,1.30);
 \end{scope}
-\node[font=\scriptsize] at (0.95,2.72) {$[1\!+\!T, H, W, 3]$};
+\node[font=\scriptsize] at (1.00,2.70) {$[1\!+\!T, H, W, 3]$};
 
 % AutoEncoder（平行四边形）
-\begin{scope}[shift={(1.95,3.05)}]
-  \fill[black!7] (0.30,0) -- (3.05,0) -- (2.75,1.42) -- (0,1.42) -- cycle;
-  \draw[black!25, line width=.5pt] (0.30,0) -- (3.05,0) -- (2.75,1.42) -- (0,1.42) -- cycle;
-  \node[font=\scriptsize] (ae) at (1.52,0.71) {AutoEncoder};
+\begin{scope}[shift={(3.60,2.95)}]
+  \fill[black!7] (0.32,0) -- (2.85,0) -- (2.52,1.62) -- (0,1.62) -- cycle;
+  \draw[black!25, line width=.5pt] (0.32,0) -- (2.85,0) -- (2.52,1.62) -- (0,1.62) -- cycle;
+  \node[font=\scriptsize] (ae) at (1.45,0.81) {AutoEncoder};
 \end{scope}
-\draw[arr] (1.30,3.75) -- (ae.west);
+\draw[arr] (1.42,3.76) -- (ae.west);
 
-% N x 大框
-\fill[fxblue, opacity=.55, rounded corners=6pt] (4.55,2.55) rectangle (11.35,5.55);
-\node[font=\scriptsize\bfseries, text=red!70!black, anchor=south west] at (4.62,2.58) {$\mathbf{N\times}$};
+% N x 大框（按原图像素比例：27.9%–49.1% 宽度）
+\fill[fxblue, opacity=.55, rounded corners=7pt] (7.35,2.45) rectangle (13.05,5.60);
+\node[font=\scriptsize\bfseries, text=red!70!black, anchor=south west] at (7.44,2.50) {$\mathbf{N\times}$};
 
-\node[font=\scriptsize, rotate=90, align=center] (la) at (5.45,4.05) {Linear Attn};
-\node[font=\scriptsize, rotate=90, align=center] (ca) at (7.30,4.05) {Cross Attn};
-\node[font=\scriptsize, rotate=90, align=center] (ff) at (9.45,4.05) {Mix FFN};
-\fill[fxpnk, opacity=.75, rounded corners=2pt] (6.80,2.68) rectangle (7.80,5.42);
-\fill[fxgrn, opacity=.55, rounded corners=2pt] (8.95,2.68) rectangle (9.95,5.42);
+% 三列：Linear Attn / Cross Attn / Mix FFN
+\node[font=\scriptsize, rotate=90, align=center] at (8.30,4.05) {Linear Attn};
+\node[font=\scriptsize, rotate=90, align=center] at (10.15,4.05) {Cross Attn};
+\node[font=\scriptsize, rotate=90, align=center] at (12.05,4.05) {Mix FFN};
+\fill[fxpnk, opacity=.72, rounded corners=3pt] (9.55,2.58) rectangle (10.75,5.47);
+\fill[fxgrn, opacity=.55, rounded corners=3pt] (11.55,2.58) rectangle (12.55,5.47);
 
-\draw[arr] (ae.east) -- (4.62,3.75);
-\draw[arr] (5.95,3.75) -- (6.45,3.75);
-\draw[arr] (7.95,3.75) -- (8.50,3.75);
-\draw[arr] (10.10,3.75) -- (11.42,3.75);
-\node[circle, draw=black!65, fill=white, inner sep=1.3pt, font=\scriptsize] (plus) at (11.62,3.75) {$+$};
-\draw[arr] (plus) -- ++(0.55,0);
+\draw[arr] (ae.east) -- (7.44,3.76);
+\draw[arr] (8.85,3.76) -- (9.45,3.76);
+\draw[arr] (10.85,3.76) -- (11.45,3.76);
+\draw[arr] (12.65,3.76) -- (13.18,3.76);
+\node[circle, draw=black!65, fill=white, inner sep=1.4pt, font=\scriptsize] (plus) at (13.42,3.76) {$+$};
+\draw[arr] (plus) -- ++(0.62,0);
 
-% 图标位（雪花 / 火焰）
-\node[font=\small, text=cyan!60!black] at (4.90,5.20) {$\ast$};
-\node[font=\scriptsize, text=cyan!60!black] at (4.90,4.95) {$\ast$};
-\node[font=\small, text=orange!90!black] at (11.05,5.20) {$\blacktriangle$};
+% 图标：雪花（左）/ 火焰（右）
+\node[font=\small, text=cyan!60!black] at (7.75,5.22) {$\ast$};
+\node[font=\scriptsize, text=cyan!60!black] at (7.75,4.94) {$\ast$};
+\node[font=\small, text=orange!90!black] at (12.75,5.22) {$\blacktriangle$};
 
 % 文本分支
-\node[draw=black!45, rounded corners=2pt, fill=white, minimum width=3.1cm,
-      minimum height=0.78cm, font=\tiny, align=left, inner sep=2pt] (capbox)
-  at (1.85,1.20) {\textit{A cyberpunk cat with a}\\\textit{sian that says "SANA"}};
-\node[pnk2, minimum width=1.55cm] (rw) at (4.35,1.20) {Rewriter};
-\node[pnk2, minimum width=1.75cm] (llm) at (6.45,1.20) {Small LLM};
-\node[pnk2, minimum width=1.35cm] (te) at (8.55,1.20) {Time Emb};
+\node[draw=black!45, rounded corners=2pt, fill=white, minimum width=3.3cm,
+      minimum height=0.80cm, font=\tiny, align=left, inner sep=2pt] (capbox)
+  at (1.75,1.05) {\textit{A cyberpunk cat with a}\\\textit{sian that says "SANA"}};
+\node[pnk2, minimum width=1.75cm] (rw) at (4.70,1.05) {Rewriter};
+\node[pnk2, minimum width=1.95cm] (llm) at (7.05,1.05) {Small LLM};
+\node[pnk2, minimum width=1.60cm] (te) at (9.40,1.05) {Time Emb};
 \draw[arr] (capbox.east) -- (rw.west);
 \draw[arr] (rw.east) -- (llm.west);
 \draw[arr] (llm.east) -- (te.west);
-\draw[arr] (llm.north) |- (7.35,2.55);
-\node[ttl] at (7.0,0.28) {(b). Architecture overview of our SANA-Video.};
+\draw[arr] (llm.north) |- (10.15,2.45);
+\node[ttl] at (7.35,0.05) {(b). Architecture overview of our SANA-Video.};
 
 % ================= (c) Linear DiT module =================
 % ---- 面板标题（在框上方）

@@ -43,14 +43,24 @@ TIKZ_PREAMBLE = r"""\documentclass[border=6pt]{standalone}
 """
 
 
-def compile_tikz(tex_body: str, out_webp: str, width: int = 1600) -> bool:
-    """把一段 TikZ 编译成 PNG→WebP。"""
+def compile_tikz(tex_body: str, out_webp: str, width: int = 1600,
+                 assets: bool = False) -> bool:
+    """把一段 TikZ 编译成 PNG→WebP。
+
+    assets=True 时把 tools/figlab/assets/ 下的图片拷进编译目录，
+    供 \includegraphics 引用（程序合成的"照片感"占位图）。
+    """
     texbin = shutil.which("tectonic")
     if not texbin:
         print("tectonic 未安装", flush=True)
         return False
     os.makedirs(os.path.dirname(out_webp) or ".", exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
+        if assets:
+            adir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+            if os.path.isdir(adir):
+                for f in os.listdir(adir):
+                    shutil.copy2(os.path.join(adir, f), os.path.join(tmp, f))
         src = os.path.join(tmp, "main.tex")
         with open(src, "w", encoding="utf-8") as fh:
             fh.write(TIKZ_PREAMBLE + tex_body + "\n\\end{document}\n")

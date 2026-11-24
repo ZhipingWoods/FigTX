@@ -48,8 +48,9 @@ def main() -> int:
 
     for slug, fn, title, desc, figtype, venues, domain in reps_tikz.REPLICAS:
         webp = os.path.join(common.OUT_FIG, "rep-" + slug + ".webp")
-        if not os.path.exists(webp):
-            print("  ! missing", slug)
+        # TikZ 图每次重建（要带 assets 目录里的占位图）
+        if not common.compile_tikz(reps_tikz.ARCH_STYLES + fn(), webp, assets=True):
+            print("  ! tikz failed", slug)
             continue
         items.append({
             "id": "rep-" + slug,
