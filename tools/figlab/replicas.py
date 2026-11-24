@@ -381,7 +381,7 @@ REPLICAS = [
 
 def fig07():
     fig = plt.figure(figsize=(6.6, 7.9))
-    gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 0.78], hspace=0.42, wspace=0.30)
+    gs = fig.add_gridspec(2, 3, height_ratios=[0.82, 1.0], hspace=0.30, wspace=0.32)
 
     # ---- 上：分组柱（3 系列 × 6 稀疏度）
     ax = fig.add_subplot(gs[0, :])
@@ -406,8 +406,8 @@ def fig07():
     ax.set_xticks(x, [str(l) for l in levels])
     ax.set_xlabel("Sparsity Level (%)", fontsize=9.5)
     ax.set_ylabel("Latency (ms)", fontsize=9.5)
-    ax.set_ylim(0, 50)
-    ax.set_yticks([0, 10, 20, 30, 40, 50])
+    ax.set_ylim(0, 48)
+    ax.set_yticks([0, 10, 20, 30, 40])
     ax.axhline(42.3, ls=(0, (2, 1.5)), color="#C0392B", lw=1.1, zorder=2)
     ax.text(5.3, 43.4, "Dense Attention: 42.3 ms", color="#C0392B", fontsize=8.2,
             ha="right", va="bottom", fontweight="bold")
