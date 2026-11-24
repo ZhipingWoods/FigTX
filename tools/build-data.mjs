@@ -98,6 +98,7 @@ const figures = rawFigures.map((it) => ({
   code: it.code || '',
   codeLang: it.codeLang || 'python',
   render: findIn(figFiles, 'renders-fig/', it.id) || it.render || null,
+  editFiles: it.editFiles || [],
   noteImages: [],
   publishedAt: null,
   source: {

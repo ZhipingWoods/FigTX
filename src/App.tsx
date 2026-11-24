@@ -20,6 +20,7 @@ type Item = {
   code: string;
   codeLang: string;
   render: string | null;
+  editFiles?: { ext: string; label: string; path: string }[];
   noteImages: string[];
   publishedAt: string | null;
   source: {
@@ -553,6 +554,23 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
               下载 .{item.codeLang === 'latex' ? 'tex' : item.codeLang === 'python' ? 'py' : 'txt'}
             </button>
           </div>
+
+          {item.editFiles && item.editFiles.length > 0 && (
+            <div className="edit-files">
+              <div className="edit-files-head">
+                可编辑矢量文件
+                <span className="edit-files-hint">框架图通常要二次改图，这里给的是原生形状/路径</span>
+              </div>
+              <div className="edit-files-row">
+                {item.editFiles.map((f) => (
+                  <a key={f.ext} className="btn edit-file-btn" href={'./' + f.path} download>
+                    <b>.{f.ext}</b>
+                    <span>{f.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           <pre className="code">
             <code>{item.codeLang === 'latex' ? highlightLatex(item.code) : highlightPython(item.code)}</code>

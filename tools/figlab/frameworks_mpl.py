@@ -46,10 +46,24 @@ def _save(fig, name):
     return p
 
 
+EDIT_DIR = os.path.join(OUT_FIG, "edit")
+
+
 def _save_ar(fig, name, target_ar):
-    """保存并补白到目标宽高比（tight bbox 会随内容裁剪，这里兜底对齐）。"""
+    """保存 PNG（补白对齐 AR）+ 导出可编辑矢量 SVG / PDF。"""
     os.makedirs(OUT_FIG, exist_ok=True)
+    os.makedirs(EDIT_DIR, exist_ok=True)
     p = os.path.join(OUT_FIG, name + ".png")
+
+    # ---- 可编辑矢量：SVG（文字保持 text，Illustrator/Inkscape/Figma 可直接改）
+    #      PDF（Illustrator 原生可打开，AI 文件本质是 PDF）
+    with plt.rc_context({"svg.fonttype": "none", "pdf.fonttype": 42,
+                         "ps.fonttype": 42}):
+        fig.savefig(os.path.join(EDIT_DIR, name + ".svg"),
+                    bbox_inches="tight", facecolor="white")
+        fig.savefig(os.path.join(EDIT_DIR, name + ".pdf"),
+                    bbox_inches="tight", facecolor="white")
+
     fig.savefig(p, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     from PIL import Image as _Im

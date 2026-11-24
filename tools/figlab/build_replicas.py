@@ -121,6 +121,15 @@ def main() -> int:
             "codeLang": "python",
             "render": "renders-fig/rep-%s.webp" % slug,
             "palette": [],
+            # 框架图额外提供可编辑矢量文件（手绘/改图用）
+            "editFiles": [
+                {"ext": "svg", "label": "SVG 矢量 · Illustrator / Inkscape / Figma 可编辑",
+                 "path": "renders-fig/edit/rep-%s.svg" % slug},
+                {"ext": "pptx", "label": "PPTX 原生形状 · PowerPoint 里直接拖拽改",
+                 "path": "renders-fig/edit/rep-%s.pptx" % slug},
+                {"ext": "pdf", "label": "PDF 矢量 · Illustrator 可直接打开编辑",
+                 "path": "renders-fig/edit/rep-%s.pdf" % slug},
+            ],
             "source": {"repo": None, "repoUrl": None,
                        "license": "本项目原创复刻", "stars": 0, "path": None},
         })

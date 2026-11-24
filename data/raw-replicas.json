@@ -271,6 +271,23 @@
   "codeLang": "python",
   "render": "renders-fig/rep-05-architecture.webp",
   "palette": [],
+  "editFiles": [
+   {
+    "ext": "svg",
+    "label": "SVG 矢量 · Illustrator / Inkscape / Figma 可编辑",
+    "path": "renders-fig/edit/rep-05-architecture.svg"
+   },
+   {
+    "ext": "pptx",
+    "label": "PPTX 原生形状 · PowerPoint 里直接拖拽改",
+    "path": "renders-fig/edit/rep-05-architecture.pptx"
+   },
+   {
+    "ext": "pdf",
+    "label": "PDF 矢量 · Illustrator 可直接打开编辑",
+    "path": "renders-fig/edit/rep-05-architecture.pdf"
+   }
+  ],
   "source": {
    "repo": null,
    "repoUrl": null,
@@ -303,6 +320,23 @@
   "codeLang": "python",
   "render": "renders-fig/rep-06-mechanism.webp",
   "palette": [],
+  "editFiles": [
+   {
+    "ext": "svg",
+    "label": "SVG 矢量 · Illustrator / Inkscape / Figma 可编辑",
+    "path": "renders-fig/edit/rep-06-mechanism.svg"
+   },
+   {
+    "ext": "pptx",
+    "label": "PPTX 原生形状 · PowerPoint 里直接拖拽改",
+    "path": "renders-fig/edit/rep-06-mechanism.pptx"
+   },
+   {
+    "ext": "pdf",
+    "label": "PDF 矢量 · Illustrator 可直接打开编辑",
+    "path": "renders-fig/edit/rep-06-mechanism.pdf"
+   }
+  ],
   "source": {
    "repo": null,
    "repoUrl": null,
