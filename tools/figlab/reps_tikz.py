@@ -41,7 +41,7 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.885cm,
+\begin{tikzpicture}[x=1cm, y=0.845cm,
   box/.style={draw=black!90, line width=1.1pt, rounded corners=4pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
@@ -58,60 +58,60 @@ def fig05() -> str:
 
 % ================= (a) 训练流水线 =================
 % 前三组：叠层彩色帧；第四组：灰色（t=1 已完全去噪）
-\foreach \i/\x in {0/0.10, 1/2.60, 2/5.10}{
+\foreach \i/\x in {0/0.10, 1/3.15, 2/6.20}{
   \begin{scope}[shift={(\x,9.55)}]
     \foreach \k in {3,2,1,0}{
       \begin{scope}[shift={(\k*0.12,\k*0.12)}]
-        \clip[rounded corners=3pt] (0,0) rectangle (1.60,1.60);
+        \clip[rounded corners=3pt] (0,0) rectangle (2.00,2.00);
         \node[anchor=south west, inner sep=0pt] at (0,0)
-          {\includegraphics[width=1.60cm,height=1.60cm]{frame\i.png}};
+          {\includegraphics[width=2.00cm,height=2.00cm]{frame\i.png}};
       \end{scope}
       \draw[black!50, line width=.7pt, rounded corners=3pt]
-        (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
+        (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
     }
   \end{scope}
 }
 % 第四组：灰色叠层
-\begin{scope}[shift={(7.60,9.55)}]
+\begin{scope}[shift={(9.05,9.55)}]
   \foreach \k in {3,2,1,0}{
-    \fill[black!30, rounded corners=3pt] (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
-    \draw[black!50, line width=.7pt, rounded corners=3pt] (\k*0.12,\k*0.12) rectangle ++(1.60,1.60);
+    \fill[black!30, rounded corners=3pt] (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
+    \draw[black!50, line width=.7pt, rounded corners=3pt] (\k*0.14,\k*0.14) rectangle ++(2.00,2.00);
   }
 \end{scope}
 
 % 块标签
-\node[font=\footnotesize] at (1.05,9.25) {$Block^0_{t=0}$};
-\node[font=\footnotesize] at (3.55,9.25) {$Block^1_{t=0.2}$};
-\node[font=\footnotesize] at (6.05,9.25) {$Block^2_{t=0.7}$};
-\node[font=\footnotesize] at (8.55,9.25) {$Block^3_{t=1}$};
+\node[font=\footnotesize] at (1.25,9.20) {$Block^0_{t=0}$};
+\node[font=\footnotesize] at (4.30,9.20) {$Block^1_{t=0.2}$};
+\node[font=\footnotesize] at (7.35,9.20) {$Block^2_{t=0.7}$};
+\node[font=\footnotesize] at (10.40,9.20) {$Block^3_{t=1}$};
 
 % 上方跨块弧线
 \foreach \i/\j/\bend in {0/1/28, 0/2/24, 0/3/20, 1/2/28, 1/3/24, 2/3/28}{
   \draw[arr, draw=teal!70!black, line width=1.0pt]
-    (\i*2.50+1.90, 11.26) to[bend left=\bend] (\j*2.50+1.90, 11.26);
+    (\i*3.05+2.20, 11.60) to[bend left=\bend] (\j*3.05+2.20, 11.60);
 }
 
 % 因果线性注意力小图（放在左半区右侧，x 10.3–13.6）
-\begin{scope}[shift={(10.55,9.75)}]
+\begin{scope}[shift={(12.05,10.55)}]
   \foreach \r in {0,...,3}{
     \foreach \c in {0,...,3}{
       \pgfmathparse{\r>\c ? 0 : 2}
       \ifnum\pgfmathresult=0
-        \fill[black!18] (\c*0.46,-\r*0.46) rectangle ++(0.44,0.44);
+        \fill[black!18] (\c*0.38,-\r*0.38) rectangle ++(0.36,0.36);
       \else
-        \fill[green!72!black] (\c*0.46,-\r*0.46) rectangle ++(0.44,0.44);
+        \fill[green!72!black] (\c*0.38,-\r*0.38) rectangle ++(0.36,0.36);
       \fi
     }
   }
-  \draw[black!65, line width=.7pt] (0,0.46) rectangle (1.86,-1.40);
-  \node[font=\scriptsize] at (-0.18,0.58) {$d$};
-  \node[font=\scriptsize] at (0.86,0.58) {$d$};
-  \node[font=\scriptsize, anchor=west] at (1.96,0.10) {$\sum_{i=1}^{k}K_iV_i$};
-  \node[font=\tiny, anchor=north west] at (1.96,-0.30) {Cumulative Sum};
-\end{scope}
-\node[font=\scriptsize, anchor=south] at (11.50,11.72) {Causal Linear Attention};
+  \draw[black!65, line width=.7pt] (0,0.38) rectangle (1.54,-1.16);
+  \node[font=\scriptsize] at (-0.15,0.50) {$d$};
+  \node[font=\scriptsize] at (0.72,0.50) {$d$};
+  \node[font=\tiny, anchor=north west, align=left] at (0.0,-1.24) {$\sum_{i=1}^{k}K_iV_i$\\Cumulative Sum};
 
-\node[font=\large\bfseries] at (6.30,8.30) {(a). Block-wise autoregressive training pipeline};
+\end{scope}
+\node[font=\scriptsize, anchor=south] at (12.78,11.80) {Causal Linear Attention};
+
+\node[font=\large\bfseries] at (7.40,8.15) {(a). Block-wise autoregressive training pipeline};
 
 % ================= (b) 整体架构 =================
 % 输入：叠层帧
@@ -184,7 +184,7 @@ def fig05() -> str:
 \node[font=\large\bfseries] at (7.3,-0.55) {(b). Architecture overview of our SANA-Video.};
 
 % 上/下分隔线
-\draw[dashed, line width=1.2pt, black!80] (0.0,6.95) -- (14.45,6.95);
+\draw[dashed, line width=1.2pt, black!80] (0.0,6.95) -- (14.40,6.95);
 
 % ================= (c) Linear DiT module =================
 % ---- 面板标题（在框上方）
