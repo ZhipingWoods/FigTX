@@ -130,7 +130,7 @@ def fig05_arch():
         _stack(ax, x, 82, 21, grey=(i == 3))
     tv = ["0", "0.2", "0.7", "1"]
     for i, x in enumerate(cx):
-        ax.text(x, 68.0, r"$Block_{%d}^{t=%s}$" % (i, tv[i]),
+        ax.text(x - (9.0 if i == 3 else 0), 68.0, r"$Block_{%d}^{t=%s}$" % (i, tv[i]),
                 ha="center", va="top", fontsize=11.5, style="italic")
 
     # 6 条弧线：起于块 i 顶边右侧，止于块 j 顶边左侧
@@ -143,7 +143,23 @@ def fig05_arch():
                 arrowstyle="-|>", mutation_scale=9, color="k",
                 lw=1.1, shrinkA=0, shrinkB=0, zorder=3))
 
-    ax.text(60, 59.5, "(a). Block-wise autoregressive training pipeline",
+    # (a) 右端的 Causal Linear Attention 小示意图
+    mgx, mgy, mcw, mch = 100.5, 73.5, 4.3, 4.3
+    def _mini(r, c):
+        if c == r + 1:
+            return C_GRN2
+        if c <= r:
+            return C_KV
+        return C_MASK2
+    _grid(ax, mgx, mgy, mcw, mch, 4, 4, _mini, lw=0.9)
+    ax.text(mgx + 2 * mcw, mgy + 4 * mch + 1.6, "d", ha="center", va="bottom", fontsize=7.5)
+    ax.text(mgx + 2 * mcw, mgy - 1.6,
+            r"$\sum_{k=1}^{K} K_k V_k$   Cumulative Sum",
+            ha="center", va="top", fontsize=5.8)
+    ax.text(mgx + 2 * mcw, mgy + 4 * mch + 4.6, "Causal Linear Attention",
+            ha="center", va="bottom", fontsize=7.6)
+
+    ax.text(58, 59.5, "(a). Block-wise autoregressive training pipeline",
             ha="center", va="bottom", fontsize=13.5, fontweight="bold")
 
     # ============ (b) 整体架构 ============
@@ -187,6 +203,14 @@ def fig05_arch():
             ax.plot([sx, sx + sgn * 2.8 * np.cos(rad)], [sy, sy + sgn * 2.8 * np.sin(rad)],
                     color="#86BEDB", lw=2.0, solid_capstyle="round", zorder=3)
     ax.add_patch(Circle((sx, sy), 0.6, fc="#86BEDB", ec="none", zorder=4))
+
+    # 火焰图标（N× 框右上角，表示扩散/生成）
+    fx, fy = 117.0, 46.0
+    ax.add_patch(Polygon([[fx - 1.9, fy - 2.6], [fx - 0.6, fy - 0.6], [fx, fy + 1.4],
+                          [fx + 1.1, fy - 0.4], [fx + 2.0, fy - 2.6]],
+                         closed=True, fc="#E8541E", ec="none", zorder=3))
+    ax.add_patch(Polygon([[fx - 0.7, fy - 2.2], [fx + 0.1, fy - 0.5], [fx + 0.9, fy - 2.2]],
+                         closed=True, fc="#F5C242", ec="none", zorder=4))
 
     # 文本分支
     yrow = 9.4
@@ -269,7 +293,7 @@ def fig05_arch():
     _dim(ax, 156.6, (yMMlow + yMMup) / 2, r"$d\times d$")
     _dim(ax, xL + 7.6, (yLin + yReLU) / 2 + 1, r"$n\times d$")
     _dim(ax, xM + 7.6, (yLin + yReLU) / 2 + 1, r"$d\times n$")
-    ax.text(153.5, 14.0, r"Cost: $\mathcal{O}(n)$", ha="center", va="bottom",
+    ax.text(162.0, 12.0, r"Cost: $\mathcal{O}(n)$", ha="center", va="bottom",
             fontsize=10.5)
 
     # ---- Mix-FFN 内部 ----
