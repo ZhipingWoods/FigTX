@@ -142,7 +142,7 @@ def fig05() -> str:
 % N x 大框：加高、深色描边
 \fill[fxblue, opacity=.62, rounded corners=12pt] (7.55,3.05) rectangle (14.35,5.95);
 \draw[black!75, line width=1.2pt, rounded corners=12pt] (7.55,3.05) rectangle (14.35,5.95);
-\node[font=\large\bfseries, text=red!70!black, anchor=south west] at (7.75,3.12) {$\mathbf{N\times}$};
+\node[font=\large\bfseries, text=red!70!black, anchor=south west] at (7.75,2.88) {$\mathbf{N\times}$};
 
 % 三列背景带（更明显）
 \fill[fxpnk, opacity=.85, rounded corners=5pt] (9.95,3.20) rectangle (11.45,5.80);
@@ -191,8 +191,8 @@ def fig05() -> str:
 \draw[arr, line width=1.2pt] (rw.east) -- (llm.west);
 \draw[arr, line width=1.2pt] (llm.east) -- (te.west);
 % 两条上箭头分别指向 Cross Attn 与 Mix FFN 底部
-\draw[arr, line width=1.2pt] (8.05,2.50) -- (8.05,2.80) -- (10.70,2.80) -- (10.70,3.05);
-\draw[arr, line width=1.2pt] (10.85,2.50) -- (10.85,2.80) -- (12.75,2.80) -- (12.75,3.05);
+\draw[arr, line width=1.2pt] (8.05,2.45) -- (8.05,2.72) -- (10.70,2.72) -- (10.70,2.80);
+\draw[arr, line width=1.2pt] (10.85,2.45) -- (10.85,2.72) -- (12.75,2.72) -- (12.75,2.80);
 
 \node[font=\Large\bfseries] at (7.4,0.05) {(b). Architecture overview of our SANA-Video.};
 
