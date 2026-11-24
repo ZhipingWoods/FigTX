@@ -218,7 +218,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.60cm]
+\begin{tikzpicture}[x=1cm, y=0.78cm]
 \tikzset{
   cell/.style={draw=black!55, line width=.35pt, inner sep=0pt},
   tok/.style={cell, fill=white},
@@ -231,7 +231,7 @@ def fig06() -> str:
 }
 
 % ================= 图例 =================
-\begin{scope}[shift={(1.15,8.55)}, every node/.style={font=\scriptsize}]
+\begin{scope}[shift={(1.15,7.35)}, every node/.style={font=\scriptsize}]
   \draw[cell, fill=white, minimum size=0.42cm] (0,0) rectangle (0.42,0.42);
   \node[anchor=west] at (0.52,0.21) {Token};
   \draw[cell, fill=black!26] (2.30,0) rectangle (2.72,0.42);
@@ -241,79 +241,79 @@ def fig06() -> str:
   \draw[cell, fill=green!68!black] (6.70,0) rectangle (7.12,0.42);
   \node[anchor=west] at (7.22,0.21) {Compute};
 \end{scope}
-\node[font=\small] at (4.35,7.80) {(a) Block Causal Linear Attention};
+\node[font=\small] at (4.35,6.45) {(a) Block Causal Linear Attention};
 
 % ================= (a-1) Vanilla Attention =================
 \begin{scope}[shift={(1.55,4.05)}]
   \foreach \r in {0,...,4}{
     \foreach \c in {0,...,4}{
-      \draw[cmp] (\c*0.62,-\r*0.62) rectangle ++(0.62,0.62);
+      \draw[cmp] (\c*0.62,-\r*0.62) rectangle ++(0.72,0.72);
     }
   }
-  \node[ttl, anchor=north] at (1.55,-3.05) {Vanilla Attention};
-  \node[ttl, anchor=east] at (-0.14,-0.26) {$Q_1$};
-  \node[ttl, anchor=east] at (-0.14,-2.34) {$Q_N$};
+  \node[ttl, anchor=north] at (2.00,-3.55) {Vanilla Attention};
+  \node[ttl, anchor=east] at (-0.14,-0.36) {$Q_1$};
+  \node[ttl, anchor=east] at (-0.14,-2.95) {$Q_N$};
   \node[ttl, anchor=south] at (0.26,0.10) {$K_1$};
   \node[ttl, anchor=south] at (2.34,0.10) {$K_N$};
-  \node[ttl] at (1.04,0.32) {$\cdots$};
+  \node[ttl] at (1.20,0.34) {$\cdots$};
 \end{scope}
 
 \node[font=\normalsize] at (4.55,2.80) {$\times$};
 
 % ================= (a-2) Linear Attention =================
-\begin{scope}[shift={(5.20,4.05)}]
-  % V 列（N×d）
-  \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.62) rectangle ++(0.62,0.62); }
-  \node[ttl, anchor=east] at (-0.12,-0.31) {$V_1$};
-  \node[ttl, anchor=east] at (-0.12,-2.79) {$V_N$};
-  \node[ttl, anchor=south] at (0.31,0.10) {$d$};
-  \node[ttl, anchor=west] at (0.80,-1.55) {$N$};
+\begin{scope}[shift={(5.85,4.05)}]
+  % V 列（N×d），格 0.72、行距 0.72，5 行 → 高 3.60
+  \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.72) rectangle ++(0.72,0.72); }
+  \node[ttl, anchor=east] at (-0.12,-0.36) {$V_1$};
+  \node[ttl, anchor=east] at (-0.12,-3.24) {$V_N$};
+  \node[ttl, anchor=south] at (0.36,0.10) {$d$};
+  \node[ttl, anchor=west] at (0.86,-1.90) {$N$};
 
-  \node[font=\normalsize] at (1.32,0.26) {$\times$};
+  \node[font=\normalsize] at (1.48,0.24) {$\times$};
 
   % Q 列（N×d）
-  \begin{scope}[shift={(2.15,0)}]
-    \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.62) rectangle ++(0.62,0.62); }
-    \node[ttl, anchor=east] at (-0.16,-0.31) {$Q_1$};
-    \node[ttl, anchor=east] at (-0.16,-2.79) {$Q_N$};
-    \node[ttl, anchor=south] at (0.31,0.10) {$d$};
-    \draw[brc] (-0.52,0.04) -- (-0.52,-1.52) node[midway, left=5pt, font=\tiny] {Block$_1$};
-    \draw[brc] (-0.52,-1.60) -- (-0.52,-3.10) node[midway, left=5pt, font=\tiny] {Block$_N$};
+  \begin{scope}[shift={(2.05,0)}]
+    \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.72) rectangle ++(0.72,0.72); }
+    \node[ttl, anchor=east] at (-0.14,-0.36) {$Q_1$};
+    \node[ttl, anchor=east] at (-0.14,-3.24) {$Q_N$};
+    \node[ttl, anchor=south] at (0.36,0.10) {$d$};
+    \draw[brc] (-0.44,0.04) -- (-0.44,-1.76) node[midway, left=5pt, font=\tiny] {Block$_1$};
+    \draw[brc] (-0.44,-1.84) -- (-0.44,-3.64) node[midway, left=5pt, font=\tiny] {Block$_N$};
   \end{scope}
 
-  \node[font=\normalsize] at (3.60,0.26) {$\times$};
+  \node[font=\normalsize] at (3.72,0.24) {$\times$};
 
   % 结果小方块（d×d）
-  \begin{scope}[shift={(4.05,-0.90)}]
-    \draw[cmp] (0,0) rectangle (0.62,0.62);
-    \node[font=\scriptsize] at (0.31,0.31) {$\sum$};
-    \node[ttl, anchor=south] at (0.31,0.68) {$d$};
-    \node[ttl, anchor=east] at (-0.10,0.31) {$d$};
+  \begin{scope}[shift={(4.15,-1.50)}]
+    \draw[cmp] (0,0) rectangle (0.72,0.72);
+    \node[font=\scriptsize] at (0.36,0.36) {$\sum$};
+    \node[ttl, anchor=south] at (0.36,0.80) {$d$};
+    \node[ttl, anchor=east] at (-0.12,0.36) {$d$};
   \end{scope}
 
-  \node[ttl, anchor=north] at (2.45,-3.25) {Linear Attention};
+  \node[ttl, anchor=north] at (2.35,-3.95) {Linear Attention};
 \end{scope}
 
 % ================= (a-3) Causal Linear Attention =================
-\begin{scope}[shift={(11.60,4.05)}]
+\begin{scope}[shift={(12.15,4.05)}]
   \foreach \r in {0,...,4}{
     \foreach \c in {0,...,4}{
       \pgfmathparse{\r<\c ? 0 : 1}
       \ifnum\pgfmathresult=0
-        \draw[mask] (\c*0.62,-\r*0.62) rectangle ++(0.62,0.62);
+        \draw[mask] (\c*0.62,-\r*0.62) rectangle ++(0.72,0.72);
       \else
-        \draw[cmp] (\c*0.62,-\r*0.62) rectangle ++(0.62,0.62);
+        \draw[cmp] (\c*0.62,-\r*0.62) rectangle ++(0.72,0.72);
       \fi
     }
   }
   % 第 3、4 行的左段标成 KV Cache（红），模仿累积复用的部分
   \foreach \c in {0,1,2}{
-    \draw[kv] (\c*0.62,-1.86) rectangle ++(0.62,0.62);
-    \draw[kv] (\c*0.62,-2.48) rectangle ++(0.62,0.62);
+    \draw[kv] (\c*0.62,-1.86) rectangle ++(0.72,0.72);
+    \draw[kv] (\c*0.62,-2.48) rectangle ++(0.72,0.72);
   }
-  \node[ttl, anchor=south] at (1.30,0.10) {$d$};
-  \node[ttl, anchor=east] at (-0.14,-0.26) {$Q_1$};
-  \node[ttl, anchor=east] at (-0.14,-2.34) {$Q_N$};
+  \node[ttl, anchor=south] at (1.44,0.10) {$d$};
+  \node[ttl, anchor=east] at (-0.14,-0.36) {$Q_1$};
+  \node[ttl, anchor=east] at (-0.14,-2.95) {$Q_N$};
   \draw[brc] (-0.42,0.04) -- (-0.42,-1.28) node[midway, left=3.5pt, font=\tiny] {Block$_1$};
   \draw[brc] (-0.42,-1.36) -- (-0.42,-2.60) node[midway, left=3.5pt, font=\tiny] {Block$_N$};
 
@@ -325,11 +325,11 @@ def fig06() -> str:
   \draw[arr2, draw=black!85] (-0.02,-2.62) -- (1.60,-2.62);
   \node[font=\tiny, anchor=west] at (1.66,-2.62) {Cumulative Sum};
 
-  \node[ttl, anchor=north] at (1.55,-3.05) {Causal Linear Attention};
+  \node[ttl, anchor=north] at (1.85,-3.60) {Causal Linear Attention};
 \end{scope}
 
 % ================= (b) Block Causal Mix-FFN =================
-\begin{scope}[shift={(16.30,3.90)}]
+\begin{scope}[shift={(16.30,3.20)}]
   \node[ttl] at (1.35,3.95) {$\vdots$};
 
   \foreach \i/\name/\fc/\tc in {
@@ -353,7 +353,7 @@ def fig06() -> str:
   \draw[brc] (2.92,2.66) -- (2.92,1.42) node[midway, right=4pt, font=\tiny] {Block$_1$};
   \draw[brc] (2.92,1.18) -- (2.92,-1.28) node[midway, right=4pt, font=\tiny] {Block$_2$};
 \end{scope}
-\node[font=\small] at (17.65,-0.85) {(b) Block Causal Mix-FFN};
+\node[font=\small] at (17.65,-0.95) {(b) Block Causal Mix-FFN};
 \end{tikzpicture}
 """
 
