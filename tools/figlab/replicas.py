@@ -349,7 +349,7 @@ def fig04():
     ax.set_xlabel("")
     ax.text(0.02, 1.02, "(GB)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 90)
-    ax.yaxis.grid(True, color="#D0D0D0", linewidth=0.9, zorder=0)
+    ax.yaxis.grid(True, color="#A8A8A8", linewidth=1.1, zorder=0)
     ax.set_axisbelow(True)
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=11,
               ncol=1, handlelength=1.3, prop={"weight": "bold", "size": 11})
@@ -373,7 +373,7 @@ def fig04():
         ax.spines[sp].set_linewidth(1.5)
     ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=10, va="bottom")
     ax.set_ylim(0, 105)
-    ax.yaxis.grid(True, color="#D0D0D0", linewidth=0.9, zorder=0)
+    ax.yaxis.grid(True, color="#A8A8A8", linewidth=1.1, zorder=0)
     ax.set_axisbelow(True)
     ax.legend(frameon=False, loc="upper left", handlelength=1.3,
               prop={"weight": "bold", "size": 11})
