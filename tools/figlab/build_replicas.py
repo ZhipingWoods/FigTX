@@ -22,7 +22,11 @@ def main() -> int:
     for slug, fn, title, desc, figtype, venues, domain in replicas.REPLICAS:
         png = os.path.join(common.OUT_FIG, "rep-" + slug + ".png")
         webp = os.path.join(common.OUT_FIG, "rep-" + slug + ".webp")
-        if not os.path.exists(webp) and os.path.exists(png):
+        # 只要 PNG 比 WebP 新就重转，否则改了代码看不到效果
+        need = os.path.exists(png) and (
+            not os.path.exists(webp)
+            or os.path.getmtime(png) > os.path.getmtime(webp))
+        if need:
             common._png_to_webp(png, webp, 1500)
         if not os.path.exists(webp):
             print("  ! missing", slug)

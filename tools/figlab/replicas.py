@@ -62,15 +62,15 @@ def _save(fig, name):
     return p
 
 
-def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.52):
+def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.78):
     """横向堆叠条。rows=[(label, [v1..vn], total_text)]"""
     for y, (label, vals, total) in zip(ypos, rows):
         left = 0.0
         for v, c in zip(vals, colors):
-            ax.barh(y, v, left=left, height=height, color=c, edgecolor="white", linewidth=0.6)
+            ax.barh(y, v, left=left, height=height, color=c, edgecolor="white", linewidth=0.8)
             if v > 0.4:
                 ax.text(left + v / 2, y, ("%g" % round(v, 2)).rstrip("0").rstrip("."),
-                        ha="center", va="center", color="white", fontsize=8.2)
+                        ha="center", va="center", color="white", fontsize=11)
             left += v
         ax.text(left + 0.5, y, total, ha="left", va="center", fontsize=9, color="#333333")
     ax.set_yticks(ypos, [r[0] for r in rows])
@@ -93,17 +93,17 @@ def fig01():
     ypos = [2, 1, 0]
     _hbar_stacked(ax1, rows, None, seg_cols, ypos)
     ax1.set_xlim(0, 33.5)
-    ax1.set_ylim(-0.72, 2.55)
+    ax1.set_ylim(-0.80, 2.55)
     ax1.set_xticks([])          # 参考图左侧无 x 轴刻度
     ax1.set_xlabel("")
     for sp in ("top", "right", "bottom"):
         ax1.spines[sp].set_visible(False)
-    ax1.tick_params(axis="y", length=0, labelsize=8.6)
+    ax1.tick_params(axis="y", length=0, labelsize=11.5)
 
     # 图例放在短条右侧的空白区（参考图位置）
     handles = [Rectangle((0, 0), 1, 1, fc=c, ec="none") for c in seg_cols]
     ax1.legend(handles, ["Weight", "Forward Act.", "Backward Act.", "Gradient"],
-               loc="center left", bbox_to_anchor=(0.72, 0.47), frameon=False, fontsize=8.0,
+               loc="center left", bbox_to_anchor=(0.72, 0.47), frameon=False, fontsize=10.5,
                handlelength=1.1, handleheight=0.8, borderpad=0.2, labelspacing=0.28)
 
     # 参考虚线 + 2.25x
@@ -112,18 +112,18 @@ def fig01():
     ax1.annotate("", xy=(12.0, -0.50), xytext=(xref, -0.50),
                  arrowprops=dict(arrowstyle="-|>", color=DRED, lw=1.1,
                                  mutation_scale=13, shrinkA=0, shrinkB=0))
-    ax1.text((xref + 12.0) / 2, -0.38, "2.25×", color=DRED, fontsize=12,
+    ax1.text((xref + 12.0) / 2, -0.40, "2.25×", color=DRED, fontsize=14,
              ha="center", va="bottom")
     ax1.set_xlabel("(a) GPU Memory Breakdown (GB) during\n"
                    "FLUX.1-dev Customization (1 × 1024 × 1024)",
-                   fontsize=9.4, labelpad=8)
+                   fontsize=12.5, labelpad=10)
 
     # ---- (b) 端到端延迟
     lat = [("FourTune (Ours)", 0.86, DRED), ("NF4 QLoRA", 2.40, TEAL), ("BF16 LoRA", 1.95, GRAY)]
     for y, (lab, v, c) in zip([0, 1, 2], lat):
-        ax2.barh(y, v, height=0.52, color=c, edgecolor="none")
+        ax2.barh(y, v, height=0.78, color=c, edgecolor="none")
         ax2.text(v - 0.05, y, ("%g s" % v), ha="right", va="center",
-                 color="white", fontsize=9)
+                 color="white", fontsize=11)
     # 参考图：类别标签在条形右侧
     ax2.set_yticks([0, 1, 2], [])
     ax2.set_xlim(0, 3.35)
@@ -134,7 +134,7 @@ def fig01():
     for y, lab in [(0, "FourTune (Ours)"), (1, "NF4 QLoRA"), (2, "BF16 LoRA")]:
         val = {0: 0.86, 1: 2.40, 2: 1.95}[y]
         ax2.text(val + (2.42 - val) * 0 + 0.12 if y == 0 else val + 0.12, y, lab,
-                 va="center", ha="left", fontsize=8.6)
+                 va="center", ha="left", fontsize=11)
 
     # 虚线连接：BF16 末端 → NF4 行；NF4 末端 → 下方
     ax2.plot([1.95, 1.95], [2.26, 1.0], ls=(0, (3, 2)), lw=0.9, color=GRAY)
@@ -143,16 +143,16 @@ def fig01():
     ax2.annotate("", xy=(0.86, 0.52), xytext=(1.95, 0.52),
                  arrowprops=dict(arrowstyle="<|-", color="#555555", lw=0.9,
                                  mutation_scale=11, shrinkA=0, shrinkB=0))
-    ax2.text(1.40, 0.60, "2.27×", ha="center", va="bottom", fontsize=11, color="#444444")
+    ax2.text(1.40, 0.60, "2.27×", ha="center", va="bottom", fontsize=13, color="#444444")
 
     ax2.annotate("", xy=(0.86, 0.20), xytext=(2.40, 0.20),
                  arrowprops=dict(arrowstyle="<|-", color=TEAL, lw=0.9,
                                  mutation_scale=11, shrinkA=0, shrinkB=0))
-    ax2.text(1.62, 0.27, "2.79×", ha="center", va="bottom", fontsize=11, color=TEAL)
+    ax2.text(1.62, 0.27, "2.79×", ha="center", va="bottom", fontsize=13, color=TEAL)
 
     ax2.set_xlabel("(b) End-to-End Training Step Latency (s) during\n"
                     "FLUX.1-dev Customization (1 × 1024 × 1024)",
-                    fontsize=9.4, labelpad=8)
+                    fontsize=12.5, labelpad=10)
     fig.subplots_adjust(bottom=0.30, top=0.94, left=0.10, right=0.99)
     return _save(fig, "rep-01-memory-latency")
 
@@ -244,7 +244,7 @@ def fig03():
         ax.set_xlim(30, 690)
         ax.set_ylim(ymin, ymax)
         ax.set_xticks(x)
-        ax.set_xlabel("%s KV Cache" % cache, fontsize=9.5)
+        ax.set_xlabel("%s KV Cache" % cache, fontsize=11)
         ax.grid(False)
 
     ax1 = fig.add_subplot(gs[1, 0])
@@ -404,8 +404,8 @@ def fig07():
             ax.text(xi, v + 0.7, "%.1f" % v, ha="center", va="bottom", fontsize=6.4,
                     rotation=90)
     ax.set_xticks(x, [str(l) for l in levels])
-    ax.set_xlabel("Sparsity Level (%)", fontsize=9.5)
-    ax.set_ylabel("Latency (ms)", fontsize=9.5)
+    ax.set_xlabel("Sparsity Level (%)", fontsize=11)
+    ax.set_ylabel("Latency (ms)", fontsize=11)
     ax.set_ylim(0, 48)
     ax.set_yticks([0, 10, 20, 30, 40])
     ax.axhline(42.3, ls=(0, (2, 1.5)), color="#C0392B", lw=1.1, zorder=2)
