@@ -199,7 +199,7 @@ def fig02():
                 arrowprops=dict(arrowstyle="-|>", color=TEAL, lw=1.05,
                                 connectionstyle="arc3,rad=-0.42", mutation_scale=12,
                                 shrinkA=2, shrinkB=2))
-    ax.text(742, 0.60, "1.10×", color=TEAL, fontsize=11, ha="center")
+    ax.text(830, 0.55, "1.10×", color=TEAL, fontsize=11, ha="left")
 
     # 总加速 2.52x
     ax.annotate("", xy=(612.4, -0.55), xytext=(1541, -0.55),
@@ -279,13 +279,12 @@ def fig03():
         ax = axc_top if v > 1.42 else axc_bot
         ax.text(xi, v + (0.06 if v > 1.42 else 0.013), "%.2f" % v,
                 ha="center", va="bottom", fontsize=7.8)
-    # 断轴标记：左边缘两条短斜线
+    # 断轴标记：左边缘画一对斜线（上下各一条，错开）
     for ax, y0 in ((axc_top, 0.0), (axc_bot, 1.0)):
-        for dx in (0.012, 0.030):
-            ax.plot([-dx, dx * 0.2], [y0 - 0.035, y0 + 0.035], transform=ax.transAxes,
-                    color="k", clip_on=False, lw=1.0, solid_capstyle="butt")
+        ax.plot([-0.028, -0.004], [y0 - 0.030, y0 + 0.030], transform=ax.transAxes,
+                color="k", clip_on=False, lw=1.1, solid_capstyle="butt")
     axc_bot.set_xlabel("Number of stages", fontsize=9.5, labelpad=6)
-    axc_bot.set_title("(c)", y=-0.62, fontsize=10.5)
+    axc_bot.set_title("(c)", y=-0.78, fontsize=10.5)
 
     fig.subplots_adjust(bottom=0.20, top=0.88, left=0.055, right=0.985)
     return _save(fig, "rep-03-accuracy-tradeoff")
@@ -332,8 +331,8 @@ def fig04():
     for xi, yi in zip(L, vram_green):
         ax.text(xi, yi + 3.0, "%.1f" % yi, ha="center", fontsize=7.8, color="#2E7D32")
     for xi, yi in zip(L, vram_gray):
-        ax.text(xi, yi + 3.0, "%.0f" % yi, ha="center", fontsize=7.8, color="#555555")
-    ax.text(56, 74, "OOM", color="red", fontsize=9.5, ha="center")
+        ax.text(xi, yi + 4.2, "%.0f" % yi, ha="center", fontsize=7.8, color="#555555")
+    ax.text(50, 63, "OOM", color="red", fontsize=9.5, ha="center")
     ax.set_xticks(L)
     ax.set_xlabel("")
     ax.text(0.02, 1.02, "(GB)", transform=ax.transAxes, fontsize=9, va="bottom")
@@ -489,12 +488,12 @@ def fig08():
           [0.34, 0.36, 0.70, 0.72, 0.48, 0.56, 0.47],
           [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
     ]
-    w = 0.17
+    w = 0.205
     for ax, (ylabel, xt, mat) in zip(axes, rows):
         x = np.arange(len(xt))
         for i, (m, c) in enumerate(zip(methods, cols)):
             off = (i - 2) * w
-            ax.bar(x + off, mat[i], w * 0.92, color=c, edgecolor="black" if c == "#000000" else "none",
+            ax.bar(x + off, mat[i], w * 0.96, color=c, edgecolor="black" if c == "#000000" else "none",
                    linewidth=0.5)
             for xi, v in zip(x + off, mat[i]):
                 ax.text(xi, v + 0.022, "%.2f" % v, ha="center", va="bottom",
@@ -516,7 +515,7 @@ def fig08():
              "of long-sequence prefilling across different serving frameworks,\n"
              "normalized to LServe's speed.",
              ha="center", va="bottom", fontsize=8.0, fontweight="bold")
-    fig.subplots_adjust(top=0.88, bottom=0.20, left=0.16, right=0.98, hspace=0.32)
+    fig.subplots_adjust(top=0.88, bottom=0.19, left=0.145, right=0.995, hspace=0.30)
     return _save(fig, "rep-08-shared-legend")
 
 
