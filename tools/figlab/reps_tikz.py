@@ -277,15 +277,15 @@ def fig06() -> str:
 }
 
 % ================= 图例 =================
-\begin{scope}[shift={(1.59,5.95)}, every node/.style={font=\small}]
-  \draw[cell, fill=white] (0,0) rectangle (0.59,0.59);
-  \node[anchor=west] at (0.73,0.29) {Token};
-  \draw[cell, fill=black!28] (3.17,0) rectangle (3.76,0.59);
-  \node[anchor=west] at (3.9,0.29) {Mask};
-  \draw[cell, fill=red!58!black] (5.98,0) rectangle (6.56,0.59);
-  \node[anchor=west] at (6.71,0.29) {KV Cache};
-  \draw[cell, fill=green!68!black] (9.39,0) rectangle (9.98,0.59);
-  \node[anchor=west] at (10.13,0.29) {Compute};
+\begin{scope}[shift={(1.59,6.45)}, every node/.style={font=\small}]
+  \draw[cell, fill=white] (0,0) rectangle (0.44,0.44);
+  \node[anchor=west] at (0.56,0.22) {Token};
+  \draw[cell, fill=black!28] (2.30,0) rectangle (2.74,0.44);
+  \node[anchor=west] at (2.86,0.22) {Mask};
+  \draw[cell, fill=red!58!black] (4.40,0) rectangle (4.84,0.44);
+  \node[anchor=west] at (4.96,0.22) {KV Cache};
+  \draw[cell, fill=green!68!black] (7.10,0) rectangle (7.54,0.44);
+  \node[anchor=west] at (7.66,0.22) {Compute};
 \end{scope}
 
 % ================= (a-1) Vanilla Attention =================
@@ -378,7 +378,7 @@ def fig06() -> str:
 \end{scope}
 
 % ================= (b) Block Causal Mix-FFN =================
-\begin{scope}[shift={(23.45,2.72)}]
+\begin{scope}[shift={(23.45,2.35)}]
   \node[font=\small] at (1.89,3.05) {$\vdots$};
 
   \foreach \i/\name/\fc/\tc in {
@@ -403,7 +403,7 @@ def fig06() -> str:
   \draw[brc] (4.25,1.24) -- (4.25,-2.26) node[midway, right=5pt, font=\footnotesize] {Block$_2$};
 \end{scope}
 
-\node[font=\small\bfseries] at (6.34,-1.60) {(a) Block Causal Linear Attention};
+\node[font=\small\bfseries] at (6.34,-1.55) {(a) Block Causal Linear Attention};
 \node[font=\small\bfseries] at (25.74,-1.60) {(b) Block Causal Mix-FFN};
 \end{tikzpicture}
 """
