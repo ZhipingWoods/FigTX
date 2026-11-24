@@ -349,8 +349,10 @@ def fig04():
     ax.set_xlabel("")
     ax.text(0.02, 1.02, "(GB)", transform=ax.transAxes, fontsize=9, va="bottom")
     ax.set_ylim(0, 90)
+    ax.yaxis.grid(True, color="#D0D0D0", linewidth=0.9, zorder=0)
+    ax.set_axisbelow(True)
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.24), fontsize=11,
-              ncol=1, handlelength=1.3)
+              ncol=1, handlelength=1.3, prop={"weight": "bold", "size": 11})
     ax.set_title("(c). GPU VRAM v.s. video length (s)\non 480x832 resolution", fontsize=11.5, y=-0.38)
 
     # (d) 延迟 vs 长度
@@ -371,7 +373,10 @@ def fig04():
         ax.spines[sp].set_linewidth(1.5)
     ax.text(0.02, 1.02, "(min)", transform=ax.transAxes, fontsize=10, va="bottom")
     ax.set_ylim(0, 105)
-    ax.legend(frameon=False, loc="upper left", fontsize=11, handlelength=1.3)
+    ax.yaxis.grid(True, color="#D0D0D0", linewidth=0.9, zorder=0)
+    ax.set_axisbelow(True)
+    ax.legend(frameon=False, loc="upper left", handlelength=1.3,
+              prop={"weight": "bold", "size": 11})
     ax.set_title("(d). Generation latency v.s. video\nlength (s) on 480x832 resolution",
                  fontsize=11.5, y=-0.38)
     fig.subplots_adjust(bottom=0.24, top=0.86)
