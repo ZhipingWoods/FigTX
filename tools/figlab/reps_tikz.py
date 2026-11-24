@@ -198,64 +198,64 @@ def fig05() -> str:
 
 % ================= (c) Linear DiT module =================
 % ---- 面板标题（在框上方）
-\node[font=\large\bfseries] at (18.0,10.95) {Linear Attention};
-\node[font=\large\bfseries] at (23.6,10.95) {Mix-FFN};
+\node[font=\large\bfseries] at (18.40,12.55) {Linear Attention};
+\node[font=\large\bfseries] at (24.15,12.55) {Mix-FFN};
 
 % ---- Linear Attention 面板（方块按原图配色 + 加粗）
-\fill[fxblue, opacity=.62, rounded corners=10pt] (14.55,0.20) rectangle (22.00,10.75);
+\fill[fxblue, opacity=.62, rounded corners=10pt] (14.55,1.45) rectangle (22,12);
 
-\node[box, fill=fxscale, draw=black!85, line width=1.3pt, minimum width=2.55cm, minimum height=1.15cm, font=\small\bfseries] (sc) at (18.40,9.65) {Scale};
-\node[box, fill=fxmatmul, draw=black!85, line width=1.3pt, minimum width=3.00cm, minimum height=1.15cm, font=\small\bfseries] (mm1) at (18.40,8.30) {MatMul};
-\node[box, fill=fxmatmul, draw=black!85, line width=1.3pt, minimum width=3.00cm, minimum height=1.15cm, font=\small\bfseries] (mm0) at (19.15,6.75) {MatMul};
+\node[box, fill=fxscale, draw=black!85, line width=1.3pt, minimum width=2.55cm, minimum height=1.15cm, font=\small\bfseries] (sc) at (18.4,10.9) {Scale};
+\node[box, fill=fxmatmul, draw=black!85, line width=1.3pt, minimum width=3.00cm, minimum height=1.15cm, font=\small\bfseries] (mm1) at (18.4,9.55) {MatMul};
+\node[box, fill=fxmatmul, draw=black!85, line width=1.3pt, minimum width=3.00cm, minimum height=1.15cm, font=\small\bfseries] (mm0) at (19.15,8) {MatMul};
 
-\node[box, fill=fxorg, draw=black!85, line width=1.3pt, minimum width=2.20cm, minimum height=1.15cm, font=\small\bfseries] (ropeL) at (16.15,5.15) {3D RoPE};
-\node[box, fill=fxorg, draw=black!85, line width=1.3pt, minimum width=2.20cm, minimum height=1.15cm, font=\small\bfseries] (ropeR) at (20.65,5.15) {3D RoPE};
-\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (rl) at (16.15,3.70) {ReLU};
-\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (rr) at (20.65,3.70) {ReLU};
-\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnQ) at (16.15,2.30) {Linear};
-\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnK) at (18.40,2.30) {Linear};
-\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnV) at (20.65,2.30) {Linear};
+\node[box, fill=fxorg, draw=black!85, line width=1.3pt, minimum width=2.20cm, minimum height=1.15cm, font=\small\bfseries] (ropeL) at (16.15,6.4) {3D RoPE};
+\node[box, fill=fxorg, draw=black!85, line width=1.3pt, minimum width=2.20cm, minimum height=1.15cm, font=\small\bfseries] (ropeR) at (20.65,6.4) {3D RoPE};
+\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (rl) at (16.15,4.95) {ReLU};
+\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (rr) at (20.65,4.95) {ReLU};
+\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnQ) at (16.15,3.55) {Linear};
+\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnK) at (18.4,3.55) {Linear};
+\node[box, fill=white, draw=black!85, line width=1.3pt, minimum width=1.95cm, minimum height=1.05cm, font=\small\bfseries] (lnV) at (20.65,3.55) {Linear};
 
-\node[font=\small] at (16.15,1.55) {$Q$};
-\node[font=\small] at (18.40,1.55) {$K$};
-\node[font=\small] at (20.65,1.55) {$V$};
+\node[font=\small] at (16.15,2.8) {$Q$};
+\node[font=\small] at (18.4,2.8) {$K$};
+\node[font=\small] at (20.65,2.8) {$V$};
 
 \draw[arr, line width=1.1pt] (lnQ) -- (rl);
 \draw[arr, line width=1.1pt] (rl) -- (ropeL);
 \draw[arr, line width=1.1pt] (lnK) -- (rr);
 \draw[arr, line width=1.1pt] (rr) -- (ropeR);
-\draw[arr, line width=1.1pt] (ropeL.north) |- (17.75,6.75);
-\draw[arr, line width=1.1pt] (ropeR.north) -- (20.65,5.95) -- (20.95,5.95) -- (20.95,6.75) -- (20.70,6.75);
-\draw[arr, line width=1.1pt] (lnV.north) -- (20.65,1.95) -- (21.70,1.95) -- (21.70,6.75) -- (21.10,6.75);
-\draw[arr, line width=1.1pt] (mm0.north) -- (19.15,7.70);
+\draw[arr, line width=1.1pt] (ropeL.north) |- (17.75,8);
+\draw[arr, line width=1.1pt] (ropeR.north) -- (20.65,7.2) -- (20.95,7.2) -- (20.95,8) -- (20.7,8);
+\draw[arr, line width=1.1pt] (lnV.north) -- (20.65,3.2) -- (21.7,3.2) -- (21.7,8) -- (21.1,8);
+\draw[arr, line width=1.1pt] (mm0.north) -- (19.15,8.95);
 \draw[arr, line width=1.1pt] (mm1) -- (sc);
-\draw[arr, line width=1.1pt] (sc.north) -- (18.40,10.35);
+\draw[arr, line width=1.1pt] (sc.north) -- (18.4,11.6);
 
-\node[font=\footnotesize] at (17.20,9.05) {$n\times d$};
-\node[font=\footnotesize] at (19.70,7.35) {$n\times d$};
-\node[font=\footnotesize] at (17.45,6.15) {$d\times n$};
-\node[font=\footnotesize] at (21.30,6.35) {$d\times d$};
+\node[font=\footnotesize] at (17.2,10.3) {$n\times d$};
+\node[font=\footnotesize] at (19.7,8.6) {$n\times d$};
+\node[font=\footnotesize] at (17.45,7.4) {$d\times n$};
+\node[font=\footnotesize] at (21.3,7.6) {$d\times d$};
 
-\node[font=\small, anchor=east] at (21.85,1.05) {Cost: $\mathcal{O}(n)$};
+\node[font=\small, anchor=east] at (21.85,2.3) {Cost: $\mathcal{O}(n)$};
 
 % ---- Mix-FFN 面板
-\fill[fxblue, opacity=.62, rounded corners=10pt] (22.35,0.20) rectangle (26.60,10.75);
+\fill[fxblue, opacity=.62, rounded corners=10pt] (22.35,1.45) rectangle (26.6,12);
 
 \node[box, fill=fxorg, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.45cm,
-      font=\small\bfseries, align=center] (tmp) at (24.15,9.25)
+      font=\small\bfseries, align=center] (tmp) at (24.15,10.5)
   {Temporal\\$3\times1\times1$ ConvLayer};
-\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c1a) at (24.15,7.60) {$1\times1$ ConvLayer};
-\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c2) at (24.15,4.80) {$1\times3\times3$ ConvLayer};
-\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c3) at (24.15,2.30) {$1\times1$ ConvLayer};
-\node[circle, draw=black!85, line width=1.2pt, fill=white, minimum size=0.50cm, inner sep=0pt, font=\small] (mul) at (23.45,6.15) {$\otimes$};
-\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.85cm, minimum height=1.05cm, font=\small\bfseries] (silu) at (25.45,6.15) {SiLU};
+\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c1a) at (24.15,8.85) {$1\times1$ ConvLayer};
+\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c2) at (24.15,6.05) {$1\times3\times3$ ConvLayer};
+\node[box, fill=fxgrn, draw=black!85, line width=1.3pt, minimum width=3.30cm, minimum height=1.15cm, font=\small\bfseries] (c3) at (24.15,3.55) {$1\times1$ ConvLayer};
+\node[circle, draw=black!85, line width=1.2pt, fill=white, minimum size=0.50cm, inner sep=0pt, font=\small] (mul) at (23.45,7.4) {$\otimes$};
+\node[box, fill=fxrelu, draw=black!85, line width=1.3pt, minimum width=1.85cm, minimum height=1.05cm, font=\small\bfseries] (silu) at (25.45,7.4) {SiLU};
 
 \draw[arr, line width=1.1pt] (c3) -- (c2);
-\draw[arr, line width=1.1pt] (c2.north) -- (23.00,6.15) -- (23.20,6.15);
+\draw[arr, line width=1.1pt] (c2.north) -- (23,7.4) -- (23.2,7.4);
 \draw[arr, line width=1.1pt] (silu.west) -- (mul.east);
-\draw[arr, line width=1.1pt] (mul.north) -- (23.45,7.02) -- (23.70,7.02);
+\draw[arr, line width=1.1pt] (mul.north) -- (23.45,8.27) -- (23.7,8.27);
 \draw[arr, line width=1.1pt] (c1a) -- (tmp);
-\draw[arr, line width=1.1pt] (tmp.north) -- (24.15,10.20);
+\draw[arr, line width=1.1pt] (tmp.north) -- (24.15,11.45);
 \end{tikzpicture}
 """
 
