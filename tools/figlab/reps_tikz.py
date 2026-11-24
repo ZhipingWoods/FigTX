@@ -275,7 +275,7 @@ def fig06() -> str:
 }
 
 % ================= 图例 =================
-\begin{scope}[shift={(1.59,6.10)}, every node/.style={font=\small}]
+\begin{scope}[shift={(1.59,5.95)}, every node/.style={font=\small}]
   \draw[cell, fill=white] (0,0) rectangle (0.59,0.59);
   \node[anchor=west] at (0.73,0.29) {Token};
   \draw[cell, fill=black!28] (3.17,0) rectangle (3.76,0.59);
@@ -290,7 +290,7 @@ def fig06() -> str:
 \begin{scope}[shift={(1.34,4.76)}]
   \foreach \r in {0,...,4}{
     \foreach \c in {0,...,4}{
-      \draw[cmp] (\c*0.88,-\r*0.88) rectangle ++(0.88,0.88);
+      \draw[cmp] (\c*1.05,-\r*1.05) rectangle ++(1.05,1.05);
     }
   }
   \node[lbl, anchor=east] at (-0.17,-0.44) {$Q_1$};
@@ -307,7 +307,7 @@ def fig06() -> str:
 % ================= (a-2) Linear Attention =================
 \begin{scope}[shift={(7.44,4.76)}]
   % V 列
-  \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.88) rectangle ++(0.88,0.88); }
+  \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*1.05) rectangle ++(1.05,1.05); }
   \node[lbl, anchor=east] at (-0.17,-0.44) {$V_1$};
   \node[lbl, anchor=east] at (-0.17,-3.95) {$V_N$};
   \node[lbl, anchor=south] at (0.44,0.12) {$d$};
@@ -319,7 +319,7 @@ def fig06() -> str:
 
   % Q 列
   \begin{scope}[shift={(4.09,0)}]
-    \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.88) rectangle ++(0.88,0.88); }
+    \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*1.05) rectangle ++(1.05,1.05); }
     \node[lbl, anchor=east] at (-0.2,-0.44) {$Q_1$};
     \node[lbl, anchor=east] at (-0.2,-3.95) {$Q_N$};
     \node[lbl, anchor=south] at (0.44,0.12) {$d$};
@@ -332,7 +332,7 @@ def fig06() -> str:
 
   % Σ 结果块
   \begin{scope}[shift={(7.26,-2.2)}]
-    \draw[cmp] (0,0) rectangle (0.88,0.88);
+    \draw[cmp] (0,0) rectangle (1.05,1.05);
     \node[font=\normalsize] at (0.44,0.44) {$\sum$};
     \node[lbl, anchor=south] at (0.44,0.98) {$d$};
     \node[lbl, anchor=east] at (-0.15,0.44) {$d$};
@@ -347,16 +347,16 @@ def fig06() -> str:
     \foreach \c in {0,...,4}{
       \pgfmathparse{\r<\c ? 0 : 1}
       \ifnum\pgfmathresult=0
-        \draw[mask] (\c*0.88,-\r*0.88) rectangle ++(0.88,0.88);
+        \draw[mask] (\c*1.05,-\r*1.05) rectangle ++(1.05,1.05);
       \else
-        \draw[cmp] (\c*0.88,-\r*0.88) rectangle ++(0.88,0.88);
+        \draw[cmp] (\c*1.05,-\r*1.05) rectangle ++(1.05,1.05);
       \fi
     }
   }
   % 第 3、4 行的前段标成 KV Cache
   \foreach \c in {0,1,2}{
-    \draw[kv] (\c*0.88,-1.80) rectangle ++(0.88,0.88);
-    \draw[kv] (\c*0.88,-2.52) rectangle ++(0.88,0.88);
+    \draw[kv] (\c*1.05,-1.80) rectangle ++(1.05,1.05);
+    \draw[kv] (\c*1.05,-2.52) rectangle ++(1.05,1.05);
   }
   \node[lbl, anchor=south] at (0.44,0.12) {$d$};
   \node[lbl, anchor=east] at (-0.2,-0.44) {$Q_1$};
