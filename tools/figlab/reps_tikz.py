@@ -45,7 +45,7 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.894cm,
+\begin{tikzpicture}[x=1cm, y=0.871cm,
   box/.style={draw=black!90, line width=1.1pt, rounded corners=4pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
@@ -261,7 +261,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.976cm]
+\begin{tikzpicture}[x=1cm, y=0.961cm]
 \tikzset{
   cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},

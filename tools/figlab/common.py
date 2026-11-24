@@ -110,10 +110,40 @@ def _pdf_to_png(pdf: str, out_png: str) -> bool:
     return False
 
 
+def _trim_white(png: str, pad: int = 6) -> str:
+    """裁掉四周近白边距（standalone/qlmanage 会留下不对称留白）。
+
+    只裁「整行/整列都接近纯白」的部分，保留 pad 像素缓冲，
+    让最终图的墨迹占比不被无意义的空白稀释。
+    """
+    try:
+        from PIL import Image
+        import numpy as np
+    except Exception:
+        return png
+    im = Image.open(png).convert("RGB")
+    a = np.asarray(im)
+    nonwhite = (a.min(axis=2) < 250)
+    rows = np.where(nonwhite.any(axis=1))[0]
+    cols = np.where(nonwhite.any(axis=0))[0]
+    if rows.size == 0 or cols.size == 0:
+        return png
+    y0 = max(0, rows[0] - pad)
+    y1 = min(a.shape[0], rows[-1] + 1 + pad)
+    x0 = max(0, cols[0] - pad)
+    x1 = min(a.shape[1], cols[-1] + 1 + pad)
+    if (x1 - x0) >= a.shape[1] - 2 and (y1 - y0) >= a.shape[0] - 2:
+        return png
+    out = png[:-4] + "_trim.png"
+    im.crop((x0, y0, x1, y1)).save(out)
+    return out
+
+
 def _png_to_webp(png: str, out_webp: str, width: int) -> bool:
     if not shutil.which("cwebp"):
         shutil.copy2(png, out_webp[:-5] + ".png")
         return False
+    png = _trim_white(png)
     r = subprocess.run(["cwebp", "-quiet", "-q", "88", "-m", "6",
                         "-resize", str(width), "0", png, "-o", out_webp],
                        capture_output=True, timeout=120)
