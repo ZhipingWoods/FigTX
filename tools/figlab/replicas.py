@@ -517,7 +517,7 @@ def fig08():
           [0.34, 0.36, 0.70, 0.72, 0.48, 0.56, 0.47],
           [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
     ]
-    w = 0.245
+    w = 0.225
     for ax, (ylabel, xt, mat) in zip(axes, rows):
         x = np.arange(len(xt))
         for i, (m, c) in enumerate(zip(methods, cols)):
@@ -529,7 +529,7 @@ def fig08():
                         fontsize=6.0, rotation=90)
         ax.set_xticks(x, xt, fontsize=9)
         ax.tick_params(axis="x", pad=3)
-        ax.set_ylim(0, 1.10)
+        ax.set_ylim(0, 1.14)
         ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
         ax.set_ylabel(ylabel, fontsize=9.5, rotation=0, ha="right", va="center", labelpad=18)
         ax.tick_params(axis="y", labelsize=8.5, length=4, width=1.2)
