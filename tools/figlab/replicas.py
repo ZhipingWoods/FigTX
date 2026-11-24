@@ -239,14 +239,16 @@ def fig03():
 
     def draw(ax, ymin, ymax, cache):
         for name, c, m, yv in series:
-            ax.plot(x, yv, color=c, marker=m, ms=6.5, lw=2.1,
-                    markerfacecolor="white" if m == "s" else c, markeredgewidth=1.6)
+            ax.plot(x, yv, color=c, marker=m, ms=8.0, lw=2.6,
+                    markerfacecolor="white" if m == "s" else c, markeredgewidth=2.0)
         ax.set_xlim(30, 690)
         ax.set_ylim(ymin, ymax)
         ax.set_xticks(x)
         ax.set_xlabel("%s KV Cache" % cache, fontsize=11)
         ax.grid(False)
-        ax.tick_params(labelsize=10.5)
+        ax.tick_params(labelsize=10.5, length=5.5, width=1.4)
+        for sp in ("left", "bottom"):
+            ax.spines[sp].set_linewidth(1.5)
 
     ax1 = fig.add_subplot(gs[1, 0])
     draw(ax1, 56, 76, "INT2")
@@ -267,7 +269,7 @@ def fig03():
     st = np.arange(1, 9)
     vals = np.array([5.83, 1.29, 1.19, 1.15, 1.13, 1.11, 1.10, 1.09])
     for ax, ylim in [(axc_top, (5.4, 6.6)), (axc_bot, (1.0, 1.42))]:
-        ax.bar(st, vals, width=0.72, color=GREEN, edgecolor="black", linewidth=1.1)
+        ax.bar(st, vals, width=0.86, color=GREEN, edgecolor="black", linewidth=1.4)
         ax.set_xlim(0.4, 8.6)
         ax.set_ylim(*ylim)
     axc_top.spines["bottom"].set_visible(False)
@@ -276,7 +278,10 @@ def fig03():
     axc_top.set_yticks([6.0, 6.6])
     axc_top.tick_params(labelsize=10.5)
     axc_bot.set_yticks([1.0, 1.1, 1.2, 1.3])
-    axc_bot.tick_params(labelsize=10.5)
+    axc_bot.tick_params(labelsize=10.5, length=5, width=1.4)
+    for sp in ("left", "bottom"):
+        axc_bot.spines[sp].set_linewidth(1.5)
+        axc_top.spines[sp].set_linewidth(1.5)
     axc_bot.set_xticks(st)
     for xi, v in zip(st, vals):
         ax = axc_top if v > 1.42 else axc_bot
@@ -287,6 +292,7 @@ def fig03():
         ax.plot([-0.028, -0.004], [y0 - 0.030, y0 + 0.030], transform=ax.transAxes,
                 color="k", clip_on=False, lw=1.1, solid_capstyle="butt")
     axc_bot.set_xlabel("Number of stages", fontsize=12, labelpad=6)
+    axc_top.set_ylabel("Speedup (x)", fontsize=11)
     axc_bot.set_title("(c)", y=-0.78, fontsize=12.5)
 
     fig.subplots_adjust(bottom=0.20, top=0.88, left=0.055, right=0.985)
