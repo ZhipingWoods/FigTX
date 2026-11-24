@@ -287,7 +287,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.946cm]
+\begin{tikzpicture}[x=1cm, y=0.958cm]
 \tikzset{
   cell/.style={draw=black!95, line width=1.1pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},
@@ -414,7 +414,7 @@ def fig06() -> str:
       5/{Token$_1$}/fxgrn/black}{
     \pgfmathsetmacro{\yy}{2.60-\i*0.86}
     \node[draw=black!80, line width=1.0pt, rounded corners=3pt, fill=\fc,
-          minimum width=3.45cm, minimum height=0.94cm, font=\footnotesize, text=\tc]
+          minimum width=3.90cm, minimum height=0.94cm, font=\footnotesize, text=\tc]
       at (1.55,\yy) {\name};
   }
   \node[font=\small] at (1.89,-2.10) {$\vdots$};
@@ -423,8 +423,8 @@ def fig06() -> str:
   \draw[arr2, draw=blue!80, line width=1.3pt]
     (3.84,1.6) to[bend left=42] (3.84,0.55);
 
-  \draw[brc] (4.25,3.68) -- (4.25,1.65) node[midway, right=5pt, font=\footnotesize] {Block$_1$};
-  \draw[brc] (4.25,1.24) -- (4.25,-2.26) node[midway, right=5pt, font=\footnotesize] {Block$_2$};
+  \draw[brc] (4.55,3.68) -- (4.55,1.65) node[midway, right=5pt, font=\footnotesize] {Block$_1$};
+  \draw[brc] (4.55,1.24) -- (4.55,-2.26) node[midway, right=5pt, font=\footnotesize] {Block$_2$};
 \end{scope}
 
 \node[font=\small\bfseries] at (6.34,-1.55) {(a) Block Causal Linear Attention};
