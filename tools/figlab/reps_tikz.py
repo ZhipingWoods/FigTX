@@ -41,7 +41,7 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=1cm,
+\begin{tikzpicture}[x=1cm, y=0.92cm,
   box/.style={draw=black!65, line width=.5pt, rounded corners=2.5pt, align=center,
               font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
   org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
@@ -53,47 +53,47 @@ def fig05() -> str:
 ]
 
 % ================= 分隔线 =================
-\draw[dashed, line width=1.1pt, black!80] (14.35,-0.2) -- (14.35,11.6);
-\draw[dashed, line width=1.1pt, black!80] (0.0,6.95) -- (14.2,6.95);
+\draw[dashed, line width=1.1pt, black!80] (14.55,-0.2) -- (14.55,11.6);
+\draw[dashed, line width=1.1pt, black!80] (0.0,6.95) -- (14.40,6.95);
 
 % ================= (a) 训练流水线 =================
 % 四帧
-\foreach \i/\x/\op in {0/0.15/0.45, 1/2.35/0.66, 2/4.55/0.84, 3/6.75/0.98}{
+\foreach \i/\x/\op in {0/0.05/0.45, 1/2.85/0.66, 2/5.65/0.84, 3/8.45/0.98}{
   \begin{scope}[shift={(\x,9.25)}]
-    \fill[cyan!50!black, opacity=\op, rounded corners=2pt] (0,0) rectangle (1.55,1.55);
+    \fill[cyan!50!black, opacity=\op, rounded corners=3pt] (0,0) rectangle (2.05,2.05);
     \foreach \k in {0,...,7}{
-      \fill[white, opacity=.09] (\k*0.22,0) rectangle ++(0.15,1.55);
+      \fill[white, opacity=.09] (\k*0.29,0) rectangle ++(0.20,2.05);
     }
-    \node[font=\tiny, text=red!65!white, opacity=\op] at (0.55,0.95) {SANA};
-    \draw[black!30, line width=.4pt, rounded corners=2pt] (0,0) rectangle (1.55,1.55);
+    \node[font=\scriptsize, text=red!65!white, opacity=\op] at (0.72,1.28) {SANA};
+    \draw[black!30, line width=.4pt, rounded corners=3pt] (0,0) rectangle (2.05,2.05);
   \end{scope}
-  \node[font=\scriptsize, below=1.5pt] at (\x+0.78, 9.22)
+  \node[font=\scriptsize, below=2pt] at (\x+1.02, 9.18)
     {$Block^{\i}_{\theta^{0.\i}}$};
 }
 % 上方弧线
 \foreach \i/\j in {0/1, 0/2, 0/3, 1/2, 1/3, 2/3}{
   \draw[arr, draw=teal!70!black, line width=.7pt]
-    (\i*2.2+0.93, 10.90) to[bend left=18] (\j*2.2+0.93, 10.90);
+    (\i*2.8+1.02, 11.35) to[bend left=16] (\j*2.8+1.02, 11.35);
 }
 % 右侧因果线性注意力小格
-\begin{scope}[shift={(9.65,9.30)}]
+\begin{scope}[shift={(11.55,9.85)}]
   \foreach \r in {0,...,3}{
     \foreach \c in {0,...,3}{
       \pgfmathparse{\r>\c ? 0 : 2}
       \ifnum\pgfmathresult=0
-        \fill[black!16] (\c*0.42,-\r*0.42) rectangle ++(0.40,0.40);
+        \fill[black!16] (\c*0.36,-\r*0.36) rectangle ++(0.34,0.34);
       \else
-        \fill[green!72!black] (\c*0.42,-\r*0.42) rectangle ++(0.40,0.40);
+        \fill[green!72!black] (\c*0.36,-\r*0.36) rectangle ++(0.34,0.34);
       \fi
     }
   }
-  \draw[black!55, line width=.4pt] (0,0.42) rectangle (1.70,-1.28);
-  \node[lab2] at (-0.16,0.55) {$d$};
-  \node[lab2] at (0.78,0.55) {$d$};
-  \node[lab2, anchor=west] at (1.78,-0.22) {$\sum_{i=1}^{k}K_iV_i$};
-  \node[font=\tiny, anchor=west] at (1.78,-1.10) {Cumulative Sum};
+  \draw[black!55, line width=.4pt] (0,0.36) rectangle (1.44,-1.10);
+  \node[lab2] at (-0.14,0.48) {$d$};
+  \node[lab2] at (0.66,0.48) {$d$};
+  \node[lab2, anchor=west] at (1.46,-0.20) {$\sum_{i=1}^{k}K_iV_i$};
+  \node[font=\tiny, anchor=west] at (1.46,-1.30) {Cumulative Sum};
 \end{scope}
-\node[lab2, anchor=west] at (11.62,10.35) {Causal Linear Attention};
+\node[lab2, anchor=south] at (12.27,11.22) {Causal Linear Attention};
 \node[ttl] at (7.5,7.55) {(a). Block-wise autoregressive training pipeline};
 
 % ================= (b) 整体架构 =================
