@@ -218,7 +218,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.78cm]
+\begin{tikzpicture}[x=1cm, y=0.685cm]
 \tikzset{
   cell/.style={draw=black!55, line width=.35pt, inner sep=0pt},
   tok/.style={cell, fill=white},
