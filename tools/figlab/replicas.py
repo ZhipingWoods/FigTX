@@ -410,7 +410,7 @@ REPLICAS = [
 
 def fig07():
     fig = plt.figure(figsize=(6.6, 6.85))
-    gs = fig.add_gridspec(2, 3, height_ratios=[0.82, 1.0], hspace=0.30, wspace=0.32)
+    gs = fig.add_gridspec(2, 3, height_ratios=[0.82, 1.0], hspace=0.62, wspace=0.32)
 
     # ---- 上：分组柱（3 系列 × 6 稀疏度）
     ax = fig.add_subplot(gs[0, :])
