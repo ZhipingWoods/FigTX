@@ -80,7 +80,7 @@ def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.78):
 
 def fig01():
     # 参考图 AR≈3.98；子图说明放在坐标区下方（不是 title）
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.87),
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.76),
                                    gridspec_kw=dict(width_ratios=[1.34, 1.0], wspace=0.16))
 
     # ---- (a) 显存分解
@@ -162,7 +162,7 @@ def fig01():
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.24))  # AR≈1.53
+    fig, ax = plt.subplots(figsize=(6.4, 4.16))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
@@ -409,7 +409,7 @@ REPLICAS = [
 # ---------------------------------------------------------------- 07 分组柱 + 并列热图
 
 def fig07():
-    fig = plt.figure(figsize=(6.6, 7.9))
+    fig = plt.figure(figsize=(6.6, 6.85))
     gs = fig.add_gridspec(2, 3, height_ratios=[0.82, 1.0], hspace=0.30, wspace=0.32)
 
     # ---- 上：分组柱（3 系列 × 6 稀疏度）
@@ -488,12 +488,12 @@ def fig07():
     cb.set_label("Accuracy", fontsize=6.6)
     cb.ax.tick_params(labelsize=5.6)
 
-    fig.text(0.5, 0.015,
-             "Figure 13: Hierarchical paging enables LServe to preserve the long-context retrieval "
-             "capabilities of the original model without\nincreasing the key-value (KV) token budget.  "
-             "We use Llama-3-8B for the ablation.",
-             ha="center", va="bottom", fontsize=8.0, fontweight="bold")
-    fig.subplots_adjust(bottom=0.12, top=0.93, left=0.10, right=0.90)
+    fig.text(0.5, 0.008,
+             "Figure 13: Hierarchical paging enables LServe to preserve the\n"
+             "long-context retrieval capabilities of the original model without\n"
+             "increasing the key-value (KV) token budget.  We use Llama-3-8B for the ablation.",
+             ha="center", va="bottom", fontsize=11, fontweight="bold", linespacing=1.35)
+    fig.subplots_adjust(bottom=0.16, top=0.93, left=0.10, right=0.90)
     return _save(fig, "rep-07-grouped-heatmap")
 
 
