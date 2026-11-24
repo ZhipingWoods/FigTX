@@ -604,8 +604,8 @@ def fig10():
     idx = np.arange(n)
 
     # (上) 频率分布：指数衰减 + 双色阴影 + 红叉 + 蓝星
-    tau = 72.0
-    freq = 0.78 * np.exp(-idx / tau) + 0.004
+    tau = 165.0
+    freq = 0.78 * np.exp(-idx / tau) + 0.0035
     ax = axes[0]
     k = 48
     ax.plot(idx, freq, color="royalblue", lw=1.2, label="Frequency")
@@ -628,9 +628,11 @@ def fig10():
     ax.set_title("Frequency Distribution", fontsize=12)
 
     # (下) 异常值均值：尖峰折线 + 橙星
-    val = 0.004 + 0.0022 * (idx / n) + rng.normal(0, 0.0011, n)
-    spikes = rng.random(n) < 0.09
-    val[spikes] += rng.uniform(0.002, 0.007, spikes.sum())
+    # 基线缓慢上升 + 伽马分布尖峰（原图就是这个形态）
+    base = 0.0030 + 0.0035 * (idx / n) ** 0.7
+    val = base + rng.normal(0, 0.0006, n)
+    spikes = rng.random(n) < 0.13
+    val[spikes] += rng.gamma(2.0, 0.0016, spikes.sum())
     val = np.clip(val, 0, None)
     ax = axes[1]
     ax.plot(idx, val, color="#F5C242", lw=0.55, label="Mean Value")
