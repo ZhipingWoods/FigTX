@@ -564,10 +564,13 @@ def fig09():
     act[:, 266:] *= 0.9
 
     ax = axes[0]
-    act_disp = np.log1p(act)          # 真实激活图常用 log 归一化
+    # 真实激活图常用 log 归一化；再叠 gamma 拉伸提高对比
+    act_disp = np.log1p(act)
+    act_disp = (act_disp - act_disp.min()) / (act_disp.max() - act_disp.min() + 1e-9)
+    act_disp = act_disp ** 0.62
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 40), vmax=np.percentile(act_disp, 99.8))
+              vmin=np.percentile(act_disp, 52), vmax=np.percentile(act_disp, 99.9))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -580,19 +583,19 @@ def fig09():
 
     # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.55, 5.5, n_ch) * 0.22     # 每通道基础密度（更密）
+    base_dens = rng.beta(0.65, 4.5, n_ch) * 0.30     # 每通道基础密度（更密）
     for ci in range(n_ch):
         if base_dens[ci] > 0.004:
             cols = rng.random(n_tok) < base_dens[ci]
             imp[ci, cols] = rng.uniform(0.45, 1.0, cols.sum())
     # 强调通道带（对应上图高亮区）
     for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.12, 0.26)
-        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.7, 1.0))
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.16, 0.32)
+        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.85, 1.0))
 
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="inferno", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.95)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.62)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -610,7 +613,7 @@ def fig09():
              "portant channels (bottom).  In the top panel, brightness reflects\n"
              "token magnitude, while in the bottom panel, highlighted positions\n"
              "denote important channels.",
-             ha="center", va="bottom", fontsize=11.0)
+             ha="center", va="bottom", fontsize=12.0)
     fig.subplots_adjust(top=0.95, bottom=0.24, left=0.12, right=0.98, hspace=0.34)
     return _save(fig, "rep-09-activation-heatmap")
 
