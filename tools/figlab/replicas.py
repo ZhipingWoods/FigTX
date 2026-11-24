@@ -558,10 +558,14 @@ def fig09():
         c1 = c0 + int(rng.integers(25, 180))
         t1 = t0 + int(rng.integers(10, 90))
         act[c0:c1, t0:t1] *= rng.uniform(1.6, 3.4)
-    # 少量整体高亮列带（对应真实模型里的活跃通道组）
-    for _ in range(6):
+    # 高亮通道带（原图最明显的是横向橙色条带）
+    for _ in range(14):
         c0 = int(rng.integers(0, n_ch - 60))
-        act[c0:c0 + int(rng.integers(20, 70)), :] *= rng.uniform(1.8, 2.8)
+        act[c0:c0 + int(rng.integers(15, 55)), :] *= rng.uniform(2.4, 4.2)
+    # 暗通道带（原图黑/亮交替的关键）
+    for _ in range(16):
+        c0 = int(rng.integers(0, n_ch - 50))
+        act[c0:c0 + int(rng.integers(12, 45)), :] *= rng.uniform(0.06, 0.22)
     # token 方向的细粒度调制（形成原图那种竖向细密条纹）
     tok_fine = rng.gamma(4.0, 0.22, n_tok)
     act *= tok_fine[None, :]
@@ -570,7 +574,7 @@ def fig09():
     pos = 0
     while pos < n_tok:
         w = int(rng.integers(6, 26))
-        seg[pos:pos + w] = rng.uniform(0.30, 1.60)
+        seg[pos:pos + w] = rng.uniform(0.08, 1.70)
         pos += w + int(rng.integers(0, 8))
     act *= seg[None, :]
     # 额外的"亮竖条"：少数 token 列整体极亮（原图最显眼的特征）
@@ -584,8 +588,8 @@ def fig09():
     # 散点噪声
     act *= rng.gamma(3.0, 0.24, (n_ch, n_tok))
     # 少数 outlier 通道整体更亮
-    out_ch = rng.choice(n_ch, 60, replace=False)
-    act[out_ch, :] *= rng.uniform(2.0, 5.0, (60, 1))
+    out_ch = rng.choice(n_ch, 90, replace=False)
+    act[out_ch, :] *= rng.uniform(2.5, 6.0, (90, 1))
     # 图像/语言两段的整体差异
     act[:, :164] *= 1.15
     act[:, 266:] *= 0.9
@@ -594,10 +598,10 @@ def fig09():
     # 真实激活图常用 log 归一化；再叠 gamma 拉伸提高对比
     act_disp = np.log1p(act)
     act_disp = (act_disp - act_disp.min()) / (act_disp.max() - act_disp.min() + 1e-9)
-    act_disp = act_disp ** 0.42
+    act_disp = act_disp ** 0.55
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 66), vmax=np.percentile(act_disp, 82))
+              vmin=np.percentile(act_disp, 28), vmax=np.percentile(act_disp, 94))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -610,19 +614,19 @@ def fig09():
 
     # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.55, 5.0, n_ch) * 0.28    # 每通道基础密度
+    base_dens = rng.beta(0.60, 4.0, n_ch) * 0.36    # 每通道基础密度
     for ci in range(n_ch):
         if base_dens[ci] > 0.004:
             cols = rng.random(n_tok) < base_dens[ci]
             imp[ci, cols] = rng.uniform(0.75, 1.0, cols.sum())
     # 强调通道带（对应上图高亮区）
     for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.22, 0.42)
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.30, 0.55)
         imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.95, 1.0))
 
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="hot", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.30)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.26)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
