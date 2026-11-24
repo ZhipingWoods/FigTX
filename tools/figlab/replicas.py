@@ -593,19 +593,19 @@ def fig09():
 
     # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.50, 6.0, n_ch) * 0.20    # 每通道基础密度
+    base_dens = rng.beta(0.55, 5.0, n_ch) * 0.28    # 每通道基础密度
     for ci in range(n_ch):
         if base_dens[ci] > 0.004:
             cols = rng.random(n_tok) < base_dens[ci]
-            imp[ci, cols] = rng.uniform(0.45, 1.0, cols.sum())
+            imp[ci, cols] = rng.uniform(0.75, 1.0, cols.sum())
     # 强调通道带（对应上图高亮区）
     for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.10, 0.22)
-        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.9, 1.0))
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.22, 0.42)
+        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.95, 1.0))
 
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="hot", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.22)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.30)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
