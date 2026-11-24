@@ -261,7 +261,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.736cm]
+\begin{tikzpicture}[x=1cm, y=0.835cm]
 \tikzset{
   cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},
@@ -275,7 +275,7 @@ def fig06() -> str:
 }
 
 % ================= 图例 =================
-\begin{scope}[shift={(1.59,6.75)}, every node/.style={font=\small}]
+\begin{scope}[shift={(1.59,6.10)}, every node/.style={font=\small}]
   \draw[cell, fill=white] (0,0) rectangle (0.59,0.59);
   \node[anchor=west] at (0.73,0.29) {Token};
   \draw[cell, fill=black!28] (3.17,0) rectangle (3.76,0.59);
@@ -391,7 +391,7 @@ def fig06() -> str:
           minimum width=3.45cm, minimum height=0.94cm, font=\footnotesize, text=\tc]
       at (1.55,\yy) {\name};
   }
-  \node[font=\small] at (1.89,-2.56) {$\vdots$};
+  \node[font=\small] at (1.89,-2.10) {$\vdots$};
 
   % 蓝色复用弧线
   \draw[arr2, draw=blue!80, line width=1.3pt]
@@ -401,8 +401,8 @@ def fig06() -> str:
   \draw[brc] (4.25,1.24) -- (4.25,-2.26) node[midway, right=5pt, font=\footnotesize] {Block$_2$};
 \end{scope}
 
-\node[font=\small\bfseries] at (6.34,-3.05) {(a) Block Causal Linear Attention};
-\node[font=\small\bfseries] at (25.74,-3.05) {(b) Block Causal Mix-FFN};
+\node[font=\small\bfseries] at (6.34,-1.60) {(a) Block Causal Linear Attention};
+\node[font=\small\bfseries] at (25.74,-1.60) {(b) Block Causal Mix-FFN};
 \end{tikzpicture}
 """
 
