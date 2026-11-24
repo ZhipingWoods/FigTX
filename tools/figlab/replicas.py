@@ -529,16 +529,28 @@ def fig09():
     # (上) 输入激活：通道基准 × token 调制，再叠"块状"增强（真实激活的局部相关结构）
     ch_base = rng.lognormal(0.0, 0.75, n_ch)
     act = ch_base[:, None] * np.ones((1, n_tok))
-    # 竖向块：随机 (通道段 × token 段) 的矩形增强
-    for _ in range(26):
-        c0, c1 = sorted(rng.choice(n_ch, 2, replace=False))
-        t0, t1 = sorted(rng.choice(n_tok, 2, replace=False))
-        c1 = min(n_ch, c0 + max(8, c1 - c0))
-        t1 = min(n_tok, t0 + max(4, t1 - t0))
-        act[c0:c1, t0:t1] *= rng.uniform(1.8, 4.5)
+    # 竖向块：均匀铺满整幅（原图不是中间一坨，而是全宽分布）
+    for _ in range(34):
+        c0 = int(rng.integers(0, n_ch - 40))
+        t0 = int(rng.integers(0, n_tok - 12))
+        c1 = c0 + int(rng.integers(25, 180))
+        t1 = t0 + int(rng.integers(10, 90))
+        act[c0:c1, t0:t1] *= rng.uniform(1.6, 3.4)
+    # 少量整体高亮列带（对应真实模型里的活跃通道组）
+    for _ in range(6):
+        c0 = int(rng.integers(0, n_ch - 60))
+        act[c0:c0 + int(rng.integers(20, 70)), :] *= rng.uniform(1.8, 2.8)
     # token 方向的细粒度调制（形成原图那种竖向细密条纹）
     tok_fine = rng.gamma(4.0, 0.22, n_tok)
     act *= tok_fine[None, :]
+    # token 分段的强弱起伏（原图有明显的"暗段/亮段"竖向节奏）
+    seg = np.ones(n_tok)
+    pos = 0
+    while pos < n_tok:
+        w = int(rng.integers(6, 26))
+        seg[pos:pos + w] = rng.uniform(0.35, 1.55)
+        pos += w + int(rng.integers(0, 8))
+    act *= seg[None, :]
     # 通道方向的细粒度调制（横向细纹）
     ch_fine = rng.gamma(6.0, 0.16, n_ch)
     act *= ch_fine[:, None]
@@ -555,7 +567,7 @@ def fig09():
     act_disp = np.log1p(act)          # 真实激活图常用 log 归一化
     ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 35), vmax=np.percentile(act_disp, 99.5))
+              vmin=np.percentile(act_disp, 40), vmax=np.percentile(act_disp, 99.8))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -568,15 +580,15 @@ def fig09():
 
     # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.45, 9, n_ch) * 0.10      # 每通道基础密度
+    base_dens = rng.beta(0.55, 5.5, n_ch) * 0.22     # 每通道基础密度（更密）
     for ci in range(n_ch):
         if base_dens[ci] > 0.004:
             cols = rng.random(n_tok) < base_dens[ci]
-            imp[ci, cols] = rng.uniform(0.35, 0.95, cols.sum())
+            imp[ci, cols] = rng.uniform(0.45, 1.0, cols.sum())
     # 强调通道带（对应上图高亮区）
-    for lo, hi in [(0, 140), (430, 540), (1150, 1280)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.05, 0.12)
-        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.5, 1.0))
+    for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.12, 0.26)
+        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.7, 1.0))
 
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="inferno", origin="upper",
@@ -598,7 +610,7 @@ def fig09():
              "portant channels (bottom).  In the top panel, brightness reflects\n"
              "token magnitude, while in the bottom panel, highlighted positions\n"
              "denote important channels.",
-             ha="center", va="bottom", fontsize=9.0)
+             ha="center", va="bottom", fontsize=11.0)
     fig.subplots_adjust(top=0.95, bottom=0.24, left=0.12, right=0.98, hspace=0.34)
     return _save(fig, "rep-09-activation-heatmap")
 
