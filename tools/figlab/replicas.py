@@ -509,19 +509,19 @@ def fig08():
           [0.34, 0.36, 0.70, 0.72, 0.48, 0.56, 0.47],
           [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
     ]
-    w = 0.225
+    w = 0.245
     for ax, (ylabel, xt, mat) in zip(axes, rows):
         x = np.arange(len(xt))
         for i, (m, c) in enumerate(zip(methods, cols)):
             off = (i - 2) * w
-            ax.bar(x + off, mat[i], w * 0.98, color=c, edgecolor="black" if c == "#000000" else "none",
-                   linewidth=0.9)
+            ax.bar(x + off, mat[i], w * 1.0, color=c, edgecolor="black",
+                   linewidth=1.0)
             for xi, v in zip(x + off, mat[i]):
                 ax.text(xi, v + 0.022, "%.2f" % v, ha="center", va="bottom",
                         fontsize=6.0, rotation=90)
         ax.set_xticks(x, xt, fontsize=9)
         ax.tick_params(axis="x", pad=3)
-        ax.set_ylim(0, 1.16)
+        ax.set_ylim(0, 1.12)
         ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
         ax.set_ylabel(ylabel, fontsize=9.5, rotation=0, ha="right", va="center", labelpad=18)
         ax.tick_params(axis="y", labelsize=8.5, length=4, width=1.2)
@@ -537,7 +537,7 @@ def fig08():
              "of long-sequence prefilling across different serving frameworks,\n"
              "normalized to LServe's speed.",
              ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-    fig.subplots_adjust(top=0.89, bottom=0.21, left=0.145, right=0.995, hspace=0.30)
+    fig.subplots_adjust(top=0.90, bottom=0.20, left=0.135, right=0.998, hspace=0.28)
     return _save(fig, "rep-08-shared-legend")
 
 
