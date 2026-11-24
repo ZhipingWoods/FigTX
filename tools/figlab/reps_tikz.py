@@ -23,6 +23,8 @@ ARCH_STYLES = r"""
 \definecolor{fxpnkd}{HTML}{D98880}
 \definecolor{fxgrn}{HTML}{D5F0D0}
 \definecolor{fxgrnd}{HTML}{7CB342}
+\definecolor{fxbluepad}{HTML}{3B6CF0}
+\definecolor{fxkv}{HTML}{8C1D2F}
 \tikzset{
   box/.style={draw=black!55, line width=.5pt, rounded corners=3pt, align=center,
               font=\scriptsize, inner sep=3pt, minimum height=7mm},
@@ -39,306 +41,313 @@ ARCH_STYLES = r"""
 
 def fig05() -> str:
     return r"""
-\begin{tikzpicture}[node distance=4mm]
-% ============ (a) Block-wise autoregressive training pipeline ============
-\node[lab, anchor=south west] at (-1.2, 3.75) {\textbf{(a)} Block-wise autoregressive training pipeline};
+\begin{tikzpicture}[x=1cm, y=1cm,
+  box/.style={draw=black!65, line width=.5pt, rounded corners=2.5pt, align=center,
+              font=\scriptsize, inner sep=2.2pt, minimum height=6.2mm},
+  org/.style={box, fill=fxorg, draw=black!65, font=\scriptsize\bfseries},
+  pnk2/.style={box, fill=fxpnk, draw=black!40},
+  lin/.style={box, fill=white},
+  arr/.style={-{Stealth[length=1.6mm,width=1.2mm]}, line width=.55pt, draw=black!85},
+  lab2/.style={font=\tiny, text=black!80, inner sep=1pt},
+  ttl/.style={font=\small\bfseries, align=center},
+]
 
-% 四帧图像条（用渐变色块示意）
-\foreach \i/\x/\op in {0/0/0.35, 1/1.75/0.55, 2/3.5/0.78, 3/5.25/1.0}{
-  \begin{scope}[shift={(\x,1.75)}]
-    \foreach \k in {0,...,4}{
-      \fill[blue!40!black, opacity=\op] (\k*0.16,0) rectangle ++(0.14,1.15);
+% ================= 分隔线 =================
+\draw[dashed, line width=1.1pt, black!80] (14.35,-0.2) -- (14.35,11.6);
+\draw[dashed, line width=1.1pt, black!80] (0.0,6.95) -- (14.2,6.95);
+
+% ================= (a) 训练流水线 =================
+% 四帧
+\foreach \i/\x/\op in {0/0.15/0.42, 1/2.35/0.62, 2/4.55/0.80, 3/6.75/0.96}{
+  \begin{scope}[shift={(\x,9.25)}]
+    \fill[cyan!55!black, opacity=\op] (0,0) rectangle (1.55,1.55);
+    \foreach \k in {0,...,7}{
+      \fill[white, opacity=.10] (\k*0.22,0) rectangle ++(0.15,1.55);
     }
-    \draw[black!40, line width=.4pt] (0,0) rectangle (0.78,1.15);
+    \draw[black!35, line width=.4pt] (0,0) rectangle (1.55,1.55);
   \end{scope}
-  \node[lab, below=1pt] at (\x+0.39,1.72) {$Block^{\i}_{\theta^{0.\i}}$};
+  \node[font=\scriptsize, below=1.5pt] at (\x+0.78, 9.22)
+    {$Block^{\i}_{\theta^{0.\i}}$};
 }
-% 上方弧线箭头
+% 上方弧线
 \foreach \i/\j in {0/1, 0/2, 0/3, 1/2, 1/3, 2/3}{
-  \draw[arr, draw=teal!85!black, line width=.5pt]
-    (\i*1.75+0.39, 3.02) to[bend left=17] (\j*1.75+0.39, 3.02);
+  \draw[arr, draw=teal!70!black, line width=.7pt]
+    (\i*2.2+0.93, 10.90) to[bend left=18] (\j*2.2+0.93, 10.90);
 }
-\node[lab, anchor=west] at (0.1, 3.42) {recurrent sampling};
-
-% 右侧：因果线性注意力小格
-\begin{scope}[shift={(6.35,1.80)}]
-  \node[lab, anchor=south] at (0.55,1.18) {Causal Linear Attention};
+% 右侧因果线性注意力小格
+\begin{scope}[shift={(9.65,9.30)}]
   \foreach \r in {0,...,3}{
     \foreach \c in {0,...,3}{
-      \pgfmathparse{\r<\c ? 0 : (\r==\c ? 1 : 2)}
+      \pgfmathparse{\r>\c ? 0 : 2}
       \ifnum\pgfmathresult=0
-        \fill[black!12] (\c*0.24,-\r*0.24) rectangle ++(0.23,0.23);
+        \fill[black!16] (\c*0.42,-\r*0.42) rectangle ++(0.40,0.40);
       \else
-        \fill[green!70!black] (\c*0.24,-\r*0.24) rectangle ++(0.23,0.23);
+        \fill[green!72!black] (\c*0.42,-\r*0.42) rectangle ++(0.40,0.40);
       \fi
     }
   }
-  \draw[black!50, line width=.4pt] (0,0.23) rectangle (0.96,-0.72);
-  \node[lab, anchor=west] at (1.02,-0.24) {$\sum_{i=1}^{k}\!K_iV_i$};
+  \draw[black!55, line width=.4pt] (0,0.42) rectangle (1.70,-1.28);
+  \node[lab2] at (-0.16,0.55) {$d$};
+  \node[lab2] at (0.78,0.55) {$d$};
+  \node[lab2, anchor=west] at (1.78,-0.22) {$\sum_{i=1}^{k}K_iV_i$};
+  \node[font=\tiny, anchor=west] at (1.78,-1.10) {Cumulative Sum};
 \end{scope}
+\node[lab2, anchor=west] at (11.62,10.35) {Causal Linear Attention};
+\node[ttl] at (7.5,7.55) {(a). Block-wise autoregressive training pipeline};
 
-% ============ (b) 整体架构 ============
-\begin{scope}[shift={(0,-1.55)}]
-\node[lab, anchor=south west] at (-1.2, 2.15) {\textbf{(b)} Architecture overview of our SANA-Video};
+% ================= (b) 整体架构 =================
+% 输入
+\begin{scope}[shift={(0.35,3.05)}]
+  \foreach \k in {0,...,3}{
+    \fill[cyan!50!black, opacity=0.75] (\k*0.10, \k*0.10) rectangle ++(0.95,1.05);
+  }
+  \draw[black!35] (0,0) rectangle (1.25,1.30);
+\end{scope}
+\node[font=\scriptsize] at (0.95,2.72) {$[1\!+\!T, H, W, 3]$};
 
-% 图像输入
-\foreach \k in {0,...,3}{
-  \fill[blue!40!black, opacity=0.75] (-1.0+\k*0.10, 0.35+\k*0.10) rectangle ++(0.55,0.85);
-}
-\node[lab, anchor=north] at (-0.7, 0.28) {$[1\!+\!T, H, W, 3]$};
+% AutoEncoder（平行四边形）
+\node[draw=black!25, fill=black!6, inner sep=3pt, minimum width=2.5cm, minimum height=1.5cm,
+      font=\scriptsize, trapezium, trapezium left angle=74, trapezium right angle=106,
+      trapezium stretches=true] (ae) at (3.05,3.75) {AutoEncoder};
+\draw[arr] (1.30,3.75) -- (ae.west);
 
-\node[blu2, right=6mm of {(0.05,0.75)}, minimum width=17mm, minimum height=13mm] (ae) {Auto\\Encoder};
-\node[blu, right=5mm of ae, minimum width=13mm, minimum height=20mm] (lin) {Linear\\Attn};
-\node[blu, right=3mm of lin, minimum width=12mm, minimum height=20mm] (cro) {Cross\\Attn};
-\node[blu, right=3mm of cro, minimum width=12mm, minimum height=20mm] (ffn) {Mix\\FFN};
-\node[circle, draw=black!55, fill=white, inner sep=1.2pt, font=\scriptsize] (plus) at ($(ffn.east)+(7mm,0)$) {$+$};
+% N x 大框
+\fill[fxblue, opacity=.55, rounded corners=6pt] (4.55,2.55) rectangle (11.35,5.55);
+\node[font=\scriptsize\bfseries, text=red!70!black, anchor=south west] at (4.62,2.58) {$\mathbf{N\times}$};
 
-\draw[arr] (0.05,0.77) -- (ae);
-\draw[arr] (ae) -- (lin);
-\draw[arr] (lin) -- (cro);
-\draw[arr] (cro) -- (ffn);
-\draw[arr] (ffn) -- (plus);
-\draw[arr] (plus) -- ++(7mm,0);
+\node[font=\scriptsize, rotate=90, align=center] (la) at (5.30,4.05) {Linear Attn};
+\node[font=\scriptsize, rotate=90, align=center] (ca) at (7.35,4.05) {Cross Attn};
+\node[font=\scriptsize, rotate=90, align=center] (ff) at (9.55,4.05) {Mix FFN};
+\fill[fxpnk, opacity=.75, rounded corners=2pt] (6.75,2.75) rectangle (7.95,5.35);
+\fill[fxgrn, opacity=.55, rounded corners=2pt] (8.95,2.75) rectangle (10.15,5.35);
 
-% N x 循环框
-\draw[draw=black!55, dashed, rounded corners=2pt]
-  ($(lin.north west)+(-1.5mm,1.5mm)$) rectangle ($(ffn.south east)+(1.5mm,-1.5mm)$);
-\node[lab, anchor=north west, text=red!75!black, font=\scriptsize\bfseries]
-  at ($(lin.north west)+(-1.5mm,1.2mm)$) {$\mathbf{N\times}$};
+\draw[arr] (ae.east) -- (4.62,3.75);
+\draw[arr] (5.85,3.75) -- (6.40,3.75);
+\draw[arr] (8.05,3.75) -- (8.60,3.75);
+\draw[arr] (10.30,3.75) -- (11.42,3.75);
+\node[circle, draw=black!65, fill=white, inner sep=1.3pt, font=\scriptsize] (plus) at (11.62,3.75) {$+$};
+\draw[arr] (plus) -- ++(0.55,0);
+
+% 图标位（雪花 / 火焰）
+\node[font=\scriptsize, text=cyan!70!black] at (4.95,5.30) {$\ast$};
+\node[font=\scriptsize, text=red!75!black] at (11.05,5.30) {$\blacktriangle$};
 
 % 文本分支
-\node[pnk, below=7mm of ae, minimum width=24mm, align=left, font=\tiny]
-  (cap) {A cyberpunk cat with a\\sian that says "SANA"};
-\node[pnk, right=4mm of cap, minimum width=15mm] (rew) {Rewriter};
-\node[pnk, right=4mm of rew, minimum width=17mm] (llm) {Small LLM};
-\node[pnk, right=4mm of llm, minimum width=15mm] (temb) {Time Emb};
-\draw[arr] (cap) -- (rew);
-\draw[arr] (rew) -- (llm);
-\draw[arr] (llm) -- (temb);
-\draw[arr] (llm.north) -- ++(0,0.42) -| (cro.south);
-\end{scope}
+\node[draw=black!45, rounded corners=2pt, fill=white, minimum width=3.1cm,
+      minimum height=0.78cm, font=\tiny, align=left, inner sep=2pt] (capbox)
+  at (1.85,1.20) {\textit{A cyberpunk cat with a}\\\textit{sian that says "SANA"}};
+\node[pnk2, minimum width=1.55cm] (rw) at (4.35,1.20) {Rewriter};
+\node[pnk2, minimum width=1.75cm] (llm) at (6.45,1.20) {Small LLM};
+\node[pnk2, minimum width=1.35cm] (te) at (8.55,1.20) {Time Emb};
+\draw[arr] (capbox.east) -- (rw.west);
+\draw[arr] (rw.east) -- (llm.west);
+\draw[arr] (llm.east) -- (te.west);
+\draw[arr] (llm.north) |- (7.35,2.55);
+\node[ttl] at (7.0,0.28) {(b). Architecture overview of our SANA-Video.};
 
-% ============ (c) Linear DiT module ============
-\begin{scope}[shift={(13.4,-1.35)}]
-\node[lab, anchor=south] at (1.55,3.10) {\textbf{(c)} Linear DiT module};
+% ================= (c) Linear DiT module =================
+% ---- 面板标题（在框上方）
+\node[ttl] at (18.0,10.95) {Linear Attention};
+\node[ttl] at (23.6,10.95) {Mix-FFN};
 
-% --- Linear Attention 子块
-\begin{scope}[shift={(0,0)}]
-  \fill[blue!12, rounded corners=6pt] (-0.75,-0.30) rectangle (2.75,3.30);
-  \node[font=\scriptsize\bfseries] at (1.0,3.06) {Linear Attention};
+% ---- Linear Attention 面板
+\fill[fxblue, opacity=.55, rounded corners=8pt] (14.85,0.55) rectangle (21.15,10.55);
 
-  \node[box, fill=white, minimum width=13mm] (scale) at (1.0,2.55) {Scale};
-  \node[box, fill=white, minimum width=15mm] (mm) at (1.0,1.95) {MatMul};
-  \node[box, fill=white, minimum width=15mm] (mm2) at (1.35,1.35) {MatMul};
-  \node[box, fill=fxorg, minimum width=11mm] (rope1) at (0.10,0.72) {3D RoPE};
-  \node[box, fill=fxorg, minimum width=11mm] (rope2) at (2.30,0.72) {3D RoPE};
-  \node[box, fill=white, minimum width=11mm] (relu1) at (0.10,0.16) {ReLU};
-  \node[box, fill=white, minimum width=11mm] (relu2) at (2.30,0.16) {ReLU};
-  \node[box, fill=white, minimum width=11mm] (lin1) at (-0.55,-0.58) {Linear};
-  \node[box, fill=white, minimum width=11mm] (lin2) at (1.35,-0.58) {Linear};
-  \node[box, fill=white, minimum width=11mm] (lin3) at (2.95,-0.58) {Linear};
-  \node[lab] at (-0.55,-1.02) {$Q$}; \node[lab] at (1.35,-1.02) {$K$}; \node[lab] at (2.95,-1.02) {$V$};
+\node[lin, minimum width=1.55cm] (sc) at (18.0,9.55) {Scale};
+\node[lin, minimum width=2.0cm] (mm1) at (18.0,8.55) {MatMul};
+\node[lin, minimum width=2.0cm] (mm0) at (19.20,7.35) {MatMul};
 
-  \draw[arr] (mm) -- (scale);
-  \draw[arr] (mm2) -- (mm);
-  \draw[arr] (rope1) -- (mm2);
-  \draw[arr] (rope2) -- (mm2);
-  \draw[arr] (relu1) -- (rope1); \draw[arr] (relu2) -- (rope2);
-  \draw[arr] (lin1) -- (relu1); \draw[arr] (lin2) -- (relu2); \draw[arr] (lin3) -- (mm2);
-  \node[lab, anchor=west] at (0.42,1.60) {$n\times d$};
-  \node[lab, anchor=west] at (1.18,0.86) {$d\times n$};
-  \node[lab, anchor=east] at (1.55,0.68) {$n\times d$};
-  \node[lab, anchor=north] at (1.1,-1.36) {Cost: $\mathcal{O}(n)$};
-\end{scope}
+\node[org, minimum width=1.55cm] (ropeL) at (16.35,6.05) {3D RoPE};
+\node[org, minimum width=1.55cm] (ropeR) at (19.55,6.05) {3D RoPE};
+\node[lin, minimum width=1.55cm] (rl) at (16.35,5.10) {ReLU};
+\node[lin, minimum width=1.55cm] (rr) at (19.55,5.10) {ReLU};
+\node[lin, minimum width=1.55cm] (lnQ) at (16.35,3.95) {Linear};
+\node[lin, minimum width=1.55cm] (lnK) at (18.10,3.95) {Linear};
+\node[lin, minimum width=1.55cm] (lnV) at (19.85,3.95) {Linear};
 
-% --- Mix-FFN 子块
-\begin{scope}[shift={(4.35,0)}]
-  \fill[blue!12, rounded corners=6pt] (-0.60,-0.30) rectangle (2.30,3.30);
-  \node[font=\scriptsize\bfseries] at (0.85,3.06) {Mix-FFN};
+\node[font=\scriptsize] at (16.35,3.25) {$Q$};
+\node[font=\scriptsize] at (18.10,3.25) {$K$};
+\node[font=\scriptsize] at (19.85,3.25) {$V$};
 
-  \node[box, fill=fxorg, minimum width=24mm, minimum height=9mm, font=\tiny\bfseries]
-    (tmpl) at (0.85,2.50) {Temporal\\$3\times1\times1$ ConvLayer};
-  \node[box, fill=white, minimum width=24mm] (c1) at (0.85,1.78) {$1\times1$ ConvLayer};
-  \node[box, fill=white, minimum width=24mm] (c2) at (0.85,0.42) {$1\times3\times3$ ConvLayer};
-  \node[box, fill=white, minimum width=24mm] (c3) at (0.85,-0.30) {$1\times1$ ConvLayer};
-  \node[circle, draw=black!55, fill=white, inner sep=1.5pt, font=\scriptsize] (mul) at (0.85,1.10) {$\otimes$};
-  \node[box, fill=fxpnk, minimum width=11mm] (silu) at (2.15,1.10) {SiLU};
+\draw[arr] (lnQ) -- (rl);
+\draw[arr] (rl) -- (ropeL);
+\draw[arr] (lnK) -- (rr);
+\draw[arr] (rr) -- (ropeR);
+\draw[arr] (ropeL.north) |- (17.85,7.45);
+\draw[arr] (ropeR.north) -- (19.55,7.35) -- (20.20,7.35);
+\draw[arr] (lnV.north) -- (19.85,6.95) -- (20.28,6.95);
+\draw[arr] (mm0.north) -- (18.85,8.05) -- (18.55,8.05);
+\draw[arr] (mm1) -- (sc);
+\draw[arr] (sc.north) -- (18.0,10.05);
 
-  \draw[arr] (tmpl) -- (c1);
-  \draw[arr] (c1) -- (mul);
-  \draw[arr] (c3) -- (c2);
-  \draw[arr] (c2) -- (mul);
-  \draw[arr] (mul) -- (silu);
-  \draw[arr] (mul) -- (tmpl.east);
-\end{scope}
-\end{scope}
+\node[lab2] at (17.05,8.90) {$n\times d$};
+\node[lab2] at (18.75,7.95) {$n\times d$};
+\node[lab2] at (17.55,7.05) {$d\times n$};
+\node[lab2] at (20.15,6.95) {$n\times d$};
+
+\node[lab2, anchor=east] at (20.95,2.10) {Cost: $\mathcal{O}(n)$};
+
+% ---- Mix-FFN 面板
+\fill[fxblue, opacity=.55, rounded corners=8pt] (21.55,0.55) rectangle (25.75,10.55);
+
+\node[org, minimum width=2.55cm, minimum height=0.95cm, align=center] (tmp) at (23.65,9.00)
+  {Temporal\\$3\times1\times1$ ConvLayer};
+\node[lin, minimum width=2.55cm] (c1a) at (23.65,7.75) {$1\times1$ ConvLayer};
+\node[lin, minimum width=2.55cm] (c2) at (23.65,5.55) {$1\times3\times3$ ConvLayer};
+\node[lin, minimum width=2.55cm] (c3) at (23.65,3.35) {$1\times1$ ConvLayer};
+\node[circle, draw=black!65, fill=white, inner sep=1.6pt, font=\scriptsize] (mul) at (23.05,6.60) {$\otimes$};
+\node[pnk2, minimum width=1.05cm] (silu) at (24.75,6.60) {SiLU};
+
+\draw[arr] (c3) -- (c2);
+\draw[arr] (c2.north) -- (22.55,6.60) -- (22.88,6.60);
+\draw[arr] (silu.west) -- (mul.east);
+\draw[arr] (mul.north) -- (23.05,7.35) -- (23.35,7.35);
+\draw[arr] (c1a) -- (tmp);
+\draw[arr] (tmp.north) -- (23.65,9.90);
+\node[ttl] at (23.65,-0.05) {(c). Linear DiT module};
 \end{tikzpicture}
 """
-
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[node distance=3mm]
+\begin{tikzpicture}[x=1cm, y=0.66cm]
 \tikzset{
-  cell/.style={draw=black!45, line width=.35pt, minimum size=4.2mm, inner sep=0pt},
+  cell/.style={draw=black!55, line width=.35pt, inner sep=0pt},
   tok/.style={cell, fill=white},
-  mask/.style={cell, fill=black!25},
-  kv/.style={cell, fill=red!55!black},
-  cmp/.style={cell, fill=green!65!black},
+  mask/.style={cell, fill=black!26},
+  kv/.style={cell, fill=red!58!black},
+  cmp/.style={cell, fill=green!68!black},
   ttl/.style={font=\scriptsize, align=center},
-  arr/.style={-{Stealth[length=1.8mm,width=1.2mm]}, line width=.7pt, draw=black!80},
+  arr2/.style={-{Stealth[length=1.7mm,width=1.2mm]}, line width=.75pt, draw=black!85},
+  brc/.style={decorate, decoration={brace, amplitude=4pt}, black!65},
 }
 
-% ===== 图例 =====
-\begin{scope}[shift={(0,3.35)}]
-  \node[cell, fill=white, minimum size=3.6mm] (l1) at (0,0) {};
-  \node[anchor=west, font=\scriptsize] at (0.28,0) {Token};
-  \node[cell, fill=black!25, minimum size=3.6mm] (l2) at (1.75,0) {};
-  \node[anchor=west, font=\scriptsize] at (2.03,0) {Mask};
-  \node[cell, fill=red!55!black, minimum size=3.6mm] (l3) at (3.45,0) {};
-  \node[anchor=west, font=\scriptsize] at (3.73,0) {KV Cache};
-  \node[cell, fill=green!65!black, minimum size=3.6mm] (l4) at (5.45,0) {};
-  \node[anchor=west, font=\scriptsize] at (5.73,0) {Compute};
+% ================= 图例 =================
+\begin{scope}[shift={(1.15,8.55)}, every node/.style={font=\scriptsize}]
+  \draw[cell, fill=white, minimum size=0.42cm] (0,0) rectangle (0.42,0.42);
+  \node[anchor=west] at (0.52,0.21) {Token};
+  \draw[cell, fill=black!26] (2.30,0) rectangle (2.72,0.42);
+  \node[anchor=west] at (2.82,0.21) {Mask};
+  \draw[cell, fill=red!58!black] (4.35,0) rectangle (4.77,0.42);
+  \node[anchor=west] at (4.87,0.21) {KV Cache};
+  \draw[cell, fill=green!68!black] (6.70,0) rectangle (7.12,0.42);
+  \node[anchor=west] at (7.22,0.21) {Compute};
 \end{scope}
+\node[font=\small] at (4.35,7.80) {(a) Block Causal Linear Attention};
 
-% ===== (a-1) Vanilla Attention =====
-\begin{scope}[shift={(0,1.55)}]
-  \foreach \r in {0,...,3}{
-    \foreach \c in {0,...,3}{
-      \node[cmp] at (\c*0.44, -\r*0.36) {};
+% ================= (a-1) Vanilla Attention =================
+\begin{scope}[shift={(1.55,4.05)}]
+  \foreach \r in {0,...,4}{
+    \foreach \c in {0,...,4}{
+      \draw[cmp] (\c*0.52,-\r*0.52) rectangle ++(0.52,0.52);
     }
   }
-  \draw[black!45, line width=.4pt] (-0.22,0.18) rectangle (1.54,-1.26);
-  \node[ttl, below=2mm] at (0.66,-1.42) {Vanilla Attention};
-  % Q/K 标注
-  \node[font=\tiny] at (-0.55,-0.02) {$Q_1$};
-  \node[font=\tiny] at (-0.55,-1.10) {$Q_N$};
-  \node[font=\tiny] at (-0.10,0.34) {$K_1$};
-  \node[font=\tiny] at (1.40,0.34) {$K_N$};
-  \node[font=\tiny] at (0.12,0.34) {$\cdots$};
-  \node[font=\tiny] at (0.60,0.34) {$\cdots$};
+  \node[ttl, anchor=north] at (1.30,-2.75) {Vanilla Attention};
+  \node[ttl, anchor=east] at (-0.14,-0.26) {$Q_1$};
+  \node[ttl, anchor=east] at (-0.14,-2.34) {$Q_N$};
+  \node[ttl, anchor=south] at (0.26,0.10) {$K_1$};
+  \node[ttl, anchor=south] at (2.34,0.10) {$K_N$};
+  \node[ttl] at (1.04,0.32) {$\cdots$};
 \end{scope}
 
-% 乘号
-\node[font=\Large] at (2.05,0.55) {$\times$};
+\node[font=\normalsize] at (4.55,2.80) {$\times$};
 
-% ===== (a-2) Linear Attention =====
-\begin{scope}[shift={(2.55,1.55)}]
-  % V 列
-  \foreach \r in {0,...,3}{
-    \foreach \c in {0,...,0}{
-      \node[tok] at (\c*0.44, -\r*0.36) {};
-    }
-  }
-  \draw[black!45, line width=.4pt] (-0.22,0.18) rectangle (0.22,-1.26);
-  \node[font=\tiny] at (0,-0.02) {$V_1$};
-  \node[font=\tiny] at (0,-1.10) {$V_N$};
-  \node[font=\tiny] at (0.44,0.34) {$d$};
-  \node[font=\tiny] at (-0.52,-1.10) {$N$};
+% ================= (a-2) Linear Attention =================
+\begin{scope}[shift={(5.20,4.05)}]
+  % V 列（N×d）
+  \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.52) rectangle ++(0.52,0.52); }
+  \node[ttl, anchor=east] at (-0.14,-0.26) {$V_1$};
+  \node[ttl, anchor=east] at (-0.14,-2.34) {$V_N$};
+  \node[ttl, anchor=south] at (0.26,0.10) {$d$};
+  \node[ttl, anchor=west] at (-0.62,-1.30) {$N$};
 
-  \node[font=\Large] at (0.95,0.55) {$\times$};
+  \node[font=\normalsize] at (0.92,-0.62) {$\times$};
 
-  % Q 列
-  \foreach \r in {0,...,3}{
-    \foreach \c in {0,...,0}{
-      \node[tok] at (1.45+\c*0.44, -\r*0.36) {};
-    }
-  }
-  \draw[black!45, line width=.4pt] (1.23,0.18) rectangle (1.67,-1.26);
-  \node[font=\tiny] at (1.45,-0.02) {$Q_1$};
-  \node[font=\tiny] at (1.45,-1.10) {$Q_N$};
-  \node[font=\tiny] at (1.90,0.34) {$d$};
+  % Q 列（N×d）
+  \begin{scope}[shift={(1.42,0)}]
+    \foreach \r in {0,...,4}{ \draw[tok] (0,-\r*0.52) rectangle ++(0.52,0.52); }
+    \node[ttl, anchor=east] at (-0.14,-0.26) {$Q_1$};
+    \node[ttl, anchor=east] at (-0.14,-2.34) {$Q_N$};
+    \node[ttl, anchor=south] at (0.26,0.10) {$d$};
+    \draw[brc] (-0.42,0.04) -- (-0.42,-1.28) node[midway, left=3.5pt, font=\tiny] {Block$_1$};
+    \draw[brc] (-0.42,-1.36) -- (-0.42,-2.60) node[midway, left=3.5pt, font=\tiny] {Block$_N$};
+  \end{scope}
 
-  \node[font=\Large] at (2.40,0.55) {$\times$};
+  \node[font=\normalsize] at (2.80,-0.62) {$\times$};
 
-  % 结果小格
-  \node[cmp, minimum size=8mm] (res) at (2.95,-0.55) {};
-  \node[font=\tiny] at (2.95,-0.52) {$\sum$};
-  \node[font=\tiny] at (2.95,0.02) {$d$};
-  \node[font=\tiny, anchor=east] at (2.52,-0.55) {$d$};
+  % 结果小方块
+  \begin{scope}[shift={(3.02,0)}]
+    \draw[cmp] (0,-1.16) rectangle (0.88,-0.28);
+    \node[font=\small] at (0.44,-0.72) {$\sum$};
+    \node[ttl, anchor=south] at (0.44,-0.20) {$d$};
+    \node[ttl, anchor=east] at (-0.14,-0.72) {$d$};
+  \end{scope}
 
-  \node[ttl, below=2mm] at (1.45,-1.42) {Linear Attention};
-
-  % Block 括号
-  \draw[decorate, decoration={brace, amplitude=4pt}, black!60]
-    (1.15,0.22) -- (1.15,-0.52) node[midway, left=4pt, font=\tiny] {Block$_1$};
-  \draw[decorate, decoration={brace, amplitude=4pt}, black!60]
-    (1.15,-0.62) -- (1.15,-1.30) node[midway, left=4pt, font=\tiny] {Block$_N$};
+  \node[ttl, anchor=north] at (1.10,-2.82) {Linear Attention};
 \end{scope}
 
-% ===== (a-3) Causal Linear Attention =====
-\begin{scope}[shift={(7.55,1.55)}]
-  \foreach \r in {0,...,3}{
-    \foreach \c in {0,...,3}{
-      \pgfmathparse{\r<\c ? 0 : (\r==\c ? 1 : 2)}
+% ================= (a-3) Causal Linear Attention =================
+\begin{scope}[shift={(11.60,4.05)}]
+  \foreach \r in {0,...,4}{
+    \foreach \c in {0,...,4}{
+      \pgfmathparse{\r<\c ? 0 : 1}
       \ifnum\pgfmathresult=0
-        \node[mask] at (\c*0.44, -\r*0.36) {};
-      \else\ifnum\pgfmathresult=1
-        \node[cmp] at (\c*0.44, -\r*0.36) {};
+        \draw[mask] (\c*0.52,-\r*0.52) rectangle ++(0.52,0.52);
       \else
-        \node[kv] at (\c*0.44, -\r*0.36) {};
-      \fi\fi
+        \draw[cmp] (\c*0.52,-\r*0.52) rectangle ++(0.52,0.52);
+      \fi
     }
   }
-  \draw[black!45, line width=.4pt] (-0.22,0.18) rectangle (1.54,-1.26);
-  \node[ttl, below=2mm] at (0.66,-1.42) {Causal Linear Attention};
-  \node[font=\tiny] at (-0.55,-0.02) {$Q_1$};
-  \node[font=\tiny] at (-0.55,-1.10) {$Q_N$};
-  \node[font=\tiny] at (0.10,0.34) {$d$};
-  \node[font=\tiny] at (-0.42,0.10) {$d$};
+  % 第 3、4 行的左段标成 KV Cache（红），模仿累积复用的部分
+  \foreach \c in {0,1,2}{
+    \draw[kv] (\c*0.52,-1.56) rectangle ++(0.52,0.52);
+    \draw[kv] (\c*0.52,-2.08) rectangle ++(0.52,0.52);
+  }
+  \node[ttl, anchor=south] at (1.30,0.10) {$d$};
+  \node[ttl, anchor=east] at (-0.14,-0.26) {$Q_1$};
+  \node[ttl, anchor=east] at (-0.14,-2.34) {$Q_N$};
+  \draw[brc] (-0.42,0.04) -- (-0.42,-1.28) node[midway, left=3.5pt, font=\tiny] {Block$_1$};
+  \draw[brc] (-0.42,-1.36) -- (-0.42,-2.60) node[midway, left=3.5pt, font=\tiny] {Block$_N$};
 
   % 累积求和箭头
-  \draw[arr, draw=black!70] (-0.05,-0.36) -- (1.05,-0.36);
-  \node[font=\tiny, anchor=west] at (1.10,-0.36) {$\sum_{i=1}^{2}K_iV_i$};
-  \draw[arr, draw=black!70] (-0.05,-0.72) -- (1.35,-0.72);
-  \node[font=\tiny, anchor=west] at (1.42,-0.72) {$\sum_{i=1}^{3}K_iV_i$};
-  \draw[arr, draw=white, line width=1.6pt] (-0.05,-1.08) -- (1.45,-1.08);
-  \draw[arr, draw=black!70] (-0.05,-1.08) -- (1.45,-1.08);
-  \node[font=\tiny, anchor=west] at (1.52,-1.08) {Cumulative Sum};
+  \draw[arr2] (-0.02,-1.30) -- (1.32,-1.30);
+  \node[font=\tiny, anchor=west] at (1.38,-1.30) {$\sum_{i=1}^{2}K_iV_i$};
+  \draw[arr2] (-0.02,-1.82) -- (1.32,-1.82);
+  \node[font=\tiny, anchor=west] at (1.38,-1.82) {$\sum_{i=1}^{3}K_iV_i$};
+  \draw[arr2, draw=black!85] (-0.02,-2.62) -- (1.60,-2.62);
+  \node[font=\tiny, anchor=west] at (1.66,-2.62) {Cumulative Sum};
 
-  % 左括号
-  \draw[decorate, decoration={brace, amplitude=4pt, mirror}, black!60]
-    (-0.30,0.22) -- (-0.30,-0.52) node[midway, left=5pt, font=\tiny] {Block$_1$};
-  \draw[decorate, decoration={brace, amplitude=4pt, mirror}, black!60]
-    (-0.30,-0.62) -- (-0.30,-1.30) node[midway, left=5pt, font=\tiny] {Block$_N$};
+  \node[ttl, anchor=north] at (1.30,-2.82) {Causal Linear Attention};
 \end{scope}
 
-% ===== (b) Block Causal Mix-FFN =====
-\begin{scope}[shift={(11.6,1.75)}]
-  % (逐个显式绘制，见下)
-  % 具体标签
-  \node[font=\tiny, fill=fxgrn, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm] at (0.9,1.35) {Token-2};
-  \node[font=\tiny, fill=fxgrn, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm] at (0.9,0.80) {Token-1};
-  \node[font=\tiny, fill=blue!70, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm, text=white] at (0.9,0.25) {Zero Padding};
-  \node[font=\tiny, fill=red!55!black, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm, text=white] at (0.9,-0.30) {Cached Token-1};
-  \node[font=\tiny, fill=fxgrn, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm] at (0.9,-0.85) {Token$_0$};
-  \node[font=\tiny, fill=fxgrn, draw=black!50, rounded corners=2pt, minimum width=24mm,
-        minimum height=6mm] at (0.9,-1.40) {Token$_1$};
+% ================= (b) Block Causal Mix-FFN =================
+\begin{scope}[shift={(17.35,4.30)}]
+  \node[ttl] at (1.35,3.95) {$\vdots$};
 
-  % 缓存复用弧线
-  \draw[arr, draw=blue!70, line width=1.0pt] (2.20,0.25) to[bend left=40] (2.20,-0.30);
-  % 上下省略号
-  \node[font=\scriptsize] at (0.9,1.85) {$\vdots$};
-  \node[font=\scriptsize] at (0.9,-1.90) {$\vdots$};
+  \foreach \i/\name/\fc/\tc in {
+      0/{Token-2}/fxgrn/black,
+      1/{Token-1}/fxgrn/black,
+      2/{Zero Padding}/fxbluepad/white,
+      3/{Cached Token-1}/fxkv/white,
+      4/{Token$_0$}/fxgrn/black,
+      5/{Token$_1$}/fxgrn/black}{
+    \pgfmathsetmacro{\yy}{2.35-\i*0.62}
+    \node[draw=black!55, line width=.4pt, rounded corners=2pt, fill=\fc,
+          minimum width=2.15cm, minimum height=0.54cm, font=\tiny, text=\tc]
+      at (1.35,\yy) {\name};
+  }
+  \node[ttl] at (1.35,-1.70) {$\vdots$};
 
-  \draw[decorate, decoration={brace, amplitude=4pt, mirror}, black!60]
-    (2.55,1.62) -- (2.55,0.58) node[midway, right=5pt, font=\tiny] {Block$_1$};
-  \draw[decorate, decoration={brace, amplitude=4pt, mirror}, black!60]
-    (2.55,0.02) -- (2.55,-1.62) node[midway, right=5pt, font=\tiny] {Block$_2$};
+  % 蓝色复用弧线
+  \draw[arr2, draw=blue!75, line width=1.1pt]
+    (2.62,1.11) to[bend left=42] (2.62,0.49);
 
-  \node[ttl, below=16mm] at (0.9,-2.05) {(b) Block Causal Mix-FFN};
+  \draw[brc] (2.92,2.66) -- (2.92,1.42) node[midway, right=4pt, font=\tiny] {Block$_1$};
+  \draw[brc] (2.92,1.18) -- (2.92,-1.28) node[midway, right=4pt, font=\tiny] {Block$_2$};
 \end{scope}
-
-% 顶部总标题
-\node[font=\scriptsize, anchor=north] at (3.3,3.05) {(a) Block Causal Linear Attention};
+\node[font=\small] at (18.70,-0.55) {(b) Block Causal Mix-FFN};
 \end{tikzpicture}
 """
-
 
 REPLICAS = [
     ("05-architecture", fig05, "架构 · 整体流程与模块放大",

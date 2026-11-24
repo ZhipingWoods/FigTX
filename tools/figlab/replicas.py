@@ -80,7 +80,7 @@ def _hbar_stacked(ax, rows, segments, colors, ypos, height=0.52):
 
 def fig01():
     # 参考图 AR≈3.98；子图说明放在坐标区下方（不是 title）
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.27),
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.0, 3.75),
                                    gridspec_kw=dict(width_ratios=[1.34, 1.0], wspace=0.16))
 
     # ---- (a) 显存分解
@@ -160,7 +160,7 @@ def fig01():
 # ---------------------------------------------------------------- 02 逐项融合增益
 
 def fig02():
-    fig, ax = plt.subplots(figsize=(6.4, 4.18))  # AR≈1.53
+    fig, ax = plt.subplots(figsize=(6.4, 4.64))  # AR≈1.53
     labels = ["BF16", "4-Bit\nw/o Fusion", "+ LoRA Fusion", "+ MLP Fusion\n(Ours)"]
     vals = [1541.0, 1233.8, 676.7, 612.4]
     cols = [LGRAY, DRED, DRED, DRED]
@@ -216,7 +216,7 @@ def fig02():
 # ---------------------------------------------------------------- 03 权衡曲线 + 断轴
 
 def fig03():
-    fig = plt.figure(figsize=(13.4, 4.4))
+    fig = plt.figure(figsize=(13.4, 4.82))
     gs = fig.add_gridspec(2, 3, height_ratios=[0.14, 1.0], hspace=0.02, wspace=0.26)
     axleg = fig.add_subplot(gs[0, :]); axleg.axis("off")
 
@@ -294,7 +294,7 @@ def fig03():
 # ---------------------------------------------------------------- 04 延迟/显存扩展
 
 def fig04():
-    fig, axes = plt.subplots(1, 3, figsize=(13.4, 3.94),
+    fig, axes = plt.subplots(1, 3, figsize=(13.4, 3.28),
                              gridspec_kw=dict(width_ratios=[1.12, 1.0, 1.0], wspace=0.30))
 
     # (b) 横向条 + 16x
@@ -381,7 +381,7 @@ REPLICAS = [
 # ---------------------------------------------------------------- 07 分组柱 + 并列热图
 
 def fig07():
-    fig = plt.figure(figsize=(6.6, 6.4))
+    fig = plt.figure(figsize=(6.6, 7.9))
     gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 0.78], hspace=0.42, wspace=0.30)
 
     # ---- 上：分组柱（3 系列 × 6 稀疏度）
@@ -424,9 +424,12 @@ def fig07():
                 arrowprops=dict(arrowstyle="-|>", color="#C0392B", lw=1.0,
                                 connectionstyle="arc3,rad=0.3", mutation_scale=10))
     ax.set_title("Figure 12: Prefilling Stage Attention Kernel Evaluation.",
-                 fontsize=10.5, fontweight="bold", pad=16)
+                 fontsize=10.5, fontweight="bold", pad=30)
 
     # ---- 下：三张热图 + 共享色条
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap_hm = LinearSegmentedColormap.from_list(
+        'acc', ['#E24A33', '#F2C230', '#8FD98A', '#38D888'])
     rng = np.random.default_rng(7)
     titles = ["(a) $N_P$ = 64, $N_L$ = 16,  Budget: 3072",
               "(b) $N_P$ = 32, $N_L$ = 16,  Budget: 3072",
@@ -439,7 +442,7 @@ def fig07():
         # 少量低分格子
         for _ in range(rng.integers(3, 6)):
             data[rng.integers(0, 12), rng.integers(0, 7)] = rng.choice([0.42, 0.55, 0.63])
-        im = axh.imshow(data, cmap="RdYlGn", vmin=0, vmax=1, aspect="auto")
+        im = axh.imshow(data, cmap=cmap_hm, vmin=0.0, vmax=1.06, aspect="auto")
         axh.set_title(titles[k], fontsize=6.8, pad=3)
         axh.set_yticks(range(12))
         axh.set_yticklabels(["", "0", "", "22", "", "44", "", "67", "", "89", "", ""],
@@ -524,13 +527,22 @@ def fig09():
     fig, axes = plt.subplots(2, 1, figsize=(6.6, 6.6))
     n_tok, n_ch = 400, 1536
 
-    # (上) 输入激活：块状条纹
-    act = rng.gamma(1.6, 0.42, (n_ch, n_tok))
-    act[400:700, :] *= 1.9            # 高亮带
-    act[1150:1250, :] *= 1.6
+    # (上) 输入激活：真实激活的行向结构 =
+    #   每通道一个基准强度(对数正态) × 每 token 的调制 × 轻微噪声
+    ch_base = rng.lognormal(0.0, 0.55, n_ch)          # 通道间差异（行向条纹来源）
+    tok_mod = 1.0 + 0.25 * np.sin(np.linspace(0, 6.0, n_tok))   # token 方向的缓慢起伏
+    act = ch_base[:, None] * tok_mod[None, :]
+    act *= rng.gamma(2.2, 0.30, (n_ch, n_tok))        # 非负乘性噪声，形成斑驳质感
+    # 少数 outlier 通道整体更亮（真实模型里常见）
+    out_ch = rng.choice(n_ch, 40, replace=False)
+    act[out_ch, :] *= rng.uniform(2.0, 4.0, (40, 1))
+    # 图像 token / 语言 token 两段有轻微差异
+    act[:, :164] *= 1.08
+    act[:, 266:] *= 0.96
     ax = axes[0]
-    im0 = ax.imshow(act, aspect="auto", cmap="magma", origin="upper",
-                    extent=[0, n_tok, n_ch, 0], vmin=0, vmax=np.percentile(act, 99))
+    ax.imshow(act, aspect="auto", cmap="magma", origin="upper",
+              extent=[0, n_tok, n_ch, 0],
+              vmin=np.percentile(act, 5), vmax=np.percentile(act, 99.0))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -541,15 +553,22 @@ def fig09():
     for xv, c, ls in [(16, "green", "-"), (164, "green", "--"), (266, "red", "-")]:
         ax.axvline(xv, color=c, ls=ls, lw=1.4)
 
-    # (下) 重要通道：黑底稀疏亮点
+    # (下) 重要通道：黑底 + 按"通道带"聚集的亮点（真实模型里重要通道很少且成簇）
     imp = np.zeros((n_ch, n_tok))
-    mask = rng.random((n_ch, n_tok)) < 0.006
-    imp[mask] = rng.uniform(0.5, 1.0, mask.sum())
-    imp[400:520, :] = np.maximum(imp[400:520, :], (rng.random((120, n_tok)) < 0.02) * 0.8)
-    imp[1150:1280, :] = np.maximum(imp[1150:1280, :], (rng.random((130, n_tok)) < 0.02) * 0.8)
+    # 3 个活跃通道带（与上图的高亮带对应）
+    bands = [(0, 120), (380, 560), (1130, 1290)]
+    for lo, hi in bands:
+        band = imp[lo:hi, :]
+        dens = rng.uniform(0.06, 0.16, hi - lo)
+        hit = rng.random(band.shape) < dens[:, None]
+        band[hit] = rng.uniform(0.35, 0.95, hit.sum())
+        imp[lo:hi, :] = band
+    # 带外零散点
+    out_hit = rng.random((n_ch, n_tok)) < 0.0012
+    imp[out_hit] = rng.uniform(0.3, 0.8, out_hit.sum())
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="inferno", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=1)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.9)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -580,24 +599,26 @@ def fig10():
     n = 1536
     idx = np.arange(n)
 
-    # (上) 频率分布：指数衰减 + 阴影 + 红叉 + 蓝星
-    freq = 0.78 * np.exp(-idx / 26.0) + 0.006
+    # (上) 频率分布：指数衰减 + 双色阴影 + 红叉 + 蓝星
+    tau = 72.0
+    freq = 0.78 * np.exp(-idx / tau) + 0.004
     ax = axes[0]
-    k = 40
+    k = 48
     ax.plot(idx, freq, color="royalblue", lw=1.2, label="Frequency")
-    ax.fill_between(idx[:k], freq[:k], color="#8ECAE6", alpha=0.9,
+    ax.fill_between(idx[:k], freq[:k], color="#8ECAE6", alpha=0.95,
                     label="Token-independent Channels")
-    ax.fill_between(idx[k:], freq[k:], color="#F5B7B1", alpha=0.9,
+    ax.fill_between(idx[k:], freq[k:], color="#F5B7B1", alpha=0.95,
                     label="Token-dependent Channels")
-    sel = idx[idx % 18 == 0][:40]
-    ax.plot(sel, freq[sel], "x", color="red", ms=6, mew=1.3,
-            label=r"Important Channels by $\mathbf{x}\odot\mathbf{w}$")
-    ax.plot([0], [freq[0]], "*", color="navy", ms=15, label="Maximum")
+    # 红叉沿曲线分布：前段密、后段疏（与参考图一致）
+    sel = np.unique(np.round(np.geomspace(1, 640, 26)).astype(int))
+    ax.plot(sel, freq[sel], "x", color="red", ms=6.5, mew=1.4,
+            label=r"Important Channels by $\mathbf{x}\odot\mathbf{w}$", zorder=5)
+    ax.plot([0], [freq[0]], "*", color="navy", ms=15, label="Maximum", zorder=6)
     ax.set_xlabel("Important Channel Index", fontsize=10)
     ax.set_ylabel("Frequency", fontsize=10)
     ax.set_xlim(0, n)
     ax.set_ylim(0, 0.86)
-    ax.set_xticks([0, k, 64, 256, 576, 1024], ["0", "$k$", "64", "256", "576", "1024"])
+    ax.set_xticks([0, k, 256, 576, 1024], ["0", "$k$", "256", "576", "1024"])
     ax.legend(loc="upper right", frameon=True, fontsize=8.2, handlelength=1.6,
               borderpad=0.5, labelspacing=0.35)
     ax.set_title("Frequency Distribution", fontsize=12)
@@ -613,7 +634,7 @@ def fig10():
     ax.set_xlabel("Important Channel Index", fontsize=10)
     ax.set_ylabel("Value", fontsize=10)
     ax.set_xlim(0, n)
-    ax.set_xticks([0, k, 64, 256, 576, 1024], ["0", "$k$", "64", "256", "576", "1024"])
+    ax.set_xticks([0, k, 256, 576, 1024], ["0", "$k$", "256", "576", "1024"])
     ax.legend(loc="upper left", frameon=True, fontsize=8.2, handlelength=1.6,
               borderpad=0.5, labelspacing=0.35)
     ax.set_title("Outlier Mean Value", fontsize=12)
