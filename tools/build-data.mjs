@@ -1,47 +1,60 @@
 #!/usr/bin/env node
 /**
- * 汇总 raw-items.json + 渲染图 + 笔记配图 → src/data/items.json
+ * 汇总 raw-items.json（表格）+ raw-figures.json（图）+ 渲染图 → src/data/items.json
  *
  *   node tools/build-data.mjs
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 const ROOT = process.cwd();
-const RAW = path.join(ROOT, 'data/raw-items.json');
+const RAW_TABLES = path.join(ROOT, 'data/raw-items.json');
+const RAW_FIGURES = path.join(ROOT, 'data/raw-figures.json');
+const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
 const RENDERS = path.join(ROOT, 'public/renders');
-const NOTE_IMGS = path.join(ROOT, 'public/note-images');
+const RENDERS_FIG = path.join(ROOT, 'public/renders-fig');
 const OUT = path.join(ROOT, 'src/data/items.json');
 
-const raw = JSON.parse(fs.readFileSync(RAW, 'utf8'));
-const renderFiles = new Set(fs.existsSync(RENDERS) ? fs.readdirSync(RENDERS) : []);
-const noteFiles = new Set(fs.existsSync(NOTE_IMGS) ? fs.readdirSync(NOTE_IMGS) : []);
+const readJson = (p, fallback) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : fallback);
+const listDir = (p) => (fs.existsSync(p) ? new Set(fs.readdirSync(p)) : new Set());
 
-function findRender(id) {
+const rawTables = readJson(RAW_TABLES, []);
+const rawFigures = readJson(RAW_FIGURES, []).concat(readJson(RAW_RECIPES, []));
+const renderFiles = listDir(RENDERS);
+const figFiles = listDir(RENDERS_FIG);
+
+function findIn(dirSet, prefix, id) {
   for (const ext of ['.webp', '.png']) {
-    if (renderFiles.has(id + ext)) return 'renders/' + id + ext;
+    if (dirSet.has(id + ext)) return prefix + id + ext;
   }
   return null;
 }
 
-function findNoteImages(id) {
-  return [...noteFiles]
-    .filter((f) => f.startsWith(id + '-'))
-    .sort((a, b) => {
-      const na = Number(a.match(/-(\d+)\./)?.[1] ?? 0);
-      const nb = Number(b.match(/-(\d+)\./)?.[1] ?? 0);
-      return na - nb;
-    })
-    .map((f) => 'note-images/' + f);
-}
+/** 归一化：压掉空白差异，用于识别「同一段代码的两份拷贝」 */
+const fingerprint = (code) => crypto.createHash('sha1').update(code.replace(/\s+/g, ' ').trim()).digest('hex');
 
-const items = raw.map((it) => {
-  const render = findRender(it.id);
-  const noteImages = findNoteImages(it.id);
-  const publishedAt = it.publishedAt ? new Date(it.publishedAt * 1000).toISOString().slice(0, 10) : null;
-  return {
+/* ---------------------------------------------------------------- 表格 */
+
+const seen = new Map();
+const tables = [];
+let dropped = 0;
+
+for (const it of rawTables) {
+  const fp = fingerprint(it.latex || '');
+  const render = findIn(renderFiles, 'renders/', it.id);
+  if (seen.has(fp)) {
+    const prev = seen.get(fp);
+    // 保留元数据更完整 / 有渲染图的那一份
+    const better = (render && !prev.render) || (!render && prev.render === null && (it.title || '').length > (prev.title || '').length);
+    if (!better) { dropped++; continue; }
+    tables.splice(tables.findIndex((t) => t.id === prev.id), 1);
+    dropped++;
+  }
+  const item = {
     id: it.id,
-    kind: it.kind,
+    category: 'table',
+    kind: it.kind === 'table' || it.kind === 'mixed' ? 'table' : it.kind,
     title: it.title || '',
     caption: it.caption || '',
     venues: it.venues || [],
@@ -49,46 +62,66 @@ const items = raw.map((it) => {
     tags: (it.tags || []).filter((t) => !/^#?latex表格$/.test(t)).slice(0, 6),
     number: it.number ?? null,
     palette: (it.palette || []).slice(0, 6),
-    latexFile: it.latexFile,
+    code: it.latex || '',
+    codeLang: 'latex',
     render,
-    noteImages,
-    publishedAt,
-    source: {
-      platform: 'xiaohongshu',
-      author: '爱芝芝爱科研',
-      noteId: it.noteId,
-      docId: it.docId,
-      noteUrl: it.noteId ? 'https://www.xiaohongshu.com/explore/' + it.noteId : null,
-    },
+    noteImages: [],
+    publishedAt: it.publishedAt ? new Date(it.publishedAt * 1000).toISOString().slice(0, 10) : null,
+    source: { platform: 'paper', author: '', repo: null, repoUrl: null, license: null },
   };
-});
+  seen.set(fp, item);
+  tables.push(item);
+}
 
-items.sort((a, b) => (b.number ?? -1) - (a.number ?? -1));
+/* ---------------------------------------------------------------- 图 */
+
+const figures = rawFigures.map((it) => ({
+  id: it.id,
+  category: 'figure',
+  kind: it.kind || 'chart',
+  title: it.title || '',
+  caption: it.caption || '',
+  venues: [],
+  year: null,
+  tags: (it.styles || []).filter((s) => s !== 'no-latex'),
+  number: null,
+  palette: (it.palette || []).slice(0, 6),
+  code: it.code || '',
+  codeLang: it.codeLang || 'python',
+  render: findIn(figFiles, 'renders-fig/', it.id) || it.render || null,
+  noteImages: [],
+  publishedAt: null,
+  source: {
+    platform: 'github',
+    author: it.source?.repo || '',
+    repo: it.source?.repo || null,
+    repoUrl: it.source?.repoUrl || null,
+    license: it.source?.license || null,
+    stars: it.source?.stars || 0,
+    path: it.source?.path || null,
+  },
+}));
+
+tables.sort((a, b) => (b.number ?? -1) - (a.number ?? -1));
+const items = [...tables, ...figures];
 
 const stats = {
   total: items.length,
-  withRender: items.filter((i) => i.render).length,
-  withImages: items.filter((i) => i.noteImages.length).length,
-  kinds: items.reduce((acc, i) => ((acc[i.kind] = (acc[i.kind] || 0) + 1), acc), {}),
-  venues: items.reduce((acc, i) => {
-    for (const v of i.venues) acc[v] = (acc[v] || 0) + 1;
-    return acc;
-  }, {}),
+  tables: tables.length,
+  figures: figures.length,
+  tableRender: tables.filter((i) => i.render).length,
+  figureRender: figures.filter((i) => i.render).length,
+  kinds: items.reduce((a, i) => ((a[i.kind] = (a[i.kind] || 0) + 1), a), {}),
+  venues: items.reduce((a, i) => { for (const v of i.venues) a[v] = (a[v] || 0) + 1; return a; }, {}),
+  repos: figures.reduce((a, i) => { if (i.source.repo) a[i.source.repo] = (a[i.source.repo] || 0) + 1; return a; }, {}),
   generatedAt: new Date().toISOString(),
 };
 
-// 把 LaTeX 正文一并内联，前端无需额外请求（Electron file:// 也能用）
-for (const it of items) {
-  const p = path.join(ROOT, it.latexFile);
-  it.latex = fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '';
-}
-
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
-fs.writeFileSync(OUT, JSON.stringify({ stats, items }, null, 0));
-
+fs.writeFileSync(OUT, JSON.stringify({ stats, items }));
 const bytes = fs.statSync(OUT).size;
 console.log(
-  'items=' + stats.total + ' render=' + stats.withRender + ' images=' + stats.withImages +
-  ' -> ' + path.relative(ROOT, OUT) + ' (' + (bytes / 1024).toFixed(1) + ' KB)',
+  'items=' + items.length + ' (表格 ' + tables.length + ' / 图 ' + figures.length + ')' +
+  ' 去重丢弃 ' + dropped + ' -> ' + path.relative(ROOT, OUT) + ' (' + (bytes / 1024).toFixed(1) + ' KB)',
 );
-console.log('venues:', Object.entries(stats.venues).sort((a, b) => b[1] - a[1]).slice(0, 10));
+console.log('表格已渲染:', stats.tableRender, '/', tables.length, ' 图已渲染:', stats.figureRender, '/', figures.length);

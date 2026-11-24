@@ -85,7 +85,7 @@ def main() -> int:
         r = report.get(it["id"], {})
         status = r.get("status", "unknown")
         issues = r.get("issues") or []
-        notes = [n for n in (r.get("notes") or []) if n != "无渲染(用原图兜底)"]
+        notes = [n for n in (r.get("notes") or []) if n != "无渲染预览"]
         img = it.get("render") or (it.get("noteImages") or [None])[0]
         src = "../public/" + img if img else ""
         badges = []

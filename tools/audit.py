@@ -122,7 +122,29 @@ def audit_item(it: dict) -> dict:
     issues: list[str] = []
     notes: list[str] = []
 
-    latex = it.get("latex") or ""
+    # 图条目：只检查渲染图与源码，不做 LaTeX 结构检查
+    if it.get("category") == "figure":
+        code = it.get("code") or ""
+        if len(code.strip()) < 30:
+            issues.append("源码过短")
+        render_rel = it.get("render")
+        img = None
+        if not render_rel:
+            issues.append("预览图缺失")
+        else:
+            pth = os.path.join(ROOT, "public", render_rel)
+            if not os.path.exists(pth):
+                issues.append("预览图文件不存在")
+            else:
+                img = analyze_image(pth)
+                if not img.get("ok"):
+                    issues.append("预览图异常:" + str(img.get("error")))
+                elif img["ink_ratio"] < 0.005:
+                    issues.append("预览图几乎空白")
+        status = "fail" if issues else ("warn" if notes else "ok")
+        return {"id": it["id"], "status": status, "issues": issues, "notes": notes, "image": img}
+
+    latex = it.get("code") or ""
     if len(latex.strip()) < 30:
         issues.append("源码过短")
     if "CDATA" in latex:
@@ -158,7 +180,7 @@ def audit_item(it: dict) -> dict:
                 if img["touch"]["bottom"] and img.get("bottom_ink", 0) > 0.5:
                     notes.append("可能被截断(底部整行贴边)")
     else:
-        notes.append("无渲染(用原图兜底)")
+        notes.append("无渲染预览")
 
     status = "fail" if issues else ("warn" if notes else "ok")
     return {"id": it["id"], "status": status, "issues": issues, "notes": notes, "image": img}

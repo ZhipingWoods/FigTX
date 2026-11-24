@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import data from './data/items.json';
 
+type Category = 'table' | 'figure';
+
 type Item = {
   id: string;
+  category: Category;
   kind: string;
   title: string;
   caption: string;
@@ -11,56 +14,65 @@ type Item = {
   tags: string[];
   number: number | null;
   palette: string[];
-  latexFile: string;
-  latex: string;
+  code: string;
+  codeLang: string;
   render: string | null;
   noteImages: string[];
   publishedAt: string | null;
   source: {
     platform: string;
     author: string;
-    noteId: string | null;
-    docId: string | null;
-    noteUrl: string | null;
+    repo: string | null;
+    repoUrl: string | null;
+    license: string | null;
+    stars?: number;
+    path?: string | null;
   };
 };
 
-const ITEMS = (data as unknown as { items: Item[]; stats: Stats }).items;
-const STATS = (data as unknown as { items: Item[]; stats: Stats }).stats;
-
 type Stats = {
   total: number;
-  withRender: number;
-  withImages: number;
+  tables: number;
+  figures: number;
+  tableRender: number;
+  figureRender: number;
   kinds: Record<string, number>;
   venues: Record<string, number>;
+  repos: Record<string, number>;
   generatedAt: string;
 };
+
+const ALL = data as unknown as { items: Item[]; stats: Stats };
+const ITEMS = ALL.items;
+const STATS = ALL.stats;
 
 const KIND_LABEL: Record<string, string> = {
   table: '表格',
   figure: '图',
+  chart: '数据图',
+  diagram: '示意图',
   mixed: '表+图',
   snippet: '片段',
 };
 
-function assetUrl(p: string) {
-  // vite base './' 下用相对路径即可，Electron file:// 同样适用
-  return p;
-}
+const LANG_LABEL: Record<string, string> = {
+  latex: 'LaTeX',
+  python: 'Python',
+  r: 'R',
+  julia: 'Julia',
+};
 
-function highlight(code: string) {
-  // 极简 LaTeX 高亮：命令 / 花括号 / 注释
+const CATEGORY_LABEL: Record<Category, string> = { table: '表格', figure: '图' };
+
+function highlightLatex(code: string) {
   return code.split('\n').map((line, i) => {
-    const commentAt = (() => {
-      let esc = false;
-      for (let k = 0; k < line.length; k++) {
-        if (line[k] === '\\') { esc = !esc; continue; }
-        if (line[k] === '%' && !esc) return k;
-        esc = false;
-      }
-      return -1;
-    })();
+    let commentAt = -1;
+    let esc = false;
+    for (let k = 0; k < line.length; k++) {
+      if (line[k] === '\\') { esc = !esc; continue; }
+      if (line[k] === '%' && !esc) { commentAt = k; break; }
+      esc = false;
+    }
     const body = commentAt >= 0 ? line.slice(0, commentAt) : line;
     const comment = commentAt >= 0 ? line.slice(commentAt) : '';
     const parts: React.ReactNode[] = [];
@@ -70,8 +82,11 @@ function highlight(code: string) {
     while ((m = re.exec(body))) {
       if (m.index > last) parts.push(body.slice(last, m.index));
       const tok = m[0];
-      const cls = tok === '{' || tok === '}' ? 'tok-brace' : 'tok-cmd';
-      parts.push(<span key={i + ':' + m.index} className={cls}>{tok}</span>);
+      parts.push(
+        <span key={i + ':' + m.index} className={tok === '{' || tok === '}' ? 'tok-brace' : 'tok-cmd'}>
+          {tok}
+        </span>,
+      );
       last = m.index + tok.length;
     }
     if (last < body.length) parts.push(body.slice(last));
@@ -85,7 +100,38 @@ function highlight(code: string) {
   });
 }
 
+function highlightPython(code: string) {
+  const KW = /\b(import|from|as|def|return|for|in|if|else|elif|with|class|lambda|None|True|False)\b/g;
+  return code.split('\n').map((line, i) => {
+    const hash = line.indexOf('#');
+    const body = hash >= 0 ? line.slice(0, hash) : line;
+    const comment = hash >= 0 ? line.slice(hash) : '';
+    const parts: React.ReactNode[] = [];
+    let last = 0;
+    let m: RegExpExecArray | null;
+    KW.lastIndex = 0;
+    while ((m = KW.exec(body))) {
+      if (m.index > last) parts.push(body.slice(last, m.index));
+      parts.push(<span key={i + ':k' + m.index} className="tok-cmd">{m[0]}</span>);
+      last = m.index + m[0].length;
+    }
+    const tail = body.slice(last);
+    const strParts = tail.split(/('[^']*'|"[^"]*")/g).map((s, j) =>
+      /^['"]/.test(s) ? <span key={i + ':s' + j} className="tok-brace">{s}</span> : s,
+    );
+    parts.push(...strParts);
+    return (
+      <div key={i}>
+        {parts}
+        {comment && <span className="tok-comment">{comment}</span>}
+        {'\n'}
+      </div>
+    );
+  });
+}
+
 export default function App() {
+  const [category, setCategory] = useState<Category>('table');
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState<string>('all');
   const [venue, setVenue] = useState<string>('all');
@@ -93,24 +139,41 @@ export default function App() {
   const [openId, setOpenId] = useState<string | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const venues = useMemo(
-    () => Object.entries(STATS.venues).sort((a, b) => b[1] - a[1]).slice(0, 12),
-    [],
-  );
+  const scoped = useMemo(() => ITEMS.filter((i) => i.category === category), [category]);
+
+  const kindsInScope = useMemo(() => {
+    const acc: Record<string, number> = {};
+    for (const i of scoped) acc[i.kind] = (acc[i.kind] || 0) + 1;
+    return acc;
+  }, [scoped]);
+
+  const venuesInScope = useMemo(() => {
+    const acc: Record<string, number> = {};
+    for (const i of scoped) for (const v of i.venues) acc[v] = (acc[v] || 0) + 1;
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  }, [scoped]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return ITEMS.filter((it) => {
+    return scoped.filter((it) => {
       if (kind !== 'all' && it.kind !== kind) return false;
       if (venue !== 'all' && !it.venues.includes(venue)) return false;
       if (onlyRendered && !it.render) return false;
       if (!q) return true;
-      const hay = [it.title, it.caption, it.latex.slice(0, 3000), it.venues.join(' '), it.tags.join(' ')]
+      const hay = [
+        it.id,
+        it.title,
+        it.caption,
+        it.code.slice(0, 3000),
+        it.venues.join(' '),
+        it.tags.join(' '),
+        it.source.repo || '',
+      ]
         .join(' ')
         .toLowerCase();
       return hay.includes(q);
     });
-  }, [query, kind, venue, onlyRendered]);
+  }, [scoped, query, kind, venue, onlyRendered]);
 
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
@@ -119,8 +182,7 @@ export default function App() {
     (delta: number) => {
       if (!filtered.length) return;
       const next = Math.min(Math.max(openIndex + delta, 0), filtered.length - 1);
-      if (openIndex < 0) setOpenId(filtered[0].id);
-      else setOpenId(filtered[next].id);
+      setOpenId(openIndex < 0 ? filtered[0].id : filtered[next].id);
     },
     [filtered, openIndex],
   );
@@ -141,6 +203,13 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, move]);
 
+  const switchCategory = (c: Category) => {
+    setCategory(c);
+    setKind('all');
+    setVenue('all');
+    setOpenId(null);
+  };
+
   return (
     <div className="app">
       <header className="topbar">
@@ -148,7 +217,7 @@ export default function App() {
           <div className="brand-mark">TeX</div>
           <div className="brand-text">
             <div className="brand-title">FigTX</div>
-            <div className="brand-sub">论文图表 LaTeX 样式库</div>
+            <div className="brand-sub">论文表格与图 · 样式库</div>
           </div>
         </div>
 
@@ -161,7 +230,7 @@ export default function App() {
             ref={searchRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="搜索标题、caption、会议、LaTeX 命令…"
+            placeholder={category === 'table' ? '搜索 caption、会议、LaTeX 命令…' : '搜索图样式、配色、依赖包…'}
             spellCheck={false}
           />
           <kbd>/</kbd>
@@ -169,35 +238,39 @@ export default function App() {
 
         <div className="spacer" />
         <div className="count">
-          <b>{filtered.length}</b> / {ITEMS.length} 个样式
+          <b>{filtered.length}</b> / {scoped.length} 个{CATEGORY_LABEL[category]}
         </div>
       </header>
 
+      <nav className="tabs">
+        <button className="tab" data-active={category === 'table'} onClick={() => switchCategory('table')}>
+          表格 <span className="n">{STATS.tables}</span>
+        </button>
+        <button className="tab" data-active={category === 'figure'} onClick={() => switchCategory('figure')}>
+          图 <span className="n">{STATS.figures}</span>
+        </button>
+      </nav>
+
       <div className="filters">
         <button className="chip" data-active={kind === 'all'} onClick={() => setKind('all')}>
-          全部 <span className="n">{ITEMS.length}</span>
+          全部 <span className="n">{scoped.length}</span>
         </button>
-        {(['table', 'figure', 'mixed', 'snippet'] as const).map((k) =>
-          STATS.kinds[k] ? (
-            <button key={k} className="chip" data-active={kind === k} onClick={() => setKind(k)}>
-              {KIND_LABEL[k]} <span className="n">{STATS.kinds[k]}</span>
-            </button>
-          ) : null,
+        {Object.entries(kindsInScope).map(([k, n]) => (
+          <button key={k} className="chip" data-active={kind === k} onClick={() => setKind(k)}>
+            {KIND_LABEL[k] || k} <span className="n">{n}</span>
+          </button>
+        ))}
+        <span className="filter-sep" />
+        <button className="chip" data-active={onlyRendered} onClick={() => setOnlyRendered((v) => !v)}>
+          已渲染 <span className="n">{category === 'table' ? STATS.tableRender : STATS.figureRender}</span>
+        </button>
+        {venuesInScope.length > 0 && <span className="filter-sep" />}
+        {venuesInScope.length > 0 && (
+          <button className="chip" data-active={venue === 'all'} onClick={() => setVenue('all')}>
+            所有会议
+          </button>
         )}
-        <span className="filter-sep" />
-        <button
-          className="chip"
-          data-active={onlyRendered}
-          onClick={() => setOnlyRendered((v) => !v)}
-          title="只显示已成功渲染的样式"
-        >
-          已渲染 <span className="n">{STATS.withRender}</span>
-        </button>
-        <span className="filter-sep" />
-        <button className="chip" data-active={venue === 'all'} onClick={() => setVenue('all')}>
-          所有会议
-        </button>
-        {venues.map(([v, n]) => (
+        {venuesInScope.map(([v, n]) => (
           <button key={v} className="chip" data-active={venue === v} onClick={() => setVenue(v)}>
             {v} <span className="n">{n}</span>
           </button>
@@ -207,7 +280,7 @@ export default function App() {
       <main className="grid-wrap">
         {filtered.length === 0 ? (
           <div className="empty">
-            <h3>没有匹配的样式</h3>
+            <h3>没有匹配的{CATEGORY_LABEL[category]}</h3>
             <p>换个关键词，或清除筛选条件。</p>
           </div>
         ) : (
@@ -220,8 +293,8 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <span>共 {STATS.total} 个样式 · {STATS.withRender} 个已用 tectonic 重编译渲染</span>
-        <span>数据来源：小红书 @爱芝芝爱科研</span>
+        <span>{STATS.tables} 个表格样式 · {STATS.figures} 个图样式</span>
+        <span>表格：公开论文 LaTeX 片段精选 · 图：开源绘图库样式</span>
         <span>Apache-2.0 · FigTX</span>
       </footer>
 
@@ -234,37 +307,36 @@ export default function App() {
 
 function Card({ item, onOpen }: { item: Item; onOpen: () => void }) {
   const [broken, setBroken] = useState(false);
-  const preview = item.render || item.noteImages[0] || null;
-  const isPhoto = !item.render && !!item.noteImages[0];
+  const preview = item.render || null;
 
   return (
     <button className="card" onClick={onOpen}>
-      <div className={'card-preview' + (isPhoto ? ' photo' : '')}>
+      <div className={'card-preview' + (item.category === 'figure' ? ' chart' : '') + (preview ? '' : ' empty')}>
         {preview && !broken ? (
-          <img
-            src={assetUrl(preview)}
-            alt={item.caption || item.title}
-            loading="lazy"
-            onError={() => setBroken(true)}
-          />
+          <img src={preview} alt={item.caption || item.title} loading="lazy" onError={() => setBroken(true)} />
         ) : (
-          <span style={{ color: 'var(--ink-3)', fontSize: 12 }}>暂无预览</span>
+          <div className="no-preview">
+            <span className="np-mark">TeX</span>
+            <span className="np-text">源码可用 · 暂无渲染预览</span>
+          </div>
         )}
-        <span className="card-badge" data-kind={isPhoto ? 'photo' : 'render'}>
-          {isPhoto ? '原图' : 'LaTeX 渲染'}
-        </span>
       </div>
       <div className="card-body">
         <div className="card-title">{item.caption || item.title || '（无标题）'}</div>
         <div className="card-caption">
           {item.number != null ? '#' + item.number + ' · ' : ''}
-          {item.title || '无来源标题'}
+          {item.category === 'figure' ? item.source.repo : item.title || '无来源标题'}
         </div>
         <div className="card-foot">
           <span className="venue">{KIND_LABEL[item.kind] || item.kind}</span>
-          {item.venues.slice(0, 2).map((v) => (
-            <span className="venue" key={v}>{v}</span>
-          ))}
+          {item.category === 'table' &&
+            item.venues.slice(0, 2).map((v) => (
+              <span className="venue" key={v}>{v}</span>
+            ))}
+          {item.category === 'figure' &&
+            item.tags.slice(0, 2).map((t) => (
+              <span className="venue" key={t}>{t}</span>
+            ))}
           {item.palette.length > 0 && (
             <span className="palette">
               {item.palette.slice(0, 5).map((c) => (
@@ -278,19 +350,9 @@ function Card({ item, onOpen }: { item: Item; onOpen: () => void }) {
   );
 }
 
-function Modal({
-  item,
-  onClose,
-  onPrev,
-  onNext,
-}: {
-  item: Item;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-}) {
+function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => void; onPrev: () => void; onNext: () => void }) {
   const tabs = [
-    item.render ? { key: 'render', label: 'LaTeX 渲染' } : null,
+    item.render ? { key: 'render', label: item.category === 'table' ? 'LaTeX 渲染' : '效果预览' } : null,
     ...item.noteImages.map((src, i) => ({ key: 'note-' + i, label: '原图 ' + (i + 1), src })),
   ].filter(Boolean) as { key: string; label: string; src?: string }[];
   const [tab, setTab] = useState(tabs[0]?.key ?? 'render');
@@ -300,10 +362,10 @@ function Modal({
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(item.latex);
+      await navigator.clipboard.writeText(item.code);
     } catch {
       const ta = document.createElement('textarea');
-      ta.value = item.latex;
+      ta.value = item.code;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand('copy');
@@ -314,10 +376,11 @@ function Modal({
   };
 
   const download = () => {
-    const blob = new Blob([item.latex], { type: 'text/x-tex;charset=utf-8' });
+    const ext = item.codeLang === 'latex' ? 'tex' : item.codeLang === 'python' ? 'py' : 'txt';
+    const blob = new Blob([item.code], { type: 'text/plain;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = item.id + '.tex';
+    a.download = item.id + '.' + ext;
     a.click();
     URL.revokeObjectURL(a.href);
   };
@@ -328,23 +391,14 @@ function Modal({
         <div className="modal-visual">
           <div className="modal-tabs">
             {tabs.map((t) => (
-              <button
-                key={t.key}
-                className="modal-tab"
-                data-active={t.key === tab}
-                onClick={() => setTab(t.key)}
-              >
+              <button key={t.key} className="modal-tab" data-active={t.key === tab} onClick={() => setTab(t.key)}>
                 {t.label}
               </button>
             ))}
           </div>
           <div className="modal-stage">
             {src ? (
-              <img
-                className={shown?.src ? 'photo' : ''}
-                src={assetUrl(src)}
-                alt={item.caption || item.title}
-              />
+              <img className={shown?.src ? 'photo' : ''} src={src} alt={item.caption || item.title} />
             ) : (
               <span style={{ color: 'var(--ink-3)' }}>暂无预览图</span>
             )}
@@ -354,9 +408,11 @@ function Modal({
         <div className="modal-side">
           <div className="modal-head">
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div className="modal-title">{item.title || '（无标题）'}</div>
+              <div className="modal-title">{item.caption || item.title || '（无标题）'}</div>
               <div className="modal-sub">
-                {item.caption || '无 caption'}
+                {item.category === 'figure'
+                  ? item.title
+                  : item.title || '无 caption'}
               </div>
             </div>
             <button className="icon-btn" onClick={onPrev} title="上一个 (←/k)">‹</button>
@@ -371,13 +427,17 @@ function Modal({
             ))}
             {item.year && <span className="meta-pill">{item.year}</span>}
             {item.number != null && <span className="meta-pill">#{item.number}</span>}
-            <span className="meta-pill">{item.latex.split('\n').length} 行</span>
+            {item.category === 'figure' && item.source.repo && (
+              <a className="meta-pill" href={item.source.repoUrl || '#'} target="_blank" rel="noreferrer">
+                {item.source.repo} ★{item.source.stars}
+              </a>
+            )}
+            {item.category === 'figure' && item.source.license && (
+              <span className="meta-pill">{item.source.license}</span>
+            )}
+            <span className="meta-pill">{item.code.split('\n').length} 行</span>
             {item.palette.map((c) => (
-              <span
-                key={c}
-                className="meta-pill"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}
-              >
+              <span key={c} className="meta-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                 <i style={{ width: 9, height: 9, borderRadius: 2, background: c, display: 'inline-block' }} />
                 {c}
               </span>
@@ -385,21 +445,18 @@ function Modal({
           </div>
 
           <div className="code-head">
-            <span>LaTeX 源码</span>
+            <span>{LANG_LABEL[item.codeLang] || item.codeLang} 源码</span>
             <div className="spacer" />
             <button className="btn btn-primary" onClick={copy} data-copied={copied}>
               {copied ? '已复制' : '复制'}
             </button>
-            <button className="btn" onClick={download}>下载 .tex</button>
-            {item.source.noteUrl && (
-              <a className="btn" href={item.source.noteUrl} target="_blank" rel="noreferrer">
-                原笔记
-              </a>
-            )}
+            <button className="btn" onClick={download}>
+              下载 .{item.codeLang === 'latex' ? 'tex' : item.codeLang === 'python' ? 'py' : 'txt'}
+            </button>
           </div>
 
           <pre className="code">
-            <code>{highlight(item.latex)}</code>
+            <code>{item.codeLang === 'latex' ? highlightLatex(item.code) : highlightPython(item.code)}</code>
           </pre>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 # FigTX
 
-**论文图表 LaTeX 样式库 · 看得见的表格与图**
+**论文表格与图 · LaTeX / 绘图样式库**
 
 [![Pages](https://img.shields.io/badge/demo-GitHub%20Pages-b91c1c)](https://zhipingwoods.github.io/FigTX/)
 [![Release](https://img.shields.io/github/v/release/ZhipingWoods/FigTX?color=b91c1c)](https://github.com/ZhipingWoods/FigTX/releases)
@@ -16,29 +16,42 @@ macOS · Windows · Linux · Web
 
 ## 这是什么
 
-写论文时最耗时的不是想清楚结果，而是把表格调到"能看"。三线表、跨列表头、
-分组底色、加粗最优值、箭头标注……每种都要试半天。
+写论文时最耗时的不是想清楚结果，而是把表调到"能看"、把图调到"能投"。
+三线表、分组表头、加粗最优值、误差棒、断轴、内嵌放大图……每种都要试半天。
 
-**FigTX 把这些一次收集齐**，每个样式都带：
+**FigTX 把这些一次收集齐，并且严格分成两类：**
 
-- **真实渲染图** —— 用 `tectonic` 把源码重新编译成图片，所见即所得
-- **完整 LaTeX 源码** —— 一键复制 / 下载 `.tex`
-- **配色板** —— 自动抽取样式里用到的十六进制颜色
-- **元信息** —— 会议、caption、行数、来源笔记
+| 分区 | 数量 | 内容 |
+|---|---|---|
+| **表格** | 216 | 顶会顶刊论文的 LaTeX 表格源码，用 `tectonic` 重编译出真实渲染图 |
+| **图** | 24 | 科学绘图样式（SciencePlots 16 种）+ 成图配方（论文级绘图脚本 8 例） |
 
-打开就能浏览、搜索、筛选，选中样式直接复制进自己的论文。
+每个条目都带：**真实渲染预览 · 完整源码 · 配色板 · 元信息**，一键复制。
 
-![FigTX 样式库](docs/assets/gallery.png)
+![FigTX 表格库](docs/assets/gallery.png)
 
-点开任意样式，左边看渲染效果，右边拿源码：
+## 两个分区
 
-![详情面板](docs/assets/detail.png)
+### 表格（LaTeX）
+
+来自公开论文的表格代码，覆盖三线表、跨列表头、分组底色、最优值高亮、跨行合并、
+整页宽表等常见做法。源码直接可粘，配色用 `\definecolor` 定义好一起带走。
+
+### 图（绘图样式 + 配方）
+
+**样式**（16 种，来自 [SciencePlots](https://github.com/garrettj403/SciencePlots)）：
+`science` / `science+ieee` / `science+nature` / 网格 / Notebook / 散点 / 无衬线 /
+明亮 / 鲜艳 / 低饱和 / 复古 / 高可视 / 浅色 / 深色 / 中文 / matplotlib 默认对照。
+
+**配方**（8 例，来自 [paper-plot-skills](https://github.com/Trae1ounG/paper-plot-skills)）：
+训练曲线+局部放大、多方法收敛曲线、蒸馏双图、分组柱状图、雷达图、断轴散点、t-SNE 聚类。
+每条都附可直接运行的 Python 脚本。
 
 ## 快速开始
 
-### 桌面版（推荐）
+### 桌面版
 
-到 [Releases](https://github.com/ZhipingWoods/FigTX/releases) 下载对应平台安装包：
+到 [Releases](https://github.com/ZhipingWoods/FigTX/releases) 下载：
 
 | 平台 | 文件 |
 |---|---|
@@ -49,7 +62,7 @@ macOS · Windows · Linux · Web
 
 ### 网页版
 
-直接访问 **https://zhipingwoods.github.io/FigTX/**
+**https://zhipingwoods.github.io/FigTX/**
 
 ### 本地开发
 
@@ -57,7 +70,7 @@ macOS · Windows · Linux · Web
 git clone git@github.com:ZhipingWoods/FigTX.git
 cd FigTX
 npm install
-npm run dev          # 浏览器 http://localhost:5173
+npm run dev          # http://localhost:5173
 npm run electron:dev # 桌面窗口
 ```
 
@@ -69,86 +82,88 @@ npm run dist:win     # NSIS 安装包 + 便携版
 npm run dist:linux   # AppImage + deb
 ```
 
-产物输出到 `release/`。CI 也会在三平台自动构建，见 `.github/workflows/release.yml`。
+产物在 `release/`。CI 三平台自动构建，见 `.github/workflows/release.yml`。
 
 ## 数据是怎么来的
 
 ```
-小红书笔记 ──► docx 附件 ──► LaTeX 源码 ──► tectonic 编译 ──► 预览图
-                  │                                            │
-                  └──────────► 笔记配图 ────────────────────────┘
+表格：论文 LaTeX 片段 ──► docx ──► 抽取 ──► tectonic 编译 ──► 预览图
+图样式：SciencePlots ──► matplotlib 逐样式渲染 ──► 预览图
+图配方：paper-plot-skills ──► 跑脚本出图 ──► 预览图 + 源码
 ```
 
 | 脚本 | 作用 |
 |---|---|
-| `tools/extract_docx.py` | 从 `.docx` 抽取 LaTeX、识别表格/图、抽配色 |
+| `tools/extract_docx.py` | 从 `.docx` 抽 LaTeX、识别类型、抽配色 |
 | `tools/render_tex.py` | tectonic 编译 + 自动修复片段 + 转 WebP |
-| `tools/fetch_images.py` | 下载原笔记配图作为兜底预览 |
+| `tools/ingest_figures.py` | 渲染 16 种 SciencePlots 样式示范图 |
+| `tools/ingest_recipes.py` | 跑 paper-plot-skills 脚本出图（不改原脚本） |
 | `tools/build-data.mjs` | 汇总成 `src/data/items.json` |
+| `tools/audit.py` | 逐项质量审计（墨迹占比 / 边界 / 括号配平） |
+
+渲染依赖 [tectonic](https://tectonic-typesetting.github.io/)；图样式需要 Python + matplotlib：
 
 ```bash
-python3 tools/extract_docx.py --docx-dir <docx目录> --notes <notes.json> --out .
-python3 tools/render_tex.py --items data/raw-items.json --out public/renders
-python3 tools/fetch_images.py --items data/raw-items.json --out public/note-images
+python3 -m venv .venv-fig
+.venv-fig/bin/pip install matplotlib numpy scipy SciencePlots
+.venv-fig/bin/python tools/ingest_figures.py
+.venv-fig/bin/python tools/ingest_recipes.py --repo <paper-plot-skills 目录>
 node tools/build-data.mjs
 ```
 
-> 渲染依赖：[tectonic](https://tectonic-typesetting.github.io/)（必装）、
-> poppler / cwebp（可选；macOS 会自动退回系统 `qlmanage`）。
+## 扩展
 
-## 扩展新的数据源
-
-`data/raw-items.json` 是唯一的数据契约，任何来源只要转成这个结构即可合并：
+`data/raw-items.json`（表格）与 `data/raw-figures.json` / `data/raw-recipes.json`（图）
+是唯一的数据契约，任何来源转成这个结构就能合并进来。
 
 ```json
 {
-  "id": "table-276",
-  "kind": "table",
-  "title": "overleaf 中顶会顶刊 latex 表格绘制-（276）",
-  "caption": "Main Results on CoPHEME Dataset.",
-  "latex": "\\begin{table*}...",
-  "latexFile": "data/latex/table-276.tex",
-  "palette": ["#EEF2F5", "#F7F3E8"],
-  "venues": ["ACL"],
-  "year": 2026,
-  "images": ["https://.../note-cover.webp"],
-  "noteId": "6b04e12c000000002500be5c",
-  "docId": "7711535982676015286"
+  "id": "fig-science-ieee",
+  "category": "figure",
+  "kind": "chart",
+  "title": "Science + IEEE",
+  "caption": "IEEE 双栏：黑色优先 + 线型区分",
+  "code": "import matplotlib.pyplot as plt\nimport scienceplots\n...",
+  "codeLang": "python",
+  "render": "renders-fig/fig-science-ieee.png",
+  "palette": ["#000000", "#ff0000"],
+  "source": { "repo": "garrettj403/SciencePlots", "license": "MIT" }
 }
 ```
-
-计划支持的来源见 [Roadmap](docs/wiki/Roadmap.md)。
 
 ## 目录结构
 
 ```
 FigTX/
-├── src/                 # React 前端（Vite）
-│   ├── App.tsx
-│   ├── styles.css
-│   └── data/items.json  # 构建产物，不要手改
-├── electron/            # 桌面端外壳
-├── tools/               # 数据管线
-├── data/
-│   ├── raw-items.json   # 中间产物
-│   └── latex/*.tex      # 抽取出的源码
-├── public/
-│   ├── renders/         # tectonic 渲染图 (webp)
-│   └── note-images/     # 原笔记配图
-├── docs/wiki/           # Wiki 源文件
-└── .github/workflows/   # CI：Pages + 三平台 release
+├── src/                     React 前端（Vite）
+│   ├── App.tsx              表格 / 图 两个分区
+│   └── data/items.json      构建产物，勿手改
+├── electron/                桌面端外壳（自定义 app:// 协议）
+├── tools/
+│   ├── extract_docx.py      docx → LaTeX
+│   ├── render_tex.py        LaTeX → 渲染图
+│   ├── ingest_figures.py    绘图样式 → 示范图
+│   ├── ingest_recipes.py    绘图配方 → 成图
+│   ├── build-data.mjs       汇总数据
+│   └── audit.py / audit_html.py  质量审计
+├── data/                    raw-*.json + latex/ 源码
+├── public/renders/          表格渲染图
+├── public/renders-fig/      图样式/配方预览图
+├── docs/wiki/               Wiki 源文件
+└── .github/workflows/       Pages + 三平台 Release
 ```
 
-## 数据来源与许可
+## 数据来源与致谢
 
-样式来源于公开分享的论文 LaTeX 片段，本项目只做**收集、索引与展示**，
-用于学习与写作参考。单个样式的版权归属原作者 / 原论文。
+- 表格样式来自公开分享的论文 LaTeX 片段，仅做收集、索引与展示
+- 图样式：[SciencePlots](https://github.com/garrettj403/SciencePlots)（MIT）
+- 图配方：[paper-plot-skills](https://github.com/Trae1ounG/paper-plot-skills)
 
-代码以 [Apache-2.0](LICENSE) 发布。
+单个样式的版权归属原作者 / 原论文。代码以 [Apache-2.0](LICENSE) 发布。
 
 ## 相关文档
 
 - [使用手册](docs/wiki/使用手册.md)
 - [样式分类](docs/wiki/样式分类.md)
-- [贡献指南](docs/wiki/贡献指南.md)
 - [数据管线](docs/wiki/数据管线.md)
+- [贡献指南](docs/wiki/贡献指南.md)
