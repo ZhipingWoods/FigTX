@@ -433,7 +433,7 @@ def fig07():
     # ---- 下：三张热图 + 共享色条
     from matplotlib.colors import LinearSegmentedColormap
     cmap_hm = LinearSegmentedColormap.from_list(
-        'acc', ['#E24A33', '#F2C230', '#8FD98A', '#38D888'])
+        'acc', ['#E24A33', '#F2C230', '#7FD8A0', '#20C080'])
     rng = np.random.default_rng(7)
     titles = ["(a) $N_P$ = 64, $N_L$ = 16,  Budget: 3072",
               "(b) $N_P$ = 32, $N_L$ = 16,  Budget: 3072",
@@ -445,7 +445,7 @@ def fig07():
         data = np.full((12, 7), 0.94)
         # 少量低分格子
         for _ in range(rng.integers(3, 6)):
-            data[rng.integers(0, 12), rng.integers(0, 7)] = rng.choice([0.42, 0.55, 0.63])
+            data[rng.integers(0, 12), rng.integers(0, 7)] = rng.choice([0.18, 0.30, 0.45])
         im = axh.imshow(data, cmap=cmap_hm, vmin=0.0, vmax=1.06, aspect="auto")
         axh.set_title(titles[k], fontsize=6.8, pad=3)
         axh.set_yticks(range(12))
