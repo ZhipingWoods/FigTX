@@ -221,18 +221,18 @@ def fig06() -> str:
     return r"""
 \begin{tikzpicture}[x=1cm, y=0.685cm]
 \tikzset{
-  cell/.style={draw=black!55, line width=.35pt, inner sep=0pt},
+  cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
   tok/.style={cell, fill=white},
   mask/.style={cell, fill=black!26},
   kv/.style={cell, fill=red!58!black},
   cmp/.style={cell, fill=green!68!black},
-  ttl/.style={font=\scriptsize, align=center},
-  arr2/.style={-{Stealth[length=1.7mm,width=1.2mm]}, line width=.75pt, draw=black!85},
-  brc/.style={decorate, decoration={brace, amplitude=4pt}, black!65},
+  ttl/.style={font=\footnotesize, align=center},
+  arr2/.style={-{Stealth[length=2.0mm,width=1.5mm]}, line width=1.0pt, draw=black!90},
+  brc/.style={decorate, decoration={brace, amplitude=5pt}, black!75},
 }
 
 % ================= 图例 =================
-\begin{scope}[shift={(1.15,7.35)}, every node/.style={font=\scriptsize}]
+\begin{scope}[shift={(1.15,7.35)}, every node/.style={font=\footnotesize}]
   \draw[cell, fill=white, minimum size=0.42cm] (0,0) rectangle (0.42,0.42);
   \node[anchor=west] at (0.52,0.21) {Token};
   \draw[cell, fill=black!26] (2.30,0) rectangle (2.72,0.42);
@@ -330,7 +330,7 @@ def fig06() -> str:
 \end{scope}
 
 % ================= (b) Block Causal Mix-FFN =================
-\begin{scope}[shift={(16.30,3.20)}]
+\begin{scope}[shift={(16.55,3.15)}]
   \node[ttl] at (1.35,3.95) {$\vdots$};
 
   \foreach \i/\name/\fc/\tc in {
@@ -341,20 +341,20 @@ def fig06() -> str:
       4/{Token$_0$}/fxgrn/black,
       5/{Token$_1$}/fxgrn/black}{
     \pgfmathsetmacro{\yy}{2.35-\i*0.62}
-    \node[draw=black!55, line width=.4pt, rounded corners=2pt, fill=\fc,
-          minimum width=2.15cm, minimum height=0.54cm, font=\tiny, text=\tc]
+    \node[draw=black!75, line width=.8pt, rounded corners=3pt, fill=\fc,
+          minimum width=2.55cm, minimum height=0.64cm, font=\scriptsize, text=\tc]
       at (1.35,\yy) {\name};
   }
   \node[ttl] at (1.35,-1.70) {$\vdots$};
 
   % 蓝色复用弧线
   \draw[arr2, draw=blue!75, line width=1.1pt]
-    (2.62,1.11) to[bend left=42] (2.62,0.49);
+    (2.75,1.11) to[bend left=42] (2.75,0.49);
 
-  \draw[brc] (2.92,2.66) -- (2.92,1.42) node[midway, right=4pt, font=\tiny] {Block$_1$};
-  \draw[brc] (2.92,1.18) -- (2.92,-1.28) node[midway, right=4pt, font=\tiny] {Block$_2$};
+  \draw[brc] (3.02,2.66) -- (3.02,1.42) node[midway, right=4pt, font=\scriptsize] {Block$_1$};
+  \draw[brc] (3.02,1.18) -- (3.02,-1.28) node[midway, right=4pt, font=\scriptsize] {Block$_2$};
 \end{scope}
-\node[font=\small] at (17.65,-0.95) {(b) Block Causal Mix-FFN};
+\node[font=\small] at (17.90,-1.05) {(b) Block Causal Mix-FFN};
 \end{tikzpicture}
 """
 
