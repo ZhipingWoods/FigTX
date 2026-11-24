@@ -58,13 +58,14 @@ def fig05() -> str:
 
 % ================= (a) 训练流水线 =================
 % 四帧
-\foreach \i/\x/\op in {0/0.15/0.42, 1/2.35/0.62, 2/4.55/0.80, 3/6.75/0.96}{
+\foreach \i/\x/\op in {0/0.15/0.45, 1/2.35/0.66, 2/4.55/0.84, 3/6.75/0.98}{
   \begin{scope}[shift={(\x,9.25)}]
-    \fill[cyan!55!black, opacity=\op] (0,0) rectangle (1.55,1.55);
+    \fill[cyan!50!black, opacity=\op, rounded corners=2pt] (0,0) rectangle (1.55,1.55);
     \foreach \k in {0,...,7}{
-      \fill[white, opacity=.10] (\k*0.22,0) rectangle ++(0.15,1.55);
+      \fill[white, opacity=.09] (\k*0.22,0) rectangle ++(0.15,1.55);
     }
-    \draw[black!35, line width=.4pt] (0,0) rectangle (1.55,1.55);
+    \node[font=\tiny, text=red!65!white, opacity=\op] at (0.55,0.95) {SANA};
+    \draw[black!30, line width=.4pt, rounded corners=2pt] (0,0) rectangle (1.55,1.55);
   \end{scope}
   \node[font=\scriptsize, below=1.5pt] at (\x+0.78, 9.22)
     {$Block^{\i}_{\theta^{0.\i}}$};
@@ -106,31 +107,34 @@ def fig05() -> str:
 \node[font=\scriptsize] at (0.95,2.72) {$[1\!+\!T, H, W, 3]$};
 
 % AutoEncoder（平行四边形）
-\node[draw=black!25, fill=black!6, inner sep=3pt, minimum width=2.5cm, minimum height=1.5cm,
-      font=\scriptsize, trapezium, trapezium left angle=74, trapezium right angle=106,
-      trapezium stretches=true] (ae) at (3.05,3.75) {AutoEncoder};
+\begin{scope}[shift={(1.95,3.05)}]
+  \fill[black!7] (0.30,0) -- (3.05,0) -- (2.75,1.42) -- (0,1.42) -- cycle;
+  \draw[black!25, line width=.5pt] (0.30,0) -- (3.05,0) -- (2.75,1.42) -- (0,1.42) -- cycle;
+  \node[font=\scriptsize] (ae) at (1.52,0.71) {AutoEncoder};
+\end{scope}
 \draw[arr] (1.30,3.75) -- (ae.west);
 
 % N x 大框
 \fill[fxblue, opacity=.55, rounded corners=6pt] (4.55,2.55) rectangle (11.35,5.55);
 \node[font=\scriptsize\bfseries, text=red!70!black, anchor=south west] at (4.62,2.58) {$\mathbf{N\times}$};
 
-\node[font=\scriptsize, rotate=90, align=center] (la) at (5.30,4.05) {Linear Attn};
-\node[font=\scriptsize, rotate=90, align=center] (ca) at (7.35,4.05) {Cross Attn};
-\node[font=\scriptsize, rotate=90, align=center] (ff) at (9.55,4.05) {Mix FFN};
-\fill[fxpnk, opacity=.75, rounded corners=2pt] (6.75,2.75) rectangle (7.95,5.35);
-\fill[fxgrn, opacity=.55, rounded corners=2pt] (8.95,2.75) rectangle (10.15,5.35);
+\node[font=\scriptsize, rotate=90, align=center] (la) at (5.45,4.05) {Linear Attn};
+\node[font=\scriptsize, rotate=90, align=center] (ca) at (7.30,4.05) {Cross Attn};
+\node[font=\scriptsize, rotate=90, align=center] (ff) at (9.45,4.05) {Mix FFN};
+\fill[fxpnk, opacity=.75, rounded corners=2pt] (6.80,2.68) rectangle (7.80,5.42);
+\fill[fxgrn, opacity=.55, rounded corners=2pt] (8.95,2.68) rectangle (9.95,5.42);
 
 \draw[arr] (ae.east) -- (4.62,3.75);
-\draw[arr] (5.85,3.75) -- (6.40,3.75);
-\draw[arr] (8.05,3.75) -- (8.60,3.75);
-\draw[arr] (10.30,3.75) -- (11.42,3.75);
+\draw[arr] (5.95,3.75) -- (6.45,3.75);
+\draw[arr] (7.95,3.75) -- (8.50,3.75);
+\draw[arr] (10.10,3.75) -- (11.42,3.75);
 \node[circle, draw=black!65, fill=white, inner sep=1.3pt, font=\scriptsize] (plus) at (11.62,3.75) {$+$};
 \draw[arr] (plus) -- ++(0.55,0);
 
 % 图标位（雪花 / 火焰）
-\node[font=\scriptsize, text=cyan!70!black] at (4.95,5.30) {$\ast$};
-\node[font=\scriptsize, text=red!75!black] at (11.05,5.30) {$\blacktriangle$};
+\node[font=\small, text=cyan!60!black] at (4.90,5.20) {$\ast$};
+\node[font=\scriptsize, text=cyan!60!black] at (4.90,4.95) {$\ast$};
+\node[font=\small, text=orange!90!black] at (11.05,5.20) {$\blacktriangle$};
 
 % 文本分支
 \node[draw=black!45, rounded corners=2pt, fill=white, minimum width=3.1cm,
@@ -147,18 +151,18 @@ def fig05() -> str:
 
 % ================= (c) Linear DiT module =================
 % ---- 面板标题（在框上方）
-\node[ttl] at (18.0,10.95) {Linear Attention};
-\node[ttl] at (23.6,10.95) {Mix-FFN};
+\node[font=\large\bfseries] at (18.0,10.95) {Linear Attention};
+\node[font=\large\bfseries] at (23.6,10.95) {Mix-FFN};
 
 % ---- Linear Attention 面板
 \fill[fxblue, opacity=.55, rounded corners=8pt] (14.85,0.55) rectangle (21.15,10.55);
 
 \node[lin, minimum width=1.55cm] (sc) at (18.0,9.55) {Scale};
 \node[lin, minimum width=2.0cm] (mm1) at (18.0,8.55) {MatMul};
-\node[lin, minimum width=2.0cm] (mm0) at (19.20,7.35) {MatMul};
+\node[lin, minimum width=2.0cm] (mm0) at (18.75,7.20) {MatMul};
 
-\node[org, minimum width=1.55cm] (ropeL) at (16.35,6.05) {3D RoPE};
-\node[org, minimum width=1.55cm] (ropeR) at (19.55,6.05) {3D RoPE};
+\node[org, minimum width=1.55cm] (ropeL) at (16.30,5.95) {3D RoPE};
+\node[org, minimum width=1.55cm] (ropeR) at (20.15,5.95) {3D RoPE};
 \node[lin, minimum width=1.55cm] (rl) at (16.35,5.10) {ReLU};
 \node[lin, minimum width=1.55cm] (rr) at (19.55,5.10) {ReLU};
 \node[lin, minimum width=1.55cm] (lnQ) at (16.35,3.95) {Linear};
@@ -173,10 +177,10 @@ def fig05() -> str:
 \draw[arr] (rl) -- (ropeL);
 \draw[arr] (lnK) -- (rr);
 \draw[arr] (rr) -- (ropeR);
-\draw[arr] (ropeL.north) |- (17.85,7.45);
-\draw[arr] (ropeR.north) -- (19.55,7.35) -- (20.20,7.35);
-\draw[arr] (lnV.north) -- (19.85,6.95) -- (20.28,6.95);
-\draw[arr] (mm0.north) -- (18.85,8.05) -- (18.55,8.05);
+\draw[arr] (ropeL.north) |- (17.72,6.85);
+\draw[arr] (ropeR.north) -- (20.15,6.85) -- (19.80,6.85);
+\draw[arr] (lnV.north) -- (19.85,6.55) -- (20.90,6.55) -- (20.90,7.35) -- (20.05,7.35);
+\draw[arr] (mm0.north) -- (18.75,8.05);
 \draw[arr] (mm1) -- (sc);
 \draw[arr] (sc.north) -- (18.0,10.05);
 
