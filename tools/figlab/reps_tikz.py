@@ -29,6 +29,8 @@ ARCH_STYLES = r"""
 \definecolor{fxmatmul}{HTML}{DCDCDC}
 \definecolor{fxrelu}{HTML}{FBE4E0}
 \definecolor{fxcolblue}{HTML}{D6E8F7}
+\definecolor{fxgreen2}{HTML}{78B808}
+\definecolor{fxred2}{HTML}{A81838}
 \tikzset{
   box/.style={draw=black!55, line width=.5pt, rounded corners=3pt, align=center,
               font=\scriptsize, inner sep=3pt, minimum height=7mm},
@@ -263,11 +265,11 @@ def fig06() -> str:
     return r"""
 \begin{tikzpicture}[x=1cm, y=0.946cm]
 \tikzset{
-  cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
+  cell/.style={draw=black!95, line width=1.1pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},
   mask/.style={cell, fill=black!28},
-  kv/.style={cell, fill=red!58!black},
-  cmp/.style={cell, fill=green!68!black},
+  kv/.style={cell, fill=fxred2},
+  cmp/.style={cell, fill=fxgreen2},
   ttl/.style={font=\small, align=center},
   lbl/.style={font=\footnotesize},
   arr2/.style={-{Stealth[length=2.0mm,width=1.5mm]}, line width=1.0pt, draw=black!90},
