@@ -7,6 +7,7 @@ type Item = {
   id: string;
   category: Category;
   figType?: string;
+  group?: string | null;
   kind: string;
   domain?: string[];
   title: string;
@@ -69,12 +70,21 @@ const LANG_LABEL: Record<string, string> = {
 const CATEGORY_LABEL: Record<Category, string> = { table: '表格', figure: '图' };
 
 const FIGTYPE_LABEL: Record<string, string> = {
+  // 论文图复刻（按参考图的用途分）
+  efficiency: '效率分析',
+  architecture: '架构图',
+  mechanism: '机制示意',
+  tradeoff: '权衡曲线',
+  results: '结果对比',
+  // 通用模板
   framework: '框架图',
   motivation: '动机图',
   quantitative: '实验·定量',
   qualitative: '实验·定性',
   style: '绘图样式',
 };
+
+const REPLICA_TYPES = ['efficiency', 'architecture', 'mechanism', 'tradeoff', 'results'];
 
 function highlightLatex(code: string) {
   return code.split('\n').map((line, i) => {
@@ -148,6 +158,7 @@ export default function App() {
   const [kind, setKind] = useState<string>('all');
   const [figType, setFigType] = useState<string>('all');
   const [domain, setDomain] = useState<string>('all');
+  const [replicaOnly, setReplicaOnly] = useState(false);
   const [venue, setVenue] = useState<string>('all');
   const [onlyRendered, setOnlyRendered] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -185,6 +196,7 @@ export default function App() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return scoped.filter((it) => {
+      if (category === 'figure' && replicaOnly && it.group !== 'replicas') return false;
       if (category === 'figure' && figType !== 'all' && (it.figType || 'style') !== figType) return false;
       if (category === 'figure' && domain !== 'all' && !(it.domain || []).includes(domain)) return false;
       if (category === 'table' && kind !== 'all' && it.kind !== kind) return false;
@@ -204,7 +216,7 @@ export default function App() {
         .toLowerCase();
       return hay.includes(q);
     });
-  }, [scoped, category, query, kind, figType, domain, venue, onlyRendered]);
+  }, [scoped, category, query, kind, figType, domain, venue, onlyRendered, replicaOnly]);
 
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
@@ -239,6 +251,7 @@ export default function App() {
     setKind('all');
     setFigType('all');
     setDomain('all');
+    setReplicaOnly(false);
     setVenue('all');
     setOpenId(null);
   };
@@ -308,6 +321,17 @@ export default function App() {
                 {FIGTYPE_LABEL[k] || k} <span className="n">{n}</span>
               </button>
             ))}
+
+        {category === 'figure' && (
+          <button
+            className="chip"
+            data-active={replicaOnly}
+            onClick={() => setReplicaOnly((v) => !v)}
+            title="只看按参考论文逐项复刻的图"
+          >
+            论文复刻 <span className="n">{scoped.filter((i) => i.group === 'replicas').length}</span>
+          </button>
+        )}
 
         {category === 'figure' && domainsInScope.length > 0 && <span className="filter-sep" />}
         {category === 'figure' &&

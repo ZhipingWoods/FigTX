@@ -13,6 +13,7 @@ const RAW_TABLES = path.join(ROOT, 'data/raw-items.json');
 const RAW_FIGURES = path.join(ROOT, 'data/raw-figures.json');
 const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
 const RAW_FIGS2 = path.join(ROOT, 'data/raw-figs2.json');
+const RAW_REPLICAS = path.join(ROOT, 'data/raw-replicas.json');
 const RENDERS = path.join(ROOT, 'public/renders');
 const RENDERS_FIG = path.join(ROOT, 'public/renders-fig');
 const OUT = path.join(ROOT, 'src/data/items.json');
@@ -23,7 +24,8 @@ const listDir = (p) => (fs.existsSync(p) ? new Set(fs.readdirSync(p)) : new Set(
 const rawTables = readJson(RAW_TABLES, []);
 const rawFigures = readJson(RAW_FIGURES, [])
   .concat(readJson(RAW_RECIPES, []))
-  .concat(readJson(RAW_FIGS2, []));
+  .concat(readJson(RAW_FIGS2, []))
+  .concat(readJson(RAW_REPLICAS, []));
 const renderFiles = listDir(RENDERS);
 const figFiles = listDir(RENDERS_FIG);
 
@@ -83,6 +85,7 @@ const figures = rawFigures.map((it) => ({
   category: 'figure',
   // 图的二级分类：framework / motivation / quantitative / qualitative
   figType: it.figType || 'style',
+  group: it.group || null,
   kind: it.kind || 'chart',
   title: it.title || '',
   caption: it.caption || '',
@@ -109,6 +112,14 @@ const figures = rawFigures.map((it) => ({
 }));
 
 tables.sort((a, b) => (b.number ?? -1) - (a.number ?? -1));
+// 图：论文复刻（replicas）排前面，其余按原顺序
+const FIG_ORDER = ['efficiency', 'architecture', 'mechanism', 'tradeoff', 'results',
+                   'motivation', 'quantitative', 'qualitative', 'framework', 'style'];
+figures.sort((a, b) => {
+  const ia = a.group === 'replicas' ? -1 : FIG_ORDER.indexOf(a.figType);
+  const ib = b.group === 'replicas' ? -1 : FIG_ORDER.indexOf(b.figType);
+  return ia - ib;
+});
 const items = [...tables, ...figures];
 
 const stats = {
