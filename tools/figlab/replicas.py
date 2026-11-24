@@ -494,7 +494,7 @@ def fig07():
 def fig08():
     fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.64), sharex=False)
     methods = ["QServe", "vLLM", "DuoAttention", "MInference", "LServe (Ours)"]
-    cols = ["#D9D9D9", "#A6A6A6", "#595959", "#000000", "#8C1D2F"]
+    cols = ["#C8C8C8", "#A8A8A8", "#808080", "#303030", "#A02000"]
     rows = [
         ("A100\nLlama-3-8B", ["64K", "96K", "128K", "192K", "256K", "320K", "Geomean"],
          [[0.86, 0.78, 0.73, 0.58, 0.48, 0.34, 0.60],
@@ -514,272 +514,6 @@ def fig08():
         x = np.arange(len(xt))
         for i, (m, c) in enumerate(zip(methods, cols)):
             off = (i - 2) * w
-            ax.bar(x + off, mat[i], w * 1.0, color=c, edgecolor="black",
-                   linewidth=1.0)
-            for xi, v in zip(x + off, mat[i]):
-                ax.text(xi, v + 0.022, "%.2f" % v, ha="center", va="bottom",
-                        fontsize=6.0, rotation=90)
-        ax.set_xticks(x, xt, fontsize=9)
-        ax.tick_params(axis="x", pad=3)
-        ax.set_ylim(0, 1.12)
-        ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
-        ax.set_ylabel(ylabel, fontsize=9.5, rotation=0, ha="right", va="center", labelpad=18)
-        ax.tick_params(axis="y", labelsize=8.5, length=4, width=1.2)
-        for sp in ("top", "right"):
-            ax.spines[sp].set_visible(False)
-
-    handles = [Rectangle((0, 0), 1, 1, fc=c, ec="black" if c == "#000000" else "none",
-                         lw=0.6) for c in cols]
-    fig.legend(handles, methods, loc="upper center", bbox_to_anchor=(0.5, 1.03),
-               ncol=5, frameon=False, fontsize=9.5, handlelength=1.1, columnspacing=1.1)
-    fig.text(0.5, 0.005,
-             "Figure 11: Prefilling Speed Evaluation. Performance comparison\n"
-             "of long-sequence prefilling across different serving frameworks,\n"
-             "normalized to LServe's speed.",
-             ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-    fig.subplots_adjust(top=0.90, bottom=0.20, left=0.135, right=0.998, hspace=0.28)
-    return _save(fig, "rep-08-shared-legend")
-
-
-# ---------------------------------------------------------------- 09 激活热图 + 重要通道
-
-def fig09():
-    rng = np.random.default_rng(12)
-    fig, axes = plt.subplots(2, 1, figsize=(6.6, 6.17))
-    n_ch, n_tok = 1536, 400
-
-    # (上) 输入激活：通道基准 × token 调制，再叠"块状"增强（真实激活的局部相关结构）
-    ch_base = rng.lognormal(0.0, 0.75, n_ch)
-    act = ch_base[:, None] * np.ones((1, n_tok))
-    # 竖向块：均匀铺满整幅（原图不是中间一坨，而是全宽分布）
-    for _ in range(34):
-        c0 = int(rng.integers(0, n_ch - 40))
-        t0 = int(rng.integers(0, n_tok - 12))
-        c1 = c0 + int(rng.integers(25, 180))
-        t1 = t0 + int(rng.integers(10, 90))
-        act[c0:c1, t0:t1] *= rng.uniform(1.6, 3.4)
-    # 高亮通道带（原图最明显的是横向橙色条带）
-    for _ in range(14):
-        c0 = int(rng.integers(0, n_ch - 60))
-        act[c0:c0 + int(rng.integers(15, 55)), :] *= rng.uniform(2.4, 4.2)
-    # 暗通道带（原图黑/亮交替的关键）
-    for _ in range(16):
-        c0 = int(rng.integers(0, n_ch - 50))
-        act[c0:c0 + int(rng.integers(12, 45)), :] *= rng.uniform(0.06, 0.22)
-    # token 方向的细粒度调制（形成原图那种竖向细密条纹）
-    tok_fine = rng.gamma(4.0, 0.22, n_tok)
-    act *= tok_fine[None, :]
-    # token 分段的强弱起伏（原图有明显的"暗段/亮段"竖向节奏）
-    seg = np.ones(n_tok)
-    pos = 0
-    while pos < n_tok:
-        w = int(rng.integers(6, 26))
-        seg[pos:pos + w] = rng.uniform(0.08, 1.70)
-        pos += w + int(rng.integers(0, 8))
-    act *= seg[None, :]
-    # 额外的"亮竖条"：少数 token 列整体极亮（原图最显眼的特征）
-    for _ in range(46):
-        c0 = int(rng.integers(0, n_tok))
-        w = int(rng.integers(1, 4))
-        act[:, c0:c0 + w] *= rng.uniform(3.0, 7.0)
-    # 通道方向的细粒度调制（横向细纹）
-    ch_fine = rng.gamma(6.0, 0.16, n_ch)
-    act *= ch_fine[:, None]
-    # 散点噪声
-    act *= rng.gamma(3.0, 0.24, (n_ch, n_tok))
-    # 少数 outlier 通道整体更亮
-    out_ch = rng.choice(n_ch, 90, replace=False)
-    act[out_ch, :] *= rng.uniform(2.5, 6.0, (90, 1))
-    # 图像/语言两段的整体差异
-    act[:, :164] *= 1.15
-    act[:, 266:] *= 0.9
-
-    ax = axes[0]
-    # 真实激活图常用 log 归一化；再叠 gamma 拉伸提高对比
-    act_disp = np.log1p(act)
-    act_disp = (act_disp - act_disp.min()) / (act_disp.max() - act_disp.min() + 1e-9)
-    act_disp = act_disp ** 0.55
-    ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
-              extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act_disp, 28), vmax=np.percentile(act_disp, 94))
-    ax.set_title("Input Activations", fontsize=12)
-    ax.set_ylabel("Channel Index", fontsize=10)
-    ax.set_xlabel("Token Index", fontsize=10)
-    ax.text(70, 110, "Visual Tokens", fontsize=8.5, color="k",
-            bbox=dict(fc="white", ec="none", alpha=0.85, pad=2))
-    ax.text(300, 110, "Language Tokens", fontsize=8.5, color="k",
-            bbox=dict(fc="white", ec="none", alpha=0.85, pad=2))
-    for xv, c, ls in [(16, "green", "-"), (164, "green", "--"), (266, "red", "-")]:
-        ax.axvline(xv, color=c, ls=ls, lw=1.4)
-
-    # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
-    imp = np.zeros((n_ch, n_tok))
-    base_dens = rng.beta(0.60, 4.0, n_ch) * 0.36    # 每通道基础密度
-    for ci in range(n_ch):
-        if base_dens[ci] > 0.004:
-            cols = rng.random(n_tok) < base_dens[ci]
-            imp[ci, cols] = rng.uniform(0.75, 1.0, cols.sum())
-    # 强调通道带（对应上图高亮区）
-    for lo, hi in [(0, 140), (400, 560), (1120, 1290)]:
-        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.30, 0.55)
-        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.95, 1.0))
-
-    ax = axes[1]
-    ax.imshow(imp, aspect="auto", cmap="hot", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.26)
-    ax.set_title("Important Channels", fontsize=12)
-    ax.set_ylabel("Channel Index", fontsize=10)
-    ax.set_xlabel("Token Index", fontsize=10)
-    for xv, c, ls in [(16, "green", "-"), (164, "green", "--"), (266, "red", "-")]:
-        ax.axvline(xv, color=c, ls=ls, lw=1.4)
-
-    handles = [Line2D([], [], color="green", lw=1.6, label="Image Token Start"),
-               Line2D([], [], color="green", lw=1.6, ls="--", label="Image Token End"),
-               Line2D([], [], color="red", lw=1.6, label="Generation Token Start")]
-    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.19),
-              ncol=3, frameon=True, fontsize=8.5, handlelength=1.8)
-    fig.text(0.5, -0.085,
-             "Figure 2. Visualization of a Transformer block in Qwen2VL-2B,\n"
-             "illustrating token value distributions (top) and the positions of im-\n"
-             "portant channels (bottom).  In the top panel, brightness reflects\n"
-             "token magnitude, while in the bottom panel, highlighted positions\n"
-             "denote important channels.",
-             ha="center", va="bottom", fontsize=13.5, linespacing=1.45)
-    fig.subplots_adjust(top=0.95, bottom=0.24, left=0.12, right=0.98, hspace=0.34)
-    return _save(fig, "rep-09-activation-heatmap")
-
-
-REPLICAS = [
-    ("01-memory-latency", fig01, "效率 · 显存分解 + 端到端延迟",
-     "左侧破坏性堆叠条拆解显存（权重/前向/反向/梯度），右侧横向条对比端到端延迟，虚线+倍数标注加速比",
-     "efficiency", ["ICML", "NeurIPS", "MLSys"], ["效率"]),
-    ("02-fusion-gain", fig02, "效率 · 逐项融合增益",
-     "四行横向条逐级下降，弧形箭头标出每步增益，底部括号给总加速比",
-     "efficiency", ["MLSys", "ICML", "OSDI"], ["效率"]),
-    ("03-accuracy-tradeoff", fig03, "权衡 · 精度曲线 + 断轴消融",
-     "双折线对比多种量化方法随 cache 精度的衰减，(c) 用断轴柱状展示 stage 数的影响",
-     "tradeoff", ["ICLR", "ICML", "NeurIPS"], ["量化"]),
-    ("04-latency-scaling", fig04, "效率 · 延迟与显存扩展",
-     "横向条对比生成延迟 + 两条扩展曲线（VRAM / 延迟 vs 视频长度），带 OOM 标注",
-     "efficiency", ["CVPR", "ICCV", "NeurIPS"], ["生成"]),
-]
-
-# ---------------------------------------------------------------- 07 分组柱 + 并列热图
-
-def fig07():
-    fig = plt.figure(figsize=(6.6, 7.9))
-    gs = fig.add_gridspec(2, 3, height_ratios=[0.82, 1.0], hspace=0.30, wspace=0.32)
-
-    # ---- 上：分组柱（3 系列 × 6 稀疏度）
-    ax = fig.add_subplot(gs[0, :])
-    levels = [40, 50, 60, 70, 80, 90]
-    series = {
-        "MInference": ([40.4, 34.1, 27.3, 20.9, 14.3, 7.1], "#9E9E9E"),
-        "LServe": ([30.0, 25.3, 20.3, 15.9, 10.8, 5.5], "#8C1D2F"),
-        "Oracle": ([25.4, 21.2, 16.9, 12.7, 8.5, 4.2], "#FFFFFF"),
-    }
-    x = np.arange(len(levels))
-    w = 0.26
-    for i, (name, (vals, col)) in enumerate(series.items()):
-        off = (i - 1) * w
-        ec = "black" if name == "Oracle" else "none"
-        ax.bar(x + off, vals, w, color=col, edgecolor=ec, linewidth=0.7,
-               label=name, zorder=3)
-    for i, (name, (vals, col)) in enumerate(series.items()):
-        off = (i - 1) * w
-        for xi, v in zip(x + off, vals):
-            ax.text(xi, v + 0.7, "%.1f" % v, ha="center", va="bottom", fontsize=6.4,
-                    rotation=90)
-    ax.set_xticks(x, [str(l) for l in levels])
-    ax.set_xlabel("Sparsity Level (%)", fontsize=11)
-    ax.set_ylabel("Latency (ms)", fontsize=11)
-    ax.set_ylim(0, 48)
-    ax.set_yticks([0, 10, 20, 30, 40])
-    ax.axhline(42.3, ls=(0, (2, 1.5)), color="#C0392B", lw=1.1, zorder=2)
-    ax.text(5.3, 43.4, "Dense Attention: 42.3 ms", color="#C0392B", fontsize=8.2,
-            ha="right", va="bottom", fontweight="bold")
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.13), ncol=3, frameon=False,
-              fontsize=9, handlelength=1.1)
-    # 1.3x 标注
-    ax.annotate("1.3 ×", xy=(x[0] + 0.0, 33), xytext=(x[0] - 0.62, 37),
-                fontsize=8.6, color="#C0392B",
-                arrowprops=dict(arrowstyle="-|>", color="#C0392B", lw=1.0,
-                                connectionstyle="arc3,rad=0.3", mutation_scale=10))
-    ax.annotate("1.3 ×", xy=(x[-1] + 0.0, 6.4), xytext=(x[-1] - 0.75, 9.4),
-                fontsize=8.6, color="#C0392B",
-                arrowprops=dict(arrowstyle="-|>", color="#C0392B", lw=1.0,
-                                connectionstyle="arc3,rad=0.3", mutation_scale=10))
-    ax.set_title("Figure 12: Prefilling Stage Attention Kernel Evaluation.",
-                 fontsize=10.5, fontweight="bold", pad=30)
-
-    # ---- 下：三张热图 + 共享色条
-    from matplotlib.colors import LinearSegmentedColormap
-    cmap_hm = LinearSegmentedColormap.from_list(
-        'acc', ['#E24A33', '#F2C230', '#7FD8A0', '#20C080'])
-    rng = np.random.default_rng(7)
-    titles = ["(a) $N_P$ = 64, $N_L$ = 16,  Budget: 3072",
-              "(b) $N_P$ = 32, $N_L$ = 16,  Budget: 3072",
-              "(c) $N_P$ = 64, $N_L$ = 16,  Budget: 3072"]
-    im = None
-    axes_hm = []
-    for k in range(3):
-        axh = fig.add_subplot(gs[1, k])
-        data = np.full((12, 7), 0.94)
-        # 少量低分格子
-        for _ in range(rng.integers(3, 6)):
-            data[rng.integers(0, 12), rng.integers(0, 7)] = rng.choice([0.18, 0.30, 0.45])
-        im = axh.imshow(data, cmap=cmap_hm, vmin=0.0, vmax=1.06, aspect="auto")
-        axh.set_title(titles[k], fontsize=6.8, pad=3)
-        axh.set_yticks(range(12))
-        axh.set_yticklabels(["", "0", "", "22", "", "44", "", "67", "", "89", "", ""],
-                            fontsize=5.6)
-        axh.set_xticks(range(7))
-        axh.set_xticklabels(["0K", "49K", "85K", "128K", "171K", "211K", "256K"],
-                            fontsize=5.2, rotation=35, ha="right")
-        if k == 0:
-            axh.set_ylabel("Document Depth (%)", fontsize=6.6)
-        axh.set_xlabel("Document Length", fontsize=6.6)
-        axes_hm.append(axh)
-
-    cax = fig.add_axes([0.92, 0.10, 0.012, 0.20])
-    cb = fig.colorbar(im, cax=cax)
-    cb.set_label("Accuracy", fontsize=6.6)
-    cb.ax.tick_params(labelsize=5.6)
-
-    fig.text(0.5, 0.015,
-             "Figure 13: Hierarchical paging enables LServe to preserve the long-context retrieval "
-             "capabilities of the original model without\nincreasing the key-value (KV) token budget.  "
-             "We use Llama-3-8B for the ablation.",
-             ha="center", va="bottom", fontsize=8.0, fontweight="bold")
-    fig.subplots_adjust(bottom=0.12, top=0.93, left=0.10, right=0.90)
-    return _save(fig, "rep-07-grouped-heatmap")
-
-
-# ---------------------------------------------------------------- 08 共享图例 + 双行归一化柱
-
-def fig08():
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.64), sharex=False)
-    methods = ["QServe", "vLLM", "DuoAttention", "MInference", "LServe (Ours)"]
-    cols = ["#D9D9D9", "#A6A6A6", "#595959", "#000000", "#8C1D2F"]
-    rows = [
-        ("A100\nLlama-3-8B", ["64K", "96K", "128K", "192K", "256K", "320K", "Geomean"],
-         [[0.86, 0.78, 0.73, 0.58, 0.48, 0.34, 0.60],
-          [0.56, 0.40, 0.45, 0.61, 0.53, 0.39, 0.48],
-          [0.68, 0.80, 0.86, 0.84, 0.80, 0.86, 0.81],
-          [0.72, 0.73, 0.77, 0.58, 0.48, 0.44, 0.56],
-          [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
-        ("A100\nLlama-2-7B", ["16K", "32K", "64K", "96K", "128K", "160K", "Geomean"],
-         [[0.90, 0.97, 0.85, 0.78, 0.72, 0.69, 0.81],
-          [0.76, 0.63, 0.48, 0.43, 0.29, 0.45, 0.56],
-          [0.81, 0.75, 0.79, 0.79, 0.79, 0.81, 0.79],
-          [0.34, 0.36, 0.70, 0.72, 0.48, 0.56, 0.47],
-          [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]]),
-    ]
-    w = 0.225
-    for ax, (ylabel, xt, mat) in zip(axes, rows):
-        x = np.arange(len(xt))
-        for i, (m, c) in enumerate(zip(methods, cols)):
-            off = (i - 2) * w
             ax.bar(x + off, mat[i], w * 0.98, color=c, edgecolor="black" if c == "#000000" else "none",
                    linewidth=0.9)
             for xi, v in zip(x + off, mat[i]):
@@ -787,14 +521,14 @@ def fig08():
                         fontsize=6.0, rotation=90)
         ax.set_xticks(x, xt, fontsize=9)
         ax.tick_params(axis="x", pad=3)
-        ax.set_ylim(0, 1.16)
+        ax.set_ylim(0, 1.10)
         ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
         ax.set_ylabel(ylabel, fontsize=9.5, rotation=0, ha="right", va="center", labelpad=18)
         ax.tick_params(axis="y", labelsize=8.5, length=4, width=1.2)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
 
-    handles = [Rectangle((0, 0), 1, 1, fc=c, ec="black" if c == "#000000" else "none",
+    handles = [Rectangle((0, 0), 1, 1, fc=c, ec="black" if c == "#303030" else "none",
                          lw=0.6) for c in cols]
     fig.legend(handles, methods, loc="upper center", bbox_to_anchor=(0.5, 1.03),
                ncol=5, frameon=False, fontsize=9.5, handlelength=1.1, columnspacing=1.1)
@@ -803,7 +537,7 @@ def fig08():
              "of long-sequence prefilling across different serving frameworks,\n"
              "normalized to LServe's speed.",
              ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-    fig.subplots_adjust(top=0.89, bottom=0.21, left=0.145, right=0.995, hspace=0.30)
+    fig.subplots_adjust(top=0.91, bottom=0.18, left=0.135, right=0.998, hspace=0.22)
     return _save(fig, "rep-08-shared-legend")
 
 
