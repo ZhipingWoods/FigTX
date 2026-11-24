@@ -70,12 +70,23 @@ def fig05() -> str:
       \begin{scope}[shift={(\k*0.12,\k*0.12)}]
         \clip[rounded corners=3pt] (0,0) rectangle (2.20,2.20);
         % 纯 TikZ 绘制的"照片感"占位（不依赖外部图片）
-        \fill[black!90] (0,0) rectangle (2.20,2.20);
-        \fill[cyan!45!black, opacity=0.55] (0.10,0.10) rectangle (1.20,1.65);
-        \fill[red!70!black, opacity=0.50] (0.95,0.35) rectangle (2.10,1.20);
-        \fill[magenta!70!black, opacity=0.40] (0.25,0.62) rectangle (0.85,1.95);
-        \fill[orange!85!black, opacity=0.55] (1.45,0.20) rectangle (2.05,0.95);
-        \fill[white, opacity=0.12] (0.15,0.15) rectangle (0.55,0.55);
+        \fill[black!92] (0,0) rectangle (2.20,2.20);
+        % 竖向细条纹（模拟画面纹理）
+        \foreach \t in {0,0.15,...,2.05}{
+          \fill[cyan!35!black, opacity=0.07] (\t,0) rectangle ++(0.07,2.20);
+        }
+        % 多层渐变光斑
+        \fill[cyan!50!black, opacity=0.32] (0.05,0.25) rectangle (1.05,1.75);
+        \fill[cyan!60!black, opacity=0.22] (0.30,0.50) rectangle (0.85,1.50);
+        \fill[red!75!black, opacity=0.38] (0.85,0.30) rectangle (1.95,1.15);
+        \fill[red!85!black, opacity=0.28] (1.15,0.55) rectangle (1.75,0.95);
+        \fill[magenta!75!black, opacity=0.30] (0.20,0.75) rectangle (0.75,1.95);
+        \fill[magenta!85!black, opacity=0.22] (0.35,1.20) rectangle (0.62,1.75);
+        \fill[orange!90!black, opacity=0.40] (1.50,0.18) rectangle (2.05,0.80);
+        \fill[yellow!80!white, opacity=0.18] (1.65,0.25) rectangle (1.95,0.55);
+        \fill[white, opacity=0.10] (0.12,0.12) rectangle (0.45,0.42);
+        \fill[black!85, opacity=0.55] (0.0,0.0) rectangle (2.20,0.18);
+        \fill[black!85, opacity=0.45] (0.0,1.95) rectangle (2.20,2.20);
       \end{scope}
       \draw[black!50, line width=1.0pt, rounded corners=3pt]
         (\k*0.11,\k*0.11) rectangle ++(2.20,2.20);
@@ -131,10 +142,15 @@ def fig05() -> str:
     \begin{scope}[shift={(\k*0.11,\k*0.11)}]
       \clip[rounded corners=2pt] (0,0) rectangle (2.15,2.15);
         % 纯 TikZ 绘制的输入叠层占位
-        \fill[black!88] (0,0) rectangle (2.15,2.15);
-        \fill[cyan!45!black, opacity=0.55] (0.12,0.12) rectangle (1.35,1.55);
-        \fill[red!70!black, opacity=0.50] (1.05,0.40) rectangle (2.02,1.10);
-        \fill[magenta!65!black, opacity=0.38] (0.30,0.70) rectangle (0.90,1.95);
+        \fill[black!92] (0,0) rectangle (2.15,2.15);
+        \foreach \t in {0,0.15,...,2.00}{
+          \fill[cyan!35!black, opacity=0.07] (\t,0) rectangle ++(0.07,2.15);
+        }
+        \fill[cyan!50!black, opacity=0.32] (0.08,0.28) rectangle (1.10,1.70);
+        \fill[red!75!black, opacity=0.36] (1.00,0.35) rectangle (2.00,1.05);
+        \fill[magenta!75!black, opacity=0.28] (0.28,0.72) rectangle (0.85,1.92);
+        \fill[orange!90!black, opacity=0.32] (1.45,0.22) rectangle (2.05,0.80);
+        \fill[black!85, opacity=0.50] (0.0,0.0) rectangle (2.15,0.16);
       \draw[black!60, line width=0.8pt, rounded corners=2pt] (0,0) rectangle (2.15,2.15);
     \end{scope}
   }

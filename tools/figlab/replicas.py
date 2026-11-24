@@ -660,7 +660,7 @@ def fig09():
 
 def fig10():
     rng = np.random.default_rng(3)
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 6.20))
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 5.95))
     n = 1536
     idx = np.arange(n)
 
@@ -706,14 +706,14 @@ def fig10():
               borderpad=0.5, labelspacing=0.35)
     ax.set_title("Outlier Mean Value", fontsize=12)
 
-    fig.text(0.5, -0.005,
+    fig.text(0.5, -0.025,
              "Figure 3. Visualization of a Transformer block in Qwen2VL-2B,\n"
              "illustrating important channel behavior.  The top panel shows ac-\n"
              "tivation frequencies, while the bottom depicts average activation\n"
              "values.  Red crosses mark important channel positions identified\n"
              "by the static global method on the calibration dataset.",
-             ha="center", va="bottom", fontsize=13, linespacing=1.4)
-    fig.subplots_adjust(top=0.95, bottom=0.30, left=0.12, right=0.98, hspace=0.48)
+             ha="center", va="bottom", fontsize=12, linespacing=1.3)
+    fig.subplots_adjust(top=0.95, bottom=0.33, left=0.12, right=0.98, hspace=0.48)
     return _save(fig, "rep-10-frequency-outlier")
 
 
