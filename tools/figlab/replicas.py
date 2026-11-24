@@ -536,6 +536,12 @@ def fig09():
         c1 = min(n_ch, c0 + max(8, c1 - c0))
         t1 = min(n_tok, t0 + max(4, t1 - t0))
         act[c0:c1, t0:t1] *= rng.uniform(1.8, 4.5)
+    # token 方向的细粒度调制（形成原图那种竖向细密条纹）
+    tok_fine = rng.gamma(4.0, 0.22, n_tok)
+    act *= tok_fine[None, :]
+    # 通道方向的细粒度调制（横向细纹）
+    ch_fine = rng.gamma(6.0, 0.16, n_ch)
+    act *= ch_fine[:, None]
     # 散点噪声
     act *= rng.gamma(3.0, 0.24, (n_ch, n_tok))
     # 少数 outlier 通道整体更亮
