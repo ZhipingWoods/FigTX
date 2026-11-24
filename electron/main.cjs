@@ -49,6 +49,28 @@ function createWindow() {
 
   win.once('ready-to-show', () => win.show());
 
+  // 自检：FIGTX_SMOKE=<png路径> 时截图并退出（供 CI / 本地冒烟测试）
+  if (process.env.FIGTX_SMOKE) {
+    win.webContents.once('did-finish-load', () => {
+      setTimeout(async () => {
+        try {
+          const count = await win.webContents.executeJavaScript(
+            "document.querySelectorAll('.card').length",
+          );
+          const imgOk = await win.webContents.executeJavaScript(
+            "(function(){var i=document.querySelector('.card-preview img');return i? (i.complete && i.naturalWidth>0): false})()",
+          );
+          const png = await win.webContents.capturePage();
+          require('node:fs').writeFileSync(process.env.FIGTX_SMOKE, png.toPNG());
+          console.log('SMOKE cards=' + count + ' img=' + imgOk);
+        } catch (e) {
+          console.log('SMOKE error ' + e);
+        }
+        app.quit();
+      }, 3500);
+    });
+  }
+
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('http')) shell.openExternal(url);
     return { action: 'deny' };

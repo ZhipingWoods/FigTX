@@ -20,7 +20,7 @@ mac:
       arch: [arm64, x64]
     - target: zip
       arch: [arm64, x64]
-  artifactName: "FigTX-\${version}-\${arch}.\${ext}"
+  artifactName: "FigTX-${version}-${arch}.${ext}"
   darkModeSupport: true
 
 win:
@@ -29,7 +29,7 @@ win:
       arch: [x64]
     - target: portable
       arch: [x64]
-  artifactName: "FigTX-Setup-\${version}-\${arch}.\${ext}"
+  artifactName: "FigTX-Setup-${version}-${arch}.${ext}"
 
 nsis:
   oneClick: false
@@ -44,7 +44,7 @@ linux:
     - deb
   category: Graphics
   maintainer: ZhipingWoods
-  artifactName: "FigTX-\${version}-\${arch}.\${ext}"
+  artifactName: "FigTX-${version}-${arch}.${ext}"
 
 publish:
   provider: github
