@@ -523,51 +523,58 @@ def fig08():
 
 def fig09():
     rng = np.random.default_rng(12)
-    fig, axes = plt.subplots(2, 1, figsize=(6.6, 6.6))
-    n_tok, n_ch = 400, 1536
+    fig, axes = plt.subplots(2, 1, figsize=(6.6, 6.17))
+    n_ch, n_tok = 1536, 400
 
-    # (上) 输入激活：真实激活的行向结构 =
-    #   每通道一个基准强度(对数正态) × 每 token 的调制 × 轻微噪声
-    ch_base = rng.lognormal(0.0, 0.55, n_ch)          # 通道间差异（行向条纹来源）
-    tok_mod = 1.0 + 0.25 * np.sin(np.linspace(0, 6.0, n_tok))   # token 方向的缓慢起伏
-    act = ch_base[:, None] * tok_mod[None, :]
-    act *= rng.gamma(2.2, 0.30, (n_ch, n_tok))        # 非负乘性噪声，形成斑驳质感
-    # 少数 outlier 通道整体更亮（真实模型里常见）
-    out_ch = rng.choice(n_ch, 40, replace=False)
-    act[out_ch, :] *= rng.uniform(2.0, 4.0, (40, 1))
-    # 图像 token / 语言 token 两段有轻微差异
-    act[:, :164] *= 1.08
-    act[:, 266:] *= 0.96
+    # (上) 输入激活：通道基准 × token 调制，再叠"块状"增强（真实激活的局部相关结构）
+    ch_base = rng.lognormal(0.0, 0.75, n_ch)
+    act = ch_base[:, None] * np.ones((1, n_tok))
+    # 竖向块：随机 (通道段 × token 段) 的矩形增强
+    for _ in range(26):
+        c0, c1 = sorted(rng.choice(n_ch, 2, replace=False))
+        t0, t1 = sorted(rng.choice(n_tok, 2, replace=False))
+        c1 = min(n_ch, c0 + max(8, c1 - c0))
+        t1 = min(n_tok, t0 + max(4, t1 - t0))
+        act[c0:c1, t0:t1] *= rng.uniform(1.8, 4.5)
+    # 散点噪声
+    act *= rng.gamma(3.0, 0.24, (n_ch, n_tok))
+    # 少数 outlier 通道整体更亮
+    out_ch = rng.choice(n_ch, 60, replace=False)
+    act[out_ch, :] *= rng.uniform(2.0, 5.0, (60, 1))
+    # 图像/语言两段的整体差异
+    act[:, :164] *= 1.15
+    act[:, 266:] *= 0.9
+
     ax = axes[0]
-    ax.imshow(act, aspect="auto", cmap="magma", origin="upper",
+    act_disp = np.log1p(act)          # 真实激活图常用 log 归一化
+    ax.imshow(act_disp, aspect="auto", cmap="magma", origin="upper",
               extent=[0, n_tok, n_ch, 0],
-              vmin=np.percentile(act, 5), vmax=np.percentile(act, 99.0))
+              vmin=np.percentile(act_disp, 35), vmax=np.percentile(act_disp, 99.5))
     ax.set_title("Input Activations", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
-    ax.text(80, 120, "Visual Tokens", fontsize=8.5, color="k",
-            bbox=dict(fc="white", ec="none", alpha=0.8, pad=2))
-    ax.text(300, 120, "Language Tokens", fontsize=8.5, color="k",
-            bbox=dict(fc="white", ec="none", alpha=0.8, pad=2))
+    ax.text(70, 110, "Visual Tokens", fontsize=8.5, color="k",
+            bbox=dict(fc="white", ec="none", alpha=0.85, pad=2))
+    ax.text(300, 110, "Language Tokens", fontsize=8.5, color="k",
+            bbox=dict(fc="white", ec="none", alpha=0.85, pad=2))
     for xv, c, ls in [(16, "green", "-"), (164, "green", "--"), (266, "red", "-")]:
         ax.axvline(xv, color=c, ls=ls, lw=1.4)
 
-    # (下) 重要通道：黑底 + 按"通道带"聚集的亮点（真实模型里重要通道很少且成簇）
+    # (下) 重要通道：密集亮点 + 通道带聚集（原图是横贯全宽的亮条纹）
     imp = np.zeros((n_ch, n_tok))
-    # 3 个活跃通道带（与上图的高亮带对应）
-    bands = [(0, 120), (380, 560), (1130, 1290)]
-    for lo, hi in bands:
-        band = imp[lo:hi, :]
-        dens = rng.uniform(0.06, 0.16, hi - lo)
-        hit = rng.random(band.shape) < dens[:, None]
-        band[hit] = rng.uniform(0.35, 0.95, hit.sum())
-        imp[lo:hi, :] = band
-    # 带外零散点
-    out_hit = rng.random((n_ch, n_tok)) < 0.0012
-    imp[out_hit] = rng.uniform(0.3, 0.8, out_hit.sum())
+    base_dens = rng.beta(0.45, 9, n_ch) * 0.10      # 每通道基础密度
+    for ci in range(n_ch):
+        if base_dens[ci] > 0.004:
+            cols = rng.random(n_tok) < base_dens[ci]
+            imp[ci, cols] = rng.uniform(0.35, 0.95, cols.sum())
+    # 强调通道带（对应上图高亮区）
+    for lo, hi in [(0, 140), (430, 540), (1150, 1280)]:
+        band = rng.random((hi - lo, n_tok)) < rng.uniform(0.05, 0.12)
+        imp[lo:hi, :] = np.maximum(imp[lo:hi, :], band * rng.uniform(0.5, 1.0))
+
     ax = axes[1]
     ax.imshow(imp, aspect="auto", cmap="inferno", origin="upper",
-              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.9)
+              extent=[0, n_tok, n_ch, 0], vmin=0, vmax=0.95)
     ax.set_title("Important Channels", fontsize=12)
     ax.set_ylabel("Channel Index", fontsize=10)
     ax.set_xlabel("Token Index", fontsize=10)
@@ -577,20 +584,18 @@ def fig09():
     handles = [Line2D([], [], color="green", lw=1.6, label="Image Token Start"),
                Line2D([], [], color="green", lw=1.6, ls="--", label="Image Token End"),
                Line2D([], [], color="red", lw=1.6, label="Generation Token Start")]
-    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.16),
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.19),
               ncol=3, frameon=True, fontsize=8.5, handlelength=1.8)
-    fig.text(0.5, -0.005,
+    fig.text(0.5, -0.085,
              "Figure 2. Visualization of a Transformer block in Qwen2VL-2B,\n"
              "illustrating token value distributions (top) and the positions of im-\n"
              "portant channels (bottom).  In the top panel, brightness reflects\n"
              "token magnitude, while in the bottom panel, highlighted positions\n"
              "denote important channels.",
-             ha="center", va="bottom", fontsize=8.2)
-    fig.subplots_adjust(top=0.95, bottom=0.20, left=0.12, right=0.98, hspace=0.32)
+             ha="center", va="bottom", fontsize=9.0)
+    fig.subplots_adjust(top=0.95, bottom=0.24, left=0.12, right=0.98, hspace=0.34)
     return _save(fig, "rep-09-activation-heatmap")
 
-
-# ---------------------------------------------------------------- 10 频率衰减 + 异常值
 
 def fig10():
     rng = np.random.default_rng(3)
