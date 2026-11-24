@@ -167,9 +167,9 @@ def fig02():
     ypos = [3, 2, 1, 0]
     for y, v, c in zip(ypos, vals, cols):
         ax.barh(y, v, height=0.56, color=c, edgecolor="none")
-        ax.text(v + 18, y, "%.1f" % v, ha="left", va="top", fontsize=8.6, color="#333333")
+        ax.text(v + 26, y, "%.1f" % v, ha="left", va="center", fontsize=8.6, color="#333333")
     ax.set_yticks(ypos, labels)
-    ax.set_xlim(0, 1860)
+    ax.set_xlim(0, 1880)
     ax.set_ylim(-0.75, 3.62)
     ax.set_xticks([])
     for sp in ("left", "bottom", "top", "right"):
@@ -202,9 +202,9 @@ def fig02():
     ax.text(830, 0.55, "1.10×", color=TEAL, fontsize=11, ha="left")
 
     # 总加速 2.52x
-    ax.annotate("", xy=(612.4, -0.55), xytext=(1541, -0.55),
-                arrowprops=dict(arrowstyle="<|-", color=TEAL, lw=1.1,
-                                mutation_scale=12, shrinkA=0, shrinkB=0))
+    ax.annotate("", xy=(1541, -0.55), xytext=(612.4, -0.55),
+                arrowprops=dict(arrowstyle="<|-|>", color=TEAL, lw=1.2,
+                                mutation_scale=11, shrinkA=0, shrinkB=0))
     ax.text(1078, -0.44, "2.52×", color=TEAL, fontsize=13, ha="center", va="bottom",
             fontweight="bold")
 
@@ -471,7 +471,7 @@ def fig07():
 # ---------------------------------------------------------------- 08 共享图例 + 双行归一化柱
 
 def fig08():
-    fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.6), sharex=False)
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 3.54), sharex=False)
     methods = ["QServe", "vLLM", "DuoAttention", "MInference", "LServe (Ours)"]
     cols = ["#D9D9D9", "#A6A6A6", "#595959", "#000000", "#8C1D2F"]
     rows = [
