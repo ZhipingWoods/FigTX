@@ -261,7 +261,7 @@ def fig05() -> str:
 
 def fig06() -> str:
     return r"""
-\begin{tikzpicture}[x=1cm, y=0.961cm]
+\begin{tikzpicture}[x=1cm, y=0.946cm]
 \tikzset{
   cell/.style={draw=black!70, line width=.7pt, inner sep=0pt},
   tok/.style={cell, fill=fxcolblue},
@@ -312,8 +312,8 @@ def fig06() -> str:
   \node[lbl, anchor=east] at (-0.17,-3.95) {$V_N$};
   \node[lbl, anchor=south] at (0.44,0.12) {$d$};
   \node[lbl] at (0.44,-2.2) {$\vdots$};
-  \draw[brc] (1.46,0.05) -- (1.46,-2.15) node[midway, right=2pt, font=\tiny] {Block$_1$};
-  \draw[brc] (1.46,-2.24) -- (1.46,-4.44) node[midway, right=2pt, font=\tiny] {Block$_N$};
+  \draw[brc] (1.46,0.05) -- (1.46,-2.15);
+  \draw[brc] (1.46,-2.24) -- (1.46,-4.44);
 
   \node[font=\Large] at (2.81,2.5) {$\times$};
 
@@ -324,8 +324,8 @@ def fig06() -> str:
     \node[lbl, anchor=east] at (-0.2,-3.95) {$Q_N$};
     \node[lbl, anchor=south] at (0.44,0.12) {$d$};
     \node[lbl] at (0.44,-2.2) {$\vdots$};
-    \draw[brc] (-0.98,0.05) -- (-0.98,-2.15) node[midway, left=2pt, font=\tiny] {Block$_1$};
-    \draw[brc] (-0.98,-2.24) -- (-0.98,-4.44) node[midway, left=2pt, font=\tiny] {Block$_N$};
+    \draw[brc] (-0.98,0.05) -- (-0.98,-2.15) node[midway, left=3pt, font=\scriptsize] {Block$_1$};
+    \draw[brc] (-0.98,-2.24) -- (-0.98,-4.44) node[midway, left=3pt, font=\scriptsize] {Block$_N$};
   \end{scope}
 
   \node[font=\Large] at (6.53,2.5) {$\times$};
@@ -361,8 +361,8 @@ def fig06() -> str:
   \node[lbl, anchor=south] at (0.44,0.12) {$d$};
   \node[lbl, anchor=east] at (-0.2,-0.44) {$Q_1$};
   \node[lbl, anchor=east] at (-0.2,-3.95) {$Q_N$};
-  \draw[brc] (-0.98,0.05) -- (-0.98,-2.15) node[midway, left=2pt, font=\tiny] {Block$_1$};
-  \draw[brc] (-0.98,-2.24) -- (-0.98,-4.44) node[midway, left=2pt, font=\tiny] {Block$_N$};
+  \draw[brc] (-0.98,0.05) -- (-0.98,-2.15) node[midway, left=3pt, font=\scriptsize] {Block$_1$};
+  \draw[brc] (-0.98,-2.24) -- (-0.98,-4.44) node[midway, left=3pt, font=\scriptsize] {Block$_N$};
 
   % 累积求和箭头
   \draw[arr2] (-0.02,-2.2) -- (2.81,-2.2);
@@ -376,7 +376,7 @@ def fig06() -> str:
 \end{scope}
 
 % ================= (b) Block Causal Mix-FFN =================
-\begin{scope}[shift={(23.85,2.22)}]
+\begin{scope}[shift={(23.45,2.72)}]
   \node[font=\small] at (1.89,3.05) {$\vdots$};
 
   \foreach \i/\name/\fc/\tc in {
