@@ -15,6 +15,14 @@ const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
 const RAW_FIGS2 = path.join(ROOT, 'data/raw-figs2.json');
 const RAW_REPLICAS = path.join(ROOT, 'data/raw-replicas.json');
 const REPAIRED_FILE = path.join(ROOT, 'data/table-repaired.json');
+const CATALOG_FILE = path.join(ROOT, 'data/catalog.json');
+
+// 稳定编号：T001-T999 表格 / F001-F999 图（存在 catalog.json 里，增删不重排）
+const CATALOG = (() => {
+  try { return JSON.parse(fs.readFileSync(CATALOG_FILE, 'utf8')); }
+  catch { return {}; }
+})();
+const catalogNo = (id) => (CATALOG[id] && CATALOG[id].no) || null;
 
 // 自动修复渲染的表：源码是残缺片段，渲染时走了降级策略（卡片上标注出来）
 const REPAIRED = (() => {
@@ -77,6 +85,7 @@ for (const it of rawTables) {
   const item = {
     id: it.id,
     category: 'table',
+    no: catalogNo(it.id),
     // 源码残缺、渲染时走了降级策略的表，在卡片上标注
     repaired: Object.prototype.hasOwnProperty.call(REPAIRED, it.id)
       ? REPAIRED[it.id]
@@ -105,6 +114,7 @@ for (const it of rawTables) {
 const figures = rawFigures.map((it) => ({
   id: it.id,
   category: 'figure',
+  no: catalogNo(it.id),
   // 图的二级分类：framework / motivation / quantitative / qualitative
   figType: it.figType || 'style',
   group: it.group || null,

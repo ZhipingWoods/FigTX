@@ -20,6 +20,7 @@ type Item = {
   code: string;
   codeLang: string;
   render: string | null;
+  no?: string | null;          // 稳定编号 T001-T999 / F001-F999
   repaired?: string | null;
   editFiles?: { ext: string; label: string; path: string }[];
   noteImages: string[];
@@ -206,6 +207,7 @@ export default function App() {
       if (onlyRendered && !it.render) return false;
       if (!q) return true;
       const hay = [
+        it.no || '',
         it.id,
         it.title,
         it.caption,
@@ -219,6 +221,43 @@ export default function App() {
       return hay.includes(q);
     });
   }, [scoped, category, query, kind, figType, domain, venue, onlyRendered, replicaOnly]);
+
+  // URL hash 直达：#T042 / #F007 或 #<item-id>
+  useEffect(() => {
+    const applyHash = () => {
+      const raw = decodeURIComponent(window.location.hash.replace(/^#/, '')).trim();
+      if (!raw) return;
+      const up = raw.toUpperCase();
+      const hit =
+        ITEMS.find((i) => (i.no || '').toUpperCase() === up) ||
+        ITEMS.find((i) => i.id === raw);
+      if (hit) {
+        setCategory(hit.category);
+        setKind('all');
+        setFigType('all');
+        setDomain('all');
+        setVenue('all');
+        setQuery('');
+        setReplicaOnly(false);
+        setOnlyRendered(false);
+        setOpenId(hit.id);
+      }
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
+
+  // 打开条目时把编号写进 hash，方便复制链接直接定位
+  useEffect(() => {
+    const cur = ITEMS.find((i) => i.id === openId);
+    const want = cur && cur.no ? '#' + cur.no : '';
+    if (want && window.location.hash !== want) {
+      history.replaceState(null, '', want);
+    } else if (!openId && window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, [openId]);
 
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
@@ -402,6 +441,7 @@ function Card({ item, onOpen }: { item: Item; onOpen: () => void }) {
           (preview ? '' : ' empty')
         }
       >
+        {item.no && <span className="no-badge">{item.no}</span>}
         {preview && !broken ? (
           <img src={preview} alt={item.caption || item.title} loading="lazy" onError={() => setBroken(true)} />
         ) : (
@@ -527,6 +567,7 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
               <span className="meta-pill" key={v}>{v}</span>
             ))}
             {item.year && <span className="meta-pill">{item.year}</span>}
+            {item.no && <span className="meta-pill meta-no">{item.no}</span>}
             {item.number != null && <span className="meta-pill">#{item.number}</span>}
             {item.category === 'figure' && item.source.repo && (
               <a className="meta-pill" href={item.source.repoUrl || '#'} target="_blank" rel="noreferrer">
