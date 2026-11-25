@@ -155,8 +155,9 @@ def prepare_body(latex: str, use_graphic_fallback: bool) -> str:
 
 
 def compile_once(item: dict, workdir: str, texbin: str, use_graphic_fallback: bool,
-                 extra_defs: list[str], nonstop: bool = False) -> tuple[bool, str, str]:
-    body = prepare_body(item["latex"], use_graphic_fallback)
+                 extra_defs: list[str], nonstop: bool = False,
+                 latex: str | None = None) -> tuple[bool, str, str]:
+    body = prepare_body(latex if latex is not None else item["latex"], use_graphic_fallback)
     # nonstop 由 preamble 控制（见 PREAMBLE 尾部）
     src = os.path.join(workdir, "main.tex")
     with open(src, "w", encoding="utf-8") as fh:
@@ -170,12 +171,180 @@ def compile_once(item: dict, workdir: str, texbin: str, use_graphic_fallback: bo
     return os.path.exists(pdf), (pdf if os.path.exists(pdf) else log), log
 
 
+# ---------------------------------------------------------------- 源码级修复
+# 这 31 张表的失败原因多是「Overleaf 能跑、但 aaai 模板缺宏/缺包」，
+# 靠加前导解决不了，必须改写源码本身。
+
+_COL_TYPES = "CI LS RMBGN DAE TorZ"
+
+
+def _fix_columntypes(latex: str) -> tuple[str, bool]:
+    """未定义的列类型（Illegal pream-token）→ 补 \newcolumntype。
+
+    这类表通常自带 \newcolumntype{C}{...}，但定义被 docx 抽取截掉了。
+    补一个「居中 + 可换行」的通用定义即可正常排版。
+    """
+    used = set()
+    pat = r"\begin\{(?:tabular\*?|tabularx|tabulary|longtable)\}"
+    pat += r"(?:\[[^\]]*\])?(?:\{[^}]*\})?(?:\{[^}]*\})?\{([^}]*)\}"
+    for m in re.finditer(pat, latex):
+        used |= set(re.findall(r"[A-Za-z]", m.group(1)))
+    # 只处理大写自定义列型（小写是标准 l/c/r/p/m/b/X）
+    custom = sorted(c for c in used if c.isupper())
+    if not custom:
+        return latex, False
+    defs = []
+    for c in custom:
+        if "newcolumntype{%s}" % c in latex:
+            continue
+        defs.append(r"\newcolumntype{%s}{>{\centering\arraybackslash}p{2.1cm}}" % c)
+    if not defs:
+        return latex, False
+    print("[render] 补列类型定义:", ", ".join(custom))
+    return "\n".join(defs) + "\n" + latex, True
+
+
+def _fix_stray_newline(latex: str) -> tuple[str, bool]:
+    """There's no line here to end → 去掉紧邻环境边界的 \\。"""
+    out = re.sub(r"\\\s*(\\end\{(?:table|tabular)[^}]*\})", r"\1", latex)
+    out = re.sub(r"(\begin\{(?:table|tabular)[^}]*\})\s*\\\s*\n", r"\1\n", out)
+    return out, out != latex
+
+
+def _fix_relax_clash(latex: str) -> tuple[str, bool]:
+    """Command \relax already defined → 删掉重定义 \relax 的行。"""
+    out = re.sub(r"\\[a-zA-Z]*newcommand\*?\{\\relax\}[^\n]*\n", "", latex)
+    return out, out != latex
+
+
+def _fix_blank_in_newcommand(latex: str) -> tuple[str, bool]:
+    """Paragraph ended before \provide@command → 宏定义体内的空行要去掉。"""
+    def _strip(m):
+        head, body, tail = m.group(1), m.group(2), m.group(3)
+        return head + re.sub(r"\n\s*\n", "\n", body) + tail
+    out = re.sub(r"(\\(?:providecommand|newcommand)\*?\{[^}]*\}(?:\[[^\]]*\])*\{)"
+                 r"(.*?)(\n\})", _strip, latex, flags=re.S)
+    return out, out != latex
+
+
+def _fix_tblr(latex: str) -> tuple[str, bool]:
+    """Environment tblr undefined（tabularray 写法）→ 换回 tabular。"""
+    if "tblr" not in latex:
+        return latex, False
+    out = latex.replace("\\begin{tblr}", "\\begin{tabular}")
+    out = out.replace("\\end{tblr}", "\\end{tabular}")
+    # tblr 的列格式写法 {colspec={...}} 不兼容，退化成等宽
+    out = re.sub(r"\\begin\{tabular\}\s*\[[^\]]*\]\s*\{[^}]*colspec[^}]*\}",
+                 r"\\begin{tabular}{" + "c" * 12 + "}", out)
+    return out, out != latex
+
+
+def _fix_preamble_leak(latex: str) -> tuple[str, bool]:
+    """Can be used only in preamble → 把正文里的 \\newcommand 提到最前。"""
+    lines = latex.split("\n")
+    moved, keep = [], []
+    for ln in lines:
+        st = ln.strip()
+        if st.startswith(("\\newcommand", "\\providecommand", "\\def\\", "\\usepackage",
+                          "\\newcolumntype", "\\definecolor", "\\makeatletter",
+                          "\\makeatother")):
+            moved.append(ln)
+        else:
+            keep.append(ln)
+    if not moved:
+        return latex, False
+    return "\n".join(moved) + "\n" + "\n".join(keep), True
+
+
+
+def _fix_balance_envs(latex: str) -> tuple[str, bool]:
+    """补/删不配平的环境——这 31 张表全是 docx 抽取的残缺片段。
+
+    实测 table-262 有 4 个 \begin{tabular} 但只有 3 个 \end{tabular}，
+    table-75 有 2 个 \begin{table} 但只有 1 个 \end{table}。
+    少补多删，按嵌套顺序补齐。
+    """
+    envs = ["table*", "table", "tabular*", "tabularx", "tabular", "tabularray",
+            "threeparttable", "center", "minipage"]
+    out = latex
+    changed = False
+    for env in envs:
+        b = len(re.findall(r"\\begin\{%s\}" % re.escape(env), out))
+        e = len(re.findall(r"\\end\{%s\}" % re.escape(env), out))
+        if b == e:
+            continue
+        if b > e:
+            out += ("\n" if not out.endswith("\n") else "") +                    ("\\end{%s}\n" % env) * (b - e)
+        else:
+            for _ in range(e - b):
+                i = out.find("\\end{%s}" % env)
+                if i < 0:
+                    break
+                out = out[:i] + out[i + len("\\end{%s}" % env):]
+        changed = True
+    return out, changed
+
+
+def _fix_orphan_newcommand(latex: str) -> tuple[str, bool]:
+    """把残缺的 \\newcommand 行整段删掉（定义被截断会连锁报错）。"""
+    bad = []
+    for m in re.finditer(r"\\(?:newcommand|providecommand|renewcommand)\*?\{\\[A-Za-z@]+\}"
+                         r"(?:\[[^\]]*\])*\{(?:[^{}]|\{[^{}]*\})*\n", latex):
+        bad.append(m.group(0))
+    if not bad:
+        return latex, False
+    out = latex
+    for b in bad:
+        out = out.replace(b, "")
+    return out, out != latex
+
+
+
+def _fix_nested_tabular(latex: str) -> tuple[str, bool]:
+    """tabular 套 tabular 是非法的（docx 抽取常见的结构错）→ 内层降级为普通内容。"""
+    out = latex
+    changed = False
+    for _ in range(6):
+        # 找到 内层 \begin{tabular}{...} ... \begin{tabular}  的相邻嵌套
+        m = re.search(r"(\\begin\{tabular\*?\}(?:\[[^\]]*\])?(?:\{[^}]*\})?\{[^}]*\})"
+                      r"((?:(?!\\begin\{tabular).)*?)"
+                      r"(\\begin\{tabular\*?\}(?:\[[^\]]*\])?(?:\{[^}]*\})?\{[^}]*\})",
+                      out, flags=re.S)
+        if not m:
+            break
+        # 内层的 begin 去掉列格式，改成纯环境
+        out = out[:m.start(3)] + "\\begin{tabular}" + out[m.end(3):]
+        changed = True
+    return out, changed
+
+
+def _fix_enddoc_early(latex: str) -> tuple[str, bool]:
+    """\\end{document} 之后还有内容 → 把尾部内容挪到 (document) 里面。"""
+    i = latex.rfind("\\end{document}")
+    if i < 0:
+        return latex, False
+    tail = latex[i + len("\\end{document}"):].strip()
+    if not tail:
+        return latex, False
+    head = latex[:i]
+    return head + tail + "\n\\end{document}\n", True
+
+
+_SRC_FIXES = [_fix_enddoc_early, _fix_nested_tabular, _fix_balance_envs,
+              _fix_orphan_newcommand, _fix_tblr,
+              _fix_relax_clash, _fix_blank_in_newcommand, _fix_stray_newline,
+              _fix_preamble_leak, _fix_columntypes]
+
+
 def compile_with_repair(item: dict, workdir: str, texbin: str):
     extra_defs: list[str] = []
     graphic_fallback = False
     last_log = ""
-    for _ in range(10):
-        ok, info, log = compile_once(item, workdir, texbin, graphic_fallback, extra_defs)
+    cur_latex = item["latex"]
+    tried = set()
+    for _ in range(14):
+        ok, info, log = compile_once(item, workdir, texbin, graphic_fallback,
+                                     extra_defs, latex=cur_latex)
         if ok:
             return True, info
         last_log = log
@@ -199,11 +368,23 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
                 extra_defs.extend(r"\providecommand{\%s}{}" % n for n in new[:30])
                 extra_defs.append(r"\makeatother")
                 continue
-        if "Missing $ inserted" in log or "Extra alignment" in log:
+        # 源码级修复：按错误类型逐个尝试，每种只试一次
+        for fix in _SRC_FIXES:
+            if fix.__name__ in tried:
+                continue
+            new_latex, changed = fix(cur_latex)
+            if changed:
+                tried.add(fix.__name__)
+                cur_latex = new_latex
+
+                break
+        else:
+
             break
-        break
+        continue
     # 最后兜底：nonstopmode 强行出 PDF（错误不中断，通常仍能排出可看的表格）
-    ok, info, _log = compile_once(item, workdir, texbin, graphic_fallback, extra_defs, nonstop=True)
+    ok, info, _log = compile_once(item, workdir, texbin, graphic_fallback, extra_defs,
+                                  nonstop=True, latex=cur_latex)
     if ok:
         return True, info
     errs = [l for l in last_log.split("\n") if "error:" in l][:2]
