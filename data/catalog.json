@@ -1168,15 +1168,5 @@
   "no": "F035",
   "kind": "F",
   "title": "多种子分布（小提琴图）"
- },
- "fig-ql-attention": {
-  "no": "F036",
-  "kind": "F",
-  "title": "注意力热图叠加"
- },
- "fig-ql-depth": {
-  "no": "F037",
-  "kind": "F",
-  "title": "深度图对比"
  }
 }
