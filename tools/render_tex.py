@@ -22,6 +22,12 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import latex_repair as _LR
+except Exception:
+    _LR = None
+
 PREAMBLE = r"""
 \documentclass[10pt]{article}
 \usepackage{amsmath,amssymb,amsfonts,bm}
@@ -59,12 +65,22 @@ PREAMBLE = r"""
 \usepackage{caption,subcaption}
 \usepackage{enumitem}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,shadows,mindmap}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,shadows,mindmap,decorations.pathreplacing,decorations.shapes,decorations.markings,patterns}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{threeparttable}
 \usepackage{rotating}
 \usepackage{xspace}
+\usepackage{pifont}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{xparse}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{epigraph}
+\usepackage{ulem}
 \usepackage{pifont}
 \usepackage[active,tightpage]{preview}
 \setlength\PreviewBorder{18pt}
@@ -154,14 +170,59 @@ def prepare_body(latex: str, use_graphic_fallback: bool) -> str:
     return body
 
 
+
+# 期刊模板 sty 拿不到（aaai2026 / neurips_2024 等），它们基本只影响版式，
+# 不影响表格能不能排出来 → 换成 article 兼容前导。
+_MISSING_STY = (
+    r"aaai\d*|neurips\w*|iclr\w*|cvpr\w*|acl\w*|icml\w*|eccv\w*|iccv\w*|nips\w*"
+)
+
+
+def _standalone_doc(raw: str, extra_defs: list[str]) -> str:
+    """把自带 documentclass 的完整文档改成可编译的 article。"""
+    out = raw
+    m = re.search(r"\\documentclass(?:\[[^\]]*\])?\{([^}]*)\}", out)
+    if m:
+        out = out[:m.start()] + r"\documentclass[10pt]{article}" + out[m.end():]
+    # 缺的期刊 sty 注释掉
+    out = re.sub(r"\\usepackage(?:\[[^\]]*\])?\{(?:%s)\}" % _MISSING_STY,
+                 "% [stripped]", out)
+    # 这些模板自带的自定义命令去掉，避免未定义报错
+    for bad in (r"\def\UrlFont{\rm}", r"\urlstyle{rm}", r"\frenchspacing",
+                r"\usepackage{times}", r"\usepackage{helvet}", r"\usepackage{courier}"):
+        out = out.replace(bad, "% " + bad)
+    inject = (
+        r"\usepackage{amsmath,amssymb,amsfonts,bm,graphicx,xcolor,colortbl,"
+        r"booktabs,multirow,array,makecell,tabularx,longtable,float,adjustbox,"
+        r"siunitx,hhline,bigdelim,bigstrut,arydshln,dcolumn,tabu,"
+        r"threeparttable,threeparttablex,nicematrix,pifont,soul,textcomp,xspace,"
+        r"preview,caption,subcaption,enumitem,rotating,"
+        r"tikz,pgfplots,ulem,relsize,cancel,mathtools,mathrsfs,dsfont}")
+    m2 = re.search(r"\\documentclass(?:\[[^\]]*\])?\{[^}]*\}", out)
+    if m2:
+        # 注意：不要在这注入 extra_defs——那些是给「片段模式」补宏用的，
+        # 注入到完整文档里反而会和原文的 \\newcommand/\\relax 冲突
+        # （实测 table-172/240 就是这样被自己的补丁搞挂的）。
+        out = out[:m2.end()] + "\n" + inject + "\n" + out[m2.end():]
+    return out
+
+
 def compile_once(item: dict, workdir: str, texbin: str, use_graphic_fallback: bool,
                  extra_defs: list[str], nonstop: bool = False,
                  latex: str | None = None) -> tuple[bool, str, str]:
-    body = prepare_body(latex if latex is not None else item["latex"], use_graphic_fallback)
-    # nonstop 由 preamble 控制（见 PREAMBLE 尾部）
+    raw = latex if latex is not None else item["latex"]
+    # 自带 \documentclass 的是完整文档，再套一层前导会报「双 documentclass」
+    if "\\documentclass" in raw:
+        prefix = ""
+        body = _standalone_doc(raw, extra_defs)
+        suffix = ""
+    else:
+        body = prepare_body(raw, use_graphic_fallback)
+        prefix = PREAMBLE + "\n".join(extra_defs) + "\n"
+        suffix = EPILOGUE
     src = os.path.join(workdir, "main.tex")
     with open(src, "w", encoding="utf-8") as fh:
-        fh.write(PREAMBLE + "\n".join(extra_defs) + "\n" + body + EPILOGUE)
+        fh.write(prefix + body + suffix)
     proc = subprocess.run(
         [texbin, "main.tex", "--outdir", workdir, "--keep-logs"],
         cwd=workdir, capture_output=True, text=True, timeout=300,
@@ -185,10 +246,34 @@ def _fix_columntypes(latex: str) -> tuple[str, bool]:
     补一个「居中 + 可换行」的通用定义即可正常排版。
     """
     used = set()
-    pat = r"\begin\{(?:tabular\*?|tabularx|tabulary|longtable)\}"
-    pat += r"(?:\[[^\]]*\])?(?:\{[^}]*\})?(?:\{[^}]*\})?\{([^}]*)\}"
-    for m in re.finditer(pat, latex):
-        used |= set(re.findall(r"[A-Za-z]", m.group(1)))
+    # 列格式可能是 lC{1.4cm}C{1.4cm} 这种带参数的，必须用括号配对而不是 [^}]*
+    for m in re.finditer(r"\begin\{(?:tabular\*?|tabularx|tabulary|longtable)\}", latex):
+        j = m.end()
+        # 跳过可选位置参数与宽度参数
+        for _ in range(2):
+            while j < len(latex) and latex[j] in " \t\n":
+                j += 1
+            if j < len(latex) and latex[j] == "[":
+                e = latex.find("]", j)
+                if e < 0:
+                    break
+                j = e + 1
+        while j < len(latex) and latex[j] in " \t\n":
+            j += 1
+        if j < len(latex) and latex[j] == "{":
+            depth, k = 0, j
+            while k < len(latex):
+                if latex[k] == "{":
+                    depth += 1
+                elif latex[k] == "}":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                k += 1
+            spec = latex[j + 1:k]
+            # 去掉 {..} 参数，只看列型字母
+            spec_flat = re.sub(r"\{[^{}]*\}", "", spec)
+            used |= set(re.findall(r"[A-Za-z]", spec_flat))
     # 只处理大写自定义列型（小写是标准 l/c/r/p/m/b/X）
     custom = sorted(c for c in used if c.isupper())
     if not custom:
@@ -336,6 +421,9 @@ _SRC_FIXES = [_fix_enddoc_early, _fix_nested_tabular, _fix_balance_envs,
               _fix_preamble_leak, _fix_columntypes]
 
 
+_repaired: list[dict] = []
+
+
 def compile_with_repair(item: dict, workdir: str, texbin: str):
     extra_defs: list[str] = []
     graphic_fallback = False
@@ -346,7 +434,7 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
         ok, info, log = compile_once(item, workdir, texbin, graphic_fallback,
                                      extra_defs, latex=cur_latex)
         if ok:
-            return True, info
+            return True, info, "direct"
         last_log = log
         if "Unable to load picture or PDF file" in log and not graphic_fallback:
             graphic_fallback = True
@@ -359,7 +447,9 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
             if name not in known_c:
                 extra_defs.append(r"\definecolor{%s}{gray}{0.55}" % name)
                 continue
-        if "Undefined control sequence" in log:
+        _is_doc = "\\documentclass" in cur_latex
+        if "Undefined control sequence" in log and not _is_doc:
+            # 完整文档自带宏定义，硬注入 providecommand 会和原文冲突
             found = set(re.findall(r"\\([A-Za-z@]{2,30})", log))
             known = set(re.findall(r"\\([A-Za-z@]{2,30})", "\n".join(extra_defs)))
             new = [n for n in sorted(found - known) if re.fullmatch(r"[A-Za-z]{2,30}", n)]
@@ -386,9 +476,35 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
     ok, info, _log = compile_once(item, workdir, texbin, graphic_fallback, extra_defs,
                                   nonstop=True, latex=cur_latex)
     if ok:
-        return True, info
+        return True, info, "nonstop"
+
+    # 三级降级：剥离自定义宏 → 只留 tabular → 纯文本单元格
+    if _LR is not None:
+        _stages = _LR.salvage(item["latex"])
+        # 完整文档（自带 documentclass）的报错多来自它自己的导言区冲突，
+        # 直接跳到 plain-cells（剥成纯文本单元格，已验证一定能编译）
+        if "\\documentclass" in item["latex"]:
+            _pc = _LR.plain_cells(item["latex"])
+            if _pc:
+                _stages = [("plain-cells-forced", _pc)] + [
+                    s for s in _stages if s[0] != "plain-cells-doc"]
+        for stage, src in _stages:
+            # 先修列类型（salvage 出来的 tabular 常带 C{1.4cm} / I 这类自定义列型）
+            fixed, _ = _fix_columntypes(src)
+            for cand in (fixed, src):
+                # 关键：这里必须用**空**的 extra_defs。
+                # 前面循环累积的补丁（providecommand 等）会和原文冲突，
+                # 实测带着它们连「已剥成纯文本」的 tabular 都编不过。
+                ok, info, log = compile_once(item, workdir, texbin, False,
+                                             [], nonstop=True, latex=cand)
+                if ok:
+                    print("[salvage] %s 用 %s 渲染成功" % (item.get("id"), stage),
+                          file=sys.stderr)
+                    _repaired.append({"id": item["id"], "stage": stage})
+                    return True, info, stage
+
     errs = [l for l in last_log.split("\n") if "error:" in l][:2]
-    return False, "; ".join(errs)[:300]
+    return False, "; ".join(errs)[:300], ""
 
 
 def pdf_to_png(pdf_path: str, out_png: str) -> bool:
@@ -475,6 +591,8 @@ def main() -> int:
     os.makedirs(args.out, exist_ok=True)
     ok = fail = cached = 0
     failures = []
+    global _repaired
+    _repaired = []
     for idx, item in enumerate(items, 1):
         base = os.path.join(args.out, item["id"])
         if not args.force and (os.path.exists(base + ".webp") or os.path.exists(base + ".png")):
@@ -482,7 +600,7 @@ def main() -> int:
             ok += 1
             continue
         with tempfile.TemporaryDirectory() as tmp:
-            good, info = compile_with_repair(item, tmp, texbin)
+            good, info, stage = compile_with_repair(item, tmp, texbin)
             if not good:
                 fail += 1
                 failures.append({"id": item["id"], "error": info})
@@ -499,6 +617,12 @@ def main() -> int:
             print("  [%d/%d] ok=%d fail=%d cached=%d" % (idx, len(items), ok, fail, cached), flush=True)
 
     print("rendered ok=%d fail=%d (cached %d)" % (ok, fail, cached))
+    try:
+        with open(os.path.join(args.out, "_repaired.json"), "w", encoding="utf-8") as fh:
+            json.dump(_repaired, fh, ensure_ascii=False, indent=1)
+        print("自动修复渲染: %d 张（已写入 _repaired.json）" % len(_repaired))
+    except Exception:
+        pass
     if failures:
         with open(os.path.join(args.out, "_failures.json"), "w", encoding="utf-8") as fh:
             json.dump(failures, fh, ensure_ascii=False, indent=1)

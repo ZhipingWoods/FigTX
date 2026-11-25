@@ -14,6 +14,24 @@ const RAW_FIGURES = path.join(ROOT, 'data/raw-figures.json');
 const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
 const RAW_FIGS2 = path.join(ROOT, 'data/raw-figs2.json');
 const RAW_REPLICAS = path.join(ROOT, 'data/raw-replicas.json');
+const REPAIRED_FILE = path.join(ROOT, 'data/table-repaired.json');
+
+// 自动修复渲染的表：源码是残缺片段，渲染时走了降级策略（卡片上标注出来）
+const REPAIRED = (() => {
+  try {
+    const rows = JSON.parse(fs.readFileSync(REPAIRED_FILE, 'utf8'));
+    const LABEL = {
+      'tabular-only': '已自动修复 · 只渲染表格本体',
+      'plain-cells': '已自动修复 · 剥离自定义宏后渲染',
+      'plain-cells-forced': '已自动修复 · 文档级冲突，改用纯文本单元格',
+    };
+    const map = {};
+    for (const r of rows) map[r.id] = LABEL[r.stage] || '已自动修复';
+    return map;
+  } catch {
+    return {};
+  }
+})();
 const RENDERS = path.join(ROOT, 'public/renders');
 const RENDERS_FIG = path.join(ROOT, 'public/renders-fig');
 const OUT = path.join(ROOT, 'src/data/items.json');
@@ -59,6 +77,10 @@ for (const it of rawTables) {
   const item = {
     id: it.id,
     category: 'table',
+    // 源码残缺、渲染时走了降级策略的表，在卡片上标注
+    repaired: Object.prototype.hasOwnProperty.call(REPAIRED, it.id)
+      ? REPAIRED[it.id]
+      : null,
     kind: it.kind === 'table' || it.kind === 'mixed' ? 'table' : it.kind,
     title: it.title || '',
     caption: it.caption || '',
@@ -98,6 +120,9 @@ const figures = rawFigures.map((it) => ({
   code: it.code || '',
   codeLang: it.codeLang || 'python',
   render: findIn(figFiles, 'renders-fig/', it.id) || it.render || null,
+  repaired: Object.prototype.hasOwnProperty.call(REPAIRED, it.id)
+    ? REPAIRED[it.id]
+    : null,
   editFiles: it.editFiles || [],
   noteImages: [],
   publishedAt: null,

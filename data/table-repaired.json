@@ -1,0 +1,186 @@
+[
+ {
+  "id": "file1",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "file-table7-latex",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-104",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-110",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-115",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-118",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-11",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-127",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-12",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-131",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-133",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-136",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-13",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-142",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-144",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-145",
+  "stage": "strip-macros"
+ },
+ {
+  "id": "table-154",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-158",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-163",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-168",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-171",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-172",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-187",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-198",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-213",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-216",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-21",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-225",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-22",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-233",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-236",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-23",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-240",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-249",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-252",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-254",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-258",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-260",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-262",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-272",
+  "stage": "tabular-only"
+ },
+ {
+  "id": "table-27",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-28",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-29",
+  "stage": "plain-cells-forced"
+ },
+ {
+  "id": "table-59",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-75",
+  "stage": "plain-cells"
+ },
+ {
+  "id": "table-81",
+  "stage": "tabular-only"
+ }
+]

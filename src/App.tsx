@@ -20,6 +20,7 @@ type Item = {
   code: string;
   codeLang: string;
   render: string | null;
+  repaired?: string | null;
   editFiles?: { ext: string; label: string; path: string }[];
   noteImages: string[];
   publishedAt: string | null;
@@ -543,6 +544,13 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
               </span>
             ))}
           </div>
+
+          {item.repaired && (
+            <div className="repaired-note" title="原始 LaTeX 来自作者分享的 docx 片段，直接编译会失败；渲染时自动降级修复后排出表格">
+              <span className="repaired-dot" />
+              {item.repaired}
+            </div>
+          )}
 
           <div className="code-head">
             <span>{LANG_LABEL[item.codeLang] || item.codeLang} 源码</span>
