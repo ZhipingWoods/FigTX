@@ -578,3 +578,27 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: .04em;
 }
 
+
+/* 排序切换按钮 */
+.sortbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 11px;
+  border-radius: 8px;
+  border: 1px solid var(--line, rgba(0, 0, 0, .12));
+  background: transparent;
+  color: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  white-space: nowrap;
+}
+.sortbtn:hover {
+  background: rgba(0, 0, 0, .05);
+}
+.sortbtn svg {
+  opacity: .75;
+}

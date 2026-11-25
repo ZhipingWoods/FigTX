@@ -165,7 +165,24 @@ export default function App() {
   const [venue, setVenue] = useState<string>('all');
   const [onlyRendered, setOnlyRendered] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
+  // 排序方向：asc = 编号正序（T001→T199），desc = 倒序（T199→T001）
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>(() => {
+    try {
+      const v = localStorage.getItem('figtx.sortDir');
+      return v === 'desc' ? 'desc' : 'asc';
+    } catch {
+      return 'asc';
+    }
+  });
   const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('figtx.sortDir', sortDir);
+    } catch {
+      /* 忽略隐私模式下的写入失败 */
+    }
+  }, [sortDir]);
 
   const scoped = useMemo(() => ITEMS.filter((i) => i.category === category), [category]);
 
@@ -196,7 +213,8 @@ export default function App() {
     return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 14);
   }, [scoped]);
 
-  const filtered = useMemo(() => {
+  // 先按筛选条件过滤（不含排序）
+  const base = useMemo(() => {
     const q = query.trim().toLowerCase();
     return scoped.filter((it) => {
       if (category === 'figure' && replicaOnly && it.group !== 'replicas') return false;
@@ -221,6 +239,19 @@ export default function App() {
       return hay.includes(q);
     });
   }, [scoped, category, query, kind, figType, domain, venue, onlyRendered, replicaOnly]);
+
+  // 再按稳定编号排序（正序/倒序）
+  const filtered = useMemo(() => {
+    const list = base.filter((i) => !!i);
+    const sign = sortDir === 'asc' ? 1 : -1;
+    // 按稳定编号排序；无编号的排最后
+    return [...list].sort((a, b) => {
+      const na = a.no || '~';
+      const nb = b.no || '~';
+      if (na === nb) return 0;
+      return na < nb ? -sign : sign;
+    });
+  }, [base, sortDir]);
 
   // URL hash 直达：#T042 / #F007 或 #<item-id>
   useEffect(() => {
@@ -324,6 +355,33 @@ export default function App() {
         </label>
 
         <div className="spacer" />
+        <button
+          className="sortbtn"
+          onClick={() => setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))}
+          title={sortDir === 'asc' ? '当前：编号正序 —— 点击切换为倒序' : '当前：编号倒序 —— 点击切换为正序'}
+          aria-label={sortDir === 'asc' ? '切换为倒序' : '切换为正序'}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            {sortDir === 'asc' ? (
+              <>
+                <path d="M7 4v16" />
+                <path d="m4 17 3 3 3-3" />
+                <path d="M13 6h7" />
+                <path d="M13 12h5" />
+                <path d="M13 18h3" />
+              </>
+            ) : (
+              <>
+                <path d="M7 20V4" />
+                <path d="m4 7 3-3 3 3" />
+                <path d="M13 6h3" />
+                <path d="M13 12h5" />
+                <path d="M13 18h7" />
+              </>
+            )}
+          </svg>
+          {sortDir === 'asc' ? '正序' : '倒序'}
+        </button>
         <div className="count">
           <b>{filtered.length}</b> / {scoped.length} 个{CATEGORY_LABEL[category]}
         </div>
