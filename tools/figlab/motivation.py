@@ -17,7 +17,7 @@ from common import OUT_FIG  # noqa: E402
 
 RC = {
     "figure.dpi": 110,
-    "savefig.dpi": 180,
+    "savefig.dpi": 320,
     "font.size": 9,
     "axes.titlesize": 10,
     "axes.labelsize": 9,

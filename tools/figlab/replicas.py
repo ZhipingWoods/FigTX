@@ -32,6 +32,8 @@ RC = {
     "axes.spines.right": False,
 }
 
+plt.rcParams.update(RC)   # 之前漏了这一步
+
 # 色值来自对参考图的像素统计（data/ref-analysis.json），误差 < 10 RGB
 TEAL = "#08A8B8"      # 01 主色
 YELLOW = "#E8B800"    # 01 中段
@@ -55,9 +57,15 @@ RED8 = "#A82818"      # 08 深红
 
 
 def _save(fig, name):
+    """保存 PNG。
+
+    注意：RC 之前只定义没应用（全文件没有 rcParams.update(RC)），
+    导致 10 张复刻图按 matplotlib 默认 100dpi 出图（4.6in×100=460px），
+    再被 _png_to_webp 放大到 1500px，预览发糊。这里强制 300dpi。
+    """
     os.makedirs(OUT_FIG, exist_ok=True)
     p = os.path.join(OUT_FIG, name + ".png")
-    fig.savefig(p, bbox_inches="tight", facecolor="white")
+    fig.savefig(p, bbox_inches="tight", facecolor="white", dpi=300)
     plt.close(fig)
     return p
 

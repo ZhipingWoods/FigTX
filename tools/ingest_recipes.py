@@ -58,7 +58,7 @@ def _patched_savefig(self, fname, *a, **kw):  # noqa: D401
     target = _SAVE_TARGET[0] if _SAVE_TARGET else str(fname)
     os.makedirs(os.path.dirname(target) or ".", exist_ok=True)
     kw.pop("bbox_inches", None)
-    return _ORIG_SAVEFIG(self, target, bbox_inches="tight", dpi=kw.pop("dpi", 170), **kw)
+    return _ORIG_SAVEFIG(self, target, bbox_inches="tight", dpi=kw.pop("dpi", 300), **kw)
 
 
 def run_recipe(script: str, out_png: str) -> bool:

@@ -17,7 +17,7 @@ import numpy as np  # noqa: E402
 from common import OUT_FIG  # noqa: E402
 
 RC = {
-    "figure.dpi": 110, "savefig.dpi": 180, "font.size": 8.5,
+    "figure.dpi": 110, "savefig.dpi": 320, "font.size": 8.5,
     "axes.titlesize": 9, "mathtext.fontset": "cm", "font.family": "serif",
 }
 

@@ -214,7 +214,7 @@ def pdf_to_png(pdf_path: str, out_png: str) -> bool:
     stem = out_png[:-4]
     if shutil.which("pdftoppm"):
         try:
-            subprocess.run(["pdftoppm", "-png", "-r", "200", "-f", "1", "-l", "1",
+            subprocess.run(["pdftoppm", "-png", "-r", "300", "-f", "1", "-l", "1",
                             "-singlefile", pdf_path, stem],
                            capture_output=True, timeout=180, check=True)
             if os.path.exists(out_png):
@@ -224,7 +224,7 @@ def pdf_to_png(pdf_path: str, out_png: str) -> bool:
     if shutil.which("qlmanage"):
         tmpdir = os.path.dirname(out_png)
         try:
-            subprocess.run(["qlmanage", "-t", "-s", "2000", "-o", tmpdir, pdf_path],
+            subprocess.run(["qlmanage", "-t", "-s", "3000", "-o", tmpdir, pdf_path],
                            capture_output=True, timeout=180, check=True)
             produced = os.path.join(tmpdir, os.path.basename(pdf_path) + ".png")
             if os.path.exists(produced):

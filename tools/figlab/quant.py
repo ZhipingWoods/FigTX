@@ -13,7 +13,7 @@ import numpy as np  # noqa: E402
 from common import OUT_FIG  # noqa: E402
 
 RC = {
-    "figure.dpi": 110, "savefig.dpi": 180, "font.size": 9,
+    "figure.dpi": 110, "savefig.dpi": 320, "font.size": 9,
     "axes.titlesize": 10, "axes.labelsize": 9, "legend.fontsize": 8,
     "axes.spines.top": False, "axes.spines.right": False,
     "mathtext.fontset": "cm", "font.family": "serif",

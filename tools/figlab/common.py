@@ -140,13 +140,25 @@ def _trim_white(png: str, pad: int = 6) -> str:
 
 
 def _png_to_webp(png: str, out_webp: str, width: int) -> bool:
+    """PNG -> WebP。
+
+    关键：**只缩不放**。之前无条件 -resize width，把 673px 的图拉到 1500px
+    （2.23 倍纯插值），预览自然发糊。源图本来就小就保持原宽。
+    """
     if not shutil.which("cwebp"):
         shutil.copy2(png, out_webp[:-5] + ".png")
         return False
     png = _trim_white(png)
-    r = subprocess.run(["cwebp", "-quiet", "-q", "88", "-m", "6",
-                        "-resize", str(width), "0", png, "-o", out_webp],
-                       capture_output=True, timeout=120)
+    try:
+        from PIL import Image
+        src_w = Image.open(png).size[0]
+    except Exception:
+        src_w = width
+    args = ["cwebp", "-quiet", "-q", "90", "-m", "6"]
+    if src_w > width:                       # 只在需要时缩小
+        args += ["-resize", str(width), "0"]
+    args += [png, "-o", out_webp]
+    r = subprocess.run(args, capture_output=True, timeout=120)
     return r.returncode == 0 and os.path.exists(out_webp) and os.path.getsize(out_webp) > 0
 
 

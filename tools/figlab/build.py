@@ -2,14 +2,13 @@
 r"""渲染 figlab 里的所有图，产出 data/raw-figs2.json。
 
 分组：
-    frameworks  TikZ 框架图
     motivation  动机图
     quant       实验图·定量
     qual        实验图·定性
 
 用法:
     .venv-fig/bin/python tools/figlab/build.py
-    .venv-fig/bin/python tools/figlab/build.py --only frameworks,motivation
+    .venv-fig/bin/python tools/figlab/build.py --only motivation
 """
 from __future__ import annotations
 
@@ -19,14 +18,12 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import common  # noqa: E402
-import frameworks  # noqa: E402
 import motivation  # noqa: E402
 import qual  # noqa: E402
 import quant  # noqa: E402
 
 # 类型 → (figType, 生成函数, codeLang)
 GROUPS = {
-    "frameworks": ("framework", "tikz", frameworks.templates),
     "motivation": ("motivation", "matplotlib", motivation.TEMPLATES),
     "quant": ("quantitative", "matplotlib", quant.TEMPLATES),
     "qual": ("qualitative", "matplotlib", qual.TEMPLATES),
@@ -58,15 +55,7 @@ def main() -> int:
         tmpl = fn() if callable(fn) else fn
         print("[%s] %d templates" % (g, len(tmpl)))
         for t in tmpl:
-            if lang == "tikz":
-                slug, title, desc, domain, venues, tex = (
-                    t["slug"], t["title"], t["desc"], t["domain"], t["venues"], t["tex"])
-                fid = "fig-%s-%s" % (PREFIX[fig_type], slug)
-                out = os.path.join(common.OUT_FIG, fid + ".webp")
-                if not common.compile_tikz(frameworks.STYLES + tex, out):
-                    continue
-                code, code_lang = tex.strip(), "latex"
-            else:
+            if True:
                 slug, fnc, title, desc, domain, venues = t
                 fid = "fig-%s-%s" % (PREFIX[fig_type], slug)
                 png = fnc()

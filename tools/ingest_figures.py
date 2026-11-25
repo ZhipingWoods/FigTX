@@ -59,7 +59,7 @@ def demo(sty: list[str], out_png: str, cjk: bool = False) -> list[str]:
     rc = {
         "figure.figsize": (8.4, 6.2) if cjk else (7.2, 5.0),
         "figure.dpi": 110,
-        "savefig.dpi": 170,
+        "savefig.dpi": 300,
         "axes.titlesize": 10,
         "legend.frameon": True,
     }
@@ -145,7 +145,7 @@ def gallery(out_png: str) -> None:
             ax.tick_params(labelsize=5.4)
             fig.tight_layout(pad=0.35)
             p = os.path.join(tmpd, sid + ".png")
-            fig.savefig(p, dpi=170, facecolor="white")
+            fig.savefig(p, dpi=300, facecolor="white")
             plt.close(fig)
         tiles.append((sid, title, p))
 
