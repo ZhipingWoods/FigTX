@@ -1,0 +1,63 @@
+% 桩文件：替代原论文模板（我们只关心表格能不能排出来）
+% 由 tools/render_tex.py 在编译时自动生成到临时目录。
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{__STUB__}[2026/01/01 stub for rendering only]
+
+% 接受任意选项（submission / final / review / preprint / lineno ...）
+\DeclareOption*{}
+\ProcessOptions\relax
+
+% ---- 常见论文模板提供的宏，全部定义成无操作 ----
+\providecommand\pdfauthor[1]{}
+\providecommand\pdfkeywords[1]{}
+\providecommand\pdfsubject[1]{}
+\providecommand\pdftitle[1]{}
+\providecommand\affiliation[1]{}
+\providecommand\affiliations[1]{}
+\providecommand\shortauthors[1]{}
+\providecommand\shorttitle[1]{}
+\providecommand\shortaffil[1]{}
+\providecommand\titlerunning[1]{}
+\providecommand\authorrunning[1]{}
+\providecommand\keyword[1]{}
+\providecommand\keywords[1]{}
+\providecommand\email[1]{}
+\providecommand\thanks[1]{}
+\providecommand\blfootnote[1]{}
+\providecommand\nocopyright{}
+\providecommand\CopyrightLine{}
+\providecommand\setcopyright[1]{}
+\providecommand\copyrightyear[1]{}
+\providecommand\acmYear[1]{}
+\providecommand\acmDOI[1]{}
+\providecommand\acmISBN[1]{}
+\providecommand\acmConference[3]{}
+\providecommand\acmBooktitle[1]{}
+\providecommand\received[1]{}
+\providecommand\revised[1]{}
+\providecommand\accepted[1]{}
+\providecommand\published[1]{}
+\providecommand\artno[1]{}
+\providecommand\vol[1]{}
+\providecommand\iss[1]{}
+\providecommand\dept[1]{}
+\providecommand\institution[1]{}
+\providecommand\runningtitle[1]{}
+\providecommand\runningauthor[1]{}
+\providecommand\orcid[1]{}
+\providecommand\fnt[1]{}
+\providecommand\fnm[1]{}
+\providecommand\def\baselinestretch{}
+\providecommand\review{}
+\providecommand\final{}
+\providecommand\preprint{}
+\providecommand\toappear{}
+\providecommand\workshop{}
+\providecommand\camera{}
+% 版式相关的长度
+\providecommand\settopmatter[1]{}
+\providecommand\makesecondtitle{}
+\providecommand\twocolumnlayout{}
+\providecommand\onecolumnlayout{}
+\providecommand\appendices{}
+\providecommand\appendix{}

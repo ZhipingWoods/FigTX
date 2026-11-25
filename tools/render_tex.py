@@ -178,20 +178,93 @@ _MISSING_STY = (
 )
 
 
+_STUB_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "paper_stub.sty.txt")
+
+
+def _install_stubs(raw: str, workdir: str) -> list[str]:
+    """给缺失的论文模板 .sty 生成桩文件，让完整文档能按原样编译。
+
+    表格片段来自完整论文，导言区 \\usepackage{aaai2026} 之类我们拿不到。
+    与其改写文档（容易破坏结构），不如提供同名桩文件——文档原封不动，
+    保真度最高。返回实际生成的列表。
+    """
+    made = []
+    try:
+        with open(_STUB_SRC, encoding="utf-8") as fh:
+            tpl = fh.read()
+    except Exception:
+        return made
+    for m in re.finditer(r"\\usepackage(?:\[[^\]]*\])?\{([^}]*)\}", raw):
+        for name in m.group(1).split(","):
+            name = name.strip()
+            if not name:
+                continue
+            p = os.path.join(workdir, name + ".sty")
+            if os.path.exists(p):
+                continue
+            # 只给「论文模板类」生成桩：名字里带会议/期刊特征
+            if not re.search(r"(aaai|neurips|nips|iclr|icml|cvpr|iccv|eccv|acl|"
+                             r"emnlp|naacl|coling|kdd|wsdm|sigir|tmlr|jmlr|"
+                             r"ieee|acm|springer|elsarticle|lipics|usenix)", name, re.I):
+                continue
+            try:
+                with open(p, "w", encoding="utf-8") as fh:
+                    fh.write(tpl.replace("__STUB__", name))
+                made.append(name)
+            except Exception:
+                pass
+    if made:
+        print("[stub] %s 生成桩文件: %s" % (workdir.split("/")[-1], ", ".join(made)),
+              file=sys.stderr)
+    return made
+
+
 def _standalone_doc(raw: str, extra_defs: list[str]) -> str:
     """把自带 documentclass 的完整文档改成可编译的 article。"""
     out = raw
     m = re.search(r"\\documentclass(?:\[[^\]]*\])?\{([^}]*)\}", out)
     if m:
         out = out[:m.start()] + r"\documentclass[10pt]{article}" + out[m.end():]
-    # 缺的期刊 sty 注释掉
-    out = re.sub(r"\\usepackage(?:\[[^\]]*\])?\{(?:%s)\}" % _MISSING_STY,
-                 "% [stripped]", out)
+    # 期刊 sty 不再剥掉——由 _install_stubs 生成同名桩文件满足它，
+    # 这样文档结构（\maketitle 之类）保持原样
+    pass
     # 这些模板自带的自定义命令去掉，避免未定义报错
     for bad in (r"\def\UrlFont{\rm}", r"\urlstyle{rm}", r"\frenchspacing",
                 r"\usepackage{times}", r"\usepackage{helvet}", r"\usepackage{courier}"):
         out = out.replace(bad, "% " + bad)
-    inject = (
+    # 补文档里用到但没定义的列类型（实测 table-262/236 用了 C{1.4cm} 却没定义）。
+    # 注意：ensure_coltypes 是把定义**前置**的，而 \newcolumntype 只能在导言区，
+    # 所以先取出增量定义，再插到 \documentclass 之后。
+    if _LR is not None:
+        try:
+            probed = _LR.ensure_coltypes(out)
+            if probed != out and probed.endswith(out):
+                defs_only = probed[: len(probed) - len(out)]
+                _m = re.search(r"\\documentclass(?:\[[^\]]*\])?\{[^}]*\}", out)
+                if _m:
+                    out = out[:_m.end()] + "\n" + defs_only + out[_m.end():]
+                else:
+                    out = defs_only + out
+        except Exception:
+            pass
+
+    # 只注入文档自己没加载的宏包（否则 xcolor 之类会 Option clash）
+    _WANT = [p for p in (
+        "amsmath and amssymb and amsfonts and bm and graphicx and xcolor and colortbl and "
+        "booktabs and multirow and array and makecell and tabularx and longtable and float and "
+        "adjustbox and siunitx and hhline and bigdelim and bigstrut and arydshln and dcolumn and "
+        "tabu and threeparttable and threeparttablex and nicematrix and pifont and soul and "
+        "textcomp and xspace and preview and caption and subcaption and enumitem and rotating and "
+        "tikz and pgfplots and ulem and relsize and cancel and mathtools and mathrsfs and dsfont"
+    ).split(" and ")]
+    _loaded = set()
+    for _m in re.finditer(r"\\usepackage(?:\[[^\]]*\])?\{([^}]*)\}", out):
+        for _n in _m.group(1).split(","):
+            _loaded.add(_n.strip())
+    _need = [p for p in _WANT if p not in _loaded]
+    inject = (r"\usepackage{" + ",".join(_need) + "}") if _need else "% (no extra packages)"
+
+    inject_unused = (
         r"\usepackage{amsmath,amssymb,amsfonts,bm,graphicx,xcolor,colortbl,"
         r"booktabs,multirow,array,makecell,tabularx,longtable,float,adjustbox,"
         r"siunitx,hhline,bigdelim,bigstrut,arydshln,dcolumn,tabu,"
@@ -214,11 +287,24 @@ def compile_once(item: dict, workdir: str, texbin: str, use_graphic_fallback: bo
     # 自带 \documentclass 的是完整文档，再套一层前导会报「双 documentclass」
     if "\\documentclass" in raw:
         prefix = ""
+        _install_stubs(raw, workdir)          # 缺的期刊 .sty 用桩补上
         body = _standalone_doc(raw, extra_defs)
         suffix = ""
     else:
         body = prepare_body(raw, use_graphic_fallback)
+        # 片段自带 \begin{document} / \end{document} 要去掉：
+        # 前导里已经有一对，再来一次就是双重 document（table-262 就是这么挂的）
+        body = body.replace("\\begin{document}", "").replace("\\end{document}", "")
         prefix = PREAMBLE + "\n".join(extra_defs) + "\n"
+        # 片段里用到但没定义的列类型（C{1.4cm} 之类）→ \newcolumntype 放导言区
+        if _LR is not None:
+            try:
+                _probed = _LR.ensure_coltypes(body)
+                if _probed != body and _probed.endswith(body):
+                    prefix = prefix + _probed[: len(_probed) - len(body)] + "\n"
+                    body = _probed[len(_probed) - len(body):] if False else body
+            except Exception:
+                pass
         suffix = EPILOGUE
     src = os.path.join(workdir, "main.tex")
     with open(src, "w", encoding="utf-8") as fh:
@@ -481,13 +567,8 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
     # 三级降级：剥离自定义宏 → 只留 tabular → 纯文本单元格
     if _LR is not None:
         _stages = _LR.salvage(item["latex"])
-        # 完整文档（自带 documentclass）的报错多来自它自己的导言区冲突，
-        # 直接跳到 plain-cells（剥成纯文本单元格，已验证一定能编译）
-        if "\\documentclass" in item["latex"]:
-            _pc = _LR.plain_cells(item["latex"])
-            if _pc:
-                _stages = [("plain-cells-forced", _pc)] + [
-                    s for s in _stages if s[0] != "plain-cells-doc"]
+        # 完整文档优先走「桩 + 保结构」（table-with-defs 已在 staged 最前）；
+        # plain-cells 是保底，不该抢在保结构之前。
         for stage, src in _stages:
             # 先修列类型（salvage 出来的 tabular 常带 C{1.4cm} / I 这类自定义列型）
             fixed, _ = _fix_columntypes(src)
@@ -611,7 +692,24 @@ def main() -> int:
                 fail += 1
                 failures.append({"id": item["id"], "error": "pdf->png failed"})
                 continue
-            png_to_webp(png, args.width, args.quality)
+            # 宽表按列数加宽：12 列的表挤在 1300px 里每列只有 ~100px，
+            # 显示时看不清。按列数线性加宽，最多 3000px。
+            try:
+                from PIL import Image as _Im
+                _w, _h = _Im.open(png).size
+                _ncol = max(1, int(round(_w / max(1, _h) * 3)))  # 粗估不了列数，改用宽高比
+            except Exception:
+                _ncol = 1
+            _target = args.width
+            # 用「渲染出来的表格本身很扁」作为宽表信号
+            try:
+                from PIL import Image as _Im2
+                _w2, _h2 = _Im2.open(png).size
+                if _h2 > 0 and _w2 / _h2 > 2.0:      # 很扁 → 列多
+                    _target = min(3000, int(args.width * min(2.3, _w2 / _h2)))
+            except Exception:
+                pass
+            png_to_webp(png, _target, args.quality)
             ok += 1
         if idx % 10 == 0:
             print("  [%d/%d] ok=%d fail=%d cached=%d" % (idx, len(items), ok, fail, cached), flush=True)

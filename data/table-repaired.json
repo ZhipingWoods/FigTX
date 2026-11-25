@@ -1,19 +1,19 @@
 [
  {
   "id": "file1",
-  "stage": "plain-cells-forced"
+  "stage": "table-with-defs"
  },
  {
   "id": "file-table7-latex",
-  "stage": "plain-cells-forced"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-104",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-110",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-115",
@@ -25,7 +25,7 @@
  },
  {
   "id": "table-11",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-127",
@@ -33,11 +33,11 @@
  },
  {
   "id": "table-12",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-131",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-133",
@@ -49,7 +49,7 @@
  },
  {
   "id": "table-13",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-142",
@@ -73,15 +73,15 @@
  },
  {
   "id": "table-163",
-  "stage": "plain-cells-forced"
+  "stage": "tabular-only"
  },
  {
   "id": "table-168",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-171",
-  "stage": "tabular-only"
+  "stage": "plain-cells"
  },
  {
   "id": "table-172",
@@ -89,23 +89,23 @@
  },
  {
   "id": "table-187",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-198",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
+ },
+ {
+  "id": "table-200",
+  "stage": "plain-cells"
  },
  {
   "id": "table-213",
   "stage": "plain-cells"
  },
  {
-  "id": "table-216",
-  "stage": "plain-cells"
- },
- {
   "id": "table-21",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-225",
@@ -113,19 +113,15 @@
  },
  {
   "id": "table-22",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-233",
   "stage": "plain-cells"
  },
  {
-  "id": "table-236",
-  "stage": "plain-cells"
- },
- {
   "id": "table-23",
-  "stage": "plain-cells-forced"
+  "stage": "plain-cells"
  },
  {
   "id": "table-240",
@@ -141,7 +137,7 @@
  },
  {
   "id": "table-254",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-258",
@@ -152,24 +148,20 @@
   "stage": "plain-cells"
  },
  {
-  "id": "table-262",
-  "stage": "plain-cells"
- },
- {
   "id": "table-272",
-  "stage": "tabular-only"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-27",
-  "stage": "plain-cells-forced"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-28",
-  "stage": "plain-cells-forced"
+  "stage": "tabular-only"
  },
  {
   "id": "table-29",
-  "stage": "plain-cells-forced"
+  "stage": "table-with-defs"
  },
  {
   "id": "table-59",
