@@ -272,6 +272,9 @@ export default function App() {
         setReplicaOnly(false);
         setOnlyRendered(false);
         setOpenId(hit.id);
+      } else {
+        // 编号失效（条目已删除）时不能停留在上一条 —— 否则链接指向错的条目
+        setOpenId(null);
       }
     };
     applyHash();

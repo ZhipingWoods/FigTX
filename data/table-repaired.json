@@ -36,10 +36,6 @@
   "stage": "plain-cells"
  },
  {
-  "id": "table-144",
-  "stage": "plain-cells"
- },
- {
   "id": "table-145",
   "stage": "strip-macros"
  },
@@ -64,28 +60,12 @@
   "stage": "plain-cells"
  },
  {
-  "id": "table-21",
-  "stage": "plain-cells"
- },
- {
-  "id": "table-23",
-  "stage": "plain-cells"
- },
- {
   "id": "table-252",
   "stage": "tabular-only"
  },
  {
   "id": "table-254",
   "stage": "table-with-defs"
- },
- {
-  "id": "table-258",
-  "stage": "plain-cells"
- },
- {
-  "id": "table-260",
-  "stage": "plain-cells"
  },
  {
   "id": "table-272",
@@ -97,18 +77,6 @@
  },
  {
   "id": "table-28",
-  "stage": "tabular-only"
- },
- {
-  "id": "table-29",
-  "stage": "table-with-defs"
- },
- {
-  "id": "table-59",
-  "stage": "plain-cells"
- },
- {
-  "id": "table-81",
   "stage": "tabular-only"
  }
 ]

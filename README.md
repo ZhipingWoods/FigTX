@@ -1,7 +1,7 @@
 <p align="center"><img src="docs/assets/logo.svg" width="420" alt="FigTX"></p>
 
 <p align="center"><b>写论文时，把表和图调到「能投」，比想清楚结果还费时间。</b></p>
-<p align="center">FigTX 是一个开源的论文图表样式库：<b>234 个可直接复用的表格与图样式</b>，<br>每个都能看到真实渲染效果、复制走完整代码。</p>
+<p align="center">FigTX 是一个开源的论文图表样式库：<b>224 个可直接复用的表格与图样式</b>，<br>每个都能看到真实渲染效果、复制走完整代码。</p>
 
 <p align="center">
   <b>LaTeX 表格</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>期刊样式</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>动机图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>实验图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>论文图复刻</b>
@@ -13,12 +13,10 @@
   <a href="docs/wiki/"><img height="28" alt="文档" src="https://img.shields.io/badge/%E6%96%87%E6%A1%A3-Wiki-0975ce?style=for-the-badge"></a>
 </p>
 
-<p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 216」「图 70」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、caption、会议标签和配色色块"></a></p>
+<p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 189」「图 35」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、caption、会议标签和配色色块"></a></p>
 
-- **表格 216 个，185 个已用 tectonic 重新编译出真实渲染图。** 不是截图，是把源码跑一遍得到的干净结果。
-- **表格 199 个**：全部有真实渲染预览，可直接复制 LaTeX。
-- **每个条目有稳定编号**：表格 `T001`–`T199`、图 `F001`–`F043`。编号保存在 `data/catalog.json`，
-  增删条目**不会重排**（归档和引用不会失效）。
+- **表格 189 个**：全部用 tectonic 重新编译出真实渲染图，可直接复制 LaTeX。不是截图，是把源码跑一遍得到的干净结果。
+- **每个条目有编号**：表格 `T001`–`T189`、图 `F001`–`F035`，保存在 `data/catalog.json`。
 - **图 35 个**：期刊样式 9、动机图 8、实验定量 10、结果对比 2、效率/权衡类 4、架构/机制 2。另含 **10 张按真实论文逐项复刻的图**（可下载 SVG/PPTX/PDF 可编辑矢量文件）。
 
 ### 编号与定位
@@ -27,7 +25,7 @@
 
 | 类型 | 编号范围 | 排序依据 |
 |---|---|---|
-| 表格 | `T001` – `T199` | 按源 docx 编号升序（自然的归档顺序） |
+| 表格 | `T001` – `T189` | 按源 docx 编号升序（自然的归档顺序） |
 | 图 | `F001` – `F035` | 10 张论文复刻排最前（F001–F010），其后期刊样式 → 动机 → 定量 → 结果 |
 
 **三种用法**：
@@ -38,8 +36,12 @@
 卡片左上角： 徽章直接显示编号
 ```
 
-编号存在 [`data/catalog.json`](data/catalog.json)，**增删条目不会重排** —— 已经分享出去的链接、
-论文里的引用表号都不会失效。重新分配：`python3 tools/assign_numbers.py`。
+编号存在 [`data/catalog.json`](data/catalog.json)。
+
+- **默认增量分配**（`python3 tools/assign_numbers.py`）：只给新条目编号，已有编号不动 —— 适合内容稳定后使用。
+- **强制重排**（`--renumber`）：删条目后消除编号空洞，保持 `T001`–`T189` 连续 —— 适合整理筛选阶段使用。
+
+> ⚠️ 重排会让旧链接失效。库里内容定型后就不再重排，改用增量分配。
 - **一个桌面 app 走完全程。** macOS / Windows / Linux 原生包，或直接用网页版，全部离线可用。
 
 ---
@@ -48,7 +50,7 @@
 
 ### 表格：复制走就能用，不用再对像素
 
-三线表、分组表头、整行底色、最优值高亮、跨行合并、全页宽表——216 个从公开论文里挑出来的 LaTeX 表格。
+三线表、分组表头、整行底色、最优值高亮、跨行合并、全页宽表——189 个从公开论文里挑出来的 LaTeX 表格。
 每个都带**真实渲染图**（源码跑一遍的结果，不是截图）、**完整源码**、**配色板**和**会议标签**（CVPR 70 / ICLR 26 / ACL 24 …）。
 
 <p align="center"><a href="docs/assets/shot-detail.webp"><img src="docs/assets/shot-detail.webp" width="900" alt="详情面板：左侧是 LaTeX 渲染图，右侧是 caption、会议标签、配色色块和带语法高亮的源码，底部有「复制」「下载 .tex」按钮"></a></p>
