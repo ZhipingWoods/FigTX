@@ -1,10 +1,10 @@
 <p align="center"><img src="docs/assets/logo.svg" width="420" alt="FigTX"></p>
 
 <p align="center"><b>写论文时，把表和图调到「能投」，比想清楚结果还费时间。</b></p>
-<p align="center">FigTX 是一个开源的论文图表样式库：<b>286 个可直接复用的表格与图样式</b>，<br>每个都能看到真实渲染效果、复制走完整代码。</p>
+<p align="center">FigTX 是一个开源的论文图表样式库：<b>259 个可直接复用的表格与图样式</b>，<br>每个都能看到真实渲染效果、复制走完整代码。</p>
 
 <p align="center">
-  <b>LaTeX 表格</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>框架图 / 动机图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>实验图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>论文图复刻</b>
+  <b>LaTeX 表格</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>期刊样式</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>动机图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>实验图</b>&nbsp;&nbsp;·&nbsp;&nbsp;<b>论文图复刻</b>
 </p>
 
 <p align="center">
@@ -16,7 +16,7 @@
 <p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 216」「图 70」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、caption、会议标签和配色色块"></a></p>
 
 - **表格 216 个，185 个已用 tectonic 重新编译出真实渲染图。** 不是截图，是把源码跑一遍得到的干净结果。
-- **图 70 个，分四类：框架图 12、动机图 8、实验定量 10、实验定性 8。** 另含 10 张按真实论文逐项复刻的图。
+- **图 43 个**：期刊样式 9、动机图 8、实验定量 10、实验定性 8、效率/权衡类 8。另含 **10 张按真实论文逐项复刻的图**（可下载 SVG/PPTX/PDF 可编辑矢量文件）。
 - **一个桌面 app 走完全程。** macOS / Windows / Linux 原生包，或直接用网页版，全部离线可用。
 
 ---
