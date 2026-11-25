@@ -1,0 +1,97 @@
+\definecolor{red}{RGB}{255,0,0}
+\definecolor{blue}{RGB}{0,0,255}
+\definecolor{light-green}{RGB}{220, 255, 220}
+\definecolor{light-blue}{cmyk}{0.1, 0, 0, 0}
+\providecommand{\cite}[1]{}
+\providecommand{\citet}[1]{}
+\providecommand{\citep}[1]{}
+\providecommand{\citeyear}[1]{}
+\providecommand{\citeauthor}[1]{}
+\providecommand{\citealp}[1]{}
+\providecommand{\citealt}[1]{}
+\providecommand{\ref}[1]{}
+\providecolor{darkgreen}{rgb}{0,0.5,0}
+\providecolor{darkred}{rgb}{0.55,0,0}
+\providecolor{darkblue}{rgb}{0,0,0.55}
+\providecolor{lightblue}{rgb}{0.68,0.85,0.9}
+\providecolor{lightgreen}{rgb}{0.86,1,0.86}
+\providecolor{lightgray}{rgb}{0.83,0.83,0.83}
+\providecolor{mygray}{rgb}{0.92,0.92,0.92}
+\providecolor{myfrozen}{rgb}{0.85,0.9,1}
+\newcolumntype{Y}{>{' + chr(92) + 'centering' + chr(92) + 'arraybackslash}p{1.2cm}}
+\newcolumntype{Z}{>{' + chr(92) + 'centering' + chr(92) + 'arraybackslash}p{1.5cm}}
+\newcolumntype{C}{>{' + chr(92) + 'centering' + chr(92) + 'arraybackslash}p{1.4cm}}
+\newcolumntype{L}{>{' + chr(92) + 'raggedright' + chr(92) + 'arraybackslash}p{2cm}}
+\newcolumntype{R}{>{' + chr(92) + 'raggedleft' + chr(92) + 'arraybackslash}p{1.6cm}}
+%%%%%%%
+\setlength{\tabcolsep}{6pt}
+
+\small
+
+
+\begin{tabular}{lccccccc}
+\toprule
+\multirow{2}{*}{\diagbox[height=5ex, width=9em]{\textbf{Method}}{\textbf{Bench.}}} &
+\multicolumn{2}{c}{\textbf{Hallucination}} &
+\multicolumn{2}{c}{\textbf{Math}} &
+\multicolumn{2}{c}{\textbf{General}} &
+\multirow{2}{*}{\textbf{Avg.}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& \textbf{\tiny MMVP} & \textbf{\tiny Hallusion} & \textbf{\tiny MathVista} & \textbf{\tiny MathVision} & \textbf{\tiny MMStar} & \textbf{\tiny MME-RW} &\\
+\midrule
+Base Model & 70.0 & 53.1 & 68.4 & 24.0 & 61.8 & 55.9 & 55.5 \\ \addlinespace[5pt]
+VQA SFT &74.3\textcolor{blue}{\tiny(+4.3)} &54.2\textcolor{blue}{\tiny(+1.1)} & 65.4\textcolor{red}{\tiny(-3.0)} & 19.4\textcolor{red}{\tiny(-4.6)} & 59.7\textcolor{red}{\tiny(-2.1)} & 56.8\textcolor{blue}{\tiny(+0.9)}  &55.0\textcolor{red}{\tiny(-0.5)} \\
+\midrule
+\multicolumn{7}{l}{\textit{Self-Improving Approaches}} \\ \addlinespace[1pt]
+\midrule
+STaR(\citeyear{NEURIPS2022_639a9a17})& 73.0\textcolor{blue}{\tiny(+3.0)} & \cellcolor{light-blue}\underline{55.9\textcolor{blue}{\tiny(+2.8)}} & 66.9\textcolor{red}{\tiny(-1.5)} & 19.8\textcolor{red}{\tiny(-4.2)} & 58.9\textcolor{red}{\tiny(-2.9)} &\cellcolor{light-blue}\underline{58.1\textcolor{blue}{\tiny(+2.2)}}& 55.4\textcolor{red}{\tiny(-0.1)}\\ \addlinespace[5pt]
+Verifier(\citeyear{lu2024autopsv}) & 73.7\textcolor{blue}{\tiny(+3.7)} & 53.2\textcolor{blue}{\tiny(+0.1)} & 67.0\textcolor{red}{\tiny(-1.4)} & 20.3\textcolor{red}{\tiny(-3.7)} & 58.2\textcolor{red}{\tiny(-3.6)} &56.7\textcolor{blue}{\tiny(+0.8)} & 54.9\textcolor{red}{\tiny(-0.6)}\\ \addlinespace[5pt]
+Feedback(\citeyear{qu2024recursive})& \cellcolor{light-blue}\underline{75.0\textcolor{blue}{\tiny(+5.0)}} & 53.4\textcolor{blue}{\tiny(+0.3)} & 68.8\textcolor{blue}{\tiny(+0.4)} & 22.1\textcolor{red}{\tiny(-1.9)} & \cellcolor{light-blue}\underline{63.2\textcolor{blue}{\tiny(+1.4)}} & 56.0\textcolor{blue}{\tiny(+0.1)} & 56.4\textcolor{blue}{\tiny(+0.9)}\\
+\midrule
+\multicolumn{7}{l}{\textit{Off-the-Shelf Visual Reasoning Datasets}} \\ \addlinespace[1pt]
+\midrule
+Virgo(\citeyear{du2025virgopreliminaryexplorationreproducing})& 68.0\textcolor{red}{\tiny(-2.0)} & 47.2\textcolor{red}{\tiny(-5.9)} & 63.5\textcolor{red}{\tiny(-4.9)} & 21.5\textcolor{red}{\tiny(-2.5)} & 59.7\textcolor{red} {\tiny(-2.1)} & 29.4\textcolor{red}{\tiny(-26.5)} & 48.2\textcolor{red}{\tiny(-7.3)}\\ \addlinespace[5pt]
+LLaVA-CoT(\citeyear{xu2024llava})& 71.7\textcolor{blue}{\tiny(+1.7)} & 50.3\textcolor{red}{\tiny(-2.8)} & 68.4\textcolor{blue}{\tiny(+0.0)} & 24.4\textcolor{blue}{\tiny(+0.4)} & 63.1\textcolor{blue}{\tiny(+1.3)} & \cellcolor{light-green}\textbf{59.3\textcolor{blue}{\tiny(+3.4)}} & 56.2\textcolor{blue}{\tiny(+0.7)}\\ \addlinespace[5pt]
+R1-OV(\citeyear{yang2025r1onevisionadvancinggeneralizedmultimodal})& 68.0\textcolor{red}{\tiny(-2.0)} & 55.8\textcolor{blue}{\tiny(+2.7)} & 68.2\textcolor{red}{\tiny(-0.2)} & \cellcolor{light-green}\textbf{25.4\textcolor{blue}{\tiny(+1.4)}} & 53.2\textcolor{red}{\tiny(-8.6)} & 46.3\textcolor{red}{\tiny(-9.6)} & 52.8\textcolor{red}{\tiny(-2.7)}\\ \addlinespace[5pt]
+LPT(\citeyear{liao2025longperceptualthoughts})& 74.0\textcolor{blue}{\tiny(+4.0)} & 53.4\textcolor{blue}{\tiny(+0.3)} & \cellcolor{light-blue}\underline{69.2\textcolor{blue}{\tiny(+0.8)}} & 24.2\textcolor{blue}{\tiny(+0.2)} & \cellcolor{light-green}\textbf{64.3\textcolor{blue}{\tiny(+2.5)}}  & 56.1\textcolor{blue}{\tiny(+0.2)} & \cellcolor{light-blue}\underline{56.9\textcolor{blue}{\tiny(+1.4)}}\\
+\midrule
+VC-STaR(Ours)& \cellcolor{light-green}\textbf{75.7\textcolor{blue}{\tiny(+5.7)}} & \cellcolor{light-green}\textbf{56.3\textcolor{blue}{\tiny(+3.2)}} & \cellcolor{light-green}\textbf{69.7\textcolor{blue}{\tiny(+1.3)}} & \cellcolor{light-blue}\underline{25.3\textcolor{blue}{\tiny(+1.3)}} & 62.4\textcolor{blue}{\tiny(+0.6)} &\cellcolor{light-green}\textbf{59.3\textcolor{blue}{\tiny(+3.4)}} & \cellcolor{light-green}\textbf{58.1\textcolor{blue}{\tiny(+2.6)}}\\
+\bottomrule
+\end{tabular}
+% \vspace{-4pt}
+  
+  \setlength{\tabcolsep}{1pt}
+  \begin{minipage}[t]{0.55\textwidth}
+    
+    \small
+    
+    
+    \begin{tabular}{c|c|ccc}
+    \toprule
+    \textbf{Model}&\textbf{VC-STaR} &\textbf{Hallusion} &\textbf{MathVision} &\textbf{MMStar}\\
+    \midrule
+    Qwen$2.5$VL & \ding{56} & 46.9 & 18.4 & 55.0 \\ \addlinespace[3pt]
+    $3$B& \ding{52} & 53.2\textcolor{blue}{\tiny(+6.3)} & 21.9\textcolor{blue}{\tiny(+3.5)} & 55.7\textcolor{blue}{\tiny(+0.7)}\\
+    \midrule
+    InternVL$2.5$ & \ding{56} & 48.2 & 21.3 & 61.1 \\ \addlinespace[3pt]
+    $8$B& \ding{52} & 55.4\textcolor{blue}{\tiny(+7.2)} & 23.4\textcolor{blue}{\tiny(+2.1)} & 62.5\textcolor{blue}{\tiny(+1.4)}\\
+    \bottomrule
+    \end{tabular}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.42\textwidth}
+    
+    \small
+    {Effect of the easy samples adding to VisCoR-$55$K. \textcolor{red}{Red} numbers in parentheses represent performance \textcolor{red}{drops}.}
+    
+    \begin{tabular}{c|ccc}
+    \toprule
+    \textbf{$N_{easy}$} &\textbf{Hallusion} &\textbf{MathVision} &\textbf{MMStar}\\
+    \midrule
+    0k &56.3 &25.3 &62.4 \\ \addlinespace[8pt]
+    +20k &52.2\textcolor{red}{\tiny(-4.1)} &23.3\textcolor{red}{\tiny(-2.0)} &61.3\textcolor{red}{\tiny(-1.1)}\\ \addlinespace[8pt]
+    +40k &55.7\textcolor{red}{\tiny(-0.6)} &21.9\textcolor{red}{\tiny(-3.4)} &59.5\textcolor{red}{\tiny(-2.9)} \\
+    \bottomrule
+    \end{tabular}
+  \end{minipage}
+  % \vspace{-4pt}

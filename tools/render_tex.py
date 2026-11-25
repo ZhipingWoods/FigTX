@@ -292,10 +292,18 @@ def compile_once(item: dict, workdir: str, texbin: str, use_graphic_fallback: bo
         suffix = ""
     else:
         body = prepare_body(raw, use_graphic_fallback)
+        # 通用预处理：px 单位 / 裸 p 列宽 / sethlcolor / xcolor 选项
+        _pre = []
+        if _LR is not None:
+            try:
+                body, _pre = _LR.handfix(body)
+            except Exception:
+                _pre = []
         # 片段自带 \begin{document} / \end{document} 要去掉：
         # 前导里已经有一对，再来一次就是双重 document（table-262 就是这么挂的）
         body = body.replace("\\begin{document}", "").replace("\\end{document}", "")
-        prefix = PREAMBLE + "\n".join(extra_defs) + "\n"
+        prefix = (PREAMBLE + "\n".join(extra_defs) + "\n"
+                  + ("\n".join(_pre) + "\n" if _pre else ""))
         # 片段里用到但没定义的列类型（C{1.4cm} 之类）→ \newcolumntype 放导言区
         if _LR is not None:
             try:
@@ -564,6 +572,15 @@ def compile_with_repair(item: dict, workdir: str, texbin: str):
     if ok:
         return True, info, "nonstop"
 
+    # 先试严格迭代修复（自动补未定义宏/颜色/环境），比降级保真得多
+    try:
+        _ok, _info, _defs, _cand = strict_repair(item, workdir, texbin)
+        if _ok:
+            print("[strict] %s 严格修复成功（补 %d 条定义）" % (item.get("id"), len(_defs)), file=sys.stderr)
+            return True, _info, "strict-repair"
+    except Exception:
+        pass
+
     # 三级降级：剥离自定义宏 → 只留 tabular → 纯文本单元格
     if _LR is not None:
         _stages = _LR.salvage(item["latex"])
@@ -663,6 +680,18 @@ def main() -> int:
         return 2
 
     items = json.load(open(args.items, encoding="utf-8"))
+    # 手工修复覆盖：data/latex-fixed/<id>.tex 存在时优先使用
+    ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _fixdir = os.path.join(ROOT, 'data', 'latex-fixed')
+    if os.path.isdir(_fixdir):
+        _n = 0
+        for _it in items:
+            _fp = os.path.join(_fixdir, _it['id'] + '.tex')
+            if os.path.exists(_fp):
+                _it['latex'] = open(_fp, encoding='utf-8').read()
+                _n += 1
+        if _n:
+            print('手工修复覆盖: %d 张' % _n)
     if args.only:
         want = set(args.only.split(","))
         items = [i for i in items if i["id"] in want]
@@ -729,3 +758,61 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+
+def strict_repair(item, workdir, texbin, max_rounds=8):
+    # 迭代严格编译：每轮从 LaTeX 日志里抓未定义宏/颜色/环境并自动补定义，
+    # 直到严格编译通过（不使用 nonstop，避免产出残次 PDF）。
+    # 返回 (ok, pdf_or_log, defs, body)
+    if _LR is None:
+        return False, '', [], None
+    raw = item['latex']
+    # 注意：这里用**原始** latex，不要过 prepare_body（它会给正文套包装，
+    # 实测会让 strict 修复失效，一直掉到 plain-cells）
+    body0 = raw
+    body0 = body0.replace('\begin{document}', '').replace('\end{document}', '')
+    try:
+        body, pre = _LR.handfix(body0)
+    except Exception:
+        body, pre = body0, []
+    # pre 是必须放导言区的命令（\PassOptionsToPackage），不能混进正文，
+    # 否则报 Can be used only in preamble。defs 只放正文里可用的定义。
+    defs = []
+    logtxt = ''
+    for _ in range(max_rounds):
+        cand = (chr(10).join(defs) + chr(10) + body) if defs else body
+        ok, info, log = _compile_raw(item, workdir, texbin, cand, pre)
+        if ok:
+            return True, info, defs, cand
+        lg = os.path.join(workdir, 'main.log')
+        logtxt = open(lg, encoding='utf-8', errors='replace').read() if os.path.exists(lg) else log
+        new = ((_LR.autofill_macros2(logtxt) if hasattr(_LR,"autofill_macros2") else _LR.autofill_macros(logtxt)) + _LR.autofill_colors(logtxt, cand)
+               + _LR.autofill_envs(logtxt))
+        new = [x for x in new if x not in defs]
+        if not new:
+            break
+        defs += new[:8]
+    return False, logtxt, defs, None
+
+
+
+def _compile_raw(item, workdir, texbin, body, pre=None):
+    # 直接用 PREAMBLE + body 编译，不走 prepare_body（避免二次加工）。
+    src = os.path.join(workdir, 'main.tex')
+    # pre 里的 \PassOptionsToPackage 必须在宏包加载之前！
+    # 所以放在 PREAMBLE 最前面（PREAMBLE 第一行就是 \documentclass）。
+    if pre:
+        _pc = chr(10).join(pre) + chr(10)
+        head = PREAMBLE.replace(chr(10) + chr(92) + 'documentclass',
+                                 _pc + chr(92) + 'documentclass', 1)
+    else:
+        head = PREAMBLE
+    with open(src, 'w', encoding='utf-8') as fh:
+        fh.write(head + body + chr(10) + EPILOGUE)
+    proc = subprocess.run([texbin, 'main.tex', '--outdir', workdir, '--keep-logs'],
+                          cwd=workdir, capture_output=True, text=True, timeout=300)
+    pdf = os.path.join(workdir, 'main.pdf')
+    log = (proc.stderr or '') + (proc.stdout or '')
+    return os.path.exists(pdf), (pdf if os.path.exists(pdf) else log), log
+

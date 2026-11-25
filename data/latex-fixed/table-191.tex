@@ -1,0 +1,89 @@
+\definecolor{red}{rgb}{0.8,0,0}
+\definecolor{green}{RGB}{0, 133, 21}
+\definecolor{grey}{rgb}{0.5,0.5,0.5}
+\definecolor{w_1}{RGB}{52,204,204}
+\definecolor{w_2}{RGB}{70,203,187}
+\definecolor{w_3}{RGB}{95,202,161}
+\definecolor{w_4}{RGB}{119,200,136}
+\definecolor{w_5}{RGB}{155,199,101}
+\definecolor{w_6}{RGB}{185,197,70}
+\definecolor{w_7}{RGB}{227,194,28}
+\definecolor{w_8}{RGB}{243,193,12}
+\definecolor{w_9}{RGB}{255,192,0}
+\definecolor{w_blue}{RGB}{52,204,204}
+\definecolor{w_yellow}{RGB}{255,192,0}
+\providecommand{\cite}[1]{}
+\providecommand{\citet}[1]{}
+\providecommand{\citep}[1]{}
+\providecommand{\citeyear}[1]{}
+\providecommand{\citeauthor}[1]{}
+\providecommand{\citealp}[1]{}
+\providecommand{\citealt}[1]{}
+\providecommand{\ref}[1]{}
+%%%%%%%
+\begin{wraptable}{r}{0.6\textwidth}
+    
+    
+    
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{r|r|cccc}
+        \toprule
+        & & \multicolumn{4}{c}{\cellcolor{w_yellow!24}\textbf{~Aspect: Downstream Task}}
+        \\
+        \multirow{2.2}{*}{\textbf{Model}} & \multirow{2.2}{*}{\textbf{Venue}} & Map & 3D Obj. & 3D Obj. & Occ.
+        \\
+        & & ~Seg.$\uparrow$ & ~Det.$\uparrow$ & ~Trk.$\uparrow$ & ~Pred.$\uparrow$
+        \\
+        & & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~D.1~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~D.2~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~D.3~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~D.4~}}}}}}}}}
+        \\
+        \midrule
+        MagicDrive \cite{gao2023magicdrive} & {\small ICLR'23} & $18.34\%$ & $22.41\%$ & $7.90\%$ & $23.14\%$
+        \\
+        DreamForge \cite{mei2024dreamforge} & {\small arXiv'24} & $30.31\%$ & $26.71\%$ & $10.30\%$ & $23.71\%$
+        \\
+        DriveDreamer-2 \cite{zhao2024drivedreamer-2} & {\small AAAI'25} & \underline{$33.62\%$} & \underline{$30.90\%$} & \underline{$13.30\%$} & \cellcolor{w_yellow!20}$\mathbf{26.82\%}$
+        \\
+        OpenDWM \cite{opendwm} & {\small CVPR'25} & $27.63\%$ & $21.96\%$ & $6.90\%$ & $24.82\%$
+        \\
+        DiST-4D \cite{guo2025dist-4d} & {\small ICCV'25} & \cellcolor{w_yellow!20}$\mathbf{35.55\%}$ & \cellcolor{w_yellow!20}$\mathbf{33.22}\%$ & \cellcolor{w_yellow!20}$\mathbf{15.30}\%$ & \underline{$26.10\%$}
+        \\
+        $\mathcal{X}$-Scene \cite{yang2025x-scene} & {\small NeurIPS'25} & $27.24\%$ & $29.89\%$ & $8.80\%$ & $23.68\%$
+        \\
+        \midrule
+        \rowcolor{gray!7}\textcolor{gray}{Empirical Max} & \textcolor{gray}{-} & \textcolor{gray}{$40.64\%$} & \textcolor{gray}{$44.72\%$} & \textcolor{gray}{$36.30\%$} & \textcolor{gray}{$37.05\%$}
+        \\
+        \bottomrule
+    \end{tabular}}
+\end{wraptable}
+    
+    
+    
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{r|r|cccccccc|cccc}
+        \toprule
+        & & \multicolumn{8}{c|}{\cellcolor{w_blue!24}\textbf{~Aspect: Generation}} & \multicolumn{4}{c}{\cellcolor{w_yellow!24}\textbf{~Aspect: Reconstruction}}
+        \\
+        \multirow{2.2}{*}{\textbf{Model}} & \multirow{2.2}{*}{\textbf{Venue}} & Subject & Subject & Subject & Depth & Temp. & Sem. & Percept. & View & Photo. & Geo. & Novel & Novel
+        \\
+        & & ~Fid.$\uparrow$ & ~Cohe.$\uparrow$ & ~Cons.$\uparrow$ & ~Disc.$\downarrow$ & ~Cons.$\uparrow$ & ~Cons.$\uparrow$ & ~Disc.$\downarrow$ & ~Cons.$\uparrow$ & ~Error$\downarrow$ & ~Disc.$\downarrow$ & ~Qual.$\uparrow$ & ~Disc.$\downarrow$
+        \\
+        & & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.1~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.2~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.3~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.4~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.5~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.6~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.7~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_blue}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~G.8~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~R.1~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~R.2~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~R.3~}}}}}}}}} & {{\raisebox{0.9pt}{\colorbox{w_yellow}{\scriptsize{\textbf{\textbf{\textsc{\textcolor{white}{~R.4~}}}}}}}}}
+        \\
+        \midrule
+        MagicDrive \cite{gao2023magicdrive} & {\small ICLR'23} & $28.49$ & $75.95$ & $65.22\%$ & $24.19$ & $74.44\%$ & $80.63\%$ & $222.00$ & $185.77$ & $0.140$ & $0.115$ & $39.82\%$ & $427.30$
+        \\
+        DreamForge \cite{mei2024dreamforge} & {\small arXiv'24} & \underline{$31.99$} & $75.12$ & \underline{$76.40\%$} & $19.27$ & \cellcolor{w_blue!20}$\mathbf{79.82\%}$ & \underline{$84.99\%$} & $189.76$ & $194.99$ & $0.097$ & $0.105$ & $\underline{41.23\%}$ & $347.70$
+        \\
+        DriveDreamer-2 \cite{zhao2024drivedreamer-2} & {\small AAAI'25} & $27.38$ & $78.97$ & $74.49\%$ & \underline{$17.73$} & $79.51\%$ & \cellcolor{w_blue!20}$\mathbf{85.91\%}$ & $127.07$ & \underline{$302.83$} & $0.093$ & \cellcolor{w_yellow!20}$\mathbf{0.073}$ & $36.10\%$ & $\underline{259.91}$
+        \\
+        OpenDWM \cite{opendwm} & {\small CVPR'25} & \cellcolor{w_blue!20}$\mathbf{36.30}$ & \cellcolor{w_blue!20}$\mathbf{83.13}$ & \cellcolor{w_blue!20}$\mathbf{78.33\%}$ & $18.17$ & \underline{$79.63\%$} & $84.08\%$ & \underline{$90.42$} & $211.18$ & \cellcolor{w_yellow!20}$\mathbf{0.065}$ & $0.088$ & $39.54\%$ & $287.73$
+        \\
+        DiST-4D \cite{guo2025dist-4d} & {\small ICCV'25} & $30.32$ & \underline{$79.36$} & $74.69\%$ & \cellcolor{w_blue!20}$\mathbf{17.71}$ & $77.76\%$ & $84.32\%$ & \cellcolor{w_blue!20}$\mathbf{58.08}$ & \cellcolor{w_blue!20}$\mathbf{389.78}$ & $\underline{0.066}$ & $\underline{0.080}$ & \cellcolor{w_yellow!20}$\mathbf{43.09\%}$ & \cellcolor{w_yellow!20}$\mathbf{192.39}$
+        \\
+        $\mathcal{X}$-Scene \cite{yang2025x-scene} & {\small NeurIPS'25} & $27.17$ & $77.22$ & $74.37\%$ & $20.50$ & $79.41\%$ & $83.80\%$ & $179.74$ & $201.00$ & $0.098$ & $0.096$ & $38.04\%$ & $365.71$
+        \\
+        \midrule
+        \rowcolor{gray!7}\textcolor{gray}{Empirical Max} & \textcolor{gray}{-} & \textcolor{gray}{$60.22$} & \textcolor{gray}{$83.25$} & \textcolor{gray}{$93.66\%$} & \textcolor{gray}{$14.27$} & \textcolor{gray}{$93.24\%$} & \textcolor{gray}{$86.39\%$} & \textcolor{gray}{-} & \textcolor{gray}{$570.75$} & \textcolor{gray}{0.056} & \textcolor{gray}{-} & \textcolor{gray}{$45.69\%$} & \textcolor{gray}{-}
+        \\
+        \bottomrule
+    \end{tabular}}

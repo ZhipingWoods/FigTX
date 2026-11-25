@@ -1,0 +1,220 @@
+\providecommand{\cite}[1]{}
+\providecommand{\citet}[1]{}
+\providecommand{\citep}[1]{}
+\providecommand{\citeyear}[1]{}
+\providecommand{\citeauthor}[1]{}
+\providecommand{\citealp}[1]{}
+\providecommand{\citealt}[1]{}
+\providecommand{\ref}[1]{}
+\providecommand{\warnmetric}{}
+\resizebox{0.95\textwidth}{!}{
+  \begin{tabular}{ccccccccccccc}
+    \toprule
+\multirow {2}{*}{\textbf{Method}}
+& \multicolumn{6}{c}{\textbf{CIFAR-100}}
+& \multicolumn{6}{c}{\textbf{Tiny ImageNet}} \\
+\cmidrule(r){2-7}  \cmidrule(r){8-13}
+% & RA& FA & TA& \textbf{Avg. Gap}$\downarrow$ &MIA & RTE
+% & RA&FA & TA&  \textbf{Avg. Gap}$\downarrow$ & MIA & RTE\\
+& \textbf{RA} & \textbf{FA} & \textbf{TA} & \textbf{Avg. Gap}$\downarrow$ & \textbf{MIA} & \textbf{RTE}
+& \textbf{RA} & \textbf{FA} & \textbf{TA} & \textbf{Avg. Gap}$\downarrow$ & \textbf{MIA} & \textbf{RTE}\\
+\midrule
+Pretrain
+& 76.41
+& 79.69
+& 76.47
+& 26.84
+& 95.80
+& 10880
+& 65.85
+& 62.00
+& 65.50
+& 21.03
+& 93.59
+& 13600
+\\
+Retrain
+& 76.52\textsubscript{\textpm0.27}
+& 0.00\textsubscript{\textpm0.00}
+& 75.76\textsubscript{\textpm0.24}
+& 0.00
+& 2.87\textsubscript{\textpm0.46}
+& 7432
+& 65.36\textsubscript{\textpm0.03}
+& 0.00\textsubscript{\textpm0.03}
+& 64.90\textsubscript{\textpm0.03}
+& 0.00
+& 4.80\textsubscript{\textpm0.04}
+& 10367
+\\
+\midrule
+
+BT
+& 76.67\textsubscript{\textpm0.03}
+& 0.00\textsubscript{\textpm0.00}
+& 76.02\textsubscript{\textpm0.03}
+& 0.14
+& 0.00\textsubscript{\textpm0.00}
+& 32
+& 64.90\textsubscript{\textpm0.01}
+& 0.00\textsubscript{\textpm0.00}
+& 64.53\textsubscript{\textpm0.01}
+& 0.28
+& 0.00\textsubscript{\textpm0.00}
+& 240
+\\
+FT
+& 76.67\textsubscript{\textpm0.21}
+& 0.28\textsubscript{\textpm0.62}
+& 75.88\textsubscript{\textpm0.22}
+& 0.19
+& 0.28\textsubscript{\textpm0.00}
+& 250
+& 64.16\textsubscript{\textpm0.26}
+& 0.00\textsubscript{\textpm0.00}
+& 63.87\textsubscript{\textpm0.22}
+& 0.74
+& 4.40\textsubscript{\textpm0.58}
+& 262
+\\
+SCRUB
+& 76.81\textsubscript{\textpm0.04}
+& 0.00\textsubscript{\textpm0.00}
+& 76.02\textsubscript{\textpm0.04}
+& 0.18
+& 5.57\textsubscript{\textpm0.34}
+& 124
+& 65.06\textsubscript{\textpm0.04}
+& 0.00\textsubscript{\textpm0.00}
+& 64.69\textsubscript{\textpm0.03}
+& 0.17
+& 14.60\textsubscript{\textpm0.52}
+& 860
+\\
+SSD
+& 76.27\textsubscript{\textpm0.00}
+& 0.00\textsubscript{\textpm0.00}
+& 75.49\textsubscript{\textpm0.00}
+& 0.17
+& 0.00\textsubscript{\textpm0.00}
+& 26
+& 65.58\textsubscript{\textpm0.00}
+& 0.00\textsubscript{\textpm0.00}
+& 65.19\textsubscript{\textpm0.00}
+& 0.17
+& 0.00\textsubscript{\textpm0.00}
+& 59
+\\
+DUCK
+& 75.82\textsubscript{\textpm0.18}
+& 0.20\textsubscript{\textpm0.45}
+& 75.13\textsubscript{\textpm0.17}
+& 0.51
+& 0.00\textsubscript{\textpm0.00}
+& 100
+& 64.97\textsubscript{\textpm0.14}
+& 0.00\textsubscript{\textpm0.00}
+& 64.61\textsubscript{\textpm0.14}
+& 0.23
+& 2.60\textsubscript{\textpm 0.46}
+& 55
+\\
+SalUn
+& 76.63\textsubscript{\textpm0.03}
+& 1.20\textsubscript{\textpm0.45}
+& 75.85\textsubscript{\textpm0.03}
+& 0.47
+& 0.00\textsubscript{\textpm0.00}
+& 254
+& 65.21\textsubscript{\textpm0.10}
+& 0.00\textsubscript{\textpm0.00}
+& 64.88\textsubscript{\textpm0.10}
+& \textbf{0.06}
+& 4.40\textsubscript{\textpm0.40}
+& 2630
+\\
+MUNBa & 74.09\textsubscript{\textpm0.11} & 0.00\textsubscript{\textpm0.00} & 73.40\textsubscript{\textpm0.12} & 1.60  & 9.30\textsubscript{\textpm0.18} &
+217 &
+64.22\textsubscript{\textpm0.14} & 0.00\textsubscript{\textpm0.00} & 63.88\textsubscript{\textpm0.15} & 0.72 & 7.80\textsubscript{\textpm0.16}&
+897
+\\
+LoTus & 76.48\textsubscript{\textpm0.08} & \warnmetric{5.00\textsubscript{\textpm0.02}} & 75.87\textsubscript{\textpm0.08} & 1.72  & 0.00\textsubscript{\textpm0.00} &
+140 &
+65.02\textsubscript{\textpm0.10} & 0.00\textsubscript{\textpm0.00} & 64.65\textsubscript{\textpm0.11} & 0.20\textsubscript  & 0.00\textsubscript{\textpm0.00} &
+182
+\\
+\midrule
+NG
+& \warnmetric{69.76\textsubscript{\textpm0.01}}
+& 0.00\textsubscript{\textpm0.00}
+& \warnmetric{69.23\textsubscript{\textpm0.01}}
+& 4.43
+& 0.00\textsubscript{\textpm0.00}
+& 2
+& \warnmetric{59.62\textsubscript{\textpm0.00}}
+& 0.00\textsubscript{\textpm0.00}
+& \warnmetric{59.26\textsubscript{\textpm0.00}}
+& 3.79
+& 1.80\textsubscript{\textpm0.00}
+& 3
+\\
+RL
+& \warnmetric{65.98\textsubscript{\textpm0.12}}
+& \warnmetric{5.22\textsubscript{\textpm0.45}}
+& \warnmetric{65.52\textsubscript{\textpm0.11}}
+& \warnmetric{8.66}
+& 0.00\textsubscript{\textpm0.00}
+& 12
+& \warnmetric{53.41\textsubscript{\textpm0.00}}
+& 0.00\textsubscript{\textpm0.00}
+& \warnmetric{53.04\textsubscript{\textpm0.01}}
+& \warnmetric{7.94}
+& 2.00\textsubscript{\textpm0.00}
+& 10
+\\
+SCAR
+& \warnmetric{71.33\textsubscript{\textpm0.12}}
+& \warnmetric{5.61\textsubscript{\textpm0.89}}
+& \warnmetric{70.66\textsubscript{\textpm0.14}}
+& \warnmetric{5.29}
+& 13.28\textsubscript{\textpm0.67}
+& 367
+& \warnmetric{59.98\textsubscript{\textpm0.06}}
+& 0.00\textsubscript{\textpm0.00}
+& \warnmetric{59.62\textsubscript{\textpm0.06}}
+& 3.55
+& 0.67\textsubscript{\textpm0.12}
+& 1052
+\\
+JiT
+& \warnmetric{65.44\textsubscript{\textpm0.14}}
+& 3.00\textsubscript{\textpm0.76}
+& \warnmetric{64.87\textsubscript{\textpm0.13}}
+& \warnmetric{8.32}
+& 4.44\textsubscript{\textpm0.30}
+& 15
+& \warnmetric{53.82\textsubscript{\textpm0.09}}
+& 0.00\textsubscript{\textpm0.00}
+& \warnmetric{53.16\textsubscript{\textpm0.08}}
+& \warnmetric{7.76}
+& 5.29\textsubscript{\textpm0.25}
+& 5
+\\
+% \rowcolor{gray!20}
+\rowcolor{cyan!10}
+MU-Mis
+& 76.42\textsubscript{\textpm0.07}
+& 0.00\textsubscript{\textpm0.00}
+& 75.64\textsubscript{\textpm0.07}
+& \textbf{0.07}
+& 0.00\textsubscript{\textpm0.00}
+& 30
+& 64.95\textsubscript{\textpm0.00}
+& 0.00\textsubscript{\textpm0.00}
+& 64.85\textsubscript{\textpm0.00}
+& 0.15
+& 0.20\textsubscript{\textpm0.00}
+& 83
+\\
+    \bottomrule
+\end{tabular}}

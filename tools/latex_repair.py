@@ -643,3 +643,172 @@ def salvage(tex: str) -> list[tuple[str, str]]:
     if pc2:
         stages.append(("plain-cells-doc", pc2))
     return stages
+
+def autofill_macros(log: str) -> list[str]:
+    r"""从 LaTeX 日志里提取未定义宏，生成 \providecommand 定义。
+
+    LaTeX 的报错格式：
+        ! Undefined control sequence.
+        <argument> ...ate-of-the-art result on \benchmark
+                                                      . \relax }
+        l.79 }
+    或：
+        ! Undefined control sequence.
+        l.42 \foo
+    从这两处抓 \word，返回去重后的定义列表。
+    """
+    names = set()
+    # <argument> ... \macro 形式（抓行尾最后一个命令）
+    # 注意：<argument> 后面可能整行都是内容（不换行），不能要求 \n 结尾
+    for m in re.finditer(r"<argument>([^\n]*)", log):
+        hits = re.findall(r"\\([A-Za-z@]{2,40})", m.group(1))
+        if hits:
+            names.add(hits[-1])
+        names.add(m.group(1))
+    # l.NN \macro 形式
+    for m in re.finditer(r"^l\.\d+\s*\\([A-Za-z@]{2,40})", log, flags=re.M):
+        names.add(m.group(1))
+    # LaTeX Error: Command \foo undefined
+    for m in re.finditer(r"Command \\\\([A-Za-z@]{2,40}) undefined", log):
+        names.add(m.group(1))
+    # 白名单：这些不能乱定义
+    skip = {"begin", "end", "documentclass", "usepackage", "item", "par",
+            "relax", "protect", "csname", "endcsname", "newline", "hline",
+            "multicolumn", "multirow", "caption", "label", "centering",
+            "toprule", "midrule", "bottomrule", "cmidrule", "makecell"}
+    out = []
+    for n in sorted(names):
+        if n.lower() in skip:
+            continue
+        out.append("\\providecommand{\\" + n + "}[1]{}")
+    return out
+
+
+
+def fix_colspec_p(tex: str) -> str:
+    # 列格式里的裸 p/m/b 补宽度：table-115/133 报 Illegal unit of measure
+    # 原因是 p 后面的 {1.2cm} 被 docx 抽取截断，LaTeX 把下一项当长度
+    out = tex
+    out = re.sub(r'(?<![A-Za-z\\])([pmb])(?=\s*[}|\\\n])', lambda m: m.group(1) + 'p{1.2cm}' if m.group(1)=='p' else m.group(1), out)
+    return out
+
+
+def autofill_colors(log: str, tex: str) -> list:
+    # 从日志抓未定义颜色名，生成 definecolor 兜底
+    names = set(re.findall(r"Undefined color[ `']+([A-Za-z0-9_-]+)", log))
+    if not names:
+        return []
+    have = set(re.findall(r'definecolor\{([^}]*)\}', tex))
+    out = []
+    for n in sorted(names - have):
+        out.append('definecolor{%s}{gray}{0.55}' % n)
+        out[-1] = chr(92)+out[-1]
+    return out
+
+
+def autofill_envs(log: str) -> list:
+    # 未定义环境 → 提供空定义
+    out = []
+    for m in re.finditer(r'Environment (\w+) undefined', log):
+        out.append('newenvironment{%s}{}{}' % m.group(1))
+        out[-1] = chr(92)+out[-1]
+    return out
+
+
+
+def fix_px_units(tex: str) -> str:
+    # px 不是 LaTeX 合法单位：table-115/133 的 \Xhline{1px} 报
+    # Illegal unit of measure (pt inserted)。换成 pt。
+    return re.sub(r'(\\[A-Za-z]*hline\*?\{[^}]*?)\d+px', r'\g<1>1pt', tex)
+
+
+
+def fix_hyphl(tex: str) -> str:
+    # soul 宏包的 \sethlcolor{light-blue}：连字符颜色名在 LaTeX 里非法，
+    # 报 Argument of \@textcolor has an extra }。直接去掉，\hl 会用默认色。
+    out = re.sub(r'\\sethlcolor\{[^}]*\}', '', tex)
+    # \hl 若带未知颜色参数也去掉
+    return out
+
+
+def pass_xcolor_options(tex: str) -> list:
+    # 片段用 \usepackage[dvipsnames,table]{xcolor} 加载了带选项的 xcolor，
+    # 而渲染前导已经加载过 → Option clash。
+    # 把这些选项用 \PassOptionsToPackage 在**前导最前面**声明，就不会冲突。
+    out = []
+    for m in re.finditer(r'\\usepackage\[([^]]*)\]\{xcolor\}', tex):
+        out.append('\\PassOptionsToPackage{' + m.group(1) + '}{xcolor}')
+    return out
+
+
+def handfix(tex: str):
+    # 统一预处理：一次修掉已知的通用问题。
+    # 返回 (正文, 需要放进前导区的命令列表)
+    out = tex
+    for fn in ("flatten_floats", "_drop_caption", "strip_float_leftovers", "sanitize_fragment", "fix_px_units", "fix_colspec_p", "fix_hyphl"):
+        f = globals().get(fn)
+        if f is None:
+            continue
+        try:
+            out = f(out)
+        except Exception:
+            pass
+    pre = []
+    f2 = globals().get("pass_xcolor_options")
+    if f2 is not None:
+        try:
+            pre = f2(out)
+        except Exception:
+            pre = []
+    return out, pre
+
+
+
+def flatten_floats(tex: str) -> str:
+    # preview 环境把内容包成盒子，浮动体（table*/table/figure）在里面非法：
+    #   ! LaTeX Error: Not in outer par mode.
+    # 渲染单张表不需要浮动，直接拍平只留内容。
+    out = tex
+    for env in ('table*', 'table', 'figure*', 'figure'):
+        out = out.replace('\\begin{' + env + '}', '')
+        out = out.replace('\\end{' + env + '}', '')
+    # 去掉浮动体的位置参数残留，如 ' [t]' 单独一行
+    out = re.sub(r'^[ \t]*\[[htbpH!]+\][ \t]*$', '', out, flags=re.M)
+    return out
+
+
+
+def strip_float_leftovers(tex: str) -> str:
+    # resizebox 是合法的，不剥（剥了开头会留下不配对的 }）
+    # 在文档顶层会报 “Can be used only in preamble” 之类的怪错。
+    out = re.sub(r'\\label\{[^}]*\}', '', tex)
+    out = re.sub(r'\\centering\b', '', out)
+    # 去掉最外层 resizebox{...}{!}{ 与配对的 } —— 交给 adjustbox 统一缩放
+    out = re.sub(r'\\resizebox\{[^}]*\}\{[^}]*\}\{', '{', out)
+    return out
+
+
+
+def autofill_macros2(log: str) -> list:
+    # 从 LaTeX 日志提取未定义宏，生成无参 providecommand。
+    # 注意：条目用无参形式（\providecommand{\x}{}），带 [1] 会让无参调用报错；
+    # 名字必须是纯字母，否则会生成 \providecommand{\ \benchmark } 这种畸形定义。
+    names = set()
+    for m in re.finditer(r'<argument>([^\n]*)', log):
+        hits = re.findall(r'\\([A-Za-z@]{2,40})', m.group(1))
+        if hits:
+            names.add(hits[-1])
+    for m in re.finditer(r'^l\.\d+\s*\\([A-Za-z@]{2,40})', log, flags=re.M):
+        names.add(m.group(1))
+    skip = {'begin','end','documentclass','usepackage','item','par','relax',
+            'protect','csname','endcsname','newline','hline','multicolumn',
+            'multirow','caption','label','centering','toprule','midrule',
+            'bottomrule','cmidrule','makecell','xhline','rowcolor'}
+    out = []
+    for n in sorted(names):
+        if n.lower() in skip:
+            continue
+        if not re.fullmatch(r'[A-Za-z]{2,40}', n):
+            continue
+        out.append('\\providecommand{\\' + n + '}{}')
+    return out

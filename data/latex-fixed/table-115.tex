@@ -1,0 +1,72 @@
+\providecommand{\cite}[1]{}
+\providecommand{\citet}[1]{}
+\providecommand{\citep}[1]{}
+\providecommand{\citeyear}[1]{}
+\providecommand{\citeauthor}[1]{}
+\providecommand{\citealp}[1]{}
+\providecommand{\citealt}[1]{}
+\providecommand{\ref}[1]{}
+%%%%%%%
+
+
+    
+    
+    
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l||c|c|c|c|c|c|c}
+    \Xhline{1pt}
+    %
+    \multirow{2}{*}{\textbf{Dataset}} & \multirow{2}{*}{\textbf{Year}} & \multicolumn{3}{c|}{\textbf{Deepfake Statistics}} & \multirow{2}{*}{\textbf{Generator Types}} & \multirow{2}{*}{\textbf{Languages}} & \multirow{2}{*}{\textbf{Access}} \\ \cline{3-5}
+     & & \textbf{\#utt} & \textbf{\#spk} & \textbf{\#gen} & & \\
+    \hline\hline
+    ASVspoof2015~\cite{wu2014asvspoof} & 2015 & 246,500 & 106 & 10 & TTS, VC & English & Public \\ % 2 TTS, 1 VC
+    FakeOrReal~\cite{reimao2019dataset} & 2019 & 87,285 & 33 & 7 & TTS & English & Public \\
+    ASVspoof2019-LA~\cite{nautsch2021asvspoof} & 2019 & 130,378 & 107 & 19 & TTS, VC & English & Public \\ % 11 TTS, 8 VC
+    WaveFake~\cite{frank2021wavefake} & 2021 & 117,985 & 2 & 6 & NV & English, Japanese & Public \\
+    ASVspoof2021-LA~\cite{yamagishi2021asvspoof} & 2021 & 148,148 & 67 & 13 & TTS, VC & English & Public \\ % 7 TTS, 6 VC
+    ASVspoof2021-DF~\cite{yamagishi2021asvspoof} & 2021 & 572,616 & 93 & 100+ & TTS, VC & English & Public \\ % 100+ TTS VC?
+    ADD2022~\cite{yi2022add} & 2022 & 389,419 & - & - & TTS, VC & Chinese & Public \\ % icassp22, 22.04
+    CFAD~\cite{ma2024cfad} & 2022 & 231,600 & 279 & 12 & TTS & Chinese & Public \\ % 2022.07
+    In-the-Wild~\cite{muller22does}& 2022 & 11,816 & 58 & - & - & English & Public \\
+    ADD2023~\cite{yi2024add} & 2023 & 273,847 & - & - & TTS, VC & Chinese & Public \\
+    HABLA~\cite{tamayoflorez2023habla} & 2023 & 58,000 & 162 & 6 & TTS, VC & Spanish & Public \\ % 1 TTS, 3 VC, 2TTS+VC
+    MLAAD~\cite{muller2024mlaad} & 2024 & 82,000 & - & 26 & TTS & 23 Languages & Public \\ % 2024.01
+    CD-ADD~\cite{li2024cross} & 2024 & 117,720 & - & 5 & TTS & Chinese & Public \\ % 2024.04
+    ASVspoof5~\cite{wang2024asvspoof} & 2024 & 1,211,186 & 1,922 & 32 & TTS, VC, AT$^\star$ & English & Public \\ % unsure speaker
+    VoiceWukong~\cite{yan2024voicewukong} & 2024 & 413,400 & - & 34 & TTS, VC & English, Chinese & Restricted \\ % 38 variants
+    DFADD~\cite{du2024dfadd} & 2024 & 163,500 & 109 & 5 & TTS & English & Public \\
+    CVoiceFake~\cite{li2024safeear} & 2024 & 1,254,893 & - & 6 & NV & 5 Languages & Public \\
+    SpoofCeleb~\cite{jung2025spoofceleb} & 2024 & 2,687,292 & 1,251 & 23 & TTS & English & Public \\
+    \hline
+    SpeechFake-BD & 2025 & 2,003,016 & 541 & 40 & TTS, VC, NV & English, Chinese & \multirow{2}{*}{Public} \\
+    SpeechFake-MD & 2025 & 1,335,492 & 179 & 6 & TTS, VC &  46 Languages &  \\
+    \Xhline{1pt}
+    \end{tabular}}
+    \begin{tablenotes}
+    \item\scriptsize $^\star$AT: Adversarial Attacks using Malafide~\cite{panariello2023malafide} or Malocopula~\cite{todisco2024malacopula}.
+    \end{tablenotes}
+
+
+
+
+
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{c|c|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}|p{1.2cm}<{}}
+% \Xhline{1pt}
+\Xhline{1pt}
+\multirow{2}{*}{\textbf{Train Data}} & \multirow{2}{*}{\textbf{Model}} & \multicolumn{3}{c|}{\textbf{Test Data (SpeechFake)}}  & \multicolumn{7}{c}{\textbf{Test Data (Others)}} \\ \cline{3-12}
+ & & BD & BD-EN & BD-CN & ASV19 & FOR & WF & CFAD & ITW & CDADD & ASV24 \\ \hline\hline
+\rowcolor{gray!15}ASV19 & \multirow{4}{*}{AASIST} & 39.36 & 41.05 & 39.07 & 1.88 & 36.08 & 21.17 & 43.95 & 45.27 & 49.53 & 41.89 \\
+BD & & \textbf{3.48} & \textbf{3.98} & \textbf{2.68} & \underline{23.62} & \textbf{23.35} & \textbf{4.30} & \underline{34.32} & \underline{7.53} & \textbf{22.52} & \underline{35.02}  \\
+BD-EN & & \underline{9.02} & \underline{6.17} & 12.00 & 30.65 & 28.99 & 8.54 & 43.39 & \textbf{6.96} & \underline{23.24} & 40.82 \\
+BD-CN & & 16.58 & 24.59 & \underline{5.43} & \textbf{16.56} & \underline{25.48} & \underline{5.88} & \textbf{32.34} & 8.54 & 39.75 & \textbf{34.39} \\
+\hline
+\rowcolor{gray!15}ASV19 & \multirow{4}{*}{W2V+AASIST}  &  23.78 & 20.15 & 24.93 & 0.89 & 6.18 & 3.48 & 20.53 & 10.07 & 8.55 & 1.41 \\
+BD & & \textbf{3.54} & \textbf{3.55} & \textbf{2.83} & \underline{2.91} & \underline{6.00} & \textbf{0.58} & \underline{12.39} & \textbf{2.01} & \textbf{2.42} & \textbf{0.71} \\
+BD-EN  & & \underline{8.65} & \underline{4.58} & 10.44 & 5.28 & 8.33 & 0.96 & 21.42 & \underline{2.62} & \underline{3.54} & \underline{0.71} \\
+BD-CN  & & 8.99 & 11.40 & \underline{4.51} & \textbf{0.99} & \textbf{4.88} & \underline{0.64} & \textbf{11.72} & 3.34 & 7.16 & 1.17 \\
+% \Xhline{1pt}
+\Xhline{1pt}
+\end{tabular}
+}

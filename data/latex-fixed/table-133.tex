@@ -1,0 +1,177 @@
+\definecolor{refred}{rgb}{0.21,0.49,0.74}
+\definecolor{myye}{RGB}{255,249,236}
+\definecolor{mygray}{RGB}{248,248,249}
+\providecommand{\cite}[1]{}
+\providecommand{\citet}[1]{}
+\providecommand{\citep}[1]{}
+\providecommand{\citeyear}[1]{}
+\providecommand{\citeauthor}[1]{}
+\providecommand{\citealp}[1]{}
+\providecommand{\citealt}[1]{}
+\providecommand{\ref}[1]{}
+%%%%%%%
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{c c | c c c c | c}
+    \Xhline{1pt}
+    \rowcolor{mygray} &  & \multicolumn{5}{c}{\textbf{CIFAR10} (keep $\rho=1.0$)} \\
+    \cline{3-7}
+    \rowcolor{mygray} \multirow{-1.8}{*}{TDCL} & \multirow{-1.8}{*}{NDCR}
+        & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID1}_{0.5}$ & $\mathtt{NID2}$ & AVG \\
+    \hline
+              &             & 78.27 & 84.65 & 86.11 & 72.60 & 80.41 \\
+    \ding{51} &             & 81.39 & 86.03 & 88.16 & 75.67 & 82.81 \\
+              & \ding{51}   & 80.35 & 86.40 & 87.54 & 75.33 & 82.40 \\
+    \rowcolor{myye} \ding{51} & \ding{51} & 83.14 & 88.27 & 89.31 & 76.45 & \textbf{84.29} \\
+    \hline\hline
+    \rowcolor{mygray} &  & \multicolumn{5}{c}{\textbf{CIFAR10-LT} (keep $\mathtt{NID1}_{0.2}$)} \\
+    \cline{3-7}
+    \rowcolor{mygray} \multirow{-1.8}{*}{TDCL} & \multirow{-1.8}{*}{NDCR}
+        & $\rho=10$ & $\rho=50$ & $\rho=100$ & $\rho=200$ & AVG \\
+    \hline\hline
+              &  & 75.94 & 63.25 & 52.97 & 49.69 & 60.46\\
+    \ding{51} &  & 76.62 & 64.66 & 53.62 & 50.33 & 61.31\\
+              & \ding{51} & 76.19 & 64.75 & 54.39 & 50.67 & 61.50\\
+    \rowcolor{myye} \ding{51} & \ding{51} & 77.58 & 65.30 & 55.01 & 51.12 & \textbf{62.25}\\
+    \Xhline{1pt}
+\end{tabular}}
+% \vspace{-3.36mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{l | c c c c | c c}
+    \Xhline{1pt}
+    \rowcolor{mygray} Scenarios & $L=1$ & $L=2$ & $L=3$ & $L=4$ & \textit{Fused} & $\triangle$ \\
+    \hline
+    $\mathtt{NID1}_{0.05}$ & 80.21 & \underline{82.60} & 82.19 & 81.33 & \cellcolor{myye}{\textbf{83.14}} & $+$ 0.54 \\
+    $\mathtt{NID1}_{0.2}$  & 86.15 & 87.28 & \underline{87.81} & 85.92 & \cellcolor{myye}{\textbf{88.27}} & $+$ 0.46 \\
+    $\mathtt{NID1}_{0.5}$  & 87.10 & \underline{89.03} & 88.93 & 87.17 & \cellcolor{myye}{\textbf{89.31}} & $+$ 0.28 \\
+    $\mathtt{NID2}$  & 74.26 & \underline{75.73} & 75.61 & 75.00 & \cellcolor{myye}{\textbf{76.45}} & $+$ 0.72 \\
+    \Xhline{1pt}
+\end{tabular}}
+% \vspace{-3.36mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lccccccccccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & \multicolumn{3}{c}{\textbf{CIFAR10}} & \multicolumn{3}{c}{\textbf{CIFAR100}} & \multicolumn{3}{c}{\textbf{TinyImageNet}} & \multicolumn{4}{c}{\textbf{CIFAR10-LT} (keep $\mathtt{NID1}_{0.2}$)} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-14}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{FL Baselines}} & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID2}$ & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID2}$ & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID2}$ & $\rho=10$ & $\rho=50$ & $\rho=100$ & $\rho=200$ \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-14}
+    $\text{FedAvg}_{[\text{AISTAT'17}]}$ & 78.27 & 84.65 & 72.60 & 55.97 & 60.08 & 50.56 & 40.41 & 42.84 & 35.15 & 75.94 & 63.25 & 52.97 & 49.69 \\
+    $\text{FedProx}_{[\text{MLSys'20}]}$ & 78.42 & 84.59 & 72.81 & 56.27 & 60.21 & 50.29 & 40.20 & 42.16 & 35.62 & 76.02 & 63.43 & 52.86 & 49.10 \\
+    $\text{MOON}_{[\text{CVPR'21}]}$ & 80.79 & 86.10 & 73.35 & 56.79 & 61.48 & 51.81 & 40.79 & 43.63 & 36.11 & 75.73 & 63.80 & 53.17 & 49.31 \\
+    $\text{FedProto}_{[\text{AAAI'22}]}$ & 77.86 & 83.90 & 70.84 & 54.48 & 59.26 & 48.60 & 39.29 & 41.02 & 34.68 & 74.31 & 62.23 & 50.37 & 47.26 \\
+    $\text{FedNH}_{[\text{AAAI'23}]}$ & 80.25 & 85.82 & 73.65 & 56.68 & 61.45 & 51.31 & 40.25 & 43.30 & 36.21 & 76.15 & 63.36 & 52.49 & 48.92 \\
+    $\text{FedDisco}_{[\text{ICML'23}]}$ & 81.35 & 86.63 & 74.72 & 57.34 & 61.79 & 52.05 & 40.83 & 43.92 & 37.69 & 76.27 & \underline{64.40} & 53.33 & 49.75 \\
+    $\text{FedCDA}_{[\text{ICLR'24}]}$ & 81.70 & 86.89 & 75.07 & 57.76 & \underline{62.17} & 52.35 & 41.18 & 44.09 & 38.24 & \underline{76.45} & 64.30 & \underline{53.85} & \underline{50.08} \\
+    $\text{FedRCL}_{[\text{CVPR'24}]}$ & \underline{82.02} & \underline{87.11} & \underline{75.13} & \underline{57.98} & 62.05 & \underline{52.49} & \underline{41.33} & \underline{44.21} & \underline{38.86} & 76.34 & 64.17 & 53.41 & 49.91 \\
+    \cmidrule(lr){1-14}
+    \rowcolor{myye} \texttt{FedDifRC} & \textbf{83.14} & \textbf{88.27} & \textbf{76.45} & \textbf{59.22} & \textbf{63.32} & \textbf{53.87} & \textbf{42.63} & \textbf{45.28} & \textbf{40.05} & \textbf{77.58} & \textbf{65.30} & \textbf{55.01} & \textbf{51.12} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-4mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & \multicolumn{5}{c}{\textbf{Office-Caltech}} \\
+    \cmidrule(lr){2-6}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{FL Baselines}} & Caltech & Webcam & Amazon & DSLR & AVG \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-5} \cmidrule(lr){6-6}
+    $\text{FedDisco}_{[\text{ICML'23}]}$ & 62.39 & 45.95 & 77.31 & 45.20 & 57.71 \\
+    $\text{FedCDA}_{[\text{ICLR'24}]}$ & 62.25 & 46.53 & 76.58 & 46.14 & \underline{57.87} \\
+    $\text{FedRCL}_{[\text{CVPR'24}]}$ & 60.13 & 42.76 & 75.60 & 43.77 & 55.56 \\
+    \cmidrule(lr){1-6}
+    \rowcolor{myye} \texttt{FedDifRC} & 63.32 & 50.19 & 78.67 & 48.12 & \textbf{60.08} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & & \multicolumn{4}{c}{\textbf{CIFAR100}} \\
+    \cmidrule(lr){3-6}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{FL Baselines}} & \multirow{-3.0}{*}{\textbf{Clients}} & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID1}_{0.5}$ & $\mathtt{NID2}$ \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-6}
+    $\text{FedEMA}_{[\text{ICLR'22}]}$ & $K=10$ & 26.90 & 29.41 & 30.64 & 21.52 \\
+    $\text{FedLID}_{[\text{ICCV'23}]}$ & $K=10$ & 28.84 & 30.43 & 31.22 & 23.65 \\
+    \cmidrule(lr){1-6}
+    \rowcolor{myye} \texttt{FedDifRC} & $K=10$ & \textbf{30.61} & \textbf{31.45} & \textbf{32.30} & \textbf{25.73} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lcccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & \multicolumn{3}{c}{\textbf{CIFAR10}} & \multicolumn{3}{c}{\textbf{CIFAR10-LT} ($\mathtt{NID1}_{0.2}$)} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{FL Baselines}} & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID2}$ & $\rho=10$ & $\rho=50$ & $\rho=100$ \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    $\text{FedDDA}_{[\text{PRCV'23}]}$ & 82.05 & 86.94 & 74.49 & 76.31 & 63.95 & 53.15 \\
+    $\text{FedDISC}_{[\text{AAAI'24}]}$ & 82.33 & 87.15 & 75.42 & 76.60 & 64.23 & 54.07 \\
+    \cmidrule(lr){1-7}
+    FedRCL ($\diamondsuit$ / $\dagger$) & $\text{82.30}^{\diamondsuit}$/$\text{80.95}^{\dagger}$ & $\text{87.25}^{\diamondsuit}$/$\text{86.16}^{\dagger}$ & $\text{75.37}^{\diamondsuit}$/$\text{73.85}^{\dagger}$ & $\text{76.50}^{\diamondsuit}$/$\text{76.12}^{\dagger}$ & $\text{64.26}^{\diamondsuit}$/$\text{62.91}^{\dagger}$ & $\text{53.65}^{\diamondsuit}$/$\text{52.20}^{\dagger}$ \\
+    FedRCL ($\diamondsuit$ + $\dagger$) & 81.52 & 86.48 & 74.35 & 76.22 & 63.69 & 52.93 \\
+    \cmidrule(lr){1-7}
+    \rowcolor{myye} \texttt{FedDifRC} & \textbf{83.14} & \textbf{88.27} & \textbf{76.45} & \textbf{77.58} & \textbf{65.30} & \textbf{55.01} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lcccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & \multicolumn{3}{c}{\textbf{HAM10000}~\cite{tschandl2018ham10000}} & \multicolumn{3}{c}{\textbf{EuroSAT}~\cite{helber2019eurosat}} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{FL Baselines}} & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID1}_{0.5}$ & $\mathtt{NID2}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID1}_{0.5}$ & $\mathtt{NID2}$ \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    $\text{FedDisco}_{[\text{ICML'23}]}$ & 50.26 & 53.68 & 44.63 & 78.76 & 82.36 & 70.34 \\
+    $\text{FedCDA}_{[\text{ICLR'24}]}$ & 51.65 & 54.05 & 45.16 & \underline{80.45} & 83.38 & \underline{71.10} \\
+    $\text{FedRCL}_{[\text{CVPR'24}]}$ & \underline{52.21} & \underline{54.20} & \underline{45.48} & 79.80 & \underline{83.69} & 70.73 \\
+    \cmidrule(lr){1-7}
+    \rowcolor{myye} \texttt{FedDifRC} & \textbf{53.79} & \textbf{55.60} & \textbf{47.17} & \textbf{82.49} & \textbf{86.05} & \textbf{73.14} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-3.36mm}
+
+\resizebox{\linewidth}{!}{  % 根据宽高比自适应缩放
+\begin{tabular}{lcccccc}
+    \toprule[1.0pt]
+    \rowcolor{mygray} & \multicolumn{3}{c}{\textbf{CIFAR10}} & \multicolumn{3}{c}{\textbf{CIFAR10-LT} ($\mathtt{NID1}_{0.2}$)} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    \rowcolor{mygray} \multirow{-3.0}{*}{\textbf{Pre-trained Models}} & $\mathtt{NID1}_{0.05}$ & $\mathtt{NID1}_{0.2}$ & $\mathtt{NID2}$ & $\rho=10$ & $\rho=50$ & $\rho=100$ \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+    CLIP-ViT-B/16~\cite{radford2021learning} & 79.72 & 84.91 & 73.97 & 74.89 & 62.44 & 50.87 \\
+    MAE-ViT-B/16~\cite{he2022masked} & 80.74 & 85.38 & 73.24 & 75.45 & 63.27 & 52.55 \\
+    DINO-ViT-B/16~\cite{caron2021emerging} & 80.57 & 86.14 & 74.16 & 75.25 & 62.70 & 51.92 \\
+    \cmidrule(lr){1-7}
+    \rowcolor{myye} \texttt{FedDifRC} & \textbf{83.14} & \textbf{88.27} & \textbf{76.45} & \textbf{77.58} & \textbf{65.30} & \textbf{55.01} \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+% \vspace{-3mm}
+
+
+% \vspace{-3.36mm}
