@@ -102,8 +102,68 @@ def _prep(src: str) -> str:
     t = chr(10).join(lines2)
     # px -> pt（Xhline 等）
     t = t.replace("1px", "1pt").replace("0.5px", "0.5pt")
+    t = _fix_tblr(t)
+    import re as _re2
+    # minipage 是盒子：抖动体在其中非法，且会留下多余括号 -> 拍平
+    B2 = chr(92)
+    # 先删带宽度参数的 \begin{minipage}{..}，再删裸标记
+    t = _re2.sub(B2 + B2 + "begin{minipage}" + B2 + B2 + "s*" + B2 + B2 + "{[^}]*" + B2 + B2 + "}", "", t)
+    t = t.replace(B2 + "begin{minipage}", "").replace(B2 + "end{minipage}", "")
+    import re as _re2
+    t = _re2.sub(chr(92) + chr(92) + "begin{minipage}\{[^}]*\}", "", t)
+    t = _balance_braces(t)
+    t = _fix_noalign(t)
     return t.strip()
 
+
+
+
+def _balance_braces(tex: str) -> str:
+    # 括号配平：多删少补（caption/resizebox 剥离容易破坏配平）
+    B = chr(92)
+    diff = 0
+    i = 0
+    while i < len(tex):
+        if tex[i] == B:
+            i += 2
+            continue
+        if tex[i] == '{':
+            diff += 1
+        elif tex[i] == '}':
+            diff -= 1
+        i += 1
+    if diff > 0:
+        return tex + (B + '}') if False else tex + ('}' * diff)
+    if diff < 0:
+        # 多了右括号：从尾部删
+        for _ in range(-diff):
+            j = tex.rfind('}')
+            if j < 0:
+                break
+            tex = tex[:j] + tex[j+1:]
+    return tex
+
+
+def _fix_tblr(tex: str) -> str:
+    # tabularray 的 tblr 环境 → 普通 tabular
+    if 'tblr}' not in tex:
+        return tex
+    B = chr(92)
+    out = tex.replace(B + 'begin{tblr}', B + 'begin{tabular}')
+    out = out.replace(B + 'end{tblr}', B + 'end{tabular}')
+    import re as _re
+    out = _re.sub(B + B + 'begin{tabular}' + B + B + 's*' + B + B + '[[^]]*' + B + B + ']' + B + B + 's*' + B + B + '{[^}]*colspec[^}]*' + B + B + '}',
+                     B + B + 'begin{tabular}{' + B + B + 'textwidth' if False else B + B + 'begin{tabular}{cccccccc}', out)
+    return out
+
+
+def _fix_noalign(tex: str) -> str:
+    # \noalign{\hrule} 在 tabular 里位置敏感，整条删掉
+    B = chr(92)
+    import re as _re
+    out = _re.sub(B + B + 'noalign' + B + B + 's*' + B + B + '{[^}]*' + B + B + '}', '', tex)
+    out = _re.sub(B + B + 'hrule' + B + B + 's*height' + B + B + 's*[0-9.]+' + B + B + 's*pt', '', out)
+    return out
 
 def _undefined(log: str) -> list:
     """从日志抓未定义宏。l.NN 行要抓整行所有宏，不只第一个。"""
@@ -190,7 +250,7 @@ def try_fix(tid: str, src: str, verbose=True):
                 print("    卡在:", log[i:i + 110].replace("\n", " "))
             return False, cand, len(defs)
         defs += _ct
-        defs += ["\\providecommand{\\" + n + "}{}" for n in new[:8]]
+        defs += ["\\providecommand{\\" + n + "}{/?}" for n in new[:8]]
     return False, body, len(defs)
 
 
