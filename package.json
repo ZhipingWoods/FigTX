@@ -18,16 +18,17 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node tools/fix-html.mjs",
     "preview": "vite preview --port 4173",
-    "electron:dev": "vite build && electron .",
+    "electron:dev": "npm run build && electron .",
     "electron:serve": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER=http://localhost:5173 electron .\"",
-    "dist:mac": "vite build && electron-builder --mac",
-    "dist:win": "vite build && electron-builder --win",
-    "dist:linux": "vite build && electron-builder --linux",
-    "dist:all": "vite build && electron-builder -mwl",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "dist:all": "npm run build && electron-builder -mwl",
     "data": "node tools/build-data.mjs",
-    "check:dups": "node tools/check-dups.mjs"
+    "check:dups": "node tools/check-dups.mjs",
+    "offline": "npm run build && node tools/make-offline.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

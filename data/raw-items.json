@@ -1163,68 +1163,6 @@
   "source": "xiaohongshu/爱芝芝爱科研"
  },
  {
-  "id": "table-11",
-  "file": "table11_tex.docx",
-  "latexFile": "data/latex/table-11.tex",
-  "latex": "\\documentclass[letterpaper]{article} % DO NOT CHANGE THIS\n\\usepackage[submission]{aaai2026}  % DO NOT CHANGE THIS\n\\usepackage{times}  % DO NOT CHANGE THIS\n\\usepackage{helvet}  % DO NOT CHANGE THIS\n\\usepackage{courier}  % DO NOT CHANGE THIS\n\\usepackage[hyphens]{url}  % DO NOT CHANGE THIS\n\\usepackage{graphicx} % DO NOT CHANGE THIS\n\\urlstyle{rm} % DO NOT CHANGE THIS\n\\def\\UrlFont{\\rm}  % DO NOT CHANGE THIS\n\\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT\n\\usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT\n\\frenchspacing  % DO NOT CHANGE THIS\n\\setlength{\\pdfpagewidth}{8.5in} % DO NOT CHANGE THIS\n\\setlength{\\pdfpageheight}{11in} % DO NOT CHANGE THIS\n%\n% These are recommended to typeset algorithms but not required. See the subsubsection on algorithms. Remove them if you don't have algorithms in your paper.\n\\usepackage{algorithm}\n\\usepackage{algorithmic}\n\\usepackage{pifont} %182/183/184\n\\usepackage{subcaption}\n\\usepackage{verbatim}\n\\usepackage{graphicx}\n\\usepackage{multirow}\n\\usepackage{xspace}\n\\usepackage{amsfonts,amssymb}\n\\usepackage{microtype}\n\\usepackage{amsmath}\n\\usepackage{amsthm}\n\\usepackage{booktabs}\n%\\usepackage{subfigure}\n\\usepackage{times}\n\\usepackage{latexsym}\n\\usepackage{color}\n\\usepackage[dvipsnames, table]{xcolor}\n\\usepackage{soul}\n\\usepackage{verbatim}\n\\usepackage{multirow}\n\\usepackage{xspace}\n\\usepackage{amsfonts,amssymb}\n\\usepackage{microtype}\n%\\usepackage{subfigure}\n\\usepackage{times}\n\\usepackage{latexsym}\n\\usepackage{color}\n\\usepackage[dvipsnames, table]{xcolor}\n\\usepackage{soul}\n\\usepackage{colortbl}\n\\usepackage{booktabs,makecell, multirow, tabularx}\n\\usepackage{adjustbox}\n\\usepackage{xcolor}\n\\usepackage{listings}\n\\usepackage{amsmath}\n\\usepackage{booktabs}\n\\usepackage{amssymb}\n\\usepackage{bbding}\n\\usepackage{pifont}\n\\usepackage{wasysym}\n\\usepackage{utfsym}\n\\usepackage{fontawesome}\n\\usepackage{mdframed}\n\\begin{document}\n\n% %%%%%%%%%%%%%%%%%%%颜色定义\n\\definecolor{color_gray}{RGB}{229,229,229}\n\\definecolor{color_blue}{RGB}{252,182,165}\n\\definecolor{color_pink}{RGB}{255,217,178}\n\\definecolor{color_yellow}{RGB}{255,255,204}\n\\definecolor{color_blue1}{RGB}{135, 206, 235}\n\\cellcolor{color_blue} \\cellcolor{color_pink} \\cellcolor{color_yellow} \\cellcolor{blue!8}\n% %%%%%%%%%%%%%%%%%%%\n\\begin{table*}[ht!]\n\\centering\n\\setlength{\\tabcolsep}{2.8mm} %2.2mm\n\\renewcommand{\\arraystretch}{1}\n\\adjustbox{width=1\\linewidth}{\n   \\begin{tabular}{ccccc ccccc cc}\n       \\toprule\n            \\multicolumn{6}{c}{Infrared-visible Image Fusion on MSRS Dataset}\n            &\\multicolumn{6}{c}{Infrared-visible Image Fusion on FMB Dataset}\\\\\n%%%%%%%%%%\n                &EN $\\uparrow$ &SF $\\uparrow$ &SCD $\\uparrow$  &Q$^{AB/F}$ $\\uparrow$  &SSIM $\\uparrow$  &  &EN $\\uparrow$ &SF $\\uparrow$ &SCD $\\uparrow$  &Q$^{AB/F}$ $\\uparrow$  &SSIM $\\uparrow$  \\\\\n%%%%%%%%%%\n\\midrule[0.5pt]\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\n\\toprule\n            \\multicolumn{6}{c}{Infrared-visible Image Fusion on MSRS Dataset}\n            &\\multicolumn{6}{c}{Infrared-visible Image Fusion on FMB Dataset}\\\\\n%%%%%%%%%%\n                &EN $\\uparrow$ &SF $\\uparrow$ &SCD $\\uparrow$  &Q$^{AB/F}$ $\\uparrow$  &SSIM $\\uparrow$  &  &EN $\\uparrow$ &SF $\\uparrow$ &SCD $\\uparrow$  &Q$^{AB/F}$ $\\uparrow$  &SSIM $\\uparrow$  \\\\\n%%%%%%%%%%%%%%\n\\midrule[0.5pt]\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\nTarDAL&\\cellcolor{color_blue}00.0 &\\cellcolor{blue!8}00.0 &00.0 &00.0 &00.0 &TarDAL &00.0 &\\cellcolor{blue!8}00.0 &00.0 &\\cellcolor{color_blue}00.0 &\\cellcolor{color_blue}00.0 \\\\\n             \\bottomrule\n       \\end{tabular}\n   }\n   \\caption{The red/blue indicates the best/second-best results.}\n\\end{table*}\n\\begin{table*}[ht!]\n\\centering\n\\setlength{\\tabcolsep}{2.8mm} %2.2mm\n\\renewcommand{\\arraystretch}{1}\n\\adjustbox{width=1\\linewidth}{\n   \\begin{tabular}{ccccccccccccc}\n       \\toprule\n                 \\multirow{3}{*}{}\n                 &\\multicolumn{5}{c}{Semantic Segmentation}&\n                 &\\multicolumn{5}{c}{Object Detection}\\\\\n\\cmidrule{2-6}\\cmidrule{8-12}\n%%%%%%%%%%%%%%\n                 &\\multicolumn{2}{c}{MSRS}\n                 &\n                 &\\multicolumn{2}{c}{FMB}\n                 &\n                 &\\multicolumn{2}{c}{M3FD}\n                 &\n                 &\\multicolumn{2}{c}{LLVIP}\\\\\n\\cmidrule{2-3}\\cmidrule{5-6} \\cmidrule{8-9}\\cmidrule{11-12}\n                 Methods&mAcc& mIoU&& mAcc&mIoU&&mAP50&mAP75&& AP50&AP75\\\\\n%%%%%%%%%%%%%%\n\\midrule[0.5pt]\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\nInfared&\\cellcolor{blue!8}00.0 &\\cellcolor{color_blue}00.0& &00.0 &00.0& &00.0 &\\cellcolor{color_blue}00.0 &&00.0 &00.0\\\\\n \\bottomrule\n       \\end{tabular}\n   }\n   \\caption{The red/blue indicates the best/second-best results.}\n\\end{table*}\n\\end{document}\n",
-  "kind": "table",
-  "caption": "The red/blue indicates the best/second-best results.",
-  "number": 11,
-  "venues": [
-   "CVPR"
-  ],
-  "year": 2025,
-  "colors": [
-   {
-    "name": "color_gray",
-    "value": "229,229,229"
-   },
-   {
-    "name": "color_blue",
-    "value": "252,182,165"
-   },
-   {
-    "name": "color_pink",
-    "value": "255,217,178"
-   },
-   {
-    "name": "color_yellow",
-    "value": "255,255,204"
-   },
-   {
-    "name": "color_blue1",
-    "value": "135, 206, 235"
-   }
-  ],
-  "palette": [
-   "#CCCCCC"
-  ],
-  "title": "overleaf中顶会顶刊latex表格绘制-（11）",
-  "desc": "overleaf中相关顶会顶刊论文中表格绘制latex源码复现。图片中已粘贴latex源码，后续会在小红书附件中提交原始latex文件（已经在附件中添加了）。如果有疑惑欢迎提问。\n\t\n参考文献：【1】Task-driven Image Fusion with Learnable Fusion Loss. (CVPR 2025)  (单位：西交)\n\t\n***后续还会《科研素材积累之实验表格》合集中更新其他顶会顶刊的latex表格***\n#overleaf排版[话题]# #overleaf表格[话题]# #latex表格[话题]# #latex表格排版[话题]# #三线表[话题]# #latex[话题]# #CVPR[话题]# #图像融合[话题]# #多模态学习[话题]#",
-  "noteId": "68d7508200000000120310f2",
-  "docId": "7554970228241923139",
-  "images": [
-   "https://sns-webpic-qc.xhscdn.com/202611241155/9f424dc34e23edfaa2ee506549970ab3/notes_pre_post/1040g3k031mtunr6g506g5op4dq1osmffamuvsr8!nd_dft_wgth_webp_3",
-   "https://sns-webpic-qc.xhscdn.com/202611241155/ab58ec31931882b48657eb32310b70f9/notes_pre_post/1040g3k031mtunr7p4s505op4dq1osmffa3jibj8!nd_dft_wgth_webp_3",
-   "https://sns-webpic-qc.xhscdn.com/202611241155/a076788b829c2970f2f2d65989132d67/notes_pre_post/1040g3k031mtunr7p4s5g5op4dq1osmff5fqsbn8!nd_dft_wgth_webp_3",
-   "https://sns-webpic-qc.xhscdn.com/202611241155/b1bc2a7c6553f8f0f925c13cad6dc4e3/notes_pre_post/1040g3k031mtunr7p4s605op4dq1osmffat1tsq0!nd_dft_wgth_webp_3",
-   "https://sns-webpic-qc.xhscdn.com/202611241155/ee880e5113c66bc6f53aa9d63f72ef00/notes_pre_post/1040g3k031mtunr7p4s6g5op4dq1osmffhjb24go!nd_dft_wgth_webp_3"
-  ],
-  "tags": [
-   "overleaf排版",
-   "overleaf表格",
-   "latex表格",
-   "latex表格排版",
-   "三线表",
-   "latex",
-   "CVPR",
-   "图像融合",
-   "多模态学习"
-  ],
-  "publishedAt": 1758941314000,
-  "source": "xiaohongshu/爱芝芝爱科研"
- },
- {
   "id": "table-120",
   "file": "table120_tex.docx",
   "latexFile": "data/latex/table-120.tex",

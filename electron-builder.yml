@@ -43,6 +43,7 @@ linux:
     - AppImage
     - deb
   category: Graphics
+  icon: build/icon-512.png
   maintainer: ZhipingWoods
   artifactName: "FigTX-${version}-${arch}.${ext}"
 

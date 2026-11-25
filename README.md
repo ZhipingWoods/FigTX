@@ -13,7 +13,17 @@
   <a href="docs/wiki/"><img height="28" alt="文档" src="https://img.shields.io/badge/%E6%96%87%E6%A1%A3-Wiki-0975ce?style=for-the-badge"></a>
 </p>
 
-<p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 189」「图 35」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、caption、会议标签和配色色块"></a></p>
+<p align="center"><a href="docs/assets/shot-tables.webp"><img src="docs/assets/shot-tables.webp" width="920" alt="FigTX 界面：顶部是「表格 188」「图 35」两个分区，下方是缩略图网格，每张卡片显示真实渲染的 LaTeX 表格、编号徽章、caption、会议标签"></a></p>
+
+<p align="center"><sub>表格视图：左上角是稳定编号（T001…），顶栏可切换正序/倒序，按会议筛选</sub></p>
+
+<p align="center"><a href="docs/assets/shot-figures.webp"><img src="docs/assets/shot-figures.webp" width="920" alt="FigTX 图视图：按绘图样式、动机图、实验图、论文复刻分类"></a></p>
+
+<p align="center"><sub>图视图：论文复刻 / 期刊样式 / 动机图 / 实验图 分类浏览</sub></p>
+
+<p align="center"><a href="docs/assets/shot-detail.webp"><img src="docs/assets/shot-detail.webp" width="920" alt="FigTX 详情页：大图预览 + 完整 LaTeX 源码 + 一键复制"></a></p>
+
+<p align="center"><sub>详情页：大图预览 + 完整 LaTeX 源码 + 一键复制</sub></p>
 
 - **表格 189 个**：全部用 tectonic 重新编译出真实渲染图，可直接复制 LaTeX。不是截图，是把源码跑一遍得到的干净结果。
 - **每个条目有编号**：表格 `T001`–`T189`、图 `F001`–`F035`，保存在 `data/catalog.json`。
@@ -145,7 +155,18 @@
 
 打开 **https://zhipingwoods.github.io/FigTX/** —— 无需安装，换电脑也能用。
 
-### 方式三：本地开发
+### 方式三：离线压缩包（不想装软件 / 内网机器）
+
+到 [Releases](https://github.com/ZhipingWoods/FigTX/releases) 下载 `FigTX-offline-web.zip`，
+解压后**双击 `index.html`** 即可。
+
+- 不需要联网、不需要安装、不需要起本地服务器
+- 所有图片和代码都在本地，运行时**零网络请求**（实测）
+- 适合内网、离线机器、U 盘携带
+
+> 自己构建：`npm run offline` → 产物在 `release-web/FigTX-offline-web.zip`
+
+### 方式四：本地开发
 
 ```bash
 git clone git@github.com:ZhipingWoods/FigTX.git
@@ -159,10 +180,22 @@ npm run electron:dev   # 桌面窗口
 打包：
 
 ```bash
+npm run offline        # 离线 Web 压缩包（任意平台都能跑）
 npm run dist:mac       # .dmg + .zip
 npm run dist:win       # NSIS 安装包
 npm run dist:linux     # AppImage + deb
 ```
+
+**跨平台打包说明**：桌面安装包需要在**对应系统上构建**（Electron 的限制）：
+
+| 目标 | 可行性 |
+|---|---|
+| macOS 包 | 只能在 macOS 上打 |
+| Windows 包 | macOS/Linux 上需要装 wine；或直接在 Windows 上打 |
+| Linux 包 | 需要 docker 或直接在 Linux 上打 |
+
+所以推荐用 GitHub Actions 的矩阵构建（[`.github/workflows/release.yml`](.github/workflows/release.yml)）：
+三个原生 runner 并行打包，打 tag 自动发布到 Releases。
 
 ---
 

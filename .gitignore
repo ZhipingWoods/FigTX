@@ -18,3 +18,7 @@ data/ref-analysis.json
 # matplotlib 中间产物（最终只保留 webp）
 public/renders-fig/*.png
 .venv-fig/
+
+# 打包产物（用户从 Releases 下载，不入库）
+release-new/
+release-web/
