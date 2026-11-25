@@ -119,46 +119,148 @@ def demo(sty: list[str], out_png: str, cjk: bool = False) -> list[str]:
     return cycle
 
 
+def gallery(out_png: str) -> None:
+    """16 种样式各画一小图，再拼成 4x4 画廊（中文标题用 PIL + PingFang 绘制）。
+
+    注意：必须在 plt.style.context() 内部**新建** figure，
+    rcParams 才会真正作用到该子图上（先建图再套样式是无效的）。
+    """
+    from PIL import Image as _Im, ImageDraw, ImageFont
+    import tempfile
+
+    x = np.linspace(0, 2 * np.pi, 30)
+    tmpd = tempfile.mkdtemp()
+    tiles = []
+    for sid, styles, title, _desc in STYLES:
+        plt.rcdefaults()
+        with plt.style.context(styles + ["no-latex"] if styles else ["default"]):
+            fig, ax = plt.subplots(figsize=(3.05, 1.95))
+            for w, ls in ((1, "-"), (1.5, "--"), (2, ":")):
+                ax.plot(x, np.sin(w * x) / w, ls, lw=1.15, marker="o",
+                        markersize=1.8, label="w=%s" % w)
+            ax.legend(loc="upper right", fontsize=5.4, handlelength=1.1,
+                      frameon=True)
+            ax.set_xlabel("x", fontsize=6)
+            ax.set_ylabel("y", fontsize=6)
+            ax.tick_params(labelsize=5.4)
+            fig.tight_layout(pad=0.35)
+            p = os.path.join(tmpd, sid + ".png")
+            fig.savefig(p, dpi=170, facecolor="white")
+            plt.close(fig)
+        tiles.append((sid, title, p))
+
+    # 拼图
+    cols = 4
+    rows = (len(tiles) + cols - 1) // cols
+    probes = _Im.open(tiles[0][2])
+    tw, th = probes.size
+    probes.close()
+    lab_h, gap = 30, 12
+    cw, chh = tw + gap * 2, th + lab_h + gap
+    W, H = cw * cols, chh * rows
+
+    font = None
+    for fp in ("/System/Library/Fonts/Hiragino Sans GB.ttc",
+               "/System/Library/Fonts/Supplemental/Songti.ttc",
+               "/Library/Fonts/Arial Unicode.ttf"):
+        try:
+            font = ImageFont.truetype(fp, 16, index=0)
+            break
+        except Exception:
+            continue
+    if font is None:
+        font = ImageFont.load_default()
+
+    canvas = _Im.new("RGB", (W, H), "white")
+    dr = ImageDraw.Draw(canvas)
+    for k, (sid, title, p) in enumerate(tiles):
+        r_, c_ = k // cols, k % cols
+        ox, oy = c_ * cw + gap, r_ * chh
+        canvas.paste(_Im.open(p), (ox, oy + lab_h))
+        dr.text((ox + tw // 2, oy + lab_h - 10), title, font=font,
+                fill=(15, 15, 15), anchor="mm")
+    canvas.save(out_png)
+    # 应用/审计约定用 webp
+    webp = os.path.splitext(out_png)[0] + ".webp"
+    try:
+        import subprocess
+        subprocess.run(["cwebp", "-q", "88", "-resize", "1600", "0",
+                        out_png, "-o", webp],
+                       check=True, capture_output=True)
+        print("  gallery ->", out_png, canvas.size, "| webp", os.path.getsize(webp) // 1024, "KB")
+    except Exception as e:
+        print("  ! webp 转换失败:", str(e)[:60])
+
 def main() -> int:
     os.makedirs(OUT_DIR, exist_ok=True)
-    items = []
-    for sid, styles, title, desc in STYLES:
-        png = os.path.join(OUT_DIR, "fig-" + sid + ".png")
-        cjk = sid.endswith("cjk")
-        cycle = demo(styles, png, cjk=cjk)
-        code = "import matplotlib.pyplot as plt\nimport scienceplots\n\n"
-        code += "plt.style.use(%r)\n" % (styles + ["no-latex"])
-        code += "plt.figure(figsize=(3.5, 2.6))\n"
-        code += "plt.plot(x, y, marker='o', label='Ours')\n"
-        code += "plt.xlabel('Phase (rad)'); plt.ylabel('Amplitude')\n"
-        code += "plt.legend()\n"
-        code += "plt.savefig('fig.pdf', bbox_inches='tight')  # 投稿用矢量图\n"
-        items.append({
-            "id": "fig-" + sid,
-            "category": "figure",
-            "kind": "chart",
-            "title": title,
-            "caption": desc,
-            "styles": styles + ["no-latex"],
-            "code": code,
-            "codeLang": "python",
-            "render": "renders-fig/fig-%s.png" % sid,
-            "palette": cycle,
-            "source": {
-                "repo": REPO["repo"],
-                "repoUrl": REPO["url"],
-                "license": REPO["license"],
-                "stars": REPO["stars"],
-                "path": "src/scienceplots/styles",
-            },
-        })
-        print("  rendered", sid, "palette", cycle[:3])
+
+    # SciencePlots 的 16 种样式原本是 16 张几乎相同的图（dHash 测出 93 对近重复，
+    # 其中 2 对完全相同）。合并成一张 4x4 画廊：一屏看全，选中再复制样式名。
+    png = os.path.join(OUT_DIR, "fig-science-gallery.png")
+    gallery(png)
+
+    code = (
+        "import matplotlib.pyplot as plt\n"
+        "import matplotlib\n"
+        "import scienceplots  # pip install SciencePlots\n"
+        "import numpy as np\n\n"
+        "# 16 种样式，名字直接抄到 plt.style.use 里用\n"
+        "STYLES = [\n"
+    )
+    for _sid, styles, title, _d in STYLES:
+        code += "    (%r, %r),\n" % (title, styles + ["no-latex"])
+    code += (
+        "]\n\n"
+        "x = np.linspace(0, 2 * np.pi, 30)\n"
+        "y = np.sin(x) / 1.0\n\n"
+        "# 画一张 4x4 画廊\n"
+        "fig, axes = plt.subplots(4, 4, figsize=(13.6, 8.6))\n"
+        "for k, (name, sty) in enumerate(STYLES):\n"
+        "    ax = axes[k // 4][k % 4]\n"
+        "    plt.rcdefaults()                 # 关键：先清掉上个样式的残留\n"
+        "    matplotlib.style.use(sty)\n"
+        "    for w, ls in ((1, '-'), (1.5, '--'), (2, ':')):\n"
+        "        ax.plot(x, np.sin(w * x) / w, ls, lw=1.3, marker='o', markersize=2,\n"
+        "                label=r'$\\omega=%s$' % w)\n"
+        "    ax.set_title(name, fontweight='bold')\n"
+        "    ax.legend(loc='upper right')\n"
+        "plt.tight_layout()\n"
+        "plt.savefig('style-gallery.pdf', bbox_inches='tight')  # 投稿用矢量图\n"
+        "\n"
+        "# 只用其中一种：\n"
+        "# plt.style.use(['science', 'ieee', 'no-latex'])\n"
+    )
+
+    items = [{
+        "id": "fig-science-gallery",
+        "category": "figure",
+        "kind": "chart",
+        "title": "SciencePlots 样式合集（16 种）",
+        "caption": "同一张图套 16 种期刊样式，一屏对比：基础 / IEEE / Nature / 网格 / "
+                   "Notebook / 散点 / 无衬线 / 明亮 / 鲜艳 / 低饱和 / 复古 / 高可视 / "
+                   "浅色 / 深色 / 中文字体 / matplotlib 默认。选好样式名直接复制到 "
+                   "plt.style.use() 即可。",
+        "styles": ["science", "no-latex", "gallery"],
+        "code": code,
+        "codeLang": "python",
+        "render": "renders-fig/fig-science-gallery.webp",
+        "palette": ["#0C5DA5", "#00B945", "#FF9500", "#FF2C00",
+                    "#845B97", "#474747"],
+        "source": {
+            "repo": REPO["repo"],
+            "repoUrl": REPO["url"],
+            "license": REPO["license"],
+            "stars": REPO["stars"],
+            "path": "src/scienceplots/styles",
+        },
+    }]
 
     out = os.path.join(ROOT, "data", "raw-figures.json")
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(items, fh, ensure_ascii=False, indent=1)
     print("wrote %s (%d items)" % (out, len(items)))
     return 0
+
 
 
 if __name__ == "__main__":

@@ -26,7 +26,8 @@
     "dist:win": "vite build && electron-builder --win",
     "dist:linux": "vite build && electron-builder --linux",
     "dist:all": "vite build && electron-builder -mwl",
-    "data": "node tools/build-data.mjs"
+    "data": "node tools/build-data.mjs",
+    "check:dups": "node tools/check-dups.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
