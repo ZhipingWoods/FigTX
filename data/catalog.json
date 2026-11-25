@@ -1178,35 +1178,5 @@
   "no": "F037",
   "kind": "F",
   "title": "深度图对比"
- },
- "fig-ql-detection": {
-  "no": "F038",
-  "kind": "F",
-  "title": "检测结果对比网格"
- },
- "fig-ql-failure": {
-  "no": "F039",
-  "kind": "F",
-  "title": "失败案例四连图"
- },
- "fig-ql-retrieval": {
-  "no": "F040",
-  "kind": "F",
-  "title": "检索 Top-K 结果"
- },
- "fig-ql-segmentation": {
-  "no": "F041",
-  "kind": "F",
-  "title": "分割掩码对比"
- },
- "fig-ql-superres": {
-  "no": "F042",
-  "kind": "F",
-  "title": "超分/复原对比"
- },
- "fig-ql-video": {
-  "no": "F043",
-  "kind": "F",
-  "title": "视频关键帧对比"
  }
 }
