@@ -22,7 +22,11 @@ HARD REQUIREMENTS
 - All content must stay within x=0..1600, y=0..900.
 - Fill each panel's module regions with meaningful sub-structure (mini flow, matrix, chart,
   inset, legend, short labels). Do not leave conspicuous empty areas.
-- Output raw SVG markup only. No markdown fences, no explanation, no preamble."""
+- Output raw SVG markup only. No markdown fences, no explanation, no preamble.
+
+ANTI-COPY RULE (critical): reference figures are supplied only to transfer visual grammar.
+Never reproduce their text, module names, entity names, captions or logical structure.
+Every label in your output must come from the METHOD description below, not from a reference."""
 
 FIG_USER_TMPL = """Design a paper Figure 1 for the following method.
 
@@ -34,6 +38,13 @@ FIG_USER_TMPL = """Design a paper Figure 1 for the following method.
 
 ## Design contract derived from reference figures
 {contract}
+
+IMPORTANT — the contract above describes VISUAL GRAMMAR only (geometry, density, palette,
+stroke language, hierarchy). It is NOT the content you must draw. The reference figure is a
+different paper about a different method. You MUST invent panels, labels and internal structure
+that describe the method below. Never reuse the reference's entity names, module names, section
+titles or panel captions. If the contract mentions specific numbers of panels or boxes, keep the
+same COUNT and RHYTHM, but fill them with completely new, method-specific content.
 
 ## Composition requirements
 - {panels_hint}
@@ -78,7 +89,14 @@ CRITIC_SYS = """You are a strict reviewer of scientific figures for top-tier ven
 You score a candidate SVG against a reference design contract.
 You are terse, concrete and numeric. Output JSON only."""
 
-CRITIC_USER = """Reference design contract:
+CRITIC_USER = """The method this figure is supposed to illustrate:
+{method}
+
+Judge CONTENT CORRECTNESS first: does the figure actually depict this method's
+components and data flow? A visually clean figure that illustrates the wrong method
+scores 0 on content. Only then judge visual quality against the contract.
+
+Reference design contract:
 {contract}
 
 Candidate SVG statistics:
@@ -89,13 +107,16 @@ Candidate SVG source (may be truncated):
 
 Score the candidate 0-10 on each axis and give actionable fixes:
 {{
-  "scores": {{"layout": n, "hierarchy": n, "density": n, "palette": n, "legibility": n, "editability": n}},
+  "scores": {{"content": n, "layout": n, "hierarchy": n, "density": n, "palette": n, "legibility": n, "editability": n}},
   "overall": n,
+  "wrong_content": ["any element that does NOT belong to this method", ...],
   "problems": ["concrete defect", ...],
   "fixes": ["concrete, imperative instruction for the next attempt", ...]
 }}
 
-Penalise: large empty regions, text overflowing boxes, missing data-editable, wrong viewBox,
-Chinese characters, mask/filter usage, missing zoom-in inset when the contract expects one,
-and a layout that ignores the contract's panel counts.
+Penalise hard: entities, module names or captions that belong to some OTHER paper
+(this is the most common failure — the model copies the reference figure's content),
+large empty regions, text overflowing boxes, missing data-editable, wrong viewBox,
+Chinese characters, mask/filter usage, and a layout ignoring the contract's panel counts.
+If the figure illustrates a different method than the one given, overall must be <= 3.
 Be harsh: only 8+ means genuinely publication-ready."""

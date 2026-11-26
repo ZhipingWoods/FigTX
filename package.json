@@ -30,7 +30,8 @@
     "check:dups": "node tools/check-dups.mjs",
     "offline": "npm run build && node tools/make-offline.mjs",
     "figgen": ".venv-fig/bin/python tools/figgen/cli.py",
-    "figgen:contracts": ".venv-fig/bin/python tools/figgen/build_contracts.py"
+    "figgen:contracts": ".venv-fig/bin/python tools/figgen/build_contracts.py",
+    "figgen:serve": ".venv-fig/bin/python tools/figgen/server.py"
   },
   "dependencies": {
     "react": "^18.3.1",

@@ -70,6 +70,7 @@ def quality_gate(svg: str, min_fill: float = 0.0) -> tuple[bool, list]:
 def generate(
     method: str,
     reference_image: str | None = None,
+    contract_prompt: str | None = None,   # 直接用已缓存的设计契约，跳过视觉分析
     target: str = "pipeline",
     max_rounds: int = 3,
     model: str | None = None,
@@ -83,8 +84,10 @@ def generate(
     os.makedirs(out_dir, exist_ok=True)
 
     contract = None
-    contract_text = ""
-    if reference_image and os.path.exists(reference_image):
+    contract_text = contract_prompt or ""
+    if contract_text and verbose:
+        print("[contract] 使用缓存的设计契约（跳过视觉分析）", flush=True)
+    elif reference_image and os.path.exists(reference_image):
         if verbose:
             print("[contract] 分析参考图 ...", flush=True)
         contract = C.extract(reference_image, model=model)
@@ -133,6 +136,7 @@ def generate(
                 critic_msg = [
                     {"role": "system", "content": P.CRITIC_SYS},
                     {"role": "user", "content": P.CRITIC_USER.format(
+                        method=method.strip()[:4000],
                         contract=contract_text or "(none)",
                         stats=json.dumps(stats, ensure_ascii=False),
                         svg=svg[:24000],

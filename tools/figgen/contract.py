@@ -106,6 +106,23 @@ def extract(image_path: str, model: str | None = None) -> dict | None:
     return _first_json(raw)
 
 
+# 参考图里的具体实体名、标注、具体数值都会诱导模型照抄内容，
+# 契约只该传递"视觉语法"（几何/密度/配色/层级），不该传递"讲什么"。
+# 只去掉「内容标注」，保留几何数值（x/y/w/h、px、间距都是要用的）。
+_CONTENT_NOISE = re.compile(
+    r"\((?:a|b|c|d|e|f)\)|"                        # 面板标注 (a)(b)(c)
+    r"\b(?:fig(?:ure)?|tab(?:le)?)\.?\s*\d+\b",   # Figure 3 / Table 2
+    re.I,
+)
+
+
+def _structure_only(text: str) -> str:
+    """从契约描述里剥掉参考图的具体内容，只留可迁移的结构信息。"""
+    t = _CONTENT_NOISE.sub(" ", text or "")
+    t = re.sub(r"\s{2,}", " ", t).strip(" ;,.")
+    return t[:180]
+
+
 def to_prompt(contract: dict) -> str:
     """把契约渲染成提示词里的硬约束段落（与 topconf 的 designContractText 同思路）。"""
     if not contract:
@@ -152,11 +169,19 @@ def to_prompt(contract: dict) -> str:
     lay = c.get("layout") or {}
     if lay.get("reading_direction"):
         rows.append("- reading direction: " + str(lay["reading_direction"]))
-    if lay.get("panel_division"):
-        rows.append("- panel division: " + str(lay["panel_division"]))
+    # panel_division 常含参考图的具体标注（如 "(a) xxx"），只保留结构词
+    pd = lay.get("panel_division")
+    if pd:
+        rows.append("- panel division: " + _structure_only(str(pd)))
 
     topo = c.get("topology") or {}
-    tp = [k + ": " + str(topo[k]) for k in ("anchor", "flow", "spacing") if topo.get(k)]
+    tp = []
+    if topo.get("anchor"):
+        tp.append("anchor: " + _structure_only(str(topo["anchor"])))
+    if topo.get("spacing"):
+        tp.append("spacing: " + _structure_only(str(topo["spacing"])))
+    # 故意丢弃 topology.flow —— 它总是描述参考图的具体内容走向，
+    # 模型会把其中的实体名照搬进新图（实测：生成了参考图的 SANA-Video/Linear DiT）
     if tp:
         rows.append("- topology: " + "; ".join(tp))
 
