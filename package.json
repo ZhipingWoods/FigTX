@@ -28,7 +28,9 @@
     "dist:all": "npm run build && electron-builder -mwl",
     "data": "node tools/build-data.mjs",
     "check:dups": "node tools/check-dups.mjs",
-    "offline": "npm run build && node tools/make-offline.mjs"
+    "offline": "npm run build && node tools/make-offline.mjs",
+    "figgen": ".venv-fig/bin/python tools/figgen/cli.py",
+    "figgen:contracts": ".venv-fig/bin/python tools/figgen/build_contracts.py"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -42,6 +44,7 @@
     "cross-env": "^7.0.3",
     "electron": "^33.3.1",
     "electron-builder": "^25.1.8",
+    "playwright-core": "^1.65.1",
     "typescript": "^5.7.2",
     "vite": "^6.0.7",
     "wait-on": "^8.0.1"

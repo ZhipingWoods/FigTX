@@ -29,3 +29,8 @@ sample/
 # 构建产物：由 npm run data 从 raw-*.json 生成
 src/data/items.json
 audit/report.json
+
+# 本地密钥（不入库）
+.env
+.env.local
+figgen-out/

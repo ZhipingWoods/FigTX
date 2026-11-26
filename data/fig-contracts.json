@@ -1,0 +1,912 @@
+{
+ "rep-05-architecture": {
+  "no": "F001",
+  "figType": "architecture",
+  "title": "架构 · 三面板流程与模块放大",
+  "image": "renders-fig/rep-05-architecture.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "system-overview",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#D6E8F5",
+    "accent": "#F7941D",
+    "neutral": "#000000",
+    "others": [
+     "#F7DCD9",
+     "#D7EFD2",
+     "#E9EDF5",
+     "#DCDCDC",
+     "#FCF0C5",
+     "#111019",
+     "#A6193B",
+     "#80B509"
+    ]
+   },
+   "typography": {
+    "panel_header_px": 24,
+    "label_px": 18,
+    "note_px": 14,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 2.6,
+    "arrow_px": 2.2,
+    "connector_px": 2.2
+   },
+   "density": {
+    "panels": 3,
+    "containers": 3,
+    "solid_borders": 26,
+    "dashed_borders": 2,
+    "connectors": 39,
+    "fill_percent": 61
+   },
+   "layout": {
+    "reading_direction": "other",
+    "panel_division": "A vertical divider at x=873 px partitions the 1600 x 705 px canvas. A horizontal divider at y=310 px splits only the left partition."
+   },
+   "topology": {
+    "anchor": "First frame stack at x=27 px, y=37 px in panel (a).",
+    "flow": "Panel (a): four stages left-to-right. Panel (b): two left-to-right paths, with two upward conditioning branches. Panel (c): two bottom-to-top computations.",
+    "spacing": "Panel (a) stack origins advance by 203 px. Panel (c) has a 28 px gutter between its two blue containers."
+   },
+   "style_fingerprint": {
+    "panel_shape": "mixed",
+    "module_shape": "Rounded rectangles for operators, one four-sided taper for the encoder, three borderless rectangular bands in the repeat block, circles for addition and multiplication.",
+    "arrow_style": "Black single-ended filled triangular heads; straight horizontal and vertical runs, right-angle branches, curved links above frame stacks.",
+    "icon_style": "Offset square sheets with three overlapping translucent rectangles; 4 x 4 colored matrix; blue radial mark and orange triangle on repeat-block corners.",
+    "text_treatment": "Bold serif captions below all three panels; centered operator labels; italic mathematical variables with subscripts and superscripts; three labels rotated 90 degrees."
+   },
+   "panels": [
+    {
+     "name": "(a). Block-wise autoregressive training pipeline",
+     "role": "Four block times and cumulative attention",
+     "x_pct": 0,
+     "y_pct": 0,
+     "w_pct": 55,
+     "h_pct": 44
+    },
+    {
+     "name": "(b). Architecture overview of our SANA-Video.",
+     "role": "Video encoding and text conditioning of repeated attention/FFN block",
+     "x_pct": 0,
+     "y_pct": 44,
+     "w_pct": 55,
+     "h_pct": 56
+    },
+    {
+     "name": "(c). Linear DiT module",
+     "role": "Linear Attention and Mix-FFN operator breakdown",
+     "x_pct": 55,
+     "y_pct": 0,
+     "w_pct": 45,
+     "h_pct": 100
+    }
+   ],
+   "elements": [
+    "offset frame stacks",
+    "filled triangular arrowheads",
+    "rounded operator boxes",
+    "pastel grouping containers",
+    "serif math annotations",
+    "lettered bottom captions",
+    "dashed partition lines"
+   ],
+   "reusable_rules": [
+    "Place the full-height partition at 55% of canvas width and the left-only partition at 44% of height.",
+    "Center a 24 px bold serif caption below each panel.",
+    "Space the four upper-left stack origins at 203 px intervals.",
+    "Use 2–3 px black outlines on operator boxes and filled black arrowheads.",
+    "Align the two right-side containers at y=45 px and end both at y=619 px.",
+    "Rotate the three repeat-block labels 90 degrees counterclockwise."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #D6E8F5, accent #F7941D, neutral #000000, #F7DCD9, #D7EFD2, #E9EDF5, #DCDCDC, #FCF0C5, #111019, #A6193B, #80B509\n- type scale: panel_header 24px, label 18px, note 14px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 2.6px, arrow 2.2px, connector 2.2px\n- counted in the reference: 3 panels, 3 container boxes, 39 separate arrows/connectors, 26 solid borders, 2 dashed borders, canvas about 61% filled — match these counts\n- reading direction: other\n- panel division: A vertical divider at x=873 px partitions the 1600 x 705 px canvas. A horizontal divider at y=310 px splits only the left partition.\n- topology: anchor: First frame stack at x=27 px, y=37 px in panel (a).; flow: Panel (a): four stages left-to-right. Panel (b): two left-to-right paths, with two upward conditioning branches. Panel (c): two bottom-to-top computations.; spacing: Panel (a) stack origins advance by 203 px. Panel (c) has a 28 px gutter between its two blue containers.\n- style fingerprint: panel_shape: mixed; module_shape: Rounded rectangles for operators, one four-sided taper for the encoder, three borderless rectangular bands in the repeat block, circles for addition and multiplication.; arrow_style: Black single-ended filled triangular heads; straight horizontal and vertical runs, right-angle branches, curved links above frame stacks.; icon_style: Offset square sheets with three overlapping translucent rectangles; 4 x 4 colored matrix; blue radial mark and orange triangle on repeat-block corners.; text_treatment: Bold serif captions below all three panels; centered operator labels; italic mathematical variables with subscripts and superscripts; three labels rotated 90 degrees.\n- panels: (a). Block-wise autoregressive training pipeline — Four block times and cumulative attention @ 0%,0% size 55%x44% | (b). Architecture overview of our SANA-Video. — Video encoding and text conditioning of repeated attention/FFN block @ 0%,44% size 55%x56% | (c). Linear DiT module — Linear Attention and Mix-FFN operator breakdown @ 55%,0% size 45%x100%\n- recurring elements: offset frame stacks, filled triangular arrowheads, rounded operator boxes, pastel grouping containers, serif math annotations, lettered bottom captions, dashed partition lines\n- rule: Place the full-height partition at 55% of canvas width and the left-only partition at 44% of height.\n- rule: Center a 24 px bold serif caption below each panel.\n- rule: Space the four upper-left stack origins at 203 px intervals.\n- rule: Use 2–3 px black outlines on operator boxes and filled black arrowheads.\n- rule: Align the two right-side containers at y=45 px and end both at y=619 px.\n- rule: Rotate the three repeat-block labels 90 degrees counterclockwise."
+ },
+ "rep-06-mechanism": {
+  "no": "F002",
+  "figType": "mechanism",
+  "title": "机制 · 张量结构与缓存策略",
+  "image": "renders-fig/rep-06-mechanism.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#7AB70A",
+    "accent": "#A7183D",
+    "neutral": "#B3B3B3",
+    "others": [
+     "#DDEBF7",
+     "#1D70CF",
+     "#000000"
+    ]
+   },
+   "typography": {
+    "panel_header_px": 22,
+    "label_px": 20,
+    "note_px": 16,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 3,
+    "arrow_px": 3,
+    "connector_px": 2,
+    "panel_border_heavier_than_module": false
+   },
+   "density": {
+    "panels": 2,
+    "containers": 5,
+    "solid_borders": 10,
+    "dashed_borders": 3,
+    "connectors": 4,
+    "fill_percent": 30
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "Two bottom-captioned panels in one row. Panel (a) contains three attention diagrams; panel (b) contains two vertically aligned groups of token bars."
+   },
+   "topology": {
+    "anchor": "Four-swatch legend beginning at x=152 px, y=3 px above the leftmost 4-by-4 grid.",
+    "flow": "Three attention diagrams run left to right. Three white arrows point right across successive rows of the causal grid. One blue arrow curves downward from Token-1 to Cached Token-1 in the right panel.",
+    "spacing": "The three attention diagrams share y=95 px and y=414 px grid edges. Vertical dashed rules lie at x=505, 836, 1291, and 1332 px except that x=505 is interrupted by the value column. The right stack uses 155-by-39 px bars with 6 px gaps within each group."
+   },
+   "style_fingerprint": {
+    "panel_shape": "mixed",
+    "module_shape": "Square grid cells, rectangular vector cells, one square sum tile, and six rounded token bars with 7 px corner radii.",
+    "arrow_style": "Three horizontal white single-headed arrows and one curved blue single-headed arrow; filled triangular heads.",
+    "icon_style": "Four black-outlined square legend swatches, each 26-by-26 px.",
+    "text_treatment": "Black serif diagram captions below grids; bold serif panel captions prefixed (a) and (b); italic indexed math labels; centered bold white text on token bars."
+   },
+   "panels": [
+    {
+     "name": "(a) Block Causal Linear Attention",
+     "role": "Compare vanilla, linear, and causal linear attention",
+     "x_pct": 0,
+     "y_pct": 0,
+     "w_pct": 81,
+     "h_pct": 100
+    },
+    {
+     "name": "(b) Block Causal Mix-FFN",
+     "role": "Show token, padding, and cache positions in two blocks",
+     "x_pct": 83,
+     "y_pct": 16,
+     "w_pct": 17,
+     "h_pct": 84
+    }
+   ],
+   "elements": [
+    "4-by-4 matrix grids",
+    "Single-column vectors",
+    "Indexed math labels",
+    "Multiplication signs",
+    "Summation formulas",
+    "Vertical block brackets",
+    "Vertical dashed separators",
+    "Color-key squares",
+    "Rounded token bars",
+    "Lettered panel captions"
+   ],
+   "reusable_rules": [
+    "Align both 4-by-4 grids to a 320-by-320 px footprint using 80 px cells.",
+    "Use 3 px black outlines for grid cells and token bars.",
+    "Place four square swatches in one row above the first diagram, with each label immediately to its right.",
+    "Center the three attention labels 24 px below the bottom grid edges.",
+    "Stack the six token bars in two groups of three, leaving 30 px between groups."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #7AB70A, accent #A7183D, neutral #B3B3B3, #DDEBF7, #1D70CF, #000000\n- type scale: panel_header 22px, label 20px, note 16px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 3px, arrow 3px, connector 2px\n- counted in the reference: 2 panels, 5 container boxes, 4 separate arrows/connectors, 10 solid borders, 3 dashed borders, canvas about 30% filled — match these counts\n- reading direction: left-to-right\n- panel division: Two bottom-captioned panels in one row. Panel (a) contains three attention diagrams; panel (b) contains two vertically aligned groups of token bars.\n- topology: anchor: Four-swatch legend beginning at x=152 px, y=3 px above the leftmost 4-by-4 grid.; flow: Three attention diagrams run left to right. Three white arrows point right across successive rows of the causal grid. One blue arrow curves downward from Token-1 to Cached Token-1 in the right panel.; spacing: The three attention diagrams share y=95 px and y=414 px grid edges. Vertical dashed rules lie at x=505, 836, 1291, and 1332 px except that x=505 is interrupted by the value column. The right stack uses 155-by-39 px bars with 6 px gaps within each group.\n- style fingerprint: panel_shape: mixed; module_shape: Square grid cells, rectangular vector cells, one square sum tile, and six rounded token bars with 7 px corner radii.; arrow_style: Three horizontal white single-headed arrows and one curved blue single-headed arrow; filled triangular heads.; icon_style: Four black-outlined square legend swatches, each 26-by-26 px.; text_treatment: Black serif diagram captions below grids; bold serif panel captions prefixed (a) and (b); italic indexed math labels; centered bold white text on token bars.\n- panels: (a) Block Causal Linear Attention — Compare vanilla, linear, and causal linear attention @ 0%,0% size 81%x100% | (b) Block Causal Mix-FFN — Show token, padding, and cache positions in two blocks @ 83%,16% size 17%x84%\n- recurring elements: 4-by-4 matrix grids, Single-column vectors, Indexed math labels, Multiplication signs, Summation formulas, Vertical block brackets, Vertical dashed separators, Color-key squares, Rounded token bars, Lettered panel captions\n- rule: Align both 4-by-4 grids to a 320-by-320 px footprint using 80 px cells.\n- rule: Use 3 px black outlines for grid cells and token bars.\n- rule: Place four square swatches in one row above the first diagram, with each label immediately to its right.\n- rule: Center the three attention labels 24 px below the bottom grid edges.\n- rule: Stack the six token bars in two groups of three, leaving 30 px between groups."
+ },
+ "rep-09-activation-heatmap": {
+  "no": "F003",
+  "figType": "motivation",
+  "title": "动机 · 激活与重要通道热图",
+  "image": "renders-fig/rep-09-activation-heatmap.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "portrait"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#000000",
+    "accent": "#008000",
+    "neutral": "#D3D3D3",
+    "others": [
+     "#FF0000",
+     "#361039",
+     "#824366",
+     "#EAA989",
+     "#FFF5CC"
+    ]
+   },
+   "typography": {
+    "panel_header_px": 40,
+    "label_px": 34,
+    "note_px": 28,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 3
+   },
+   "density": {
+    "panels": 2,
+    "containers": 3,
+    "modules_per_panel": 1,
+    "solid_borders": 1,
+    "dashed_borders": 0,
+    "connectors": 0,
+    "fill_percent": 51
+   },
+   "layout": {
+    "reading_direction": "top-to-bottom",
+    "panel_division": "1 column of 2 aligned raster plots, followed by a 1-row legend and a 5-line figure caption."
+   },
+   "topology": {
+    "anchor": "Input Activations header centered at x=804 px above the first raster.",
+    "flow": "Compare the upper activation matrix with the lower channel mask at the same token and channel coordinates; match 3 vertical markers to 3 legend samples.",
+    "spacing": "Plot rectangles span x=136–1473 px. Their top edges are at y=52 and 644 px, with 150 px between the first baseline and the second raster."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "2 rectangular matrix rasters; 2 rectangular text backplates; 1 rounded rectangular legend frame.",
+    "text_treatment": "Center each serif heading over its raster. Rotate both Channel Index labels 90 degrees counterclockwise. Center the 5 caption lines below the legend, with the first line overlapping its lower edge."
+   },
+   "panels": [
+    {
+     "name": "Input Activations",
+     "role": "Encode activation magnitude by pixel brightness at each token and channel coordinate.",
+     "x_pct": 9,
+     "y_pct": 3,
+     "w_pct": 89,
+     "h_pct": 28
+    },
+    {
+     "name": "Important Channels",
+     "role": "Mark important channel positions with light pixels on a dark matrix at the same coordinates.",
+     "x_pct": 9,
+     "y_pct": 42,
+     "w_pct": 89,
+     "h_pct": 28
+    }
+   ],
+   "elements": [
+    "2 centered panel headings",
+    "2 token-by-channel rasters",
+    "2 bottom axes with 9 labeled ticks each",
+    "2 left axes with 7 labeled ticks each",
+    "4 solid vertical markers and 2 dashed vertical markers",
+    "2 upper-raster token-region labels",
+    "1 boxed legend with 3 line samples",
+    "1 numbered figure caption"
+   ],
+   "reusable_rules": [
+    "Stack two 1337 × 442 px rasters with identical left and right edges.",
+    "Label tokens from 0 to 400 in steps of 50 and channels from 0 to 1500 in steps of 250, with channel 0 at the top.",
+    "Repeat 5 px vertical markers at token indices 16, 164 and 266; use solid green, dashed green and solid red, respectively.",
+    "Place Visual Tokens and Language Tokens on 2 light backplates at the upper edge of the first raster only.",
+    "Center a 3-entry horizontal legend under the second Token Index label."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #000000, accent #008000, neutral #D3D3D3, #FF0000, #361039, #824366, #EAA989, #FFF5CC\n- type scale: panel_header 40px, label 34px, note 28px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 3px\n- counted in the reference: 2 panels, 3 container boxes, 1 modules per panel, 0 separate arrows/connectors, 1 solid borders, 0 dashed borders, canvas about 51% filled — match these counts\n- reading direction: top-to-bottom\n- panel division: 1 column of 2 aligned raster plots, followed by a 1-row legend and a 5-line figure caption.\n- topology: anchor: Input Activations header centered at x=804 px above the first raster.; flow: Compare the upper activation matrix with the lower channel mask at the same token and channel coordinates; match 3 vertical markers to 3 legend samples.; spacing: Plot rectangles span x=136–1473 px. Their top edges are at y=52 and 644 px, with 150 px between the first baseline and the second raster.\n- style fingerprint: panel_shape: sharp; module_shape: 2 rectangular matrix rasters; 2 rectangular text backplates; 1 rounded rectangular legend frame.; text_treatment: Center each serif heading over its raster. Rotate both Channel Index labels 90 degrees counterclockwise. Center the 5 caption lines below the legend, with the first line overlapping its lower edge.\n- panels: Input Activations — Encode activation magnitude by pixel brightness at each token and channel coordinate. @ 9%,3% size 89%x28% | Important Channels — Mark important channel positions with light pixels on a dark matrix at the same coordinates. @ 9%,42% size 89%x28%\n- recurring elements: 2 centered panel headings, 2 token-by-channel rasters, 2 bottom axes with 9 labeled ticks each, 2 left axes with 7 labeled ticks each, 4 solid vertical markers and 2 dashed vertical markers, 2 upper-raster token-region labels, 1 boxed legend with 3 line samples, 1 numbered figure caption\n- rule: Stack two 1337 × 442 px rasters with identical left and right edges.\n- rule: Label tokens from 0 to 400 in steps of 50 and channels from 0 to 1500 in steps of 250, with channel 0 at the top.\n- rule: Repeat 5 px vertical markers at token indices 16, 164 and 266; use solid green, dashed green and solid red, respectively.\n- rule: Place Visual Tokens and Language Tokens on 2 light backplates at the upper edge of the first raster only.\n- rule: Center a 3-entry horizontal legend under the second Token Index label."
+ },
+ "rep-10-frequency-outlier": {
+  "no": "F004",
+  "figType": "motivation",
+  "title": "动机 · 频率与异常值分布",
+  "image": "renders-fig/rep-10-frequency-outlier.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "result-grid",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#4169E1",
+    "accent": "#FF0000",
+    "neutral": "#000000",
+    "others": [
+     "#90CBE7",
+     "#F3B0AE",
+     "#000080",
+     "#F2C347",
+     "#FFA500",
+     "#D6D6D6"
+    ]
+   },
+   "typography": {
+    "panel_header_px": 42,
+    "label_px": 36,
+    "note_px": 42,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 3
+   },
+   "density": {
+    "panels": 2,
+    "containers": 2,
+    "modules_per_panel": 0,
+    "solid_borders": 2,
+    "dashed_borders": 0,
+    "connectors": 0,
+    "fill_percent": 15
+   },
+   "layout": {
+    "reading_direction": "top-to-bottom",
+    "panel_division": "1 column of 2 plots, followed by a 5-line caption beginning at 81% canvas height."
+   },
+   "topology": {
+    "anchor": "Frequency Distribution heading centered at x=820 px above the first plot.",
+    "flow": "Read the frequency trace from left to right, then the mean-value trace on the same horizontal scale, then the caption.",
+    "spacing": "Plot origins align at x=148 px; horizontal baselines are at y=419 px and y=957 px. The caption starts 132 px below the second x-axis label."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "icon_style": "Red diagonal crosses on the frequency trace; 5-point star markers in navy and orange, repeated in the legends.",
+    "text_treatment": "Center panel headings and axis labels; rotate y-axis labels 90 degrees; italicize the k tick; center the caption in 5 lines."
+   },
+   "panels": [
+    {
+     "name": "Frequency Distribution",
+     "role": "Frequency by important channel index, with 2 filled regions divided at k.",
+     "x_pct": 2,
+     "y_pct": 0,
+     "w_pct": 98,
+     "h_pct": 36
+    },
+    {
+     "name": "Outlier Mean Value",
+     "role": "Mean value by important channel index on the same x scale.",
+     "x_pct": 0,
+     "y_pct": 37,
+     "w_pct": 100,
+     "h_pct": 36
+    }
+   ],
+   "elements": [
+    "centered subplot heading",
+    "left and bottom axis spines",
+    "outward tick marks",
+    "axis labels",
+    "continuous data trace",
+    "boxed legend",
+    "5-point star marker",
+    "shared x tick positions"
+   ],
+   "reusable_rules": [
+    "Align both plotting rectangles from x=148 px to x=1493 px and give each a height of 365 px.",
+    "Draw only the left and bottom spines in black at 4 px; use 0 gridlines.",
+    "Place 5 x-axis tick labels on each plot: 0, k, 256, 576, 1024.",
+    "Place a 5-entry legend at the upper right of the first plot and a 2-entry legend at the upper left of the second plot.",
+    "Set the caption in 5 centered lines with a 59 px baseline interval."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #4169E1, accent #FF0000, neutral #000000, #90CBE7, #F3B0AE, #000080, #F2C347, #FFA500, #D6D6D6\n- type scale: panel_header 42px, label 36px, note 42px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 3px\n- counted in the reference: 2 panels, 2 container boxes, 0 modules per panel, 0 separate arrows/connectors, 2 solid borders, 0 dashed borders, canvas about 15% filled — match these counts\n- reading direction: top-to-bottom\n- panel division: 1 column of 2 plots, followed by a 5-line caption beginning at 81% canvas height.\n- topology: anchor: Frequency Distribution heading centered at x=820 px above the first plot.; flow: Read the frequency trace from left to right, then the mean-value trace on the same horizontal scale, then the caption.; spacing: Plot origins align at x=148 px; horizontal baselines are at y=419 px and y=957 px. The caption starts 132 px below the second x-axis label.\n- style fingerprint: panel_shape: sharp; icon_style: Red diagonal crosses on the frequency trace; 5-point star markers in navy and orange, repeated in the legends.; text_treatment: Center panel headings and axis labels; rotate y-axis labels 90 degrees; italicize the k tick; center the caption in 5 lines.\n- panels: Frequency Distribution — Frequency by important channel index, with 2 filled regions divided at k. @ 2%,0% size 98%x36% | Outlier Mean Value — Mean value by important channel index on the same x scale. @ 0%,37% size 100%x36%\n- recurring elements: centered subplot heading, left and bottom axis spines, outward tick marks, axis labels, continuous data trace, boxed legend, 5-point star marker, shared x tick positions\n- rule: Align both plotting rectangles from x=148 px to x=1493 px and give each a height of 365 px.\n- rule: Draw only the left and bottom spines in black at 4 px; use 0 gridlines.\n- rule: Place 5 x-axis tick labels on each plot: 0, k, 256, 576, 1024.\n- rule: Place a 5-entry legend at the upper right of the first plot and a 2-entry legend at the upper left of the second plot.\n- rule: Set the caption in 5 centered lines with a 59 px baseline interval."
+ },
+ "fig-mot-gap-bar": {
+  "no": "F023",
+  "figType": "motivation",
+  "title": "差距对比柱状图",
+  "image": "renders-fig/fig-mot-gap-bar.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#B0B8C3",
+    "accent": "#CF7F90",
+    "neutral": "#000000",
+    "others": [
+     "#6C727F",
+     "#883D50",
+     "#EAEAEA"
+    ]
+   },
+   "typography": {
+    "title_px": 44,
+    "label_px": 40,
+    "note_px": 32,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 4.5,
+    "arrow_px": 4.5,
+    "connector_px": 4.5,
+    "panel_border_heavier_than_module": false
+   },
+   "density": {
+    "panels": 1,
+    "containers": 0,
+    "modules_per_panel": 6,
+    "solid_borders": 8,
+    "dashed_borders": 0,
+    "connectors": 3,
+    "fill_percent": 34
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "One plot with three two-bar groups centered at x=328, 715 and 1102 px; a two-entry legend occupies the upper right."
+   },
+   "topology": {
+    "anchor": "Title centered at x=715 px above the plot.",
+    "flow": "Read Short, Medium and Long from left to right. Within each group, one curved arrow runs from the gray Existing bar toward the rose Ours bar.",
+    "spacing": "Group centers are 387 px apart. Bars are 132 px wide, touch within each pair and leave 123 px between pairs."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "Six vertical rectangles with square corners and a shared baseline at y=781 px.",
+    "arrow_style": "Three solid burgundy arcs, convex upward, each ending in one filled rightward arrowhead.",
+    "text_treatment": "Black serif text; category names centered on pairs, numeric values centered above individual bars to one decimal place, and y-axis title rotated 90 degrees."
+   },
+   "panels": [
+    {
+     "name": "Gap grows with sequence length",
+     "role": "Compare Existing and Ours accuracy across three sequence-length categories.",
+     "x_pct": 11,
+     "y_pct": 8,
+     "w_pct": 88,
+     "h_pct": 84
+    }
+   ],
+   "elements": [
+    "3 pairs of outlined bars",
+    "6 numeric value labels",
+    "3 curved arrows",
+    "3 category labels",
+    "5 labeled y-axis ticks",
+    "4 horizontal interior gridlines",
+    "3 vertical gridlines",
+    "2 outlined rectangular legend swatches"
+   ],
+   "reusable_rules": [
+    "Place the baseline at 91% of canvas height and draw only the left and bottom axis spines.",
+    "Space group centers 387 px apart and place two touching 132 px bars at each center.",
+    "Use gray for the left bar and rose for the right bar; repeat both fills and outlines in the legend.",
+    "Place a one-decimal value above each bar and draw one left-to-right arc per pair.",
+    "Label the y-axis from 0 to 80 in increments of 20, with 150 px between adjacent ticks.",
+    "Center the title over the plotting area rather than over the full canvas."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #B0B8C3, accent #CF7F90, neutral #000000, #6C727F, #883D50, #EAEAEA\n- type scale: title 44px, label 40px, note 32px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 4.5px, arrow 4.5px, connector 4.5px\n- counted in the reference: 1 panels, 0 container boxes, 6 modules per panel, 3 separate arrows/connectors, 8 solid borders, 0 dashed borders, canvas about 34% filled — match these counts\n- reading direction: left-to-right\n- panel division: One plot with three two-bar groups centered at x=328, 715 and 1102 px; a two-entry legend occupies the upper right.\n- topology: anchor: Title centered at x=715 px above the plot.; flow: Read Short, Medium and Long from left to right. Within each group, one curved arrow runs from the gray Existing bar toward the rose Ours bar.; spacing: Group centers are 387 px apart. Bars are 132 px wide, touch within each pair and leave 123 px between pairs.\n- style fingerprint: panel_shape: sharp; module_shape: Six vertical rectangles with square corners and a shared baseline at y=781 px.; arrow_style: Three solid burgundy arcs, convex upward, each ending in one filled rightward arrowhead.; text_treatment: Black serif text; category names centered on pairs, numeric values centered above individual bars to one decimal place, and y-axis title rotated 90 degrees.\n- panels: Gap grows with sequence length — Compare Existing and Ours accuracy across three sequence-length categories. @ 11%,8% size 88%x84%\n- recurring elements: 3 pairs of outlined bars, 6 numeric value labels, 3 curved arrows, 3 category labels, 5 labeled y-axis ticks, 4 horizontal interior gridlines, 3 vertical gridlines, 2 outlined rectangular legend swatches\n- rule: Place the baseline at 91% of canvas height and draw only the left and bottom axis spines.\n- rule: Space group centers 387 px apart and place two touching 132 px bars at each center.\n- rule: Use gray for the left bar and rose for the right bar; repeat both fills and outlines in the legend.\n- rule: Place a one-decimal value above each bar and draw one left-to-right arc per pair.\n- rule: Label the y-axis from 0 to 80 in increments of 20, with 150 px between adjacent ticks.\n- rule: Center the title over the plotting area rather than over the full canvas."
+ },
+ "fig-mot-failure-cases": {
+  "no": "F022",
+  "figType": "motivation",
+  "title": "失败案例拼图",
+  "image": "renders-fig/fig-mot-failure-cases.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#000000",
+    "accent": "#BC3C29",
+    "neutral": "#A6A6A6",
+    "others": [
+     "#242424",
+     "#383838",
+     "#C0C0C0"
+    ]
+   },
+   "typography": {
+    "title_px": 46,
+    "panel_header_px": 40,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 6,
+    "panel_border_heavier_than_module": false
+   },
+   "density": {
+    "panels": 3,
+    "containers": 3,
+    "modules_per_panel": 1,
+    "solid_borders": 6,
+    "dashed_borders": 0,
+    "connectors": 0,
+    "fill_percent": 64
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "One title above a single row of 3 equal-width columns, each with a heading above a square image."
+   },
+   "topology": {
+    "anchor": "Title centered at x=752 px near the top edge.",
+    "flow": "From the title down to 3 headings, then from each heading to the outlined region in the image below.",
+    "spacing": "Image left edges at x=6, 549 and 1091 px; 87 px white gutters between image frames; image tops aligned at y=181 px."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "190 px square outline with 90-degree corners and transparent interior",
+    "text_treatment": "Black regular-weight serif type; one single-line title and 3 single-line headings centered over their images."
+   },
+   "panels": [
+    {
+     "name": "Occlusion",
+     "role": "Shows a 156 px dark square inside the highlighted region.",
+     "x_pct": 0,
+     "y_pct": 19,
+     "w_pct": 29,
+     "h_pct": 80
+    },
+    {
+     "name": "Low light",
+     "role": "Shows a highlighted region within a dark grayscale pixel field.",
+     "x_pct": 35,
+     "y_pct": 19,
+     "w_pct": 29,
+     "h_pct": 80
+    },
+    {
+     "name": "Motion blur",
+     "role": "Shows a highlighted region within a horizontally blurred grayscale field.",
+     "x_pct": 70,
+     "y_pct": 19,
+     "w_pct": 29,
+     "h_pct": 80
+    }
+   ],
+   "elements": [
+    "Centered serif panel heading",
+    "Square grayscale raster",
+    "Black left and bottom image edges",
+    "Red square region outline"
+   ],
+   "reusable_rules": [
+    "Place 3 approximately 453 px square rasters in one row with 87 px white gutters.",
+    "Align all raster tops at y=181 px on a 1554 by 641 px canvas.",
+    "Center one 40 px serif heading over each raster and use a 46 px serif title above the row.",
+    "Place one 190 px red square outline in each raster, offset 143 px from the left edge and 113 px from the top; use a 6 px stroke.",
+    "Draw 3 px black edges on the left and bottom of each raster; omit ticks and axis labels."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #000000, accent #BC3C29, neutral #A6A6A6, #242424, #383838, #C0C0C0\n- type scale: title 46px, panel_header 40px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 6px\n- counted in the reference: 3 panels, 3 container boxes, 1 modules per panel, 0 separate arrows/connectors, 6 solid borders, 0 dashed borders, canvas about 64% filled — match these counts\n- reading direction: left-to-right\n- panel division: One title above a single row of 3 equal-width columns, each with a heading above a square image.\n- topology: anchor: Title centered at x=752 px near the top edge.; flow: From the title down to 3 headings, then from each heading to the outlined region in the image below.; spacing: Image left edges at x=6, 549 and 1091 px; 87 px white gutters between image frames; image tops aligned at y=181 px.\n- style fingerprint: panel_shape: sharp; module_shape: 190 px square outline with 90-degree corners and transparent interior; text_treatment: Black regular-weight serif type; one single-line title and 3 single-line headings centered over their images.\n- panels: Occlusion — Shows a 156 px dark square inside the highlighted region. @ 0%,19% size 29%x80% | Low light — Shows a highlighted region within a dark grayscale pixel field. @ 35%,19% size 29%x80% | Motion blur — Shows a highlighted region within a horizontally blurred grayscale field. @ 70%,19% size 29%x80%\n- recurring elements: Centered serif panel heading, Square grayscale raster, Black left and bottom image edges, Red square region outline\n- rule: Place 3 approximately 453 px square rasters in one row with 87 px white gutters.\n- rule: Align all raster tops at y=181 px on a 1554 by 641 px canvas.\n- rule: Center one 40 px serif heading over each raster and use a 46 px serif title above the row.\n- rule: Place one 190 px red square outline in each raster, offset 143 px from the left edge and 113 px from the top; use a 6 px stroke.\n- rule: Draw 3 px black edges on the left and bottom of each raster; omit ticks and axis labels."
+ },
+ "fig-mot-tradeoff": {
+  "no": "F025",
+  "figType": "motivation",
+  "title": "精度-代价权衡散点",
+  "image": "renders-fig/fig-mot-tradeoff.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "4:3",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#000000",
+    "accent": "#883D50",
+    "neutral": "#9BA4AE",
+    "others": [
+     "#EAEAEA"
+    ]
+   },
+   "typography": {
+    "title_px": 44,
+    "label_px": 40,
+    "note_px": 32,
+    "family": "serif"
+   },
+   "strokes": {
+    "connector_px": 2.5
+   },
+   "density": {
+    "panels": 1,
+    "containers": 0,
+    "modules_per_panel": 0,
+    "solid_borders": 0,
+    "dashed_borders": 0,
+    "connectors": 1,
+    "fill_percent": 69
+   },
+   "layout": {
+    "reading_direction": "top-to-bottom",
+    "panel_division": "One title above one scatter plot; y-axis labels occupy the left margin and x-axis labels occupy the bottom margin."
+   },
+   "topology": {
+    "anchor": "Title centered over the axes at x=691 px; highlighted star centered at (233,100) px.",
+    "flow": "A dotted leader runs down-right from the star toward a two-line note. The note indicates increasing accuracy upward and decreasing cost leftward.",
+    "spacing": "Vertical grid lines are 207–208 px apart; horizontal grid lines are 88–89 px apart. Legend rows are 53 px apart."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "arrow_style": "Two inline arrow glyphs, ↑ and ←; the dotted leader has no arrowhead.",
+    "icon_style": "Solid 20 px diameter circles and a solid five-point star spanning 49 px.",
+    "text_treatment": "Black serif title, axis titles, tick labels and legend; burgundy serif annotation on two left-aligned lines; y-axis title rotated 90 degrees."
+   },
+   "panels": [
+    {
+     "name": "Pushing the Pareto frontier",
+     "role": "Compare accuracy (%) against inference cost (GFLOPs) for 15 prior-art points and one highlighted result.",
+     "x_pct": 12,
+     "y_pct": 7,
+     "w_pct": 88,
+     "h_pct": 79
+    }
+   ],
+   "elements": [
+    "15 gray plotted circles",
+    "1 burgundy plotted star",
+    "2 legend rows repeating the circle and star",
+    "5 labeled x-axis ticks at intervals of 10 GFLOPs",
+    "9 labeled y-axis ticks at intervals of 2 percentage points",
+    "5 vertical and 9 horizontal grid lines",
+    "1 dotted annotation leader"
+   ],
+   "reusable_rules": [
+    "Draw only the left and bottom axis spines at 4 px.",
+    "Place a grid line at each of the 5 x ticks and 9 y ticks.",
+    "Encode the 15 comparison results with 20 px gray circles and the highlighted result with a 49 px burgundy star.",
+    "Place the two-line burgundy note about 166 px right and 65 px below the star center; connect it with one dotted leader.",
+    "Set the two legend markers on a common x coordinate 68 px right of the y-axis, with no legend frame."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #000000, accent #883D50, neutral #9BA4AE, #EAEAEA\n- type scale: title 44px, label 40px, note 32px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: connector 2.5px\n- counted in the reference: 1 panels, 0 container boxes, 0 modules per panel, 1 separate arrows/connectors, 0 solid borders, 0 dashed borders, canvas about 69% filled — match these counts\n- reading direction: top-to-bottom\n- panel division: One title above one scatter plot; y-axis labels occupy the left margin and x-axis labels occupy the bottom margin.\n- topology: anchor: Title centered over the axes at x=691 px; highlighted star centered at (233,100) px.; flow: A dotted leader runs down-right from the star toward a two-line note. The note indicates increasing accuracy upward and decreasing cost leftward.; spacing: Vertical grid lines are 207–208 px apart; horizontal grid lines are 88–89 px apart. Legend rows are 53 px apart.\n- style fingerprint: panel_shape: sharp; arrow_style: Two inline arrow glyphs, ↑ and ←; the dotted leader has no arrowhead.; icon_style: Solid 20 px diameter circles and a solid five-point star spanning 49 px.; text_treatment: Black serif title, axis titles, tick labels and legend; burgundy serif annotation on two left-aligned lines; y-axis title rotated 90 degrees.\n- panels: Pushing the Pareto frontier — Compare accuracy (%) against inference cost (GFLOPs) for 15 prior-art points and one highlighted result. @ 12%,7% size 88%x79%\n- recurring elements: 15 gray plotted circles, 1 burgundy plotted star, 2 legend rows repeating the circle and star, 5 labeled x-axis ticks at intervals of 10 GFLOPs, 9 labeled y-axis ticks at intervals of 2 percentage points, 5 vertical and 9 horizontal grid lines, 1 dotted annotation leader\n- rule: Draw only the left and bottom axis spines at 4 px.\n- rule: Place a grid line at each of the 5 x ticks and 9 y ticks.\n- rule: Encode the 15 comparison results with 20 px gray circles and the highlighted result with a 49 px burgundy star.\n- rule: Place the two-line burgundy note about 166 px right and 65 px below the star center; connect it with one dotted leader.\n- rule: Set the two legend markers on a common x coordinate 68 px right of the y-axis, with no legend frame."
+ },
+ "fig-mot-attention-shift": {
+  "no": "F020",
+  "figType": "motivation",
+  "title": "注意力分布对比",
+  "image": "renders-fig/fig-mot-attention-shift.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "motivation",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#000000",
+    "accent": "#C67C8F",
+    "neutral": "#9CA5AE"
+   },
+   "typography": {
+    "title_px": 44,
+    "panel_header_px": 40,
+    "label_px": 40,
+    "family": "serif"
+   },
+   "density": {
+    "panels": 2,
+    "containers": 0,
+    "modules_per_panel": 1,
+    "solid_borders": 0,
+    "dashed_borders": 0,
+    "connectors": 0,
+    "fill_percent": 9
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "One title above a single row of two equal-width bar plots; the y-axis title and numeric y tick labels appear only on the left."
+   },
+   "topology": {
+    "anchor": "Title centered at x=850 px above the two plot fields.",
+    "flow": "Compare the single peak at token index 8 on the left with the two peaks at indices 6 and 26 on the right.",
+    "spacing": "Plot fields are 656 px wide with a 130 px gutter. Both baselines lie at y=718 px. Bars are approximately 12 px wide on 15 px centers."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "Vertical rectangles with horizontal tops, a shared baseline and no outlines.",
+    "text_treatment": "Upright serif text; one centered header above each plot, horizontal x-axis titles below the ticks and one y-axis title rotated 90 degrees counterclockwise."
+   },
+   "panels": [
+    {
+     "name": "Prior: attention collapse",
+     "role": "Single-peak attention distribution; maximum weight 1.00 at index 8.",
+     "x_pct": 10,
+     "y_pct": 14,
+     "w_pct": 41,
+     "h_pct": 71
+    },
+    {
+     "name": "Ours: spatially balanced",
+     "role": "Two-peak attention distribution; peak weights 0.55 and 0.45 at indices 6 and 26.",
+     "x_pct": 59,
+     "y_pct": 14,
+     "w_pct": 41,
+     "h_pct": 71
+    }
+   ],
+   "elements": [
+    "Centered panel headers",
+    "Single-color vertical bars",
+    "Left and bottom axis spines",
+    "Outward tick marks",
+    "Numeric tick labels",
+    "Repeated Token index axis title"
+   ],
+   "reusable_rules": [
+    "Align two 656 px wide plot fields on one baseline with a 130 px gutter.",
+    "Draw only the left and bottom spines, using 3 px black strokes and 15 px outward ticks.",
+    "Mark x values from 0 to 40 at intervals of 10 and y values from 0.0 to 1.0 at intervals of 0.2; print y values only on the left.",
+    "Use 12 px bars on 15 px centers; assign gray to every left-panel bar and rose to every right-panel bar.",
+    "Center each 40 px panel header on its plot field and place the 44 px title above both headers."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #000000, accent #C67C8F, neutral #9CA5AE\n- type scale: title 44px, panel_header 40px, label 40px (keep this hierarchy: title > panel header > label > note)\n- counted in the reference: 2 panels, 0 container boxes, 1 modules per panel, 0 separate arrows/connectors, 0 solid borders, 0 dashed borders, canvas about 9% filled — match these counts\n- reading direction: left-to-right\n- panel division: One title above a single row of two equal-width bar plots; the y-axis title and numeric y tick labels appear only on the left.\n- topology: anchor: Title centered at x=850 px above the two plot fields.; flow: Compare the single peak at token index 8 on the left with the two peaks at indices 6 and 26 on the right.; spacing: Plot fields are 656 px wide with a 130 px gutter. Both baselines lie at y=718 px. Bars are approximately 12 px wide on 15 px centers.\n- style fingerprint: panel_shape: sharp; module_shape: Vertical rectangles with horizontal tops, a shared baseline and no outlines.; text_treatment: Upright serif text; one centered header above each plot, horizontal x-axis titles below the ticks and one y-axis title rotated 90 degrees counterclockwise.\n- panels: Prior: attention collapse — Single-peak attention distribution; maximum weight 1.00 at index 8. @ 10%,14% size 41%x71% | Ours: spatially balanced — Two-peak attention distribution; peak weights 0.55 and 0.45 at indices 6 and 26. @ 59%,14% size 41%x71%\n- recurring elements: Centered panel headers, Single-color vertical bars, Left and bottom axis spines, Outward tick marks, Numeric tick labels, Repeated Token index axis title\n- rule: Align two 656 px wide plot fields on one baseline with a 130 px gutter.\n- rule: Draw only the left and bottom spines, using 3 px black strokes and 15 px outward ticks.\n- rule: Mark x values from 0 to 40 at intervals of 10 and y values from 0.0 to 1.0 at intervals of 0.2; print y values only on the left.\n- rule: Use 12 px bars on 15 px centers; assign gray to every left-panel bar and rose to every right-panel bar.\n- rule: Center each 40 px panel header on its plot field and place the 44 px title above both headers."
+ },
+ "fig-mot-scaling": {
+  "no": "F024",
+  "figType": "motivation",
+  "title": "规模-收益曲线",
+  "image": "renders-fig/fig-mot-scaling.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#FFFFFF",
+    "primary": "#893C4D",
+    "accent": "#F8EAED",
+    "neutral": "#9BA3AC",
+    "others": [
+     "#000000",
+     "#EAEAEA"
+    ]
+   },
+   "typography": {
+    "title_px": 44,
+    "label_px": 40,
+    "note_px": 36,
+    "family": "serif"
+   },
+   "strokes": {
+    "connector_px": 6
+   },
+   "density": {
+    "panels": 1,
+    "containers": 0,
+    "modules_per_panel": 0,
+    "solid_borders": 0,
+    "dashed_borders": 0,
+    "connectors": 8,
+    "fill_percent": 16
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "1 plot below 1 centered title; 2 legend rows inside the lower-right plot area."
+   },
+   "topology": {
+    "anchor": "Title centered at x=690 px above the plotting area.",
+    "flow": "Read 5 paired marker positions from left to right on a logarithmic x-axis; compare scores vertically at each position.",
+    "spacing": "Marker centers at x=194, 405, 689, 976 and 1186 px; horizontal major gridlines spaced 148 px apart."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "22 px filled circles and 22 px filled squares",
+    "icon_style": "2 legend samples, each a 78 px horizontal line with 1 centered series marker",
+    "text_treatment": "Centered sentence-case title; y-axis label rotated 90 degrees; x-axis major ticks shown as powers of 10; annotation colored to match the square-marker series."
+   },
+   "panels": [
+    {
+     "name": "Benefit scales with capacity",
+     "role": "Compare Baseline and Ours zero-shot scores across 5 model sizes.",
+     "x_pct": 11,
+     "y_pct": 7,
+     "w_pct": 86,
+     "h_pct": 78
+    }
+   ],
+   "elements": [
+    "2 data polylines with 4 segments each",
+    "5 circular data markers",
+    "5 square data markers",
+    "1 filled region between series",
+    "5 horizontal major gridlines",
+    "2 vertical major gridlines",
+    "2 axis spines",
+    "2 legend rows",
+    "1 in-plot text annotation"
+   ],
+   "reusable_rules": [
+    "Place the plotting area from x=11% to 97% and y=7% to 85% of the canvas.",
+    "Draw only the left and bottom axis spines in black at 4 px.",
+    "Connect 5 markers per series with 6 px solid segments; use circles for Baseline and squares for Ours.",
+    "Fill only the region between the two series with #F8EAED.",
+    "Place the 2 legend rows inside the lower-right corner with 54 px between row centers and no legend border.",
+    "Label y ticks from 40 to 80 in steps of 10 and x major ticks at 10¹ and 10²."
+   ]
+  },
+  "prompt": "- palette: background #FFFFFF, primary #893C4D, accent #F8EAED, neutral #9BA3AC, #000000, #EAEAEA\n- type scale: title 44px, label 40px, note 36px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: connector 6px\n- counted in the reference: 1 panels, 0 container boxes, 0 modules per panel, 8 separate arrows/connectors, 0 solid borders, 0 dashed borders, canvas about 16% filled — match these counts\n- reading direction: left-to-right\n- panel division: 1 plot below 1 centered title; 2 legend rows inside the lower-right plot area.\n- topology: anchor: Title centered at x=690 px above the plotting area.; flow: Read 5 paired marker positions from left to right on a logarithmic x-axis; compare scores vertically at each position.; spacing: Marker centers at x=194, 405, 689, 976 and 1186 px; horizontal major gridlines spaced 148 px apart.\n- style fingerprint: panel_shape: sharp; module_shape: 22 px filled circles and 22 px filled squares; icon_style: 2 legend samples, each a 78 px horizontal line with 1 centered series marker; text_treatment: Centered sentence-case title; y-axis label rotated 90 degrees; x-axis major ticks shown as powers of 10; annotation colored to match the square-marker series.\n- panels: Benefit scales with capacity — Compare Baseline and Ours zero-shot scores across 5 model sizes. @ 11%,7% size 86%x78%\n- recurring elements: 2 data polylines with 4 segments each, 5 circular data markers, 5 square data markers, 1 filled region between series, 5 horizontal major gridlines, 2 vertical major gridlines, 2 axis spines, 2 legend rows, 1 in-plot text annotation\n- rule: Place the plotting area from x=11% to 97% and y=7% to 85% of the canvas.\n- rule: Draw only the left and bottom axis spines in black at 4 px.\n- rule: Connect 5 markers per series with 6 px solid segments; use circles for Baseline and squares for Ours.\n- rule: Fill only the region between the two series with #F8EAED.\n- rule: Place the 2 legend rows inside the lower-right corner with 54 px between row centers and no legend border.\n- rule: Label y ticks from 40 to 80 in steps of 10 and x major ticks at 10¹ and 10²."
+ },
+ "fig-mot-concept-drift": {
+  "no": "F021",
+  "figType": "motivation",
+  "title": "分布漂移示意",
+  "image": "renders-fig/fig-mot-concept-drift.webp",
+  "contract": {
+   "canvas": {
+    "aspect": "other",
+    "orientation": "landscape"
+   },
+   "pattern": "comparison",
+   "palette": {
+    "background": "#ffffff",
+    "primary": "#c6cbd2",
+    "accent": "#e1cc89",
+    "neutral": "#000000",
+    "others": [
+     "#e1b4c0",
+     "#eaeaea"
+    ]
+   },
+   "typography": {
+    "title_px": 44,
+    "label_px": 40,
+    "note_px": 34,
+    "family": "serif"
+   },
+   "strokes": {
+    "box_px": 1
+   },
+   "density": {
+    "panels": 1,
+    "containers": 1,
+    "modules_per_panel": 3,
+    "solid_borders": 0,
+    "dashed_borders": 0,
+    "connectors": 0,
+    "fill_percent": 68
+   },
+   "layout": {
+    "reading_direction": "left-to-right",
+    "panel_division": "1 shared plotting area from (145,65) to (1287,756) px; title above, legend inside upper left."
+   },
+   "topology": {
+    "anchor": "Title centered at x=716 px above the plot.",
+    "flow": "Legend lists t=0, t=50, t=100 from top to bottom; their tallest bins occur from left to right at feature projections -1.25, 0.35, 1.58.",
+    "spacing": "Vertical gridlines spaced 183 px apart; horizontal gridlines spaced 129 px apart; legend entry centers spaced 53 px apart."
+   },
+   "style_fingerprint": {
+    "panel_shape": "sharp",
+    "module_shape": "Vertical rectangular histogram bins sharing the y=0 baseline.",
+    "text_treatment": "Black serif text; 1 centered title, 1 horizontal x-axis label, 1 y-axis label rotated 90 degrees, 3 legend entries."
+   },
+   "panels": [
+    {
+     "name": "Distribution drift over time",
+     "role": "Compare sample counts by feature projection at 3 time steps.",
+     "x_pct": 11,
+     "y_pct": 7,
+     "w_pct": 88,
+     "h_pct": 78
+    }
+   ],
+   "elements": [
+    "3 overlapping histogram series",
+    "3 rectangular legend swatches",
+    "6 labeled ticks on each axis",
+    "6 vertical and 5 horizontal interior gridlines",
+    "2 black axis spines"
+   ],
+   "reusable_rules": [
+    "Overlay 3 histogram series on 1 baseline; use translucent fills and 1 px light bin edges.",
+    "Mark the x-axis at integers from -2 through 3 and the y-axis at multiples of 10 from 0 through 50.",
+    "Draw only the left and bottom axis spines, at 4 px.",
+    "Place 3 legend swatches of 70 by 24 px in 1 column, starting 32 px inside the left spine.",
+    "Center the 44 px title over the plotting area rather than over the canvas."
+   ]
+  },
+  "prompt": "- palette: background #ffffff, primary #c6cbd2, accent #e1cc89, neutral #000000, #e1b4c0, #eaeaea\n- type scale: title 44px, label 40px, note 34px (keep this hierarchy: title > panel header > label > note)\n- stroke weights: box 1px\n- counted in the reference: 1 panels, 1 container boxes, 3 modules per panel, 0 separate arrows/connectors, 0 solid borders, 0 dashed borders, canvas about 68% filled — match these counts\n- reading direction: left-to-right\n- panel division: 1 shared plotting area from (145,65) to (1287,756) px; title above, legend inside upper left.\n- topology: anchor: Title centered at x=716 px above the plot.; flow: Legend lists t=0, t=50, t=100 from top to bottom; their tallest bins occur from left to right at feature projections -1.25, 0.35, 1.58.; spacing: Vertical gridlines spaced 183 px apart; horizontal gridlines spaced 129 px apart; legend entry centers spaced 53 px apart.\n- style fingerprint: panel_shape: sharp; module_shape: Vertical rectangular histogram bins sharing the y=0 baseline.; text_treatment: Black serif text; 1 centered title, 1 horizontal x-axis label, 1 y-axis label rotated 90 degrees, 3 legend entries.\n- panels: Distribution drift over time — Compare sample counts by feature projection at 3 time steps. @ 11%,7% size 88%x78%\n- recurring elements: 3 overlapping histogram series, 3 rectangular legend swatches, 6 labeled ticks on each axis, 6 vertical and 5 horizontal interior gridlines, 2 black axis spines\n- rule: Overlay 3 histogram series on 1 baseline; use translucent fills and 1 px light bin edges.\n- rule: Mark the x-axis at integers from -2 through 3 and the y-axis at multiples of 10 from 0 through 50.\n- rule: Draw only the left and bottom axis spines, at 4 px.\n- rule: Place 3 legend swatches of 70 by 24 px in 1 column, starting 32 px inside the left spine.\n- rule: Center the 44 px title over the plotting area rather than over the canvas."
+ }
+}
