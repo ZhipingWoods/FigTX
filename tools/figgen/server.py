@@ -31,7 +31,8 @@ from figgen import render as R
 
 CONTRACTS = os.path.join(ROOT, "data", "fig-contracts.json")
 OUT_DIR = os.path.join(ROOT, "figgen-out")
-PORT = int(os.environ.get("FIGTX_GEN_PORT", "8770"))
+# 8770 常被 macOS 的 sharingd(dpap) 占用，默认用 8780
+PORT = int(os.environ.get("FIGTX_GEN_PORT", "8780"))
 
 _lock = threading.Lock()
 
@@ -73,6 +74,24 @@ class Handler(BaseHTTPRequestHandler):
             except Exception:
                 ok = False
             self._json(200, {"ok": True, "llm_configured": ok, "model": L.MODEL})
+            return
+        if self.path.startswith("/out/"):
+            # 提供生成产物的下载（PNG/WebP）
+            name = os.path.basename(self.path[len("/out/"):])
+            fp = os.path.join(OUT_DIR, name)
+            if os.path.exists(fp) and os.path.isfile(fp):
+                ext = os.path.splitext(name)[1].lower()
+                ctype = {".png": "image/png", ".webp": "image/webp",
+                         ".svg": "image/svg+xml"}.get(ext, "application/octet-stream")
+                data = open(fp, "rb").read()
+                self.send_response(200)
+                self.send_header("Content-Type", ctype)
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            self._json(404, {"error": "not found"})
             return
         if self.path.startswith("/api/contracts"):
             data = load_contracts()
@@ -161,6 +180,7 @@ def main() -> int:
     os.makedirs(OUT_DIR, exist_ok=True)
     srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     print("FigTX 生成服务: http://127.0.0.1:%d" % PORT)
+    print("  前端（dist）默认连这个端口；改了端口就同时设 VITE_FIGGEN_URL")
     print("  GET  /api/health")
     print("  GET  /api/contracts")
     print("  POST /api/generate")

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import data from './data/items.json';
+import Forge from './Forge';
 
 type Category = 'table' | 'figure';
 
@@ -157,6 +158,8 @@ function highlightPython(code: string) {
 
 export default function App() {
   const [category, setCategory] = useState<Category>('table');
+  // 浏览 / 生成 两个视图
+  const [view, setView] = useState<'browse' | 'forge'>('browse');
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState<string>('all');
   const [figType, setFigType] = useState<string>('all');
@@ -397,8 +400,21 @@ export default function App() {
         <button className="tab" data-active={category === 'figure'} onClick={() => switchCategory('figure')}>
           图 <span className="n">{STATS.figures}</span>
         </button>
+        <button
+          className="tab tab-forge"
+          data-active={view === 'forge'}
+          onClick={() => setView(view === 'forge' ? 'browse' : 'forge')}
+        >
+          生成 <span className="n">new</span>
+        </button>
       </nav>
 
+      {view === 'forge' ? (
+        <main className="forge-wrap">
+          <Forge />
+        </main>
+      ) : (
+        <>
       <div className="filters">
         <button
           className="chip"
@@ -474,6 +490,8 @@ export default function App() {
           </div>
         )}
       </main>
+        </>
+      )}
 
       <footer className="footer">
         <span>{STATS.tables} 个表格样式 · {STATS.figures} 个图样式</span>
