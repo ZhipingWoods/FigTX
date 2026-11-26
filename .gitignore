@@ -25,3 +25,7 @@ release-web/
 
 # 本地参考图，不入库
 sample/
+
+# 构建产物：由 npm run data 从 raw-*.json 生成
+src/data/items.json
+audit/report.json
