@@ -195,3 +195,4 @@ header nav .badge{margin-left:6px;background:var(--pink);color:#fff;border-radiu
 .forge-page{padding:96px 36px 40px;max-width:1440px;margin:0 auto}
 .entry h3{white-space:nowrap}
 .entry .lab span{max-width:62%}
+.forge-page .forge-head h2{font-family:var(--kai);font-size:44px;margin:8px 0 6px;line-height:1.15}
