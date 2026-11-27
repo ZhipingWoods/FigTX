@@ -76,3 +76,10 @@ def test_cli_export_both(tmp_path):
     assert (tmp_path / "pipeline_scene.svg").exists() and (tmp_path / "pipeline_scene.pptx").exists()
     assert main(["export", str(FIXTURE), "-o", str(tmp_path / "s"), "--svg"]) == 0
     assert not (tmp_path / "s" / "pipeline_scene.pptx").exists()
+
+
+def test_pptx_no_theme_style(tmp_path):
+    out = tmp_path / "a.pptx"
+    scene_to_pptx(fixture_scene(), out)
+    for s in _shapes(out):
+        assert "<p:style>" not in s._element.xml, s.name

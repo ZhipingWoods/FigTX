@@ -128,6 +128,13 @@ def _node(slide, n: dict, base_dir: str | None) -> list:
     raise ValueError(f"unknown node type {t}")
 
 
+def _drop_theme_style(shape) -> None:
+    """去掉 python-pptx 默认挂上的主题样式（阴影、白色字等），保证与场景一比一一致。"""
+    style = shape._element.find(qn("p:style"))
+    if style is not None:
+        shape._element.remove(style)
+
+
 def scene_to_pptx(scene: dict, out_path) -> None:
     c = scene["canvas"]
     prs = Presentation()
@@ -137,4 +144,5 @@ def scene_to_pptx(scene: dict, out_path) -> None:
         shapes = _node(slide, n, scene.get("_base_dir"))
         for i, s in enumerate(shapes):
             s.name = n["id"] if i == 0 else f"{n['id']}#{i + 1}"
+            _drop_theme_style(s)
     prs.save(str(out_path))
