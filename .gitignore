@@ -40,3 +40,6 @@ public/index.json
 
 # 同步时的上游仓库缓存、原图暂存（不入库）
 .cache/
+
+# 构建产物：前端精简索引与详情分片
+public/data/

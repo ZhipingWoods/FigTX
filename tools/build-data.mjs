@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { SHARDS, shardOf, pad } from './shard.mjs';
 
 const ROOT = process.cwd();
 const RAW_TABLES = path.join(ROOT, 'data/raw-items.json');
@@ -259,3 +260,47 @@ const index = {
 };
 fs.writeFileSync(INDEX_OUT, JSON.stringify(index));
 console.log('index.json:', index.items.length, '条 ->', path.relative(ROOT, INDEX_OUT), '(' + (fs.statSync(INDEX_OUT).size / 1024).toFixed(1) + ' KB)');
+
+// ---------------------------------------------------------------- 前端用：精简索引 + 详情分片
+// 用 <script> 加载（不是 fetch），所以 file:// 双击打开、Pages、Electron 都能用。
+const TAXONOMY = readJson(path.join(ROOT, 'data/taxonomy.json'), { domains: [], figTypeGroups: {} });
+const GROUP_OF = {};
+for (const [g, types] of Object.entries(TAXONOMY.figTypeGroups || {})) for (const t of types) GROUP_OF[t] = g;
+const groupOf = (it) => (it.category === 'table' ? 'table' : GROUP_OF[it.figType] || 'experiment');
+const editableOf = (it) =>
+  it.editableStatus === 'editable' || (it.editFiles && it.editFiles.length) ? 'editable' : it.code ? 'code' : 'none';
+
+const lite = items.map((it) => {
+  const asset = MANIFEST[it.id];
+  const title = it.category === 'table' ? it.caption || it.title : it.title || it.caption;
+  const row = {
+    id: it.id, no: it.no || null, cat: it.category, ft: it.figType || null, grp: groupOf(it),
+    t: (title || '').slice(0, 220), v: it.venues || [], y: it.year || null,
+    d: it.domains || [], p: it.problems || [], r: it.render || null, ed: editableOf(it),
+    aw: (it.paper && (it.paper.award || it.paper.tier)) || null,
+    src: (it.sources && it.sources[0] && it.sources[0].platform) || 'figtx',
+  };
+  if (asset && asset.w && asset.h) row.ar = asset.w / asset.h;
+  // 缩略图路径是 thumbs/<id>.webp 时省略（前端按 id 还原），给首屏索引减重
+  if (row.r === 'thumbs/' + it.id + '.webp') delete row.r;
+  if (!row.d.length) delete row.d;
+  if (!row.p.length) delete row.p;
+  if (!row.v.length) delete row.v;
+  if (!row.aw) delete row.aw;
+  return row;
+});
+
+const DATA_DIR = path.join(ROOT, 'public/data');
+fs.rmSync(DATA_DIR, { recursive: true, force: true });
+fs.mkdirSync(DATA_DIR, { recursive: true });
+const liteIndex = {
+  v: 1, generatedAt: stats.generatedAt, stats,
+  taxonomy: TAXONOMY.domains || [], items: lite,
+};
+fs.writeFileSync(path.join(DATA_DIR, 'index.js'), 'window.__FIGTX_INDEX__=' + JSON.stringify(liteIndex) + ';\n');
+const shards = Array.from({ length: SHARDS }, () => ({}));
+for (const it of items) shards[shardOf(it.id)][it.id] = it;
+shards.forEach((obj, n) => {
+  fs.writeFileSync(path.join(DATA_DIR, 'detail-' + pad(n) + '.js'), 'window.__figtxDetail(' + n + ',' + JSON.stringify(obj) + ');\n');
+});
+console.log('data/index.js:', lite.length, '条 (' + (fs.statSync(path.join(DATA_DIR, 'index.js')).size / 1024).toFixed(1) + ' KB) + ' + SHARDS + ' 个详情分片');
