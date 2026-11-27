@@ -231,3 +231,35 @@ def _run_plot_run(a) -> int:
 
 SUBCOMMANDS["tex"] = (_add_tex, _run_tex)
 SUBCOMMANDS["plot-run"] = (_add_plot_run, _run_plot_run)
+
+
+# ---- search ----
+def _add_search(p):
+    p.add_argument("query")
+    p.add_argument("--category", choices=["figure", "table"])
+    p.add_argument("--type", dest="fig_type", help="图类型，如 framework / quantitative / motivation")
+    p.add_argument("--limit", type=int, default=20)
+    p.add_argument("--index", help="索引路径或 URL（默认线上 FigTX 索引）")
+    p.add_argument("--json", action="store_true")
+
+
+def _run_search(a) -> int:
+    import json
+
+    from .search import load_index, preview_url, search
+
+    idx = load_index(a.index)
+    hits = search(idx, a.query, category=a.category, fig_type=a.fig_type, limit=a.limit)
+    if a.json:
+        print(json.dumps([dict(h, previewUrl=preview_url(idx, h)) for h in hits], ensure_ascii=False, indent=2))
+        return 0
+    for h in hits:
+        venues = "/".join(h.get("venues") or []) or "-"
+        print(f"{h.get('no') or h['id']}  {h.get('figType') or h.get('category')}  {venues} {h.get('year') or ''}  "
+              f"{h.get('title')}  {preview_url(idx, h)}")
+    if not hits:
+        print("没有匹配的条目", file=sys.stderr)
+    return 0
+
+
+SUBCOMMANDS["search"] = (_add_search, _run_search)
