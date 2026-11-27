@@ -49,7 +49,7 @@ def test_build_includes_gallery(tmp_repo):
     g = items["tc-x1"]
     assert g["category"] == "figure" and g["render"] == "thumbs/tc-x1.webp" and g["domains"] == ["cv"]
     assert g["paper"]["venue"] == "ICML" and g["venues"] == ["ICML"] and g["year"] == 2023
-    assert g["editableStatus"] == "original-only" and g["code"] == ""
+    assert g["editableStatus"] == "original-only" and g["code"] == "" and g["source"]["repo"] == "topconf-paper-figure-gallery"
     assert g["original"] == "https://huggingface.co/datasets/OliverThompson/figtx-assets/resolve/main/originals/tc-x1.jpg"
     assert items["tc-x2"]["original"] is None and items["tc-x2"]["domains"] == []
     stats = json.loads((tmp_repo / "src/data/items.json").read_text())["stats"]

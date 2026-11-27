@@ -130,8 +130,11 @@ function PaperInfo({ item }: { item: Item }) {
         {p.bibtex && <button className="btn" onClick={copyBib}>{copied ? '已复制 BibTeX' : '复制 BibTeX'}</button>}
       </div>
       <div className="paper-source">
-        来源：{(item.sources || []).map((s) => (
-          <a key={s.platform + s.upstreamId} href={s.repo || '#'} target="_blank" rel="noreferrer">{SOURCE_LABEL[s.platform] || s.platform}</a>
+        来源：{[...new Map((item.sources || []).map((s) => [s.platform, s])).values()].map((s, i) => (
+          <span key={s.platform}>
+            {i > 0 && '、'}
+            <a href={s.repo || '#'} target="_blank" rel="noreferrer">{SOURCE_LABEL[s.platform] || s.platform}</a>
+          </span>
         ))} · 图片版权归原论文作者
       </div>
     </div>

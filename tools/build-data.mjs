@@ -164,6 +164,7 @@ figures.sort((a, b) => {
 });
 /* ---------------------------------------------------------------- 图库（topconf / PaperGallery 等，由 npm run sync 生成） */
 
+const SOURCE_NAME = { topconf: 'topconf-paper-figure-gallery', papergallery: 'PaperGallery', journal: '期刊' };
 const TAGS = readJson(TAGS_FILE, {});
 const MANIFEST = readJson(ASSET_MANIFEST, {});
 const thumbFiles = listDir(THUMBS);
@@ -201,7 +202,7 @@ const gallery = readJson(RAW_GALLERY, [])
       editFiles: [],
       noteImages: [],
       publishedAt: null,
-      source: { platform: first.platform || 'gallery', author: '', repo: first.repo || null, repoUrl: first.repo || null, license: null },
+      source: { platform: first.platform || 'gallery', author: '', repo: SOURCE_NAME[first.platform] || first.platform || null, repoUrl: first.repo || null, license: null },
     };
   })
   .sort((a, b) => (b.year || 0) - (a.year || 0) || a.id.localeCompare(b.id));
