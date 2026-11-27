@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import Card from '../components/Card';
+import Masonry from '../components/Masonry';
 import type { Index, Lite } from '../lib/data';
 import { exportJson, importJson, list as listFavs, setNote, useFavs } from '../lib/favs';
 
@@ -10,6 +11,7 @@ export default function Favorites({ idx, onOpen }: { idx: Index; onOpen: (it: Li
   const byKey = useMemo(() => new Map(idx.items.map((it) => [it.no || it.id, it])), [idx]);
   const entries = useMemo(() => listFavs().filter((e) => byKey.has(e.id)), [favs, byKey]);
   const items = entries.map((e) => byKey.get(e.id)!);
+  const noteOf = new Map(entries.map((e) => [e.id, e.note]));
   const missing = Object.keys(favs).length - entries.length;
 
   const doExport = () => {
@@ -46,14 +48,13 @@ export default function Favorites({ idx, onOpen }: { idx: Index; onOpen: (it: Li
       {items.length === 0 ? (
         <div className="empty">还没有收藏。在图库里点卡片右上角的 ♡，或在详情里点「收藏」。</div>
       ) : (
-        <div className="masonry">
-          {items.map((it, i) => (
-            <Card key={it.id} it={it} fav onOpen={() => onOpen(it, items)}>
-              <input className="note" placeholder="备注（例如：参考它的配色）" defaultValue={entries[i].note}
-                     onClick={(e) => e.stopPropagation()} onBlur={(e) => setNote(it.no || it.id, e.target.value)} />
-            </Card>
-          ))}
-        </div>
+        <Masonry items={items} render={(it) => (
+          <Card key={it.id} it={it} fav onOpen={() => onOpen(it, items)}>
+            <input className="note" placeholder="备注（例如：参考它的配色）" defaultValue={noteOf.get(it.no || it.id) || ''}
+                   onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}
+                   onBlur={(e) => setNote(it.no || it.id, e.target.value)} />
+          </Card>
+        )} />
       )}
     </div>
   );

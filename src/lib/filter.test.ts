@@ -51,3 +51,9 @@ describe('facetCounts', () => {
     expect(facetCounts(items, 'figures', {}, 'y')).toEqual({ 2025: 1, 2024: 2 });
   });
 });
+
+describe('search (review)', () => {
+  it('matches Chinese domain names when labels are given', () => {
+    expect(applyFilters(items, 'figures', { q: '计算机视觉' }, { cv: '计算机视觉' }).map((i) => i.id).sort()).toEqual(['a', 'c']);
+  });
+});

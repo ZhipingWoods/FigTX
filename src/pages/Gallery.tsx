@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Card from '../components/Card';
+import Masonry from '../components/Masonry';
 import FilterBar from '../components/FilterBar';
 import type { Index, Lite } from '../lib/data';
 import { useFavs } from '../lib/favs';
@@ -41,7 +42,11 @@ export default function Gallery({ idx, route, onOpen }: {
 }) {
   const section = SECTIONS.find((s) => s.page === route.page)!;
   const f = route.f;
-  const list = useMemo(() => applyFilters(idx.items, route.page, f), [idx, route.page, f]);
+  const key = buildHash(route);
+  const labels = useMemo(() => Object.fromEntries(idx.taxonomy.map((d) => [d.key, d.zh])), [idx]);
+  // 依赖 key（字符串）而不是 f 对象：同一视图重新解析出的新对象不会触发重算和分页重置
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const list = useMemo(() => applyFilters(idx.items, route.page, f, labels), [idx, key, labels]);
   const favs = useFavs();
   const [shown, setShown] = useState(PAGE);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -75,11 +80,8 @@ export default function Gallery({ idx, route, onOpen }: {
           </div>
         ) : (
           <>
-            <div className={'masonry' + (route.page === 'tables' ? ' wide' : '')}>
-              {visible.map((it) => (
-                <Card key={it.id} it={it} fav={(it.no || it.id) in favs} onOpen={() => onOpen(it, list)} />
-              ))}
-            </div>
+            <Masonry items={visible} wide={route.page === 'tables'}
+                     render={(it) => <Card key={it.id} it={it} fav={(it.no || it.id) in favs} onOpen={() => onOpen(it, list)} />} />
             {shown < list.length && (
               <div ref={moreRef} className="load-more">加载更多…（{shown.toLocaleString()} / {list.length.toLocaleString()}）</div>
             )}

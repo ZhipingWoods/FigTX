@@ -208,3 +208,5 @@ header nav .badge{margin-left:6px;background:var(--pink);color:#fff;border-radiu
   .page-head h1{font-size:40px}
   .fbar .search-mini input{width:130px}
 }
+.mcols{display:flex;gap:28px;align-items:flex-start}
+.mcols>div{flex:1;min-width:0}

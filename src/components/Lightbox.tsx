@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Detail, Index, Lite } from '../lib/data';
 import { loadDetail, thumbOf } from '../lib/data';
 import { codeExt, editableMode } from '../lib/editable';
@@ -81,6 +81,7 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
   const [attempt, setAttempt] = useState(0);
   const [bibCopied, setBibCopied] = useState(false);
   const favs = useFavs();
+  const closeRef = useRef<HTMLButtonElement>(null);
   const key = item.no || item.id;
   const pos = list.findIndex((x) => x.id === item.id);
 
@@ -105,6 +106,7 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
     };
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+    closeRef.current?.focus({ preventScroll: true });
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
   }, [onClose, step]);
 
@@ -121,8 +123,8 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
 
   return (
     <div className="modal open" onClick={onClose}>
-      <div className="lb" onClick={(e) => e.stopPropagation()}>
-        <button className="close" type="button" onClick={onClose} aria-label="关闭">×</button>
+      <div className="lb" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}>
+        <button ref={closeRef} className="close" type="button" onClick={onClose} aria-label="关闭">×</button>
         <div className="stage">
           <div className="im"><img src={thumbOf(item)} alt={title} /></div>
           <div className="nav">
@@ -133,7 +135,10 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
           {related.length > 0 && (
             <div className="more">
               <h5>同领域的{item.cat === 'table' ? '表格' : '图'}</h5>
-              <div>{related.map((x) => <img key={x.id} src={thumbOf(x)} alt={x.t} loading="lazy" onClick={() => onMove(x)} />)}</div>
+              <div>{related.map((x) => (
+                <img key={x.id} src={thumbOf(x)} alt={x.t} loading="lazy" tabIndex={0} role="button"
+                     onClick={() => onMove(x)} onKeyDown={(e) => e.key === 'Enter' && onMove(x)} />
+              ))}</div>
             </div>
           )}
         </div>
@@ -171,7 +176,8 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
             <p className="src-note">
               {d.sources?.length
                 ? <>来源：{[...new Set<string>(d.sources.map((s: { platform: string }) => s.platform))].map((s) => SOURCE[s] || s).join('、')} · </>
-                : d.source?.repo ? <>来源：{d.source.repo} · </> : null}
+                : d.source?.repo ? <>来源：{d.source.repoUrl
+                  ? <a href={d.source.repoUrl} target="_blank" rel="noreferrer">{d.source.repo}</a> : d.source.repo} · </> : null}
               图片版权归原论文作者所有，仅供学习参考。
             </p>
           )}

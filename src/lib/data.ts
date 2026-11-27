@@ -37,6 +37,11 @@ export type Detail = Record<string, any> & { id: string };
 type Loader = (url: string) => Promise<void>;
 
 const BASE = './data/';
+// 缓存失效：index.js 带构建号，详情分片带索引的生成时间，避免新旧数据混用
+declare const __BUILD_ID__: string | undefined;
+const BUILD = typeof __BUILD_ID__ !== 'undefined' ? __BUILD_ID__ : '';
+let dataVersion = '';
+const withV = (url: string, v: string) => (v ? url + '?v=' + encodeURIComponent(v) : url);
 
 function domLoader(url: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -72,6 +77,7 @@ export function setScriptLoader(fn: Loader) {
 /** 测试用：清空缓存。 */
 export function _reset() {
   indexP = null;
+  dataVersion = '';
   shards.clear();
   pending.clear();
   if (typeof window !== 'undefined') delete (window as any).__FIGTX_INDEX__;
@@ -80,10 +86,11 @@ export function _reset() {
 
 export function loadIndex(): Promise<Index> {
   if (!indexP) {
-    indexP = loader(BASE + 'index.js')
+    indexP = loader(withV(BASE + 'index.js', BUILD))
       .then(() => {
         const idx = (window as any).__FIGTX_INDEX__ as Index | undefined;
         if (!idx) throw new Error('索引格式不对');
+        dataVersion = idx.generatedAt || '';
         return idx;
       })
       .catch((e) => {
@@ -98,7 +105,7 @@ export async function loadDetail(id: string): Promise<Detail> {
   const n = shardOf(id);
   if (!shards.has(n)) {
     if (!pending.has(n)) {
-      pending.set(n, loader(BASE + 'detail-' + pad(n) + '.js').finally(() => pending.delete(n)));
+      pending.set(n, loader(withV(BASE + 'detail-' + pad(n) + '.js', dataVersion)).finally(() => pending.delete(n)));
     }
     await pending.get(n);
   }

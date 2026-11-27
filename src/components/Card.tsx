@@ -12,7 +12,10 @@ export default function Card({ it, fav, onOpen, children }: {
 }) {
   const key = it.no || it.id;
   return (
-    <div className="card" onClick={onOpen} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onOpen()}>
+    <div className="card" onClick={onOpen} role="button" tabIndex={0} aria-label={it.t}
+         onKeyDown={(e) => {
+           if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpen(); }
+         }}>
       {it.ed !== 'none' && <span className="sticker">{it.ed === 'editable' ? '可编辑' : '有源码'}</span>}
       <div className="im">
         <img src={thumbOf(it)} alt={it.t} loading="lazy" decoding="async"

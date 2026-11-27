@@ -10,10 +10,10 @@ function fakeLoader(fail = new Set<string>()) {
   const fn = vi.fn(async (url: string) => {
     calls.push(url);
     if (fail.has(url)) throw new Error('offline');
-    if (url.endsWith('index.js')) {
+    if (url.includes('index.js')) {
       (window as any).__FIGTX_INDEX__ = { v: 1, items: [{ id: ID, cat: 'figure' }], stats: {}, taxonomy: [] };
     } else {
-      const n = Number(url.match(/detail-(\d+)\.js$/)![1]);
+      const n = Number(url.match(/detail-(\d+)\.js/)![1]);
       (window as any).__figtxDetail(n, n === shardOf(ID) ? { [ID]: { id: ID, title: 'BPipe' } } : {});
     }
   });
@@ -29,7 +29,8 @@ describe('data loader', () => {
     const [a, b] = await Promise.all([loadIndex(), loadIndex()]);
     expect(a.items[0].id).toBe(ID);
     expect(a).toBe(b);
-    expect(calls).toEqual(['./data/index.js']);
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toMatch(/^\.\/data\/index\.js(\?v=\d+)?$/);
   });
 
   it('injects each detail shard only once', async () => {
@@ -60,5 +61,21 @@ describe('data loader', () => {
   it('derives thumbnail paths', () => {
     expect(thumbOf({ id: 'tc-x' } as any)).toBe('thumbs/tc-x.webp');
     expect(thumbOf({ id: 'fig-a', r: 'renders-fig/a.webp' } as any)).toBe('renders-fig/a.webp');
+  });
+
+  it('adds the index version to shard URLs (cache busting)', async () => {
+    const calls: string[] = [];
+    setScriptLoader(async (url) => {
+      calls.push(url);
+      if (url.includes('index.js')) {
+        (window as any).__FIGTX_INDEX__ = { v: 1, generatedAt: '2026-11-27T08:00:00Z', items: [], stats: {}, taxonomy: [] };
+      } else {
+        const n = Number(url.match(/detail-(\d+)\.js/)![1]);
+        (window as any).__figtxDetail(n, { [ID]: { id: ID } });
+      }
+    });
+    await loadIndex();
+    await loadDetail(ID);
+    expect(calls[1]).toBe(`./data/detail-${pad(shardOf(ID))}.js?v=2026-11-27T08%3A00%3A00Z`);
   });
 });

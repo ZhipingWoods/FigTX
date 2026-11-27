@@ -27,3 +27,18 @@ describe('route', () => {
     expect(parseHash('#/figures?y=abc')).toEqual({ page: 'figures', f: {} });
   });
 });
+
+describe('route edge cases (review)', () => {
+  it('survives malformed percent escapes', () => {
+    expect(parseHash('#/figures?q=50%')).toEqual({ page: 'figures', f: { q: '50%' } });
+  });
+
+  it('round-trips &, +, % and commas in values', () => {
+    const r = { page: 'figures' as const, f: { q: 'C++ & 3D 50%', p: ['correcting linguistic, factual, and logical errors', 'a+b'] } };
+    expect(parseHash(buildHash(r))).toEqual(r);
+  });
+
+  it('keeps old comma-joined links working', () => {
+    expect(parseHash('#/figures?d=cv,nlp').f.d).toEqual(['cv', 'nlp']);
+  });
+});

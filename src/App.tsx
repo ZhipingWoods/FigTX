@@ -38,12 +38,16 @@ export default function App() {
 
   useEffect(() => {
     if (!route.open) {
-      setBg(route);
+      listRef.current = [];
       pushedRef.current = false;
+      // 关闭灯箱回到同一个视图时保留背后的页面（滚动位置、已加载的页）；换了页面才回到顶部
+      if (buildHash(route) !== buildHash(bg)) {
+        setBg(route);
+        window.scrollTo({ top: 0 });
+      }
     } else if (opened && bg.page === 'home' && !pushedRef.current) {
       setBg({ page: sectionOf(opened), f: {} });
     }
-    window.scrollTo({ top: route.open ? window.scrollY : 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route, opened]);
 

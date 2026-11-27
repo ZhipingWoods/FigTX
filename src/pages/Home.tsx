@@ -18,7 +18,8 @@ function Rail({ items, onOpen }: { items: Lite[]; onOpen: (it: Lite, list: Lite[
   return (
     <div className="rail">
       {items.map((it) => (
-        <figure key={it.id} onClick={() => onOpen(it, items)}>
+        <figure key={it.id} onClick={() => onOpen(it, items)} role="button" tabIndex={0} aria-label={it.t}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onOpen(it, items))}>
           {it.ed !== 'none' && <span className="sticker">{it.ed === 'editable' ? '可编辑' : '有源码'}</span>}
           <div className="im"><img src={thumbOf(it)} alt={it.t} loading="lazy" /></div>
           <figcaption>

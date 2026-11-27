@@ -10,6 +10,7 @@ import react from '@vitejs/plugin-react';
 // 双击即可离线使用，不需要起本地服务器。
 export default defineConfig({
   base: './',
+  define: { __BUILD_ID__: JSON.stringify(String(Date.now())) },
   plugins: [react()],
   build: {
     outDir: 'dist',

@@ -6,12 +6,19 @@ import type { Filters, Page } from './route';
 export type FacetKey = 'd' | 'p' | 'v' | 'y' | 'ft';
 type Section = 'figures' | 'experiments' | 'tables';
 
-const keyCache = new WeakMap<Lite, string>();
-function searchKey(it: Lite): string {
-  let k = keyCache.get(it);
+export type Labels = Record<string, string>;
+const caches = new WeakMap<Labels, WeakMap<Lite, string>>();
+const NO_LABELS: Labels = {};
+
+/** 搜索用文本：编号、标题、会议、研究问题、图类型、年份，以及领域的中文名（labels）。 */
+function searchKey(it: Lite, labels: Labels): string {
+  let cache = caches.get(labels);
+  if (!cache) caches.set(labels, (cache = new WeakMap()));
+  let k = cache.get(it);
   if (k === undefined) {
-    k = [it.no, it.t, (it.v || []).join(' '), (it.p || []).join(' '), it.ft, it.y].join(' ').toLowerCase();
-    keyCache.set(it, k);
+    k = [it.no, it.t, (it.v || []).join(' '), (it.p || []).join(' '), it.ft, it.y,
+      (it.d || []).map((d) => labels[d] || d).join(' ')].join(' ').toLowerCase();
+    cache.set(it, k);
   }
   return k;
 }
@@ -19,7 +26,7 @@ function searchKey(it: Lite): string {
 const valuesOf = (it: Lite, key: FacetKey): (string | number)[] =>
   key === 'y' ? (it.y ? [it.y] : []) : key === 'ft' ? (it.ft ? [it.ft] : []) : (it[key] || []);
 
-function matches(it: Lite, f: Filters, skip?: FacetKey): boolean {
+function matches(it: Lite, f: Filters, skip?: FacetKey, labels: Labels = NO_LABELS): boolean {
   for (const key of ['d', 'p', 'v', 'y', 'ft'] as FacetKey[]) {
     if (key === skip) continue;
     const want = f[key] as (string | number)[] | undefined;
@@ -30,7 +37,7 @@ function matches(it: Lite, f: Filters, skip?: FacetKey): boolean {
   if (f.q) {
     const q = f.q.trim().toLowerCase();
     if (/^[tf]\d{3,}$/.test(q)) return (it.no || '').toLowerCase() === q;
-    const key = searchKey(it);
+    const key = searchKey(it, labels);
     if (!q.split(/\s+/).every((tok) => key.includes(tok))) return false;
   }
   return true;
@@ -41,8 +48,8 @@ function inSection(items: Lite[], section: Section) {
   return items.filter(s.match);
 }
 
-export function applyFilters(items: Lite[], section: Page, f: Filters): Lite[] {
-  const out = inSection(items, section as Section).filter((it) => matches(it, f));
+export function applyFilters(items: Lite[], section: Page, f: Filters, labels: Labels = NO_LABELS): Lite[] {
+  const out = inSection(items, section as Section).filter((it) => matches(it, f, undefined, labels));
   if (section === 'figures') return out.sort((a, b) => (b.y || 0) - (a.y || 0) || numOf(a.no) - numOf(b.no));
   return out.sort((a, b) => numOf(a.no) - numOf(b.no));
 }

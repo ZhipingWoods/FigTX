@@ -64,7 +64,12 @@ export default function FilterBar({ idx, section, f, count, onChange }: {
   const facets = section === 'tables' ? FACETS.filter((x) => x.key === 'v' || x.key === 'y') : FACETS;
   return (
     <div className="fbar" ref={ref}>
-      <form className="search-mini" onSubmit={(e) => { e.preventDefault(); onChange({ ...f, q: q.trim() || undefined }); }}>
+      <form className="search-mini" onSubmit={(e) => {
+        e.preventDefault();
+        const t = q.trim();
+        if (/^[TFtf]\d{3,}$/.test(t)) location.hash = '#' + t.toUpperCase(); // 输入编号直接打开该条目
+        else onChange({ ...f, q: t || undefined });
+      }}>
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="搜索标题、问题、编号" />
       </form>
       {facets.map((facet) => (
