@@ -196,3 +196,15 @@ header nav .badge{margin-left:6px;background:var(--pink);color:#fff;border-radiu
 .entry h3{white-space:nowrap}
 .entry .lab span{max-width:62%}
 .forge-page .forge-head h2{font-family:var(--kai);font-size:44px;margin:8px 0 6px;line-height:1.15}
+/* 窄屏：标题随宽度缩放；导航不隐藏，改成可横向滑动的紧凑胶囊 */
+.pitch h1{font-size:clamp(34px,8.6vw,72px)}
+@media (max-width:1000px){
+  header{padding:12px 14px;gap:10px}
+  header nav{display:flex;overflow-x:auto;scrollbar-width:none;max-width:calc(100vw - 110px)}
+  header nav a{padding:6px 10px;font-size:13px;white-space:nowrap}
+  .domrow{padding:16px}
+  .wrap{padding:0 16px}
+  .page-head{padding-top:84px}
+  .page-head h1{font-size:40px}
+  .fbar .search-mini input{width:130px}
+}
