@@ -36,6 +36,8 @@ def _tokens(d: str):
                 continue
         if cmd is None:
             raise ValueError(f"path must start with a command: {d[:30]!r}")
+        if cmd in "Zz":
+            raise ValueError(f"numbers after Z without a command: {d[:30]!r}")
         n = _ARGC[cmd.upper()]
         args = [float(x) for x in toks[i:i + n]]
         if len(args) < n:

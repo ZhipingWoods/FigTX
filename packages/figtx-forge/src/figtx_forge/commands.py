@@ -126,6 +126,10 @@ def _run_redraw_check(a) -> int:
     print(f"bitmap_ratio      {r['bitmap_ratio']:.4f}  (<= {r['bitmap_limit']})")
     if r["missing_texts"]:
         print("missing_texts: " + " | ".join(r["missing_texts"]))
+    if r["extra_texts"]:
+        print("extra_texts（原图里没有的文字）: " + " | ".join(r["extra_texts"]))
+    if not r["texts_checked"]:
+        print("警告：没有给 --texts，未核对文字是否与原图完全一致——这不能算合格交付", file=sys.stderr)
     for i in r["lint"]:
         print(f"[{i['rule']}] {i['id']}: {i['msg']}")
     for t in r["worst_tiles"]:
@@ -248,7 +252,12 @@ def _run_search(a) -> int:
 
     from .search import load_index, preview_url, search
 
-    idx = load_index(a.index)
+    try:
+        idx = load_index(a.index)
+    except (OSError, ValueError) as e:  # URLError 是 OSError 的子类；JSON 解析错误是 ValueError
+        print(f"无法读取 FigTX 索引：{e}\n可以用 --index 指定本地索引（FigTX 仓库里 npm run data 生成的 public/index.json）",
+              file=sys.stderr)
+        return 1
     hits = search(idx, a.query, category=a.category, fig_type=a.fig_type, limit=a.limit)
     if a.json:
         print(json.dumps([dict(h, previewUrl=preview_url(idx, h)) for h in hits], ensure_ascii=False, indent=2))

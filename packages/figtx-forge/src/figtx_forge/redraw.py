@@ -17,6 +17,7 @@ BITMAP_LIMIT = 0.40
 BITMAP_LIMIT_PHOTO = 0.85
 _CJK = re.compile(r"[　-〿぀-ヿ㐀-䶿一-鿿가-힯＀-￯]")
 BLOCKING_LINT = {"text-overflow", "out-of-canvas"}
+_SAFE_ID = re.compile(r"^[A-Za-z0-9_-][A-Za-z0-9_.-]*$")
 
 
 def crop_regions(image_path, regions: list[dict], out_dir) -> list[str]:
@@ -26,6 +27,8 @@ def crop_regions(image_path, regions: list[dict], out_dir) -> list[str]:
     out.mkdir(parents=True, exist_ok=True)
     paths = []
     for r in regions:
+        if not _SAFE_ID.match(str(r.get("id", ""))):
+            raise ValueError(f"region id {r.get('id')!r}: only letters, digits, '-', '_' and '.' (not leading) allowed")
         x0, y0 = max(0, int(r["x"])), max(0, int(r["y"]))
         x1, y1 = min(img.width, int(r["x"] + r["w"])), min(img.height, int(r["y"] + r["h"]))
         if x1 <= x0 or y1 <= y0:
@@ -38,7 +41,7 @@ def crop_regions(image_path, regions: list[dict], out_dir) -> list[str]:
 
 def bitmap_area_ratio(scene: dict) -> float:
     c = scene["canvas"]
-    area = sum(n["w"] * n["h"] for n in scene.get("nodes", []) if n["type"] == "image")
+    area = sum(abs(n["w"] * n["h"]) for n in scene.get("nodes", []) if n["type"] == "image")
     return min(1.0, area / float(c["width"] * c["height"]))
 
 
@@ -85,12 +88,13 @@ def _norm(s: str) -> str:
     return " ".join(s.split())
 
 
-def _missing_texts(scene: dict, texts_path) -> list[str]:
+def _text_diff(scene: dict, texts_path) -> tuple[list[str], list[str]]:
+    """返回 (原图有、场景缺的文字, 场景有、原图没有的文字)。"""
     if not texts_path:
-        return []
-    have = {_norm(n["text"]) for n in scene.get("nodes", []) if n["type"] == "text"}
-    want = [_norm(line) for line in Path(texts_path).read_text(encoding="utf-8").splitlines()]
-    return [t for t in want if t and t not in have]
+        return [], []
+    have = [_norm(n["text"]) for n in scene.get("nodes", []) if n["type"] == "text"]
+    want = [t for t in (_norm(line) for line in Path(texts_path).read_text(encoding="utf-8").splitlines()) if t]
+    return [t for t in want if t not in set(have)], [t for t in have if t and t not in set(want)]
 
 
 def redraw_check(original_path, scene_path, out_dir, texts_path=None, allow_photo_heavy: bool = False) -> dict:
@@ -112,12 +116,15 @@ def redraw_check(original_path, scene_path, out_dir, texts_path=None, allow_phot
         report["bitmap_limit"] = BITMAP_LIMIT_PHOTO if allow_photo_heavy else BITMAP_LIMIT
         if allow_photo_heavy:
             report["note"] = "photo-heavy"
-        report["missing_texts"] = _missing_texts(scene, texts_path)
+        report["missing_texts"], report["extra_texts"] = _text_diff(scene, texts_path)
+        report["texts_checked"] = bool(texts_path)
         report["lint"] = lint_scene(scene)
         if report["bitmap_ratio"] > report["bitmap_limit"]:
             report["failed"].append("bitmap_ratio")
         if report["missing_texts"]:
             report["failed"].append("missing_texts")
+        if report["extra_texts"]:
+            report["failed"].append("extra_texts")
         if any(i["rule"] in BLOCKING_LINT for i in report["lint"]):
             report["failed"].append("lint")
         report["passed"] = not report["failed"]

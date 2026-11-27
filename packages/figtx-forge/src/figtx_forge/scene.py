@@ -18,6 +18,12 @@ REQUIRED = {
 }
 
 COLOR_KEYS = ("fill", "stroke")
+POSITIVE = {"rect": ("w", "h"), "text": ("w", "h"), "image": ("w", "h"), "ellipse": ("rx", "ry")}
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def _positive(v) -> bool:
+    return isinstance(v, (int, float)) and not isinstance(v, bool) and v > 0
 _COLOR_RE = re.compile(r"^(none|#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})$")
 
 
@@ -67,9 +73,31 @@ def _check_node(node: dict, base_dir: str | None) -> list[str]:
         pts = node["points"]
         if not isinstance(pts, list) or len(pts) < 2 or any(len(p) != 2 for p in pts):
             errs.append(f"node {nid}: points must be a list of [x, y] pairs (>=2)")
+    if errs:
+        return errs
+    errs += [f"node {nid}: {k} must be a positive number" for k in POSITIVE.get(t, ()) if not _positive(node[k])]
+    if "strokeWidth" in node and not _positive(node["strokeWidth"]):
+        errs.append(f"node {nid}: strokeWidth must be a positive number")
+    dash = node.get("dash")
+    if dash is not None and not (isinstance(dash, list) and dash and all(_positive(v) for v in dash)):
+        errs.append(f"node {nid}: dash must be a list of positive numbers")
+    if t == "text" and _CONTROL.search(str(node["text"])):
+        errs.append(f"node {nid}: text contains a control character")
+    if t == "path":
+        errs += _check_path(node)
     if t == "image" and not errs:
         errs += _check_image(node, base_dir)
     return errs
+
+
+def _check_path(node: dict) -> list[str]:
+    from .geometry import path_to_polylines
+
+    try:
+        ok = bool(path_to_polylines(str(node["d"])))
+    except ValueError as e:
+        return [f"node {node['id']}: bad path d ({e})"]
+    return [] if ok else [f"node {node['id']}: bad path d (no drawable segment)"]
 
 
 def validate_scene(scene: dict) -> list[str]:
