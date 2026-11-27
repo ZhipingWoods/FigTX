@@ -5,7 +5,7 @@
   "private": true,
   "description": "论文图表 LaTeX 样式库 —— 表格与图的样式可视化浏览、检索与复用",
   "author": "ZhipingWoods",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "electron/main.cjs",
   "homepage": "https://github.com/ZhipingWoods/FigTX",
@@ -31,7 +31,9 @@
     "offline": "npm run build && node tools/make-offline.mjs",
     "figgen": ".venv-fig/bin/python tools/figgen/cli.py",
     "figgen:contracts": ".venv-fig/bin/python tools/figgen/build_contracts.py",
-    "figgen:serve": ".venv-fig/bin/python tools/figgen/server.py"
+    "figgen:serve": ".venv-fig/bin/python tools/figgen/server.py",
+    "skills:install": "bash scripts/install-skills.sh",
+    "forge:test": "uv run --project packages/figtx-forge pytest packages/figtx-forge/tests -q"
   },
   "dependencies": {
     "react": "^18.3.1",

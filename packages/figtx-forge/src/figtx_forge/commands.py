@@ -263,3 +263,27 @@ def _run_search(a) -> int:
 
 
 SUBCOMMANDS["search"] = (_add_search, _run_search)
+
+
+# ---- skills ----
+def _add_skills(p):
+    p.add_argument("action", choices=["list", "install"])
+    p.add_argument("--target", choices=["claude", "codex", "both"], default="both")
+    p.add_argument("--link", action="store_true", help="建立符号链接而不是复制（从 clone 的仓库开发时用）")
+
+
+def _run_skills(a) -> int:
+    from pathlib import Path
+
+    from .skills_install import install_skills, list_skills
+
+    if a.action == "list":
+        print("\n".join(list_skills()))
+        return 0
+    for p in install_skills(Path.home(), a.target, link=a.link):
+        print(f"installed {p}")
+    print("已安装（同名目录会被覆盖）。重启 Claude Code / Codex 后生效。")
+    return 0
+
+
+SUBCOMMANDS["skills"] = (_add_skills, _run_skills)
