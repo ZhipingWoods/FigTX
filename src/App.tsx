@@ -26,6 +26,16 @@ type Item = {
   editFiles?: { ext: string; label: string; path: string }[];
   noteImages: string[];
   publishedAt: string | null;
+  // 图库条目（topconf / PaperGallery 等）才有的字段
+  domains?: string[];
+  problems?: string[];
+  original?: string | null;
+  paper?: {
+    title: string; authors: string[]; venue: string; year: number | null;
+    url: string | null; pdf: string | null; code: string | null; project: string | null;
+    bibtex: string | null; tier: string | null; award: string | null;
+  };
+  sources?: { platform: string; upstreamId: string; repo: string | null }[];
   source: {
     platform: string;
     author: string;
@@ -86,7 +96,47 @@ const FIGTYPE_LABEL: Record<string, string> = {
   quantitative: '实验·定量',
   qualitative: '实验·定性',
   style: '绘图样式',
+  // 图库（topconf / PaperGallery）
+  pipeline: '流程图',
+  teaser: 'Teaser 主图',
+  conceptual: '概念图',
+  taxonomy: '分类图',
+  comparison: '对比图',
 };
+
+const SOURCE_LABEL: Record<string, string> = { topconf: 'topconf-paper-figure-gallery', papergallery: 'PaperGallery', journal: '期刊' };
+
+function PaperInfo({ item }: { item: Item }) {
+  const p = item.paper!;
+  const [copied, setCopied] = useState(false);
+  const authors = p.authors.length > 6 ? p.authors.slice(0, 6).join(', ') + ' 等' : p.authors.join(', ');
+  const links: [string, string | null][] = [['论文', p.url], ['PDF', p.pdf], ['代码', p.code], ['项目页', p.project], ['高清原图', item.original || null]];
+  const copyBib = async () => {
+    await navigator.clipboard.writeText(p.bibtex || '');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+  return (
+    <div className="paper-info">
+      <div className="paper-title">{p.title}</div>
+      {authors && <div className="paper-authors">{authors}</div>}
+      <div className="paper-venue">
+        {[p.venue !== 'Unknown' ? p.venue : null, p.year, p.award || p.tier].filter(Boolean).join(' · ')}
+      </div>
+      <div className="paper-links">
+        {links.filter(([, u]) => u).map(([label, u]) => (
+          <a key={label} className="btn" href={u!} target="_blank" rel="noreferrer">{label}</a>
+        ))}
+        {p.bibtex && <button className="btn" onClick={copyBib}>{copied ? '已复制 BibTeX' : '复制 BibTeX'}</button>}
+      </div>
+      <div className="paper-source">
+        来源：{(item.sources || []).map((s) => (
+          <a key={s.platform + s.upstreamId} href={s.repo || '#'} target="_blank" rel="noreferrer">{SOURCE_LABEL[s.platform] || s.platform}</a>
+        ))} · 图片版权归原论文作者
+      </div>
+    </div>
+  );
+}
 
 const REPLICA_TYPES = ['efficiency', 'architecture', 'mechanism', 'tradeoff', 'results'];
 
@@ -656,7 +706,7 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
             {item.category === 'figure' && item.source.license && (
               <span className="meta-pill">{item.source.license}</span>
             )}
-            <span className="meta-pill">{item.code.split('\n').length} 行</span>
+            {item.code && <span className="meta-pill">{item.code.split('\n').length} 行</span>}
             {item.palette.map((c) => (
               <span key={c} className="meta-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                 <i style={{ width: 9, height: 9, borderRadius: 2, background: c, display: 'inline-block' }} />
@@ -672,6 +722,9 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
             </div>
           )}
 
+          {item.paper && <PaperInfo item={item} />}
+
+          {item.code && (<>
           <div className="code-head">
             <span>{LANG_LABEL[item.codeLang] || item.codeLang} 源码</span>
             <div className="spacer" />
@@ -703,6 +756,7 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
           <pre className="code">
             <code>{item.codeLang === 'latex' ? highlightLatex(item.code) : highlightPython(item.code)}</code>
           </pre>
+          </>)}
         </div>
       </div>
     </div>
