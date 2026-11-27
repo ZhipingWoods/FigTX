@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "canvas": {"width": 1092, "height": 599, "background": "#FFFFFF"},
+  "nodes": [
+    {"id": "box-enc", "type": "rect", "x": 200, "y": 220, "w": 220, "h": 140, "rx": 12, "fill": "#77AADA", "stroke": "#1F2937", "strokeWidth": 3},
+    {"id": "box-dec", "type": "rect", "x": 520, "y": 220, "w": 220, "h": 140, "rx": 12, "fill": "#F2C14E", "stroke": "#1F2937", "strokeWidth": 3},
+    {"id": "box-out", "type": "rect", "x": 840, "y": 220, "w": 200, "h": 140, "rx": 12, "fill": "#9BD08B", "stroke": "#1F2937", "strokeWidth": 3},
+    {"id": "arrow-1", "type": "line", "x1": 420, "y1": 290, "x2": 515, "y2": 290, "stroke": "#1F2937", "strokeWidth": 4, "arrowEnd": true},
+    {"id": "arrow-2", "type": "line", "x1": 740, "y1": 290, "x2": 835, "y2": 290, "stroke": "#1F2937", "strokeWidth": 4, "arrowEnd": true},
+    {"id": "lbl-in", "type": "text", "x": 40, "y": 270, "w": 140, "h": 40, "text": "Input", "fontSize": 30, "fontWeight": "bold", "fill": "#111111", "align": "center", "valign": "middle"},
+    {"id": "lbl-enc", "type": "text", "x": 200, "y": 270, "w": 220, "h": 40, "text": "Encoder", "fontSize": 30, "fontWeight": "bold", "fill": "#111111", "align": "center", "valign": "middle"},
+    {"id": "lbl-dec", "type": "text", "x": 520, "y": 270, "w": 220, "h": 40, "text": "Decoder", "fontSize": 30, "fontWeight": "bold", "fill": "#111111", "align": "center", "valign": "middle"},
+    {"id": "lbl-out", "type": "text", "x": 840, "y": 270, "w": 200, "h": 40, "text": "Output", "fontSize": 30, "fontWeight": "bold", "fill": "#111111", "align": "center", "valign": "middle"}
+  ]
+}
