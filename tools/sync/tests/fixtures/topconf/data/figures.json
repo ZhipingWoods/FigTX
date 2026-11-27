@@ -1,0 +1,55 @@
+[
+ {
+  "id": "icml2023-0064",
+  "venue": "icml",
+  "year": 2023,
+  "title": "BPipe: Memory-Balanced Pipeline Parallelism for Training Large Language Models",
+  "authors": [
+   "Taebum Kim",
+   "Hyoungjoo Kim"
+  ],
+  "pattern": "pipeline",
+  "image": "images/icml/final/icml2023-0064.jpg",
+  "paper": "https://proceedings.mlr.press/v202/kim23l.html",
+  "pdf_source": "https://arxiv.org/pdf/2401.00001v1.pdf",
+  "score": 50.1,
+  "tier": "oral",
+  "award": null,
+  "w": 900,
+  "h": 576
+ },
+ {
+  "id": "cvpr2024-0001",
+  "venue": "cvpr",
+  "year": 2024,
+  "title": "A Teaser Paper",
+  "authors": [
+   "A B"
+  ],
+  "pattern": "teaser",
+  "image": "images/cvpr/final/cvpr2024-0001.jpg",
+  "paper": "https://openaccess.thecvf.com/x",
+  "pdf_source": "https://openaccess.thecvf.com/x.pdf",
+  "score": 40,
+  "w": 600,
+  "h": 300
+ },
+ {
+  "id": "icml2025-0100",
+  "venue": "icml",
+  "year": 2025,
+  "title": "Architecture Things",
+  "authors": [
+   "C D"
+  ],
+  "pattern": "architecture",
+  "image": "images/icml/final/icml2025-0100.jpg",
+  "paper": "https://icml.cc/x",
+  "pdf_source": "",
+  "score": 30,
+  "tier": "spotlight",
+  "award": "best paper",
+  "w": 500,
+  "h": 500
+ }
+]

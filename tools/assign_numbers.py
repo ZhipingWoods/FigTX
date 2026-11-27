@@ -52,13 +52,18 @@ _FIG_ORDER = {
 
 
 def _fig_key(item: dict):
+    # 图库条目（topconf / PaperGallery 等，带 paper 字段）排在 FigTX 自有图之后：年份新的在前
+    if item.get("paper"):
+        return (2, 0, -(item.get("year") or 0), item["id"])
     ft = item.get("figType") or "style"
     is_rep = item["id"].startswith("rep-")
-    return (0 if is_rep else 1, _FIG_ORDER.get(ft, 9), item["id"])
+    return (0 if is_rep else 1, _FIG_ORDER.get(ft, 9), 0, item["id"])
 
 
 def main() -> int:
     renumber = "--renumber" in sys.argv
+    # 同步时用：上游暂时缺失的条目也保留编号（编号一旦分配永不回收）
+    keep_missing = "--keep-missing" in sys.argv
     items = json.load(open(os.path.join(ROOT, "src", "data", "items.json"),
                           encoding="utf-8"))["items"]
 
@@ -93,8 +98,9 @@ def main() -> int:
     _assign(figures, "F")
 
     # 清理已删除条目
-    alive = {i["id"] for i in items}
-    catalog = {k: v for k, v in catalog.items() if k in alive}
+    if not keep_missing:
+        alive = {i["id"] for i in items}
+        catalog = {k: v for k, v in catalog.items() if k in alive}
 
     json.dump(catalog, open(CATALOG, "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)

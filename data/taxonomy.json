@@ -1,0 +1,25 @@
+{
+ "domains": [
+  {"key": "cv", "zh": "计算机视觉", "en": "Computer Vision"},
+  {"key": "3d", "zh": "3D 与图形学", "en": "3D & Graphics"},
+  {"key": "gen", "zh": "生成模型", "en": "Generative Models"},
+  {"key": "nlp", "zh": "NLP 与 LLM", "en": "NLP & LLMs"},
+  {"key": "mm", "zh": "多模态", "en": "Multimodal"},
+  {"key": "rl", "zh": "强化学习与决策", "en": "RL & Decision Making"},
+  {"key": "robot", "zh": "机器人与具身智能", "en": "Robotics & Embodied AI"},
+  {"key": "theory", "zh": "机器学习理论与优化", "en": "ML Theory & Optimization"},
+  {"key": "graph", "zh": "图学习", "en": "Graph Learning"},
+  {"key": "sys", "zh": "高效推理与系统", "en": "Efficient ML & Systems"},
+  {"key": "safety", "zh": "安全与对齐", "en": "Safety & Alignment"},
+  {"key": "sci", "zh": "AI for Science", "en": "AI for Science"},
+  {"key": "med", "zh": "医学影像", "en": "Medical Imaging"},
+  {"key": "audio", "zh": "语音与音频", "en": "Speech & Audio"},
+  {"key": "rec", "zh": "推荐与检索", "en": "Recommendation & Retrieval"},
+  {"key": "agent", "zh": "Agent", "en": "Agents"}
+ ],
+ "figTypeGroups": {
+  "framework": ["framework", "architecture", "pipeline", "mechanism"],
+  "teaser": ["teaser", "conceptual", "taxonomy"],
+  "experiment": ["quantitative", "qualitative", "results", "comparison", "efficiency", "tradeoff", "motivation", "style"]
+ }
+}

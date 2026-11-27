@@ -26,6 +26,16 @@ type Item = {
   editFiles?: { ext: string; label: string; path: string }[];
   noteImages: string[];
   publishedAt: string | null;
+  // 图库条目（topconf / PaperGallery 等）才有的字段
+  domains?: string[];
+  problems?: string[];
+  original?: string | null;
+  paper?: {
+    title: string; authors: string[]; venue: string; year: number | null;
+    url: string | null; pdf: string | null; code: string | null; project: string | null;
+    bibtex: string | null; tier: string | null; award: string | null;
+  };
+  sources?: { platform: string; upstreamId: string; repo: string | null }[];
   source: {
     platform: string;
     author: string;
@@ -86,7 +96,50 @@ const FIGTYPE_LABEL: Record<string, string> = {
   quantitative: '实验·定量',
   qualitative: '实验·定性',
   style: '绘图样式',
+  // 图库（topconf / PaperGallery）
+  pipeline: '流程图',
+  teaser: 'Teaser 主图',
+  conceptual: '概念图',
+  taxonomy: '分类图',
+  comparison: '对比图',
 };
+
+const SOURCE_LABEL: Record<string, string> = { topconf: 'topconf-paper-figure-gallery', papergallery: 'PaperGallery', journal: '期刊' };
+
+function PaperInfo({ item }: { item: Item }) {
+  const p = item.paper!;
+  const [copied, setCopied] = useState(false);
+  const authors = p.authors.length > 6 ? p.authors.slice(0, 6).join(', ') + ' 等' : p.authors.join(', ');
+  const links: [string, string | null][] = [['论文', p.url], ['PDF', p.pdf], ['代码', p.code], ['项目页', p.project], ['高清原图', item.original || null]];
+  const copyBib = async () => {
+    await navigator.clipboard.writeText(p.bibtex || '');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+  return (
+    <div className="paper-info">
+      <div className="paper-title">{p.title}</div>
+      {authors && <div className="paper-authors">{authors}</div>}
+      <div className="paper-venue">
+        {[p.venue !== 'Unknown' ? p.venue : null, p.year, p.award || p.tier].filter(Boolean).join(' · ')}
+      </div>
+      <div className="paper-links">
+        {links.filter(([, u]) => u).map(([label, u]) => (
+          <a key={label} className="btn" href={u!} target="_blank" rel="noreferrer">{label}</a>
+        ))}
+        {p.bibtex && <button className="btn" onClick={copyBib}>{copied ? '已复制 BibTeX' : '复制 BibTeX'}</button>}
+      </div>
+      <div className="paper-source">
+        来源：{[...new Map((item.sources || []).map((s) => [s.platform, s])).values()].map((s, i) => (
+          <span key={s.platform}>
+            {i > 0 && '、'}
+            <a href={s.repo || '#'} target="_blank" rel="noreferrer">{SOURCE_LABEL[s.platform] || s.platform}</a>
+          </span>
+        ))} · 图片版权归原论文作者
+      </div>
+    </div>
+  );
+}
 
 const REPLICA_TYPES = ['efficiency', 'architecture', 'mechanism', 'tradeoff', 'results'];
 
@@ -247,13 +300,9 @@ export default function App() {
   const filtered = useMemo(() => {
     const list = base.filter((i) => !!i);
     const sign = sortDir === 'asc' ? 1 : -1;
-    // 按稳定编号排序；无编号的排最后
-    return [...list].sort((a, b) => {
-      const na = a.no || '~';
-      const nb = b.no || '~';
-      if (na === nb) return 0;
-      return na < nb ? -sign : sign;
-    });
+    // 按稳定编号的数字部分排序（F100 < F999 < F1000）；无编号的排最后
+    const num = (no?: string | null) => (no ? parseInt(no.slice(1), 10) : Number.MAX_SAFE_INTEGER);
+    return [...list].sort((a, b) => (num(a.no) - num(b.no)) * sign);
   }, [base, sortDir]);
 
   // URL hash 直达：#T042 / #F007 或 #<item-id>
@@ -298,6 +347,21 @@ export default function App() {
 
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
+
+  // 分页渲染：图库有几千张，一次渲染全部会卡顿数秒；滚到底再加载下一页
+  const PAGE = 120;
+  const [shown, setShown] = useState(PAGE);
+  const moreRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => setShown(PAGE), [filtered]);
+  useEffect(() => {
+    const el = moreRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) setShown((n) => n + PAGE);
+    }, { rootMargin: '800px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [shown, filtered]);
 
   const move = useCallback(
     (delta: number) => {
@@ -483,11 +547,14 @@ export default function App() {
             <p>换个关键词，或清除筛选条件。</p>
           </div>
         ) : (
-          <div className="grid">
-            {filtered.map((it) => (
-              <Card key={it.id} item={it} onOpen={() => setOpenId(it.id)} />
-            ))}
-          </div>
+          <>
+            <div className="grid">
+              {filtered.slice(0, shown).map((it) => (
+                <Card key={it.id} item={it} onOpen={() => setOpenId(it.id)} />
+              ))}
+            </div>
+            {shown < filtered.length && <div ref={moreRef} className="load-more">加载更多…（{shown} / {filtered.length}）</div>}
+          </>
         )}
       </main>
         </>
@@ -656,7 +723,7 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
             {item.category === 'figure' && item.source.license && (
               <span className="meta-pill">{item.source.license}</span>
             )}
-            <span className="meta-pill">{item.code.split('\n').length} 行</span>
+            {item.code && <span className="meta-pill">{item.code.split('\n').length} 行</span>}
             {item.palette.map((c) => (
               <span key={c} className="meta-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                 <i style={{ width: 9, height: 9, borderRadius: 2, background: c, display: 'inline-block' }} />
@@ -672,6 +739,9 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
             </div>
           )}
 
+          {item.paper && <PaperInfo item={item} />}
+
+          {item.code && (<>
           <div className="code-head">
             <span>{LANG_LABEL[item.codeLang] || item.codeLang} 源码</span>
             <div className="spacer" />
@@ -703,6 +773,7 @@ function Modal({ item, onClose, onPrev, onNext }: { item: Item; onClose: () => v
           <pre className="code">
             <code>{item.codeLang === 'latex' ? highlightLatex(item.code) : highlightPython(item.code)}</code>
           </pre>
+          </>)}
         </div>
       </div>
     </div>

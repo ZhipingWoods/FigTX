@@ -14,6 +14,12 @@ const RAW_FIGURES = path.join(ROOT, 'data/raw-figures.json');
 const RAW_RECIPES = path.join(ROOT, 'data/raw-recipes.json');
 const RAW_FIGS2 = path.join(ROOT, 'data/raw-figs2.json');
 const RAW_REPLICAS = path.join(ROOT, 'data/raw-replicas.json');
+const RAW_GALLERY = path.join(ROOT, 'data/raw-gallery.json');
+const TAGS_FILE = path.join(ROOT, 'data/tags.json');
+const ASSET_MANIFEST = path.join(ROOT, 'data/sources/assets-manifest.json');
+const THUMBS = path.join(ROOT, 'public/thumbs');
+// 与 tools/sync/push_assets.py 的 REPO_ID 保持一致
+const HF_ORIGINALS = 'https://huggingface.co/datasets/OliverThompson/figtx-assets/resolve/main/originals/';
 const REPAIRED_FILE = path.join(ROOT, 'data/table-repaired.json');
 const CATALOG_FILE = path.join(ROOT, 'data/catalog.json');
 
@@ -156,18 +162,65 @@ figures.sort((a, b) => {
   const ib = b.group === 'replicas' ? -1 : FIG_ORDER.indexOf(b.figType);
   return ia - ib;
 });
-const items = [...tables, ...figures];
+/* ---------------------------------------------------------------- 图库（topconf / PaperGallery 等，由 npm run sync 生成） */
+
+const SOURCE_NAME = { topconf: 'topconf-paper-figure-gallery', papergallery: 'PaperGallery', journal: '期刊' };
+const TAGS = readJson(TAGS_FILE, {});
+const MANIFEST = readJson(ASSET_MANIFEST, {});
+const thumbFiles = listDir(THUMBS);
+const gallery = readJson(RAW_GALLERY, [])
+  .filter((g) => thumbFiles.has(g.id + '.webp'))
+  .map((g) => {
+    const tag = TAGS[g.id] || {};
+    const asset = MANIFEST[g.id];
+    const first = g.sources[0] || {};
+    return {
+      id: g.id,
+      category: 'figure',
+      no: catalogNo(g.id),
+      figType: g.figType,
+      group: 'gallery',
+      kind: 'diagram',
+      title: g.title || '',
+      caption: '',
+      domain: [],
+      domains: tag.domains || [],
+      problems: tag.problems || [],
+      venues: g.paper.venue && g.paper.venue !== 'Unknown' ? [g.paper.venue] : [],
+      year: g.paper.year || null,
+      tags: g.tags || [],
+      number: null,
+      palette: [],
+      code: '',
+      codeLang: null,
+      render: 'thumbs/' + g.id + '.webp',
+      original: asset && asset.uploaded ? HF_ORIGINALS + g.id + '.' + asset.ext : null,
+      editableStatus: 'original-only',
+      paper: g.paper,
+      sources: g.sources,
+      repaired: null,
+      editFiles: [],
+      noteImages: [],
+      publishedAt: null,
+      source: { platform: first.platform || 'gallery', author: '', repo: SOURCE_NAME[first.platform] || first.platform || null, repoUrl: first.repo || null, license: null },
+    };
+  })
+  .sort((a, b) => (b.year || 0) - (a.year || 0) || a.id.localeCompare(b.id));
+
+const items = [...tables, ...figures, ...gallery];
 
 const stats = {
   total: items.length,
   tables: tables.length,
-  figures: figures.length,
+  figures: figures.length + gallery.length,
+  gallery: gallery.length,
+  sources: gallery.reduce((a, i) => { for (const src of i.sources) a[src.platform] = (a[src.platform] || 0) + 1; return a; }, {}),
   tableRender: tables.filter((i) => i.render).length,
-  figureRender: figures.filter((i) => i.render).length,
+  figureRender: figures.filter((i) => i.render).length + gallery.length,
   kinds: items.reduce((a, i) => ((a[i.kind] = (a[i.kind] || 0) + 1), a), {}),
   venues: items.reduce((a, i) => { for (const v of i.venues) a[v] = (a[v] || 0) + 1; return a; }, {}),
   repos: figures.reduce((a, i) => { if (i.source.repo) a[i.source.repo] = (a[i.source.repo] || 0) + 1; return a; }, {}),
-  figTypes: figures.reduce((a, i) => ((a[i.figType] = (a[i.figType] || 0) + 1), a), {}),
+  figTypes: [...figures, ...gallery].reduce((a, i) => ((a[i.figType] = (a[i.figType] || 0) + 1), a), {}),
   domains: figures.reduce((a, i) => { for (const d of i.domain || []) a[d] = (a[d] || 0) + 1; return a; }, {}),
   generatedAt: new Date().toISOString(),
 };

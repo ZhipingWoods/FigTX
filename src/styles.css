@@ -820,3 +820,14 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: .04em;
 }
 
+
+/* 图库条目的论文信息块（P1 最小实现，P2 换成新版详情页） */
+.paper-info { display: grid; gap: 6px; padding: 12px 0 4px; }
+.paper-title { font-weight: 600; font-size: 15px; line-height: 1.4; }
+.paper-authors { color: var(--ink-2); font-size: 13px; }
+.paper-venue { color: var(--ink-3); font-size: 12.5px; }
+.paper-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.paper-source { color: var(--ink-3); font-size: 12px; }
+.paper-source a { margin-right: 6px; }
+
+.load-more { text-align: center; color: var(--ink-3); font-size: 13px; padding: 24px 0 40px; }
