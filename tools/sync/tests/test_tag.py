@@ -60,3 +60,10 @@ def test_prompt_has_no_abstract(tmp_path):
     fake = FakeChat()
     tag(items, tmp_path / "tags.json", chat_fn=fake)
     assert "SECRET-ABSTRACT" not in fake.prompts[0]
+
+
+def test_tag_parallel_same_result(tmp_path):
+    a, b = tmp_path / "a.json", tmp_path / "b.json"
+    tag(_items(130), a, chat_fn=FakeChat(), workers=1)
+    rep = tag(_items(130), b, chat_fn=FakeChat(), workers=6)
+    assert rep == {"tagged": 130, "failed": 0} and a.read_bytes() == b.read_bytes()

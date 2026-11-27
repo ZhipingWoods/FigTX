@@ -50,7 +50,7 @@ def _clean(entry, valid: set[str]) -> dict | None:
     return {"domains": doms, "problems": probs} if doms or probs else None
 
 
-def tag(items: list[dict], tags_path, chat_fn=None, batch: int = BATCH) -> dict:
+def tag(items: list[dict], tags_path, chat_fn=None, batch: int = BATCH, workers: int = 6) -> dict:
     tags = load_json(tags_path, {})
     todo = [it for it in items if it["id"] not in tags]
     if not todo:
@@ -65,22 +65,29 @@ def tag(items: list[dict], tags_path, chat_fn=None, batch: int = BATCH) -> dict:
     domains = _taxonomy()
     valid = {d["key"] for d in domains}
     model = os.environ.get("FIGTX_LLM_MODEL", "default")
-    rep = {"tagged": 0, "failed": 0}
-    for i in range(0, len(todo), batch):
-        chunk = todo[i:i + batch]
+    chunks = [todo[i:i + batch] for i in range(0, len(todo), batch)]
+
+    def ask(k_chunk):
+        k, chunk = k_chunk
         try:
-            reply = chat_fn([{"role": "system", "content": SYSTEM},
-                             {"role": "user", "content": _prompt(chunk, domains)}], max_tokens=8000, temperature=0)
+            return chat_fn([{"role": "system", "content": SYSTEM},
+                            {"role": "user", "content": _prompt(chunk, domains)}], max_tokens=8000, temperature=0)
         except Exception as e:  # 单批失败不影响其他批
-            print(f"打标失败（第 {i // batch + 1} 批）：{type(e).__name__}: {e}")
-            reply = ""
-        data = _parse(reply) or {}
-        for it in chunk:
-            entry = _clean(data.get(it["id"]), valid)
-            if entry is None:
-                rep["failed"] += 1
-                continue
-            tags[it["id"]] = dict(entry, model=model)
-            rep["tagged"] += 1
-        dump_json(tags_path, tags)
+            print(f"打标失败（第 {k + 1} 批）：{type(e).__name__}: {e}")
+            return ""
+
+    rep = {"tagged": 0, "failed": 0}
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        for chunk, reply in zip(chunks, pool.map(ask, enumerate(chunks))):
+            data = _parse(reply) or {}
+            for it in chunk:
+                entry = _clean(data.get(it["id"]), valid)
+                if entry is None:
+                    rep["failed"] += 1
+                    continue
+                tags[it["id"]] = dict(entry, model=model)
+                rep["tagged"] += 1
+            dump_json(tags_path, tags)  # 每批落盘：中途中断也不丢已打的标
     return rep
