@@ -352,6 +352,21 @@ export default function App() {
   const openIndex = filtered.findIndex((i) => i.id === openId);
   const open = openIndex >= 0 ? filtered[openIndex] : null;
 
+  // 分页渲染：图库有几千张，一次渲染全部会卡顿数秒；滚到底再加载下一页
+  const PAGE = 120;
+  const [shown, setShown] = useState(PAGE);
+  const moreRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => setShown(PAGE), [filtered]);
+  useEffect(() => {
+    const el = moreRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) setShown((n) => n + PAGE);
+    }, { rootMargin: '800px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [shown, filtered]);
+
   const move = useCallback(
     (delta: number) => {
       if (!filtered.length) return;
@@ -536,11 +551,14 @@ export default function App() {
             <p>换个关键词，或清除筛选条件。</p>
           </div>
         ) : (
-          <div className="grid">
-            {filtered.map((it) => (
-              <Card key={it.id} item={it} onOpen={() => setOpenId(it.id)} />
-            ))}
-          </div>
+          <>
+            <div className="grid">
+              {filtered.slice(0, shown).map((it) => (
+                <Card key={it.id} item={it} onOpen={() => setOpenId(it.id)} />
+              ))}
+            </div>
+            {shown < filtered.length && <div ref={moreRef} className="load-more">加载更多…（{shown} / {filtered.length}）</div>}
+          </>
         )}
       </main>
         </>

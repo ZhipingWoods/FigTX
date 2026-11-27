@@ -829,3 +829,5 @@ button { font-family: inherit; cursor: pointer; }
 .paper-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .paper-source { color: var(--ink-3); font-size: 12px; }
 .paper-source a { margin-right: 6px; }
+
+.load-more { text-align: center; color: var(--ink-3); font-size: 13px; padding: 24px 0 40px; }
