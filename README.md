@@ -138,6 +138,36 @@
 
 ---
 
+## 在 Claude Code / Codex 里用 FigTX
+
+FigTX 提供 5 个 skill 和一个命令行工具 `figtx`。装好之后，在 Claude Code 或 Codex 里直接用自然语言说要做什么，agent 会自动调用对应的 skill：
+
+| skill | 做什么 | 你可以这样说 |
+|---|---|---|
+| `figtx-find-figure` | 按领域、研究问题在 FigTX 图库里找参考图 | 「找几张扩散模型视频生成的框架图」 |
+| `figtx-redraw-figure` | 把一张论文图**一比一**复刻成可编辑的 SVG + PPTX（照片类元素先抠出来，再原位放回） | 「把这张图重画成可编辑的 PPT」 |
+| `figtx-framework-figure` | 沿用参考图的版式和配色，画**你自己方法**的框架图 | 「照这张图的风格画我的方法总览」 |
+| `figtx-table-from-screenshot` | 把表格截图转成 LaTeX，编译出来逐格核对 | 「把这个表格截图转成 latex」 |
+| `figtx-plot` | 实验图：用你的数据套用论文风格，或者复刻一张实验图截图 | 「用这个风格画我的消融实验柱状图」 |
+
+**安装**（需要 [uv](https://docs.astral.sh/uv/)；表格转换还需要 `brew install tectonic`）：
+
+```bash
+uv tool install "git+https://github.com/ZhipingWoods/FigTX#subdirectory=packages/figtx-forge"
+```
+
+```bash
+figtx skills install
+```
+
+第二条命令会把 skill 装到 `~/.claude/skills` 和 `~/.codex/skills`。装好后重启 Claude Code / Codex。如果你 clone 了本仓库，也可以运行 `npm run skills:install`，它会用符号链接安装，仓库更新后 skill 立即生效。
+
+**一比一复刻的合格标准**：`figtx redraw-check` 会把渲染结果和原图逐像素比对。综合分数和深色笔画召回率都要 ≥ 0.98，局部召回率和边缘 F1 都要 ≥ 0.97，颜色相似度要 ≥ 0.98；同时文字必须完全一致，抠图面积不能超过 40%。达不到这些标准的结果会明确标为「需检查」，不会当作合格品交付。
+
+`figtx` 本身不调用任何模型，也不读取任何 API key。它只负责渲染、比对、导出和编译这些可以量化的工作；看图和写图由你使用的 agent 完成。
+
+---
+
 ## 快速开始
 
 ### 方式一：桌面版（推荐，离线可用）

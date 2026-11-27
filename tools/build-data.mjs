@@ -180,3 +180,29 @@ console.log(
   ' 去重丢弃 ' + dropped + ' -> ' + path.relative(ROOT, OUT) + ' (' + (bytes / 1024).toFixed(1) + ' KB)',
 );
 console.log('表格已渲染:', stats.tableRender, '/', tables.length, ' 图已渲染:', stats.figureRender, '/', figures.length);
+
+// 精简索引：给 figtx search / skills / 首页检索用（不含代码，体积小）
+const INDEX_OUT = path.join(ROOT, 'public/index.json');
+const index = {
+  v: 1,
+  generatedAt: stats.generatedAt,
+  base: 'https://zhipingwoods.github.io/FigTX/',
+  items: items.map((it) => ({
+    id: it.id,
+    no: it.no || null,
+    category: it.category,
+    figType: it.figType || null,
+    kind: it.kind || null,
+    title: it.title || '',
+    caption: (it.caption || '').slice(0, 200),
+    venues: it.venues || [],
+    year: it.year || null,
+    domains: it.domains || it.domain || [],
+    problems: it.problems || [],
+    tags: it.tags || [],
+    preview: it.render || null,
+    paper: (it.paper && it.paper.url) || it.source?.repoUrl || null,
+  })),
+};
+fs.writeFileSync(INDEX_OUT, JSON.stringify(index));
+console.log('index.json:', index.items.length, '条 ->', path.relative(ROOT, INDEX_OUT), '(' + (fs.statSync(INDEX_OUT).size / 1024).toFixed(1) + ' KB)');

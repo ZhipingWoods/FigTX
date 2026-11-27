@@ -1,0 +1,11 @@
+{"v": 1, "generatedAt": "2026-11-27T00:00:00Z", "base": "https://zhipingwoods.github.io/FigTX/",
+ "items": [
+  {"id": "tag-hit", "no": "F010", "category": "figure", "figType": "framework", "kind": "diagram", "title": "Unified model overview",
+   "caption": "", "venues": ["CVPR"], "year": 2025, "domains": ["生成模型"], "problems": ["diffusion"], "tags": [], "preview": "renders-fig/a.webp", "paper": null},
+  {"id": "title-hit", "no": "F011", "category": "figure", "figType": "framework", "kind": "diagram", "title": "Latent diffusion pipeline",
+   "caption": "", "venues": ["NeurIPS"], "year": 2024, "domains": [], "problems": [], "tags": [], "preview": "renders-fig/b.webp", "paper": "https://arxiv.org/abs/1"},
+  {"id": "caption-hit", "no": "F012", "category": "figure", "figType": "quantitative", "kind": "chart", "title": "Loss curves",
+   "caption": "diffusion model training loss", "venues": [], "year": 2026, "domains": [], "problems": [], "tags": ["model"], "preview": "renders-fig/c.webp", "paper": null},
+  {"id": "table-042", "no": "T042", "category": "table", "figType": null, "kind": "table", "title": "Main results table",
+   "caption": "model comparison", "venues": ["ACL"], "year": 2023, "domains": [], "problems": [], "tags": [], "preview": "renders/t.webp", "paper": null}
+ ]}

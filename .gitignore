@@ -34,3 +34,6 @@ audit/report.json
 .env
 .env.local
 figgen-out/
+
+# 构建产物：由 npm run data 生成的精简索引
+public/index.json
