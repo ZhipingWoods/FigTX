@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "figtx-forge"
+version = "0.1.0"
+description = "FigTX 工具包：一比一复刻论文图、导出可编辑 SVG/PPTX、编译 LaTeX 表格、检索 FigTX 图库"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+  "pillow>=10",
+  "numpy>=1.24",
+  "resvg-py>=0.5",
+  "python-pptx>=1.0",
+  "pypdfium2>=4",
+]
+
+[project.scripts]
+figtx = "figtx_forge.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "matplotlib>=3.7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/figtx_forge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
