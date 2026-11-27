@@ -19763,5 +19763,215 @@
   "no": "F3765",
   "kind": "F",
   "title": "Graph Meta Network for Multi-Behavior Recommendation"
+ },
+ "pg-pipeline-chen-aerialmind-2026": {
+  "no": "F3766",
+  "kind": "F",
+  "title": "AerialMind: Towards Referring Multi-Object Tracking in UAV S"
+ },
+ "pg-pipeline-hu-evermemos-2026": {
+  "no": "F3767",
+  "kind": "F",
+  "title": "EverMemOS: A Self-Organizing Memory Operating System for Str"
+ },
+ "pg-pipeline-luo-being-2026": {
+  "no": "F3768",
+  "kind": "F",
+  "title": "Being-H0.5: Scaling Human-Centric Robot Learning for Cross-E"
+ },
+ "pg-pipeline-zhang-skintokens-2026": {
+  "no": "F3769",
+  "kind": "F",
+  "title": "Skin Tokens: A Learned Compact Representation for Unified Au"
+ },
+ "pg-pipeline-bian-dynamiccity-2025": {
+  "no": "F3770",
+  "kind": "F",
+  "title": "Dynamiccity: Large-scale 4d occupancy generation from dynami"
+ },
+ "pg-pipeline-chen-ai4search-2025": {
+  "no": "F3771",
+  "kind": "F",
+  "title": "AI4Research: A Survey of Artificial Intelligence for Scienti"
+ },
+ "pg-pipeline-chow-merit-2025": {
+  "no": "F3772",
+  "kind": "F",
+  "title": "MERIT: Multilingual Semantic Retrieval with Interleaved Mult"
+ },
+ "pg-pipeline-dong-hiscene-2025": {
+  "no": "F3773",
+  "kind": "F",
+  "title": "HiScene: Creating Hierarchical 3D Scenes with Isometric View"
+ },
+ "pg-pipeline-fei-general-2025": {
+  "no": "F3774",
+  "kind": "F",
+  "title": "On Path to Multimodal Generalist: General-Level and General-"
+ },
+ "pg-pipeline-huang-majutsucity-2025": {
+  "no": "F3775",
+  "kind": "F",
+  "title": "MajutsuCity: Language-driven Aesthetic-adaptive City Generat"
+ },
+ "pg-pipeline-huang-unityvideo-2025": {
+  "no": "F3776",
+  "kind": "F",
+  "title": "UnityVideo: Unified Multi-Modal Multi-Task Learning for Enha"
+ },
+ "pg-pipeline-huang-voxify3d-2025": {
+  "no": "F3777",
+  "kind": "F",
+  "title": "Voxify3D: Pixel Art Meets Volumetric Rendering"
+ },
+ "pg-pipeline-jin-diffuman4d-2025": {
+  "no": "F3778",
+  "kind": "F",
+  "title": "Diffuman4D: 4D Consistent Human View Synthesis from Sparse-V"
+ },
+ "pg-pipeline-li-dgtr-2025": {
+  "no": "F3779",
+  "kind": "F",
+  "title": "DGTR: Distributed Gaussian Turbo-Reconstruction for Sparse-V"
+ },
+ "pg-pipeline-li-idarb-2025": {
+  "no": "F3780",
+  "kind": "F",
+  "title": "IDArb: Intrinsic Decomposition for Arbitrary Number of Input"
+ },
+ "pg-pipeline-li-iggt-2025": {
+  "no": "F3781",
+  "kind": "F",
+  "title": "IGGT: Instance-Grounded Geometry Transformer for Semantic 3D"
+ },
+ "pg-pipeline-liu-grace-2025": {
+  "no": "F3782",
+  "kind": "F",
+  "title": "GRACE: Generalizing Robot-Assisted Caregiving with User Func"
+ },
+ "pg-pipeline-qian-agentthink-2025": {
+  "no": "F3783",
+  "kind": "F",
+  "title": "AgentThink: A Unified Framework for Tool-Augmented Chain-of-"
+ },
+ "pg-pipeline-tao-omnizip-2025": {
+  "no": "F3784",
+  "kind": "F",
+  "title": "OmniZip: Audio-Guided Dynamic Token Compression for Fast Omn"
+ },
+ "pg-pipeline-tian-egor1-2025": {
+  "no": "F3785",
+  "kind": "F",
+  "title": "Ego-R1: Chain-of-Tool-Thought for Ultra-Long Egocentric Vide"
+ },
+ "pg-pipeline-wang-partuv-2025": {
+  "no": "F3786",
+  "kind": "F",
+  "title": "PartUV: Part-Based UV Unwrapping of 3D Meshes"
+ },
+ "pg-pipeline-wu-direct3ds2-2025": {
+  "no": "F3787",
+  "kind": "F",
+  "title": "Direct3D‑S2: Gigascale 3D Generation Made Easy with Spatial "
+ },
+ "pg-pipeline-xiang-native-2025": {
+  "no": "F3788",
+  "kind": "F",
+  "title": "Native and Compact Structured Latents for 3D Generation"
+ },
+ "pg-pipeline-xu-4dgt-2025": {
+  "no": "F3789",
+  "kind": "F",
+  "title": "4DGT: Learning a 4D Gaussian Transformer Using Real-World Mo"
+ },
+ "pg-pipeline-yang-egolife-2025": {
+  "no": "F3790",
+  "kind": "F",
+  "title": "EgoLife: Towards Egocentric Life Assistant"
+ },
+ "pg-pipeline-yao-cast-2025": {
+  "no": "F3791",
+  "kind": "F",
+  "title": "CAST: Component-Aligned 3D Scene Reconstruction from an RGB "
+ },
+ "pg-pipeline-ye-blinktwice-2025": {
+  "no": "F3792",
+  "kind": "F",
+  "title": "BLINK-Twice: You see, but do you observe? A Reasoning Benchm"
+ },
+ "pg-pipeline-ye-echo4o-2025": {
+  "no": "F3793",
+  "kind": "F",
+  "title": "Echo-4o: Harnessing the Power of GPT-4o Synthetic Images for"
+ },
+ "pg-pipeline-yin-mindcube-2025": {
+  "no": "F3794",
+  "kind": "F",
+  "title": "Spatial Mental Modeling from Limited Views"
+ },
+ "pg-pipeline-yuan-immersegen-2025": {
+  "no": "F3795",
+  "kind": "F",
+  "title": "ImmerseGen: Agent-Guided Immersive World Generation with Alp"
+ },
+ "pg-pipeline-zeng-janusvln-2025": {
+  "no": "F3796",
+  "kind": "F",
+  "title": "JanusVLN: Decoupling Semantics and Spatiality with Dual Impl"
+ },
+ "pg-pipeline-zhang-hi3deval-2025": {
+  "no": "F3797",
+  "kind": "F",
+  "title": "Hi3DEval: Advancing 3D Generation Evaluation with Hierarchic"
+ },
+ "pg-pipeline-zhang-joint-2025": {
+  "no": "F3798",
+  "kind": "F",
+  "title": "Joint 3D Geometry Reconstruction and Motion Generation for 4"
+ },
+ "pg-pipeline-zhao-real2edit2real-2025": {
+  "no": "F3799",
+  "kind": "F",
+  "title": "Real2Edit2Real: Generating Robotic Demonstrations via a 3D C"
+ },
+ "pg-pipeline-zhou-gateopening-2025": {
+  "no": "F3800",
+  "kind": "F",
+  "title": "GATE OpenING: A Comprehensive Benchmark for Judging Open-end"
+ },
+ "pg-pipeline-chen-hac-2024": {
+  "no": "F3801",
+  "kind": "F",
+  "title": "HAC: Hash-grid Assisted Context for 3D Gaussian Splatting Co"
+ },
+ "pg-pipeline-gao-cosurfgs-2024": {
+  "no": "F3802",
+  "kind": "F",
+  "title": "CoSurfGS: Collaborative 3D Surface Gaussian Splatting with D"
+ },
+ "pg-pipeline-jiang-hifi4g-2024": {
+  "no": "F3803",
+  "kind": "F",
+  "title": "HiFi4G: High-Fidelity Human Performance Rendering via Compac"
+ },
+ "pg-pipeline-jiang-scaling-2024": {
+  "no": "F3804",
+  "kind": "F",
+  "title": "Scaling Up Dynamic Human-Scene Interaction Modeling"
+ },
+ "pg-pipeline-jiang-solami-2024": {
+  "no": "F3805",
+  "kind": "F",
+  "title": "SOLAMI: Social Vision-Language-Action Modeling for Immersive"
+ },
+ "pg-pipeline-li-dance-2024": {
+  "no": "F3806",
+  "kind": "F",
+  "title": "Dance-to-Music Generation with Encoder-based Textual Inversi"
+ },
+ "pg-pipeline-liang-gai-2024": {
+  "no": "F3807",
+  "kind": "F",
+  "title": "Generative AI-driven Semantic Communication Networks: Archit"
  }
 }

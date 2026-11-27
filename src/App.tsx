@@ -300,13 +300,9 @@ export default function App() {
   const filtered = useMemo(() => {
     const list = base.filter((i) => !!i);
     const sign = sortDir === 'asc' ? 1 : -1;
-    // 按稳定编号排序；无编号的排最后
-    return [...list].sort((a, b) => {
-      const na = a.no || '~';
-      const nb = b.no || '~';
-      if (na === nb) return 0;
-      return na < nb ? -sign : sign;
-    });
+    // 按稳定编号的数字部分排序（F100 < F999 < F1000）；无编号的排最后
+    const num = (no?: string | null) => (no ? parseInt(no.slice(1), 10) : Number.MAX_SAFE_INTEGER);
+    return [...list].sort((a, b) => (num(a.no) - num(b.no)) * sign);
   }, [base, sortDir]);
 
   // URL hash 直达：#T042 / #F007 或 #<item-id>

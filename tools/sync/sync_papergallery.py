@@ -103,7 +103,7 @@ def _year(v):
 
 def parse(root: Path) -> tuple[list[dict], dict]:
     root = Path(root)
-    stats = {"parsed": 0, "fallback": 0, "failed": 0, "missing_image": 0}
+    stats = {"parsed": 0, "fallback": 0, "failed": 0, "missing_image": 0, "bad_image": 0}
     out = []
     for kind in KINDS:
         for md in sorted((root / "src/content/images" / kind / "paper").glob("*.md")):
@@ -115,8 +115,12 @@ def parse(root: Path) -> tuple[list[dict], dict]:
             if not fm.get("image") or not (root / rel).is_file():
                 stats["missing_image"] += 1
                 continue
-            with Image.open(root / rel) as im:
-                w, h = im.size
+            try:
+                with Image.open(root / rel) as im:
+                    w, h = im.size
+            except (OSError, SyntaxError, ValueError):
+                stats["bad_image"] += 1
+                continue
             stats["parsed"] += 1
             stats["fallback"] += int(fm["_fallback"])
             out.append({

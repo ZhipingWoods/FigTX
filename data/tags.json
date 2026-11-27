@@ -768,6 +768,16 @@
    "model-based decision making"
   ]
  },
+ "pg-pipeline-bian-dynamiccity-2025": {
+  "domains": [
+   "3d",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "large-scale 4d occupancy generation"
+  ]
+ },
  "pg-pipeline-bo-aucseg-2024": {
   "domains": [
    "cv",
@@ -846,6 +856,16 @@
    "dynamic 3d scene synthesis"
   ]
  },
+ "pg-pipeline-chen-aerialmind-2026": {
+  "domains": [
+   "cv",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "language-guided multi-object tracking in aerial video"
+  ]
+ },
  "pg-pipeline-chen-aerialmind-2026-2": {
   "domains": [
    "cv",
@@ -855,6 +875,15 @@
   "problems": [
    "referring multi-object tracking",
    "uav scene understanding"
+  ]
+ },
+ "pg-pipeline-chen-ai4search-2025": {
+  "domains": [
+   "sci"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "surveying ai methods for scientific research"
   ]
  },
  "pg-pipeline-chen-gmaimmbench-2024": {
@@ -879,6 +908,17 @@
   "problems": [
    "generalization in 3d robotic manipulation",
    "spatially grounded action generation"
+  ]
+ },
+ "pg-pipeline-chen-hac-2024": {
+  "domains": [
+   "3d",
+   "sys"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "3d gaussian splat compression",
+   "hash-grid context modeling for compression"
   ]
  },
  "pg-pipeline-chen-latentmorph-2026": {
@@ -942,6 +982,17 @@
   "model": "GPT_svn19r",
   "problems": [
    "robustness of graph fraud detectors to multi-target injectio"
+  ]
+ },
+ "pg-pipeline-chow-merit-2025": {
+  "domains": [
+   "rec",
+   "nlp"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "multilingual semantic retrieval",
+   "retrieval with interleaved multi-condition queries"
   ]
  },
  "pg-pipeline-chu-selfcritique-2025": {
@@ -1030,6 +1081,17 @@
    "learning native vision-language representations at scale"
   ]
  },
+ "pg-pipeline-dong-hiscene-2025": {
+  "domains": [
+   "3d",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "hierarchical 3d scene generation",
+   "isometric view synthesis"
+  ]
+ },
  "pg-pipeline-du-modality-2024": {
   "domains": [
    "cv"
@@ -1070,6 +1132,15 @@
   "model": "GPT_svn19r",
   "problems": [
    "speech-to-speech interaction with language models"
+  ]
+ },
+ "pg-pipeline-fei-general-2025": {
+  "domains": [
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "benchmarking multimodal generalist capabilities"
   ]
  },
  "pg-pipeline-feng-fdgaussian-2024": {
@@ -1113,6 +1184,17 @@
   "problems": [
    "scalable large-scene reconstruction",
    "improving geometric accuracy in scene reconstruction"
+  ]
+ },
+ "pg-pipeline-gao-cosurfgs-2024": {
+  "domains": [
+   "3d",
+   "sys"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "large-scale surface reconstruction",
+   "distributed gaussian splat training"
   ]
  },
  "pg-pipeline-gao-longvie-2025": {
@@ -1223,6 +1305,17 @@
    "test-time calibration of graph detectors"
   ]
  },
+ "pg-pipeline-hu-evermemos-2026": {
+  "domains": [
+   "agent",
+   "sys"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "self-organizing memory management",
+   "memory-supported long-horizon reasoning"
+  ]
+ },
  "pg-pipeline-hu-structldm-2024": {
   "domains": [
    "3d",
@@ -1265,6 +1358,19 @@
    "explaining facial forgery evidence"
   ]
  },
+ "pg-pipeline-huang-majutsucity-2025": {
+  "domains": [
+   "3d",
+   "gen",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "language-guided 3d city generation",
+   "aesthetic adaptation of city scenes",
+   "controllable asset and layout generation"
+  ]
+ },
  "pg-pipeline-huang-mvtokenflow-2025": {
   "domains": [
    "3d",
@@ -1274,6 +1380,27 @@
   "problems": [
    "4d content generation",
    "maintaining multiview consistency in dynamic scenes"
+  ]
+ },
+ "pg-pipeline-huang-unityvideo-2025": {
+  "domains": [
+   "gen",
+   "mm",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "world-aware video generation",
+   "multimodal multitask learning for video synthesis"
+  ]
+ },
+ "pg-pipeline-huang-voxify3d-2025": {
+  "domains": [
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "volumetric rendering of pixel art"
   ]
  },
  "pg-pipeline-ilya-interactive4d-2025": {
@@ -1329,6 +1456,17 @@
    "memory-efficient neural light field modeling"
   ]
  },
+ "pg-pipeline-jiang-hifi4g-2024": {
+  "domains": [
+   "3d",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "high-fidelity human performance rendering",
+   "compact gaussian representation of human performances"
+  ]
+ },
  "pg-pipeline-jiang-rayzer-2025": {
   "domains": [
    "3d",
@@ -1337,6 +1475,40 @@
   "model": "GPT_svn19r",
   "problems": [
    "self-supervised novel view synthesis"
+  ]
+ },
+ "pg-pipeline-jiang-scaling-2024": {
+  "domains": [
+   "3d",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "large-scale dynamic human-scene interaction modeling"
+  ]
+ },
+ "pg-pipeline-jiang-solami-2024": {
+  "domains": [
+   "mm",
+   "agent",
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "social vision-language-action modeling",
+   "immersive interaction with autonomous 3d characters"
+  ]
+ },
+ "pg-pipeline-jin-diffuman4d-2025": {
+  "domains": [
+   "3d",
+   "gen",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "human novel view synthesis from sparse-view video",
+   "spatiotemporal consistency in synthesized human views"
   ]
  },
  "pg-pipeline-jin-ragrewardbench-2024": {
@@ -1467,6 +1639,17 @@
    "satellite-to-street view synthesis"
   ]
  },
+ "pg-pipeline-li-dance-2024": {
+  "domains": [
+   "audio",
+   "gen",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "dance-conditioned music generation"
+  ]
+ },
  "pg-pipeline-li-densesplat-2025": {
   "domains": [
    "robot",
@@ -1477,6 +1660,17 @@
   "problems": [
    "dense visual simultaneous localization and mapping",
    "gaussian map densification"
+  ]
+ },
+ "pg-pipeline-li-dgtr-2025": {
+  "domains": [
+   "3d",
+   "sys"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "sparse-view reconstruction of large scenes",
+   "distributed gaussian scene reconstruction"
   ]
  },
  "pg-pipeline-li-editthinker-2025": {
@@ -1498,6 +1692,27 @@
   "problems": [
    "context-aware 3d scene understanding",
    "generalizable neural radiance field perception"
+  ]
+ },
+ "pg-pipeline-li-idarb-2025": {
+  "domains": [
+   "cv",
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "intrinsic image decomposition across varying views and illum"
+  ]
+ },
+ "pg-pipeline-li-iggt-2025": {
+  "domains": [
+   "3d",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "semantic 3d reconstruction",
+   "instance grounding in reconstructed geometry"
   ]
  },
  "pg-pipeline-li-mergevq-2025": {
@@ -1596,6 +1811,16 @@
    "efficient video frame selection"
   ]
  },
+ "pg-pipeline-liang-gai-2024": {
+  "domains": [
+   "sys",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "semantic communication network design using generative model"
+  ]
+ },
  "pg-pipeline-liang-intergen-2024": {
   "domains": [
    "3d",
@@ -1681,6 +1906,16 @@
    "video reconstruction from eeg signals"
   ]
  },
+ "pg-pipeline-liu-grace-2025": {
+  "domains": [
+   "robot"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "generalizing robot-assisted caregiving across users",
+   "modeling user functional abilities for personalized assistan"
+  ]
+ },
  "pg-pipeline-liu-meshformer-2024": {
   "domains": [
    "3d",
@@ -1724,6 +1959,16 @@
   "problems": [
    "visual decoding from eeg signals",
    "cross-modal eeg and visual representation learning"
+  ]
+ },
+ "pg-pipeline-luo-being-2026": {
+  "domains": [
+   "robot"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "cross-embodiment generalization in robot learning",
+   "scaling human-centric robot learning"
   ]
  },
  "pg-pipeline-lyu-gaga-2024": {
@@ -1865,6 +2110,17 @@
   "model": "GPT_svn19r",
   "problems": [
    "personalized visual instruction following"
+  ]
+ },
+ "pg-pipeline-qian-agentthink-2025": {
+  "domains": [
+   "agent",
+   "mm",
+   "robot"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "tool-augmented vision-language reasoning for autonomous driv"
   ]
  },
  "pg-pipeline-qiu-freeavatar-2024": {
@@ -2063,6 +2319,30 @@
    "hard-label adversarial attacks on point clouds"
   ]
  },
+ "pg-pipeline-tao-omnizip-2025": {
+  "domains": [
+   "sys",
+   "mm",
+   "audio"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "audio-guided dynamic token compression",
+   "accelerating omnimodal language model inference"
+  ]
+ },
+ "pg-pipeline-tian-egor1-2025": {
+  "domains": [
+   "cv",
+   "agent",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "ultra-long egocentric video reasoning",
+   "tool chaining for video reasoning"
+  ]
+ },
  "pg-pipeline-tobias-3dregen-2025": {
   "domains": [
    "3d",
@@ -2168,6 +2448,15 @@
    "multi-scale regional coupling analysis"
   ]
  },
+ "pg-pipeline-wang-partuv-2025": {
+  "domains": [
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "part-based uv unwrapping of 3d meshes"
+  ]
+ },
  "pg-pipeline-wang-perf-2024": {
   "domains": [
    "3d",
@@ -2244,6 +2533,18 @@
    "object-centric 3d reconstruction"
   ]
  },
+ "pg-pipeline-wu-direct3ds2-2025": {
+  "domains": [
+   "3d",
+   "gen",
+   "sys"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "gigascale 3d generation",
+   "efficient spatial attention for 3d generation"
+  ]
+ },
  "pg-pipeline-wu-hyperdreamer-2023": {
   "domains": [
    "3d",
@@ -2308,6 +2609,16 @@
   "problems": [
    "multi-behavior recommendation",
    "graph-based user preference modeling"
+  ]
+ },
+ "pg-pipeline-xiang-native-2025": {
+  "domains": [
+   "3d",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "compact structured latent representation for 3d generation"
   ]
  },
  "pg-pipeline-xiang-native-2025-2": {
@@ -2398,6 +2709,16 @@
    "llm memory augmentation"
   ]
  },
+ "pg-pipeline-xu-4dgt-2025": {
+  "domains": [
+   "3d",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "learning dynamic gaussian scene representations from monocul"
+  ]
+ },
  "pg-pipeline-xu-codyntrust-2025": {
   "domains": [
    "robot",
@@ -2475,6 +2796,17 @@
    "real-time gaussian splatting rendering"
   ]
  },
+ "pg-pipeline-yang-egolife-2025": {
+  "domains": [
+   "agent",
+   "cv",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "egocentric video understanding for everyday assistance"
+  ]
+ },
  "pg-pipeline-yang-gorges-2024": {
   "domains": [
    "sci"
@@ -2529,6 +2861,17 @@
    "self-reflective scene generation"
   ]
  },
+ "pg-pipeline-yao-cast-2025": {
+  "domains": [
+   "3d",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "single-image 3d scene reconstruction",
+   "component alignment in reconstructed scenes"
+  ]
+ },
  "pg-pipeline-yao-cosw-2024": {
   "domains": [
    "cv",
@@ -2549,6 +2892,26 @@
   "problems": [
    "multimodal reasoning evaluation",
    "large language model assessment"
+  ]
+ },
+ "pg-pipeline-ye-blinktwice-2025": {
+  "domains": [
+   "cv",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "benchmarking visual perceptual reasoning"
+  ]
+ },
+ "pg-pipeline-ye-echo4o-2025": {
+  "domains": [
+   "gen",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "improving image generation with synthetic training images"
   ]
  },
  "pg-pipeline-ye-echo4o-2025-2": {
@@ -2584,6 +2947,16 @@
    "detector-guided reward optimization"
   ]
  },
+ "pg-pipeline-yin-mindcube-2025": {
+  "domains": [
+   "cv",
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "spatial mental modeling from limited views"
+  ]
+ },
  "pg-pipeline-yu-4real-2024": {
   "domains": [
    "3d",
@@ -2602,6 +2975,18 @@
   "model": "GPT_svn19r",
   "problems": [
    "urban heat health risk adaptation in developing countries"
+  ]
+ },
+ "pg-pipeline-yuan-immersegen-2025": {
+  "domains": [
+   "3d",
+   "gen",
+   "agent"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "agent-guided immersive world generation",
+   "scene representation with alpha-textured proxies"
   ]
  },
  "pg-pipeline-yuan-seqtex-2025": {
@@ -2623,6 +3008,17 @@
   "model": "GPT_svn19r",
   "problems": [
    "spatiotemporal understanding of referred objects in video"
+  ]
+ },
+ "pg-pipeline-zeng-janusvln-2025": {
+  "domains": [
+   "robot",
+   "mm"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "vision-language navigation",
+   "separating semantic and spatial navigation memories"
   ]
  },
  "pg-pipeline-zeng-stag4d-2024": {
@@ -2714,6 +3110,16 @@
    "robot policy generalization through preference alignment"
   ]
  },
+ "pg-pipeline-zhang-hi3deval-2025": {
+  "domains": [
+   "3d",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "hierarchical validity assessment of generated 3d content"
+  ]
+ },
  "pg-pipeline-zhang-hunyuan3domni-2025": {
   "domains": [
    "3d",
@@ -2733,6 +3139,18 @@
   "model": "GPT_svn19r",
   "problems": [
    "instruction-guided image editing with in-context generation"
+  ]
+ },
+ "pg-pipeline-zhang-joint-2025": {
+  "domains": [
+   "3d",
+   "gen",
+   "cv"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "single-image 4d synthesis",
+   "joint geometry reconstruction and motion generation"
   ]
  },
  "pg-pipeline-zhang-onegen-2024": {
@@ -2777,6 +3195,17 @@
    "side-view-conditioned 3d reconstruction of clothed humans"
   ]
  },
+ "pg-pipeline-zhang-skintokens-2026": {
+  "domains": [
+   "3d",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "autoregressive 3d rigging",
+   "learning compact rigging representations"
+  ]
+ },
  "pg-pipeline-zhang-tfevg-2025": {
   "domains": [
    "gen",
@@ -2797,6 +3226,17 @@
   "model": "GPT_svn19r",
   "problems": [
    "3d object manipulation in a single image"
+  ]
+ },
+ "pg-pipeline-zhao-real2edit2real-2025": {
+  "domains": [
+   "robot",
+   "3d"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "robot demonstration generation",
+   "interactive 3d editing of robot demonstrations"
   ]
  },
  "pg-pipeline-zheng-surface-2025": {
@@ -2851,6 +3291,16 @@
   "model": "GPT_svn19r",
   "problems": [
    "layout-guided text-to-3d scene generation"
+  ]
+ },
+ "pg-pipeline-zhou-gateopening-2025": {
+  "domains": [
+   "mm",
+   "gen"
+  ],
+  "model": "GPT_svn19r",
+  "problems": [
+   "benchmarking judges for open-ended interleaved image-text ge"
   ]
  },
  "pg-pipeline-zhou-gpsgaussian-2025": {

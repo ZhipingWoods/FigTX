@@ -72,30 +72,69 @@ def item_id(rec: dict) -> str:
     return f"{rec['source'][:2]}-{slug(rec['upstreamId'])}"
 
 
+KIND_RANK = {"header": 1}   # 同一来源同名时 pipeline 优先于 header（header 会被映射成 teaser）
+
+
+def rec_key(rec: dict) -> str:
+    """来源记录的稳定键。PaperGallery 同一个 stem 可能同时出现在 pipeline 和 header 两个目录，所以带上 kind。"""
+    if rec["source"] == "papergallery":
+        return f"papergallery:{rec['kind']}:{rec['upstreamId']}"
+    return f"{rec['source']}:{rec['upstreamId']}"
+
+
 def _order(rec: dict):
-    return (SOURCE_ORDER.get(rec["source"], 9), rec["upstreamId"])
+    return (SOURCE_ORDER.get(rec["source"], 9), rec["upstreamId"], KIND_RANK.get(rec.get("kind"), 0))
 
 
-def _hash(rec: dict, roots: dict, hashes: dict | None) -> str:
-    key = f"{rec['source']}:{rec['upstreamId']}"
+def _hash(rec: dict, roots: dict, hashes: dict | None) -> str | None:
+    """dHash，按「来源 + 图片路径」缓存。图片读不了时返回 None（该记录记为坏记录，不让整个同步崩溃）。"""
+    key = f"{rec['source']}:{rec['image']}"
     if hashes is not None and key in hashes:
         return hashes[key]
-    h = dhash(Path(roots[rec["source"]]) / rec["image"])
+    base = roots.get(rec["source"])
+    if base is None:
+        return None
+    try:
+        h = dhash(Path(base) / rec["image"])
+    except (OSError, ValueError, SyntaxError):
+        return None
     if hashes is not None:
         hashes[key] = h
     return h
 
 
+def _safe_url(v):
+    return v if isinstance(v, str) and v.startswith(("https://", "http://")) else None
+
+
+def seed_id_map(prev_items: list[dict]) -> dict:
+    """从上一次的 raw-gallery 推出「记录键 → 条目 id」，让旧条目沿用原 id（编号随之不变）。"""
+    out = {}
+    for it in prev_items:
+        img_kind = "header" if "/header/" in ((it.get("image") or {}).get("path") or "") else None
+        id_kind = "header" if it["id"].startswith("pg-header-") else "pipeline" if it["id"].startswith("pg-pipeline-") else None
+        for s in it.get("sources", []):
+            if s["platform"] == "papergallery":
+                kinds = [s["kind"]] if s.get("kind") else [img_kind or id_kind] if (img_kind or id_kind) else ["pipeline", "header"]
+                for k in kinds:
+                    out.setdefault(f"papergallery:{k}:{s['upstreamId']}", it["id"])
+            else:
+                out.setdefault(f"{s['platform']}:{s['upstreamId']}", it["id"])
+    return out
+
+
 def _paper_value(rec: dict, field: str):
     if field == "url":
-        return rec.get("paper")
+        return _safe_url(rec.get("paper"))
     v = rec.get(field)
+    if field in ("pdf", "code", "project"):
+        return _safe_url(v)
     if field == "venue" and v == "Unknown":
         return None
     return v if v not in ("", [], None) else None
 
 
-def _build(cluster: list[tuple[dict, str]]) -> dict:
+def _build(cluster: list[tuple[dict, str]], item_id_: str) -> dict:
     recs = [r for r, _ in cluster]
     primary = recs[0]
     paper = {f: next((v for r in recs if (v := _paper_value(r, f)) is not None), None) for f in PAPER_FIELDS}
@@ -106,13 +145,14 @@ def _build(cluster: list[tuple[dict, str]]) -> dict:
     for r in recs:
         tags += [t for t in r.get("tags") or [] if t not in tags]
     return {
-        "id": item_id(primary),
+        "id": item_id_,
         "figType": FIGTYPE_ALIAS.get(primary["kind"], primary["kind"]),
         "title": paper["title"] or "",
         "paper": paper,
         "tags": tags,
-        "sources": sorted(({"platform": r["source"], "upstreamId": r["upstreamId"], "repo": REPOS.get(r["source"])}
-                           for r in recs), key=lambda s: (s["platform"], s["upstreamId"])),
+        "sources": sorted(({"platform": r["source"], "upstreamId": r["upstreamId"], "kind": r["kind"],
+                            "repo": REPOS.get(r["source"])} for r in recs),
+                          key=lambda s: (s["platform"], s["upstreamId"], s["kind"])),
         "image": {"source": best[0]["source"], "path": best[0]["image"], "w": best[0].get("w"), "h": best[0].get("h")},
         "dhash": best[1],
     }
@@ -132,20 +172,43 @@ def _suspects(items: list[dict], groups: dict[str, str]) -> list[dict]:
     return sorted(out, key=lambda s: (s["a"], s["b"], s["reason"]))
 
 
-def merge(records: list[dict], roots: dict, hashes: dict | None = None) -> tuple[list[dict], dict]:
+def _choose_id(cluster, id_map: dict, used: set) -> str:
+    """优先沿用记录键已映射的旧 id（保证编号稳定）；没有旧 id 才按主记录新建，冲突时加后缀。"""
+    for r, _ in cluster:
+        old = id_map.get(rec_key(r))
+        if old and old not in used:
+            return old
+    base = item_id(cluster[0][0])
+    new, n = base, 2
+    while new in used:
+        new, n = f"{base}-{n}", n + 1
+    return new
+
+
+def merge(records: list[dict], roots: dict, hashes: dict | None = None,
+          id_map: dict | None = None) -> tuple[list[dict], dict]:
+    """id_map（记录键 → 条目 id）会被原地更新；传入上一次的映射即可让已有条目的 id 和编号保持不变。"""
+    id_map = {} if id_map is None else id_map
     groups = _group(sorted(records, key=_order))
-    items, group_of = [], {}
+    items, group_of, used, bad = [], {}, set(), []
     for key in sorted(groups):
         clusters: list[list[tuple[dict, str]]] = []
         for r in groups[key]:
             h = _hash(r, roots, hashes)
+            if h is None:
+                bad.append(rec_key(r))
+                continue
             home = next((c for c in clusters if any(hamming(h, ch) <= SAME_IMAGE for _, ch in c)), None)
             (home.append((r, h)) if home is not None else clusters.append([(r, h)]))
         for c in clusters:
-            it = _build(c)
+            cid = _choose_id(c, id_map, used)
+            used.add(cid)
+            for r, _ in c:
+                id_map[rec_key(r)] = cid
+            it = _build(c, cid)
             items.append(it)
             group_of[it["id"]] = key
     items.sort(key=lambda i: i["id"])
     report = {"items": len(items), "merged": sum(len(i["sources"]) > 1 for i in items),
-              "suspects": _suspects(items, group_of)}
+              "suspects": _suspects(items, group_of), "bad_records": sorted(bad)}
     return items, report

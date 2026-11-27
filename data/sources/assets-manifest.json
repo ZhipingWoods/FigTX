@@ -1,10 +1,10 @@
 {
  "pg-header-chen-aerialmind-2026": {
   "ext": "jpg",
-  "h": 1105,
-  "sha256": "2734baa43c1c728ab10abb23a8e1a31361d329c6a59b6be1b5c592e10b861c8d",
+  "h": 935,
+  "sha256": "04c44d21f9423d4fb8b62ce45163a39430b68b6da2c1cca6a887b114f2522359",
   "uploaded": true,
-  "w": 2881
+  "w": 1700
  },
  "pg-header-chen-ai4search-2025": {
   "ext": "jpg",
@@ -29,10 +29,10 @@
  },
  "pg-header-chen-hac-2024": {
   "ext": "jpg",
-  "h": 888,
-  "sha256": "67704d2f74d95d1ea6395e1d52d49f840f8c6213f19e0566e4c1e4ddc8ec5374",
+  "h": 882,
+  "sha256": "a68a3a928381fc96ac9858ad1e1e8846c7d50e861306f0babbb4c92aff167940",
   "uploaded": true,
-  "w": 1645
+  "w": 1532
  },
  "pg-header-chen-mega-bench-2024": {
   "ext": "jpg",
@@ -57,17 +57,17 @@
  },
  "pg-header-dong-hiscene-2025": {
   "ext": "jpg",
-  "h": 1341,
-  "sha256": "1ff6fd7bdd39b3df109b6f04ed6e35401c709c231ee256cc64aea116e3455966",
+  "h": 1192,
+  "sha256": "c313787add71d7dbf043e580e5f8d48d885062a682adf15357632f24c1926294",
   "uploaded": true,
-  "w": 3286
+  "w": 3304
  },
  "pg-header-fei-general-2025": {
   "ext": "jpg",
-  "h": 1482,
-  "sha256": "36f7815803c1819bca58cb6c7c23e525e99f4e55946149982771840fecbfac59",
+  "h": 1189,
+  "sha256": "3c88bb69a86f27d55bab2724974d2060c56e03c91724f300a93c7b71197df9ea",
   "uploaded": true,
-  "w": 2229
+  "w": 1763
  },
  "pg-header-fu-vita-2024": {
   "ext": "jpg",
@@ -92,17 +92,17 @@
  },
  "pg-header-hu-evermemos-2026": {
   "ext": "jpg",
-  "h": 1572,
-  "sha256": "1535cf3c2c3583cef59de5b9681f34887a8fd825ba12e47dd770fa5e998a1906",
+  "h": 1460,
+  "sha256": "ecff8161789b5866a995c37498bd43346b6fe24e88176a56eb4cee8a4438032c",
   "uploaded": true,
-  "w": 1790
+  "w": 1137
  },
  "pg-header-huang-majutsucity-2025": {
   "ext": "jpg",
-  "h": 1605,
-  "sha256": "a42d4447ce189c0b1579b4028c2b31732340989279879782364c9cd21b70bc13",
+  "h": 1299,
+  "sha256": "a0491d6a9da75d03abf4898ce6daaff4233272b50d2a9dd33d262ee2b5bf9bfb",
   "uploaded": true,
-  "w": 3238
+  "w": 2610
  },
  "pg-header-huang-unityvideo-2025": {
   "ext": "jpg",
@@ -127,10 +127,10 @@
  },
  "pg-header-jiang-hifi4g-2024": {
   "ext": "jpg",
-  "h": 938,
-  "sha256": "ac07882f054bf3cb3681d01f33a20afc8471747dd5980eef22a16b891232ac20",
+  "h": 640,
+  "sha256": "74961e6dab873ed0d45e7e76b33403cec6db46d3cadc07ac522b9a6ad7b14963",
   "uploaded": true,
-  "w": 2286
+  "w": 1803
  },
  "pg-header-jiang-robotspre-2024": {
   "ext": "jpg",
@@ -141,10 +141,10 @@
  },
  "pg-header-jiang-scaling-2024": {
   "ext": "jpg",
-  "h": 912,
-  "sha256": "e5a86a30fbd7cbd55246e9c19785bc81a0d48e5acd98b9e7bd41ad9eaa582451",
+  "h": 986,
+  "sha256": "1ef3867654a00aee33cccd4c185c8cacecb06fd0ce0da93c4fc8f75f44389cb0",
   "uploaded": true,
-  "w": 2278
+  "w": 1803
  },
  "pg-header-jin-diffuman4d-2025": {
   "ext": "jpg",
@@ -197,10 +197,10 @@
  },
  "pg-header-li-iggt-2025": {
   "ext": "jpg",
-  "h": 1207,
-  "sha256": "4f0212d0e71436ec0ea1df0c70362a0ae63f784f3f8b4edce5c8c01bd02b2963",
+  "h": 1258,
+  "sha256": "99db8ed1ea1e154b8cf071136683698509a35ce68414115ec08a781b85c648b2",
   "uploaded": true,
-  "w": 2806
+  "w": 2295
  },
  "pg-header-liang-gai-2024": {
   "ext": "jpg",
@@ -225,10 +225,10 @@
  },
  "pg-header-luo-being-2026": {
   "ext": "jpg",
-  "h": 1409,
-  "sha256": "a92e44655d37cc210dceaeee08a8cd43d573c45f126c0bdf985f9e87758b409e",
+  "h": 1568,
+  "sha256": "f27e4b18b7cf516e03d25506b4af4ae56a471723d34d48682f053ccd90c167bf",
   "uploaded": true,
-  "w": 2534
+  "w": 2000
  },
  "pg-header-pan-anti-2025": {
   "ext": "jpg",
@@ -239,10 +239,10 @@
  },
  "pg-header-qian-agentthink-2025": {
   "ext": "jpg",
-  "h": 999,
-  "sha256": "5444d54a40d4422c1700166ef312bc1886efa0e7330f9c2b433261b65886e6ce",
+  "h": 685,
+  "sha256": "5253a5d3d85f3ba4a6661ec283ab231afe6bacea9f04d47546aeb123922d0bb0",
   "uploaded": true,
-  "w": 1871
+  "w": 1876
  },
  "pg-header-tao-omnizip-2025": {
   "ext": "jpg",
@@ -253,10 +253,10 @@
  },
  "pg-header-tian-egor1-2025": {
   "ext": "jpg",
-  "h": 1485,
-  "sha256": "df2e57672fece24eb9447d378105399b8a6cd5dd769d0f76ef32e5bd21c65f22",
+  "h": 1183,
+  "sha256": "c69c0099b72ac0da8bef32a2c1d5fa88c649f2b6b32e03ad3ad00846f76b7770",
   "uploaded": true,
-  "w": 2665
+  "w": 2142
  },
  "pg-header-tian-simscale-2025": {
   "ext": "jpg",
@@ -323,24 +323,24 @@
  },
  "pg-header-xu-4dgt-2025": {
   "ext": "jpg",
-  "h": 1240,
-  "sha256": "d7cb5a75840425100663899ace46b333167cf2b7cdee0449f5ff4d701d53c36a",
+  "h": 968,
+  "sha256": "3f259bbc602c6fa0aa9e23a2fcb2abe947b8a678b8024174092192f9b367b3ce",
   "uploaded": true,
-  "w": 2711
+  "w": 2165
  },
  "pg-header-yang-egolife-2025": {
   "ext": "jpg",
-  "h": 685,
-  "sha256": "2020318a516413be0d7b25f4ce679c86a1af0c6e60d133a16831d79cd21ddf14",
+  "h": 715,
+  "sha256": "008195a4ae02d7819f538e9d349e3f12a8873517aab7734d24f6801f7141b012",
   "uploaded": true,
-  "w": 1521
+  "w": 1417
  },
  "pg-header-yao-cast-2025": {
   "ext": "jpg",
-  "h": 1106,
-  "sha256": "d096596c24eb016148b06f4dd21890672f4dc40bdcf3571a562f2581f4112960",
+  "h": 637,
+  "sha256": "50679c945b27fca281d2854c89a72e597e14c1b2aa594d5ad9cff227e273bb74",
   "uploaded": true,
-  "w": 2778
+  "w": 1781
  },
  "pg-header-yawar-shaper-2026": {
   "ext": "jpg",
@@ -351,17 +351,17 @@
  },
  "pg-header-ye-blinktwice-2025": {
   "ext": "jpg",
-  "h": 1731,
-  "sha256": "15537fcde4c6ff3aa0868959cbc2b25eb9cb0e0ad8a379527efa4ca4b0172d0e",
+  "h": 1337,
+  "sha256": "ef200a03917be22ef62cd92624a5191b00b0968f14f086fc9350006316cab75e",
   "uploaded": true,
-  "w": 2094
+  "w": 2608
  },
  "pg-header-ye-echo4o-2025": {
   "ext": "jpg",
-  "h": 1078,
-  "sha256": "7a6e718a1e044980fb2c9674d1265535a83f9102841bbca798b1b290e54d023b",
+  "h": 977,
+  "sha256": "7e05ad7ddec161826550ea6ed5fe5dc94e8a1ab866f683bbea5cdf3b108cfd20",
   "uploaded": true,
-  "w": 2608
+  "w": 2598
  },
  "pg-header-ye-loki-2025": {
   "ext": "jpg",
@@ -372,17 +372,17 @@
  },
  "pg-header-yin-mindcube-2025": {
   "ext": "jpg",
-  "h": 808,
-  "sha256": "75e1ed990bdb7847ddd07863dfe7fd082b66bbdf6929be15f0c48b0af908b4a0",
+  "h": 665,
+  "sha256": "dab054de880eb43095be516c2b3dfa27aa11a164b67f621e0e66bddd75042c80",
   "uploaded": true,
-  "w": 1331
+  "w": 774
  },
  "pg-header-yuan-immersegen-2025": {
   "ext": "jpg",
-  "h": 926,
-  "sha256": "dc26fe8dce80f90afbc57a22fcfd0634fa1e7d5b6fdfe83e632f8b7873b6a895",
+  "h": 1225,
+  "sha256": "c9879b9f2b424a427d1478431126cade773d9e1a0ca2412952f22dfdb95eafb6",
   "uploaded": true,
-  "w": 3431
+  "w": 2165
  },
  "pg-header-yue-mmmu-2024": {
   "ext": "jpg",
@@ -421,10 +421,10 @@
  },
  "pg-header-zhang-skintokens-2026": {
   "ext": "jpg",
-  "h": 1560,
-  "sha256": "5bf3a12441fe427005691a45883290a7846ef5e0b2ec8ba0a2b73fb17ab252ba",
+  "h": 1195,
+  "sha256": "89ae0c883dbd79712d830b88c301b8daae7e3d7e05a4b93653ea6106ecf13bb3",
   "uploaded": true,
-  "w": 2717
+  "w": 2758
  },
  "pg-header-zhao-real2edit2real-2025": {
   "ext": "jpg",
@@ -435,10 +435,10 @@
  },
  "pg-header-zhou-gateopening-2025": {
   "ext": "jpg",
-  "h": 1053,
-  "sha256": "7774d0ec8a3dd79508cf549d4484c4ee1d541256038e9988e2f5e44ea26aba35",
+  "h": 961,
+  "sha256": "1ad7bca7a9c6cffab5f5118b0e540240ab5b95a320ea249cee8db059e80c0fbb",
   "uploaded": true,
-  "w": 2312
+  "w": 1470
  },
  "pg-header-zhou-holodreamer-2024": {
   "ext": "jpg",
@@ -496,6 +496,13 @@
   "uploaded": true,
   "w": 1005
  },
+ "pg-pipeline-bian-dynamiccity-2025": {
+  "ext": "jpg",
+  "h": 1443,
+  "sha256": "a6cbc27284f13964d6a6e0535bdbb3c7001f666b532c99a51b9a0d4f14edbef8",
+  "uploaded": true,
+  "w": 2430
+ },
  "pg-pipeline-bo-aucseg-2024": {
   "ext": "jpg",
   "h": 1597,
@@ -545,12 +552,26 @@
   "uploaded": true,
   "w": 1434
  },
+ "pg-pipeline-chen-aerialmind-2026": {
+  "ext": "jpg",
+  "h": 1105,
+  "sha256": "2734baa43c1c728ab10abb23a8e1a31361d329c6a59b6be1b5c592e10b861c8d",
+  "uploaded": true,
+  "w": 2881
+ },
  "pg-pipeline-chen-aerialmind-2026-2": {
   "ext": "jpg",
   "h": 651,
   "sha256": "982083caa7ff57a5f28a398bc36b47fa25ee14a5e4a1aaf69cde456ff4eb26ca",
   "uploaded": true,
   "w": 1854
+ },
+ "pg-pipeline-chen-ai4search-2025": {
+  "ext": "jpg",
+  "h": 1399,
+  "sha256": "4f56fc2b1a4331f7991835fb3fbda7caa8dff0da9b129c0577b541a5c882bc0c",
+  "uploaded": true,
+  "w": 2586
  },
  "pg-pipeline-chen-gmaimmbench-2024": {
   "ext": "jpg",
@@ -565,6 +586,13 @@
   "sha256": "e5e2cd0e901688d305fdb1dcfddb63ab7a18eddeb44369f40227483414f8166f",
   "uploaded": true,
   "w": 1968
+ },
+ "pg-pipeline-chen-hac-2024": {
+  "ext": "jpg",
+  "h": 888,
+  "sha256": "67704d2f74d95d1ea6395e1d52d49f840f8c6213f19e0566e4c1e4ddc8ec5374",
+  "uploaded": true,
+  "w": 1645
  },
  "pg-pipeline-chen-latentmorph-2026": {
   "ext": "jpg",
@@ -607,6 +635,13 @@
   "sha256": "307c67f509b00ba0483e064fe11c8f4d60ba1ed20a47b87984fccd44608139ff",
   "uploaded": true,
   "w": 774
+ },
+ "pg-pipeline-chow-merit-2025": {
+  "ext": "jpg",
+  "h": 797,
+  "sha256": "ce55e3278db0bd152874e19f2a0553a2a506b53f69d1966c92ebec4c803e4038",
+  "uploaded": true,
+  "w": 1974
  },
  "pg-pipeline-chu-selfcritique-2025": {
   "ext": "jpg",
@@ -664,6 +699,13 @@
   "uploaded": true,
   "w": 1405
  },
+ "pg-pipeline-dong-hiscene-2025": {
+  "ext": "jpg",
+  "h": 1341,
+  "sha256": "1ff6fd7bdd39b3df109b6f04ed6e35401c709c231ee256cc64aea116e3455966",
+  "uploaded": true,
+  "w": 3286
+ },
  "pg-pipeline-du-modality-2024": {
   "ext": "jpg",
   "h": 401,
@@ -692,6 +734,13 @@
   "uploaded": true,
   "w": 1966
  },
+ "pg-pipeline-fei-general-2025": {
+  "ext": "jpg",
+  "h": 1482,
+  "sha256": "36f7815803c1819bca58cb6c7c23e525e99f4e55946149982771840fecbfac59",
+  "uploaded": true,
+  "w": 2229
+ },
  "pg-pipeline-feng-fdgaussian-2024": {
   "ext": "jpg",
   "h": 1059,
@@ -719,6 +768,13 @@
   "sha256": "7a8c5d05066e045814f28ac2bdacb61a85efbe3f48dd3374739da93c81fa081b",
   "uploaded": true,
   "w": 2698
+ },
+ "pg-pipeline-gao-cosurfgs-2024": {
+  "ext": "jpg",
+  "h": 1319,
+  "sha256": "cd9bb87165e3398329d9868e2fb99482267ef49419e53de3a8094dbb50c1a48a",
+  "uploaded": true,
+  "w": 2328
  },
  "pg-pipeline-gao-longvie-2025": {
   "ext": "jpg",
@@ -790,6 +846,13 @@
   "uploaded": true,
   "w": 2653
  },
+ "pg-pipeline-hu-evermemos-2026": {
+  "ext": "jpg",
+  "h": 1572,
+  "sha256": "1535cf3c2c3583cef59de5b9681f34887a8fd825ba12e47dd770fa5e998a1906",
+  "uploaded": true,
+  "w": 1790
+ },
  "pg-pipeline-hu-structldm-2024": {
   "ext": "jpg",
   "h": 690,
@@ -818,12 +881,33 @@
   "uploaded": true,
   "w": 1829
  },
+ "pg-pipeline-huang-majutsucity-2025": {
+  "ext": "jpg",
+  "h": 1605,
+  "sha256": "a42d4447ce189c0b1579b4028c2b31732340989279879782364c9cd21b70bc13",
+  "uploaded": true,
+  "w": 3238
+ },
  "pg-pipeline-huang-mvtokenflow-2025": {
   "ext": "jpg",
   "h": 1106,
   "sha256": "ccd1bf834dc620b8ca8c1f70330d36e02a90b607eea3057609deb095a69f7b70",
   "uploaded": true,
   "w": 3092
+ },
+ "pg-pipeline-huang-unityvideo-2025": {
+  "ext": "jpg",
+  "h": 951,
+  "sha256": "91a25faffa728fd3cf4a55d8eecdd26aff2f0373060718b684e583c342e499b8",
+  "uploaded": true,
+  "w": 2639
+ },
+ "pg-pipeline-huang-voxify3d-2025": {
+  "ext": "jpg",
+  "h": 1130,
+  "sha256": "65727cd68ed541d3f0ec95a6f7c078a646cc81cc0b6bd5a27b3330820eca0ed4",
+  "uploaded": true,
+  "w": 2541
  },
  "pg-pipeline-ilya-interactive4d-2025": {
   "ext": "jpg",
@@ -860,12 +944,40 @@
   "uploaded": true,
   "w": 1822
  },
+ "pg-pipeline-jiang-hifi4g-2024": {
+  "ext": "jpg",
+  "h": 938,
+  "sha256": "ac07882f054bf3cb3681d01f33a20afc8471747dd5980eef22a16b891232ac20",
+  "uploaded": true,
+  "w": 2286
+ },
  "pg-pipeline-jiang-rayzer-2025": {
   "ext": "jpg",
   "h": 1182,
   "sha256": "b78eb7df7c946388e3ce86fb9ee4da9454a36189c416e038eb6ffdc0e15b8445",
   "uploaded": true,
   "w": 3601
+ },
+ "pg-pipeline-jiang-scaling-2024": {
+  "ext": "jpg",
+  "h": 912,
+  "sha256": "e5a86a30fbd7cbd55246e9c19785bc81a0d48e5acd98b9e7bd41ad9eaa582451",
+  "uploaded": true,
+  "w": 2278
+ },
+ "pg-pipeline-jiang-solami-2024": {
+  "ext": "jpg",
+  "h": 1124,
+  "sha256": "b0a3ac7732a81fdbd5437fff42e2fb5b3691d774e24f9cef652cfd9f3675afca",
+  "uploaded": true,
+  "w": 2718
+ },
+ "pg-pipeline-jin-diffuman4d-2025": {
+  "ext": "jpg",
+  "h": 772,
+  "sha256": "ae79903731e7846f08285c5cc373d73c9f0cf8921ec452df8034412438a36df0",
+  "uploaded": true,
+  "w": 1796
  },
  "pg-pipeline-jin-ragrewardbench-2024": {
   "ext": "jpg",
@@ -951,12 +1063,26 @@
   "uploaded": true,
   "w": 2591
  },
+ "pg-pipeline-li-dance-2024": {
+  "ext": "jpg",
+  "h": 859,
+  "sha256": "569c7490ecfb9f176ae8fcbcb6a4012b2de94f6d5c7c58b6788c855b00b190ab",
+  "uploaded": true,
+  "w": 1929
+ },
  "pg-pipeline-li-densesplat-2025": {
   "ext": "jpg",
   "h": 1047,
   "sha256": "2d9e4091a06cf4ae98ad74f99dbe585943d8f141d22717a0082552f200262b64",
   "uploaded": true,
   "w": 2725
+ },
+ "pg-pipeline-li-dgtr-2025": {
+  "ext": "jpg",
+  "h": 515,
+  "sha256": "5239b4c6a0c643600e06df67da84b023612b9b3ff441c7ed34ff439d2ab80b5d",
+  "uploaded": true,
+  "w": 2069
  },
  "pg-pipeline-li-editthinker-2025": {
   "ext": "jpg",
@@ -971,6 +1097,20 @@
   "sha256": "14621b306229e5ef20c059dd0239fa6f8607b68e641824c27bd3032710c4db0a",
   "uploaded": true,
   "w": 1810
+ },
+ "pg-pipeline-li-idarb-2025": {
+  "ext": "jpg",
+  "h": 1225,
+  "sha256": "ad54b61761a896c7de96058e237584851f523d07081142b24e05a3d77a870bbb",
+  "uploaded": true,
+  "w": 2037
+ },
+ "pg-pipeline-li-iggt-2025": {
+  "ext": "jpg",
+  "h": 1207,
+  "sha256": "4f0212d0e71436ec0ea1df0c70362a0ae63f784f3f8b4edce5c8c01bd02b2963",
+  "uploaded": true,
+  "w": 2806
  },
  "pg-pipeline-li-mergevq-2025": {
   "ext": "jpg",
@@ -1035,6 +1175,13 @@
   "uploaded": true,
   "w": 3209
  },
+ "pg-pipeline-liang-gai-2024": {
+  "ext": "jpg",
+  "h": 715,
+  "sha256": "4ce9606637252b956d2cd5d917a685932ad760df9a49f3420e0dd9703cff6198",
+  "uploaded": true,
+  "w": 1894
+ },
  "pg-pipeline-liang-intergen-2024": {
   "ext": "jpg",
   "h": 1205,
@@ -1091,6 +1238,13 @@
   "uploaded": true,
   "w": 1832
  },
+ "pg-pipeline-liu-grace-2025": {
+  "ext": "jpg",
+  "h": 860,
+  "sha256": "8ca2b97f889af3093edaad3d9f1dafe144e8de0758ddc2420fdacc1d041292e4",
+  "uploaded": true,
+  "w": 1980
+ },
  "pg-pipeline-liu-meshformer-2024": {
   "ext": "jpg",
   "h": 1092,
@@ -1118,6 +1272,13 @@
   "sha256": "e98e7e4765799f35b24d0989e78f7dec5b350ffb39a28f5493fabc54ef135447",
   "uploaded": true,
   "w": 1792
+ },
+ "pg-pipeline-luo-being-2026": {
+  "ext": "jpg",
+  "h": 1409,
+  "sha256": "a92e44655d37cc210dceaeee08a8cd43d573c45f126c0bdf985f9e87758b409e",
+  "uploaded": true,
+  "w": 2534
  },
  "pg-pipeline-lyu-gaga-2024": {
   "ext": "jpg",
@@ -1209,6 +1370,13 @@
   "sha256": "fb8fc3bcde0bb9f40cf5eb46398449460e984256e40084a76db1650a5d14c25b",
   "uploaded": true,
   "w": 1481
+ },
+ "pg-pipeline-qian-agentthink-2025": {
+  "ext": "jpg",
+  "h": 999,
+  "sha256": "5444d54a40d4422c1700166ef312bc1886efa0e7330f9c2b433261b65886e6ce",
+  "uploaded": true,
+  "w": 1871
  },
  "pg-pipeline-qiu-freeavatar-2024": {
   "ext": "jpg",
@@ -1336,6 +1504,20 @@
   "uploaded": true,
   "w": 1989
  },
+ "pg-pipeline-tao-omnizip-2025": {
+  "ext": "jpg",
+  "h": 1003,
+  "sha256": "08efbaabdf30e4c3d81b2e4591e56c2915053bcf9994670a876530801eacc0ac",
+  "uploaded": true,
+  "w": 3250
+ },
+ "pg-pipeline-tian-egor1-2025": {
+  "ext": "jpg",
+  "h": 1485,
+  "sha256": "df2e57672fece24eb9447d378105399b8a6cd5dd769d0f76ef32e5bd21c65f22",
+  "uploaded": true,
+  "w": 2665
+ },
  "pg-pipeline-tobias-3dregen-2025": {
   "ext": "jpg",
   "h": 1069,
@@ -1406,6 +1588,13 @@
   "uploaded": true,
   "w": 840
  },
+ "pg-pipeline-wang-partuv-2025": {
+  "ext": "jpg",
+  "h": 1108,
+  "sha256": "f161d19f0b0d8da2b8dd30e7220bcc3f78e179ed2e74d2f42185a0e3c684d966",
+  "uploaded": true,
+  "w": 3281
+ },
  "pg-pipeline-wang-perf-2024": {
   "ext": "jpg",
   "h": 714,
@@ -1455,6 +1644,13 @@
   "uploaded": true,
   "w": 2458
  },
+ "pg-pipeline-wu-direct3ds2-2025": {
+  "ext": "jpg",
+  "h": 1355,
+  "sha256": "22c3612ae81a95685a558a5b2068ecc2f6be0d4db129323c1ce55329de6f93cb",
+  "uploaded": true,
+  "w": 2596
+ },
  "pg-pipeline-wu-hyperdreamer-2023": {
   "ext": "jpg",
   "h": 809,
@@ -1496,6 +1692,13 @@
   "sha256": "74ed99186cfa294a3702010b4225c1b844c8c3ea367a1b8b010817fdf4c10524",
   "uploaded": true,
   "w": 1651
+ },
+ "pg-pipeline-xiang-native-2025": {
+  "ext": "jpg",
+  "h": 1098,
+  "sha256": "89fe64e1574bb4ec4b6860ab29be9fef9bec65e930d71ec8d644ffef0a9ac7c3",
+  "uploaded": true,
+  "w": 1134
  },
  "pg-pipeline-xiang-native-2025-2": {
   "ext": "jpg",
@@ -1553,6 +1756,13 @@
   "uploaded": true,
   "w": 2560
  },
+ "pg-pipeline-xu-4dgt-2025": {
+  "ext": "jpg",
+  "h": 1240,
+  "sha256": "d7cb5a75840425100663899ace46b333167cf2b7cdee0449f5ff4d701d53c36a",
+  "uploaded": true,
+  "w": 2711
+ },
  "pg-pipeline-xu-codyntrust-2025": {
   "ext": "jpg",
   "h": 888,
@@ -1602,6 +1812,13 @@
   "uploaded": true,
   "w": 2469
  },
+ "pg-pipeline-yang-egolife-2025": {
+  "ext": "jpg",
+  "h": 685,
+  "sha256": "2020318a516413be0d7b25f4ce679c86a1af0c6e60d133a16831d79cd21ddf14",
+  "uploaded": true,
+  "w": 1521
+ },
  "pg-pipeline-yang-gorges-2024": {
   "ext": "jpg",
   "h": 1271,
@@ -1637,6 +1854,13 @@
   "uploaded": true,
   "w": 1891
  },
+ "pg-pipeline-yao-cast-2025": {
+  "ext": "jpg",
+  "h": 1106,
+  "sha256": "d096596c24eb016148b06f4dd21890672f4dc40bdcf3571a562f2581f4112960",
+  "uploaded": true,
+  "w": 2778
+ },
  "pg-pipeline-yao-cosw-2024": {
   "ext": "jpg",
   "h": 824,
@@ -1650,6 +1874,20 @@
   "sha256": "879d1555ccedc8d4a969208f61e14649121a00c6da015f02560af50e0279cdca",
   "uploaded": true,
   "w": 1515
+ },
+ "pg-pipeline-ye-blinktwice-2025": {
+  "ext": "jpg",
+  "h": 1731,
+  "sha256": "15537fcde4c6ff3aa0868959cbc2b25eb9cb0e0ad8a379527efa4ca4b0172d0e",
+  "uploaded": true,
+  "w": 2094
+ },
+ "pg-pipeline-ye-echo4o-2025": {
+  "ext": "jpg",
+  "h": 1078,
+  "sha256": "7a6e718a1e044980fb2c9674d1265535a83f9102841bbca798b1b290e54d023b",
+  "uploaded": true,
+  "w": 2608
  },
  "pg-pipeline-ye-echo4o-2025-2": {
   "ext": "jpg",
@@ -1672,6 +1910,13 @@
   "uploaded": true,
   "w": 2625
  },
+ "pg-pipeline-yin-mindcube-2025": {
+  "ext": "jpg",
+  "h": 808,
+  "sha256": "75e1ed990bdb7847ddd07863dfe7fd082b66bbdf6929be15f0c48b0af908b4a0",
+  "uploaded": true,
+  "w": 1331
+ },
  "pg-pipeline-yu-4real-2024": {
   "ext": "jpg",
   "h": 1585,
@@ -1686,6 +1931,13 @@
   "uploaded": true,
   "w": 697
  },
+ "pg-pipeline-yuan-immersegen-2025": {
+  "ext": "jpg",
+  "h": 926,
+  "sha256": "dc26fe8dce80f90afbc57a22fcfd0634fa1e7d5b6fdfe83e632f8b7873b6a895",
+  "uploaded": true,
+  "w": 3431
+ },
  "pg-pipeline-yuan-seqtex-2025": {
   "ext": "jpg",
   "h": 1340,
@@ -1699,6 +1951,13 @@
   "sha256": "b5d9cbbc5dd09f5544a238b650798ff121db14bcc8d3e6ac5212a7a382f9e220",
   "uploaded": true,
   "w": 1502
+ },
+ "pg-pipeline-zeng-janusvln-2025": {
+  "ext": "jpg",
+  "h": 805,
+  "sha256": "0b43e9b4a4e2e2b792991f8ca27f82d68aefef2eddeda1a8c7856f22c9a4c070",
+  "uploaded": true,
+  "w": 1466
  },
  "pg-pipeline-zeng-stag4d-2024": {
   "ext": "jpg",
@@ -1763,6 +2022,13 @@
   "uploaded": true,
   "w": 1780
  },
+ "pg-pipeline-zhang-hi3deval-2025": {
+  "ext": "jpg",
+  "h": 1153,
+  "sha256": "f72d117ef95102f0a19c34848ba1e713123ea60944d3d183c04e07b100435287",
+  "uploaded": true,
+  "w": 2589
+ },
  "pg-pipeline-zhang-hunyuan3domni-2025": {
   "ext": "jpg",
   "h": 1507,
@@ -1776,6 +2042,13 @@
   "sha256": "33212583a49ac7b89ccd21d5b37247e083d034d450147498faea63f5a1f3091e",
   "uploaded": true,
   "w": 2669
+ },
+ "pg-pipeline-zhang-joint-2025": {
+  "ext": "jpg",
+  "h": 980,
+  "sha256": "9e339495aa209308273019dd5f887119d2a607075ce085b0277228048a9f65f9",
+  "uploaded": true,
+  "w": 1614
  },
  "pg-pipeline-zhang-onegen-2024": {
   "ext": "jpg",
@@ -1805,6 +2078,13 @@
   "uploaded": true,
   "w": 1691
  },
+ "pg-pipeline-zhang-skintokens-2026": {
+  "ext": "jpg",
+  "h": 1560,
+  "sha256": "5bf3a12441fe427005691a45883290a7846ef5e0b2ec8ba0a2b73fb17ab252ba",
+  "uploaded": true,
+  "w": 2717
+ },
  "pg-pipeline-zhang-tfevg-2025": {
   "ext": "jpg",
   "h": 2098,
@@ -1818,6 +2098,13 @@
   "sha256": "eacb848ab199b87cc0764bc12e361e9a661fc6afbccbc28942f7af385330d3da",
   "uploaded": true,
   "w": 1591
+ },
+ "pg-pipeline-zhao-real2edit2real-2025": {
+  "ext": "jpg",
+  "h": 616,
+  "sha256": "8190783d48493c6d6afb09c438f0fa39ba6a053bb5de1aab73862aa42e46f7a0",
+  "uploaded": true,
+  "w": 2029
  },
  "pg-pipeline-zheng-surface-2025": {
   "ext": "jpg",
@@ -1853,6 +2140,13 @@
   "sha256": "a3c400dcced98882c4c04671fc6a3e27a187eefe4b24f634e4315cae40b0e9dc",
   "uploaded": true,
   "w": 1676
+ },
+ "pg-pipeline-zhou-gateopening-2025": {
+  "ext": "jpg",
+  "h": 1053,
+  "sha256": "7774d0ec8a3dd79508cf549d4484c4ee1d541256038e9988e2f5e44ea26aba35",
+  "uploaded": true,
+  "w": 2312
  },
  "pg-pipeline-zhou-gpsgaussian-2025": {
   "ext": "jpg",

@@ -12,7 +12,7 @@ from pathlib import Path
 from . import sync_journal, sync_papergallery, sync_topconf
 from .assets import sync_assets
 from .common import ROOT, dump_json, load_json
-from .merge import merge
+from .merge import merge, seed_id_map
 
 ADAPTERS = {"topconf": sync_topconf, "papergallery": sync_papergallery}
 ALL_SOURCES = ("topconf", "papergallery", "journal")
@@ -25,6 +25,7 @@ def _paths(root: Path) -> dict:
         "dhash": root / "data" / "sources" / "dhash.json", "thumbs": root / "public" / "thumbs",
         "originals": root / ".cache" / "originals", "upstream": root / ".cache" / "upstream",
         "report": root / ".cache" / "sync-report.json",
+        "idmap": root / "data" / "sources" / "id-map.json", "takedown": root / "data" / "takedown.json",
     }
 
 
@@ -51,10 +52,10 @@ def _collect(src: str, root: Path, P: dict, local: dict, report: dict) -> tuple[
 
 
 def _prune(items: list[dict], P: dict) -> int:
-    """删除已不对应任何条目的缩略图和清单项（例如被跨来源合并掉的条目）。"""
+    """删除已不对应任何条目的缩略图和清单项（被合并掉、被下架的条目）。待从 HF 删除的下架项保留清单记录。"""
     alive = {i["id"] for i in items}
     manifest = load_json(P["manifest"], {})
-    dead = sorted({k for k in manifest if k not in alive} |
+    dead = sorted({k for k, v in manifest.items() if k not in alive and not v.get("takedown")} |
                   {p.stem for p in P["thumbs"].glob("*.webp") if p.stem not in alive})
     for k in dead:
         manifest.pop(k, None)
@@ -62,6 +63,36 @@ def _prune(items: list[dict], P: dict) -> int:
     if dead:
         dump_json(P["manifest"], manifest)
     return len(dead)
+
+
+def _takedown_ids(P: dict) -> set[str]:
+    """data/takedown.json：[{"id": "tc-...", "reason": "...", "date": "..."}]（也接受纯字符串）。"""
+    return {e["id"] if isinstance(e, dict) else str(e) for e in load_json(P["takedown"], [])}
+
+
+def _apply_takedown(denied: set[str], P: dict) -> None:
+    """已上传到 HF 的下架原图标记 takedown，等 push 删除；未上传的直接移出清单。"""
+    manifest = load_json(P["manifest"], {})
+    for k in denied & set(manifest):
+        if manifest[k].get("uploaded"):
+            manifest[k]["takedown"] = True
+        else:
+            manifest.pop(k)
+    dump_json(P["manifest"], manifest)
+
+
+def _carry_over(prev: list[dict], fresh: list[dict], denied: set[str]) -> list[dict]:
+    """上游这次没有、也没被并进别的条目的旧条目：保留并标记 upstreamMissing（spec：只标记，不自动删）。"""
+    seen = {(s["platform"], s["upstreamId"]) for it in fresh for s in it["sources"]}
+    ids = {it["id"] for it in fresh}
+    out = []
+    for it in prev:
+        if it["id"] in ids or it["id"] in denied:
+            continue
+        if any((s["platform"], s["upstreamId"]) in seen for s in it["sources"]):
+            continue
+        out.append(dict(it, upstreamMissing=True))
+    return out
 
 
 def _node_build(root: Path) -> None:
@@ -84,14 +115,28 @@ def run(sources=ALL_SOURCES, local: dict | None = None, no_tag: bool = False, no
         records += recs
         roots[src] = upstream
     hashes = load_json(P["dhash"], {})
-    items, mrep = merge(records, roots, hashes=hashes)
+    prev = load_json(P["gallery"], [])
+    id_map = load_json(P["idmap"], None)
+    if id_map is None:
+        id_map = seed_id_map(prev)
+    items, mrep = merge(records, roots, hashes=hashes, id_map=id_map)
     dump_json(P["dhash"], hashes)
+    dump_json(P["idmap"], id_map)
+    denied = _takedown_ids(P)
+    removed = sorted(denied & ({i["id"] for i in items} | {i["id"] for i in prev}))
+    items = [i for i in items if i["id"] not in denied]
     arep = sync_assets(items, roots, P["thumbs"], P["originals"], P["manifest"])
     bad = set(arep["bad"])
     items = [i for i in items if i["id"] not in bad]
+    carried = _carry_over(prev, items, denied | bad)
+    items = sorted(items + carried, key=lambda i: i["id"])
     dump_json(P["gallery"], items)
+    _apply_takedown(denied, P)
     report["pruned"] = _prune(items, P)
-    report.update(items=len(items), merged=mrep["merged"], suspects=mrep["suspects"], assets=arep)
+    prev_ids = {i["id"] for i in prev}
+    report.update(items=len(items), merged=mrep["merged"], suspects=mrep["suspects"], assets=arep,
+                  bad_records=mrep["bad_records"], new=sum(i["id"] not in prev_ids for i in items),
+                  missing=len(carried), removed=removed)
     if not no_tag:
         from tools.figgen import llm_client  # noqa: F401  导入时把 .env 读进环境变量
 
@@ -112,7 +157,10 @@ def run(sources=ALL_SOURCES, local: dict | None = None, no_tag: bool = False, no
 
 def _print(rep: dict) -> None:
     print("来源：" + "，".join(f"{k} {v} 条" for k, v in rep["sources"].items()))
-    print(f"合并后条目：{rep['items']}（跨来源合并 {rep['merged']}）  疑似重复：{len(rep['suspects'])}")
+    print(f"合并后条目：{rep['items']}（新增 {rep['new']}，上游缺失但保留 {rep['missing']}，跨来源合并 {rep['merged']}）"
+          f"  疑似重复：{len(rep['suspects'])}  下架：{len(rep['removed'])}")
+    if rep["bad_records"]:
+        print(f"读不了的上游图片：{len(rep['bad_records'])} {rep['bad_records'][:5]}")
     a = rep["assets"]
     print(f"缩略图：新增 {a['thumbs_new']}，跳过 {a['skipped']}，坏图 {len(a['bad'])} {a['bad'][:5]}")
     if "tags" in rep:
@@ -135,7 +183,8 @@ def main(argv=None) -> int:
     local = {k: Path(v) for k, v in (("topconf", a.local_topconf), ("papergallery", a.local_papergallery)) if v}
     rep = run(sources=tuple(a.only) if a.only else ALL_SOURCES, local=local, no_tag=a.no_tag, no_push=a.no_push)
     _print(rep)
-    return 1 if rep["errors"] else 0
+    # 3 = 有来源拉取失败（已沿用旧数据，仍可开 PR）；未捕获的异常是 1，CI 据此区分
+    return 3 if rep["errors"] else 0
 
 
 if __name__ == "__main__":

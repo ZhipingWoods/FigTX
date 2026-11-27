@@ -18,7 +18,7 @@ def _local_image(image: str, root: Path, cache: Path) -> Path | None:
         if not dst.exists():
             try:
                 urllib.request.urlretrieve(image, dst)
-            except OSError:
+            except (OSError, ValueError):
                 return None
         return dst
     p = Path(image)
@@ -38,14 +38,22 @@ def parse(path, root, cache=None) -> tuple[list[dict], dict]:
             continue
         from PIL import Image
 
-        with Image.open(img) as im:
-            w, h = im.size
+        try:
+            with Image.open(img) as im:
+                w, h = im.size
+        except (OSError, SyntaxError, ValueError):
+            stats["skipped"] += 1
+            continue
+        try:  # 仓库内的图存相对路径：不暴露本机目录，CI 与本地结果一致
+            img_path = str(img.resolve().relative_to(root.resolve()))
+        except ValueError:
+            img_path = str(img.resolve())
         stats["parsed"] += 1
         out.append({
             "source": "journal", "upstreamId": slug(f"{e['doi']} {e.get('figure', '')}"), "kind": "framework",
             "title": str(e.get("title") or "").strip(), "authors": list(e.get("authors") or []),
             "venue": str(e.get("venue") or "Unknown"), "year": e.get("year"), "tier": None, "award": None,
             "tags": list(e.get("tags") or []), "paper": f"https://doi.org/{e['doi']}", "pdf": None,
-            "code": None, "project": None, "bibtex": None, "image": str(img.resolve()), "w": w, "h": h,
+            "code": None, "project": None, "bibtex": None, "image": img_path, "w": w, "h": h,
         })
     return sorted(out, key=lambda r: r["upstreamId"]), stats

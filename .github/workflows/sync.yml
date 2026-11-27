@@ -28,13 +28,18 @@ jobs:
         run: |
           extra="--no-tag"
           if [ -z "$HF_TOKEN" ]; then extra="$extra --no-push"; fi
-          npm run sync -- $extra || echo "SYNC_WARN=1" >> "$GITHUB_ENV"
+          # 退出码 3 = 有来源拉取失败（已沿用旧数据，照常开 PR 并在正文里提示）；其他非 0 = 崩溃，让任务失败
+          set +e
+          npm run sync -- $extra
+          code=$?
+          set -e
+          if [ "$code" != "0" ] && [ "$code" != "3" ]; then exit "$code"; fi
       - name: Write PR body
         run: |
           python3 - <<'PY'
           import json, pathlib
           r = json.loads(pathlib.Path(".cache/sync-report.json").read_text())
-          lines = ["每周自动同步上游图库。", "",
+          lines = ["每周自动同步上游图库。", f"新增 {r['new']} 条，上游缺失但保留 {r['missing']} 条，下架 {len(r['removed'])} 条。", "",
                    "| 来源 | 条目 |", "|---|---|"] + [f"| {k} | {v} |" for k, v in r["sources"].items()]
           lines += ["", f"合并后条目 {r['items']}，跨来源合并 {r['merged']}，疑似重复 {len(r['suspects'])}",
                     f"缩略图新增 {r['assets']['thumbs_new']}，坏图 {len(r['assets']['bad'])}",
@@ -44,8 +49,11 @@ jobs:
           lines += ["", "疑似重复（前 20 条，请人工确认）："] + [f"- {s['a']} / {s['b']}：{s['reason']}" for s in r["suspects"][:20]]
           pathlib.Path(".cache/pr-body.md").write_text("\n".join(lines))
           PY
+      # 用 GITHUB_TOKEN 开的 PR 不会触发 CI，main 的规则集要求 build 检查通过才能合并。
+      # 配置仓库 secret SYNC_PR_TOKEN（fine-grained PAT：本仓库 contents + pull requests 读写）后，PR 会正常跑 CI。
       - uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.SYNC_PR_TOKEN || github.token }}
           branch: sync/weekly
           title: "chore(sync): 每周同步上游图库"
           commit-message: "chore(sync): 每周同步上游图库"
