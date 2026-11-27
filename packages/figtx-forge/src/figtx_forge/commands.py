@@ -137,3 +137,36 @@ def _run_redraw_check(a) -> int:
 SUBCOMMANDS["crop"] = (_add_crop, _run_crop)
 SUBCOMMANDS["lint"] = (_add_lint, _run_lint)
 SUBCOMMANDS["redraw-check"] = (_add_redraw_check, _run_redraw_check)
+
+
+# ---- export ----
+def _add_export(p):
+    p.add_argument("scene")
+    p.add_argument("-o", "--out", required=True, help="输出目录")
+    p.add_argument("--svg", action="store_true")
+    p.add_argument("--pptx", action="store_true")
+
+
+def _run_export(a) -> int:
+    from pathlib import Path
+
+    from .pptx_export import scene_to_pptx
+    from .svg_export import scene_to_svg
+
+    scene = _load_valid(a.scene)
+    if scene is None:
+        return 1
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    stem = Path(a.scene).stem
+    both = not (a.svg or a.pptx)
+    if a.svg or both:
+        (out / f"{stem}.svg").write_text(scene_to_svg(scene), encoding="utf-8")
+        print(out / f"{stem}.svg")
+    if a.pptx or both:
+        scene_to_pptx(scene, out / f"{stem}.pptx")
+        print(out / f"{stem}.pptx")
+    return 0
+
+
+SUBCOMMANDS["export"] = (_add_export, _run_export)
