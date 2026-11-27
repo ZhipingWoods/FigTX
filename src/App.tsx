@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Lightbox from './components/Lightbox';
 import type { Index, Lite } from './lib/data';
 import { loadIndex } from './lib/data';
+import { useFavs } from './lib/favs';
 import { sectionOf } from './lib/meta';
 import type { Route } from './lib/route';
 import { buildHash, parseHash } from './lib/route';
@@ -17,6 +18,7 @@ export default function App() {
   const [route, setRoute] = useState<Route>(() => parseHash(location.hash));
   // 灯箱打开时，背后显示的页面（直接打开 #F036 时用条目所属分区）
   const [bg, setBg] = useState<Route>(() => (route.open ? { page: 'home', f: {} } : route));
+  const favs = useFavs();
   const listRef = useRef<Lite[]>([]);
   const pushedRef = useRef(false);
 
@@ -63,7 +65,7 @@ export default function App() {
   const page = bg.page;
   return (
     <>
-      <Header page={page} favCount={0} solid={page !== 'home'} />
+      <Header page={page} favCount={Object.keys(favs).length} solid={page !== 'home'} />
       {error && <div className="wrap"><div className="page-head"><p className="err">数据加载失败：{error}</p></div></div>}
       {!idx && !error && <div className="wrap"><div className="page-head"><p>正在加载图库…</p></div></div>}
       {idx && page === 'home' && <Home idx={idx} onOpen={open} />}
