@@ -23,6 +23,8 @@ def _git(*args: str) -> None:
 def fetch(cache_dir: Path, local: Path | None = None) -> Path:
     """返回上游仓库根目录：local 优先；否则浅克隆（已存在则 pull --ff-only）到 cache_dir/topconf。"""
     if local:
+        if not Path(local).is_dir():
+            raise FetchError(f"本地上游路径不存在：{local}")
         return Path(local)
     dest = Path(cache_dir) / "topconf"
     try:

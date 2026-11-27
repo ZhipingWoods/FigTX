@@ -1,0 +1,55 @@
+name: Weekly gallery sync
+
+# 每周一同步上游图库（topconf / PaperGallery / 期刊清单），有变化就开 PR 给维护者审核。
+# 打标用的模型在 Actions 里访问不到，新条目先不打标，由维护者本地 npm run sync 补打。
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - uses: astral-sh/setup-uv@v6
+      - name: Sync upstream galleries
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          extra="--no-tag"
+          if [ -z "$HF_TOKEN" ]; then extra="$extra --no-push"; fi
+          npm run sync -- $extra || echo "SYNC_WARN=1" >> "$GITHUB_ENV"
+      - name: Write PR body
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          r = json.loads(pathlib.Path(".cache/sync-report.json").read_text())
+          lines = ["每周自动同步上游图库。", "",
+                   "| 来源 | 条目 |", "|---|---|"] + [f"| {k} | {v} |" for k, v in r["sources"].items()]
+          lines += ["", f"合并后条目 {r['items']}，跨来源合并 {r['merged']}，疑似重复 {len(r['suspects'])}",
+                    f"缩略图新增 {r['assets']['thumbs_new']}，坏图 {len(r['assets']['bad'])}",
+                    f"原图上传：{r.get('push', '未上传（没有 HF_TOKEN）')}",
+                    "新条目未打标：请在本地运行 `npm run sync` 补打领域标签。"]
+          lines += [f"⚠️ {k}：{v}" for k, v in r["errors"].items()]
+          lines += ["", "疑似重复（前 20 条，请人工确认）："] + [f"- {s['a']} / {s['b']}：{s['reason']}" for s in r["suspects"][:20]]
+          pathlib.Path(".cache/pr-body.md").write_text("\n".join(lines))
+          PY
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: sync/weekly
+          title: "chore(sync): 每周同步上游图库"
+          commit-message: "chore(sync): 每周同步上游图库"
+          body-path: .cache/pr-body.md
+          add-paths: |
+            data/
+            public/thumbs/

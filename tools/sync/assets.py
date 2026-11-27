@@ -57,8 +57,13 @@ def sync_assets(items: list[dict], roots: dict, thumbs_dir, originals_dir, manif
     thumbs_dir, originals_dir = Path(thumbs_dir), Path(originals_dir)
     manifest = load_json(manifest_path, {})
     rep = {"thumbs_new": 0, "skipped": 0, "bad": []}
+    rep["unavailable"] = 0
     for it in items:
-        src = Path(roots[it["image"]["source"]]) / it["image"]["path"]
+        base = roots.get(it["image"]["source"])
+        if base is None:  # 该来源本次拉取失败：沿用已有缩略图和清单，不当作坏图
+            rep["unavailable"] += 1
+            continue
+        src = Path(base) / it["image"]["path"]
         thumb = thumbs_dir / f"{it['id']}.webp"
         try:
             sha = _sha256(src)
@@ -86,4 +91,6 @@ def sync_assets(items: list[dict], roots: dict, thumbs_dir, originals_dir, manif
             shutil.copyfile(src, orig)
         manifest[it["id"]] = {"sha256": sha, "ext": ext, "w": w, "h": h, "uploaded": uploaded}
     dump_json(manifest_path, manifest)
+    if not rep["unavailable"]:
+        rep.pop("unavailable")
     return rep

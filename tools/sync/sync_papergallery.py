@@ -32,6 +32,8 @@ def _git(*args: str) -> None:
 
 def fetch(cache_dir: Path, local: Path | None = None) -> Path:
     if local:
+        if not Path(local).is_dir():
+            raise FetchError(f"本地上游路径不存在：{local}")
         return Path(local)
     dest = Path(cache_dir) / "papergallery"
     try:

@@ -33,7 +33,9 @@
     "figgen:contracts": ".venv-fig/bin/python tools/figgen/build_contracts.py",
     "figgen:serve": ".venv-fig/bin/python tools/figgen/server.py",
     "skills:install": "bash scripts/install-skills.sh",
-    "forge:test": "uv run --project packages/figtx-forge pytest packages/figtx-forge/tests -q"
+    "forge:test": "uv run --project packages/figtx-forge pytest packages/figtx-forge/tests -q",
+    "sync": "uv run --with pillow --with numpy --with pyyaml --with huggingface_hub python -m tools.sync.run",
+    "sync:test": "uv run --with pytest --with pillow --with numpy --with pyyaml --with huggingface_hub pytest tools/sync/tests -q"
   },
   "dependencies": {
     "react": "^18.3.1",
