@@ -170,3 +170,64 @@ def _run_export(a) -> int:
 
 
 SUBCOMMANDS["export"] = (_add_export, _run_export)
+
+
+# ---- tex / plot-run ----
+def _add_tex(p):
+    p.add_argument("tex")
+    p.add_argument("-o", "--out", required=True, help="预览 PNG 路径")
+    p.add_argument("--compare", help="截图路径：输出比对指标（仅供参考）")
+
+
+def _print_reference_compare(original: str, rendered: str) -> None:
+    from PIL import Image
+
+    from .metrics import compare
+
+    print("--- 与截图比对（仅供参考，字体不同会拉低分数）---")
+    print(_summary(compare(Image.open(original), Image.open(rendered))))
+
+
+def _run_tex(a) -> int:
+    from .tex import compile_table, table_shape, tectonic_path
+
+    with open(a.tex, encoding="utf-8") as f:
+        shape = table_shape(f.read())
+    print(f"rows={shape['rows']} cols={shape['cols']} multicolumn={shape['multicolumn']} multirow={shape['multirow']}")
+    if not tectonic_path():
+        print("未找到 tectonic。安装：brew install tectonic，或见 https://tectonic-typesetting.github.io", file=sys.stderr)
+        return 2
+    r = compile_table(a.tex, a.out)
+    if not r["ok"]:
+        print(r["log_tail"], file=sys.stderr)
+        return 1
+    print(r["png"])
+    if a.compare:
+        _print_reference_compare(a.compare, r["png"])
+    return 0
+
+
+def _add_plot_run(p):
+    p.add_argument("script")
+    p.add_argument("-o", "--out", required=True, help="输出目录")
+    p.add_argument("--compare", help="截图路径：与生成的第一张 PNG 比对（仅供参考）")
+    p.add_argument("--python", help="运行脚本用的 Python（需装有 matplotlib），默认当前解释器")
+
+
+def _run_plot_run(a) -> int:
+    from .plot import run_plot
+
+    r = run_plot(a.script, a.out, python=a.python)
+    for f in r["files"]:
+        print(f)
+    if not r["ok"]:
+        print(r["stderr_tail"], file=sys.stderr)
+        return 1
+    pngs = [f for f in r["files"] if f.endswith(".png")]
+    if a.compare and pngs:
+        _print_reference_compare(a.compare, pngs[0])
+    return 0
+
+
+SUBCOMMANDS["tex"] = (_add_tex, _run_tex)
+SUBCOMMANDS["plot-run"] = (_add_plot_run, _run_plot_run)
