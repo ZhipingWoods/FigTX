@@ -42,8 +42,14 @@ def bitmap_area_ratio(scene: dict) -> float:
     return min(1.0, area / float(c["width"] * c["height"]))
 
 
-def _text_width(text: str, size: float) -> float:
-    return sum(size * (1.0 if _CJK.match(ch) else 0.55) for ch in text)
+_SERIF = ("times", "serif", "georgia", "computer modern", "cmu", "garamond", "palatino", "stix")
+
+
+def _text_width(text: str, size: float, family: str = "") -> float:
+    """粗估文字宽度：衬线字体平均字宽约 0.42em，无衬线约 0.55em，中日韩字符 1em。"""
+    fam = family.lower()
+    latin = 0.42 if any(k in fam for k in _SERIF) and "sans" not in fam else 0.55
+    return sum(size * (1.0 if _CJK.match(ch) else latin) for ch in text)
 
 
 def _overlap(a, b) -> float:
@@ -60,7 +66,7 @@ def lint_scene(scene: dict, english_only: bool = False) -> list[dict]:
     W, H = scene["canvas"]["width"], scene["canvas"]["height"]
     texts = [n for n in scene.get("nodes", []) if n["type"] == "text"]
     for n in texts:
-        if _text_width(n["text"], n.get("fontSize", 16)) > n["w"] * 1.05:
+        if _text_width(n["text"], n.get("fontSize", 16), n.get("fontFamily", "")) > n["w"] * 1.05:
             issues.append({"id": n["id"], "rule": "text-overflow", "msg": f"文字 {n['text']!r} 超出文字框宽度 {n['w']}"})
         if english_only and _CJK.search(n["text"]):
             issues.append({"id": n["id"], "rule": "cjk", "msg": f"文字 {n['text']!r} 含中日韩字符"})

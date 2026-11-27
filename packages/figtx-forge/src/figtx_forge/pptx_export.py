@@ -6,7 +6,6 @@ from pathlib import Path
 from lxml import etree
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.enum.dml import MSO_LINE
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE, PP_ALIGN
 from pptx.oxml.ns import qn
@@ -55,9 +54,26 @@ def _line(shape, n: dict) -> None:
         shape.line.fill.background()
         return
     shape.line.color.rgb = _rgb(stroke)
-    shape.line.width = Pt(n.get("strokeWidth", 1) * 0.75)
+    width = n.get("strokeWidth", 1)
+    shape.line.width = Pt(width * 0.75)
     if n.get("dash"):
-        shape.line.dash_style = MSO_LINE.DASH
+        _preset_dash(shape.line._get_or_add_ln(), n["dash"], width)
+
+
+# DrawingML 预设虚线（以线宽为单位的 实/空 长度）。预设比 custDash 兼容性好得多：
+# Keynote / QuickLook / WPS 等都支持预设，但不少渲染器会忽略 custDash。
+PRESET_DASHES = {"sysDot": (1, 1), "sysDash": (3, 1), "dot": (1, 3), "dash": (4, 3), "lgDash": (8, 3)}
+
+
+def _preset_dash(ln, dash: list, width: float) -> None:
+    import math
+
+    on, off = dash[0] / width, (dash[1] if len(dash) > 1 else dash[0]) / width
+    best = min(PRESET_DASHES, key=lambda k: math.dist((math.log(on), math.log(off)),
+                                                     (math.log(PRESET_DASHES[k][0]), math.log(PRESET_DASHES[k][1]))))
+    el = etree.Element(qn("a:prstDash"))
+    el.set("val", best)
+    ln.find(qn("a:solidFill")).addnext(el)
 
 
 def _arrows(shape, n: dict) -> None:
@@ -89,8 +105,15 @@ def _text(slide, n: dict):
 
 
 def _freeform(slide, pts, closed: bool):
-    b = slide.shapes.build_freeform(pts[0][0], pts[0][1], scale=EMU_PER_PX)
-    b.add_line_segments([tuple(p) for p in pts[1:]], close=closed)
+    """自由曲线的本地坐标直接用 EMU（scale=1）：路径尺寸 = 形状尺寸，亚像素精度保留，
+    也不依赖渲染器对 path w/h 的缩放（QuickLook 等会忽略这个缩放）。"""
+    import math
+
+    def emu(v: float) -> int:  # 统一四舍五入（Python round 是银行家舍入，半像素坐标会差 1 EMU）
+        return math.floor(v * EMU_PER_PX + 0.5)
+
+    b = slide.shapes.build_freeform(emu(pts[0][0]), emu(pts[0][1]), scale=1.0)
+    b.add_line_segments([(emu(x), emu(y)) for x, y in pts[1:]], close=closed)
     return b.convert_to_shape()
 
 

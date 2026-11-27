@@ -95,3 +95,10 @@ def test_cli_redraw_check_and_crop(tmp_path):
     assert main(["crop", str(orig), str(regions), "-o", str(tmp_path / "c")]) == 0
     assert main(["redraw-check", str(orig), str(FIXTURE), "-o", str(tmp_path / "out")]) == 0
     assert main(["lint", str(FIXTURE)]) == 0
+
+
+def test_lint_serif_narrower_than_sans():
+    serif = scene_with_text("transferred", w=66, fontSize=14, fontFamily="Times New Roman")
+    sans = scene_with_text("transferred", w=66, fontSize=14, fontFamily="Arial")
+    assert lint_scene(serif) == []
+    assert lint_scene(sans)[0]["rule"] == "text-overflow"

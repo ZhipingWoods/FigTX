@@ -83,3 +83,29 @@ def test_pptx_no_theme_style(tmp_path):
     scene_to_pptx(fixture_scene(), out)
     for s in _shapes(out):
         assert "<p:style>" not in s._element.xml, s.name
+
+
+def _one_shape(tmp_path, node):
+    out = tmp_path / "one.pptx"
+    scene_to_pptx({"version": 1, "canvas": {"width": 400, "height": 300}, "nodes": [node]}, out)
+    return _shapes(out)[0]._element.xml
+
+
+def test_pptx_dash_nearest_preset(tmp_path):
+    dotted = _one_shape(tmp_path, {"id": "d", "type": "line", "x1": 0, "y1": 10, "x2": 200, "y2": 10,
+                                   "stroke": "#222222", "strokeWidth": 1.3, "dash": [1.5, 5]})
+    assert '<a:prstDash val="dot"/>' in dotted
+    fine = _one_shape(tmp_path, {"id": "r", "type": "rect", "x": 10, "y": 10, "w": 80, "h": 40,
+                                 "stroke": "#222222", "strokeWidth": 1.5, "dash": [1.5, 1.5]})
+    assert '<a:prstDash val="sysDot"/>' in fine
+    long = _one_shape(tmp_path, {"id": "l", "type": "line", "x1": 0, "y1": 10, "x2": 200, "y2": 10,
+                                 "stroke": "#222222", "strokeWidth": 1, "dash": [8, 3]})
+    assert '<a:prstDash val="lgDash"/>' in long
+
+
+def test_pptx_freeform_path_units_are_emu(tmp_path):
+    xml = _one_shape(tmp_path, {"id": "c", "type": "polyline", "points": [[335, 121.5], [330, 126.5], [335, 131.5]],
+                                "stroke": "#222222", "strokeWidth": 1.2, "fill": "none"})
+    # 路径坐标单位 = EMU（路径尺寸等于形状尺寸），不依赖渲染器对 path w/h 的缩放
+    assert '<a:ext cx="47625" cy="95250"/>' in xml
+    assert '<a:path w="47625" h="95250">' in xml and '<a:pt x="0" y="47625"/>' in xml
