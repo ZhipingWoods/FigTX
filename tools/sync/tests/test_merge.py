@@ -87,12 +87,49 @@ def test_header_maps_to_teaser(tmp_path):
     assert items[0]["figType"] == "teaser" and items[0]["id"] == "pg-header-solo-2023"
 
 
-def test_suspect_same_title_diff_year(tmp_path):
+def test_same_title_diff_year_same_image_merges(tmp_path):
+    recs, roots = _setup(tmp_path)
+    items, rep = merge(recs, roots)
+    it = _by_id(items)["tc-icml2024-2"]
+    assert [s["upstreamId"] for s in it["sources"]] == ["Old_Same_2022", "icml2024-2"]
+    assert rep["items"] == 4 and rep["merged"] == 3
+
+
+def test_title_variants_are_one_paper(tmp_path):
+    tc, pg = tmp_path / "tc", tmp_path / "pg"
+    recs = [
+        _rec("topconf", "acl-1", "Towards Economical Inference: Enabling D eep S eek\u2019s Multi-Head Latent Attention",
+             2025, _img(tc, "x.jpg", (400, 300), 0), (400, 300)),
+        _rec("papergallery", "Ji_MHA2MLA_2025", "Towards Economical Inference: Enabling DeepSeek's Multi-Head Latent "
+             "Attention in Any Transformer-based LLMs", 2025, _img(pg, "x.jpg", (800, 600), 0), (800, 600)),
+        _rec("papergallery", "Bian_DynamicCity_2025", "Dynamiccity: Large-scale 4d occupancy generation", 2025,
+             _img(pg, "y.jpg", (400, 300), 1), (400, 300)),
+        _rec("topconf", "iclr-2", "DynamicCity: Large-Scale 4D Occupancy Generation", 2025,
+             _img(tc, "y.jpg", (400, 300), 1), (400, 300)),
+    ]
+    items, rep = merge(recs, {"topconf": tc, "papergallery": pg})
+    assert sorted(i["id"] for i in items) == ["tc-acl-1", "tc-iclr-2"]
+
+
+def test_arxiv_links_records_with_and_without_id(tmp_path):
+    tc, pg = tmp_path / "tc", tmp_path / "pg"
+    recs = [
+        _rec("topconf", "a", "Completely Different Wording", 2024, _img(tc, "a.jpg", (400, 300), 2), (400, 300),
+             paper="https://arxiv.org/abs/2402.00002"),
+        _rec("papergallery", "B_Paper_2024", "Another Title Entirely", 2024, _img(pg, "a.jpg", (400, 300), 2), (400, 300),
+             paper="https://arxiv.org/pdf/2402.00002.pdf"),
+    ]
+    items, _ = merge(recs, {"topconf": tc, "papergallery": pg})
+    assert len(items) == 1
+
+
+def test_suspects_only_close_images_across_papers(tmp_path):
+    from tools.sync.merge import SUSPECT_IMAGE
+
+    assert SUSPECT_IMAGE == 8
     recs, roots = _setup(tmp_path)
     _, rep = merge(recs, roots)
-    reasons = [s["reason"] for s in rep["suspects"]]
-    assert "same-title-diff-year" in reasons
-    assert rep["items"] == 5 and rep["merged"] == 2
+    assert all(s["reason"].startswith("dhash") and int(s["reason"].split()[1]) <= 8 for s in rep["suspects"])
 
 
 def test_merge_deterministic(tmp_path):
@@ -108,4 +145,4 @@ def test_hash_cache_used(tmp_path):
     for p in (tmp_path / "tc").glob("*.jpg"):
         p.unlink()
     items, _ = merge(recs, roots, hashes=cache)
-    assert len(items) == 5
+    assert len(items) == 4

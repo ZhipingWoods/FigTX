@@ -50,6 +50,20 @@ def _collect(src: str, root: Path, P: dict, local: dict, report: dict) -> tuple[
     return recs, upstream
 
 
+def _prune(items: list[dict], P: dict) -> int:
+    """删除已不对应任何条目的缩略图和清单项（例如被跨来源合并掉的条目）。"""
+    alive = {i["id"] for i in items}
+    manifest = load_json(P["manifest"], {})
+    dead = sorted({k for k in manifest if k not in alive} |
+                  {p.stem for p in P["thumbs"].glob("*.webp") if p.stem not in alive})
+    for k in dead:
+        manifest.pop(k, None)
+        (P["thumbs"] / f"{k}.webp").unlink(missing_ok=True)
+    if dead:
+        dump_json(P["manifest"], manifest)
+    return len(dead)
+
+
 def _node_build(root: Path) -> None:
     subprocess.run(["node", "tools/build-data.mjs"], cwd=root, check=True, capture_output=True)
 
@@ -76,6 +90,7 @@ def run(sources=ALL_SOURCES, local: dict | None = None, no_tag: bool = False, no
     bad = set(arep["bad"])
     items = [i for i in items if i["id"] not in bad]
     dump_json(P["gallery"], items)
+    report["pruned"] = _prune(items, P)
     report.update(items=len(items), merged=mrep["merged"], suspects=mrep["suspects"], assets=arep)
     if not no_tag:
         from tools.figgen import llm_client  # noqa: F401  导入时把 .env 读进环境变量

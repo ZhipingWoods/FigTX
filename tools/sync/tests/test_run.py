@@ -86,3 +86,15 @@ def test_run_only_keeps_other_sources(tmp_repo):
     run(local=LOCAL, no_tag=True, no_push=True, root=tmp_repo)
     rep = run(sources=("topconf",), local=LOCAL, no_tag=True, no_push=True, root=tmp_repo)
     assert rep["items"] == 7 and rep["sources"]["papergallery"] == 4
+
+
+def test_run_prunes_orphan_thumbs(tmp_repo):
+    run(local=LOCAL, no_tag=True, no_push=True, root=tmp_repo)
+    orphan = tmp_repo / "public/thumbs/tc-merged-away.webp"
+    orphan.write_bytes(b"x")
+    man = json.loads((tmp_repo / "data/sources/assets-manifest.json").read_text())
+    man["tc-merged-away"] = {"sha256": "s", "ext": "jpg", "w": 1, "h": 1, "uploaded": True}
+    (tmp_repo / "data/sources/assets-manifest.json").write_text(json.dumps(man))
+    rep = run(local=LOCAL, no_tag=True, no_push=True, root=tmp_repo)
+    assert not orphan.exists() and rep["pruned"] == 1
+    assert "tc-merged-away" not in json.loads((tmp_repo / "data/sources/assets-manifest.json").read_text())

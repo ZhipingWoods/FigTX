@@ -1,6 +1,7 @@
 """跨来源合并去重：同一篇论文（arXiv id 或 标题+年份）内，dHash 相近的图合并为一个条目。"""
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -9,16 +10,58 @@ from .sync_papergallery import REPO as PG_REPO
 from .sync_topconf import REPO as TC_REPO
 
 SAME_IMAGE = 6          # hamming ≤ 6 视为同一张图
-SUSPECT_IMAGE = 12      # 跨来源、未合并但 hamming ≤ 12 的图进疑似重复报告
+SUSPECT_IMAGE = 8       # 跨来源、不同论文但 hamming ≤ 8 的图进疑似重复报告（9–12 实测几乎都是不同论文的相似示意图）
+TITLE_PREFIX = 60       # 标题只比较前 60 个字母数字（大小写、标点、空格、PDF 抽取断词都忽略）
 SOURCE_ORDER = {"topconf": 0, "papergallery": 1, "journal": 2}
 REPOS = {"topconf": TC_REPO, "papergallery": PG_REPO, "journal": None}
 FIGTYPE_ALIAS = {"header": "teaser"}
 PAPER_FIELDS = ("title", "authors", "venue", "year", "url", "pdf", "code", "project", "bibtex", "tier", "award")
 
 
-def paper_key(rec: dict) -> str:
+def _compact(title: str | None) -> str:
+    return re.sub(r"[^0-9a-z]", "", norm_title(title))[:TITLE_PREFIX]
+
+
+def paper_keys(rec: dict) -> list[str]:
+    """一条记录的所有论文标识：arXiv id、紧凑标题前缀。共享任一标识的记录视为同一篇论文。
+    不看年份：arXiv 年份和会议年份常差一年（实测 SOLAMI、DPLM-2）。"""
+    keys = []
     aid = arxiv_id(rec.get("paper")) or arxiv_id(rec.get("pdf"))
-    return f"arxiv:{aid}" if aid else f"title:{norm_title(rec.get('title'))}:{rec.get('year')}"
+    if aid:
+        keys.append(f"arxiv:{aid}")
+    t = _compact(rec.get("title"))
+    if len(t) >= 12:  # 太短的标题不足以认定同一篇论文
+        keys.append(f"title:{t}")
+    return keys or [f"id:{rec['source']}:{rec['upstreamId']}"]
+
+
+def paper_key(rec: dict) -> str:
+    return paper_keys(rec)[0]
+
+
+def _group(records: list[dict]) -> dict[str, list[dict]]:
+    """并查集：共享任一论文标识的记录归为一组；组名取组内排序最前的记录，保证确定性。"""
+    parent = list(range(len(records)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    owner: dict[str, int] = {}
+    for i, r in enumerate(records):
+        for k in paper_keys(r):
+            if k in owner:
+                a, b = find(i), find(owner[k])
+                parent[max(a, b)] = min(a, b)
+            else:
+                owner[k] = i
+    groups: dict[str, list[dict]] = defaultdict(list)
+    for i, r in enumerate(records):
+        root = records[find(i)]
+        groups[f"{root['source']}:{root['upstreamId']}"].append(r)
+    return groups
 
 
 def item_id(rec: dict) -> str:
@@ -77,14 +120,6 @@ def _build(cluster: list[tuple[dict, str]]) -> dict:
 
 def _suspects(items: list[dict], groups: dict[str, str]) -> list[dict]:
     out = []
-    by_title = defaultdict(list)
-    for it in items:
-        by_title[norm_title(it["title"])].append(it)
-    for same in by_title.values():
-        years = {it["paper"]["year"] for it in same}
-        if len(years) > 1:
-            ids = sorted(it["id"] for it in same)
-            out += [{"a": ids[0], "b": b, "reason": "same-title-diff-year"} for b in ids[1:]]
     tc = [it for it in items if any(s["platform"] == "topconf" for s in it["sources"]) and len(it["sources"]) == 1]
     other = [it for it in items if all(s["platform"] != "topconf" for s in it["sources"])]
     tc_h = [(it["id"], int(it["dhash"], 16)) for it in tc]
@@ -98,9 +133,7 @@ def _suspects(items: list[dict], groups: dict[str, str]) -> list[dict]:
 
 
 def merge(records: list[dict], roots: dict, hashes: dict | None = None) -> tuple[list[dict], dict]:
-    groups: dict[str, list[dict]] = defaultdict(list)
-    for r in sorted(records, key=_order):
-        groups[paper_key(r)].append(r)
+    groups = _group(sorted(records, key=_order))
     items, group_of = [], {}
     for key in sorted(groups):
         clusters: list[list[tuple[dict, str]]] = []
