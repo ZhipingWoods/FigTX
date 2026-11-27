@@ -37,3 +37,6 @@ figgen-out/
 
 # 构建产物：由 npm run data 生成的精简索引
 public/index.json
+
+# 同步时的上游仓库缓存、原图暂存（不入库）
+.cache/
