@@ -33,3 +33,39 @@ def _run_render(a) -> int:
 
 
 SUBCOMMANDS["render"] = (_add_render, _run_render)
+
+
+# ---- compare ----
+def _add_compare(p):
+    p.add_argument("original")
+    p.add_argument("rendered")
+    p.add_argument("--json", help="把指标写入 JSON 文件")
+    p.add_argument("--heatmap", help="把差异热力图写入 PNG")
+
+
+def _summary(m: dict) -> str:
+    from .metrics import THRESHOLDS
+
+    rows = [f"{k:17s} {m[k]:.4f}  (>= {v})  {'OK' if m[k] >= v else 'FAIL'}" for k, v in THRESHOLDS.items()]
+    return "\n".join(rows + [f"passed: {m['passed']}"])
+
+
+def _run_compare(a) -> int:
+    import json
+
+    from PIL import Image
+
+    from .metrics import compare, diff_heatmap
+
+    o, r = Image.open(a.original), Image.open(a.rendered)
+    m = compare(o, r)
+    print(_summary(m))
+    if a.json:
+        with open(a.json, "w", encoding="utf-8") as f:
+            json.dump(m, f, ensure_ascii=False, indent=2)
+    if a.heatmap:
+        diff_heatmap(o, r).save(a.heatmap)
+    return 0 if m["passed"] else 1
+
+
+SUBCOMMANDS["compare"] = (_add_compare, _run_compare)
