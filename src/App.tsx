@@ -5,6 +5,7 @@ import Lightbox from './components/Lightbox';
 import type { Index, Lite } from './lib/data';
 import { loadIndex } from './lib/data';
 import { useFavs } from './lib/favs';
+import { applyFilters } from './lib/filter';
 import { sectionOf } from './lib/meta';
 import type { Route } from './lib/route';
 import { buildHash, parseHash } from './lib/route';
@@ -79,7 +80,8 @@ export default function App() {
         <a href="https://github.com/ZhipingWoods/FigTX/blob/main/IMAGES_POLICY.md" target="_blank" rel="noreferrer">图片政策</a>。
       </footer>
       {idx && opened && (
-        <Lightbox idx={idx} item={opened} list={listRef.current.length ? listRef.current : [opened]} onClose={close} onMove={move} />
+        <Lightbox idx={idx} item={opened} list={listRef.current.length ? listRef.current : applyFilters(idx.items, sectionOf(opened), {})}
+                  onClose={close} onMove={move} />
       )}
     </>
   );
