@@ -20,5 +20,7 @@ jobs:
         run: npm run data
       - name: Type-check
         run: npx tsc --noEmit
+      - name: Web unit tests
+        run: npm run test:web
       - name: Build
         run: npm run build

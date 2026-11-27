@@ -17,7 +17,7 @@ FIX = Path(__file__).parent / "fixtures"
 def tmp_repo(tmp_path):
     r = tmp_path / "repo"
     (r / "tools").mkdir(parents=True)
-    for f in ("build-data.mjs", "assign_numbers.py"):
+    for f in ("build-data.mjs", "assign_numbers.py", "shard.mjs"):
         shutil.copy(REPO / "tools" / f, r / "tools" / f)
     (r / "data").mkdir()
     (r / "data" / "catalog.json").write_text("{}")

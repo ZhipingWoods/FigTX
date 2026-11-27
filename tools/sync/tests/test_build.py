@@ -22,9 +22,10 @@ def _gallery(i, year):
 def tmp_repo(tmp_path):
     r = tmp_path / "repo"
     (r / "tools").mkdir(parents=True)
-    for f in ("build-data.mjs", "assign_numbers.py"):
+    for f in ("build-data.mjs", "assign_numbers.py", "shard.mjs"):
         shutil.copy(REPO / "tools" / f, r / "tools" / f)
     (r / "data" / "sources").mkdir(parents=True)
+    shutil.copy(REPO / "data" / "taxonomy.json", r / "data" / "taxonomy.json")
     (r / "public" / "thumbs").mkdir(parents=True)
     (r / "data" / "raw-figures.json").write_text(json.dumps([{"id": "fig-old", "figType": "style", "title": "Old"}]))
     (r / "data" / "catalog.json").write_text(json.dumps({"fig-old": {"no": "F035", "kind": "F", "title": "Old"},
@@ -80,3 +81,35 @@ def test_numbers_new_start_after_existing_when_low_numbers_taken(tmp_repo):
     subprocess.run(["python3", "tools/assign_numbers.py", "--keep-missing"], cwd=tmp_repo, check=True, capture_output=True)
     cat = json.loads((tmp_repo / "data/catalog.json").read_text())
     assert cat["fig-old"]["no"] == "F036" and cat["tc-x2"]["no"] == "F037" and cat["tc-x1"]["no"] == "F038"
+
+
+def _js_payload(path, prefix):
+    text = path.read_text(encoding="utf-8")
+    assert text.startswith(prefix), text[:60]
+    body = text[len(prefix):].rstrip().rstrip(";")
+    return json.loads(body[:-1] if body.endswith(")") else body)
+
+
+def test_lite_index_and_shards(tmp_repo):
+    items = _build(tmp_repo)
+    idx = _js_payload(tmp_repo / "public/data/index.js", "window.__FIGTX_INDEX__=")
+    lite = {i["id"]: i for i in idx["items"]}
+    assert set(lite) == set(items)
+    g = lite["tc-x1"]
+    assert g["grp"] == "framework" and g["cat"] == "figure" and g["d"] == ["cv"] and "r" not in g
+    assert abs(g["ar"] - 1.0) < 1e-6 and g["ed"] == "none" and "paper" not in g and "code" not in g
+    assert lite["fig-old"]["grp"] == "experiment" and "stats" in idx and "generatedAt" in idx
+    seen = {}
+    for f in sorted((tmp_repo / "public/data").glob("detail-*.js")):
+        n = int(f.stem.split("-")[1])
+        text = f.read_text(encoding="utf-8")
+        prefix = f"window.__figtxDetail({n},"
+        assert text.startswith(prefix)
+        for k, v in json.loads(text[len(prefix):].rstrip().rstrip(";")[:-1]).items():
+            seen[k] = n
+    assert set(seen) == set(items)
+    import subprocess as sp
+    out = sp.run(["node", "--input-type=module", "-e",
+                  "import {shardOf} from './tools/shard.mjs'; console.log(JSON.stringify(%s.map(shardOf)))"
+                  % json.dumps(sorted(seen))], cwd=tmp_repo, capture_output=True, text=True, check=True)
+    assert json.loads(out.stdout) == [seen[k] for k in sorted(seen)]
