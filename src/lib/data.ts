@@ -48,6 +48,8 @@ function domLoader(url: string): Promise<void> {
     const s = document.createElement('script');
     s.src = url;
     s.async = true;
+    // 动态插入的脚本默认是低优先级，会排在几十张缩略图后面（实测线上要等 20 秒）；数据脚本要优先
+    (s as HTMLScriptElement & { fetchPriority?: string }).fetchPriority = 'high';
     s.onload = () => resolve();
     s.onerror = () => {
       s.remove();
@@ -115,3 +117,8 @@ export async function loadDetail(id: string): Promise<Detail> {
 }
 
 export const thumbOf = (it: Pick<Lite, 'id' | 'r'>) => it.r || `thumbs/${it.id}.webp`;
+
+/** 预取详情（鼠标移到卡片上时调用），失败静默，点开时会再试一次。 */
+export function prefetchDetail(id: string): void {
+  loadDetail(id).catch(() => {});
+}

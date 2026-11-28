@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { Index, Lite } from '../lib/data';
-import { thumbOf } from '../lib/data';
+import { prefetchDetail, thumbOf } from '../lib/data';
 import { buildHash } from '../lib/route';
 import { SECTIONS, domainLabel, numOf, venueLine } from '../lib/meta';
 
@@ -19,6 +19,7 @@ function Rail({ items, onOpen }: { items: Lite[]; onOpen: (it: Lite, list: Lite[
     <div className="rail">
       {items.map((it) => (
         <figure key={it.id} onClick={() => onOpen(it, items)} role="button" tabIndex={0} aria-label={it.t}
+                onPointerEnter={() => prefetchDetail(it.id)} onFocus={() => prefetchDetail(it.id)}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onOpen(it, items))}>
           {it.ed !== 'none' && <span className="sticker">{it.ed === 'editable' ? '可编辑' : '有源码'}</span>}
           <div className="im"><img src={thumbOf(it)} alt={it.t} loading="lazy" /></div>

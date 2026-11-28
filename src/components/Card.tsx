@@ -1,5 +1,5 @@
 import type { Lite } from '../lib/data';
-import { thumbOf } from '../lib/data';
+import { prefetchDetail, thumbOf } from '../lib/data';
 import { toggle } from '../lib/favs';
 import { venueLine } from '../lib/meta';
 
@@ -13,6 +13,7 @@ export default function Card({ it, fav, onOpen, children }: {
   const key = it.no || it.id;
   return (
     <div className="card" onClick={onOpen} role="button" tabIndex={0} aria-label={it.t}
+         onPointerEnter={() => prefetchDetail(it.id)} onFocus={() => prefetchDetail(it.id)}
          onKeyDown={(e) => {
            if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpen(); }
          }}>

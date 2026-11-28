@@ -126,7 +126,7 @@ export default function Lightbox({ idx, item, list, onClose, onMove }: {
       <div className="lb" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}>
         <button ref={closeRef} className="close" type="button" onClick={onClose} aria-label="关闭">×</button>
         <div className="stage">
-          <div className="im"><img src={thumbOf(item)} alt={title} /></div>
+          <div className="im"><img src={thumbOf(item)} alt={title} fetchPriority="high" /></div>
           <div className="nav">
             <button type="button" onClick={() => step(-1)} aria-label="上一张">‹</button>
             <button type="button" onClick={() => step(1)} aria-label="下一张">›</button>
